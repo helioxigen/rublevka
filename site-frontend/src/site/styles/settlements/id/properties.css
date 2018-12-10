@@ -1,0 +1,500 @@
+@import '../../responsive-utils';
+@import '../../variables';
+
+.mainContainer {
+  margin: 0 -1.5rem;
+  padding: 5rem 3rem 0;
+
+  background: $brand-white;
+
+  @include responsive(md) {
+    padding-top: 5.5rem;
+  }
+}
+
+.cardsContainer {
+  padding: 0 1rem;
+
+  background: $brand-white;
+
+  @include responsive(sm) {
+    padding: 0 2rem;
+  }
+}
+
+.notFoundContainer {
+  background: $body-bg;
+
+  padding: 6rem 3rem;
+  margin-bottom: 2rem;
+
+  font-size: 1.6rem;
+  text-align: center;
+
+  border-bottom: 1px solid $grey;
+  border-top: 1px solid $grey;
+}
+
+.title {
+  margin: 0;
+
+  font-size: 2.2rem;
+  font-weight: 400;
+
+  text-align: center;
+
+  margin-bottom: 3rem;
+
+  @include responsive(sm) {
+    font-size: 2.8rem;
+    text-align: left;
+  }
+}
+
+.titleSm {
+  margin: 0;
+
+  font-size: 2rem;
+  font-weight: 500;
+
+  @include responsive(sm) {
+    font-size: 1.6rem;
+  }
+}
+
+.textMd {
+  font-size: 1.6rem;
+  white-space: nowrap;
+
+  margin: .5rem 0;
+
+  @include responsive(md) {
+    margin-top: 1.8rem;
+  }
+}
+
+.card {
+  position: relative;
+  width: 100%;
+
+  margin-bottom: 2.5rem;
+  padding: 2.5rem 1rem 2rem;
+
+  background: $brand-white;
+  cursor: pointer;
+
+  text-align: center;
+
+  transition: background .2s;
+
+  user-select: none;
+
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, .2);
+  border-radius: .4rem;
+
+  &:hover {
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, .3);
+    transition: .2s;
+  }
+}
+
+.image {
+  width: 6rem;
+  height: 6rem;
+
+  background: transparent center center no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.descriptionContainer {
+  margin: 0 -1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 4rem;
+
+  @include responsive(sm) {
+    margin: 0 1.5rem;
+    padding-top: 2.3rem;
+    padding-bottom: 6rem;
+  }
+}
+
+.descriptionList {
+  margin: 0;
+  padding: 0;
+
+  list-style-type: none;
+}
+
+.descriptionListTitle {
+  display: inline-block;
+  margin: 0;
+
+  color: $scorpion;
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 3.5rem;
+
+  @include responsive(sm) {
+    line-height: 3rem;
+  }
+}
+
+.descriptionListItem {
+  display: inline-block;
+  margin: 0;
+
+  font-size: 1.4rem;
+  line-height: 3rem;
+}
+
+.descriptionText {
+  font-size: 1.4rem;
+  color: $boulder;
+  line-height: 2.5;
+
+  margin-right: 1.5rem;
+}
+
+.flexList {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.listItem {
+  position: relative;
+
+  max-width: 12rem;
+  padding-right: 1.5rem;
+
+  @include responsive(sm) {
+    padding-right: 6rem;
+
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+}
+
+.btnDefault {
+  display: block;
+  width: 100%;
+
+  color: $brand-white;
+
+  background: $brand-primary;
+  border-color: $brand-primary;
+
+  &:hover,
+  &:focus {
+    color: $brand-white;
+
+    background: $brand-primary-hover;
+    border-color: $brand-primary-hover;
+  }
+
+  @include responsive(sm) {
+    display: inline-block;
+    width: auto;
+
+    color: $brand-black;
+
+    background: transparent;
+    border-color: $grey;
+
+    &:hover,
+    &:focus {
+      color: $brand-black;
+
+      background: transparent;
+      border-color: $star-dust;
+    }
+  }
+}
+
+.btnPrimary {
+  padding: .8rem;
+
+  border-radius: 50%;
+
+  transition: none;
+
+  &.active {
+    color: $brand-black;
+
+    background: #e6e6e6;
+    border-color: #e6e6e6;
+
+    .iconArrow {
+      fill: $brand-black;
+      transform: rotate(180deg);
+    }
+  }
+
+  @include responsive(sm) {
+    position: static;
+
+    padding: 1.3rem 1.7rem;
+
+    font-size: 1.6rem;
+
+    border-radius: .4rem;
+  }
+}
+
+.btnGroup {
+  width: 100%;
+
+  @include responsive(sm) {
+    width: auto;
+  }
+}
+
+.btnDealType {
+  width: 50%;
+
+  &.activeDealType {
+    color: $brand-white;
+
+    background: $brand-primary;
+    border-color: $brand-primary;
+  }
+
+  @include responsive(sm) {
+    width: auto;
+  }
+}
+
+.icon {
+  position: absolute;
+  top: .2rem;
+  left: 0;
+
+  width: 2.4rem;
+  height: 1.7rem;
+
+  fill: $nobel;
+
+  stroke-opacity: 0;
+
+  @include responsive(sm) {
+    left: 1.5rem;
+  }
+}
+
+.iconArrow {
+  position: relative;
+  top: .1rem;
+
+  width: 1.6rem;
+  height: 1.2rem;
+
+  fill: $brand-white;
+
+  @include responsive(sm) {
+    margin-left: 1rem;
+  }
+}
+
+/* utils */
+
+.paddingLeftSm3 {
+  @include responsive(sm) {
+    padding-left: 3rem;
+  }
+}
+
+.paddingLeft3 {
+  padding-left: 3rem;
+}
+
+.maxWidth12 {
+  max-width: none;
+
+  @include responsive(sm) {
+    max-width: 12rem;
+  }
+
+  @include responsive(md) {
+    max-width: none;
+  }
+}
+
+.maxWidth13 {
+  max-width: none;
+
+  @include responsive(sm) {
+    max-width: 12rem;
+  }
+
+  @include responsive(md) {
+    max-width: 13rem;
+  }
+}
+
+.dividerTop {
+  position: relative;
+
+  padding-top: 5rem;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 1.5rem;
+    left: 1.5rem;
+
+    height: 1px;
+
+    background: #dfdfdf;
+  }
+}
+
+.dividerTopSm {
+  position: relative;
+
+  margin-top: 5rem;
+  padding-top: 5rem;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 1.5rem;
+    left: 1.5rem;
+
+    height: 1px;
+
+    background: #dfdfdf;
+  }
+
+  @include responsive(md) {
+    margin-top: 0;
+    padding-top: 0;
+
+    &:after {
+      display: none;
+    }
+  }
+}
+
+.dividerTopLight {
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+
+    height: 1px;
+
+    background: $grey;
+  }
+}
+
+.minWidth19 {
+  @include responsive(md) {
+    min-width: 19rem;
+  }
+}
+
+.minWidth39 {
+  @include responsive(sm) {
+    min-width: 30rem;
+  }
+
+  @include responsive(lg) {
+    min-width: 39.3rem;
+  }
+}
+
+.width23 {
+  @include responsive(sm) {
+    min-width: 23rem;
+    max-width: 23rem;
+  }
+}
+
+.checkboxGroup {
+  padding: 1rem 2rem;
+}
+
+.orderXs1 {
+  order: 1;
+
+  @include responsive(sm) {
+    order: 0;
+  }
+}
+
+.orderXs2 {
+  order: 2;
+
+  @include responsive(sm) {
+    order: 0;
+  }
+}
+
+.orderXs3 {
+  order: 3;
+
+  @include responsive(sm) {
+    order: 0;
+  }
+}
+
+.resetExtraPadding {
+  @include responsive(md) {
+    margin: 0 -1.5rem;
+  }
+}
+
+.extraPadding {
+  @include responsive(sm) {
+    margin: 0 -1rem;
+  }
+
+  @include responsive(md) {
+    margin: 0;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+.lastChildDivider {
+  &:last-child {
+    position: relative;
+
+    .descriptionContainer {
+      margin-bottom: 3rem;
+
+      &:after {
+        content: '';
+        position: absolute;
+        right: -1.5rem;
+        bottom: -1rem;
+        left: -1.5rem;
+
+        height: 1px;
+
+        background: $grey;
+      }
+    }
+
+    @include responsive(sm) {
+      .descriptionContainer {
+        margin-bottom: 0;
+
+        &:after {
+          display: none;
+        }
+      }
+    }
+  }
+}

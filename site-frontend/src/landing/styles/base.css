@@ -1,0 +1,104 @@
+@import './variables';
+@import './geometria';
+
+html {
+  font-size: 10px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+
+  color: $brand-black;
+  font-family: 'Geometria', 'Helvetica', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.42857143;
+
+  background-color: $brand-white;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-variant: normal;
+  text-transform: none;
+  speak: none;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+
+  font-family: inherit;
+}
+
+h1 {
+  font-size: 2.4rem;
+}
+
+h2 {
+  font-size: 2.2rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+h4 {
+  font-size: 1.8rem;
+}
+
+h5 {
+  font-size: 1.6rem;
+}
+
+h6 {
+  font-size: 1.4rem;
+}
+
+button {
+  font-family: inherit;
+
+  cursor: pointer;
+}
+
+hr {
+  border: none;
+  border-bottom: 1px solid #cccccc;
+}
+
+dl,
+dt,
+dd {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  font-family: inherit;
+  text-decoration: none;
+}
+
+address {
+  font-style: normal;
+}
+
+/* need for cssmodules */
+/* stylelint-disable selector-pseudo-class-no-unknown */
+:global(.mapboxgl-canvas) {
+  outline: none;
+}
+
+:global(.slick-arrow) {
+  display: none !important;
+}
+
+:global(.slick-slider) {
+  overflow: hidden;
+}
+
+/* stylelint-enable selector-pseudo-class-no-unknown */
+
+.retargetingImage {
+  display: none;
+}

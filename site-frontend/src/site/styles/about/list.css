@@ -1,0 +1,581 @@
+@import '../variables';
+@import '../responsive-utils';
+
+.infoContainer {
+  padding: 4.5rem 0 4rem;
+
+  @include responsive(sm) {
+    padding-top: 6.8rem;
+  }
+
+  @include responsive(md) {
+    padding-top: 8.5rem;
+  }
+}
+
+.agentContainer {
+  padding: 4.5rem 0 4rem;
+
+  @include responsive(sm) {
+    padding-top: 6.8rem;
+    padding-bottom: 7rem;
+  }
+
+  @include responsive(md) {
+    padding-top: 8rem;
+    padding-bottom: 8.5rem;
+  }
+}
+
+.stepsContainer {
+  padding: 3.6rem 0 3rem;
+
+  @include responsive(sm) {
+    padding-bottom: 4.3rem;
+  }
+
+  @include responsive(md) {
+    padding-top: 4.5rem;
+    padding-bottom: 8rem;
+  }
+}
+
+.staffContainer {
+  padding-top: 5rem;
+
+  @include responsive(sm) {
+    padding-top: 6.5rem;
+    padding-bottom: 5.5rem;
+  }
+
+  @include responsive(md) {
+    padding-top: 8rem;
+    padding-bottom: 5.5rem;
+  }
+}
+
+.principlesContainer {
+  padding: 5rem 0 0;
+
+  background: $body-bg;
+
+  @include responsive(sm) {
+    padding-top: 5.7rem;
+  }
+
+  @include responsive(md) {
+    padding-top: 9.3rem;
+  }
+}
+
+.requestContainer {
+  background: $body-bg;
+}
+
+.titleLg {
+  margin: 0;
+
+  font-size: 3rem;
+  line-height: 3.4rem;
+  text-align: center;
+
+  @include responsive(sm) {
+    font-size: 4rem;
+    line-height: 1;
+  }
+
+  @include responsive(md) {
+    font-size: 4.8rem;
+    line-height: 1;
+  }
+}
+
+.titleMd {
+  margin: 0;
+
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 2.8rem;
+
+  @include responsive(sm) {
+    font-size: 3.8rem;
+    line-height: 4.5rem;
+  }
+
+  @include responsive(md) {
+    font-size: 4.5rem;
+  }
+}
+
+.titleXMd {
+  composes: titleMd;
+
+  @include responsive(md) {
+    font-size: 3.6rem;
+  }
+}
+
+.titleSm {
+  margin: 0;
+  margin-top: 1.8rem;
+
+  font-size: 2.2rem;
+  font-weight: 500;
+
+  @include responsive(sm) {
+    margin-top: 0;
+
+    font-size: 2.4rem;
+    line-height: 3.5rem;
+  }
+
+  @include responsive(md) {
+    font-size: 3rem;
+    line-height: 1;
+  }
+}
+
+.textMd {
+  margin-bottom: 0;
+
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+
+  @include responsive(sm) {
+    font-size: 2.4rem;
+    line-height: 3.8rem;
+  }
+
+  @include responsive(md) {
+    font-size: 2.8rem;
+    line-height: 3.3rem;
+  }
+}
+
+.textSm {
+  margin: 0;
+
+  font-size: 1.4rem;
+  line-height: 3rem;
+
+  &:last-child {
+    margin-top: 2.5rem;
+  }
+
+  @include responsive(sm) {
+    color: #737373;
+    font-size: 1.6rem;
+
+    &:last-child {
+      margin-top: 3rem;
+    }
+  }
+
+  @include responsive(md) {
+    font-size: 1.8rem;
+    line-height: 3.5rem;
+
+    &:last-child {
+      margin-top: 3rem;
+    }
+  }
+}
+
+.textXs {
+  color: #7e7e7e;
+  font-size: 1.6rem;
+  line-height: 3rem;
+}
+
+.textGrey {
+  color: #656565;
+
+  @include responsive(sm) {
+    color: $brand-black;
+  }
+}
+
+.textGreyXs {
+  color: #7e7e7e;
+  font-size: 1.6rem;
+  line-height: 3rem;
+
+  &:last-child {
+    margin-top: 2.5rem;
+  }
+
+  @include responsive(sm) {
+    color: #737373;
+    font-size: 1.6rem;
+
+    &:last-child {
+      margin-top: 3rem;
+    }
+  }
+
+  @include responsive(md) {
+    font-size: 1.8rem;
+    line-height: 3.5rem;
+
+    &:last-child {
+      margin-top: 3rem;
+    }
+  }
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  @include responsive(sm) {
+    text-align: center;
+  }
+}
+
+.listItem {
+  width: 100%;
+  margin-bottom: 1.9rem;
+
+  font-size: 1.6rem;
+  line-height: 1.8rem;
+
+  @include responsive(sm) {
+    width: 50%;
+    margin-bottom: 8.5rem;
+
+    font-size: 2rem;
+    line-height: 2.3rem;
+  }
+
+  @include responsive(md) {
+    width: 25%;
+    margin-bottom: 0;
+  }
+}
+
+.step {
+  position: relative;
+
+  display: inline-block;
+  margin-right: 1.8rem;
+  padding: 1.5rem 2.1rem;
+
+  font-size: 2.4rem;
+  line-height: 1;
+
+  border: 2px solid $brand-primary;
+  border-radius: 50%;
+
+  &:after {
+    content: '';
+    position: absolute;
+
+    width: 2.65rem;
+    height: 2.65rem;
+
+    background: $brand-white;
+    border-radius: 50%;
+  }
+
+  @include responsive(sm) {
+    margin-right: 0;
+    margin-bottom: 3rem;
+    padding: 2.4rem 3.1rem;
+
+    font-size: 3.6rem;
+
+    &:after {
+      width: 4rem;
+      height: 4rem;
+    }
+  }
+}
+
+.top {
+  &:after {
+    top: -1rem;
+    right: 1px;
+  }
+}
+
+.left {
+  &:after {
+    right: -3px;
+    bottom: -1px;
+  }
+}
+
+.bottom {
+  &:after {
+    bottom: -.8rem;
+    left: 0;
+  }
+}
+
+.right {
+  &:after {
+    top: -.8rem;
+    left: 0;
+  }
+}
+
+.textFrame {
+  margin-top: 4.7rem;
+  padding: 3rem 2.5rem;
+
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 2.8rem;
+  text-align: center;
+
+  border: 2px solid $brand-primary;
+
+  @include responsive(sm) {
+    margin-top: 0;
+    padding: 4.8rem 4rem;
+
+    font-size: 2.4rem;
+    line-height: 4rem;
+  }
+
+  @include responsive(md) {
+    margin-top: 10.5rem;
+    padding-right: 12rem;
+    padding-left: 12rem;
+
+    font-size: 2.7rem;
+  }
+}
+
+.textHidden {
+  max-height: 16.5rem;
+  overflow-y: hidden;
+
+  @include responsive(sm) {
+    max-height: 40rem;
+    overflow: visible;
+  }
+}
+
+.shadow {
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    right: -1.5rem;
+    bottom: -1rem;
+    left: -1.5rem;
+
+    height: 10rem;
+  }
+
+  @include responsive(sm) {
+    &:after {
+      display: none;
+    }
+  }
+}
+
+.gradient {
+  composes: shadow;
+
+  &:after {
+    background: linear-gradient(to top, rgba(245, 245, 245, .8) 0%, rgba(255, 255, 255, .25) 80%, rgba(245, 245, 245, 0) 100%);
+  }
+}
+
+.gradientWhite {
+  composes: shadow;
+
+  &:after {
+    background: linear-gradient(to top, rgba(255, 255, 255, .8) 0%, rgba(255, 255, 255, .25) 80%, rgba(245, 245, 245, 0) 100%);
+  }
+}
+
+.btn {
+  padding: 2.2rem 0;
+
+  background: transparent;
+  border: none;
+  border-radius: 0;
+
+  &:hover,
+  &:focus {
+    background: transparent;
+  }
+}
+
+.btnOval {
+  width: 100%;
+  margin-bottom: 6rem;
+  padding: 2rem 0;
+
+  font-size: 1.6rem;
+
+  border: 2px solid #cad2d5;
+  border-radius: 6rem;
+
+  &:hover,
+  &:focus {
+    background: transparent;
+    border-color: #b4bcbf;
+  }
+
+  @include responsive(sm) {
+    margin-bottom: 2rem;
+  }
+}
+
+.illustration {
+  display: none;
+  width: 22.3rem;
+  height: 18.8rem;
+
+  @include responsive(sm) {
+    display: inline-block;
+    margin-top: 1rem;
+  }
+
+  @include responsive(md) {
+    width: 36.9rem;
+    height: 31.3rem;
+    margin-top: 0;
+  }
+}
+
+.dividerTop {
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+
+    height: 1px;
+
+    background: #e2e7e9;
+  }
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.iconArrow {
+  width: 3.5rem;
+  height: 1rem;
+
+  fill: $brand-primary;
+
+  stroke: $brand-primary;
+}
+
+.up {
+  transform: rotate(180deg);
+}
+
+.hideDividerFromSm {
+  @include responsive(sm) {
+    &:after {
+      display: none;
+    }
+  }
+}
+
+.displayBlock {
+  display: inline;
+
+  @include responsive(sm) {
+    display: block;
+  }
+}
+
+.flex {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.flexItem {
+  width: 100%;
+
+  &:first-child {
+    display: none;
+
+    text-align: center;
+  }
+
+  @include responsive(sm) {
+    width: 50%;
+
+    &:first-child {
+      display: block;
+    }
+
+    &:last-child {
+      padding-right: 3rem;
+    }
+  }
+}
+
+.order1 {
+  order: 1;
+
+  @include responsive(md) {
+    order: 2;
+  }
+}
+
+.order2 {
+  order: 2;
+
+  @include responsive(md) {
+    order: 1;
+  }
+}
+
+.lineHeight3_9 {
+  line-height: 3.9rem;
+}
+
+.lineHeight4_5 {
+  line-height: 4.5rem;
+}
+
+.paddingTopSm3Md8_3 {
+  @include responsive(sm) {
+    padding-top: 3rem;
+  }
+
+  @include responsive(md) {
+    padding-top: 8.3rem;
+  }
+}
+
+.padding5_0_8 {
+  padding: 5rem 0 8rem;
+}
+
+.paddingBottomSm6Md10 {
+  @include responsive(sm) {
+    padding-bottom: 6rem;
+  }
+
+  @include responsive(md) {
+    padding-bottom: 10rem;
+  }
+}
+
+.padding0_3 {
+  padding: 0 3rem;
+}
+
+.resetIndent {
+  margin: 0 !important;
+}

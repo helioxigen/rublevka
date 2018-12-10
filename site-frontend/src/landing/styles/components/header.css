@@ -1,0 +1,341 @@
+@import '../responsive-utils';
+@import '../variables';
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 8;
+
+  min-height: 7rem;
+
+  &.scrolled {
+    background: $brand-white;
+    box-shadow: 0 0 20px rgba(11, 11, 11, .2);
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
+
+  width: 100%;
+  padding-bottom: 3rem;
+
+  white-space: nowrap;
+  overflow: visible;
+
+  background: $brand-white;
+  transform: translate3d(0, -100%, 0);
+
+  transition: transform .5s cubic-bezier(.86, 0, .07, 1);
+
+  @include responsive(sm) {
+    bottom: 0;
+    padding-bottom: 0;
+    width: 30rem;
+
+    transform: translate3d(100%, 0, 0);
+  }
+
+  @include responsive(md) {
+    position: static;
+
+    width: auto;
+
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+
+    &:before {
+      display: none;
+    }
+  }
+}
+
+.menuActive {
+  &.menu {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.overlay {
+  opacity: 0;
+
+  &.overlayActive {
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 998;
+
+    background: rgba(0, 0, 0, .6);
+    opacity: 1;
+
+    transition: opacity .35s linear;
+  }
+
+  @include responsive(md) {
+    display: none;
+  }
+}
+
+.logoContainer {
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+
+  @include responsive(md) {
+    margin-right: 1rem;
+  }
+}
+
+.iconLogo {
+  width: 4.5rem;
+  height: 4rem;
+
+  fill: $brand-white;
+
+  &.scrolled {
+    fill: $brand-primary;
+  }
+}
+
+.btn {
+  font-size: 1.6rem;
+  font-weight: 500;
+
+  padding: 1.8rem 2.5rem 1.6rem;
+  margin-top: 1.5rem;
+
+  border-radius: 10rem;
+
+  @include responsive(sm) {
+    margin-top: 0;
+  }
+}
+
+.btnHamburger {
+  position: absolute;
+  top: 2.3rem;
+  right: 1.5rem;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 0;
+
+  &:hover,
+  &:focus {
+    background: transparent;
+  }
+
+  @include responsive(sm) {
+    right: 3rem;
+  }
+}
+
+.iconHamburger {
+  width: 2.7rem;
+  height: 1.9rem;
+
+  fill: $brand-white;
+
+  &.scrolled {
+    fill: $brand-black;
+  }
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  padding-top: 1rem;
+
+  list-style: none;
+
+  text-align: center;
+
+  @include responsive(sm) {
+    text-align: left;
+  }
+
+  @include responsive(md) {
+    margin-top: 0;
+    padding-top: 0;
+  }
+}
+
+.nav {
+  @include responsive(md) {
+    margin-top: 2rem;
+  }
+}
+
+.item {
+  margin: 2rem;
+  margin-top: 2.5rem;
+  padding: 0;
+
+  vertical-align: middle;
+
+  color: $brand-black;
+  font-weight: 500;
+  font-size: 1.6rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  cursor: pointer;
+  transition: .2s;
+
+  @include responsive(md) {
+    display: inline-block;
+    margin: 0;
+
+    color: $brand-white;
+  }
+
+  &:hover {
+    color: $brand-primary;
+  }
+
+  &.scrolled {
+    color: $brand-black;
+
+    &:hover {
+      color: $brand-primary;
+    }
+  }
+}
+
+.active {
+  color: $brand-primary;
+}
+
+.btnClose {
+  position: absolute;
+  top: 1.8rem;
+  right: 1.5rem;
+
+  padding: 0;
+
+  border: 0;
+
+  &:hover,
+  &:focus {
+    background: transparent;
+
+    .iconClose {
+      fill: color($brand-primary blackness(10%));
+    }
+  }
+}
+
+.btnGroup {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 6.5rem 2rem 0;
+}
+
+.btnLg {
+  min-width: 50%;
+  padding: 1.3rem 2rem;
+
+  font-size: 1.8rem;
+}
+
+.iconClose {
+  width: 3rem;
+  height: 3rem;
+
+  fill: $brand-primary;
+}
+
+.linkXs {
+  position: absolute;
+  top: 2.7rem;
+  right: 7rem;
+
+  color: $brand-white;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1;
+
+  @include responsive(sm) {
+    right: 8rem;
+    font-size: 1.6rem;
+  }
+
+  &.scrolled {
+    color: $brand-black;
+  }
+}
+
+.linkLg {
+  display: inline-block;
+
+  color: $brand-black;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1;
+
+  @include responsive(md) {
+    margin: 3.1rem 0;
+    margin-left: 0;
+
+    color: $brand-white;
+  }
+
+  &.scrolled {
+    color: $brand-black;
+  }
+}
+
+.btnXs {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  z-index: 999;
+
+  transform: translateX(-50%);
+
+  padding: 1.5rem;
+  padding-bottom: 1.3rem;
+}
+
+.iconModal {
+  width: 2.8rem;
+  height: 2.8rem;
+
+  fill: $brand-white;
+}
+
+/* utils */
+
+.contactXs {
+  margin-top: calc(100vh - 30rem);
+
+  @include responsive(sm) {
+    margin-top: calc(100vh - 32rem);
+  }
+}
+
+.textBlack {
+  color: $brand-black;
+
+  &.active {
+    color: $brand-primary;
+  }
+}
+
+.resetIndentTop {
+  margin-top: 0;
+}

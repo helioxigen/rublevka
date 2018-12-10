@@ -1,0 +1,86 @@
+@import '../responsive-utils';
+@import '../variables';
+
+.navigation {
+  display: inline-block;
+}
+
+.btn {
+  margin-left: -1px;
+  padding: 1rem 1.4rem;
+
+  color: #111111;
+  font-size: 1.2rem;
+  line-height: 1;
+
+  background: transparent;
+  border: 1px solid #eeeeee;
+
+  &:nth-child(2) {
+    border-top-left-radius: .4rem;
+    border-bottom-left-radius: .4rem;
+  }
+
+  &:nth-last-child(2) {
+    border-top-right-radius: .4rem;
+    border-bottom-right-radius: .4rem;
+  }
+
+  &:hover,
+  &:focus,
+  &.active {
+    color: $brand-white;
+
+    background-color: $brand-primary;
+    outline: none;
+  }
+
+  &.active {
+    &:hover,
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &.disabled {
+    cursor: default;
+
+    &:hover,
+    &:focus {
+      background: transparent;
+    }
+  }
+
+  @include responsive(sm) {
+    padding: 1.6rem 2rem;
+
+    font-size: 1.5rem;
+  }
+}
+
+.btnNav {
+  margin: 0;
+  padding: 1rem;
+  font-size: 1.7rem;
+
+  background: transparent;
+  border: none;
+
+  &:hover,
+  &:focus {
+    outline: none;
+  }
+
+  &.disabled {
+    cursor: default;
+
+    &:hover,
+    &:focus {
+      background: transparent;
+    }
+  }
+
+  @include responsive(sm) {
+    margin: 0 1rem;
+  }
+}

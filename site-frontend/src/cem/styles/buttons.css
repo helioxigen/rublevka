@@ -1,0 +1,228 @@
+@import './responsive-utils';
+@import './variables';
+
+.btnWide {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem 0;
+  font-size: 1.4rem;
+  font-weight: 300;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  text-transform: none;
+
+  @include responsive(sm) {
+    position: static;
+  }
+}
+
+.btnFixedBottom {
+  position: fixed;
+  z-index: 10;
+  left: 5rem;
+  bottom: 0;
+  width: 100%;
+  padding: 1.5rem;
+  text-transform: capitalize;
+  border-radius: 0;
+
+  @include responsive(md) {
+    left: 10rem;
+  }
+}
+
+.btnTo {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: none;
+
+  &:hover,
+  &:focus {
+    background: transparent;
+  }
+}
+
+.btnInner {
+  padding: 1.5rem 1.5rem;
+  width: 100%;
+  color: $grey;
+  font-size: 1.3rem;
+  text-transform: none;
+  text-align: left;
+  line-height: 1;
+  border: none;
+  border-radius: 0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover,
+  &:focus {
+    background: $light-blue;
+  }
+
+  &.activeBtnInner {
+    color: $grey;
+  }
+}
+
+.btnReset {
+  margin-top: .5rem;
+  float: right;
+  border: 0;
+  text-transform: none;
+  padding: 0;
+
+  &:hover,
+  &:focus {
+    background: transparent;
+    color: $brand-default;
+  }
+}
+
+.btnBigPlus {
+  position: relative;
+  min-height: 22.9rem;
+  border: 1px solid $light-grey;
+
+  &:hover,
+  &:focus {
+    background: transparent;
+  }
+}
+
+.btnTableAction {
+  display: inline-block;
+  margin-left: 1rem;
+  padding: 0;
+  font-size: 1.2rem;
+  text-align: center;
+  vertical-align: middle;
+  background-color: transparent;
+  border: none;
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+.btnRoundPlus {
+  display: inline-block;
+  position: relative;
+  padding: 0;
+  margin-left: 1rem;
+  text-align: left;
+  border: none;
+  vertical-align: middle;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background: transparent;
+  }
+}
+
+.btnDropdown {
+  border: none;
+
+  &:hover,
+  &:focus {
+    background: transparent;
+
+    .iconSubmenu {
+      fill: $darker-grey;
+    }
+  }
+}
+
+.btnDropdownInner {
+  padding: 1.5rem 1.5rem;
+  width: 100%;
+  color: $grey;
+  font-size: 1.3rem;
+  text-transform: none;
+  text-align: left;
+  line-height: 1;
+  border: none;
+  border-bottom: 1px solid $light-grey;
+  border-radius: 0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover,
+  &:focus {
+    background: $light-blue;
+
+    .iconSubmenu {
+      fill: $darker-grey;
+    }
+  }
+}
+
+.btnBack {
+  text-decoration: none;
+  color: $grey;
+  padding-right: 0;
+  padding-left: 0;
+  border: 0;
+
+  &:hover,
+  &:focus {
+    background: transparent;
+    outline: none;
+  }
+}
+
+.btnResetAll {
+  border: 0;
+  padding: 0;
+  text-transform: none;
+  color: $brand-default;
+
+  &:hover,
+  &:focus {
+    color: #000000;
+    background: transparent;
+  }
+}
+
+.btnDelete {
+  padding: 0;
+  border: none;
+
+  &:hover,
+  &:focus {
+    background: transparent;
+  }
+}
+
+.btnTimes {
+  display: inline-block;
+  margin-left: 1rem;
+  font-size: 1.2rem;
+  text-align: center;
+  vertical-align: middle;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+}

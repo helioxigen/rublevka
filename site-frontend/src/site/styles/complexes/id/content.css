@@ -1,0 +1,35 @@
+@import '../../variables';
+@import '../../responsive-utils';
+
+.content {
+  position: relative;
+  z-index: 4;
+
+  max-width: 124.8rem;
+  margin: 6rem -1.5rem 0;
+  padding-top: 2rem;
+
+  background: $brand-white;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+
+    height: 4px;
+
+    background: $brand-primary;
+  }
+
+  @include responsive(sm) {
+    margin: 6.7rem -1.5rem 0;
+    padding-top: 7rem;
+  }
+
+  @include responsive(lg) {
+    margin: 6.7rem auto 0;
+    min-width: 124.8rem;
+  }
+}

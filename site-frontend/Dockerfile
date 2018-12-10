@@ -1,0 +1,21 @@
+FROM jqestateru/nodejs-alpine:v8.10
+MAINTAINER Timothy Klim <jqestate@timothyklim.com>
+
+WORKDIR /app
+
+EXPOSE 8080
+
+ARG APP_ENV
+ARG COMAGIC_KEY
+ARG BUILD_ID
+ARG SEGMENT_KEY
+ARG MAPBOX_TOKEN
+
+ENV APP_ENV=${APP_ENV} COMAGIC_KEY=${COMAGIC_KEY} BUILD_ID=${BUILD_ID} SEGMENT_KEY=${SEGMENT_KEY} MAPBOX_TOKEN=${MAPBOX_TOKEN} NODE_ENV=production PORT=8080
+
+CMD npm start
+
+COPY . /app
+RUN chown -R npm:npm /app/build
+
+USER npm

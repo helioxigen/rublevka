@@ -1,0 +1,57 @@
+@import '../variables';
+
+.label {
+  display: inline-block;
+  margin: 0;
+  padding: .7rem 1rem;
+
+  color: $brand-white;
+  font-size: .9rem;
+  line-height: 1;
+  vertical-align: baseline;
+  text-align: center;
+  white-space: nowrap;
+
+  border-radius: .2rem;
+}
+
+.default {
+  color: $grey;
+
+  background-color: #eeeeee;
+  border-color: transparent;
+}
+
+.primary {
+  color: $brand-white;
+
+  background-color: $brand-primary;
+  border-color: transparent;
+}
+
+.success {
+  color: $brand-white;
+
+  background-color: $brand-success;
+  border-color: transparent;
+}
+
+.warning {
+  color: $brand-default;
+
+  background-color: $brand-warning;
+  border-color: transparent;
+}
+
+.danger {
+  color: $brand-white;
+
+  background-color: $brand-danger;
+  border-color: transparent;
+}
+
+/*
+.info {
+  @include badges-mixin($brand-info, $brand-white, transparent);
+}
+*/

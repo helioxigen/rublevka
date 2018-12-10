@@ -1,0 +1,608 @@
+@import '../../responsive-utils';
+@import './variables';
+.fixed {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  padding-bottom: 8rem;
+}
+
+.filterContainer {
+  composes: fixed;
+  z-index: 9998;
+  padding-top: 7rem;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  text-align: left;
+  background: $brand-white;
+  @include responsive(sm) {
+    padding-top: 8rem;
+  }
+  @include responsive(lg) {
+    padding-bottom: 0;
+    background: $grey-blue;
+  }
+}
+
+.tabContentContainerMd {
+  padding: 0.9rem 0 0.9rem;
+  background: $grey-blue-darker;
+}
+
+.desktopTitle {
+  margin: 1.5rem 2.5rem 0;
+  font-size: 1.6rem;
+  color: $grey-blue;
+  font-weight: 500;
+  line-height: 1;
+  @include responsive(sm) {
+    font-size: 1.8rem;
+  }
+  @include responsive(md) {
+    font-size: 1.6rem;
+    margin-top: 0;
+  }
+}
+
+.text {
+  display: inline-block;
+  margin-top: 1.5rem;
+  color: $grey-blue;
+  @include responsive(sm) {
+    margin-top: 2rem;
+  }
+}
+
+.textXs {
+  position: relative;
+  top: 1.5rem;
+  z-index: 0;
+  width: 100%;
+  display: inline-block;
+  overflow: hidden;
+  color: $grey-blue;
+  text-align: right;
+  @include responsive(sm) {
+    top: 1.8rem;
+  }
+}
+
+.tabItem {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1.5rem 2.2rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: background 0.25s ease-out;
+  user-select: none;
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background: #6c6994;
+  }
+  @include responsive(sm) {
+    font-size: 1.8rem;
+  }
+  @include responsive(md) {
+    display: block;
+    padding: 2.7rem 0 3rem;
+    font-size: 1.6rem;
+    &:after {
+      display: none;
+    }
+    &:hover {
+      background: $brand-primary-hover;
+    }
+    &.tabActive {
+      color: $brand-primary;
+      background: $body-bg;
+      .tabIconContainer {
+        background: rgba(95, 92, 139, 0.07);
+      }
+      .iconTab {
+        fill: $brand-primary;
+      }
+    }
+  }
+}
+
+.innerItem {
+  display: inline-block;
+  margin-right: 1.4rem;
+  margin-bottom: 1.5rem;
+  padding: 1.4rem 2.1rem;
+  font-size: 1.6rem;
+  line-height: 1;
+  vertical-align: top;
+  background: $brand-white;
+  border: 1px solid $grey-darker;
+  border-radius: 10rem;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  &:last-child {
+    margin-right: 0;
+  }
+  @include responsive(sm) {
+    padding: 1.4rem 3rem;
+    font-size: 1.8rem;
+  }
+  @include responsive(md) {
+    margin-bottom: 0;
+    padding: 1.4rem 2.1rem;
+    font-size: 1.5rem;
+    background: $body-bg;
+  }
+}
+
+
+/* btn */
+
+.resetBorderRadius {
+  border-radius: 0 !important;
+}
+
+.tab {
+  position: relative;
+  padding: 2rem 0.5rem;
+  text-align: left;
+  border: none;
+  border-bottom: 1px solid #eeeeee;
+  &:hover,
+  &:focus {
+    background: transparent;
+    border-color: #eeeeee;
+  }
+  &:last-child {
+    border-bottom: none;
+  }
+  @include responsive(sm) {
+    padding: 2rem 1.5rem;
+    font-size: 1.8rem;
+  }
+  @include responsive(md) {
+    display: block;
+    padding: 3rem 3rem 3.8rem;
+    font-size: 1.6rem;
+    text-align: center;
+    border-bottom: none;
+    background: $grey-blue;
+    &:hover,
+    &:focus {
+      background: $grey-blue-darker;
+    }
+    &.activeTab {
+      background: $grey-blue-darker;
+    }
+  }
+}
+
+.selected {
+  display: inline-block;
+  margin-right: 1.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem 2rem;
+  font-size: 1.6rem;
+  vertical-align: top;
+  background: #f5f5f5;
+  border: 1px solid #f5f5f5;
+  border-radius: 10rem;
+  cursor: default;
+  transition: all 0.3s;
+  &:hover {
+    background-color: #e5e5e5;
+    border-color: #e5e5e5;
+    cursor: pointer;
+  }
+}
+
+.btnClearAllMd {
+  display: inline-block;
+  margin-right: 1.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem 2rem;
+  font-size: 1.6rem;
+  line-height: 1.42857143;
+  vertical-align: top;
+  background: #f5f5f5;
+  border: 1px solid #f5f5f5;
+  border-radius: 10rem;
+  cursor: default;
+  &:hover,
+  &:focus {
+    background-color: #e5e5e5;
+    border-color: #e5e5e5;
+    cursor: pointer;
+  }
+}
+
+.btnClearAllSettlements {
+  display: inline-block;
+  margin-right: 1.5rem;
+  margin-top: 2rem;
+  padding: 1rem 2.5rem;
+  font-size: 1.6rem;
+  vertical-align: top;
+  background: #f5f5f5;
+  border: 1px solid #f5f5f5;
+  border-radius: 10rem;
+  cursor: default;
+  @include responsive(sm) {
+    margin-top: 0;
+    margin-bottom: 2rem;
+  }
+  &:hover,
+  &:focus {
+    background-color: #e5e5e5;
+    border-color: #e5e5e5;
+    cursor: pointer;
+  }
+}
+
+.btnContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  display: flex;
+  width: 100%;
+  background: $brand-white;
+  border-bottom: 1px solid #eeeeee;
+  @include responsive(md) {
+    left: -42rem;
+    width: 42rem;
+    padding-left: 1rem;
+  }
+}
+
+.btnContainerActive {
+  left: 0;
+  transition: 0.6s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.btnGroupContainer {
+  width: 100%;
+  padding: 1.5rem 1rem 0.5rem;
+  border-bottom: 1px solid #eeeeee;
+  @include responsive(md) {
+    padding: 3rem;
+  }
+  @include responsive(md) {
+    display: none;
+  }
+}
+
+.btnGroup {
+  width: 100%;
+  margin-bottom: 2.5rem;
+  .btnInGroup:first-child {
+    border-top-left-radius: 10rem;
+    border-bottom-left-radius: 10rem;
+  }
+  .btnInGroup:last-child {
+    border-top-right-radius: 10rem;
+    border-bottom-right-radius: 10rem;
+  }
+}
+
+.btnInGroup {
+  width: 100%;
+  text-align: center;
+  width: 50%;
+  padding: 1.5rem 0;
+  border: 1px solid $grey-blue;
+  color: $grey-blue;
+  font-size: 1.6rem;
+  display: inline-block;
+  &:hover {
+    background: $brand-white;
+    color: $grey-blue;
+  }
+  &.btnActive {
+    background: $grey-blue;
+    color: $brand-white;
+  }
+  @include responsive(sm) {
+    padding: 2rem 0;
+  }
+}
+
+.btnClear {
+  composes: resetBorderRadius;
+  padding-right: 1.5rem;
+  font-size: 1.4rem;
+  text-align: right;
+  background: transparent;
+  border-color: transparent;
+  &:hover,
+  &:focus {
+    background: transparent;
+    border-color: transparent;
+  }
+  @include responsive(sm) {
+    padding-right: 3rem;
+    font-size: 1.8rem;
+  }
+}
+
+.btnBack {
+  composes: resetBorderRadius;
+  padding-left: 1rem;
+  text-align: left;
+  background: transparent;
+  border-color: transparent;
+  &:hover,
+  &:focus {
+    background: transparent;
+    border-color: transparent;
+  }
+  @include responsive(sm) {
+    padding: 2.4rem 2.5rem;
+    font-size: 1.8rem;
+  }
+}
+
+.btn {
+  width: 100%;
+  padding: 1.9rem 3.3rem;
+  font-size: 1.8rem;
+  border-radius: 10rem;
+  @include responsive(sm) {
+    width: auto;
+    margin-bottom: 2rem;
+    padding: 1.3rem 3.3rem;
+    font-size: 1.5rem;
+  }
+}
+
+.tabIconContainer {
+  position: relative;
+  top: 0.5rem;
+  z-index: 0;
+  display: inline-block;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-right: 1.5rem;
+  padding: 1rem 1rem 0.5rem 1rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 50%;
+  @include responsive(md) {
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.btnHide {
+  padding-top: 0;
+  color: $brand-primary;
+  background: $body-bg;
+  border-color: $grey-darker;
+  border-top-color: $body-bg;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  &:hover,
+  &:focus {
+    background: $body-bg;
+    border-color: $grey-darker;
+    border-top-color: $body-bg;
+  }
+}
+
+.btnRound {
+  min-width: 21rem;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  background-color: $brand-primary;
+  border-color: $brand-primary;
+  border-radius: 10rem;
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $brand-primary-hover;
+    border-color: $brand-primary-hover;
+  }
+  @include responsive(sm) {
+    display: inline-block;
+    width: auto;
+    margin-right: 1.5rem;
+    padding: 1.7rem 3.6rem;
+    padding-right: 4rem;
+    font-size: 1.6rem;
+    &.activeBtnRound {
+      color: #ffffff;
+      background-color: $brand-primary-hover;
+      border-color: $brand-primary-hover;
+    }
+  }
+}
+
+.btnTimes {
+  width: 3.9rem;
+  height: 3.9rem;
+  padding: 0.7rem 0.6rem 0.5rem 0.8rem;
+  background: rgba(0, 0, 0, 0.07);
+  border: none;
+  border-radius: 50%;
+  &:hover,
+  &:focus {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+}
+
+.hollowBtn {
+  display: inline-block;
+  margin-top: 2rem;
+  margin-right: 1rem;
+  padding: 1rem 2rem;
+  color: $grey-blue;
+  font-size: 1.6rem;
+  line-height: 1;
+  border-radius: 10rem;
+  border: none;
+  background: #f5f5f5;
+  &:last-child {
+    margin-right: 0;
+  }
+  &:hover,
+  &:focus {
+    color: $grey-blue;
+    background: rgba(0, 0, 0, 0.08);
+  }
+  &.active {
+    color: $brand-white;
+    background: $grey-blue;
+  }
+  @include responsive(sm) {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    padding: 1.9rem 2.8rem;
+    font-size: 1.8rem;
+  }
+  @include responsive(md) {
+    margin-bottom: 1rem;
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+  }
+}
+
+.btnClearAll {
+  padding: 2.6rem 2rem;
+  text-align: left;
+  font-size: 1.8rem;
+  color: #c4c4c4;
+  border: none;
+  &:hover {
+    background: transparent;
+    color: #c4c4c4;
+  }
+  @include responsive(sm) {
+    padding: 3rem;
+    font-size: 2rem;
+  }
+  @include responsive(md) {
+    padding: 2.6rem 2rem;
+    font-size: 1.6rem;
+  }
+}
+
+
+/* icon */
+
+.iconFill {
+  fill: $grey-blue;
+  @include responsive(md) {
+    fill: $brand-white;
+  }
+}
+
+.iconFilter {
+  width: 1.8rem;
+  height: 1.7rem;
+  margin-right: 1rem;
+  vertical-align: middle;
+  fill: $brand-white;
+}
+
+.iconTimes {
+  width: 3rem;
+  height: 3rem;
+  vertical-align: text-bottom;
+  fill: $grey-blue;
+  cursor: pointer;
+}
+
+.iconTab {
+  position: relative;
+  z-index: 2;
+  width: 2.5rem;
+  height: 2.5rem;
+  fill: $brand-white;
+  stroke-opacity: 0;
+}
+
+.iconArrowTab {
+  position: relative;
+  top: 1.5rem;
+  float: right;
+  width: 2.5rem;
+  height: 1.5rem;
+  fill: $grey-blue;
+  @include responsive(sm) {
+    top: 2.5rem;
+  }
+}
+
+.iconListPrimary {
+  width: 1.4rem;
+  height: 1.2rem;
+  margin-right: 1rem;
+  fill: $grey-blue-darker;
+}
+
+.backgroundPrimary {
+  position: relative;
+  z-index: 10;
+  background: $grey-blue;
+  @include responsive(md) {
+    z-index: 1;
+  }
+}
+
+.textPrimary {
+  color: $brand-primary;
+}
+
+.checkboxLabel {
+  font-size: 1.6rem;
+  margin-left: 1rem;
+  vertical-align: middle;
+  color: $grey-blue;
+}
+
+.checkboxLabelSettlements {
+  color: $grey-blue;
+}
+
+.checkboxControl {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-color: $grey-blue-darker;
+  &:checked {
+    background-color: $grey-blue-darker;
+    border-color: $grey-blue-darker;
+  }
+}
+
+.boxShadow {
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: inset -100px 0 20px -75px $brand-white;
+  }
+  @include responsive(sm) {
+    &:after {
+      box-shadow: inset -125px 0 20px -75px $brand-white;
+    }
+  }
+  @include responsive(md) {
+    &:after {
+      display: none;
+    }
+  }
+}

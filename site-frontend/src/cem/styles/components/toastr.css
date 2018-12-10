@@ -1,0 +1,66 @@
+@import '../variables';
+
+/* mixin */
+
+@mixin kind($color) {
+  color: $brand-white;
+
+  background-color: $color;
+  cursor: pointer;
+  opacity: .95;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+/**/
+
+.container {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 2000;
+}
+
+.notificationBox {
+  margin-top: 2rem;
+  padding: 2rem 2.5rem;
+
+  color: $brand-default;
+
+  background-color: $brand-white;
+}
+
+.title {
+  margin: 0;
+
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.body {
+  margin-top: 1rem;
+  margin-bottom: 0;
+
+  font-size: 1.4rem;
+}
+
+/* kind */
+
+.success {
+  @include kind($toastr-success);
+}
+
+.error {
+  @include kind($toastr-error);
+}
+
+.warning {
+  @include kind($toastr-warning);
+}
+
+.info {
+  @include kind($toastr-info);
+}

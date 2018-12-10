@@ -1,0 +1,254 @@
+@import '../responsive-utils';
+@import '../variables';
+
+$background: #eeeeee;
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+
+  width: 5rem;
+  height: 100%;
+  padding: 0;
+  overflow-y: scroll;
+
+  color: $grey;
+
+  background-color: $background;
+  border-right: 1px solid rgba(0, 0, 0, .1);
+
+  &.sidebarXs {
+    width: 21rem;
+    padding: 0 2rem 6rem;
+  }
+
+  .btn {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+
+    width: 5rem;
+    padding: 1rem;
+    padding-top: .6rem;
+
+    font-size: 3rem;
+    line-height: 1;
+
+    background: #e6e6e6;
+    border: none;
+    border-radius: 0;
+
+    transition: none;
+
+    &.activeMenu {
+      width: 21rem;
+
+      transform: rotate(180deg);
+    }
+
+    &:hover,
+    &:focus {
+      background: #e6e6e6;
+    }
+
+    @include responsive(md) {
+      display: none;
+    }
+  }
+
+  @include responsive(md) {
+    width: 21rem;
+    padding: 0 2rem;
+  }
+}
+
+.list {
+  display: none;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  &.listXs {
+    display: block;
+  }
+
+  @include responsive(md) {
+    display: block;
+  }
+}
+
+.item {
+  position: relative;
+
+  margin: 0;
+  padding: 1.5rem 0;
+
+  font-size: 1.4rem;
+  font-weight: 400;
+
+  &:hover {
+    color: $darker-grey;
+  }
+
+  &.active {
+    color: $brand-primary;
+  }
+
+  &.isOpen {
+    .innerList {
+      display: block;
+
+      color: $grey;
+    }
+
+    .icon {
+      fill: $brand-primary;
+    }
+
+    .iconChevron {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.link {
+  display: inline-block;
+  width: 100%;
+  padding: 1.5rem 1rem;
+
+  font-size: 1.4rem;
+  font-weight: 300;
+
+  &:hover {
+    color: $darker-grey;
+  }
+
+  &.activeLink {
+    color: $brand-primary;
+
+    .icon {
+      fill: $brand-primary;
+    }
+  }
+
+  &.logoutBtn {
+    padding: 0;
+
+    color: $grey;
+    font-size: 1.4rem;
+    font-weight: 300;
+    text-align: left;
+    text-transform: none;
+
+    border: none;
+
+    &:hover,
+    &:focus {
+      color: $grey;
+
+      background: transparent;
+    }
+  }
+}
+
+.listLink {
+  composes: link;
+
+  padding-left: 0;
+
+  font-weight: 400;
+}
+
+.innerList {
+  display: none;
+  margin-left: 0;
+}
+
+.user {
+  margin: 0 -2rem 1.5rem;
+  padding-left: 2rem;
+
+  border: none;
+  box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, .4);
+
+  &:hover {
+    color: $grey;
+  }
+}
+
+/* icon */
+
+.icon {
+  width: 1.3rem;
+  height: 1.3rem;
+  margin-right: 2rem;
+
+  vertical-align: baseline;
+
+  fill: $grey;
+}
+
+.iconChevron {
+  position: absolute;
+  top: 2rem;
+  right: 0;
+
+  width: 1.3rem;
+  height: 1.3rem;
+
+  fill: $grey;
+}
+
+.iconPushedTop2_5Right2 {
+  top: 2.5rem;
+  right: 2rem;
+}
+
+/* kind */
+
+.danger {
+  color: $brand-white;
+  background: #ef726c;
+
+  &:hover,
+  &:focus {
+    color: $brand-white;
+  }
+
+  .iconChevron {
+    fill: $brand-white;
+  }
+
+  .link {
+    color: $brand-white;
+
+    &:hover,
+    &:focus {
+      color: $brand-white;
+    }
+  }
+}
+
+/* utils */
+
+.pushRight {
+  padding-left: 5rem;
+
+  @include responsive(md) {
+    padding-left: 21rem;
+  }
+}
+
+.block {
+  display: block;
+
+  cursor: pointer;
+}
+
+.extraPadding {
+  padding-top: 3rem;
+}

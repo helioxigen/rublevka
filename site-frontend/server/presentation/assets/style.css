@@ -1,0 +1,314 @@
+/* default reset */
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+@page {
+  @footnote {
+    float: bottom;
+  }
+}
+
+html {
+  font-size: 10px;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.42857143;
+  zoom: .65;
+}
+
+figure {
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+}
+
+img {
+  border: none;
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+dl,
+dd {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* main container */
+
+.container {
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+/* banner */
+
+.banner {
+  height: 33rem;
+}
+
+.banner-image {
+  height: 33rem;
+  background: transparent top left no-repeat;
+  background-size: cover;
+}
+
+/* info */
+
+.info {
+  position: relative;
+  margin-top: 3rem;
+  padding: 0 3rem 1rem;
+  border-bottom: 1px solid #E6E6E6;
+}
+
+.info-title {
+  font-size: 3rem;
+}
+
+.info-list {
+  margin-top: 2rem;
+}
+
+.info-list-item {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0 1.6rem 0 1.7rem;
+  font-size: 1.4rem;
+  line-height: 1;
+  vertical-align: top;
+  border: 0;
+}
+
+.info-list-item:first-child {
+  padding-left: 0;
+}
+
+.pipe {
+  position: absolute;
+  bottom: -1.2rem;
+  right: 0;
+  height: 1.1rem;
+  border-right: 1px solid #E6E6E6;
+}
+
+.info-text {
+  position: absolute;
+  right: 3rem;
+  bottom: 1rem;
+  color: #919191;
+  font-size: 1.4rem;
+}
+
+/* description */
+
+.description {
+  padding: 0 3rem;
+  margin: 3rem 0;
+  max-height: 40rem;
+  page-break-after: always;
+}
+
+.description-list-container {
+  display: inline-block;
+  vertical-align: top;
+  width: 32%;
+}
+
+.description-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  line-height: 2;
+}
+
+.description-list {
+  margin-bottom: 2rem;
+}
+
+.description-list-title {
+  display: inline-block;
+  font-weight: bold;
+}
+
+.description-list-item {
+  display: inline-block;
+  line-height: 2;
+}
+
+/* about */
+
+.about-image-container {
+  display: inline-block;
+  padding: 0 .5rem .5rem 0;
+  width: 50%;
+  max-height: 22.5rem;
+}
+
+.about-image-container:nth-child(2n) {
+  padding-right: 0;
+}
+
+.about-image {
+  display: inline-block;
+  width: 100%;
+  height: 16rem;
+  vertical-align: top;
+  background: transparent center center no-repeat;
+  background-size: cover;
+}
+
+.about {
+  padding: 0 3rem 6rem;
+  page-break-after: always
+}
+
+.about-title {
+  margin-bottom: 1.5rem;
+  font-size: 1.7rem;
+  line-height: 1;
+  font-weight: bold;
+}
+
+.about-list-container {
+  display: inline-block;
+  width: 32%;
+  margin-top: 3rem;
+  padding-right: 2rem;
+  vertical-align: top;
+}
+
+.about-list-container:nth-child(3) {
+  /*height: 45vh;*/
+}
+
+.about-list-title {
+  font-weight: bold;
+  line-height: 2;
+}
+
+.about-list-item {
+  line-height: 2;
+}
+
+.about-equipment-list-item {
+  line-height: 2;
+}
+
+.about-equipment-list-item-image {
+  width: .9rem;
+  height: .8rem;
+  margin-right: .8rem;
+  margin-top: .3rem;
+}
+
+.about-address-list-title {
+  display: inline-block;
+  font-weight: bold;
+}
+
+.about-address-list-item {
+  display: inline-block;
+  line-height: 2;
+}
+
+/* footer */
+
+.footer {
+  width: 100%;
+  padding: 1rem 3rem;
+  background-color: #F5F5F5;
+  float: footnote;
+  position: fixed;
+  bottom: 0px;
+}
+
+.footer-logo {
+  display: inline-block;
+  width: 36%;
+  vertical-align: middle;
+}
+
+.footer-link {
+  display: inline-block;
+  width: 28%;
+  color: #000;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+.footer-link:hover,
+.footer-link:focus,
+.footer-link:active {
+  color: #000;
+}
+
+.footer-broker-card {
+  display: inline-block;
+  width: 36%;
+  text-align: right;
+  vertical-align: middle;
+}
+
+.footer-broker-info {
+  margin-top: .8rem;
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.footer-broker-card-title {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.footer-broker-card-phone {
+  font-size: 1.8rem;
+  font-weight: bold;
+  line-height: 1.6;
+}
+
+.footer-broker-card-image {
+  margin-left: 2.5rem;
+  border-radius: 50%;
+}
+
+/* utils */
+
+.pushed-top-1_5 {
+  margin-top: 1.5rem;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.page-break {
+  page-break-after: always
+}

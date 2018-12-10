@@ -1,0 +1,27 @@
+@import '../variables';
+
+.rating {
+  padding: 3rem 1rem;
+
+  background-color: $brand-white;
+}
+
+.title {
+  composes: title from '../id/content.css';
+}
+
+.alignLeft {
+  text-align: left;
+}
+
+.brokerColumn {
+  width: 30%;
+}
+
+.totalStatsColumn {
+  width: 70%;
+}
+
+.statsColumn {
+  width: 5rem;
+}

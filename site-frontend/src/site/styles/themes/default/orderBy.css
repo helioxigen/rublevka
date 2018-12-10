@@ -1,0 +1,9 @@
+@import '../../responsive-utils';
+@import './variables';
+
+.btn {
+  &:hover,
+  &:focus {
+    color: $brand-primary !important;
+  }
+}

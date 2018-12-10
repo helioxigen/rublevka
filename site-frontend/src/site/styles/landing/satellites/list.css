@@ -1,0 +1,323 @@
+@import '../../responsive-utils';
+@import '../../variables';
+
+.bannerContainer {
+  background: url('//s3.eu-central-1.amazonaws.com/dt-marketing/hero-images/satellites-background.jpg') center bottom no-repeat;
+  background-size: cover;
+}
+
+.placesContainer {
+  padding-top: 6.5rem;
+  padding-bottom: 6.7rem;
+
+  background: $brand-white;
+
+  @include responsive(sm) {
+    padding-top: 9.5rem;
+    padding-bottom: 11rem;
+  }
+
+  @include responsive(md) {
+    padding-top: 9rem;
+    padding-bottom: 7.5rem;
+  }
+}
+
+.selectionsContainer {
+  padding-top: 6.5rem;
+  padding-bottom: 6.7rem;
+
+  background: $brand-white;
+
+  @include responsive(sm) {
+    padding-top: 9.5rem;
+    padding-bottom: 11rem;
+  }
+
+  @include responsive(md) {
+    padding-top: 9rem;
+    padding-bottom: 0;
+  }
+}
+
+.headerContainer {
+  padding-top: 3.8rem;
+  padding-bottom: 1rem;
+
+  text-align: center;
+
+  background: rgba(0, 0, 0, .5);
+
+  @include responsive(sm) {
+    padding-top: 5.8rem;
+  }
+
+  @include responsive(md) {
+    padding-top: 6.5rem;
+  }
+}
+
+.titleLg {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  font-weight: 500;
+
+  @include responsive(sm) {
+    font-size: 3.2rem;
+  }
+
+  @include responsive(md) {
+    font-size: 3.4rem;
+  }
+}
+
+.titleMd {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  margin-right: -1.5rem;
+  margin-left: -1.5rem;
+
+  font-weight: 600;
+
+  @include responsive(sm) {
+    margin-right: 0;
+    margin-left: 0;
+
+    font-size: 2.7rem;
+  }
+}
+
+.titleXSm {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  color: $brand-white;
+  font-size: 2.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  @include responsive(sm) {
+    font-size: 3.2rem;
+  }
+
+  @include responsive(md) {
+    font-size: 3.6rem;
+  }
+}
+
+.titleSm {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  color: $star-dust;
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 2.5rem;
+
+  @include responsive(sm) {
+    font-size: 1.6rem;
+    line-height: 4rem;
+  }
+}
+
+.text {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  margin-right: -1.5rem;
+  margin-left: -1.5rem;
+
+  font-size: 1.6rem;
+  line-height: 2.7rem;
+
+  @include responsive(sm) {
+    margin-right: 0;
+    margin-left: 0;
+
+    font-size: 1.8rem;
+    line-height: 4.1rem;
+  }
+
+  @include responsive(md) {
+    font-size: 2rem;
+  }
+}
+
+.textSm {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  padding: 0 .5rem;
+
+  color: $brand-white;
+  font-size: 1.8rem;
+  font-weight: 300;
+  line-height: 2.7rem;
+
+  @include responsive(sm) {
+    padding: 0;
+
+    font-size: 2.4rem;
+    line-height: 2.8rem;
+  }
+
+  @include responsive(md) {
+    font-size: 2.7rem;
+    line-height: 1.5rem;
+  }
+}
+
+.textGrey {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  color: $star-dust;
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+.btnContainer {
+  margin: 2.7rem 1.5rem;
+
+  @include responsive(sm) {
+    margin: 4.5rem 0;
+  }
+}
+
+.dividerBottom {
+  composes: divider from 'site/styles/utils';
+
+  padding-bottom: 2.5rem;
+
+  &:after {
+    right: -1.5rem;
+    bottom: 0;
+    left: -1.5rem;
+
+    height: 1px;
+  }
+
+  @include responsive(sm) {
+    padding-bottom: 4.5rem;
+
+    &:after {
+      right: 1.5rem;
+      left: 1.5rem;
+    }
+  }
+
+  @include responsive(md) {
+    padding-bottom: 2rem;
+  }
+}
+
+.resetPadding {
+  margin: 0 -1.5rem;
+
+  @include responsive(sm) {
+    margin: 0 -1.5rem;
+  }
+}
+
+/* collescions card */
+
+.card {
+  position: relative;
+
+  display: block;
+  margin: 0 -1.5rem 1px;
+  overflow: hidden;
+
+  &:hover {
+    .layout {
+      transform: scale(1.18);
+
+      transition: transform 16s cubic-bezier(.215, .61, .355, 1);
+    }
+  }
+
+  @include responsive(sm) {
+    margin: 0;
+    margin-bottom: 3rem;
+  }
+}
+
+.cardLayout {
+  position: relative;
+  z-index: 1;
+
+  padding: 8.3rem 0;
+
+  background: transparent url('//images.jqestate.ru/PRI11201-bd37ae70-1024') center center no-repeat;
+  background-size: cover;
+  transform: scale(1);
+
+  transition: transform 8s cubic-bezier(.215, .61, .355, 1);
+
+  will-change: transform;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+
+    background: rgba(0, 0, 0, .61);
+  }
+
+  @include responsive(sm) {
+    padding: 7rem 0;
+  }
+
+  @include responsive(md) {
+    padding: 14.3rem 0;
+  }
+}
+
+.cardDescription {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+
+  width: 100%;
+  margin: 0;
+
+  color: $brand-white;
+
+  transform: translate(-50%, -50%);
+}
+
+.cardTitle {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  font-size: 2rem;
+  line-height: 1;
+  text-align: center;
+
+  @include responsive(sm) {
+    font-size: 2.4rem;
+  }
+
+  @include responsive(md) {
+    font-size: 2.7rem;
+  }
+}
+
+.cardText {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  font-size: 2rem;
+  line-height: 1;
+  text-align: center;
+}
+
+.icon {
+  width: 18rem;
+  height: 3rem;
+
+  fill: $brand-white;
+
+  @include responsive(sm) {
+    width: 24rem;
+    height: 4.5rem;
+  }
+}

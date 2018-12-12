@@ -8,7 +8,6 @@ COPY ./package.json /app
 
 RUN yarn
 RUN yarn add -g @babel/core @babel/register
-RUN npm i -S babel-register
 
 COPY . /app
 

@@ -43,7 +43,10 @@ gulp.task('webpack', callback =>
 gulp.task('copy-build', () => gulp.src(paths.build.in).pipe(gulp.dest(paths.build.out)));
 gulp.task('copy-static', () => gulp.src(paths.static.in[MODULE]).pipe(gulp.dest(paths.static.out)));
 gulp.task('copy-robotstxt', () =>
-  gulp.src(paths.robots.in).pipe(replace('{HOST}', HOST)).pipe(gulp.dest(paths.robots.out)),
+  gulp
+    .src(paths.robots.in)
+    .pipe(replace('{HOST}', HOST))
+    .pipe(gulp.dest(paths.robots.out)),
 );
 gulp.task('process:files', () => {
   sequence('copy-build', 'copy-static', 'copy-robotstxt');
@@ -55,8 +58,9 @@ gulp.task('default', () => {
       const isJq = APP === 'jqestate' && apps[appKey].MODULE === 'site';
       const isCEM = APP === 'cem' && apps[appKey].MODULE === 'cem';
       const isLanding = APP === 'renessans-park' && apps[appKey].MODULE === 'landing';
-
-      if (isJq || isCEM || isLanding) {
+      const isCurrApp = APP === appKey;
+      const isToProcess = isCurrApp && (isJq || isCEM || isLanding);
+      if (isToProcess) {
         run(`APP=${appKey} APP_ENV=${APP_ENV} gulp process:files`).exec();
       }
     });

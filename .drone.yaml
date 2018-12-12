@@ -1,0 +1,12 @@
+pipeline:
+  deploy_rublevka:
+    image: docker:18.09
+    commands:
+      - cd site-frontend
+      - docker build -t jqestate_site_frontend_builds .
+      - docker run -e APP=rublevka -e APP_ENV=production -e NODE_ENV=production -e BUILD_ID=1 -v /root/jqestate_site_frontend_builds:/app/build jqestate_test yarn build
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    when:
+      branch: [master]
+      event: [push]

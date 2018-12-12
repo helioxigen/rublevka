@@ -4,7 +4,7 @@ pipeline:
     commands:
       - cd site-frontend
       - docker build -t jqestate_site_frontend_builds .
-      - docker run -e APP=rublevka -e APP_ENV=production -e NODE_ENV=production -e BUILD_ID=1 -v /root/jqestate_site_frontend_builds:/app/build jqestate_test yarn build
+      - docker run -e APP=rublevka -e APP_ENV=production -e NODE_ENV=production -e BUILD_ID=1 -v /root/jqestate_site_frontend_builds:/app/build jqestate_site_frontend_builds yarn build
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     when:

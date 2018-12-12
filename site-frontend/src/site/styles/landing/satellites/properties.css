@@ -1,0 +1,159 @@
+@import '../../responsive-utils';
+@import '../../variables';
+
+.mainContainer {
+  padding-top: 6rem;
+
+  background: $brand-white;
+}
+
+.heading {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  @include responsive(sm) {
+    font-size: 3.6rem;
+    font-weight: 300;
+    line-height: 1;
+  }
+}
+
+.titleLg {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  font-size: 2.2rem;
+  font-weight: 300;
+
+  @include responsive(sm) {
+    font-size: 2.8rem;
+  }
+}
+
+.text {
+  margin: 0;
+  margin-bottom: 2rem;
+
+  font-size: 1.6rem;
+  line-height: 2.7rem;
+
+  @include responsive(sm) {
+    margin-bottom: 1rem;
+
+    font-size: 1.8rem;
+    font-weight: 300;
+    line-height: 3.6rem;
+  }
+}
+
+.tabList {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  list-style: none;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btnContainer {
+  margin: 4.8rem 1.5rem;
+
+  @include responsive(sm) {
+    margin: 6.2rem 0 6rem;
+  }
+
+  @include responsive(md) {
+    margin: 7rem 0 7.3rem;
+  }
+}
+
+.btn {
+  max-width: 34rem;
+  margin: 0 auto;
+  padding-top: 1.9rem;
+  padding-bottom: 1.9rem;
+
+  color: $font-color;
+  font-size: 1.6rem;
+
+  border-radius: 10rem;
+
+  @include responsive(md) {
+    max-width: 32rem;
+  }
+}
+
+.btnPrimary {
+  padding-right: 2.5rem;
+  padding-left: 2.5rem;
+
+  font-size: 1.4rem;
+
+  border-radius: 10rem;
+
+  @include responsive(sm) {
+    padding-right: 3.5rem;
+    padding-left: 3.5rem;
+
+    font-size: 1.6rem;
+  }
+}
+
+.dividerBottom {
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+
+    height: 1px;
+
+    background: $grey;
+  }
+}
+
+.scroll {
+  overflow-y: scroll;
+
+  box-shadow: inset -4.5rem 0 5rem -2rem rgba(255, 255, 255, 1);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+
+  display: block;
+  margin: 0 -1.5rem;
+
+  color: $brand-white;
+  font-weight: 300;
+  font-size: 1.6rem;
+
+  transition: all .3s;
+
+  background: url('https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/help-form-bg.jpg') no-repeat center;
+  background-size: cover;
+
+  min-height: 20rem;
+
+  @include responsive(sm) {
+    min-height: 43.1rem;
+    margin: -1px -1.5rem 0 -1.6rem;
+  }
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  padding: 0 2.5rem;
+
+  width: 100%;
+  text-align: center;
+}

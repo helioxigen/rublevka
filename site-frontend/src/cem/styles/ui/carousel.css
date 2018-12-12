@@ -1,0 +1,214 @@
+@import '../responsive-utils';
+@import '../variables';
+
+.carousel {
+  overflow: hidden;
+
+  user-select: none;
+
+  &.isFullscreen {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.trackSlide {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: inline-block;
+
+  transition: transform .5s ease;
+
+  will-change: transform;
+
+  @include responsive(sm) {
+    top: 3rem;
+    bottom: 11rem;
+  }
+}
+
+.trackImage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  max-width: 100%;
+  max-height: 100%;
+
+  transform: translate(-50%, -50%);
+}
+
+.trackBtn {
+  position: absolute;
+  top: 0;
+  right: .5rem;
+  z-index: 20;
+
+  display: inline-block;
+  width: 4rem;
+  height: 6rem;
+  padding: 0;
+
+  background: none;
+  border: none;
+
+  &:focus,
+  &:active {
+    background: transparent;
+    outline: none;
+  }
+
+  @include responsive(sm) {
+    top: 1rem;
+    right: 3rem;
+  }
+}
+
+.trackBtnLeft,
+.trackBtnRight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 10;
+
+  width: 5rem;
+  height: 100%;
+
+  @include responsive(sm) {
+    top: -3rem;
+
+    width: 25%;
+  }
+}
+
+.trackBtnLeft {
+  left: 0;
+
+  text-align: left;
+}
+
+.trackBtnRight {
+  right: 0;
+
+  text-align: right;
+}
+
+.trackIcon {
+  width: 100%;
+  height: 3rem;
+  margin-top: .6rem;
+
+  fill: $brand-white;
+}
+
+.trackIconLeft,
+.trackIconRight {
+  width: 4rem;
+  height: 4rem;
+
+  @include responsive(sm) {
+    width: 10rem;
+  }
+}
+
+.trackIconLeft {
+  transform: rotate(90deg);
+}
+
+.trackIconRight {
+  transform: rotate(-90deg);
+}
+
+.title {
+  position: absolute;
+  bottom: 9rem;
+  left: 3rem;
+
+  display: none;
+
+  color: $brand-white;
+  font-weight: 300;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .8);
+
+  @include responsive(sm) {
+    display: block;
+  }
+}
+
+.nav {
+  position: absolute;
+  right: 3rem;
+  bottom: 2rem;
+  left: 3rem;
+  z-index: 20;
+
+  display: none;
+  overflow-x: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include responsive(sm) {
+    display: block;
+  }
+}
+
+.navItemContainer {
+  display: flex;
+
+  transition: transform .5s ease;
+
+  will-change: transform;
+}
+
+.navItem {
+  position: relative;
+
+  flex-shrink: 0;
+  margin-right: 2px;
+
+  font-size: 0;
+
+  cursor: pointer;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    background: rgba(0, 0, 0, .5);
+  }
+
+  &.isActive {
+    &:after {
+      background: transparent;
+    }
+  }
+}
+
+.navItemImage {
+  width: auto;
+  max-width: 100%;
+  height: 7rem;
+}
+
+.width {
+  width: 100%;
+}

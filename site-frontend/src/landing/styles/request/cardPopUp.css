@@ -1,0 +1,161 @@
+@import '../variables';
+@import '../responsive-utils';
+
+.modalContent {
+  top: 0;
+
+  overflow-x: hidden; /* TODO: remove horizontal scroll by another way */
+
+  background: $brand-white;
+
+  @include responsive(sm) {
+    top: 6rem;
+  }
+}
+
+.modal {
+  top: 0;
+  z-index: 9999;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.container {
+  padding: 3rem 0 5rem;
+}
+
+.detailsContainer {
+  text-align: left;
+  padding-left: 3rem;
+
+  @include responsive(sm) {
+    padding-left: 6rem;
+  }
+}
+
+.title {
+  margin-top: 6rem;
+  margin-bottom: 1.3rem;
+
+  font-size: 2rem;
+}
+
+.text {
+  margin: 0;
+
+  font-size: 1.6rem;
+  font-family: 'Helvetica Neue';
+}
+
+.fontSizeMd {
+  margin-left: .5rem;
+  font-size: 1.6rem;
+  font-family: 'Helvetica Neue';
+}
+
+.price {
+  font-size: 2.6rem;
+  font-weight: 600;
+  white-space: nowrap;
+  line-height: 1;
+  text-align: left;
+
+  margin: 1.5rem 0;
+  padding-left: 3rem;
+
+  @include responsive(sm) {
+    padding-left: 6rem;
+  }
+}
+
+.textGrey {
+  margin: 0;
+
+  color: $star-dust;
+  font-size: 1.4rem;
+}
+
+.iconLogo {
+  width: 4rem;
+  height: 3.5rem;
+
+  fill: $brand-primary;
+}
+
+.carouselContainer {
+  width: 100%;
+  min-height: 36rem;
+  position: relative;
+
+  padding: 0;
+  margin: 0;
+
+  @include responsive(sm) {
+    min-height: 58rem;
+  }
+}
+
+.formContainer {
+  padding: 0;
+  margin: 0;
+}
+
+.resetPadding {
+  padding: 0;
+  margin-bottom: -1px;
+
+  @include responsive(sm) {
+    margin-right: -1px;
+  }
+}
+
+.formTitle {
+  font-weight: 500;
+  font-size: 2rem;
+
+  margin: 0;
+  margin-bottom: 2.5rem;
+}
+
+.inputName {
+  position: relative;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-top: -2px;
+
+  @include responsive(sm) {
+    border-radius: 0;
+    border-bottom-left-radius: .4rem;
+    border-top-left-radius: .4rem;
+  }
+
+  &:focus {
+    z-index: 5;
+  }
+}
+
+.inputPhone {
+  position: relative;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin-top: -2px;
+
+  @include responsive(sm) {
+    border-radius: 0;
+  }
+
+  &:focus {
+    z-index: 5;
+  }
+}
+
+.btn {
+  margin-top: 3rem;
+  border-radius: .4rem;
+
+  @include responsive(sm) {
+    margin-top: -2px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="21px" height="16px" viewBox="0 0 21 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4 (15588) - http://www.bohemiancoding.com/sketch -->
+    <title>Back</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Object-(Information)" sketch:type="MSArtboardGroup" transform="translate(-922.000000, -2953.000000)" fill="#757575">
+            <g id="Контакты-+-Group" sketch:type="MSLayerGroup" transform="translate(75.000000, 2857.000000)">
+                <g id="Group" transform="translate(0.000000, 54.000000)" sketch:type="MSShapeGroup">
+                    <path d="M849.996466,49.4076197 L854.912279,44.1729036 C855.23478,43.8525187 855.23478,43.3330043 854.912279,43.011773 C854.58872,42.6913882 854.065396,42.6913882 853.742895,43.011773 L847,50.2460377 L853.639415,57.5306667 C853.801089,57.6910707 854.012281,57.7714844 854.224107,57.7714844 C854.435299,57.7714844 854.647125,57.6910707 854.808799,57.5306667 C855.1313,57.209647 855.1313,56.6907674 854.808799,56.3697477 L849.943351,51.0493276 L866.434495,51.0493276 C866.890525,51.0493276 867.261062,50.6817526 867.261062,50.2284737 C867.261062,49.7751947 866.890525,49.4076197 866.434495,49.4076197 L849.996466,49.4076197 Z" id="Back" transform="translate(857.130531, 50.271484) rotate(-180.000000) translate(-857.130531, -50.271484) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

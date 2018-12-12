@@ -1,0 +1,204 @@
+@import '../../responsive-utils';
+@import '../../variables';
+
+.card {
+  position: relative;
+  z-index: 1;
+
+  display: block;
+  margin: 0 -1.5rem;
+  padding: 0;
+
+  color: $brand-black;
+  text-decoration: none;
+  white-space: nowrap;
+
+  background: $brand-white;
+  border: 0;
+
+  transition: all .3s;
+
+  &:hover,
+  &:focus {
+    z-index: 2;
+
+    color: $brand-black;
+    text-decoration: none;
+
+    border-color: $silver-chalice;
+  }
+
+  @include responsive(sm) {
+    margin: -1px -1.5rem 0 -1.6rem;
+    padding: 3rem;
+    padding-bottom: 2.4rem;
+
+    border: 1px solid $grey;
+  }
+}
+
+.titleXs {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+
+  color: $brand-white;
+  font-size: 1.4rem;
+}
+
+.titleSm {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  color: $brand-white;
+  font-size: 2.2rem;
+  font-weight: 400;
+  line-height: 1;
+
+  @include responsive(sm) {
+    color: #636363;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1;
+  }
+}
+
+.titleLg {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  font-size: 2rem;
+  line-height: 1;
+
+  @include responsive(sm) {
+    font-size: 2.2rem;
+    font-weight: 500;
+  }
+}
+
+.imageContainer {
+  position: relative;
+
+  margin: 0;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    box-shadow: 0 -100px 40px rgba(11, 11, 11, .4) inset;
+  }
+
+  @include responsive(sm) {
+    margin-bottom: 3.6rem;
+
+    &:after {
+      box-shadow: none;
+    }
+  }
+}
+
+.image {
+  position: relative;
+  fill: $grey;
+
+  width: 100%;
+  min-height: 18.9rem;
+
+  background: transparent center center no-repeat;
+  background-size: cover;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  @include responsive(xs) {
+    min-height: 40rem;
+  }
+
+  @include responsive(sm) {
+    min-height: 20rem;
+
+    &:after {
+      box-shadow: none;
+    }
+  }
+}
+
+.descriptionContainer {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+
+  color: $brand-white;
+
+  @include responsive(sm) {
+    position: static;
+
+    color: $brand-black;
+  }
+}
+
+.list {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  margin-top: 1.7rem;
+
+  list-style: none;
+
+  @include responsive(sm) {
+    margin-top: 3.1rem;
+  }
+}
+
+.item {
+  display: inline-block;
+  margin-right: 4.2rem;
+
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.hideFromSm {
+  @include responsive(sm) {
+    display: none;
+  }
+}
+
+.icon {
+  position: relative;
+  top: 1px;
+
+  margin-right: 1rem;
+
+  fill: #b2b2b2;
+}
+
+.iconArea {
+  composes: icon;
+
+  width: 1.35rem;
+  height: 1.33rem;
+}
+
+.iconHouse {
+  composes: icon;
+
+  width: 1.48rem;
+  height: 1.43rem;
+}
+
+
+.iconRoute {
+  width: 1.1rem;
+  height: 1rem;
+  margin-right: 1.5rem;
+
+  fill: $brand-white;
+}

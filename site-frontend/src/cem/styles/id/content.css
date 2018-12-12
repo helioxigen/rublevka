@@ -1,0 +1,435 @@
+@import '../responsive-utils';
+@import '../variables';
+
+.section {
+  min-width: 100%;
+  min-height: 100vh;
+  padding: 3rem 2.5rem 10rem;
+
+  background-color: $brand-white;
+}
+
+.text {
+  margin: 0 0 1.5rem;
+
+  color: $grey;
+  font-size: 1.4rem;
+  font-weight: 300;
+}
+
+.headingInput {
+  font-size: 1.6rem;
+}
+
+.headingCheckbox {
+  margin-right: 1rem;
+}
+
+.tableInput {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+
+  border: none;
+}
+
+.description {
+  margin: 0;
+  margin-bottom: .6rem;
+  padding-top: .3rem;
+
+  color: $brand-default;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* media component */
+
+.mediaContainer {
+  margin-top: 1rem;
+}
+
+.mediaTitleLg {
+  margin: 0;
+  margin-bottom: 1rem;
+
+  color: $brand-default;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.mediaText {
+  composes: description;
+
+  display: block;
+}
+
+.modalWrapper {
+  position: relative;
+
+  display: inline-block;
+  margin-left: 1rem;
+
+  vertical-align: top;
+}
+
+.textError {
+  position: relative;
+  top: -1.5rem;
+
+  color: $brand-danger;
+}
+
+/* propertes/id/about/task */
+
+.taskWrapper {
+  position: relative;
+
+  padding: .5rem 2.5rem 5rem;
+
+  border-left: .15rem solid $light-grey;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 1.2rem;
+    left: -.6rem;
+    z-index: 3;
+
+    display: block;
+    width: 1.2rem;
+    height: 1.2rem;
+
+    background-color: $light-grey;
+    border-radius: 50%;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -.6rem;
+    z-index: 2;
+
+    display: block;
+    width: 1.2rem;
+    height: 3rem;
+
+    background-color: $brand-white;
+  }
+}
+
+.taskKind {
+  display: block;
+  margin: 0;
+
+  color: #616161;
+  font-size: 1.8rem;
+  font-weight: 400;
+
+  @include responsive(sm) {
+    display: inline-block;
+  }
+}
+
+.taskLabel {
+  composes: taskKind;
+
+  margin-left: 0;
+
+  @include responsive(sm) {
+    margin-left: 2rem;
+  }
+}
+
+.taskList {
+  margin: 0;
+  margin-bottom: 3rem;
+}
+
+.taskTitle {
+  margin: 0;
+  margin-bottom: .5rem;
+}
+
+.taskDescription {
+  margin: 0;
+}
+
+.taskHeader {
+  margin-top: -.4rem;
+}
+
+.textarea {
+  padding: .7rem 1rem;
+
+  border: 1px solid $light-grey;
+  border-radius: .2rem;
+
+  resize: none;
+}
+
+/* comment */
+
+.commentPanel {
+  padding: 1.7rem 0;
+
+  color: #000000;
+}
+
+.commentTitle {
+  margin: 0;
+  padding-bottom: .7rem;
+
+  color: $brand-default;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.commentTime {
+  display: inline-block;
+  margin-right: 1.5rem;
+
+  color: $dark-grey;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.commentBody {
+  margin-top: 0;
+  margin-bottom: 1rem;
+
+  line-height: 2rem;
+
+  p:first-child {
+    margin-top: 0;
+  }
+}
+
+.commentBtn {
+  padding: 0;
+
+  color: $brand-primary;
+  font-size: 1.2rem;
+  line-height: 1.7rem;
+  vertical-align: top;
+  text-transform: none;
+
+  border: none;
+
+  &:hover,
+  &:focus {
+    color: $grey;
+
+    background: transparent;
+  }
+}
+
+/* tasks */
+
+.heading {
+  composes: mediaTitleLg;
+}
+
+.objectDescription {
+  margin-bottom: .8rem;
+
+  line-height: 1;
+}
+
+.list {
+  margin: 0;
+  margin-bottom: 2rem;
+}
+
+.listTitle {
+  color: $grey;
+  font-size: 1.2rem;
+  font-weight: 300;
+  line-height: 1.42857143;
+}
+
+.listItem {
+  margin: 0;
+
+  font-size: 1.8rem;
+  line-height: 1.5;
+}
+
+.formHelper {
+  position: absolute;
+  top: .2rem;
+  left: 17rem;
+}
+
+.helperPosition {
+  bottom: -.5rem;
+}
+
+.helperBottom_9 {
+  bottom: -.9rem;
+}
+
+.label {
+  margin-bottom: 1rem;
+
+  color: $brand-default;
+  font-weight: 400;
+
+  cursor: pointer;
+}
+
+.radioLabel {
+  composes: label;
+
+  line-height: normal;
+}
+
+.checkboxLabel {
+  composes: label;
+}
+
+.flexItem {
+  align-self: flex-end;
+  width: 100%;
+
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.flexBody {
+  width: 100%;
+  margin-left: 1.5rem;
+
+  @include responsive(sm) {
+    margin-left: 2.5rem;
+  }
+}
+
+.divider {
+  margin: 2rem 0 3rem;
+
+  border: none;
+  border-bottom: 1px solid $light-grey;
+}
+
+.centerText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  padding: .7rem 1.4rem;
+
+  font-size: 1rem;
+
+  transform: translate(-50%, -50%);
+
+  transition: background .3s;
+}
+
+/* icon */
+
+.placeholder {
+  fill: $body-bg;
+  width: 11.4rem;
+  height: 11.4rem;
+}
+
+.icon {
+  width: 2rem;
+  height: 2rem;
+
+  fill: $grey;
+}
+
+.iconAdd {
+  width: 3.5rem;
+  height: 3.5rem;
+
+  fill: $light-grey;
+}
+
+.btnIcon {
+  width: 1.8rem;
+  height: 1.7rem;
+
+  fill: $grey;
+}
+
+.linkIcon {
+  display: inline-block;
+  margin-top: 4px;
+  margin-left: 1rem;
+  padding: 0;
+
+  vertical-align: middle;
+
+  border: none;
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+  }
+}
+
+/* loading */
+
+.loadingPhoto {
+  min-height: 22.9rem;
+}
+
+/* kind */
+
+.default {
+  color: $dark-grey;
+}
+
+.primary {
+  color: $brand-primary;
+}
+
+.success {
+  color: $brand-success;
+}
+
+.warning {
+  color: $brand-warning;
+}
+
+.danger {
+  color: $brand-danger;
+}
+
+/* sizes */
+
+.scrollX {
+  overflow-x: scroll;
+}
+
+/* utils */
+
+.positionTopRight {
+  display: block;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+  @include responsive(sm) {
+    position: absolute;
+    top: .5rem;
+    right: 0;
+
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}

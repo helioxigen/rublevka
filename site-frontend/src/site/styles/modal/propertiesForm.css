@@ -1,0 +1,42 @@
+@import '../responsive-utils';
+@import '../variables';
+.card {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin: 0 -1.5rem;
+  color: $brand-white;
+  font-weight: 300;
+  font-size: 1.6rem;
+  transition: all .3s;
+  /*min-height: 43rem;*/
+  @include responsive(sm) {
+    margin: -1px -1.5rem 0 -1.6rem;
+  }
+}
+
+.content {
+  /* position: absolute;
+  top: 50%; */
+  /* transform: translateY(30%); */
+  padding: 7rem 2.5rem;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.input {
+  background: rgba(255, 255, 255, .1);
+  color: $brand-white;
+  margin-bottom: 1rem;
+  text-align: center;
+  &:focus {
+    background: rgba(255, 255, 255, .2);
+    border: 1px solid $brand-white;
+  }
+}
+
+.input:invalid {
+  background: rgba(232, 77, 77, .1);
+  border-color: $brand-primary;
+}

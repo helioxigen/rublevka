@@ -1,0 +1,38 @@
+@import '../responsive-utils';
+
+.media {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  align-items: flex-start;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  @include responsive(md) {
+    flex-wrap: nowrap;
+  }
+}
+
+.left {
+  width: 100%;
+
+  @include responsive(md) {
+    width: 50%;
+    max-height: 36rem;
+    padding-right: 0;
+  }
+}
+
+.right {
+  padding-left: 1rem;
+}
+
+.body {
+  width: 100%;
+
+  @include responsive(md) {
+    width: 50%;
+  }
+}

@@ -1,0 +1,17 @@
+export const fields = [
+  'state',
+  'stateDetails.reason',
+  'stateDetails.toApprove',
+  'details.offerKind',
+  'details.budget',
+  'details.currency',
+  'details.expectedFinishDateAt',
+  'details.expectedAgentFee',
+  'details.expectedAgentFixedPrice.price',
+  'details.expectedAgentFixedPrice.currency',
+  'details.propertyId',
+  'details.note',
+  'stateDetails.reason',
+  'contactDetails.kindId',
+  'isAgentFixed',
+];

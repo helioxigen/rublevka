@@ -1,0 +1,1406 @@
+@import './responsive-utils';
+@import './variables';
+
+.scrollNotFixed {
+  position: fixed;
+
+  width: 100%;
+  overflow: hidden;
+
+  @include responsive(sm) {
+    position: static;
+
+    width: 100%;
+    overflow: hidden;
+  }
+}
+
+.scrollNotFiler {
+  position: fixed;
+
+  width: 100%;
+  overflow: hidden;
+}
+
+.scrollNot {
+  width: 100%;
+  overflow: hidden;
+}
+
+.scroll {
+  position: static;
+
+  width: auto;
+  overflow: auto;
+}
+
+.hideFilter {
+  display: none;
+
+  visibility: hidden;
+}
+
+.showFilter {
+  display: block;
+
+  visibility: visible;
+}
+
+/* map */
+
+.mapContainer {
+  width: 100%;
+  height: 29rem;
+
+  &.fullscreen {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 11;
+
+    height: 100%;
+    margin-top: 0;
+
+    @include responsive(sm) {
+      height: 100%;
+    }
+  }
+
+  @include responsive(sm) {
+    height: 47.3rem;
+  }
+}
+
+.mapContainerForProperty {
+  width: 100%;
+  height: 29rem;
+
+  &.fullscreen {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 11;
+
+    height: 100%;
+    margin-top: 0;
+
+    @include responsive(sm) {
+      height: 100%;
+    }
+  }
+
+  @include responsive(sm) {
+    height: 30rem;
+  }
+
+  @include responsive(md) {
+    height: 47.3rem;
+  }
+}
+
+.btnFullScreen {
+  position: absolute;
+  top: 3rem;
+  right: 1.5rem;
+  z-index: 1;
+
+  padding: 1.2rem 2rem;
+
+  color: $boulder;
+  text-transform: uppercase;
+
+  background: $brand-white;
+  border-color: #d2d2d2;
+
+  &:hover {
+    background: $brand-white;
+    border-color: $star-dust;
+  }
+
+  &:focus {
+    background: $brand-white;
+    border-color: $brand-black;
+  }
+
+  @include responsive(sm) {
+    right: 3rem;
+  }
+}
+
+.btnFullScreenBottomLeft {
+  position: absolute;
+  bottom: 3rem;
+  left: 3rem;
+  z-index: 1;
+
+  padding: 1.2rem 2rem;
+
+  color: $boulder;
+  text-transform: uppercase;
+
+  background: $brand-white;
+  border-color: #d2d2d2;
+
+  &:hover {
+    background: $brand-white;
+    border-color: $star-dust;
+  }
+
+  &:focus {
+    background: $brand-white;
+    border-color: $brand-black;
+  }
+}
+
+.btnFullScreenClose {
+  position: absolute;
+  top: 3rem;
+  right: 3rem;
+  z-index: 1;
+
+  padding: 1.5rem;
+  padding-right: 1.3rem;
+  padding-bottom: 1.3rem;
+
+  background: $brand-white;
+  border: none;
+  border-radius: 50%;
+
+  &:hover,
+  &:focus {
+    background: $brand-white;
+  }
+}
+
+.btnControlContainer {
+  position: absolute;
+  bottom: 3rem;
+  right: 1.5rem;
+
+  display: flex;
+  flex-direction: column;
+
+  @include responsive(sm) {
+    right: 3rem;
+  }
+}
+
+.btnControl {
+  position: relative;
+  z-index: 2;
+
+  margin-top: -1px;
+  padding: 1.2rem;
+
+  color: $boulder;
+  font-size: 2rem;
+
+  background: $brand-white;
+  border-color: #d2d2d2;
+
+  &:hover,
+  &:focus {
+    z-index: 3;
+
+    background: $brand-white;
+  }
+
+  &:hover {
+    border-color: $star-dust;
+  }
+
+  &:focus {
+    border-color: $brand-black;
+  }
+
+  &:first-child {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  &:last-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
+
+.iconFrame {
+  width: 1.3rem;
+  height: 1.3rem;
+  margin-right: .8rem;
+
+  vertical-align: bottom;
+
+  fill: $brand-black;
+}
+
+/* end map */
+
+.iconTimes {
+  width: 3rem;
+  height: 2.8rem;
+
+  fill: $brand-black;
+}
+
+.iconArrow {
+  width: .8rem;
+  height: 1.4rem;
+
+  vertical-align: bottom;
+
+  fill: rgba(0, 0, 0, .5);
+}
+
+.left {
+  transform: rotate(90deg);
+}
+
+.right {
+  transform: rotate(-90deg);
+}
+
+.rotate180 {
+  transform: rotate(180deg);
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+
+  @include responsive(sm) {
+    display: block;
+  }
+}
+
+.flexContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* indentation */
+
+.pushed5_0 {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
+.resetIndent {
+  margin: 0;
+  padding: 0;
+}
+
+.resetPadding {
+  padding: 0;
+
+  @include responsive(sm) {
+    padding: 0 15px;
+  }
+}
+
+/* top */
+
+.pushedTop_5 {
+  margin-top: .5rem !important;
+}
+
+.pushedTop_7 {
+  margin-top: .7rem;
+}
+
+.pushedTop1 {
+  margin-top: 1rem !important;
+}
+
+.pushedTop1_5 {
+  margin-top: 1.5rem !important;
+}
+
+.pushedTop2 {
+  margin-top: 2rem !important;
+}
+
+.pushedTop2_2 {
+  margin-top: 2.2rem;
+}
+
+.pushedTop2_3 {
+  margin-top: 2.3rem;
+}
+
+.pushedTop2_5 {
+  margin-top: 2.5rem;
+}
+
+.pushedTopMd2_9 {
+  @include responsive(md) {
+    margin-top: 2.9rem;
+  }
+}
+
+.pushedTop3 {
+  margin-top: 3rem !important;
+}
+
+.pushedTop3_5 {
+  margin-top: 3.5rem !important;
+}
+
+.pushedTop4 {
+  margin-top: 4rem !important;
+}
+
+.pushedTop4_5 {
+  margin-top: 4.5rem !important;
+}
+
+.pushedTop5 {
+  margin-top: 5rem;
+}
+
+.pushedTopXs2Sm5 {
+  margin-top: 2rem;
+
+  @include responsive(sm) {
+    margin-top: 5rem;
+  }
+}
+
+.pushedTop5_5 {
+  margin-top: 5.5rem;
+}
+
+.pushedTop6 {
+  margin-top: 6rem;
+}
+
+.pushedTop8 {
+  margin-top: 8rem;
+}
+
+.pushedSmTop8 {
+  @include responsive(sm) {
+    padding-top: 8rem;
+  }
+}
+
+.pushedTop9 {
+  margin-top: 9rem;
+}
+
+.pushedTop9_3 {
+  margin-top: 9.3rem;
+}
+
+.pushedTopXs1Md0 {
+  margin-top: 1.5rem;
+
+  @include responsive(md) {
+    margin-top: 0;
+  }
+}
+
+.pushedTopXs1Sm2 {
+  margin-top: 1rem;
+
+  @include responsive(sm) {
+    margin-top: 2rem;
+  }
+}
+
+.pushedTopXs1_5Sm0 {
+  margin-top: 1.5rem;
+
+  @include responsive(sm) {
+    margin-top: 0;
+  }
+}
+
+.pushedTopXs0Sm1_3Md2 {
+  margin-top: 0;
+
+  @include responsive(sm) {
+    margin-top: 1.3rem;
+  }
+
+  @include responsive(md) {
+    margin-top: 2rem;
+  }
+}
+
+.pushedTopXs1_9Sm1_3Md2 {
+  margin-top: 1.9rem;
+
+  @include responsive(sm) {
+    margin-top: 1.3rem;
+  }
+
+  @include responsive(md) {
+    margin-top: 2rem;
+  }
+}
+
+.pushedTopXs_4Sm0 {
+  margin-top: .4rem;
+
+  @include responsive(sm) {
+    margin-top: 0;
+  }
+}
+
+.pushedTopXs_4Sm1_5 {
+  margin-top: .4rem;
+
+  @include responsive(sm) {
+    margin-top: 1.5rem;
+  }
+}
+
+.pushedTopXs3Sm1_5 {
+  margin-top: 3rem;
+
+  @include responsive(sm) {
+    margin-top: 1.5rem;
+  }
+}
+
+.pushedTopXs2_6Md4 {
+  margin-top: 2.6rem;
+
+  @include responsive(md) {
+    margin-top: 4rem;
+  }
+}
+
+.pushedTopXs1_5 {
+  margin-top: 1.5rem;
+
+  @include responsive(sm) {
+    margin-top: 0;
+  }
+}
+
+.pushedTopXs2 {
+  margin-top: 2rem;
+
+  @include responsive(sm) {
+    margin-top: 0;
+  }
+}
+
+.pushedTopXs2Sm3_4Md2 {
+  margin-top: 2rem;
+
+  @include responsive(sm) {
+    margin-top: 3.4rem;
+  }
+
+  @include responsive(md) {
+    margin-top: 2rem;
+  }
+}
+
+.pushedTopXs2Md0 {
+  margin-top: 2rem;
+
+  @include responsive(md) {
+    margin-top: 0;
+  }
+}
+
+.pushedTopXs2Md4 {
+  margin-top: 2rem;
+
+  @include responsive(md) {
+    margin-top: 4rem;
+  }
+}
+
+.pushedTopXs3Sm2Md2_5 {
+  margin-top: 3rem;
+
+  @include responsive(sm) {
+    margin-top: 2rem;
+  }
+
+  @include responsive(md) {
+    margin-top: 2.5rem;
+  }
+}
+
+.pushedTopXs2_2Md5_8 {
+  margin-top: 2.2rem;
+
+  @include responsive(md) {
+    margin-top: 5.8rem;
+  }
+}
+
+.pushedTopXs2_5Sm3 {
+  margin-top: 2.5rem;
+
+  @include responsive(sm) {
+    margin-top: 3rem;
+  }
+}
+
+.pushedTopXs2_5Sm0 {
+  margin-top: 2.5rem;
+
+  @include responsive(sm) {
+    margin-top: 0;
+  }
+}
+
+.pushedTopMd2_3 {
+  @include responsive(md) {
+    margin-top: 2.3rem;
+  }
+}
+
+.pushedTopXs3Md4 {
+  margin-top: 3rem;
+
+  @include responsive(md) {
+    margin-top: 4rem;
+  }
+}
+
+.pushedTopXs2_5Sm4_5 {
+  margin-top: 2.5rem;
+
+  @include responsive(sm) {
+    margin-top: 4.5rem;
+  }
+}
+
+.pushedTopXs2_5Sm4 {
+  margin-top: 2.5rem;
+
+  @include responsive(sm) {
+    margin-top: 4rem;
+  }
+}
+
+.pushedTopXs2_5Sm4Md5 {
+  margin-top: 2.5rem;
+
+  @include responsive(sm) {
+    margin-top: 4rem;
+  }
+
+  @include responsive(md) {
+    margin-top: 5rem;
+  }
+}
+
+.pushedTopXs3Sm4Md5_5 {
+  margin-top: 3rem;
+
+  @include responsive(sm) {
+    margin-top: 4rem;
+  }
+
+  @include responsive(md) {
+    margin-top: 5.5rem;
+  }
+}
+
+.pushedTopXs3Sm2_5Md3_8 {
+  margin-top: 3rem;
+
+  @include responsive(sm) {
+    margin-top: 2.5rem;
+  }
+
+  @include responsive(md) {
+    margin-top: 3.8rem;
+  }
+}
+
+.pushedTopXs3Sm2 {
+  margin-top: 3rem !important;
+
+  @include responsive(sm) {
+    margin-top: 2rem !important;
+  }
+}
+
+.pushedTopXs3Sm0Md3_7 {
+  margin-top: 3rem;
+
+  @include responsive(sm) {
+    margin-top: 0;
+  }
+
+  @include responsive(md) {
+    margin-top: 3.7rem;
+    padding-bottom: 3.5rem;
+  }
+}
+
+.pushedTopXs3Sm5 {
+  margin-top: 3rem;
+
+  @include responsive(sm) {
+    margin-top: 5rem;
+  }
+}
+
+.pushedTopXs3_5Sm0 {
+  margin-top: 3.5rem;
+
+  @include responsive(sm) {
+    margin-top: 0;
+  }
+}
+
+.pushedTopXs3_5Sm0Md3_5 {
+  margin-top: 3.5rem;
+
+  @include responsive(sm) {
+    margin-top: 0;
+  }
+
+  @include responsive(md) {
+    margin-top: 3.5rem;
+  }
+}
+
+.pushedTopXs3_5Sm4_5Md2_8 {
+  margin-top: 3.5rem;
+
+  @include responsive(sm) {
+    margin-top: 4.5rem;
+  }
+
+  @include responsive(md) {
+    margin-top: 2.8rem;
+  }
+}
+
+.pushedTopXs4Lg0 {
+  margin-top: 4rem;
+
+  @include responsive(lg) {
+    margin-top: 0;
+  }
+}
+
+.pushedTopXs4 {
+  margin-top: 4rem;
+
+  @include responsive(sm) {
+    margin-top: 0;
+  }
+}
+
+.pushedTopXs5 {
+  margin-top: 5rem;
+
+  @include responsive(sm) {
+    margin-top: 0;
+  }
+}
+
+.pushedTopXs4Sm0Md4 {
+  margin-top: 4rem !important;
+
+  @include responsive(sm) {
+    margin-top: 0;
+  }
+
+  @include responsive(md) {
+    margin-top: 4rem !important;
+  }
+}
+
+.pushedTopXs5Sm7Md8 {
+  margin-top: 5rem;
+
+  @include responsive(sm) {
+    margin-top: 7rem;
+  }
+
+  @include responsive(md) {
+    margin-top: 8rem;
+  }
+}
+
+.pushedTopXs5_2Sm6_4 {
+  margin-top: 5.2rem;
+
+  @include responsive(sm) {
+    margin-top: 6.4rem;
+  }
+}
+
+.pushedTopSm1 {
+  @include responsive(sm) {
+    margin-top: 1rem;
+  }
+}
+
+.pushedTopSm2 {
+  @include responsive(sm) {
+    margin-top: 2rem;
+  }
+}
+
+.pushedTopSm2_5 {
+  @include responsive(sm) {
+    margin-top: 2.5rem;
+  }
+}
+
+.pushedTopSm3 {
+  @include responsive(sm) {
+    margin-top: 3rem;
+  }
+}
+
+.pushedTopSm3_2 {
+  @include responsive(sm) {
+    margin-top: 3.2rem;
+  }
+}
+
+.pushedTopSm3_5Md4_5 {
+  @include responsive(sm) {
+    margin-top: 3.5rem;
+  }
+
+  @include responsive(md) {
+    margin-top: 4.5rem;
+  }
+}
+
+.pushedTopSm3Lg0 {
+  @include responsive(sm) {
+    margin-top: 3rem;
+  }
+
+  @include responsive(lg) {
+    margin-top: 0;
+  }
+}
+
+.pushedTopSm4 {
+  @include responsive(sm) {
+    margin-top: 4rem;
+  }
+}
+
+.pushedTopSm5 {
+  @include responsive(sm) {
+    margin-top: 5rem;
+  }
+}
+
+.pushedTopSm5Md4_7 {
+  @include responsive(sm) {
+    margin-top: 5rem;
+  }
+
+  @include responsive(md) {
+    margin-top: 4.7rem;
+  }
+}
+
+.pushedTopSm5_5 {
+  @include responsive(sm) {
+    margin-top: 5.5rem;
+  }
+}
+
+.pushedTopSm6 {
+  @include responsive(sm) {
+    margin-top: 6rem;
+  }
+}
+
+.pushedTopSm7 {
+  @include responsive(sm) {
+    margin-top: 7rem;
+  }
+}
+
+.pushedTopMd4 {
+  @include responsive(md) {
+    margin-top: 4rem;
+  }
+}
+
+/* right */
+
+.pushedRightXs1_5Md0 {
+  margin-right: 1.5rem;
+
+  @include responsive(md) {
+    margin-right: 0;
+  }
+}
+
+.pushedRight1_2 {
+  margin-right: 1.2rem;
+}
+
+.pushedRight2 {
+  @include responsive(sm) {
+    margin-right: 2rem;
+  }
+}
+
+.pushedRight3 {
+  margin-right: 3rem !important;
+}
+
+.pushedRight4 {
+  @include responsive(sm) {
+    margin-right: 4rem;
+  }
+}
+
+/* left */
+
+.pushedLeft1 {
+  margin-left: 1rem;
+}
+
+.pushedLeft2 {
+  margin-left: 2rem;
+}
+
+.pushedLeftSm2 {
+  @include responsive(sm) {
+    margin-left: 2rem;
+  }
+}
+
+.pushedLeft3 {
+  @include responsive(sm) {
+    margin-left: 3rem;
+  }
+}
+
+/* bottom */
+
+.pushedBottom_5 {
+  margin-bottom: .5rem;
+}
+
+.pushedBottom1 {
+  margin-bottom: 1rem !important;
+}
+
+.pushedBottom1_5 {
+  margin-bottom: 1.5rem !important;
+}
+
+.pushedBottom2 {
+  margin-bottom: 2rem;
+}
+
+.pushedBottom2_5 {
+  margin-bottom: 2.3rem;
+}
+
+.pushedBottom2_8 {
+  margin-bottom: 2.8rem;
+}
+
+.pushedBottom3 {
+  margin-bottom: 3rem;
+}
+
+.pushedBottom4 {
+  margin-bottom: 4rem;
+}
+
+.pushedBottom4_5 {
+  margin-bottom: 4.5rem;
+}
+
+.pushedBottom5 {
+  margin-bottom: 5rem;
+}
+
+.pushedBottom6 {
+  margin-bottom: 6rem;
+}
+
+.pushedBottom7 {
+  margin-bottom: 7rem;
+}
+
+.pushedBottom8 {
+  margin-bottom: 8rem;
+}
+
+.pushedBottom9_5 {
+  margin-bottom: 9.5rem;
+}
+
+.pushedBottomXs2_5Sm4_2Md2_8 {
+  margin-bottom: 2.5rem;
+
+  @include responsive(sm) {
+    margin-bottom: 4.2rem;
+  }
+
+  @include responsive(md) {
+    margin-bottom: 2.8rem;
+  }
+}
+
+.pushedBottomXs2Sm3 {
+  margin-bottom: 2rem;
+
+  @include responsive(sm) {
+    margin-bottom: 3rem;
+  }
+}
+
+.pushedBottomXs2Sm4 {
+  margin-bottom: 2rem;
+
+  @include responsive(sm) {
+    margin-bottom: 4rem;
+  }
+}
+
+.pushedBottomXs2Sm5 {
+  margin-bottom: 2rem;
+
+  @include responsive(sm) {
+    margin-bottom: 5rem;
+  }
+}
+
+.pushedBottomXs2_5 {
+  margin-bottom: 2.5rem;
+
+  @include responsive(sm) {
+    margin-bottom: 0;
+  }
+}
+
+.pushedBottomXs2_5Sm3 {
+  margin-bottom: 2.5rem;
+
+  @include responsive(sm) {
+    margin-bottom: 3rem;
+  }
+}
+
+.pushedBottomXs3 {
+  margin-bottom: 3rem;
+}
+
+.pushedBottomXs3_5 {
+  margin-bottom: 3.5rem !important;
+
+  @include responsive(md) {
+    margin-bottom: 0;
+  }
+}
+
+.pushedBottomXs5Sm6 {
+  margin-bottom: 5rem;
+
+  @include responsive(sm) {
+    margin-bottom: 6rem;
+  }
+}
+
+.pushedBottomXs4Sm6_8Md6_3 {
+  margin-bottom: 4rem;
+
+  @include responsive(sm) {
+    margin-bottom: 6.8rem;
+  }
+
+  @include responsive(md) {
+    margin-bottom: 6.3rem;
+  }
+}
+
+.pushedBottomXs5_5Sm7 {
+  margin-bottom: 5.5rem;
+
+  @include responsive(sm) {
+    margin-bottom: 7rem;
+  }
+}
+
+.pushedBottomSm8 {
+  @include responsive(sm) {
+    margin-bottom: 8rem;
+  }
+}
+
+.paddingTop3 {
+  padding-top: 3rem;
+}
+
+.paddingTopXs2 {
+  padding-top: 2rem;
+
+  @include responsive(sm) {
+    padding-top: 0;
+  }
+}
+
+.paddingTopXs5Sm3 {
+  padding-top: 5rem;
+
+  @include responsive(sm) {
+    padding-top: 3rem;
+  }
+}
+
+.paddingTop5 {
+  padding-top: 5rem;
+}
+
+.paddingTop6 {
+  padding-top: 6rem;
+}
+
+.paddingBottom6 {
+  padding-bottom: 6rem;
+}
+
+/* width */
+
+.minWidth27 {
+  @include responsive(md) {
+    min-width: 28rem;
+  }
+}
+
+/* text alignment */
+
+.alignRight {
+  text-align: right;
+}
+
+.alignLeft {
+  text-align: left;
+}
+
+.textRight {
+  @include responsive(sm) {
+    text-align: right;
+  }
+}
+
+.textRightLg {
+  @include responsive(lg) {
+    text-align: right;
+  }
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.btnWideXs {
+  width: 100%;
+
+  @include responsive(sm) {
+    width: auto;
+    min-width: 17rem;
+  }
+}
+
+.bgWhite {
+  background: $brand-white;
+}
+
+.positionRelative {
+  position: relative;
+}
+
+.positionRelative10 {
+  position: relative;
+  z-index: 10;
+}
+
+.displayBlock {
+  display: block !important;
+}
+
+.textGrey {
+  color: $brand-white;
+
+  @include responsive(sm) {
+    color: $boulder;
+  }
+}
+
+.textBlack {
+  color: $brand-black;
+}
+
+.textPrimary {
+  color: $brand-primary !important;
+
+  &:hover {
+    color: $brand-primary;
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.fullWidthXs {
+  min-width: 100%;
+
+  @include responsive(sm) {
+    min-width: 0;
+  }
+}
+
+.width80XsFullSm {
+  min-width: 80%;
+
+  @include responsive(sm) {
+    min-width: 100%;
+  }
+}
+
+.showXs {
+  @include responsive(sm) {
+    display: none;
+  }
+}
+
+.showSm {
+  display: none;
+
+  @include responsive(sm) {
+    display: inline;
+  }
+
+  @include responsive(md) {
+    display: none;
+  }
+}
+
+.hideXs {
+  display: none;
+
+  @include responsive(sm) {
+    display: block;
+  }
+}
+
+.hideXsInline {
+  display: none;
+
+  @include responsive(sm) {
+    display: inline-block;
+  }
+}
+
+.hideXsSm {
+  display: none;
+
+  @include responsive(md) {
+    display: block;
+  }
+}
+
+.hideSm {
+  display: block;
+
+  @include responsive(sm) {
+    display: none;
+  }
+
+  @include responsive(md) {
+    display: inline-block;
+  }
+}
+
+.hideMd {
+  @include responsive(md) {
+    display: none;
+  }
+
+  @include responsive(lg) {
+    display: block;
+  }
+}
+
+.hideXsSmMd {
+  display: none;
+
+  @include responsive(lg) {
+    display: inline-block;
+  }
+}
+
+.hideSmMd {
+  display: block;
+
+  @include responsive(sm) {
+    display: none;
+  }
+
+  @include responsive(lg) {
+    display: block;
+  }
+}
+
+.hideXsLg {
+  display: none;
+
+  @include responsive(sm) {
+    display: block;
+  }
+
+  @include responsive(lg) {
+    display: none;
+  }
+}
+
+.hideXsSmLg {
+  display: none;
+
+  @include responsive(md) {
+    display: block;
+  }
+
+  @include responsive(lg) {
+    display: none;
+  }
+}
+
+
+.hideFromSm {
+  display: block;
+
+  @include responsive(sm) {
+    display: none !important;
+  }
+}
+
+.hideFromSmNotBlock {
+  @include responsive(sm) {
+    display: none !important;
+  }
+}
+
+.hideFromMd {
+  display: block;
+
+  @include responsive(md) {
+    display: none !important;
+  }
+}
+
+.hideFromLg {
+  display: block;
+
+  @include responsive(lg) {
+    display: none !important;
+  }
+}
+
+.bold {
+  font-weight: 500;
+}
+
+.displayBlockXs {
+  display: block;
+  width: 100%;
+
+  @include responsive(sm) {
+    display: inline-block;
+    width: auto;
+  }
+}
+
+.resetFormIndent {
+  margin-bottom: 1rem;
+  padding-bottom: 0;
+}
+
+.resetFormGroupIndent {
+  margin: 0;
+  padding-bottom: 1.5rem;
+}
+
+.resetBorder {
+  border: none !important;
+}
+
+.resetMarginTop {
+  @include responsive(sm) {
+    margin-top: 0;
+  }
+}
+
+.divider {
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+
+    background: $grey;
+  }
+}
+
+.paddingTopXs3_5Md0 {
+  position: relative;
+
+  padding-top: 3.5rem;
+
+  @include responsive(md) {
+    padding-top: 0;
+  }
+}
+
+.paddingTopXs6Sm8Md0 {
+  padding-top: 6rem;
+
+  @include responsive(sm) {
+    padding-top: 8rem;
+  }
+
+  @include responsive(md) {
+    padding-top: 0;
+  }
+}
+
+.borderRadius_4 {
+  border-radius: .4rem;
+}
+
+.borderRadius10 {
+  border-radius: 10rem;
+}
+
+.borderRadiusLeft10 {
+  border-top-left-radius: 10rem;
+  border-bottom-left-radius: 10rem;
+}
+
+.borderRadiusRight10 {
+  border-top-right-radius: 10rem;
+  border-bottom-right-radius: 10rem;
+}
+
+.fontSize7 {
+  margin: 0;
+  font-size: 7rem;
+  line-height: 1.1;
+}

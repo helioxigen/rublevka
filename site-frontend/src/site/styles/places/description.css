@@ -1,0 +1,100 @@
+@import '../responsive-utils';
+@import '../variables';
+
+.description {
+  margin: 0 -1.5rem;
+  padding: 4rem 1.5rem 6rem;
+
+  background: $brand-white;
+  border-top: 1px solid $grey;
+
+  @include responsive(sm) {
+    padding: 3.5rem 0 6rem;
+  }
+}
+
+.about {
+  margin-top: 5rem;
+  margin-bottom: 4rem;
+
+  @include responsive(md) {
+    margin-bottom: 0;
+  }
+}
+
+.title {
+  margin: 0;
+
+  font-weight: 400;
+}
+
+.titleAbout {
+  composes: title from '../typography.css';
+
+  margin: 0;
+}
+
+.btn {
+  box-sizing: border-box;
+  margin-right: 1rem;
+  padding: 0;
+
+  line-height: 1.5;
+  vertical-align: top;
+  text-align: left;
+  text-transform: none;
+
+  border: none;
+
+  &:hover,
+  &:focus {
+    background: transparent;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  @include responsive(sm) {
+    margin-bottom: 2rem;
+  }
+
+  @include responsive(md) {
+    margin-right: 2.5rem;
+    margin-bottom: 0;
+  }
+}
+
+.icon {
+  width: 2.2rem;
+  height: 2.2rem;
+  margin-right: 1rem;
+
+  vertical-align: bottom;
+
+  fill: $brand-black;
+}
+
+.divider {
+  margin: 0 -3rem 4rem;
+
+  border-color: $grey;
+
+  @include responsive(sm) {
+    display: none;
+  }
+}
+
+/* utils */
+
+.pushedTop2 {
+  margin-top: 2rem;
+
+  @include responsive(sm) {
+    margin-top: 0;
+  }
+}
+
+.pushedBottom1_5 {
+  margin-bottom: 1.5rem;
+}

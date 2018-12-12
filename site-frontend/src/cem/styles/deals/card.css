@@ -1,0 +1,91 @@
+@import '../variables';
+
+.card {
+  position: relative;
+
+  display: block;
+  margin: 0 -1.5rem;
+  padding: 1rem 0;
+
+  color: $brand-default;
+  text-decoration: none;
+
+  background-color: $brand-white;
+  border-bottom: 1px solid #e0e0e0;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+  }
+}
+
+.title,
+.price {
+  margin: 0;
+  margin-bottom: .3rem;
+
+  color: $brand-default;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.list {
+  margin: 0;
+}
+
+.listTitle {
+  margin: 1.7rem 0 .3rem;
+
+  color: $grey;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.listDescription {
+  margin: 0;
+
+  font-size: 1.2rem;
+}
+
+/* kind */
+
+.primary {
+  &:after {
+    background-color: $brand-primary;
+  }
+}
+
+.success {
+  &:after {
+    background-color: $brand-success;
+  }
+}
+
+.warning {
+  &:after {
+    background-color: $brand-warning;
+  }
+}
+
+.danger {
+  &:after {
+    background-color: $brand-danger;
+  }
+}
+
+.textPrimary {
+  color: $brand-primary;
+}
+
+.textSuccess {
+  color: $brand-success;
+}

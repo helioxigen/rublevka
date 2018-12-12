@@ -1,0 +1,41 @@
+@import '../variables';
+
+.rating {
+  display: flex;
+  flex-wrap: nowrap;
+  max-width: 40rem;
+}
+
+.star {
+  min-width: 20%;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  &.selected {
+    .starIcon {
+      stroke: gold;
+      fill: gold;
+    }
+  }
+}
+
+.starIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+
+  transition: all .3s;
+
+  stroke: $grey;
+  fill: transparent;
+}
+
+.caption {
+  display: block;
+  margin-top: .5rem;
+
+  color: $dark-grey;
+  font-size: 1rem;
+  font-weight: 300;
+}

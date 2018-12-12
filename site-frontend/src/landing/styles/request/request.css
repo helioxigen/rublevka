@@ -1,0 +1,57 @@
+@import '../variables';
+@import '../responsive-utils';
+
+.requestContainer {
+  position: relative;
+  background: $brand-white;
+  margin: 0 -1.5rem;
+  padding-top: 3rem;
+
+  &:after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    background: $grey;
+    height: 1px;
+  }
+}
+
+.title {
+  margin: 3.5rem 0 0;
+  line-height: 1;
+}
+
+.input {
+  position: relative;
+  margin-bottom: -1px;
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+
+  &:first-child {
+    margin-top: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  &:last-child {
+    margin-top: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  &:focus {
+    z-index: 5;
+  }
+}
+
+.btn {
+  margin-top: 1rem;
+  width: 100%;
+
+  border-radius: 10rem;
+  padding: 1.9rem 2.5rem 1.7rem;
+
+  font-weight: 500;
+}

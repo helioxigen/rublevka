@@ -1,15 +1,21 @@
-pipeline:
-  deploy_rublevka:
-    image: docker:18.09
-    commands:
-      - cd site-frontend
-      - docker build -t jqestate_site_frontend_builds .
-      - docker run -e APP=rublevka -e APP_ENV=production -e NODE_ENV=production -e BUILD_ID=1 -v /root/jqestate_site_frontend_builds:/app/build jqestate_site_frontend_builds yarn build
-      - docker run -e APP=riga -e APP_ENV=production -e NODE_ENV=production -e BUILD_ID=1 -v /root/jqestate_site_frontend_builds:/app/build jqestate_site_frontend_builds yarn build
-      - docker run -e APP=jqestate -e APP_ENV=production -e NODE_ENV=production -e BUILD_ID=1 -v /root/jqestate_site_frontend_builds:/app/build jqestate_site_frontend_builds yarn build
-      - docker run -e APP=cem -e APP_ENV=production -e NODE_ENV=production -e BUILD_ID=1 -v /root/jqestate_site_frontend_builds:/app/build jqestate_site_frontend_builds yarn build
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    when:
-      branch: [master]
-      event: [push]
+kind: pipeline
+name: default
+
+steps:
+- name: deploy_rublevka
+  image: docker:18.09
+  commands:
+    - cd site-frontend
+    - docker build -t jqestate_site_frontend_builds .
+    - docker run -e APP=rublevka -e APP_ENV=production -e NODE_ENV=production -e BUILD_ID=1 -v /root/jqestate_site_frontend_builds:/app/build jqestate_site_frontend_builds yarn build
+    - docker run -e APP=riga -e APP_ENV=production -e NODE_ENV=production -e BUILD_ID=1 -v /root/jqestate_site_frontend_builds:/app/build jqestate_site_frontend_builds yarn build
+    - docker run -e APP=jqestate -e APP_ENV=production -e NODE_ENV=production -e BUILD_ID=1 -v /root/jqestate_site_frontend_builds:/app/build jqestate_site_frontend_builds yarn build
+    - docker run -e APP=cem -e APP_ENV=production -e NODE_ENV=production -e BUILD_ID=1 -v /root/jqestate_site_frontend_builds:/app/build jqestate_site_frontend_builds yarn build
+  when:
+    branch: [master]
+    event: [push]
+
+volumes:
+- name: docker
+  host:
+    path: /var/run/docker.sock

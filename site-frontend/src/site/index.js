@@ -9,7 +9,6 @@ import App from 'site/app';
 import sbjs from 'sourcebuster';
 import global from 'window-or-global';
 import Sentry from '@sentry/browser';
-import dotenv from 'dotenv';
 
 sbjs.init({
   domain: global.config.domain,
@@ -22,12 +21,6 @@ try {
   });
 } catch (e) {
   console.log('sentry cannot be inited');
-}
-
-try {
-  dotenv.config();
-} catch (e) {
-  console.log('dotenv cannot be inited');
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));

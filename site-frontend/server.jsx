@@ -297,8 +297,8 @@ generateSitemaps();
 setInterval(generateSitemaps, interval);
 
 // metrics and other
-app.use(Raven.requestHandler());
-app.use(Raven.errorHandler());
+// app.use(Raven.requestHandler());
+// app.use(Raven.errorHandler());
 app.use('/healthz', (req, res) => res.sendStatus(200));
 app.use(metricsMiddleware);
 app.use(cacheMiddleware);

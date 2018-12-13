@@ -276,7 +276,7 @@ const app = express();
 const port = PORT || 8080;
 const cacheMiddleware = expressCacheMiddleware({ maxAge: 120 });
 const metricsMiddleware = expressPromBundleMiddleware({ includeMethod: true });
-Sentry.init({ dsn: REACT_APP_SENTRY_DSN });
+Sentry.init({ dsn: REACT_APP_SENTRY_DSN, environment: APP_ENV });
 
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.errorHandler());

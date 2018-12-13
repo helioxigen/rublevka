@@ -16,7 +16,10 @@ sbjs.init({
 });
 
 try {
-  Sentry(process.env.REACT_APP_SENTRY_DSN).init();
+  Sentry.init({
+    dsn: process.env.REACT_APP_SENTRY_DSN,
+    environment: process.env.APP_ENV,
+  });
 } catch (e) {
   console.log('sentry cannot be inited');
 }

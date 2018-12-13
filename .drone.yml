@@ -20,8 +20,3 @@ steps:
     branch: [master]
     event: [push]
 
-volumes:
-- name: docker
-  host:
-    path: /var/run/docker.sock
-    target: /var/run/docker.sock

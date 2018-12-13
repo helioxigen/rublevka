@@ -58,9 +58,8 @@ gulp.task('default', () => {
       const isJq = APP === 'jqestate' && apps[appKey].MODULE === 'site';
       const isCEM = APP === 'cem' && apps[appKey].MODULE === 'cem';
       const isLanding = APP === 'renessans-park' && apps[appKey].MODULE === 'landing';
-      const isCurrApp = APP === appKey;
-      const isToProcess = isCurrApp && (isJq || isCEM || isLanding);
-      if (isToProcess) {
+
+      if (isJq || isCEM || isLanding) {
         run(`APP=${appKey} APP_ENV=${APP_ENV} gulp process:files`).exec();
       }
     });

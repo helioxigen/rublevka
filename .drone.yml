@@ -11,12 +11,12 @@ steps:
     - docker run -e APP=riga -e APP_ENV=production -e NODE_ENV=production -e BUILD_ID=1 -v /root/jqestate_site_frontend_builds:/app/build jqestate_site_frontend_builds yarn build
     - docker run -e APP=jqestate -e APP_ENV=production -e NODE_ENV=production -e BUILD_ID=1 -v /root/jqestate_site_frontend_builds:/app/build jqestate_site_frontend_builds yarn build
     - docker run -e APP=cem -e APP_ENV=production -e NODE_ENV=production -e BUILD_ID=1 -v /root/jqestate_site_frontend_builds:/app/build jqestate_site_frontend_builds yarn build
-  volumes:
-  - name: docker
-    host:
-      path: /var/run/docker.sock
-      target: /var/run/docker.sock
   when:
     branch: [master]
     event: [push]
 
+volumes:
+- name: docker
+  host:
+    path: /var/run/docker.sock
+    target: /var/run/docker.sock

@@ -3,15 +3,12 @@ import sbjs from 'sourcebuster';
 const phones = {
   default: {
     country: '74957926820',
-    city: '74957926820',
   },
   yandex: {
     country: '74959683505',
-    city: '74959683505',
   },
   google: {
     country: '74959683505',
-    city: '74959683505',
   },
 };
 

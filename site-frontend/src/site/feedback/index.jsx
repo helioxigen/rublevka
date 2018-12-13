@@ -79,8 +79,8 @@ class FeedbackContainer extends Component {
                         </a>
                       )}
                       {isRublevka && (
-                        <a className={sUtils.textBlack} href="tel:+74957926807">
-                          <StaticMask pattern="+1 (111) 111-11-11">74957926807</StaticMask>
+                        <a className={sUtils.textBlack} href="tel:+74954323322">
+                          <StaticMask pattern="+1 (111) 111-11-11">74954323322</StaticMask>
                         </a>
                       )}
                       {isRiga && (

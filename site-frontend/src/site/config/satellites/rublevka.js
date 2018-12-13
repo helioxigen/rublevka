@@ -3,7 +3,7 @@ export default {
   name: 'Рублевка',
   domain: 'rublevka.ru',
   postfix: 'rublevka',
-  phones: { country: '74957926807' },
+  phones: { country: '74954323322' },
   seo: {
     title: 'Дома и коттеджи на Рублевке. Недвижимость на Рублево-Успенском шоссе.',
     description:

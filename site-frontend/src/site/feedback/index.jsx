@@ -84,8 +84,8 @@ class FeedbackContainer extends Component {
                         </a>
                       )}
                       {isRiga && (
-                        <a className={sUtils.textBlack} href="tel:+74957926891">
-                          <StaticMask pattern="+1 (111) 111-11-11">74957926891</StaticMask>
+                        <a className={sUtils.textBlack} href="tel:+74954321313">
+                          <StaticMask pattern="+1 (111) 111-11-11">74954321313</StaticMask>
                         </a>
                       )}
                       <a className={sUtils.textBlack} href={`mailto:info@${global.config.domain}`}>

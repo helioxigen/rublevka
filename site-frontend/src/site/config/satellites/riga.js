@@ -3,7 +3,7 @@ export default {
   name: 'Рига',
   domain: 'riga.ru',
   postfix: 'riga',
-  phones: { country: '74957926891' },
+  phones: { country: '74954321313' },
   seo: {
     title: 'Дома и коттеджи на Новой Риге. Недвижимость на Новорижском шоссе.',
     description:

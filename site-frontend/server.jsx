@@ -5,7 +5,6 @@ import express from 'express';
 import expressPromBundleMiddleware from 'express-prom-bundle';
 import expressCacheMiddleware from 'express-cache-response-directive';
 import { parseString } from 'xml2js';
-import Sentry from '@sentry/node';
 import dotenv from 'dotenv';
 
 import xhr from 'xhr2';
@@ -29,6 +28,8 @@ import {
   cssGeneratedScopeName as generateScopedName,
 } from './scripts/webpack.config.shared';
 import { reducer } from './src/site/store';
+
+const Sentry = require('@sentry/node'); // import is not working
 
 dotenv.config();
 // hook for svg assets

@@ -6,3 +6,4 @@ build
 stats.json
 .happypack
 package-lock.json
+.env

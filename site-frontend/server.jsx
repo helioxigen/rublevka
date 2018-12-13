@@ -5,7 +5,8 @@ import express from 'express';
 import expressPromBundleMiddleware from 'express-prom-bundle';
 import expressCacheMiddleware from 'express-cache-response-directive';
 import { parseString } from 'xml2js';
-import Raven from 'raven';
+import Sentry from '@sentry/node';
+import dotenv from 'dotenv';
 
 import xhr from 'xhr2';
 
@@ -29,6 +30,7 @@ import {
 } from './scripts/webpack.config.shared';
 import { reducer } from './src/site/store';
 
+dotenv.config();
 // hook for svg assets
 require('asset-require-hook')({ extensions: ['jpg', 'svg'] });
 
@@ -273,7 +275,7 @@ const app = express();
 const port = PORT || 8080;
 const cacheMiddleware = expressCacheMiddleware({ maxAge: 120 });
 const metricsMiddleware = expressPromBundleMiddleware({ includeMethod: true });
-Raven.config(REACT_APP_SENTRY_DSN).install();
+Sentry.init({ dsn: REACT_APP_SENTRY_DSN });
 
 // TODO move to pdf.js
 app.use('/assets', express.static('server/presentation/assets'));
@@ -317,4 +319,4 @@ app.use((err, req, res, next) => {
 
 app.listen(port, '0.0.0.0', () => console.log(`started at http://localhost:${port}`)); // eslint-disable-line no-console
 
-process.on('uncaughtException', err => console.error(err.stack)); // eslint-disable-line no-console
+process.on('uncaughtException', err => Sentry.captureException(err));

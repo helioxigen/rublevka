@@ -6,17 +6,14 @@
   "scripts": {
     "lint": "eslint ./src",
     "lint:css": "stylelint src/**/*.css",
-    "mocha":
-      "APP_ENV=development NODE_PATH=src mocha --compilers js:babel-core/register --reporter spec --recursive spec/*.js --plugins transform-inline-environment-variables --require spec/environment.js",
+    "mocha": "APP_ENV=development NODE_PATH=src mocha --compilers js:babel-core/register --reporter spec --recursive spec/*.js --plugins transform-inline-environment-variables --require spec/environment.js",
     "mocha:watch": "npm run mocha -- --watch",
     "test": "",
-    "start:dev":
-      "cross-env APP_ENV=local NODE_ENV=development BABEL_DISABLE_CACHE=1 babel-node ./scripts/devServer.js",
+    "start:dev": "cross-env APP_ENV=local NODE_ENV=development BABEL_DISABLE_CACHE=1 babel-node ./scripts/devServer.js",
     "start": "NODE_PATH=./src babel-node server.jsx",
     "build:sitemaps": "APP_ENV=production babel-node server/sitemap.js",
     "build:gulp": "gulp",
-    "build:stats":
-      "NODE_ENV=production APP_ENV=production BUILD_ID=1 babel-node $(npm bin)/webpack --config ./scripts/webpack.config.prod.js --profile --json > stats.json",
+    "build:stats": "NODE_ENV=production APP_ENV=production BUILD_ID=1 babel-node $(npm bin)/webpack --config ./scripts/webpack.config.prod.js --profile --json > stats.json",
     "build": "BABEL_DISABLE_CACHE=1 npm run build:gulp",
     "prepush": "npm test"
   },
@@ -31,6 +28,8 @@
     "@react-ui/atoms-css-modules": "1.0.0-beta9",
     "@react-ui/core": "1.0.0-beta4",
     "@react-ui/theme-widegrid": "0.0.7",
+    "@sentry/browser": "4.4.2",
+    "@sentry/node": "4.4.1",
     "asset-require-hook": "^1.1.0",
     "async": "1.5.2",
     "bezier-easing": "2.0.3",
@@ -38,6 +37,7 @@
     "core-js": "2.4.1",
     "css-modules-require-hook": "4.0.0",
     "dateformat": "1.0.12",
+    "dotenv": "6.2.0",
     "dthttp": "2.0.0-beta24",
     "express": "4.15.3",
     "express-cache-response-directive": "1.1.0",

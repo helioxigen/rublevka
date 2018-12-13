@@ -8,16 +8,23 @@ import ReactDOM from 'react-dom';
 import App from 'site/app';
 import sbjs from 'sourcebuster';
 import global from 'window-or-global';
-import Raven from 'raven-js';
+import Sentry from '@sentry/browser';
+import dotenv from 'dotenv';
 
 sbjs.init({
   domain: global.config.domain,
 });
 
 try {
-  Raven.config(process.env.REACT_APP_SENTRY_DSN).install();
+  Sentry(process.env.REACT_APP_SENTRY_DSN).init();
 } catch (e) {
-  console.log('sentry cannot be installed');
+  console.log('sentry cannot be inited');
+}
+
+try {
+  dotenv.config();
+} catch (e) {
+  console.log('dotenv cannot be inited');
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));

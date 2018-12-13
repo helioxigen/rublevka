@@ -278,6 +278,9 @@ const cacheMiddleware = expressCacheMiddleware({ maxAge: 120 });
 const metricsMiddleware = expressPromBundleMiddleware({ includeMethod: true });
 Sentry.init({ dsn: REACT_APP_SENTRY_DSN });
 
+app.use(Sentry.Handlers.requestHandler());
+app.use(Sentry.Handlers.errorHandler());
+
 // TODO move to pdf.js
 app.use('/assets', express.static('server/presentation/assets'));
 app.use('/pdf/properties/:category/:id/:token/:showLogo', genPresentation);
@@ -297,8 +300,6 @@ generateSitemaps();
 setInterval(generateSitemaps, interval);
 
 // metrics and other
-// app.use(Raven.requestHandler());
-// app.use(Raven.errorHandler());
 app.use('/healthz', (req, res) => res.sendStatus(200));
 app.use(metricsMiddleware);
 app.use(cacheMiddleware);

@@ -1,10 +1,10 @@
 const envs = {
   production: {
-    API: process.env.API_ENDPOINT || "//api.jqestate.ru",
+    API: process.env.API_ENDPOINT || "https://api.jqestate.ru",
     cloudfront: "//images.jqestate.ru"
   },
   development: {
-    API: process.env.API_ENDPOINT || "//api-dev.jqestate.ru",
+    API: process.env.API_ENDPOINT || "https://api-dev.jqestate.ru",
     cloudfront: "//images.jqestate.ru"
   },
   local: {

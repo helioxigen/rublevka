@@ -2,8 +2,8 @@ import sbjs from 'sourcebuster';
 
 const phones = {
   default: {
-    country: '74957926820',
-    city: '74957926820',
+    country: '74954324545',
+    city: '74954324545',
   },
   yandex: {
     country: '74959683505',

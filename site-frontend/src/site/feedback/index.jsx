@@ -23,7 +23,9 @@ const isJQ = global.config.domain === 'jqestate.ru';
 const isRublevka = global.config.domain === 'rublevka.ru';
 const isRiga = global.config.domain === 'riga.ru';
 
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col },
+} = UI;
 
 const location = isJQ ? 'zhukovkaJQ' : 'zhukovka';
 
@@ -71,12 +73,11 @@ class FeedbackContainer extends Component {
                         <p className={s.address}>Рублёво-Успенское шоссе, Жуковка,&nbsp;71</p>
                       )}
 
-                      {!isRublevka &&
-                        !isRiga && (
-                          <a className={sUtils.textBlack} href="tel:+74957926820">
-                            <StaticMask pattern="+1 (111) 111-11-11">74957926820</StaticMask>
-                          </a>
-                        )}
+                      {!isRublevka && !isRiga && (
+                        <a className={sUtils.textBlack} href="tel:+74954324545">
+                          <StaticMask pattern="+1 (111) 111-11-11">74954324545</StaticMask>
+                        </a>
+                      )}
                       {isRublevka && (
                         <a className={sUtils.textBlack} href="tel:+74957926807">
                           <StaticMask pattern="+1 (111) 111-11-11">74957926807</StaticMask>
@@ -131,4 +132,7 @@ const mapDispatch = dispatch => ({
   actions: bindActionCreators({ notify, setSharedRetargetingKey }, dispatch),
 });
 
-export default connect(pickState, mapDispatch)(FeedbackContainer);
+export default connect(
+  pickState,
+  mapDispatch,
+)(FeedbackContainer);

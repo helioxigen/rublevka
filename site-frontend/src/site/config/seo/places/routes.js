@@ -2,7 +2,7 @@ import global from 'window-or-global';
 // import { format } from '@dtrussia/utils.js';
 import { prepositionalRoutesById } from 'core/places/constants/dictionaries';
 
-const isJQ = global.config.domain === 'jq.estate';
+const isJQ = global.config.domain === 'jqestate.ru';
 
 function generateLink(routeSlugName, ruDealType, ruKind) {
   if (ruKind) {
@@ -305,7 +305,7 @@ export default {
         kind
       ]} – ${name}, Подмосковье. Лучшие предложения на ${global.config.domain}!`;
     },
-    // `${name}, коттеджный поселок, коттедж, дом, квартира, таунхаус, участок, Москва, Московская область, Подмосковье, КП, цена, купить, продажа, аренда, снять, отзывы, недвижимость, карта, www.jq.estate`,
+    // `${name}, коттеджный поселок, коттедж, дом, квартира, таунхаус, участок, Москва, Московская область, Подмосковье, КП, цена, купить, продажа, аренда, снять, отзывы, недвижимость, карта, www.jqestate.ru`,
     keywords: (name, dealType, kind) => {
       const dictionary = {
         dealType: {

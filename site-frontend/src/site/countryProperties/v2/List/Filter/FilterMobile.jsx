@@ -41,7 +41,7 @@ import {
   Header,
 } from './styled';
 
-const isJQ = global.config.domain === 'jq.estate';
+const isJQ = global.config.domain === 'jqestate.ru';
 
 const { Visibility, Button, BtnGroup, Icon, CountIndicator, Grid: { Container, Row, Col } } = UI;
 

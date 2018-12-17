@@ -28,7 +28,7 @@ export const common = {
 };
 
 export const themes = {
-  'jq.estate': {
+  'jqestate.ru': {
     brandPrimary: '#ff4c4e',
     brandPrimaryHover: '#f24345',
   },

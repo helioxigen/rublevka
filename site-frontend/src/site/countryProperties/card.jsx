@@ -18,7 +18,7 @@ import sUtils from 'site/styles/utils';
 
 import { dealTypes, kindsTranslit } from 'site/constants/properties/dictionaries';
 
-const isJQ = global.config.domain === 'jq.estate';
+const isJQ = global.config.domain === 'jqestate.ru';
 const { Grid, Icon, Visibility } = UI;
 
 class Card extends Component {
@@ -31,9 +31,8 @@ class Card extends Component {
         <div
           className={s.images}
           style={{
-            backgroundImage: `url(${global.config.cloudfront || cloudfront}/${
-              publicImages[0].id
-            }-thumbnail-512)`,
+            backgroundImage: `url(${global.config.cloudfront || cloudfront}/${publicImages[0]
+              .id}-thumbnail-512)`,
           }}
         />
       );

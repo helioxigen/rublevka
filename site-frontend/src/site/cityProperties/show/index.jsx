@@ -1,49 +1,47 @@
-import global from "window-or-global";
-import React, { Component } from "react";
+import global from 'window-or-global';
+import React, { Component } from 'react';
 
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import { track } from "core/analytics";
+import { track } from 'core/analytics';
 
 // actions
-import loadProperty from "core/cityProperties/actions/id/load";
-import { setSharedRetargetingKey } from "site/retargeting/actions";
-import * as analyticsEvents from "core/analytics/constants";
+import loadProperty from 'core/cityProperties/actions/id/load';
+import { setSharedRetargetingKey } from 'site/retargeting/actions';
+import * as analyticsEvents from 'core/analytics/constants';
 
 // constants
-import { helmet } from "site/config/seo";
+import { helmet } from 'site/config/seo';
 
 // components
-import MapComponent from "site/ui/map";
-import Helmet from "./helmet";
-import Media from "./media";
-import Description from "./description";
-import ComplexBuilding from "./complexBuilding";
-import Info from "./info";
-import Similar from "./similar";
+import MapComponent from 'site/ui/map';
+import Helmet from './helmet';
+import Media from './media';
+import Description from './description';
+import ComplexBuilding from './complexBuilding';
+import Info from './info';
+import Similar from './similar';
 
 // helpers
-import isEqual from "lodash/isEqual";
-import { dealTypes } from "site/constants/properties/dictionaries";
+import isEqual from 'lodash/isEqual';
+import { dealTypes } from 'site/constants/properties/dictionaries';
 
 // UI
-import UI from "site/ui";
-const {
-  Grid: { Container, Row, Col }
-} = UI;
+import UI from 'site/ui';
+const { Grid: { Container, Row, Col } } = UI;
 
-const isJQ = global.config.domain === "jq.estate";
+const isJQ = global.config.domain === 'jqestate.ru';
 
-import s from "site/styles/list";
-import sUtils from "site/styles/utils";
-import cn from "classnames";
+import s from 'site/styles/list';
+import sUtils from 'site/styles/utils';
+import cn from 'classnames';
 
 class Property extends Component {
   componentDidMount() {
     this.load(this.props);
 
-    if (typeof window !== "undefined") window.scrollTo(0, 0);
+    if (typeof window !== 'undefined') window.scrollTo(0, 0);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -53,7 +51,7 @@ class Property extends Component {
   }
 
   load({ actions, params }) {
-    actions.loadProperty(params.id).then(data => {
+    actions.loadProperty(params.id).then((data) => {
       track(analyticsEvents.propertyOpened(data));
     });
   }
@@ -80,7 +78,7 @@ class Property extends Component {
       const markerPosition = {
         lat,
         lng,
-        icon: isJQ ? "marker" : "markerPurple"
+        icon: isJQ ? 'marker' : 'markerPurple',
       };
 
       return (
@@ -96,21 +94,19 @@ class Property extends Component {
 
             <Info data={data} dealType={dealType} />
             <Description data={data} />
-            <ComplexBuilding
-              complexBuildingDetails={data.complexBuildingDetails}
-            />
+            <ComplexBuilding complexBuildingDetails={data.complexBuildingDetails} />
 
-            {isPositionAvailable && (
+            {isPositionAvailable &&
               <Row className={s.settlementMap}>
                 <MapComponent
                   center={[markerPosition.lng, markerPosition.lat]}
                   markers={[markerPosition]}
                   container={<div className={sUtils.mapContainer} />}
                 />
-              </Row>
-            )}
+              </Row>}
 
             <Similar id={data.id} dealType={dealType} />
+
           </Container>
 
           <section className={cn(s.container, sUtils.resetBorder)}>
@@ -119,7 +115,7 @@ class Property extends Component {
                 {helmet.properties.show.city.h1(
                   dealTypes[dealType],
                   data.kind,
-                  data.location.street
+                  data.location.street,
                 )}
               </h1>
             </Container>
@@ -133,21 +129,18 @@ class Property extends Component {
 }
 
 const pickState = ({ cityProperties }) => ({
-  state: { cityProperties }
+  state: { cityProperties },
 });
 
-const pickActions = dispatch => {
+const pickActions = (dispatch) => {
   const actions = {
     loadProperty,
-    setSharedRetargetingKey
+    setSharedRetargetingKey,
   };
 
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators(actions, dispatch),
   };
 };
 
-export default connect(
-  pickState,
-  pickActions
-)(Property);
+export default connect(pickState, pickActions)(Property);

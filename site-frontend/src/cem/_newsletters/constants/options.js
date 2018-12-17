@@ -1,5 +1,5 @@
 export const sites = [
-  { value: 'jqestate.ru', label: 'JQ Estate' },
+  { value: 'jq.estate', label: 'JQ Estate' },
   { value: 'rublevka.ru', label: 'Рублёвка' },
   { value: 'minka.ru', label: 'Минка' },
   { value: 'riga.ru', label: 'Рига' },

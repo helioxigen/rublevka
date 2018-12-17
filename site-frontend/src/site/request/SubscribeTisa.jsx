@@ -21,7 +21,7 @@ import sUtils from 'site/styles/utils';
 
 const { Grid, Grid: { Row, Col }, Form: { Container, Input }, Button } = UI;
 
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 
 class Subscribe extends Component {
   constructor() {

@@ -18,7 +18,7 @@ import sUtils from 'site/styles/utils';
 
 import { dealTypes, kindsTranslit } from 'site/constants/properties/dictionaries';
 
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 const { Grid, Icon, Visibility } = UI;
 
 class Card extends Component {

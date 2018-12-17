@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 import global from 'window-or-global';
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 
 import UI from 'site/ui';
 const { Visibility, Button, Grid: { Container, Row, Col } } = UI;

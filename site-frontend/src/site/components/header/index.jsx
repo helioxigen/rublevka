@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Body from 'site/components/body';
 
 import global from 'window-or-global';
-const isJQ = global.config.domain === `jqestate.ru`;
+const isJQ = global.config.domain === `jq.estateu`;
 const isRublevka = global.config.domain === `rublevka.ru`;
 const isRiga = global.config.domain === `riga.ru`;
 

@@ -27,7 +27,7 @@ import * as Places from 'site/places';
 import * as PlacesSatellite from 'site/places/satellite';
 import * as Complexes from 'site/complexes';
 
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 
 export default (
   <Route>

@@ -156,7 +156,7 @@ const Break = styled.br`
 
 const DescriptionWhite = Description.extend`color: ${p => p.theme.brandWhite};`;
 
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 
 class FooterContainer extends Component {
   render() {

@@ -32,7 +32,7 @@ import Helmet from './Helmet';
 
 import { translitKinds } from 'site/constants/properties/dictionaries';
 
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 const { Grid: { Container, Row } } = UI;
 
 class SettlementContainer extends Component {

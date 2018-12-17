@@ -8,7 +8,7 @@ DADATA.setHeader('Content-Type', 'application/json');
 DADATA.applyMiddleware(httpMiddleware);
 
 const pdf = {
-  source: 'http://jqestate.ru/pdf',
+  source: 'http://jq.estate/pdf',
 };
 
 export { DADATA, pdf };

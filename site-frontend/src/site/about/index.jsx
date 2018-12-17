@@ -26,7 +26,7 @@ import global from 'window-or-global';
 
 const { Grid: { Container, Row, Col } } = UI;
 
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 
 class About extends Component {
   componentWillMount() {

@@ -37,7 +37,7 @@ import Similar from './similar';
 
 const { Button, Grid: { Container, Row } } = UI;
 
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 
 const load = ({ actions, id }) => {
   actions

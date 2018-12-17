@@ -12,7 +12,7 @@ import st from 'site/styles/themes';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 
 const { Loading, Button, Grid: { Row, Col } } = UI;
 

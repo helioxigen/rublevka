@@ -1,4 +1,4 @@
-import { dateAndTimeToIso8601 } from 'core/helpers';
+import { dateAndTimeToIso8601 } from "core/helpers";
 
 const createTemplate = values => `
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -119,7 +119,7 @@ const createTemplate = values => `
 
       }  @media all and (max-width:639px){
           .headlogo img{
-            width:${values.site === 'jqestate.ru' ? '80px' : '200px'} !important;
+            width:${values.site === "jq.estate" ? "80px" : "200px"} !important;
           }
 
       }
@@ -134,12 +134,18 @@ const createTemplate = values => `
 
 const replaceStyleToAttr = template =>
   template
-    .replace(/style="text-align:center;vertical-align:top;"/g, 'align="center" valign="top"')
-    .replace(/style="text-align:left;vertical-align:top;"/g, 'align="left" valign="top"');
+    .replace(
+      /style="text-align:center;vertical-align:top;"/g,
+      'align="center" valign="top"'
+    )
+    .replace(
+      /style="text-align:left;vertical-align:top;"/g,
+      'align="left" valign="top"'
+    );
 // .replace(/text-align:left/g, 'align="left"')
 // .replace(/text-align:right/g, 'align="right"')
 
-export default (values) => {
+export default values => {
   const scheduledAtDate = values._sendNow ? Date.now() : values.scheduledAtDate;
   const scheduledAtTime = values._sendNow ? Date.now() : values.scheduledAtTime;
 
@@ -152,6 +158,6 @@ export default (values) => {
     properties: [],
     listId: values.listId,
     fromEmail: values.fromEmail,
-    fromTitle: values.fromTitle,
+    fromTitle: values.fromTitle
   };
 };

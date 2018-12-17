@@ -22,7 +22,7 @@ import { kinds } from 'site/constants/places';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 
 const { Grid: { Col }, Icon } = UI;
 

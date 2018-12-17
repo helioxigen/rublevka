@@ -1,16 +1,20 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router';
+import React, { Component } from "react";
+import { Link } from "react-router";
 
-import global from 'window-or-global';
-const isJQ = global.config.domain === 'jqestate.ru';
+import global from "window-or-global";
+const isJQ = global.config.domain === "jq.estate";
 
-import UI from 'site/ui';
-const { Visibility, Button, Grid: { Container, Row, Col } } = UI;
+import UI from "site/ui";
+const {
+  Visibility,
+  Button,
+  Grid: { Container, Row, Col }
+} = UI;
 
-import List from 'site/components/footer/list';
+import List from "site/components/footer/list";
 
-import sUtils from 'site/styles/utils';
-import s from 'site/styles/components/footer';
+import sUtils from "site/styles/utils";
+import s from "site/styles/components/footer";
 
 export default class extends Component {
   renderColumns = category => (
@@ -72,7 +76,7 @@ export default class extends Component {
         <Container>
           <Row>
             <Col sm="6" lg="3" className={s.navColumn}>
-              <p className={s.navTitle}>{isJQ ? 'JQ ESTATE' : 'Компания'}</p>
+              <p className={s.navTitle}>{isJQ ? "JQ ESTATE" : "Компания"}</p>
               <hr className={s.divider} />
               <nav>
                 {isJQ && (
@@ -100,7 +104,7 @@ export default class extends Component {
               <p className={s.navTitle}>Загородная недвижимость</p>
               <hr className={s.divider} />
 
-              {this.renderColumns('zagorodnaya')}
+              {this.renderColumns("zagorodnaya")}
             </Col>
           </Row>
           <Row>

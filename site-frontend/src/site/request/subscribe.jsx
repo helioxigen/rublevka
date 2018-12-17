@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import global from 'window-or-global';
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 
 import * as EmailActions from 'site/actions/email';
 import { setSharedRetargetingKey } from 'site/retargeting/actions';

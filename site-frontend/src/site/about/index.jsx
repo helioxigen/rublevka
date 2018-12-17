@@ -1,36 +1,38 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 // seo
-import Helmet from 'react-helmet';
-import { helmet } from 'site/config/seo';
+import Helmet from "react-helmet";
+import { helmet } from "site/config/seo";
 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
 // actions
-import loadUsers from 'core/users/actions/list/load';
-import * as PaginationActions from 'core/actions/pagination';
+import loadUsers from "core/users/actions/list/load";
+import * as PaginationActions from "core/actions/pagination";
 
 // components
-import UsersList from 'site/users/list';
-import Principles from './principles';
+import UsersList from "site/users/list";
+import Principles from "./principles";
 // import Request from './request';
 
-import cn from 'classnames';
-import UI from 'site/ui';
+import cn from "classnames";
+import UI from "site/ui";
 
-import s from 'site/styles/about/list';
-import sUtils from 'site/styles/utils';
+import s from "site/styles/about/list";
+import sUtils from "site/styles/utils";
 
-import global from 'window-or-global';
+import global from "window-or-global";
 
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col }
+} = UI;
 
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === "jq.estate";
 
 class About extends Component {
   componentWillMount() {
-    if (typeof window !== 'undefined') window.scrollTo(0, 0);
+    if (typeof window !== "undefined") window.scrollTo(0, 0);
   }
 
   render() {
@@ -40,8 +42,8 @@ class About extends Component {
           <Helmet
             title={helmet.pages.about.title}
             meta={[
-              { name: 'description', content: helmet.pages.about.description },
-              { name: 'keywords', content: helmet.pages.about.keywords },
+              { name: "description", content: helmet.pages.about.description },
+              { name: "keywords", content: helmet.pages.about.keywords }
             ]}
           />
 
@@ -52,7 +54,8 @@ class About extends Component {
                   <div className={sUtils.hideFromSm}>
                     <h1 className={cn(s.titleMd, s.bold)}>JQ Estate</h1>
                     <h2 className={cn(s.titleMd, sUtils.pushedTop1_5)}>
-                      Агентство элитной<br className={sUtils.hideFromSm} /> недвижимости
+                      Агентство элитной
+                      <br className={sUtils.hideFromSm} /> недвижимости
                     </h2>
                   </div>
 
@@ -62,16 +65,24 @@ class About extends Component {
                     </h1>
                   </div>
 
-                  <p className={cn(s.textGrey, s.textMd, sUtils.pushedTopXs3_5Sm4_5Md2_8)}>
-                    Работаем с 2006 года. <br className={sUtils.hideFromMd} /> Помогаем с покупкой и
-                    арендой домов, квартир и участков.
+                  <p
+                    className={cn(
+                      s.textGrey,
+                      s.textMd,
+                      sUtils.pushedTopXs3_5Sm4_5Md2_8
+                    )}
+                  >
+                    Работаем с 2006 года. <br className={sUtils.hideFromMd} />{" "}
+                    Помогаем с покупкой и арендой домов, квартир и участков.
                   </p>
                 </Col>
               </Row>
             </Container>
           </div>
 
-          <div className={cn(s.dividerTop, s.hideDividerFromSm, s.stepsContainer)}>
+          <div
+            className={cn(s.dividerTop, s.hideDividerFromSm, s.stepsContainer)}
+          >
             <Container>
               <Row>
                 <Col xs="12">
@@ -94,7 +105,8 @@ class About extends Component {
                     </li>
                   </ul>
                   <p className={s.textFrame}>
-                    Наши клиенты покупают быстро и без головной боли, потому что мы о них заботимся.
+                    Наши клиенты покупают быстро и без головной боли, потому что
+                    мы о них заботимся.
                   </p>
                 </Col>
               </Row>
@@ -103,10 +115,16 @@ class About extends Component {
 
           <Principles />
           {/* <UsersList group="tops" title="Команда" /> */}
-          <UsersList group="countryDepartment" title="Загородный департамент" showExperience />
+          <UsersList
+            group="countryDepartment"
+            title="Загородный департамент"
+            showExperience
+          />
           {/* <UsersList group="cityDepartment" title="Городской департамент" showExperience /> */}
 
-          <div className={s.requestContainer}>{/* <Request {...this.props} /> */}</div>
+          <div className={s.requestContainer}>
+            {/* <Request {...this.props} /> */}
+          </div>
         </section>
       );
     }
@@ -114,11 +132,14 @@ class About extends Component {
 }
 
 const mapState = ({ users, pagination }) => ({
-  state: { users, pagination },
+  state: { users, pagination }
 });
 
 const mapDispatch = dispatch => ({
-  actions: bindActionCreators({ loadUsers, ...PaginationActions }, dispatch),
+  actions: bindActionCreators({ loadUsers, ...PaginationActions }, dispatch)
 });
 
-export default connect(mapState, mapDispatch)(About);
+export default connect(
+  mapState,
+  mapDispatch
+)(About);

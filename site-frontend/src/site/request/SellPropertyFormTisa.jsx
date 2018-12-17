@@ -24,7 +24,7 @@ import configs from 'site/config/satellites';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 
 const { Button, Icon, Form, Grid: { Container, Row, Col }, Form: { Group, Input } } = UI;
 

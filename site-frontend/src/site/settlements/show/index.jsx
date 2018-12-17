@@ -30,7 +30,7 @@ import Information from './information';
 import Description from './description';
 import Helmet from './Helmet';
 
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 const { Grid: { Container, Row } } = UI;
 
 class SettlementContainer extends Component {

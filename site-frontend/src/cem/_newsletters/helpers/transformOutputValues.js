@@ -119,7 +119,7 @@ const createTemplate = values => `
 
       }  @media all and (max-width:639px){
           .headlogo img{
-            width:${values.site === 'jqestate.ru' ? '80px' : '200px'} !important;
+            width:${values.site === 'jq.estate' ? '80px' : '200px'} !important;
           }
 
       }

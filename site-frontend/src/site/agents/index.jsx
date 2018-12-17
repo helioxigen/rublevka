@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import { helmet } from 'site/config/seo';
 import global from 'window-or-global';
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 
 // import Request from 'site/about/request';
 import UsersList from 'site/users/list';

@@ -23,7 +23,7 @@ import media from 'site/styles/media';
 
 import * as analyticsEvents from 'core/analytics/constants';
 
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 
 const { Button, Icon, Form, Grid: { Container, Row, Col }, Form: { Group, Input } } = UI;
 

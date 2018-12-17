@@ -2,7 +2,7 @@ import global from 'window-or-global';
 // import { format } from '@dtrussia/utils.js';
 import { prepositionalRoutesById } from 'core/places/constants/dictionaries';
 
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 
 function generateLink(routeSlugName, ruDealType, ruKind) {
   if (ruKind) {

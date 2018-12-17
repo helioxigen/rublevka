@@ -31,7 +31,7 @@ import { dealTypes } from 'site/constants/properties/dictionaries';
 import UI from 'site/ui';
 const { Grid: { Container, Row, Col } } = UI;
 
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 
 import s from 'site/styles/list';
 import sUtils from 'site/styles/utils';

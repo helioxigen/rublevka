@@ -1,5 +1,5 @@
 export const sites = {
-  'jqestate.ru': 'JQ Estate',
+  'jq.estate': 'JQ Estate',
   'rublevka.ru': 'Рублёвка',
   'minka.ru': 'Минка',
   'riga.ru': 'Рига',

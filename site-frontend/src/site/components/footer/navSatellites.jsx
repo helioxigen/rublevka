@@ -61,7 +61,7 @@ export default () => (
       </Col>
 
       <Col sm="3">
-        <h3 className={styles.navTitle}>{global.config.domain === 'jqestate.ru' ? 'JQ ESTATE' : 'Компания'}</h3>
+        <h3 className={styles.navTitle}>{global.config.domain === 'jq.estate' ? 'JQ ESTATE' : 'Компания'}</h3>
         <hr className={styles.divider} />
         <nav>
           <div>

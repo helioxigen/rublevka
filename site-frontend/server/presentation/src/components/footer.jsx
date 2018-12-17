@@ -12,8 +12,8 @@ export default ({ broker }) => (
       />
     </div>
 
-    <a className="footer-link" href={'https://jqestate.ru'}>
-      Все фото на сайте jqestate.ru
+    <a className="footer-link" href={'https://jq.estate'}>
+      Все фото на сайте jq.estate
     </a>
 
     <div className="footer-broker-card">

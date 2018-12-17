@@ -1,4 +1,4 @@
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 
 export const additionalSourceOptions = {
   cluster: true,

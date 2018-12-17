@@ -5,7 +5,7 @@ import BezierEasing from 'bezier-easing';
 import CSSModules from 'react-css-modules';
 
 import global from 'window-or-global';
-const isJQ = global.config.domain === `jqestate.ru`;
+const isJQ = global.config.domain === `jq.estate`;
 
 import Body from 'site/components/body';
 import UI from 'site/ui';

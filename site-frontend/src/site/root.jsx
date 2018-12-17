@@ -15,7 +15,7 @@ import theming from 'site/styles/theming';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 
 export const Wrapper = styled.div`
   ${media.sm`

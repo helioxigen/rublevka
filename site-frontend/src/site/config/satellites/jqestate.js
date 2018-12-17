@@ -26,7 +26,7 @@ const getPhones = () => {
 export default {
   theme: 'default',
   name: 'JQ Estate',
-  domain: 'jqestate.ru',
+  domain: 'jq.estate',
   postfix: 'jqestate',
   phones: getPhones(),
   landing: {

@@ -4,7 +4,7 @@ import { FormattedCurrency } from 'react-formatted';
 import { offerKindsToRu, propertyCategoryToRu } from 'cem/_newsletters/constants/dictionaries';
 
 const logosBySite = {
-  'jqestate.ru':
+  'jq.estate':
     'https://gallery.mailchimp.com/7a0a55f350c9a29b3db4984fa/images/cf52c1bb-41e8-48ae-995d-b47b71ded749.png',
   'rublevka.ru':
     'https://gallery.mailchimp.com/7a0a55f350c9a29b3db4984fa/images/9981e1bd-9feb-4310-b7a4-743c47bdc82a.png',
@@ -13,7 +13,7 @@ const logosBySite = {
 };
 
 const backgroundsBySite = {
-  'jqestate.ru':
+  'jq.estate':
     'https://gallery.mailchimp.com/7a0a55f350c9a29b3db4984fa/images/69483de6-689a-496a-9977-7c1d0482d786.png',
   'rublevka.ru':
     'https://gallery.mailchimp.com/7a0a55f350c9a29b3db4984fa/images/34c9d3d4-aee3-4d22-bc7a-5d2526fb31c2.png',
@@ -222,7 +222,7 @@ const Header = ({ values }) => (
     }}
   >
     <tbody>
-      {values.site !== 'jqestate.ru' && (
+      {values.site !== 'jq.estate' && (
         <tr>
           <td
             style={{ height: '20px', fontSize: '10px', lineHeight: '10px' }}
@@ -246,8 +246,8 @@ const Header = ({ values }) => (
                       src={logosBySite[values.site]}
                       style={{
                         display: 'block',
-                        margin: `${values.site === 'jqestate.ru' ? '30px' : '50px'} auto`,
-                        width: `${values.site === 'jqestate.ru' ? '100px' : '250px'}`,
+                        margin: `${values.site === 'jq.estate' ? '30px' : '50px'} auto`,
+                        width: `${values.site === 'jq.estate' ? '100px' : '250px'}`,
                       }}
                       alt="cf52c1bb-41e8-48ae-995d-b47b71ded749.png"
                     />
@@ -260,11 +260,11 @@ const Header = ({ values }) => (
       </tr>
       <tr>
         <td
-          height={values.site === 'jqestate.ru' ? '5px' : '10px'}
+          height={values.site === 'jq.estate' ? '5px' : '10px'}
           style={{
-            fontSize: values.site === 'jqestate.ru' ? '5px' : '10px',
-            lineHeight: values.site === 'jqestate.ru' ? '5px' : '10px',
-            backgroundColor: values.site === 'jqestate.ru' && '#FF4C4E',
+            fontSize: values.site === 'jq.estate' ? '5px' : '10px',
+            lineHeight: values.site === 'jq.estate' ? '5px' : '10px',
+            backgroundColor: values.site === 'jq.estate' && '#FF4C4E',
           }}
         />
       </tr>
@@ -285,7 +285,7 @@ const Headline = ({ values }) => (
               <tr>
                 <td
                   style={{
-                    color: values.site === 'jqestate.ru' ? '#232323' : '#474E52',
+                    color: values.site === 'jq.estate' ? '#232323' : '#474E52',
                     display: 'inline',
                     backgroundColor: 'transparent',
                     fontFamily: '"Helvetica Neue", Helvetica, Arial',

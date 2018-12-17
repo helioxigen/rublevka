@@ -1,13 +1,13 @@
 export const apps = {
-  // cem: {
-  //   MODULE: 'cem',
-  //   production: {
-  //     HOST: 'cem.jq.estate',
-  //   },
-  //   development: {
-  //     HOST: 'cem-dev.jq.estate',
-  //   },
-  // },
+  cem: {
+    MODULE: 'cem',
+    production: {
+      HOST: 'cem.jq.estate',
+    },
+    development: {
+      HOST: 'cem-dev.jq.estate',
+    },
+  },
   jqestate: {
     MODULE: 'site',
     INSTANCE: 'jqestate',

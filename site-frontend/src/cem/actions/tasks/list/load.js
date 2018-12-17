@@ -18,19 +18,37 @@ const loadTasksStarted = (kind, appendResult) => ({
 
 const loadTasksSucceeded = (kind, { items, pagination }, appendResult) => (dispatch, getState) => {
   const contactIds = uniq(
-    items.map(({ contactDetails = {}, previewDetails = {}, freeDetails = {}, negotiationDetails = {} }) => {
-      const contactId = contactDetails.contactId || previewDetails.contactId || freeDetails.contactId || negotiationDetails.contactId;
+    items
+      .map(
+        ({
+          contactDetails = {},
+          previewDetails = {},
+          freeDetails = {},
+          negotiationDetails = {},
+        }) => {
+          const contactId =
+            contactDetails.contactId ||
+            previewDetails.contactId ||
+            freeDetails.contactId ||
+            negotiationDetails.contactId;
 
-      return contactId && !getState().contacts[contactId] ? contactId : undefined;
-    }).filter(id => id),
+          return contactId && !getState().contacts[contactId] ? contactId : undefined;
+        },
+      )
+      .filter(id => id),
   );
 
   const clientLeadIds = uniq(
-    items.map(({ contactDetails = {}, freeDetails = {} }) => {
-      const clientLeadId = contactDetails.clientLeadId || freeDetails.clientLeadId;
+    items
+      .map(({ contactDetails = {}, freeDetails = {} }) => {
+        const clientLeadId = contactDetails.clientLeadId || freeDetails.clientLeadId;
 
-      return clientLeadId && (!getState().leads[clientLeadId] || !getState().leads[clientLeadId].data) ? clientLeadId : undefined;
-    }).filter(id => id),
+        return clientLeadId &&
+          (!getState().leads[clientLeadId] || !getState().leads[clientLeadId].data)
+          ? clientLeadId
+          : undefined;
+      })
+      .filter(id => id),
   );
 
   if (contactIds.length) {

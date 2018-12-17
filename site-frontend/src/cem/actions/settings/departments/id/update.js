@@ -13,7 +13,8 @@ const updateDepartmentSucceeded = id => (dispatch) => {
 };
 
 export default function updateDepartment(id, data) {
-  return dispatch => API.put(`/v1/departments/${id}`, data).then(
+  return dispatch =>
+    API.put(`/v1/departments/${id}`, data).then(
       () => dispatch(updateDepartmentSucceeded(id)),
       ({ body }) => {
         dispatch(pop('danger', 'Ошибка обновления департамента!'));

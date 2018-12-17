@@ -24,7 +24,10 @@ const loadStatsFailed = (kind, { errors }) => ({
 export default (kind, queryParams = { filter: {} }) => (dispatch) => {
   dispatch(loadStatsStarted(kind));
 
-  return API.get(`/v1/tasks/statistics/${kind}`, { ...queryParams, filter: filterTransform(queryParams.filter) }).then(
+  return API.get(`/v1/tasks/statistics/${kind}`, {
+    ...queryParams,
+    filter: filterTransform(queryParams.filter),
+  }).then(
     ({ body }) => dispatch(loadStatsSucceeded(kind, body)),
     ({ body }) => dispatch(loadStatsFailed(kind, body)),
   );

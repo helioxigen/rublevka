@@ -27,9 +27,8 @@ const loadCompaniesSucceeded = ({ items, pagination }) => (dispatch) => {
 export default (queryParams = { filter: {} }) => (dispatch) => {
   dispatch(loadCompaniesStarted());
 
-  return API.get('/v1/companies', { ...queryParams, filter: mapFilter(queryParams.filter) })
-    .then(
-      ({ body }) => dispatch(loadCompaniesSucceeded(body)),
-      ({ body }) => dispatch(loadCompaniesFailed(body)),
-    );
+  return API.get('/v1/companies', { ...queryParams, filter: mapFilter(queryParams.filter) }).then(
+    ({ body }) => dispatch(loadCompaniesSucceeded(body)),
+    ({ body }) => dispatch(loadCompaniesFailed(body)),
+  );
 };

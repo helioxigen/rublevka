@@ -4,8 +4,7 @@ const validate = (values) => {
   const isNew = !values.id;
 
   const hasProperties =
-    values.propertyIds ||
-    (Array.isArray(values.propertyIds) && values.propertyIds.length > 0);
+    values.propertyIds || (Array.isArray(values.propertyIds) && values.propertyIds.length > 0);
 
   if (isNew) {
     if (!values.site) errors.site = 'Укажите сайт';

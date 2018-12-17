@@ -67,7 +67,8 @@ const loadCurrentUserSucceeded = ({ id, email, state, photo = {}, ...data }) => 
   id,
 });
 
-export const loadCurrentUser = () => dispatch => API.get('/v1/users/me')
+export const loadCurrentUser = () => dispatch =>
+  API.get('/v1/users/me')
     .then(({ body }) => {
       dispatch(loadIdSucceeded(body.id, body));
       return dispatch(loadCurrentUserSucceeded(body));

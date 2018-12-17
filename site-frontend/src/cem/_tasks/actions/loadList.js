@@ -52,14 +52,20 @@ const loadTasks = (queryParams, group, options = {}) => (dispatch, getState) => 
         transformedItems.map(task => getDetails(task).dealId).filter(id => !!id),
       ).filter(id => !isInState(getState(), '_deals', id));
 
-      if (linkedUsersIds.length) { dispatch(loadUsers({ id: linkedUsersIds }, groupForLinkedResources)); } // TODO: fix loadUsers
+      if (linkedUsersIds.length) {
+        dispatch(loadUsers({ id: linkedUsersIds }, groupForLinkedResources));
+      } // TODO: fix loadUsers
       if (linkedClientLeadsIds.length) {
         dispatch(
           loadClientLeads({ filter: { id: linkedClientLeadsIds } }, groupForLinkedResources),
         );
       }
-      if (linkedContactsIds.length) { dispatch(loadContacts({ filter: { id: linkedContactsIds } }, groupForLinkedResources)); }
-      if (linkedDealsIds.length) { dispatch(loadDeals({ filter: { id: linkedDealsIds } }, groupForLinkedResources)); }
+      if (linkedContactsIds.length) {
+        dispatch(loadContacts({ filter: { id: linkedContactsIds } }, groupForLinkedResources));
+      }
+      if (linkedDealsIds.length) {
+        dispatch(loadDeals({ filter: { id: linkedDealsIds } }, groupForLinkedResources));
+      }
 
       return Promise.resolve(transformedItems);
     },

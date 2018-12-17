@@ -26,9 +26,8 @@ export const loadList = (apiPath, group, queryParams) => {
   if (!apiPath) throwFormattedError('required', 'apiPath');
   if (!group) throwFormattedError('required', 'group');
 
-  return API.get(apiPath, queryParams)
-    .then(
-      ({ body: { items, pagination } }) => Promise.resolve({ items, pagination }),
-      ({ body: { errors } }) => Promise.reject(errors),
-    );
+  return API.get(apiPath, queryParams).then(
+    ({ body: { items, pagination } }) => Promise.resolve({ items, pagination }),
+    ({ body: { errors } }) => Promise.reject(errors),
+  );
 };

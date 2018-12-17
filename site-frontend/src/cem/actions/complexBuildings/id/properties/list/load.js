@@ -12,12 +12,12 @@ const loadPropertiesStarted = (saleType, id) => ({
 
 const loadPropertiesSucceeded = (saleType, id, { items, pagination }) => (dispatch) => {
   dispatch(updatePagination(`complexBuildingProperties.${saleType}`, pagination));
-  return dispatch(({
+  return dispatch({
     type: types.LOAD_PROPERTIES_SUCCESS,
     saleType,
     id,
     items,
-  }));
+  });
 };
 
 const loadPropertiesFailed = (saleType, id, { errors }) => ({
@@ -30,7 +30,10 @@ const loadPropertiesFailed = (saleType, id, { errors }) => ({
 const loadProperties = (id, saleType = 'primary', queryParams = { filter: {} }) => (dispatch) => {
   dispatch(loadPropertiesStarted(saleType, id));
 
-  return API.get('/v1/properties/city', { ...queryParams, filter: { ...queryParams.filter, complexBuildingId: id } }).then(
+  return API.get('/v1/properties/city', {
+    ...queryParams,
+    filter: { ...queryParams.filter, complexBuildingId: id },
+  }).then(
     ({ body }) => dispatch(loadPropertiesSucceeded(saleType, id, body)),
     ({ body }) => dispatch(loadPropertiesFailed(saleType, id, body)),
   );
@@ -40,5 +43,11 @@ export const loadPrimaryProperties = (id, queryParams = { filter: {} }) => (disp
   const defaultFilter = {
     'saleOffer.isResale': 'false',
   };
-  dispatch(loadProperties(id, 'primary', { ...queryParams, filter: { ...queryParams.filter, ...defaultFilter }, orderBy: { id: 'desc' } }));
+  dispatch(
+    loadProperties(id, 'primary', {
+      ...queryParams,
+      filter: { ...queryParams.filter, ...defaultFilter },
+      orderBy: { id: 'desc' },
+    }),
+  );
 };

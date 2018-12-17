@@ -1,8 +1,4 @@
-const fields = [
-  'questions[].questionId',
-  'questions[].text',
-  'questions[].rate',
-];
+const fields = ['questions[].questionId', 'questions[].text', 'questions[].rate'];
 
 export default {
   form: 'hubImageRequestQuestions',

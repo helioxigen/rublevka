@@ -3,7 +3,11 @@ import media from 'site/styles/media';
 
 import UI from 'site/ui';
 
-const { Icon, Form: { Input }, Grid: { Col } } = UI;
+const {
+  Icon,
+  Form: { Input },
+  Grid: { Col },
+} = UI;
 
 export const Section = styled.section`
   position: relative;
@@ -342,7 +346,9 @@ export const SendBtn = styled.button`
   background-position: center center;
 `;
 
-export const Relative = styled.div`position: relative;`;
+export const Relative = styled.div`
+  position: relative;
+`;
 
 export const FlexWrapper = styled.div`
   display: flex;

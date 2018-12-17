@@ -3,7 +3,12 @@ import React, { Component } from 'react';
 import Deal from 'cem/containers/common/deal';
 
 import UI from 'cem/components/ui';
-const { Form, Heading, Grid: { Container, Row, Col }, Form: { Textarea } } = UI;
+const {
+  Form,
+  Heading,
+  Grid: { Container, Row, Col },
+  Form: { Textarea },
+} = UI;
 
 import FormField from 'cem/helpers/formField';
 
@@ -48,55 +53,46 @@ class About extends Component {
       <Row>
         <section className={s.section}>
           <Form.Container>
-            {data.kind === 'phone_call' &&
+            {data.kind === 'phone_call' && (
               <CallDetails
                 className={sUtils.pushedBottom6}
                 phoneCallDetails={data.phoneCallDetails}
-              />}
+              />
+            )}
 
-            {data.state === 'processed' &&
-              data.dealId &&
-              <Deal id={data.dealId} className={sUtils.pushedBottom6} />}
+            {data.state === 'processed' && data.dealId && (
+              <Deal id={data.dealId} className={sUtils.pushedBottom6} />
+            )}
 
-            {formKey !== 'create' &&
-              isSensitiveDataVisible &&
-              <ContactInlineCard
-                id={data.contactId}
-                className={sUtils.pushedBottom6}
-              />}
+            {formKey !== 'create' && isSensitiveDataVisible && (
+              <ContactInlineCard id={data.contactId} className={sUtils.pushedBottom6} />
+            )}
 
-            {formKey === 'create' &&
-              <ContactDetails
-                fields={fields.contactDetails}
-                isStatic={isStatic}
-                data={data}
-              />}
+            {formKey === 'create' && (
+              <ContactDetails fields={fields.contactDetails} isStatic={isStatic} data={data} />
+            )}
 
-            {!!requestKind &&
+            {!!requestKind && (
               <RequestDetails
                 {...this.props}
                 className={sUtils.pushedBottom6}
                 leadState={state}
                 isStatic={isStatic}
-              />}
+              />
+            )}
 
             <Row className={sUtils.pushedBottom6}>
               <Col sm="20">
                 <Heading size="md">Заметки</Heading>
 
-                <FormField
-                  float
-                  label="Заметки"
-                  field={fields.note}
-                  isStatic={isStatic}
-                >
+                <FormField float label="Заметки" field={fields.note} isStatic={isStatic}>
                   <Textarea rows="6" block />
                 </FormField>
               </Col>
             </Row>
           </Form.Container>
 
-          {!isNew &&
+          {!isNew && (
             <Row>
               <Col sm="10">
                 <UserInlineCard id={createdByUser.id} title="Принял" />
@@ -104,7 +100,8 @@ class About extends Component {
               <Col sm="10">
                 <UserInlineCard id={responsibleUser.id} />
               </Col>
-            </Row>}
+            </Row>
+          )}
         </section>
       </Row>
     );

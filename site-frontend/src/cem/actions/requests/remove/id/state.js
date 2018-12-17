@@ -22,7 +22,11 @@ export default function changeState(id, state, data) {
     dispatch(changeStateStarted(id, state, data));
 
     return API.post(`/v1/properties/orders/removal/${id}/${state}`, data)
-      .then(() => dispatch(pop('success', `Заявка (ID: ${id})`, 'Статус изменён')) && dispatch(loadRemovalRequest(id)))
+      .then(
+        () =>
+          dispatch(pop('success', `Заявка (ID: ${id})`, 'Статус изменён')) &&
+          dispatch(loadRemovalRequest(id)),
+      )
       .catch(({ body }) => dispatch(changeStateFailed(id, state, body)));
   };
 }

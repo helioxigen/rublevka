@@ -1,6 +1,1 @@
-export const formFields = [
-  'id',
-  'name',
-  'managerStaffUserId',
-  'staffUserIds',
-];
+export const formFields = ['id', 'name', 'managerStaffUserId', 'staffUserIds'];

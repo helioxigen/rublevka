@@ -11,12 +11,12 @@ const loadPropertiesStarted = (saleType, id) => ({
 
 const loadPropertiesSucceeded = (saleType, id, { items, pagination }) => (dispatch) => {
   dispatch(updatePagination(`settlementProperties.${saleType}`, pagination));
-  return dispatch(({
+  return dispatch({
     type: types.LOAD_PROPERTIES_SUCCESS,
     saleType,
     id,
     items,
-  }));
+  });
 };
 
 const loadPropertiesFailed = (saleType, id, { errors }) => ({
@@ -46,5 +46,10 @@ export const loadPrimaryProperties = (id, queryParams = { filter: {} }) => (disp
       isResale: false,
     },
   };
-  dispatch(loadProperties(id, 'primary', { ...queryParams, filter: { ...queryParams.filter, ...primaryPropertiesFilter } }));
+  dispatch(
+    loadProperties(id, 'primary', {
+      ...queryParams,
+      filter: { ...queryParams.filter, ...primaryPropertiesFilter },
+    }),
+  );
 };

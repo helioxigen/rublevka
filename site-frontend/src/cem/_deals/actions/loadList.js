@@ -1,4 +1,9 @@
-import { loadList, loadListStarted, loadListFailed, loadListSucceeded } from 'core/fetcher2/actions';
+import {
+  loadList,
+  loadListStarted,
+  loadListFailed,
+  loadListSucceeded,
+} from 'core/fetcher2/actions';
 
 import * as types from 'cem/_deals/constants/actions';
 import { getDefaultsByGroup, resourceName, apiPath } from 'cem/_deals/constants/defaults';
@@ -20,26 +25,32 @@ const loadDeals = (queryParams, group, options = {}) => (dispatch, getState) => 
 
   dispatch(loadListStarted(types.LOAD_LIST, group, options.append, params));
 
-  return loadList(apiPath, group, params)
-    .then(
-      ({ items, pagination }) => {
-        // const transformedItems = items.map(transformInputValues);
-        const transformedItems = items;
+  return loadList(apiPath, group, params).then(
+    ({ items, pagination }) => {
+      // const transformedItems = items.map(transformInputValues);
+      const transformedItems = items;
 
-        dispatch(updatePagination(`${resourceName}.${group}`, pagination));
-        dispatch(loadListSucceeded(types.LOAD_LIST_SUCCEEDED, group, transformedItems, options.append));
+      dispatch(updatePagination(`${resourceName}.${group}`, pagination));
+      dispatch(
+        loadListSucceeded(types.LOAD_LIST_SUCCEEDED, group, transformedItems, options.append),
+      );
 
-        const linkedContactsIds = uniq(transformedItems.map(deal => deal.contactDetails.id).filter(id => !!id)).filter(id => isInState(getState(), '_contacts', id));
+      const linkedContactsIds = uniq(
+        transformedItems.map(deal => deal.contactDetails.id).filter(id => !!id),
+      ).filter(id => isInState(getState(), '_contacts', id));
 
-        if (linkedContactsIds.length) dispatch(loadContacts({ filter: { id: linkedContactsIds } }, groupForLinkedResources));
+      if (linkedContactsIds.length) {
+        dispatch(loadContacts({ filter: { id: linkedContactsIds } }, groupForLinkedResources));
+      }
 
-        return Promise.resolve(transformedItems);
-      }, (errors) => {
-        dispatch(loadListFailed(types.LOAD_LIST_FAILED, group, errors));
+      return Promise.resolve(transformedItems);
+    },
+    (errors) => {
+      dispatch(loadListFailed(types.LOAD_LIST_FAILED, group, errors));
 
-        return Promise.reject(errors);
-      },
-    );
+      return Promise.reject(errors);
+    },
+  );
 };
 
 export default loadDeals;

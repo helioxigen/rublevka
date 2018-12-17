@@ -60,22 +60,33 @@ export const changeMessages = {
         <span className={sUtils.success}>{translateValue(value, id)}</span>
       </span>
     ),
-    moved: ({ value, index, newIndex, id }) => `Изменен порядок: (${translateValue(value, id)}) c ${index + 1} на ${newIndex + 1}`,
+    moved: ({ value, index, newIndex, id }) =>
+      `Изменен порядок: (${translateValue(value, id)}) c ${index + 1} на ${newIndex + 1}`,
   },
   image: {
     added: ({ value }) => (
       <span>
-        Добавлено: <Link className={sUtils.success} to={value.url} target="_blank">ID: {value.id}</Link>
+        Добавлено:{' '}
+        <Link className={sUtils.success} to={value.url} target="_blank">
+          ID: {value.id}
+        </Link>
       </span>
     ),
     deleted: ({ value }) => (
       <span>
-        Удалено: <Link className={sUtils.danger} to={value.url} target="_blank">ID: {value.id}</Link>
+        Удалено:{' '}
+        <Link className={sUtils.danger} to={value.url} target="_blank">
+          ID: {value.id}
+        </Link>
       </span>
     ),
     moved: ({ value, newIndex }) => (
       <span>
-        Изменен порядок: <Link to={value.url} target="_blank">(ID: {value.id})</Link> стал {newIndex + 1} в списке
+        Изменен порядок:{' '}
+        <Link to={value.url} target="_blank">
+          (ID: {value.id})
+        </Link>{' '}
+        стал {newIndex + 1} в списке
       </span>
     ),
   },
@@ -83,24 +94,29 @@ export const changeMessages = {
     added: ({ parentValue }) => (
       <span>
         Добавлено: <span className={sUtils.danger}>Нет</span>&nbsp;
-        <span className={sUtils.success}>Да</span> <Link to={parentValue.url} target="_blank">(ID: {parentValue.id})</Link>
+        <span className={sUtils.success}>Да</span>{' '}
+        <Link to={parentValue.url} target="_blank">
+          (ID: {parentValue.id})
+        </Link>
       </span>
     ),
     deleted: ({ parentValue }) => (
       <span>
         Удалено: <span className={sUtils.danger}>Да</span>&nbsp;
-        <span className={sUtils.success}>Нет</span> <Link to={parentValue.url} target="_blank">(ID: {parentValue.id})</Link>
+        <span className={sUtils.success}>Нет</span>{' '}
+        <Link to={parentValue.url} target="_blank">
+          (ID: {parentValue.id})
+        </Link>
       </span>
     ),
     changed: ({ value, parentValue }) => (
       <span>
         Изменено:&nbsp;
-        <span className={sUtils.danger}>
-          {value ? 'Нет' : 'Да'}
-        </span>&nbsp;
-        <span className={sUtils.success}>
-          {value ? 'Да' : 'Нет'}
-        </span> <Link to={parentValue.url} target="_blank">(ID: {parentValue.id})</Link>
+        <span className={sUtils.danger}>{value ? 'Нет' : 'Да'}</span>&nbsp;
+        <span className={sUtils.success}>{value ? 'Да' : 'Нет'}</span>{' '}
+        <Link to={parentValue.url} target="_blank">
+          (ID: {parentValue.id})
+        </Link>
       </span>
     ),
   },
@@ -108,17 +124,15 @@ export const changeMessages = {
     added: ({ value, id, parentValue }) => (
       <span>
         Добавлено:&nbsp;
-        <span className={sUtils.success}>
-          {translateValue(value, id)}
-        </span> ({getFloor(parentValue.kind, parentValue.number)})
+        <span className={sUtils.success}>{translateValue(value, id)}</span> (
+        {getFloor(parentValue.kind, parentValue.number)})
       </span>
     ),
     deleted: ({ value, id, parentValue }) => (
       <span>
         Удалено:&nbsp;
-        <span className={sUtils.danger}>
-          {translateValue(value, id)}
-        </span> ({getFloor(parentValue.kind, parentValue.number)})
+        <span className={sUtils.danger}>{translateValue(value, id)}</span> (
+        {getFloor(parentValue.kind, parentValue.number)})
       </span>
     ),
   },

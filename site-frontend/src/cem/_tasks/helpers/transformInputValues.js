@@ -4,7 +4,19 @@ import { getDetails, getLinkKind } from 'cem/_tasks/helpers';
 const roundMomentTime = momentTime => momentTime.add((10 - momentTime.minute()) % 10, 'minutes');
 
 export const transformInputValues = (values) => {
-  const { goal, goalId, contactId, clientLeadId, dealId, objects, propertyId, propertyCategory, archivedDocumentId, confirmation, confirmationAt } = getDetails(values);
+  const {
+    goal,
+    goalId,
+    contactId,
+    clientLeadId,
+    dealId,
+    objects,
+    propertyId,
+    propertyCategory,
+    archivedDocumentId,
+    confirmation,
+    confirmationAt,
+  } = getDetails(values);
 
   return {
     id: values.id,

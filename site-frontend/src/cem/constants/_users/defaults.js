@@ -1,5 +1,5 @@
 export const defaultQueryParamsByGroup = {
   all: {
-    filter: { },
+    filter: {},
   },
 };

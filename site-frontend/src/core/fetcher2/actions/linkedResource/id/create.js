@@ -29,9 +29,8 @@ export const createLinkedResourceRecordSucceeded = (type, resource, resourceId, 
 export const createLinkedResourceRecord = (resource, resourceId, listName, data) => {
   const pathName = `${resource}.${listName}`;
 
-  return API.post(apiPaths[pathName](resourceId), data)
-    .then(
-      ({ headers }) => Promise.resolve({ id: extractIdFromLocation(headers.location) }),
-      ({ body: { errors } }) => Promise.reject(errors),
-    );
+  return API.post(apiPaths[pathName](resourceId), data).then(
+    ({ headers }) => Promise.resolve({ id: extractIdFromLocation(headers.location) }),
+    ({ body: { errors } }) => Promise.reject(errors),
+  );
 };

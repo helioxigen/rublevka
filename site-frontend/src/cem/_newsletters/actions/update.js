@@ -8,8 +8,7 @@ import {
 import * as types from 'cem/_newsletters/constants/actions';
 import { apiPath } from 'cem/_newsletters/constants/defaults';
 
-import transformOutputValues
-  from 'cem/_newsletters/helpers/transformOutputValues';
+import transformOutputValues from 'cem/_newsletters/helpers/transformOutputValues';
 
 export default (id, data) => (dispatch) => {
   dispatch(updateElementStarted(types.UPDATE_NEWSLETTER, id));

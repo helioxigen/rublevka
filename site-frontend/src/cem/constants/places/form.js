@@ -1,8 +1,6 @@
 import validate from 'cem/validators/places';
 
-import {
-  metaKeys
-} from 'cem/components/seo/meta';
+import { metaKeys } from 'cem/components/seo/meta';
 
 export default {
   form: 'places',

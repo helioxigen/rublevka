@@ -22,7 +22,13 @@ const updateLinkedContactFailed = (id, errors) => ({
 export default data => (dispatch) => {
   dispatch(updateLinkedContactStarted(data.id));
 
-  return API.put(`/v1/contacts/${data.id}`, { ...data, additionalDetails: { ...data.additionalDetails, autoRegion: data.additionalDetails ? data.additionalDetails.autoRegion : undefined } }).then(
+  return API.put(`/v1/contacts/${data.id}`, {
+    ...data,
+    additionalDetails: {
+      ...data.additionalDetails,
+      autoRegion: data.additionalDetails ? data.additionalDetails.autoRegion : undefined,
+    },
+  }).then(
     () => {
       dispatch(updateLinkedContactSucceeded(data));
       return data;

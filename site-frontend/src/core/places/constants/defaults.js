@@ -16,4 +16,5 @@ const defaultParamsByGroup = {
   },
 };
 
-export const getDefaultsByGroup = (group, options) => defaultParamsByGroup[group] || defaultParamsByGroup.default;
+export const getDefaultsByGroup = (group, options) =>
+  defaultParamsByGroup[group] || defaultParamsByGroup.default;

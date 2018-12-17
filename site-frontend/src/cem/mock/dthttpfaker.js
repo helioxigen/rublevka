@@ -55,7 +55,10 @@ class DtHttpFaker {
     }
     return new Promise((resolve, reject) => {
       const responseCode = expectedCode || fakeData[path][method].defaultResponseCode;
-      const responseBody = !!expectedCode && !!expectedResponseBody ? expectedResponseBody : fakeData[path][method][responseCode];
+      const responseBody =
+        !!expectedCode && !!expectedResponseBody
+          ? expectedResponseBody
+          : fakeData[path][method][responseCode];
 
       if (responseCode >= 200 && responseCode < 300) {
         resolve({ body: responseBody });

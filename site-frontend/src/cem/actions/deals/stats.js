@@ -26,7 +26,10 @@ const loadStatsFailed = (kind, { errors }, toApproveState) => ({
 
 export default (kind, queryParams = { filter: {} }, toApproveState) => (dispatch) => {
   dispatch(loadStatsStarted(kind));
-  return API.get(`/v1/deals/statistics/${kind}`, { ...queryParams, filter: mapLaneStatsFilter(queryParams.filter, !!toApproveState && 'approval') }).then(
+  return API.get(`/v1/deals/statistics/${kind}`, {
+    ...queryParams,
+    filter: mapLaneStatsFilter(queryParams.filter, !!toApproveState && 'approval'),
+  }).then(
     ({ body }) => dispatch(loadStatsSucceeded(kind, body, toApproveState)),
     ({ body }) => dispatch(loadStatsFailed(kind, body, toApproveState)),
   );

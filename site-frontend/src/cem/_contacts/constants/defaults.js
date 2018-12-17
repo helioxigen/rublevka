@@ -13,9 +13,8 @@ export const makeDefaultQueryParamsByGroup = (group, options = {}) =>
   //     },
   //   };
   // } else {
-   defaultQueryParamsByGroup
-  // }
-;
+  defaultQueryParamsByGroup;
+// }
 
 export const resourceName = '_contacts';
 export const apiPath = '/v1/contacts';

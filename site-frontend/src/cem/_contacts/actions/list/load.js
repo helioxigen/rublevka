@@ -12,19 +12,24 @@ export const loadContacts = (queryParams, group, options) => (dispatch) => {
 
   const postfix = group === 'archive' ? '/archive' : '';
 
-  return loadList(resourceName, group, { postfix, defaultQueryParamsByGroup }, mapParams(queryParams))
-    .then(
-      ({ items, pagination }) => {
-        dispatch(updatePagination(`${resourceName}.${group}`, pagination));
-        dispatch(loadListSucceeded(types.LOAD_LIST_SUCCEEDED, group, items));
+  return loadList(
+    resourceName,
+    group,
+    { postfix, defaultQueryParamsByGroup },
+    mapParams(queryParams),
+  ).then(
+    ({ items, pagination }) => {
+      dispatch(updatePagination(`${resourceName}.${group}`, pagination));
+      dispatch(loadListSucceeded(types.LOAD_LIST_SUCCEEDED, group, items));
 
-        return Promise.resolve(items);
-      }, (errors) => {
-        dispatch(loadListFailed(types.LOAD_LIST_FAILED, group, errors));
+      return Promise.resolve(items);
+    },
+    (errors) => {
+      dispatch(loadListFailed(types.LOAD_LIST_FAILED, group, errors));
 
-        return Promise.reject(errors);
-      },
-    );
+      return Promise.reject(errors);
+    },
+  );
 };
 
 export default loadContacts;

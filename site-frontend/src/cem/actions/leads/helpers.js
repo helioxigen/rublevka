@@ -19,7 +19,8 @@ const transformRentOfferOut = deal => ({
   isAllowedPets: deal.isAllowedPets === 'true',
   isAllowedChildren: deal.isAllowedChildren === 'true',
   agentFee: deal.isAgentFixed !== 'true' ? normalizeNumber(deal.agentFee) : undefined,
-  agentFixedPrice: deal.isAgentFixed === 'true' ? transformFixedPriceOut(deal.agentFixedPrice) : undefined,
+  agentFixedPrice:
+    deal.isAgentFixed === 'true' ? transformFixedPriceOut(deal.agentFixedPrice) : undefined,
 });
 
 const transformRentOfferIn = deal => ({
@@ -40,7 +41,8 @@ const transformSaleOfferOut = deal => ({
   isInstallment: deal.isInstallment === 'true',
   isResale: true,
   agentFee: deal.isAgentFixed !== 'true' ? normalizeNumber(deal.agentFee) : undefined,
-  agentFixedPrice: deal.isAgentFixed === 'true' ? transformFixedPriceOut(deal.agentFixedPrice) : undefined,
+  agentFixedPrice:
+    deal.isAgentFixed === 'true' ? transformFixedPriceOut(deal.agentFixedPrice) : undefined,
 });
 
 const transformSaleOfferIn = deal => ({
@@ -63,8 +65,12 @@ const transformLeadOut = (lead) => {
     ...values,
     requestDetails: {
       ...values.requestDetails,
-      saleOffer: requestDetails.saleOffer ? transformSaleOfferOut(requestDetails.saleOffer) : undefined,
-      rentOffer: requestDetails.rentOffer ? transformRentOfferOut(requestDetails.rentOffer) : undefined,
+      saleOffer: requestDetails.saleOffer
+        ? transformSaleOfferOut(requestDetails.saleOffer)
+        : undefined,
+      rentOffer: requestDetails.rentOffer
+        ? transformRentOfferOut(requestDetails.rentOffer)
+        : undefined,
     },
   };
 };
@@ -77,8 +83,12 @@ const transformLeadIn = (lead) => {
     ...values,
     requestDetails: {
       ...values.requestDetails,
-      saleOffer: requestDetails.saleOffer ? transformSaleOfferIn(requestDetails.saleOffer) : undefined,
-      rentOffer: requestDetails.rentOffer ? transformRentOfferIn(requestDetails.rentOffer) : undefined,
+      saleOffer: requestDetails.saleOffer
+        ? transformSaleOfferIn(requestDetails.saleOffer)
+        : undefined,
+      rentOffer: requestDetails.rentOffer
+        ? transformRentOfferIn(requestDetails.rentOffer)
+        : undefined,
     },
   };
 };
@@ -88,20 +98,36 @@ const transformLead = lead => ({
   phoneCallDetails: lead.kind === 'phone_call' ? lead.phoneCallDetails : undefined,
   requestDetails: {
     ...lead.requestDetails,
-    countryProperty: ['selection', 'purchase'].indexOf(lead.requestDetails.requestKind) > -1 && lead.requestDetails.category === 'country' ? lead.requestDetails.countryProperty : undefined,
-    cityProperty: ['selection', 'purchase'].indexOf(lead.requestDetails.requestKind) > -1 && lead.requestDetails.category === 'city' ? lead.requestDetails.cityProperty : undefined,
+    countryProperty:
+      ['selection', 'purchase'].indexOf(lead.requestDetails.requestKind) > -1 &&
+      lead.requestDetails.category === 'country'
+        ? lead.requestDetails.countryProperty
+        : undefined,
+    cityProperty:
+      ['selection', 'purchase'].indexOf(lead.requestDetails.requestKind) > -1 &&
+      lead.requestDetails.category === 'city'
+        ? lead.requestDetails.cityProperty
+        : undefined,
   },
 });
 
-const mapFilterAndFilterNot = ({ createdAtFrom, createdAtTo, awaitingApproval, notAwaitingApproval, ...filter } = {}, filterNot = {}) => {
+const mapFilterAndFilterNot = (
+  { createdAtFrom, createdAtTo, awaitingApproval, notAwaitingApproval, ...filter } = {},
+  filterNot = {},
+) => {
   const tasksWeightZeroDeadline = filter['tasksWeight.zero.deadline'];
   const phoneNumber = filter['contactDetails.phoneNumber'];
 
   return {
     filter: {
       ...filter,
-      createdAt: makeDateRange(createdAtFrom && formatFilterDate(createdAtFrom), createdAtTo && formatFilterDate(createdAtTo)),
-      'tasksWeight.zero.deadline': tasksWeightZeroDeadline ? formatFilterDate(tasksWeightZeroDeadline) : undefined,
+      createdAt: makeDateRange(
+        createdAtFrom && formatFilterDate(createdAtFrom),
+        createdAtTo && formatFilterDate(createdAtTo),
+      ),
+      'tasksWeight.zero.deadline': tasksWeightZeroDeadline
+        ? formatFilterDate(tasksWeightZeroDeadline)
+        : undefined,
       ...(phoneNumber ? { 'contactDetails.phoneNumber': `*${phoneNumber}*` } : {}),
       ...(awaitingApproval ? { 'stateDetails.toApprove': 'spam,processed,rejected' } : {}),
     },

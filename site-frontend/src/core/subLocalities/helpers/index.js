@@ -1,9 +1,6 @@
 export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNot = {} }) => {
   const { limit, offset } = pagination;
-  const {
-    subLocalityId,
-    subLocalities = [],
-  } = filter;
+  const { subLocalityId, subLocalities = [] } = filter;
 
   return {
     pagination: {

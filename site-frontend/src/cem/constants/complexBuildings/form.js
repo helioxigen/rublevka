@@ -1,4 +1,7 @@
-import validate, { validateCommonFields, validatePropertiesTableFields } from 'cem/validators/complexBuildings';
+import validate, {
+  validateCommonFields,
+  validatePropertiesTableFields,
+} from 'cem/validators/complexBuildings';
 
 export const detailsFields = [
   'series',
@@ -48,11 +51,7 @@ export const locationFields = [
   'location.subwayIds',
 ];
 
-const imagesFields = [
-  'images[].id',
-  'images[].url',
-  'images[].isPublic',
-];
+const imagesFields = ['images[].id', 'images[].url', 'images[].isPublic'];
 
 const fields = [
   'id',
@@ -61,7 +60,7 @@ const fields = [
   'state',
   '_photosToggle',
   ...locationFields,
-  ...(detailsFields.map(field => `details.${field}`)),
+  ...detailsFields.map(field => `details.${field}`),
   ...imagesFields,
 ];
 

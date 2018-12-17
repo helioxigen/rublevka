@@ -14,57 +14,54 @@ const toMillion = value => value * 1000000;
 const makePriceFilter = (currency, from, to) => {
   if (from === undefined && to === undefined) {
     return {};
-  } else if (to === `max`) {
+  } else if (to === 'max') {
     return { [`statistics.price.from.${currency}`]: `${toMillion(from)}..` };
-  } else {
-    return {
-      [`statistics.price.from.${currency}`]: `${toMillion(from)}..`,
-      [`statistics.price.to.${currency}`]: `..${toMillion(to)}`,
-    };
   }
+  return {
+    [`statistics.price.from.${currency}`]: `${toMillion(from)}..`,
+    [`statistics.price.to.${currency}`]: `..${toMillion(to)}`,
+  };
 };
 
 const makeTotalAreaFilter = (from, to) => {
   if (from === undefined && to === undefined) {
     return {};
-  } else if (to === `max`) {
+  } else if (to === 'max') {
     return { 'properties.specification.totalArea': `${from}..` };
-  } else {
-    return { 'properties.specification.totalArea': `${from}..${to}` };
   }
+  return { 'properties.specification.totalArea': `${from}..${to}` };
 };
 
 const mapFilter = ({ filter = {} }) => {
   const {
-    'stats.price.from': priceFrom, 'stats.price.to': priceTo,
-    'stats.totalArea.from': totalAreaFrom, 'stats.totalArea.to': totalAreaTo,
-    ...restFilter,
+    'stats.price.from': priceFrom,
+    'stats.price.to': priceTo,
+    'stats.totalArea.from': totalAreaFrom,
+    'stats.totalArea.to': totalAreaTo,
+    ...restFilter
   } = filter;
 
   return {
     filter: {
       ...restFilter,
-      state: `public`,
+      state: 'public',
       ...makeTotalAreaFilter(totalAreaFrom, totalAreaTo),
-      ...makePriceFilter(`usd`, priceFrom, priceTo),
-      ...makeRoomsFilterAndFilterNot(filter, `properties.specification.rooms`).filter,
+      ...makePriceFilter('usd', priceFrom, priceTo),
+      ...makeRoomsFilterAndFilterNot(filter, 'properties.specification.rooms').filter,
     },
     filterNot: {
-      ...makeRoomsFilterAndFilterNot(filter, `properties.specification.rooms`).filterNot,
+      ...makeRoomsFilterAndFilterNot(filter, 'properties.specification.rooms').filterNot,
     },
   };
 };
 
-const mapPagination = ({ pagination = {} }) => {
-  return {
-    pagination: {
-      ...pagination,
-      limit: 5,
-      offset: pagination.offset,
-    },
-  };
-};
-
+const mapPagination = ({ pagination = {} }) => ({
+  pagination: {
+    ...pagination,
+    limit: 5,
+    offset: pagination.offset,
+  },
+});
 
 const loadComplexesStarted = () => ({
   type: types.LOAD_COMPLEXES,
@@ -75,7 +72,7 @@ const loadComplexesSucceeded = ({ items, pagination }) => (dispatch) => {
 
   if (complexesIds.length) dispatch(loadComplexBuildings({ filter: { complexId: complexesIds } }));
 
-  dispatch(updatePagination(pagination, `complexes`, ``));
+  dispatch(updatePagination(pagination, 'complexes', ''));
 
   return dispatch({
     type: types.LOAD_COMPLEXES_SUCCESS,
@@ -97,7 +94,7 @@ const loadComplexes = (queryParams = {}) => (dispatch) => {
 
   dispatch(loadComplexesStarted());
 
-  return API.get(`/v1/complexes`, query).then(
+  return API.get('/v1/complexes', query).then(
     ({ body }) => dispatch(loadComplexesSucceeded(body)),
     ({ body }) => dispatch(loadComplexesFailed(body)),
   );

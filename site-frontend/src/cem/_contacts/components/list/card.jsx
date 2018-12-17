@@ -44,16 +44,12 @@ export default ({ contact = {} }) => {
             </span>
           </Col>
           <Col sm={3}>
-            <span className={s.textMd}>
-              {dict.contactKinds[contact.kind]}
-            </span>
+            <span className={s.textMd}>{dict.contactKinds[contact.kind]}</span>
           </Col>
           {!isArchived && (
             <Col sm={5}>
               <span className={s.textMd}>
-                <StaticMask pattern="+1 (111) 111-11-11">
-                  {details.phoneNumber}
-                </StaticMask>
+                <StaticMask pattern="+1 (111) 111-11-11">{details.phoneNumber}</StaticMask>
               </span>
             </Col>
           )}
@@ -62,24 +58,32 @@ export default ({ contact = {} }) => {
               <span className={s.textMd}>
                 {!!successfulDealsCount && (
                   <div>
-                    <CountIndicator className={s.success} count={successfulDealsCount} declensionForms={['успешная сделка', 'успешных сделки', 'успешных сделок']} />
+                    <CountIndicator
+                      className={s.success}
+                      count={successfulDealsCount}
+                      declensionForms={['успешная сделка', 'успешных сделки', 'успешных сделок']}
+                    />
                   </div>
                 )}
 
                 {!!unsuccessfulDealsCount && (
                   <div>
-                    <CountIndicator className={s.danger} count={unsuccessfulDealsCount} declensionForms={['неуспешная сделка', 'неуспешных сделки', 'неуспешных сделок']} />
+                    <CountIndicator
+                      className={s.danger}
+                      count={unsuccessfulDealsCount}
+                      declensionForms={[
+                        'неуспешная сделка',
+                        'неуспешных сделки',
+                        'неуспешных сделок',
+                      ]}
+                    />
                   </div>
                 )}
               </span>
             </Col>
           )}
           <Col sm={4}>
-            {!isArchived && (
-              <span className={s.textMd}>
-                {details.email}
-              </span>
-            )}
+            {!isArchived && <span className={s.textMd}>{details.email}</span>}
             {isArchived && hasTask && (
               <span className={s.textMd}>
                 Последняя задача:

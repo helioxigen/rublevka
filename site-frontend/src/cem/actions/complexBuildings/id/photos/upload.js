@@ -14,7 +14,8 @@ const uploadPhotoFailed = (complexBuildingId, errors) => ({
   errors,
 });
 
-const uploadPhoto = (complexBuildingId, src) => dispatch => API.post(`/v1/complex_buildings/${complexBuildingId}/images`, { src }).then(
+const uploadPhoto = (complexBuildingId, src) => dispatch =>
+  API.post(`/v1/complex_buildings/${complexBuildingId}/images`, { src }).then(
     () => {},
     ({ body }) => {
       dispatch(uploadPhotoFailed(complexBuildingId, body));

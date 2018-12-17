@@ -17,9 +17,13 @@ const loadDealsStarted = (kind, appendResult) => ({
 
 const loadDealsSucceeded = (kind, { items, pagination }, appendResult) => (dispatch, getState) => {
   const contactIds = uniq(
-    items.map(({ contactDetails = {} }) =>
-      contactDetails.id && !getState().contacts[contactDetails.id] ? contactDetails.id : undefined,
-    ).filter(id => id),
+    items
+      .map(({ contactDetails = {} }) =>
+        contactDetails.id && !getState().contacts[contactDetails.id]
+          ? contactDetails.id
+          : undefined,
+      )
+      .filter(id => id),
   );
 
   if (contactIds.length) {

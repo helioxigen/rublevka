@@ -14,19 +14,24 @@ const resource = 'users';
 const loadUsers = (queryParams, group) => (dispatch) => {
   dispatch(loadListStarted(types.LOAD_USERS, group));
 
-  return loadList(resource, group, { defaultQueryParamsByGroup }, { ...queryParams, filter: mapFilters(queryParams.filter) })
-    .then(
-      ({ items, pagination }) => {
-        dispatch(updatePagination(`${resource}.${group}`, pagination));
-        dispatch(loadListSucceeded(types.LOAD_USERS_SUCCEEDED, group, items));
+  return loadList(
+    resource,
+    group,
+    { defaultQueryParamsByGroup },
+    { ...queryParams, filter: mapFilters(queryParams.filter) },
+  ).then(
+    ({ items, pagination }) => {
+      dispatch(updatePagination(`${resource}.${group}`, pagination));
+      dispatch(loadListSucceeded(types.LOAD_USERS_SUCCEEDED, group, items));
 
-        return Promise.resolve(items);
-      }, (errors) => {
-        dispatch(loadListFailed(types.LOAD_USERS_FAILED, group, errors));
+      return Promise.resolve(items);
+    },
+    (errors) => {
+      dispatch(loadListFailed(types.LOAD_USERS_FAILED, group, errors));
 
-        return Promise.reject(errors);
-      },
-    );
+      return Promise.reject(errors);
+    },
+  );
 };
 
 export default loadUsers;

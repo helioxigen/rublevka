@@ -43,7 +43,9 @@ export const StButton = styled(Button)`
   `};
 `;
 
-export const StButtonMobile = StButton.extend`width: 100%;`;
+export const StButtonMobile = StButton.extend`
+  width: 100%;
+`;
 
 export const ResetBtn = StButton.extend`
   color: ${p => p.theme.brandPrimary};
@@ -257,7 +259,9 @@ export const Title = styled.div`
   line-height: 1;
 `;
 
-export const WrapperKind = styled.div`padding: 0 2rem 3rem 0;`;
+export const WrapperKind = styled.div`
+  padding: 0 2rem 3rem 0;
+`;
 
 export const StCheckbox = styled(Checkbox)`
   margin-bottom: 1.3rem;

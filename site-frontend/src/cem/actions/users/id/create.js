@@ -12,13 +12,14 @@ const createIdStarted = () => ({
   type: types.CREATE_ID,
 });
 
-const createIdSucceeded = (id, images) => dispatch => uploadPhoto(id, images).then(() => {
-  dispatch(pushPath(`/staff/${id}`));
+const createIdSucceeded = (id, images) => dispatch =>
+  uploadPhoto(id, images).then(() => {
+    dispatch(pushPath(`/staff/${id}`));
 
-  return dispatch({
-    type: types.CREATE_ID_SUCCESS,
+    return dispatch({
+      type: types.CREATE_ID_SUCCESS,
+    });
   });
-});
 
 const createIdFailed = errors => ({
   type: types.CREATE_ID_FAIL,
@@ -31,7 +32,10 @@ export default function createUser({ photo, ...data }) {
     notificationsList.map(item => set(data.details, item.key, item.default));
 
     return API.post('/v1/users/staff', transform({ ...data })).then(
-      ({ headers }) => API.get(headers.location).then(({ body: { id } }) => dispatch(createIdSucceeded(id, photo))),
+      ({ headers }) =>
+        API.get(headers.location).then(({ body: { id } }) =>
+          dispatch(createIdSucceeded(id, photo)),
+        ),
       ({ body }) => {
         dispatch(createIdFailed(body));
         return body;

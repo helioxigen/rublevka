@@ -5,7 +5,9 @@ import Deal from 'cem/containers/common/deal';
 import cn from 'classnames';
 import UI from 'cem/components/ui';
 const {
-  Form, Button, Heading,
+  Form,
+  Button,
+  Heading,
   Grid: { Row, Col },
   Form: { Textarea },
 } = UI;
@@ -36,24 +38,35 @@ class About extends Component {
 
   render() {
     const {
-      handleSubmit, formKey, pristine, error, submitting,
+      handleSubmit,
+      formKey,
+      pristine,
+      error,
+      submitting,
       data = {},
       fields,
-      isUpdateAllowed, isSensitiveDataVisible,
+      isUpdateAllowed,
+      isSensitiveDataVisible,
     } = this.props;
 
-    const isNew = formKey === `create`;
+    const isNew = formKey === 'create';
     const { id: clientLeadId, stateDetails = {}, responsibleUser = {}, createdByUser = {} } = data;
     const state = stateDetails.toApprove || data.state;
-    const isStatic = (formKey !== `create` && !isUpdateAllowed) || data.stateDetails.toApprove || [`spam`, `rejected`, `processed`].indexOf(state) > -1;
+    const isStatic =
+      (formKey !== 'create' && !isUpdateAllowed) ||
+      data.stateDetails.toApprove ||
+      ['spam', 'rejected', 'processed'].indexOf(state) > -1;
 
     return (
       <Row>
         <section className={s.section}>
           <Form.Container onSubmit={handleSubmit(::this.update)}>
-            <CallDetails className={sUtils.pushedBottom6} phoneCallDetails={data.phoneCallDetails} />
+            <CallDetails
+              className={sUtils.pushedBottom6}
+              phoneCallDetails={data.phoneCallDetails}
+            />
 
-            {data.state === `processed` && data.dealId && (
+            {data.state === 'processed' && data.dealId && (
               <Row className={sUtils.pushedBottom6}>
                 <Col xs="20">
                   <Deal id={data.dealId} />
@@ -61,7 +74,7 @@ class About extends Component {
               </Row>
             )}
 
-            {(formKey === `create` || isSensitiveDataVisible) && (
+            {(formKey === 'create' || isSensitiveDataVisible) && (
               <ContactInlineCard id={data.contactId} className={sUtils.pushedBottom6} />
             )}
 
@@ -74,7 +87,13 @@ class About extends Component {
                       <div className={sUtils.textCenter}>
                         <Heading size="md">На покупку</Heading>
 
-                        <Button kind="warning" type="button" onClick={() => ::this.changeKind(`purchase`)}>выбрать тип заявки</Button>
+                        <Button
+                          kind="warning"
+                          type="button"
+                          onClick={() => ::this.changeKind('purchase')}
+                        >
+                          выбрать тип заявки
+                        </Button>
                       </div>
                     </Col>
 
@@ -82,7 +101,13 @@ class About extends Component {
                       <div className={sUtils.textCenter}>
                         <Heading size="md">На продажу</Heading>
 
-                        <Button kind="warning" type="button" onClick={() => ::this.changeKind(`selling`)}>выбрать тип заявки</Button>
+                        <Button
+                          kind="warning"
+                          type="button"
+                          onClick={() => ::this.changeKind('selling')}
+                        >
+                          выбрать тип заявки
+                        </Button>
                       </div>
                     </Col>
                   </Row>
@@ -99,7 +124,15 @@ class About extends Component {
                 </FormField>
               </Col>
             </Row>
-            <Button className={cn(sButton.btnFixedBottom, pristine && sUtils.hidden)} disabled={error || submitting} kind="warning" size="md" block>Сохранить</Button>
+            <Button
+              className={cn(sButton.btnFixedBottom, pristine && sUtils.hidden)}
+              disabled={error || submitting}
+              kind="warning"
+              size="md"
+              block
+            >
+              Сохранить
+            </Button>
           </Form.Container>
 
           {!isNew && (

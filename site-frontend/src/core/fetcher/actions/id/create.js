@@ -21,14 +21,13 @@ export const createElement = (resourceName, data) => {
   if (!resourceName) throwFormattedError('required', resourceName);
   if (!apiPaths[resourceName]) throwFormattedError('apiPathEmpty', resourceName);
 
-  return API.post(apiPaths[resourceName], data)
-    .then(
-      ({ headers }) => {
-        const locationParts = headers.location.split('/');
-        const id = locationParts[locationParts.length - 1];
+  return API.post(apiPaths[resourceName], data).then(
+    ({ headers }) => {
+      const locationParts = headers.location.split('/');
+      const id = locationParts[locationParts.length - 1];
 
-        return Promise.resolve({ id });
-      },
-      ({ body: { errors } }) => Promise.reject(errors),
-    );
+      return Promise.resolve({ id });
+    },
+    ({ body: { errors } }) => Promise.reject(errors),
+  );
 };

@@ -9,8 +9,34 @@ const WEEKDAYS_SHORT = {
 };
 
 const MONTHS = {
-  en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-  ru: ['Январь', 'Ферваль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентрябь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+  en: [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ],
+  ru: [
+    'Январь',
+    'Ферваль',
+    'Март',
+    'Апрель',
+    'Май',
+    'Июнь',
+    'Июль',
+    'Август',
+    'Сентрябь',
+    'Октябрь',
+    'Ноябрь',
+    'Декабрь',
+  ],
 };
 
 const localeCustomUtils = {
@@ -20,9 +46,7 @@ const localeCustomUtils = {
   // BUG: A bug in react-day-picker causes incorect weekdays header ordering while
   // Dates in calendar are ordered correctly, disabled this feature untill it's fixed.
   // Also you HAVE to have this method if you provide a custom localeUtils.
-  getFirstDayOfWeek: locale => (
-    (locale === 'ru') ? 1 : 0
-  ),
+  getFirstDayOfWeek: locale => (locale === 'ru' ? 1 : 0),
 };
 
 export default localeCustomUtils;

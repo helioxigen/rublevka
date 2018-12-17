@@ -5,11 +5,7 @@ export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNo
   const { createdAtFrom, createdAtTo, awaitingApproval, notAwaitingApproval } = filter;
   const { limit, offset } = pagination;
 
-  const {
-    tasksDeadlineDate,
-    tasksDoesntHaveScheduled,
-    tasksHasOverdue,
-  } = filter;
+  const { tasksDeadlineDate, tasksDoesntHaveScheduled, tasksHasOverdue } = filter;
 
   return recursiveCleanUp({
     pagination: {

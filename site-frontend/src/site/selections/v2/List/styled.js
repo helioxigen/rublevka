@@ -2,7 +2,9 @@ import styled from 'styled-components';
 
 import media from 'site/styles/media';
 
-export const Wrapper = styled.div`background: ${p => p.theme.brandWhite};`;
+export const Wrapper = styled.div`
+  background: ${p => p.theme.brandWhite};
+`;
 
 export const ListWrapper = styled.div`
   max-width: 1600px;

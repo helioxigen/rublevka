@@ -1,4 +1,9 @@
-import { loadElement, loadElementStarted, loadElementFailed, loadElementSucceeded } from 'core/fetcher/actions';
+import {
+  loadElement,
+  loadElementStarted,
+  loadElementFailed,
+  loadElementSucceeded,
+} from 'core/fetcher/actions';
 
 import * as types from 'cem/_deals/constants/actions';
 import { resourceName } from 'cem/_deals/constants/defaults';
@@ -6,18 +11,18 @@ import { resourceName } from 'cem/_deals/constants/defaults';
 const load = id => (dispatch) => {
   dispatch(loadElementStarted(types.LOAD, id));
 
-  return loadElement(resourceName, id)
-    .then(
-      (data) => {
-        dispatch(loadElementSucceeded(types.LOAD_SUCCEEDED, id, data));
+  return loadElement(resourceName, id).then(
+    (data) => {
+      dispatch(loadElementSucceeded(types.LOAD_SUCCEEDED, id, data));
 
-        return data;
-      }, (errors) => {
-        dispatch(loadElementFailed(types.LOAD_FAILED, id, errors));
+      return data;
+    },
+    (errors) => {
+      dispatch(loadElementFailed(types.LOAD_FAILED, id, errors));
 
-        return errors;
-      },
-    );
+      return errors;
+    },
+  );
 };
 
 export default load;

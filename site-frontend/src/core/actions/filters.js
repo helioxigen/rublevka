@@ -7,10 +7,12 @@ export const resetFilter = resource => ({
 });
 
 export const updateFilter = (resource, values) => (dispatch) => {
-  dispatch(sendAnalytics(types.UPDATE_FILTER, {
-    resource,
-    values,
-  }));
+  dispatch(
+    sendAnalytics(types.UPDATE_FILTER, {
+      resource,
+      values,
+    }),
+  );
 
   dispatch({
     type: types.UPDATE_FILTER,
@@ -27,10 +29,12 @@ export const removeFilter = (resource, key, value) => ({
 });
 
 export const setFilter = (resource, values) => (dispatch) => {
-  dispatch(sendAnalytics(types.UPDATE_FILTER, {
-    resource,
-    values,
-  }));
+  dispatch(
+    sendAnalytics(types.UPDATE_FILTER, {
+      resource,
+      values,
+    }),
+  );
 
   dispatch({
     type: types.UPDATE_FILTER,

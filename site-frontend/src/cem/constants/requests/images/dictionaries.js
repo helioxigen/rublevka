@@ -62,13 +62,7 @@ export const laneFilters = {
   },
 };
 
-export const captions = [
-  'неудовлетворен',
-  'достаточно',
-  'хорошо',
-  'очень хорошо',
-  'отлично',
-];
+export const captions = ['неудовлетворен', 'достаточно', 'хорошо', 'очень хорошо', 'отлично'];
 
 export const kinds = {
   image: 'Фотографии',

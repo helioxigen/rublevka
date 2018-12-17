@@ -43,4 +43,4 @@ export const getDefaultsByGroup = (group, options) =>
   //   };
   // }
 
-   defaultParamsByGroup[group];
+  defaultParamsByGroup[group];

@@ -1,5 +1,9 @@
 import { API } from 'core/config/sources';
-import { LOAD_SIMILAR_PLACES, LOAD_SIMILAR_PLACES_SUCCEEDED, LOAD_SIMILAR_PLACES_FAILED } from '../../constants/places';
+import {
+  LOAD_SIMILAR_PLACES,
+  LOAD_SIMILAR_PLACES_SUCCEEDED,
+  LOAD_SIMILAR_PLACES_FAILED,
+} from '../../constants/places';
 
 function loadSimilarStarted(id) {
   return {

@@ -25,10 +25,8 @@ export default handleActions(
       listLoadSuccess(state, group, items),
 
     [types.LOAD_NEWSLETTER]: (state, { id }) => elementLoadStart(state, id),
-    [types.LOAD_NEWSLETTER_FAILED]: (state, { id, errors }) =>
-      elementLoadFail(state, id, errors),
-    [types.LOAD_NEWSLETTER_SUCCEEDED]: (state, { id, data }) =>
-      elementLoadSuccess(state, id, data),
+    [types.LOAD_NEWSLETTER_FAILED]: (state, { id, errors }) => elementLoadFail(state, id, errors),
+    [types.LOAD_NEWSLETTER_SUCCEEDED]: (state, { id, data }) => elementLoadSuccess(state, id, data),
 
     [types.CREATE_NEWSLETTER]: state => elementCreateStart(state),
     [types.CREATE_NEWSLETTER_FAILED]: state => elementCreateFail(state),

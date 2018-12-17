@@ -6,9 +6,12 @@ const initialState = {
   vk: '',
 };
 
-export default handleActions({
-  [types.SET_KEY]: (state, { providerName, apiKey }) => ({
-    ...state,
-    [providerName]: apiKey,
-  }),
-}, initialState);
+export default handleActions(
+  {
+    [types.SET_KEY]: (state, { providerName, apiKey }) => ({
+      ...state,
+      [providerName]: apiKey,
+    }),
+  },
+  initialState,
+);

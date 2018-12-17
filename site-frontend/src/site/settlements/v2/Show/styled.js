@@ -3,9 +3,15 @@ import media from 'site/styles/media';
 
 import UI from 'site/ui';
 
-const { Loading, LoadMore, Grid: { Container } } = UI;
+const {
+  Loading,
+  LoadMore,
+  Grid: { Container },
+} = UI;
 
-export const Wrapper = styled.div`background: ${p => p.theme.brandWhite};`;
+export const Wrapper = styled.div`
+  background: ${p => p.theme.brandWhite};
+`;
 
 export const CardWrapper = styled.div`
   background: ${p => p.theme.brandWhite};
@@ -16,7 +22,9 @@ export const CardWrapper = styled.div`
   `};
 `;
 
-export const StLoading = styled(Loading)`padding-bottom: 3rem;`;
+export const StLoading = styled(Loading)`
+  padding-bottom: 3rem;
+`;
 
 export const StLoadMore = styled(LoadMore)`
   border: none;
@@ -44,7 +52,9 @@ export const OrderWrapper = styled.div`
   `};
 `;
 
-export const Relative = styled(Container)`position: relative;`;
+export const Relative = styled(Container)`
+  position: relative;
+`;
 
 export const ListWrapper = styled.div`
   max-width: 1600px;

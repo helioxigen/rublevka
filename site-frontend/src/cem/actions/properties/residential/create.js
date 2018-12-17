@@ -31,12 +31,11 @@ export default function (data, location) {
       location,
     };
     return API.post('/v1/complexes', transformResidential(complex)).then(
-      ({ headers }) => API.get(headers.location).then(
-        ({ body }) => {
+      ({ headers }) =>
+        API.get(headers.location).then(({ body }) => {
           dispatch(loadResidential(body.id));
           return dispatch(createResidentialSucceded(body.id));
-        },
-      ),
+        }),
       ({ body }) => {
         dispatch(createResidentialFailed(body));
         return body;

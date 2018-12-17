@@ -5,7 +5,12 @@ import Body from 'site/components/body';
 
 import UI from 'site/ui';
 
-const { Navbar, Icon, Button, Navbar: { Menu } } = UI;
+const {
+  Navbar,
+  Icon,
+  Button,
+  Navbar: { Menu },
+} = UI;
 
 export const HeaderBody = styled(Body)`
   ${p =>
@@ -88,8 +93,8 @@ export const Nav = styled(Navbar.Container)`
       display: none;
     }
   `} ${p =>
-      p.active &&
-      `
+  p.active &&
+  `
       transform: translate3d(0, 0, 0);
   `};
 `;

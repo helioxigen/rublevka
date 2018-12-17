@@ -19,13 +19,13 @@ const loadPropertiesStarted = (saleType, id, append) => ({
 const loadPropertiesSucceeded = (saleType, id, { items, pagination }, append) => (dispatch) => {
   dispatch(updatePagination(pagination, 'complexBuilding.properties', ''));
 
-  return dispatch(({
+  return dispatch({
     type: types.LOAD_PROPERTIES_SUCCESS,
     saleType,
     id,
     items,
     append,
-  }));
+  });
 };
 
 const loadPropertiesFailed = (saleType, id, { errors }) => ({
@@ -35,10 +35,18 @@ const loadPropertiesFailed = (saleType, id, { errors }) => ({
   errors,
 });
 
-const loadProperties = (id, saleType = 'primary', queryParams = { filter: {}, orderBy: {}, pagination: {} }, append = false) => (dispatch) => {
+const loadProperties = (
+  id,
+  saleType = 'primary',
+  queryParams = { filter: {}, orderBy: {}, pagination: {} },
+  append = false,
+) => (dispatch) => {
   dispatch(loadPropertiesStarted(saleType, id, append));
 
-  return API.get('/v1/properties/city', { ...queryParams, filter: { ...queryParams.filter, complexId: id } }).then(
+  return API.get('/v1/properties/city', {
+    ...queryParams,
+    filter: { ...queryParams.filter, complexId: id },
+  }).then(
     ({ body }) => dispatch(loadPropertiesSucceeded(saleType, id, body, append)),
     ({ body }) => dispatch(loadPropertiesFailed(saleType, id, body)),
   );

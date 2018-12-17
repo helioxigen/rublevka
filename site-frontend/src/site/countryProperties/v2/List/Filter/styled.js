@@ -85,7 +85,9 @@ export const FilterMobile = styled.div`
   `};
 `;
 
-export const ResetFilter = styled.span`margin-right: 1rem;`;
+export const ResetFilter = styled.span`
+  margin-right: 1rem;
+`;
 
 export const StBtnGroup = styled(BtnGroup)`
   position: fixed;
@@ -164,7 +166,9 @@ export const Wrapper = styled.div`
   padding-left: 0;
 `;
 
-export const FilterWrapper = styled.div`padding: 1.6rem 2rem 1.2rem;`;
+export const FilterWrapper = styled.div`
+  padding: 1.6rem 2rem 1.2rem;
+`;
 
 export const FilterWrapperKind = FilterWrapper.extend`
   padding-bottom: 0.2rem;

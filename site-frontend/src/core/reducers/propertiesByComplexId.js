@@ -7,44 +7,47 @@ const initialState = {
   secondary: {},
 };
 
-export default handleActions({
-  [types.LOAD_PROPERTIES]: (state, { saleType, id, append }) => {
-    const oldItems = state[saleType][id] && state[saleType][id].items || [];
+export default handleActions(
+  {
+    [types.LOAD_PROPERTIES]: (state, { saleType, id, append }) => {
+      const oldItems = (state[saleType][id] && state[saleType][id].items) || [];
 
-    return ({
-      ...state,
-      [saleType]: {
-        ...state[saleType],
-        [id]: {
-          items: append ? oldItems : [],
-          isFetching: true,
+      return {
+        ...state,
+        [saleType]: {
+          ...state[saleType],
+          [id]: {
+            items: append ? oldItems : [],
+            isFetching: true,
+          },
         },
-      },
-    });
-  },
-
-  [types.LOAD_PROPERTIES_SUCCESS]: (state, { saleType, id, items, append }) => {
-    const oldItems = state[saleType][id] && state[saleType][id].items || [];
-
-    return ({
-      ...state,
-      [saleType]: {
-        ...state[saleType],
-        [id]: {
-          items: append ? [...oldItems, ...items] : items,
-          isFetching: false,
-        },
-      },
-    });
-  },
-
-  [types.LOAD_PROPERTIES_FAIL]: (state, { saleType, id, errors }) => ({
-    ...state,
-    [saleType]: {
-      ...state[saleType],
-      [id]: {
-        errors,
-      },
+      };
     },
-  }),
-}, initialState);
+
+    [types.LOAD_PROPERTIES_SUCCESS]: (state, { saleType, id, items, append }) => {
+      const oldItems = (state[saleType][id] && state[saleType][id].items) || [];
+
+      return {
+        ...state,
+        [saleType]: {
+          ...state[saleType],
+          [id]: {
+            items: append ? [...oldItems, ...items] : items,
+            isFetching: false,
+          },
+        },
+      };
+    },
+
+    [types.LOAD_PROPERTIES_FAIL]: (state, { saleType, id, errors }) => ({
+      ...state,
+      [saleType]: {
+        ...state[saleType],
+        [id]: {
+          errors,
+        },
+      },
+    }),
+  },
+  initialState,
+);

@@ -26,7 +26,8 @@ export default function loadLead(id) {
     return API.get(`/v1/client_leads/${id}`).then(
       ({ body }) => {
         const { requestDetails = {} } = body;
-        const transformedBody = requestDetails.requestKind === 'selling' ? transformLeadIn(body) : body;
+        const transformedBody =
+          requestDetails.requestKind === 'selling' ? transformLeadIn(body) : body;
 
         dispatch(loadLeadSucceeded(id, transformedBody));
       },

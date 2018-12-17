@@ -7,7 +7,16 @@ import { reduxForm, propTypes as reduxFormPropTypes } from 'redux-form';
 
 // actions
 import loadLead from 'cem/actions/leads/id/load';
-import { loadDocuments, createDocument, updateDocument, deleteDocument, loadLinkedContacts, addLinkedContact, updateLinkedContact, deleteLinkedContact } from 'cem/_contacts/old_actions'; // TODO: refactor this
+import {
+  loadDocuments,
+  createDocument,
+  updateDocument,
+  deleteDocument,
+  loadLinkedContacts,
+  addLinkedContact,
+  updateLinkedContact,
+  deleteLinkedContact,
+} from 'cem/_contacts/old_actions'; // TODO: refactor this
 
 // constants
 import { formSettings } from 'cem/_contacts/constants/form';
@@ -70,7 +79,7 @@ class About extends Component {
     actions: PropTypes.shape({
       loadLead: PropTypes.func.isRequired,
     }),
-  }
+  };
 
   componentWillMount() {
     const { clientLeadId } = this.props.data;
@@ -112,10 +121,26 @@ class About extends Component {
                     <Col sm="10">
                       <Row>
                         <Col lg="16">
-                          <FormField label="Основной телефон" field={fields.details.phoneNumber} float static={isStatic}>
-                            <Input block type="tel" mask="+7 (111) 111-11-11" placeholder="+7 (___) ___ - __ - __" autoComplete="off" />
+                          <FormField
+                            label="Основной телефон"
+                            field={fields.details.phoneNumber}
+                            float
+                            static={isStatic}
+                          >
+                            <Input
+                              block
+                              type="tel"
+                              mask="+7 (111) 111-11-11"
+                              placeholder="+7 (___) ___ - __ - __"
+                              autoComplete="off"
+                            />
                           </FormField>
-                          <FormField label="Основной e-mail" field={fields.details.email} float static={isStatic}>
+                          <FormField
+                            label="Основной e-mail"
+                            field={fields.details.email}
+                            float
+                            static={isStatic}
+                          >
                             <Input className={s.input} block type="text" autoComplete="off" />
                           </FormField>
                         </Col>
@@ -124,10 +149,26 @@ class About extends Component {
                     <Col sm="10">
                       <Row>
                         <Col lg="16">
-                          <FormField label="Дополнительный телефон" field={fields.additionalDetails.additionalPhoneNumber} float static={isStatic}>
-                            <Input block type="tel" mask="+7 (111) 111-11-11" placeholder="+7 (___) ___ - __ - __" autoComplete="off" />
+                          <FormField
+                            label="Дополнительный телефон"
+                            field={fields.additionalDetails.additionalPhoneNumber}
+                            float
+                            static={isStatic}
+                          >
+                            <Input
+                              block
+                              type="tel"
+                              mask="+7 (111) 111-11-11"
+                              placeholder="+7 (___) ___ - __ - __"
+                              autoComplete="off"
+                            />
                           </FormField>
-                          <FormField label="Дополнительный e-mail" field={fields.additionalDetails.additionalEmail} float static={isStatic}>
+                          <FormField
+                            label="Дополнительный e-mail"
+                            field={fields.additionalDetails.additionalEmail}
+                            float
+                            static={isStatic}
+                          >
                             <Input block type="text" autoComplete="off" />
                           </FormField>
                         </Col>
@@ -144,11 +185,31 @@ class About extends Component {
                   <Col sm="10">
                     <Row>
                       <Col lg="16">
-                        <FormField label="Род деятельности" field={fields.additionalDetails.occupationId} static={isStatic}>
-                          <AsyncSelect block type="text" valueKey="id" labelKey="title" asyncOptions={fetchDictionary(`contact_occupation`)} />
+                        <FormField
+                          label="Род деятельности"
+                          field={fields.additionalDetails.occupationId}
+                          static={isStatic}
+                        >
+                          <AsyncSelect
+                            block
+                            type="text"
+                            valueKey="id"
+                            labelKey="title"
+                            asyncOptions={fetchDictionary('contact_occupation')}
+                          />
                         </FormField>
-                        <FormField label="Роль" field={fields.additionalDetails.jobRoleId} static={isStatic}>
-                          <AsyncSelect block type="text" valueKey="id" labelKey="title" asyncOptions={fetchDictionary(`contact_job_role`)} />
+                        <FormField
+                          label="Роль"
+                          field={fields.additionalDetails.jobRoleId}
+                          static={isStatic}
+                        >
+                          <AsyncSelect
+                            block
+                            type="text"
+                            valueKey="id"
+                            labelKey="title"
+                            asyncOptions={fetchDictionary('contact_job_role')}
+                          />
                         </FormField>
                       </Col>
                     </Row>
@@ -158,13 +219,37 @@ class About extends Component {
                       <Col lg="16">
                         <Row>
                           <Col sm="10">
-                            <FormField label="Марка aвтомобиля" field={fields.additionalDetails.autoBrandId} static={isStatic}>
-                              <AsyncSelect block type="text" valueKey="id" labelKey="title" asyncOptions={fetchDictionary(`auto_brand`)} />
+                            <FormField
+                              label="Марка aвтомобиля"
+                              field={fields.additionalDetails.autoBrandId}
+                              static={isStatic}
+                            >
+                              <AsyncSelect
+                                block
+                                type="text"
+                                valueKey="id"
+                                labelKey="title"
+                                asyncOptions={fetchDictionary('auto_brand')}
+                              />
                             </FormField>
                           </Col>
                           <Col sm="10">
-                            <FormField label="Модель aвтомобиля" field={fields.additionalDetails.autoModelId} static={isStatic}>
-                              <AsyncSelect block type="text" valueKey="id" labelKey="title" asyncOptions={fetchDictionary(`auto_model`, fields.additionalDetails.autoBrandId.value)} parent={fields.additionalDetails.autoBrandId.value} />
+                            <FormField
+                              label="Модель aвтомобиля"
+                              field={fields.additionalDetails.autoModelId}
+                              static={isStatic}
+                            >
+                              <AsyncSelect
+                                block
+                                type="text"
+                                valueKey="id"
+                                labelKey="title"
+                                asyncOptions={fetchDictionary(
+                                  'auto_model',
+                                  fields.additionalDetails.autoBrandId.value,
+                                )}
+                                parent={fields.additionalDetails.autoBrandId.value}
+                              />
                             </FormField>
                           </Col>
                         </Row>
@@ -174,12 +259,22 @@ class About extends Component {
                       <Col lg="16">
                         <Row>
                           <Col sm="10">
-                            <FormField label="Гос. номер" field={fields.additionalDetails.autoNumber} float static={isStatic}>
+                            <FormField
+                              label="Гос. номер"
+                              field={fields.additionalDetails.autoNumber}
+                              float
+                              static={isStatic}
+                            >
                               <Input block type="text" />
                             </FormField>
                           </Col>
                           <Col sm="10">
-                            <FormField label="Регион" field={fields.additionalDetails.autoRegion} float static={isStatic}>
+                            <FormField
+                              label="Регион"
+                              field={fields.additionalDetails.autoRegion}
+                              float
+                              static={isStatic}
+                            >
                               <Input block type="number" />
                             </FormField>
                           </Col>
@@ -229,17 +324,15 @@ class About extends Component {
               </div>
             </Form.Container>
 
-            {formKey !== `create` && !isStatic && isLinkedContactsEditingAllowed && (
+            {formKey !== 'create' && !isStatic && isLinkedContactsEditingAllowed && (
               <LinkedContacts contactId={formKey} {...this.props} />
             )}
 
-            {formKey !== `create` && !isStatic && isSensitiveDataVisible && (
+            {formKey !== 'create' && !isStatic && isSensitiveDataVisible && (
               <Documents contactId={formKey} {...this.props} />
             )}
 
-            {clientLead && (
-              <LeadSource clientLead={clientLead} />
-            )}
+            {clientLead && <LeadSource clientLead={clientLead} />}
           </section>
         </Row>
       </Container>
@@ -289,7 +382,10 @@ const pickActions = (dispatch) => {
   };
 };
 
-const connectedWithRedux = connect(pickState, pickActions)(About);
+const connectedWithRedux = connect(
+  pickState,
+  pickActions,
+)(About);
 const connectedWithSubmitValidator = submitValidator()(connectedWithRedux);
 const connectedWithReduxForm = reduxForm(formSettings)(connectedWithSubmitValidator);
 

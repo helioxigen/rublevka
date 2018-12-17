@@ -35,10 +35,7 @@ const propertyFields = [
   'requestDetails.requestKind',
 ];
 
-const formFields = [
-  ...commonFields,
-  ...propertyFields,
-];
+const formFields = [...commonFields, ...propertyFields];
 
 const formSettings = {
   form: 'leadSellingRequest',

@@ -21,7 +21,10 @@ export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNo
       divisionId: filter.divisionId,
       staffUserId: filter.staffUserId,
 
-      createdAt: makeDateRange(formatDateToDay(filter.createdAtFrom), formatDateToDay(filter.createdAtTo)),
+      createdAt: makeDateRange(
+        formatDateToDay(filter.createdAtFrom),
+        formatDateToDay(filter.createdAtTo),
+      ),
     },
   };
 };

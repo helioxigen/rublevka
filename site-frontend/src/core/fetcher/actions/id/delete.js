@@ -24,9 +24,8 @@ export const deleteElement = (resourceName, id, data) => {
   if (!id) throwFormattedError('required', id);
   if (!apiPaths[resourceName]) throwFormattedError('apiPathEmpty', resourceName);
 
-  return API.del(`${apiPaths[resourceName]}/${id}`)
-    .then(
-      () => Promise.resolve(data),
-      ({ body: { errors } }) => Promise.reject(errors),
-    );
+  return API.del(`${apiPaths[resourceName]}/${id}`).then(
+    () => Promise.resolve(data),
+    ({ body: { errors } }) => Promise.reject(errors),
+  );
 };

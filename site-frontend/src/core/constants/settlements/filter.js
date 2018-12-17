@@ -1,6 +1,1 @@
-export const fields = [
-  'id',
-  'mkadDistanceFrom',
-  'mkadDistanceTo',
-  'location.routeId',
-];
+export const fields = ['id', 'mkadDistanceFrom', 'mkadDistanceTo', 'location.routeId'];

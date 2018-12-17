@@ -24,10 +24,8 @@ const updatePropertyFailed = id => (dispatch) => {
 };
 
 function update(id, data, category) {
-  return dispatch => API.put(
-      `/v1/properties/${category}/${id}`,
-      transformProperty(data, category),
-    ).then(
+  return dispatch =>
+    API.put(`/v1/properties/${category}/${id}`, transformProperty(data, category)).then(
       () => dispatch(loadProperty(id)),
       ({ body }) => {
         dispatch(updatePropertyFailed(id));
@@ -36,34 +34,20 @@ function update(id, data, category) {
     );
 }
 
-export default function (
-  propertyId,
-  { residentialComplex, location, ...data },
-  category,
-) {
+export default function (propertyId, { residentialComplex, location, ...data }, category) {
   return (dispatch) => {
     dispatch(updatePropertyStarted(propertyId));
 
     if (!data.residentialComplexId) {
       if (Object.keys(recursiveCleanUp(residentialComplex || {})).length) {
-        return dispatch(createResidential(residentialComplex, location)).then(({
-          id,
-        }) =>
-          dispatch(
-            update(
-              propertyId,
-              { ...data, location, residentialComplexId: id },
-              category,
-            ),
-          ),
+        return dispatch(createResidential(residentialComplex, location)).then(({ id }) =>
+          dispatch(update(propertyId, { ...data, location, residentialComplexId: id }, category)),
         );
       }
       return dispatch(update(propertyId, { ...data, location }, category));
     } else if (residentialComplex) {
-      return dispatch(
-        updateResidential(residentialComplex.id, residentialComplex, location),
-      ).then(() =>
-        dispatch(update(propertyId, { ...data, location }, category)),
+      return dispatch(updateResidential(residentialComplex.id, residentialComplex, location)).then(
+        () => dispatch(update(propertyId, { ...data, location }, category)),
       );
     }
     return dispatch(update(propertyId, { ...data, location }, category));

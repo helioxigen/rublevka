@@ -36,7 +36,12 @@ export const searchSubLocalities = (query, offset) => (dispatch) => {
     offset,
   };
 
-  API.get('/v1/places/sub_localities', { orderBy, filter, pagination, includes: ['name', 'id'] }).then(
+  API.get('/v1/places/sub_localities', {
+    orderBy,
+    filter,
+    pagination,
+    includes: ['name', 'id'],
+  }).then(
     ({ body }) => dispatch(searchSubLocalitiesSucceeded(body, !!offset)),
     ({ body }) => dispatch(searchSubLocalitiesFailed(query, body)),
   );

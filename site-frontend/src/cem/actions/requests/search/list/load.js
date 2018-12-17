@@ -15,10 +15,20 @@ const loadSearchRequestsStarted = key => ({
 });
 
 const loadSearchRequestsSucceeded = (key, { items, pagination }) => (dispatch, getState) => {
-  const creatorUserIds = items.filter(item => !getState().users[item.createdByUser.id]).map(item => item.createdByUser.id);
-  const responsibleUserIds = items.filter(item => item.responsibleUser && !getState().users[item.responsibleUser.id]).map(item => item.responsibleUser.id);
+  const creatorUserIds = items
+    .filter(item => !getState().users[item.createdByUser.id])
+    .map(item => item.createdByUser.id);
+  const responsibleUserIds = items
+    .filter(item => item.responsibleUser && !getState().users[item.responsibleUser.id])
+    .map(item => item.responsibleUser.id);
 
-  if (creatorUserIds.length || responsibleUserIds.length) dispatch(UsersActions.loadList({ filter: { id: uniq([...creatorUserIds, ...responsibleUserIds]).filter(item => item) } }));
+  if (creatorUserIds.length || responsibleUserIds.length) {
+    dispatch(
+      UsersActions.loadList({
+        filter: { id: uniq([...creatorUserIds, ...responsibleUserIds]).filter(item => item) },
+      }),
+    );
+  }
 
   dispatch(updatePagination(`searchRequests.${key}`, pagination));
 
@@ -38,9 +48,11 @@ const loadSearchRequestsFailed = (key, { errors }) => ({
 export default (key, queryParams = { filter: {} }) => (dispatch) => {
   dispatch(loadSearchRequestsStarted(key));
 
-  return API.get('/v1/properties/orders/search', { ...queryParams, filter: mapFilter(key, queryParams.filter) })
-    .then(
-      ({ body }) => dispatch(loadSearchRequestsSucceeded(key, body)),
-      ({ body }) => dispatch(loadSearchRequestsFailed(key, body)),
-    );
+  return API.get('/v1/properties/orders/search', {
+    ...queryParams,
+    filter: mapFilter(key, queryParams.filter),
+  }).then(
+    ({ body }) => dispatch(loadSearchRequestsSucceeded(key, body)),
+    ({ body }) => dispatch(loadSearchRequestsFailed(key, body)),
+  );
 };

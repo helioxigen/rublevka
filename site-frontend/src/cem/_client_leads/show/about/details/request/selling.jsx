@@ -142,8 +142,7 @@ class Selling extends Component {
             <Col sm="10">
               <Heading size="sm">
                 Продажа
-                {isSaleOffer &&
-                !isStatic && (
+                {isSaleOffer && !isStatic && (
                   <Button
                     className={sButton.btnReset}
                     type="button"
@@ -322,8 +321,7 @@ class Selling extends Component {
                         />{' '}
                         Фиксированная сумма
                       </Label>
-                      {saleOffer.isAgentFixed.touched &&
-                      saleOffer.isAgentFixed.error && (
+                      {saleOffer.isAgentFixed.touched && saleOffer.isAgentFixed.error && (
                         <Helper>{saleOffer.isAgentFixed.error}</Helper>
                       )}
                     </Group>
@@ -401,8 +399,7 @@ class Selling extends Component {
             <Col sm="10">
               <Heading size="sm">
                 Аренда
-                {isRentOffer &&
-                !isStatic && (
+                {isRentOffer && !isStatic && (
                   <Button
                     className={sButton.btnReset}
                     type="button"
@@ -566,8 +563,7 @@ class Selling extends Component {
                         />{' '}
                         Фиксированная сумма
                       </Label>
-                      {rentOffer.isAgentFixed.touched &&
-                      rentOffer.isAgentFixed.error && (
+                      {rentOffer.isAgentFixed.touched && rentOffer.isAgentFixed.error && (
                         <Helper>{rentOffer.isAgentFixed.error}</Helper>
                       )}
                     </Group>

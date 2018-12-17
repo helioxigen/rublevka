@@ -1,7 +1,16 @@
-import { loadList, loadListStarted, loadListFailed, loadListSucceeded } from 'core/fetcher2/actions';
+import {
+  loadList,
+  loadListStarted,
+  loadListFailed,
+  loadListSucceeded,
+} from 'core/fetcher2/actions';
 
 import * as types from 'core/subLocalities/constants/actions';
-import { getDefaultsByGroup, resourceNameSubLocality, getApiPathByGroup } from 'core/subLocalities/constants/defaults';
+import {
+  getDefaultsByGroup,
+  resourceNameSubLocality,
+  getApiPathByGroup,
+} from 'core/subLocalities/constants/defaults';
 import { updatePagination } from 'core/actions/pagination';
 
 import recursiveCleanUp from 'core/helpers/recursiveCleanUp';
@@ -16,19 +25,19 @@ const loadProperties = (queryParams, group, options = {}) => (dispatch) => {
 
   dispatch(loadListStarted(types.LOAD_LIST, group, options.append, params));
 
-  return loadList(apiPath, group, params)
-    .then(
-      ({ items, pagination }) => {
-        dispatch(updatePagination(`${resourceNameSubLocality}.${group}`, pagination));
-        dispatch(loadListSucceeded(types.LOAD_LIST_SUCCEEDED, group, items));
+  return loadList(apiPath, group, params).then(
+    ({ items, pagination }) => {
+      dispatch(updatePagination(`${resourceNameSubLocality}.${group}`, pagination));
+      dispatch(loadListSucceeded(types.LOAD_LIST_SUCCEEDED, group, items));
 
-        return Promise.resolve(items);
-      }, errors => {
-        dispatch(loadListFailed(types.LOAD_LIST_FAILED, group, errors));
+      return Promise.resolve(items);
+    },
+    (errors) => {
+      dispatch(loadListFailed(types.LOAD_LIST_FAILED, group, errors));
 
-        return Promise.reject(errors);
-      }
-    );
+      return Promise.reject(errors);
+    },
+  );
 };
 
 export default loadProperties;

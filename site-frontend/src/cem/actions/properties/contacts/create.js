@@ -16,11 +16,23 @@ export default values => (dispatch) => {
   return API.post('/v1/contacts', transform(otherValues)).then(
     ({ headers }) => API.get(headers.location).then(({ body: { id } }) => id),
     ({ body: { errors } }) => {
-      if (errors && errors.some(error => error.param === 'details.phoneNumber' || error.param === 'phoneNumber')) {
-        return API.get('/v1/contacts', { filter: { 'details.phoneNumber': normalizePhoneNumber(otherValues.details.phoneNumber) } }).then(
+      if (
+        errors &&
+        errors.some(error => error.param === 'details.phoneNumber' || error.param === 'phoneNumber')
+      ) {
+        return API.get('/v1/contacts', {
+          filter: { 'details.phoneNumber': normalizePhoneNumber(otherValues.details.phoneNumber) },
+        }).then(
           ({ body }) => {
             const data = body.items[0];
-            dispatch(pop('info', `Под таким номером телефона записан ${data.details.firstName} ${data.details.lastName}`));
+            dispatch(
+              pop(
+                'info',
+                `Под таким номером телефона записан ${data.details.firstName} ${
+                  data.details.lastName
+                }`,
+              ),
+            );
             return data.id;
           },
           ({ body }) => Promise.reject(body),

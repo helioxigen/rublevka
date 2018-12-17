@@ -1,16 +1,7 @@
-import {
-  validateCommonFields,
-  validatePropertiesTableFields
-} from 'cem/validators/settlements';
-import {
-  metaKeys
-} from 'cem/components/seo/meta';
+import { validateCommonFields, validatePropertiesTableFields } from 'cem/validators/settlements';
+import { metaKeys } from 'cem/components/seo/meta';
 
-const imagesFields = [
-  'images[].id',
-  'images[].url',
-  'images[].isPublic',
-];
+const imagesFields = ['images[].id', 'images[].url', 'images[].isPublic'];
 
 const locationFields = [
   'location.localityId',
@@ -86,7 +77,6 @@ export const commonFieldsFormSettings = {
   ],
   validate: validateCommonFields,
 };
-
 
 export default {
   form: 'settlements',

@@ -5,7 +5,4 @@ import deleteDeal from './id/delete';
 
 import loadDeals from './list/load';
 
-export {
-  loadDeals,
-  loadDeal, createDeal, updateDeal, deleteDeal,
-};
+export { loadDeals, loadDeal, createDeal, updateDeal, deleteDeal };

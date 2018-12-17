@@ -59,7 +59,8 @@ export const getDetails = task =>
   task.contactDetails ||
   task.freeDetails ||
   task.previewDetails ||
-  task.negotiationDetails || {};
+  task.negotiationDetails ||
+  {};
 
 export const getLinkKind = (task) => {
   const linkKind = getDetails(task).linkKind; // NOTE negotiation doesn't have linkKind, because it can be only with deal

@@ -45,7 +45,9 @@ const logoutSucceeded = () => ({
 
 function logout() {
   return dispatch =>
-    API.del('/v1/sessions').catch(() => {}).then(() => dispatch(logoutSucceeded()));
+    API.del('/v1/sessions')
+      .catch(() => {})
+      .then(() => dispatch(logoutSucceeded()));
 }
 
 const loginAsUserSucceeded = data => ({

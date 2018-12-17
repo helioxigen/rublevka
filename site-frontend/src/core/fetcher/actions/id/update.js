@@ -24,9 +24,8 @@ export const updateElement = (resourceName, id, data) => {
   if (!id) throwFormattedError('required', id);
   if (!apiPaths[resourceName]) throwFormattedError('apiPathEmpty', resourceName);
 
-  return API.put(`${apiPaths[resourceName]}/${id}`, data)
-    .then(
-      () => Promise.resolve(data),
-      ({ body: { errors } }) => Promise.reject(errors),
-    );
+  return API.put(`${apiPaths[resourceName]}/${id}`, data).then(
+    () => Promise.resolve(data),
+    ({ body: { errors } }) => Promise.reject(errors),
+  );
 };

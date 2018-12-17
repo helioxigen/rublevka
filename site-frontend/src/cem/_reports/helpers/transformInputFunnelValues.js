@@ -1,4 +1,4 @@
-const toPercentage = (left, right) => (((left / right) || 0) * 100);
+const toPercentage = (left, right) => (left / right || 0) * 100;
 
 export default values => ({
   departmentId: values.departmentId,
@@ -9,20 +9,32 @@ export default values => ({
   clientLeadsCount: values.clientLeadsTotal,
 
   inProgressCount: values.clientLeadsInProgress,
-  inProgressPercentage: parseFloat(toPercentage(values.clientLeadsInProgress, values.clientLeadsTotal)),
+  inProgressPercentage: parseFloat(
+    toPercentage(values.clientLeadsInProgress, values.clientLeadsTotal),
+  ),
 
   presentationsCount: values.clientLeadsPresentation,
-  presentationsPercentage: parseFloat(toPercentage(values.clientLeadsPresentation, values.clientLeadsInProgress)),
+  presentationsPercentage: parseFloat(
+    toPercentage(values.clientLeadsPresentation, values.clientLeadsInProgress),
+  ),
 
   negotiationsCount: values.clientLeadsNegotiation,
-  negotiationsPercentage: parseFloat(toPercentage(values.clientLeadsNegotiation, values.clientLeadsInProgress)),
+  negotiationsPercentage: parseFloat(
+    toPercentage(values.clientLeadsNegotiation, values.clientLeadsInProgress),
+  ),
 
   agreementsCount: values.clientLeadsAgreement,
-  agreementsPercentage: parseFloat(toPercentage(values.clientLeadsDepositPaid, values.clientLeadsInProgress)),
+  agreementsPercentage: parseFloat(
+    toPercentage(values.clientLeadsDepositPaid, values.clientLeadsInProgress),
+  ),
 
   depositsCount: values.clientLeadsDepositPaid,
-  depositsPercentage: parseFloat(toPercentage(values.clientLeadsAgreement, values.clientLeadsInProgress)),
+  depositsPercentage: parseFloat(
+    toPercentage(values.clientLeadsAgreement, values.clientLeadsInProgress),
+  ),
 
   successfulDealsCount: values.clientLeadsSuccessfulDeal,
-  successfulDealsPercentage: parseFloat(toPercentage(values.clientLeadsSuccessfulDeal, values.clientLeadsInProgress)),
+  successfulDealsPercentage: parseFloat(
+    toPercentage(values.clientLeadsSuccessfulDeal, values.clientLeadsInProgress),
+  ),
 });

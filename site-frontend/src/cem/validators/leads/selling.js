@@ -23,13 +23,27 @@ const validateLead = (lead) => {
 
     if (rentOffer.isAgentFixed === 'true') {
       if (rentOffer.agentFixedPrice) {
-        if (isNaN(rentOffer.agentFixedPrice.price)) propertyErrors.rentOffer.agentFixedPrice.price = 'Размер комиссии должен быть числом';
-        if (!rentOffer.agentFixedPrice.price) propertyErrors.rentOffer.agentFixedPrice.price = 'Укажите размер комиссии';
-        if (!rentOffer.agentFixedPrice.currency) propertyErrors.rentOffer.agentFixedPrice.currency = 'Укажите валюту';
+        if (isNaN(rentOffer.agentFixedPrice.price)) {
+          propertyErrors.rentOffer.agentFixedPrice.price = 'Размер комиссии должен быть числом';
+        }
+        if (!rentOffer.agentFixedPrice.price) {
+          propertyErrors.rentOffer.agentFixedPrice.price = 'Укажите размер комиссии';
+        }
+        if (!rentOffer.agentFixedPrice.currency) {
+          propertyErrors.rentOffer.agentFixedPrice.currency = 'Укажите валюту';
+        }
       }
     } else {
-      if (rentOffer.agentFee !== '' && typeof rentOffer.agentFee !== 'undefined' && isNaN(rentOffer.agentFee)) propertyErrors.rentOffer.agentFee = 'Размер комиссии должен быть числом';
-      if (normalizeNumber(rentOffer.agentFee) > 100) propertyErrors.rentOffer.agentFee = 'Комиссия не может быть больше 100%';
+      if (
+        rentOffer.agentFee !== '' &&
+        typeof rentOffer.agentFee !== 'undefined' &&
+        isNaN(rentOffer.agentFee)
+      ) {
+        propertyErrors.rentOffer.agentFee = 'Размер комиссии должен быть числом';
+      }
+      if (normalizeNumber(rentOffer.agentFee) > 100) {
+        propertyErrors.rentOffer.agentFee = 'Комиссия не может быть больше 100%';
+      }
     }
   }
 
@@ -42,14 +56,24 @@ const validateLead = (lead) => {
 
     if (saleOffer.isAgentFixed === 'true') {
       if (saleOffer.agentFixedPrice) {
-        if (!saleOffer.agentFixedPrice.price) propertyErrors.saleOffer.agentFixedPrice.price = 'Укажите размер комиссии';
-        if (isNaN(saleOffer.agentFixedPrice.price)) propertyErrors.saleOffer.agentFixedPrice.price = 'Размер комиссии должен быть числом';
-        if (!saleOffer.agentFixedPrice.currency) propertyErrors.saleOffer.agentFixedPrice.currency = 'Укажите валюту';
+        if (!saleOffer.agentFixedPrice.price) {
+          propertyErrors.saleOffer.agentFixedPrice.price = 'Укажите размер комиссии';
+        }
+        if (isNaN(saleOffer.agentFixedPrice.price)) {
+          propertyErrors.saleOffer.agentFixedPrice.price = 'Размер комиссии должен быть числом';
+        }
+        if (!saleOffer.agentFixedPrice.currency) {
+          propertyErrors.saleOffer.agentFixedPrice.currency = 'Укажите валюту';
+        }
       }
     } else {
       if (!saleOffer.agentFee) propertyErrors.saleOffer.agentFee = 'Укажите размер комиссии';
-      if (isNaN(saleOffer.agentFee)) propertyErrors.saleOffer.agentFee = 'Размер комиссии должен быть числом';
-      if (normalizeNumber(saleOffer.agentFee) > 100) propertyErrors.saleOffer.agentFee = 'Комиссия не может быть больше 100%';
+      if (isNaN(saleOffer.agentFee)) {
+        propertyErrors.saleOffer.agentFee = 'Размер комиссии должен быть числом';
+      }
+      if (normalizeNumber(saleOffer.agentFee) > 100) {
+        propertyErrors.saleOffer.agentFee = 'Комиссия не может быть больше 100%';
+      }
     }
   }
 

@@ -35,7 +35,9 @@ export const validateTaskForm = (values) => {
     }
 
     if (values.contactDetails.linkKind === 'property') {
-      if (!values.contactDetails.contactId) errors.contactDetails.contactId = 'Укажите контактное лицо!';
+      if (!values.contactDetails.contactId) {
+        errors.contactDetails.contactId = 'Укажите контактное лицо!';
+      }
     }
   }
 

@@ -12,7 +12,9 @@ import * as dict from 'cem/constants/properties/dictionaries';
 
 import UI from 'cem/components/ui';
 const {
-  Select, Heading, PriceInput,
+  Select,
+  Heading,
+  PriceInput,
   Grid: { Row, Col },
 } = UI;
 
@@ -36,40 +38,94 @@ export default ({ fields, isStatic, className, ...props }) => {
         <Heading size="sm">Запрос</Heading>
         <Row>
           <Col sm="6">
-            <FormField label="Предложение" field={fields.requestDetails.offerKind} float options={dict.offerKinds} isStatic={isStatic}>
+            <FormField
+              label="Предложение"
+              field={fields.requestDetails.offerKind}
+              float
+              options={dict.offerKinds}
+              isStatic={isStatic}
+            >
               <Select className={sUtils.fontSizeMd} options={options.offerKinds} disableReset />
             </FormField>
           </Col>
 
           <Col sm="6">
-            <FormField label="Категория" field={fields.requestDetails.category} float options={dict.categories} isStatic={isStatic}>
-              <Select className={sUtils.fontSizeMd} options={options.categories} labelKey="title" valueKey="id" disableReset />
+            <FormField
+              label="Категория"
+              field={fields.requestDetails.category}
+              float
+              options={dict.categories}
+              isStatic={isStatic}
+            >
+              <Select
+                className={sUtils.fontSizeMd}
+                options={options.categories}
+                labelKey="title"
+                valueKey="id"
+                disableReset
+              />
             </FormField>
           </Col>
 
           <Col sm="6">
-            <FormField label="Тип" field={fields.requestDetails.kind} float options={dict.kinds} isStatic={isStatic}>
-              <Select className={sUtils.fontSizeMd} options={options.kinds} labelKey="title" valueKey="id" disableReset />
+            <FormField
+              label="Тип"
+              field={fields.requestDetails.kind}
+              float
+              options={dict.kinds}
+              isStatic={isStatic}
+            >
+              <Select
+                className={sUtils.fontSizeMd}
+                options={options.kinds}
+                labelKey="title"
+                valueKey="id"
+                disableReset
+              />
             </FormField>
           </Col>
         </Row>
 
         <Row>
           <Col sm="6">
-            <FormField float field={fields.requestDetails.price.from} label="Цена, от" isStatic={isStatic} price>
+            <FormField
+              float
+              field={fields.requestDetails.price.from}
+              label="Цена, от"
+              isStatic={isStatic}
+              price
+            >
               <PriceInput className={sUtils.fontSizeMd} block type="text" />
             </FormField>
           </Col>
 
           <Col sm="6">
-            <FormField float field={fields.requestDetails.price.to} label="Цена, до" isStatic={isStatic} price>
+            <FormField
+              float
+              field={fields.requestDetails.price.to}
+              label="Цена, до"
+              isStatic={isStatic}
+              price
+            >
               <PriceInput className={sUtils.fontSizeMd} block type="text" />
             </FormField>
           </Col>
 
           <Col sm="6">
-            <FormField field={fields.requestDetails.currency} label="Валюта" float options={dict.currencies} isStatic={isStatic}>
-              <Select className={sUtils.fontSizeMd} options={options.currencies} labelKey="title" valueKey="id" disableReset />
+            <FormField
+              field={fields.requestDetails.currency}
+              label="Валюта"
+              float
+              options={dict.currencies}
+              isStatic={isStatic}
+            >
+              <Select
+                className={sUtils.fontSizeMd}
+                options={options.currencies}
+                labelKey="title"
+                valueKey="id"
+                disableReset
+              />
             </FormField>
           </Col>
         </Row>

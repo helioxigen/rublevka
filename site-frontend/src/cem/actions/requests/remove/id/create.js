@@ -22,8 +22,13 @@ export default function createRemovalRequest(data) {
     dispatch(createRemovalRequestStarted());
 
     return API.post('/v1/properties/orders/removal', data)
-      .then(({ headers }) => API.get(headers.location)
-        .then(({ body }) => dispatch(pop('success', `Заявка (ID: ${body.id})`, 'Успешно создана')) && dispatch(createRemovalRequestSucceeded(body))))
+      .then(({ headers }) =>
+        API.get(headers.location).then(
+          ({ body }) =>
+            dispatch(pop('success', `Заявка (ID: ${body.id})`, 'Успешно создана')) &&
+            dispatch(createRemovalRequestSucceeded(body)),
+        ),
+      )
       .catch(({ body }) => {
         dispatch(createRemovalRequestFailed(body));
         return body;

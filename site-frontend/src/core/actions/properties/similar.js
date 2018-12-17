@@ -1,5 +1,9 @@
 import { API } from 'core/config/sources';
-import { LOAD_SIMILAR_PROPERTIES, LOAD_SIMILAR_PROPERTIES_SUCCEEDED, LOAD_SIMILAR_PROPERTIES_FAILED } from '../../constants/properties';
+import {
+  LOAD_SIMILAR_PROPERTIES,
+  LOAD_SIMILAR_PROPERTIES_SUCCEEDED,
+  LOAD_SIMILAR_PROPERTIES_FAILED,
+} from '../../constants/properties';
 
 function loadSimilarStarted(id) {
   return {

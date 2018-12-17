@@ -3,5 +3,7 @@ import subscribe from './subscribe';
 import unsubscribe from './unsubscribe';
 
 export default {
-  getSubscriptionStatus, subscribe, unsubscribe,
+  getSubscriptionStatus,
+  subscribe,
+  unsubscribe,
 };

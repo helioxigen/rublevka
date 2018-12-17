@@ -7,7 +7,9 @@ export function uploadFile(id, file, type = 'documents') {
   const formData = new FormData();
   formData.append('file', file[0]);
 
-  const { auth: { token } } = store.getState();
+  const {
+    auth: { token },
+  } = store.getState();
   const headers = {
     Authorization: `Bearer ${token}`,
   };

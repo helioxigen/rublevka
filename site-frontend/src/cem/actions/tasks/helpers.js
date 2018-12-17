@@ -8,7 +8,9 @@ export function uploadFile(id, file) {
   const formData = new FormData();
   formData.append('file', file[0]);
 
-  const { auth: { token } } = store.getState();
+  const {
+    auth: { token },
+  } = store.getState();
   const headers = {
     Authorization: `Bearer ${token}`,
   };
@@ -25,6 +27,9 @@ export const mapFilter = (filter = {}) => {
 
   return {
     ...params,
-    deadline: makeFilterRange(deadlineFrom && formatFilterDate(deadlineFrom), deadlineTo && formatFilterDate(deadlineTo)),
+    deadline: makeFilterRange(
+      deadlineFrom && formatFilterDate(deadlineFrom),
+      deadlineTo && formatFilterDate(deadlineTo),
+    ),
   };
 };

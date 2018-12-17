@@ -4,12 +4,15 @@ import global from 'window-or-global';
 export default {
   list: {
     h1: 'Населённые пункты',
-    title: `Найти недвижимость в Московской области по населенному пункту – ${global.config
-      .domain}`,
-    description: `Список населенных пунктов для поиска недвижимости в Подмосковье на ${global.config
-      .domain}`,
-    keywords: `населенные пункты, загородная недвижимость, список, перечень, Московская область, Подмосковье, ${global
-      .config.domain}`,
+    title: `Найти недвижимость в Московской области по населенному пункту – ${
+      global.config.domain
+    }`,
+    description: `Список населенных пунктов для поиска недвижимости в Подмосковье на ${
+      global.config.domain
+    }`,
+    keywords: `населенные пункты, загородная недвижимость, список, перечень, Московская область, Подмосковье, ${
+      global.config.domain
+    }`,
   },
   show: {
     h1: ({ name }, dealType, kind) => {
@@ -42,9 +45,9 @@ export default {
       if (!kind) {
         return `${dictionary[dealType].title} недвижимости – нас. пункт ${name}`;
       }
-      return `${dictionary[dealType].title} ${dictionary[dealType].kind[
-        kind
-      ]} – нас. пункт ${name}`;
+      return `${dictionary[dealType].title} ${
+        dictionary[dealType].kind[kind]
+      } – нас. пункт ${name}`;
     },
     title: ({ name }, dealType, kind) => {
       if (!name) {
@@ -74,12 +77,13 @@ export default {
       };
 
       if (!kind) {
-        return `${dictionary[dealType]
-          .title} загородной недвижимости – ${name}, Московская область – ${global.config.domain}`;
+        return `${
+          dictionary[dealType].title
+        } загородной недвижимости – ${name}, Московская область – ${global.config.domain}`;
       }
-      return `${dictionary[dealType].titleWithCategory} ${dictionary[dealType][
-        kind
-      ]} – ${name}, Московская область – ${global.config.domain}`;
+      return `${dictionary[dealType].titleWithCategory} ${
+        dictionary[dealType][kind]
+      } – ${name}, Московская область – ${global.config.domain}`;
     },
     description: (name, dealType, kind) => {
       if (!name) {
@@ -109,13 +113,13 @@ export default {
       };
 
       if (!kind) {
-        return `${dictionary[dealType]
-          .title} недвижимость - ${name}, Подмосковье. Лучшие предложения на ${global.config
-          .domain}!`;
+        return `${
+          dictionary[dealType].title
+        } недвижимость - ${name}, Подмосковье. Лучшие предложения на ${global.config.domain}!`;
       }
-      return `${dictionary[dealType].titleWithCategory} ${dictionary[dealType][
-        kind
-      ]} – ${name}, Подмосковье. Лучшие предложения на ${global.config.domain}!`;
+      return `${dictionary[dealType].titleWithCategory} ${
+        dictionary[dealType][kind]
+      } – ${name}, Подмосковье. Лучшие предложения на ${global.config.domain}!`;
     },
     // `${name}, коттеджный поселок, коттедж, дом, квартира, таунхаус, участок, Москва, Московская область, Подмосковье, КП, цена, купить, продажа, аренда, снять, отзывы, недвижимость, карта, www.jqestate.ru`,
     keywords: (name, dealType, kind) => {
@@ -135,14 +139,17 @@ export default {
 
       if (!kind) {
         // районы, загородная недвижимость, список, перечень, Московская область, Подмосковье, {адрес сайта}
-        return `${dictionary.dealType[dealType][0]} недвижимость, ${dictionary.dealType[
-          dealType
-        ][1]} недвижимости, коттеджный поселок, ${name}, ${global.config
-          .domain}, цена, стоимость, отзывы, квартира, таунхаус, участок, дом`;
+        return `${dictionary.dealType[dealType][0]} недвижимость, ${
+          dictionary.dealType[dealType][1]
+        } недвижимости, коттеджный поселок, ${name}, ${
+          global.config.domain
+        }, цена, стоимость, отзывы, квартира, таунхаус, участок, дом`;
       }
-      return `${dictionary.dealType[dealType][0]} ${dictionary.kind[kind][0]}, ${dictionary
-        .dealType[dealType][1]} ${dictionary.kind[kind][1]}, коттеджный поселок, ${name}, ${global
-        .config.domain}, цена, стоимость, отзывы`;
+      return `${dictionary.dealType[dealType][0]} ${dictionary.kind[kind][0]}, ${
+        dictionary.dealType[dealType][1]
+      } ${dictionary.kind[kind][1]}, коттеджный поселок, ${name}, ${
+        global.config.domain
+      }, цена, стоимость, отзывы`;
     },
   },
 };

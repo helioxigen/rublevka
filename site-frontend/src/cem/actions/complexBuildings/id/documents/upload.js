@@ -13,8 +13,8 @@ const uploadDocumenStarted = complexBuildingId => ({
 const uploadDocument = (complexBuildingId, { file, ...data }) => (dispatch) => {
   dispatch(uploadDocumenStarted(complexBuildingId));
 
-  return uploadFile(complexBuildingId, file).then(
-    location => API.put(location, data).then(() => dispatch(loadDocuments(complexBuildingId))),
+  return uploadFile(complexBuildingId, file).then(location =>
+    API.put(location, data).then(() => dispatch(loadDocuments(complexBuildingId))),
   );
 };
 

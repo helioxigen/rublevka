@@ -23,8 +23,12 @@ export default class extends Component {
     return (
       <Row>
         <section className={s.section}>
-          {!!propertyItems && !!propertyItems.length && <PropertyTable items={propertyItems} state={state} actions={actions} />}
-          {!!propertyItems && !propertyItems.length && <Heading notFound>Нет связанных объектов</Heading>}
+          {!!propertyItems && !!propertyItems.length && (
+            <PropertyTable items={propertyItems} state={state} actions={actions} />
+          )}
+          {!!propertyItems && !propertyItems.length && (
+            <Heading notFound>Нет связанных объектов</Heading>
+          )}
         </section>
       </Row>
     );

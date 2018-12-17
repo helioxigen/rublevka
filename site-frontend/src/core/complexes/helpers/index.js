@@ -4,7 +4,7 @@ const saleMultiplier = 1000000;
 // const rentMultiplier = 1000;
 
 const mapRooms = (rooms = []) => {
-  const has4 = (rooms.indexOf(4) > -1);
+  const has4 = rooms.indexOf(4) > -1;
 
   const toFilter = has4 ? [] : rooms.filter(room => room !== 4);
   const toFilterNot = has4 ? rooms.filter(room => room !== 4) : [];
@@ -17,12 +17,7 @@ const mapRooms = (rooms = []) => {
 
 export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNot = {} }) => {
   const { limit, offset } = pagination;
-  const {
-    sale = {},
-    area = {},
-    subLocalityId,
-    subLocalities = [],
-  } = filter;
+  const { sale = {}, area = {}, subLocalityId, subLocalities = [] } = filter;
 
   const rooms = mapRooms(filter.rooms);
 

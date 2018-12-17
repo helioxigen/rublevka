@@ -7,7 +7,9 @@ export const linkKinds = dictToOptions(dict.linkKinds, 'value', 'label');
 
 // kinds
 export const kinds = dictToOptions(dict.kinds, 'value', 'label');
-const kindsForProperty = kinds.filter(({ value }) => value !== 'preview' && value !== 'negotiation');
+const kindsForProperty = kinds.filter(
+  ({ value }) => value !== 'preview' && value !== 'negotiation',
+);
 export const commonKinds = kinds.filter(({ value }) => value !== 'negotiation');
 
 // preview

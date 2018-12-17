@@ -6,7 +6,8 @@ import { Link } from 'react-router';
 
 import UI from 'cem/components/ui';
 const {
-  Label, ParamList,
+  Label,
+  ParamList,
   Grid: { Container, Row, Col },
   Loading,
 } = UI;
@@ -27,7 +28,8 @@ const Component = ({ id, state, isContactHidden, isPhoneNumberHidden }) => {
 
     // load from dictionary
     const leadKind = dict.leadKinds[data.kind].title || '—';
-    const requestKind = requestDetails.requestKind && dict.requestKinds[requestDetails.requestKind].title || '—';
+    const requestKind =
+      (requestDetails.requestKind && dict.requestKinds[requestDetails.requestKind].title) || '—';
     const callStatus = dict.callStatuses[phoneCallDetails.status];
 
     const isToApprove = !!data.stateDetails.toApprove;
@@ -37,7 +39,10 @@ const Component = ({ id, state, isContactHidden, isPhoneNumberHidden }) => {
     const isActive = !isToApprove && !isArchive && !isSpam && !isNew;
 
     return (
-      <Link to={`/client_leads/${data.kind}/${data.id}`} className={cn(s.card, s[dict.states[data.state].style])}>
+      <Link
+        to={`/client_leads/${data.kind}/${data.id}`}
+        className={cn(s.card, s[dict.states[data.state].style])}
+      >
         <div className={s.cardWrapper}>
           <Container fluid>
             <Row>
@@ -45,10 +50,14 @@ const Component = ({ id, state, isContactHidden, isPhoneNumberHidden }) => {
                 <section className={s.flex}>
                   <Row>
                     <Col sm="6" md="5" lg="4">
-                      <ParamList label="Тип лида" big>{leadKind}</ParamList>
+                      <ParamList label="Тип лида" big>
+                        {leadKind}
+                      </ParamList>
                     </Col>
                     <Col className={sUtils.pushedTopXs2} sm="6" lg="5">
-                      <ParamList label="Тип заявки" big>{requestKind}</ParamList>
+                      <ParamList label="Тип заявки" big>
+                        {requestKind}
+                      </ParamList>
                     </Col>
                     <Col className={sUtils.pushedTopXs2} sm="7" md="6" lg="4">
                       <ParamList label="Дата поступления" big>
@@ -57,7 +66,11 @@ const Component = ({ id, state, isContactHidden, isPhoneNumberHidden }) => {
                     </Col>
                     {data.kind === 'phone_call' && callStatus && (
                       <Col sm="5" md="5" lg="4" className={sUtils.pushedTopXs2Md2}>
-                        <ParamList label="Статус звонка" big valueClassName={sHeader[callStatus.style]}>
+                        <ParamList
+                          label="Статус звонка"
+                          big
+                          valueClassName={sHeader[callStatus.style]}
+                        >
                           {callStatus.title}
                         </ParamList>
                       </Col>
@@ -69,7 +82,9 @@ const Component = ({ id, state, isContactHidden, isPhoneNumberHidden }) => {
                     </Col>
                     {!isContactHidden && (
                       <Col className={sUtils.pushedTopXs2} sm="9" md="7" lg="5">
-                        <ParamList label="Клиент">{contactDetails.firstName || '—'} {contactDetails.lastName}</ParamList>
+                        <ParamList label="Клиент">
+                          {contactDetails.firstName || '—'} {contactDetails.lastName}
+                        </ParamList>
                       </Col>
                     )}
                     {!isPhoneNumberHidden && (
@@ -80,13 +95,9 @@ const Component = ({ id, state, isContactHidden, isPhoneNumberHidden }) => {
                     {(!isActive || !isArchive) && data.tasks && (
                       <Col className={sUtils.pushedTopXs2} sm="3" md="5">
                         <ParamList label="Объём задач">
-                          <span className={s.textPrimary}>
-                            {data.tasks.toDo}
-                          </span>
+                          <span className={s.textPrimary}>{data.tasks.toDo}</span>
                           &nbsp;/&nbsp;
-                          <span className={s.textSuccess}>
-                            {data.tasks.done}
-                          </span>
+                          <span className={s.textSuccess}>{data.tasks.done}</span>
                         </ParamList>
                       </Col>
                     )}
@@ -96,22 +107,30 @@ const Component = ({ id, state, isContactHidden, isPhoneNumberHidden }) => {
               <Col className={sUtils.pushedTopXs2} sm="5">
                 {isToApprove && (
                   <div className={cn(sUtils.textRight, sUtils.pushedBottom1_5)}>
-                    <Label kind="warning" className={sUtils.textUppercase}>ожидает подтверждения</Label>
+                    <Label kind="warning" className={sUtils.textUppercase}>
+                      ожидает подтверждения
+                    </Label>
                   </div>
                 )}
                 {isActive && data.tasks && !data.tasks.scheduled && (
                   <div className={cn(sUtils.textRight, sUtils.pushedBottom1_5)}>
-                    <Label kind="danger" className={sUtils.textUppercase}>нет запланированных задач</Label>
+                    <Label kind="danger" className={sUtils.textUppercase}>
+                      нет запланированных задач
+                    </Label>
                   </div>
                 )}
                 {isActive && data.tasks && data.tasks.overdue && (
                   <div className={cn(sUtils.textRight, sUtils.pushedBottom1_5)}>
-                    <Label kind="warning" className={sUtils.textUppercase}>задачи просрочены</Label>
+                    <Label kind="warning" className={sUtils.textUppercase}>
+                      задачи просрочены
+                    </Label>
                   </div>
                 )}
                 {data.isRepeated && (
                   <div className={cn(sUtils.textRight, sUtils.pushedBottom1_5)}>
-                    <Label kind="warning" className={sUtils.textUppercase}>Повторное обращение</Label>
+                    <Label kind="warning" className={sUtils.textUppercase}>
+                      Повторное обращение
+                    </Label>
                   </div>
                 )}
               </Col>

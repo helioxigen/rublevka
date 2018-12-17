@@ -31,11 +31,19 @@ import submitValidator from 'core/decorators/submitValidator';
 import * as options from 'cem/_contacts/constants/options';
 
 // UI
-const { Grid, Form, Button, Media, Select, Form: { Input }, Grid: { Row, Col } } = UI;
+const {
+  Grid,
+  Form,
+  Button,
+  Media,
+  Select,
+  Form: { Input },
+  Grid: { Row, Col },
+} = UI;
 
 // components
-const Image = ({ photo }) =>
-  (<div>
+const Image = ({ photo }) => (
+  <div>
     <UI.Image
       src={
         photo
@@ -47,7 +55,8 @@ const Image = ({ photo }) =>
       height="102"
     />
     {/* {isPhotoUploadAllowed && <Form.Input type="file" className={s.file} {...fields.photo} value={null} />} */}
-  </div>);
+  </div>
+);
 
 const Description = (props) => {
   const { fields, isStatic } = props;
@@ -80,8 +89,8 @@ const Description = (props) => {
   );
 };
 
-const Heading = ({ formKey }) =>
-  (<UI.Heading size="lg">
+const Heading = ({ formKey }) => (
+  <UI.Heading size="lg">
     <UI.Back>
       <Button type="button" className={sButton.btnBack}>
         <UI.Icon className={s.iconBack} icon="arrow-right" />
@@ -89,12 +98,14 @@ const Heading = ({ formKey }) =>
     </UI.Back>
     {formKey === 'create' && 'Создать новый контакт'}
     {formKey !== 'create' && `Контакт (ID: ${formKey})`}
-  </UI.Heading>);
+  </UI.Heading>
+);
 
-const CallButton = () =>
-  (<Button kind="success" type="button">
+const CallButton = () => (
+  <Button kind="success" type="button">
     Позвонить сейчас
-  </Button>);
+  </Button>
+);
 
 class Header extends Component {
   static propTypes = {
@@ -179,7 +190,7 @@ class Header extends Component {
             </Col>
           </Row>
         </Grid.Container>
-        {formKey === 'create' &&
+        {formKey === 'create' && (
           <Button
             type="submit"
             className={cn(sButton.btnFixedBottom, pristine && sUtils.hidden)}
@@ -189,8 +200,9 @@ class Header extends Component {
             block
           >
             Добавить
-          </Button>}
-        {formKey !== 'create' &&
+          </Button>
+        )}
+        {formKey !== 'create' && (
           <Button
             type="submit"
             className={cn(sButton.btnFixedBottom, pristine && sUtils.hidden)}
@@ -200,7 +212,8 @@ class Header extends Component {
             block
           >
             Сохранить
-          </Button>}
+          </Button>
+        )}
       </Form.Container>
     );
   }
@@ -231,7 +244,10 @@ const pickActions = (dispatch) => {
   };
 };
 
-const connectedWithRedux = connect(pickState, pickActions)(Header);
+const connectedWithRedux = connect(
+  pickState,
+  pickActions,
+)(Header);
 const connectedWithSubmitValidator = submitValidator()(connectedWithRedux);
 const connectedWithReduxForm = reduxForm(formSettings)(connectedWithSubmitValidator);
 

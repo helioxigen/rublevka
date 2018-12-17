@@ -52,7 +52,15 @@ class Filter extends Component {
           </Col>
           <Col xs="20">
             <div className={s.btnGroup}>
-              <Button className={sUtils.pushedTopXs2} size="xs" type="button" onClick={resetFilter} disabled={!selectedFiltersCount}>Сбросить</Button>
+              <Button
+                className={sUtils.pushedTopXs2}
+                size="xs"
+                type="button"
+                onClick={resetFilter}
+                disabled={!selectedFiltersCount}
+              >
+                Сбросить
+              </Button>
               {!!count && <p className={s.textFind}>Найдено: {count}</p>}
             </div>
           </Col>
@@ -62,11 +70,6 @@ class Filter extends Component {
   }
 }
 
-const fields = [
-  'id',
-  'name',
-  'details.phoneNumber',
-  'details.email',
-];
+const fields = ['id', 'name', 'details.phoneNumber', 'details.email'];
 
 export default FilterHelper(null, fields)(Filter);

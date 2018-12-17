@@ -5,5 +5,6 @@ export default function changeResidentialComplex(id, location) {
 }
 
 export function changeResidentialComplexComplete(id, residentialComplexId, location) {
-  return dispatch => dispatch({ type: types.CHANGE_RESIDENTIAL_SUCCESS, id, residentialComplexId, location });
+  return dispatch =>
+    dispatch({ type: types.CHANGE_RESIDENTIAL_SUCCESS, id, residentialComplexId, location });
 }

@@ -7,7 +7,14 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import UI from 'cem/components/ui';
-const { Label, ParamList, Grid: { Container, Row, Col }, Loading, Tooltip, StaticMask } = UI;
+const {
+  Label,
+  ParamList,
+  Grid: { Container, Row, Col },
+  Loading,
+  Tooltip,
+  StaticMask,
+} = UI;
 
 import cn from 'classnames';
 import s from 'cem/styles/ui/card';
@@ -51,82 +58,81 @@ const Component = ({ clientLead, _contacts, isPhoneNumberHidden }) => {
                 <section className={s.flex}>
                   <Row>
                     <Col sm="4" md="5" lg="4">
-                      <ParamList label="Лид" big>{leadKind}</ParamList>
+                      <ParamList label="Лид" big>
+                        {leadKind}
+                      </ParamList>
                     </Col>
                     <Col sm="5" md="5" lg="4" className={sUtils.pushedTopXs2}>
-                      <ParamList label="Заявка" big>{requestKind}</ParamList>
+                      <ParamList label="Заявка" big>
+                        {requestKind}
+                      </ParamList>
                     </Col>
                     <Col sm="6" md="6" lg="5" className={sUtils.pushedTopXs2}>
                       <ParamList label="Поступил" big>
                         {moment(data.createdAt).format('D MMM HH:mm, ddd')}
                       </ParamList>
                     </Col>
-                    {data.kind === 'phone_call' &&
-                      callStatus &&
+                    {data.kind === 'phone_call' && callStatus && (
                       <Col sm="5" md="4" lg="4" className={sUtils.pushedTopXs2}>
                         <ParamList label="Звонок" big valueClassName={sHeader[callStatus.style]}>
                           {callStatus.title}
                         </ParamList>
-                      </Col>}
+                      </Col>
+                    )}
                   </Row>
                   <Row>
                     <Col sm="4" md="5" lg="4" className={sUtils.pushedTopXs2Md2}>
-                      <ParamList label="ID">
-                        {data.id}
-                      </ParamList>
+                      <ParamList label="ID">{data.id}</ParamList>
                     </Col>
                     <Col sm="5" md="5" lg="4" className={sUtils.pushedTopXs2Md2}>
                       <ParamList label="Клиент">
-                        {(contactData.details || {}).firstName || '—'}
-                        {' '}
+                        {(contactData.details || {}).firstName || '—'}{' '}
                         {(contactData.details || {}).lastName}
                       </ParamList>
                     </Col>
-                    {!isPhoneNumberHidden &&
+                    {!isPhoneNumberHidden && (
                       <Col sm="6" md="6" lg="5" className={sUtils.pushedTopXs2Md2}>
                         <ParamList label="Телефон">
                           <StaticMask pattern="+1 (111) 111-11-11">
                             {contactDetails.phoneNumber}
                           </StaticMask>
                         </ParamList>
-                      </Col>}
-                    {(isActive || isArchive) &&
-                      data.tasks &&
+                      </Col>
+                    )}
+                    {(isActive || isArchive) && data.tasks && (
                       <Col sm="10" md="5" lg="3" className={sUtils.pushedTopXs2Md2}>
                         <ParamList label="Объём задач">
-                          <span className={s.textPrimary}>
-                            {data.tasks.toDo}
-                          </span>
+                          <span className={s.textPrimary}>{data.tasks.toDo}</span>
                           &nbsp;/&nbsp;
-                          <span className={s.textSuccess}>
-                            {data.tasks.done}
-                          </span>
+                          <span className={s.textSuccess}>{data.tasks.done}</span>
                         </ParamList>
-                      </Col>}
+                      </Col>
+                    )}
                   </Row>
                 </section>
               </Col>
               <Col sm="5" className={cn(sUtils.pushedTopXs2, sUtils.textRight)}>
-                {hasStateToApprove &&
+                {hasStateToApprove && (
                   <div className={sUtils.pushedBottom1_5}>
                     <Label kind="warning" className={sUtils.textUppercase}>
                       ожидает подтверждения
                     </Label>
-                  </div>}
-                {isActive &&
-                  data.tasks &&
-                  data.tasks.overdue &&
+                  </div>
+                )}
+                {isActive && data.tasks && data.tasks.overdue && (
                   <div className={sUtils.pushedBottom1_5}>
-                    <Label kind="danger" className={sUtils.textUppercase}>задачи просрочены</Label>
-                  </div>}
-                {isActive &&
-                  data.tasks &&
-                  !data.tasks.scheduled &&
+                    <Label kind="danger" className={sUtils.textUppercase}>
+                      задачи просрочены
+                    </Label>
+                  </div>
+                )}
+                {isActive && data.tasks && !data.tasks.scheduled && (
                   <div className={sUtils.pushedBottom1_5}>
                     <Label kind="danger" className={sUtils.textUppercase}>
                       нет запланированных задач
                     </Label>
-                  </div>}
+                  </div>
+                )}
               </Col>
             </Row>
           </Container>

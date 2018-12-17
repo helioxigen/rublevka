@@ -30,12 +30,12 @@ export default function createLead(lead) {
   return (dispatch) => {
     dispatch(createLeadStarted());
 
-    const transformedLead = lead.requestDetails.requestKind === 'selling' ? transformLeadOut(lead) : transformLead(lead);
+    const transformedLead =
+      lead.requestDetails.requestKind === 'selling' ? transformLeadOut(lead) : transformLead(lead);
 
     return API.post('/v1/client_leads', transformedLead).then(
-      ({ headers }) => API.get(headers.location).then(
-        ({ body }) => dispatch(createLeadSucceeded(body.id, body)),
-      ),
+      ({ headers }) =>
+        API.get(headers.location).then(({ body }) => dispatch(createLeadSucceeded(body.id, body))),
       ({ body }) => {
         dispatch(createLeadFailed(body));
         return body;

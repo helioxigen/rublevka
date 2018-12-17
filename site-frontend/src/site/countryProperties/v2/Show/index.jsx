@@ -58,7 +58,7 @@ import {
   MapWrapper,
 } from './styled';
 
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === 'jq.estate';
 
 const { Grid: { Container, Row, Col } } = UI;
 

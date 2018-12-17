@@ -8,7 +8,9 @@ import media from 'site/styles/media';
 
 import UI from 'site/ui';
 
-const { Grid: { Row, Col, Container } } = UI;
+const {
+  Grid: { Row, Col, Container },
+} = UI;
 
 const Description = styled.div`
   display: none;
@@ -54,14 +56,16 @@ export default () => (
       <Row sm="center">
         <Col xs="8">
           <Title>
-            Агентство элитной загородной&nbsp;<br />недвижимости JQ Estate
+            Агентство элитной загородной&nbsp;
+            <br />
+            недвижимости JQ Estate
           </Title>
           <Paragraph>
             Команда профессионалов агентства JQ Estate помогает купить и арендовать дома на
             Рублево-Успенском, Новорижском и других популярных шоссе с 2006 года.
           </Paragraph>
           <Paragraph>
-            На сайте jqestate.ru более 2 тысяч предложений по продаже элитной недвижимости в
+            На сайте jq.estate более 2 тысяч предложений по продаже элитной недвижимости в
             Подмосковье. Мы предлагаем дома и таунхаусы в разных архитектурных стилях — от
             классических усадеб до ультрасовременных коттеджей, от дворцов русского барокко до
             уютных французских шале.

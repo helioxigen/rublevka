@@ -1,18 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import global from 'window-or-global';
+import global from "window-or-global";
 
-import StaticMask from 'core/components/ui/staticMask';
+import StaticMask from "core/components/ui/staticMask";
 
-import Footer from 'site/components/footer/index';
-import CallbackModal from 'site/request/CallbackModal';
+import Footer from "site/components/footer/index";
+import CallbackModal from "site/request/CallbackModal";
 
-import UI from 'site/ui';
+import UI from "site/ui";
 
-import styled from 'styled-components';
-import media from 'site/styles/media';
+import styled from "styled-components";
+import media from "site/styles/media";
 
-const { Grid: { Container, Row, Col }, Button } = UI;
+const {
+  Grid: { Container, Row, Col },
+  Button
+} = UI;
 
 const Wrapper = styled.footer`
   position: relative;
@@ -20,7 +23,8 @@ const Wrapper = styled.footer`
   padding: 6rem 0;
   background-size: 130%;
   background: ${p =>
-      p.hasPattern && `url(${require('site/assets/images/black-pattern.svg')}) repeat`}
+      p.hasPattern &&
+      `url(${require("site/assets/images/black-pattern.svg")}) repeat`}
     #303030;
 
   ${media.sm`
@@ -51,7 +55,9 @@ const AboutContainer = styled.div`
   `};
 `;
 
-const ColLeft = styled(Col)`margin-bottom: 3.5rem;`;
+const ColLeft = styled(Col)`
+  margin-bottom: 3.5rem;
+`;
 
 const ColRight = styled(Col)`
   text-align: left;
@@ -154,9 +160,11 @@ const Break = styled.br`
   `};
 `;
 
-const DescriptionWhite = Description.extend`color: ${p => p.theme.brandWhite};`;
+const DescriptionWhite = Description.extend`
+  color: ${p => p.theme.brandWhite};
+`;
 
-const isJQ = global.config.domain === 'jqestate.ru';
+const isJQ = global.config.domain === "jq.estate";
 
 class FooterContainer extends Component {
   render() {
@@ -188,10 +196,19 @@ class FooterContainer extends Component {
             </ColLeft>
 
             <ColRight sm="4" md="7">
-              <Phone href={`tel:+${global.config.phones.country}`} id="comagicDTPhoneNumber">
-                <StaticMask pattern="+1 (111) 111-11-11">{global.config.phones.country}</StaticMask>
+              <Phone
+                href={`tel:+${global.config.phones.country}`}
+                id="comagicDTPhoneNumber"
+              >
+                <StaticMask pattern="+1 (111) 111-11-11">
+                  {global.config.phones.country}
+                </StaticMask>
               </Phone>
-              <CallbackModal propertyCategory={this.props.params && this.props.params.category}>
+              <CallbackModal
+                propertyCategory={
+                  this.props.params && this.props.params.category
+                }
+              >
                 <StButton size="sm" kind="primary">
                   Обратный звонок
                 </StButton>

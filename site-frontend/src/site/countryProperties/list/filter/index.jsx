@@ -30,7 +30,7 @@ import Distance from './distance';
 import OnlyNew from './onlyNew';
 import Search from 'site/components/Search';
 
-const isJQ = global.config.domain === 'jq.estate';
+const isJQ = global.config.domain === 'jqestate.ru';
 
 const { Visibility, Button, BtnGroup, Icon, CountIndicator, Grid: { Container, Row, Col } } = UI;
 

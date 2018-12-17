@@ -1,29 +1,29 @@
 export const sites = {
-  "jq.estate": "JQ Estate",
-  "rublevka.ru": "Рублёвка",
-  "minka.ru": "Минка",
-  "riga.ru": "Рига",
-  "kievka.ru": "Киевка"
+  'jqestate.ru': 'JQ Estate',
+  'rublevka.ru': 'Рублёвка',
+  'minka.ru': 'Минка',
+  'riga.ru': 'Рига',
+  'kievka.ru': 'Киевка',
 };
 
 export const states = {
   sent: {
-    title: "Отправлена"
+    title: 'Отправлена',
   },
   draft: {
-    title: "Черновик"
+    title: 'Черновик',
   },
   scheduled: {
-    title: "Запланирована"
-  }
+    title: 'Запланирована',
+  },
 };
 
 export const offerKindsToRu = {
-  sale: "prodaja",
-  rent: "arenda"
+  sale: 'prodaja',
+  rent: 'arenda',
 };
 
 export const propertyCategoryToRu = {
-  country: "zagorodnaya",
-  city: "gorodskaya"
+  country: 'zagorodnaya',
+  city: 'gorodskaya',
 };

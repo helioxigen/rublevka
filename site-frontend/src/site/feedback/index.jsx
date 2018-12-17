@@ -19,7 +19,7 @@ import cn from 'classnames';
 import s from 'site/styles/pages/feedback';
 import sUtils from 'site/styles/utils';
 
-const isJQ = global.config.domain === 'jq.estate';
+const isJQ = global.config.domain === 'jqestate.ru';
 const isRublevka = global.config.domain === 'rublevka.ru';
 const isRiga = global.config.domain === 'riga.ru';
 

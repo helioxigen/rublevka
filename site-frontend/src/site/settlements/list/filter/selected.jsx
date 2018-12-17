@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import global from 'window-or-global';
 
-const isJQ = global.config.domain === 'jq.estate';
+const isJQ = global.config.domain === 'jqestate.ru';
 
 import SelectGroup from 'core/components/ui/select/selectGroup';
 

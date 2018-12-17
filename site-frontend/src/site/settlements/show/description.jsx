@@ -16,7 +16,7 @@ import s from 'site/styles/settlements/id/description';
 import st from 'site/styles/themes';
 import sUtils from 'site/styles/utils';
 
-const isJQ = global.config.domain === `jq.estate`;
+const isJQ = global.config.domain === `jqestate.ru`;
 
 class Description extends Component {
   constructor(props) {

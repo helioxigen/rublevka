@@ -1,11 +1,4 @@
-const stupidPasswords = [
-  'qwerty',
-  '123',
-  'rubl',
-  'jqest',
-  'pass',
-  'admin',
-];
+const stupidPasswords = ['qwerty', '123', 'rubl', 'jqest', 'pass', 'admin'];
 
 export default (values, { formKey }) => {
   const errors = {

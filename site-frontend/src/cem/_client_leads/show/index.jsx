@@ -14,11 +14,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import UI from 'cem/components/ui';
-const { Grid: { Container } } = UI;
+const {
+  Grid: { Container },
+} = UI;
 
 class Id extends Component {
   componentWillMount() {
-    const { actions, params: { id } } = this.props;
+    const {
+      actions,
+      params: { id },
+    } = this.props;
 
     if (id !== 'create') {
       actions.loadLead(id);
@@ -26,21 +31,21 @@ class Id extends Component {
   }
 
   render() {
-    const { hasRight, params: { id, leadKind, tab } } = this.props;
-    const { data = { requestDetails: {}, responsibleUser: {} } } = this.props
-      .state.leads[id] || {};
+    const {
+      hasRight,
+      params: { id, leadKind, tab },
+    } = this.props;
+    const { data = { requestDetails: {}, responsibleUser: {} } } = this.props.state.leads[id] || {};
 
     const queryParams = this.props.location.query;
-    const originRequestKind =
-      data && data.requestDetails && data.requestDetails.requestKind;
+    const originRequestKind = data && data.requestDetails && data.requestDetails.requestKind;
     const requestKind = originRequestKind || queryParams.requestKind;
 
     const initialValues = {
       ...data,
       kind: leadKind,
       requestDetails: {
-        properties: (data.requestDetails && data.requestDetails.properties) || [
-        ],
+        properties: (data.requestDetails && data.requestDetails.properties) || [],
         ...data.requestDetails,
         requestKind,
       },
@@ -75,8 +80,7 @@ class Id extends Component {
       const finalStates = ['rejected', 'spam', 'processed'];
       const isStateFinal = finalStates.indexOf(data.state) > -1;
       const hasStateToApproveFinal =
-        data.stateDetails &&
-        finalStates.indexOf(data.stateDetails.toApprove) > -1;
+        data.stateDetails && finalStates.indexOf(data.stateDetails.toApprove) > -1;
 
       const isTaskCreationAllowed =
         hasRight('task_create') && !isStateFinal && !hasStateToApproveFinal;
@@ -110,18 +114,12 @@ class Id extends Component {
           />
           {id !== 'create' && <Tabs options={tabs} />}
           <Container fluid>
-            {tab === 'about' &&
-              <About
-                {...this.props}
-                {...commonSectionProps}
-                {...permissionsProps}
-              />}
-            {tab === 'tasks' &&
-              <Tasks
-                id={id}
-                data={data}
-                isTaskCreationAllowed={isTaskCreationAllowed}
-              />}
+            {tab === 'about' && (
+              <About {...this.props} {...commonSectionProps} {...permissionsProps} />
+            )}
+            {tab === 'tasks' && (
+              <Tasks id={id} data={data} isTaskCreationAllowed={isTaskCreationAllowed} />
+            )}
           </Container>
         </section>
       );
@@ -142,4 +140,7 @@ const mapDispatch = dispatch => ({
   ),
 });
 
-export default connect(pickState, mapDispatch)(Id);
+export default connect(
+  pickState,
+  mapDispatch,
+)(Id);

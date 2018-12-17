@@ -6,7 +6,11 @@ import kievka from './kievka';
 import minka from './minka';
 
 const configs = {
-  rublevka, jqestate, riga, kievka, minka,
+  rublevka,
+  jqestate,
+  riga,
+  kievka,
+  minka,
 };
 
 if (global.location) {

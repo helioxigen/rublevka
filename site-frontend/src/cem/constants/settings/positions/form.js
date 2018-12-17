@@ -1,6 +1,1 @@
-export const formFields = [
-  'id',
-  'name',
-  'permissions',
-  'isAdmin',
-];
+export const formFields = ['id', 'name', 'permissions', 'isAdmin'];

@@ -15,11 +15,12 @@ const updatePlaceFailed = (id, data, { errors }) => ({
   data,
 });
 
-const updatePlaceSucceeded = (id, data) => dispatch => dispatch({
-  type: types.UPDATE_PLACE_SUCCESS,
-  id,
-  data,
-});
+const updatePlaceSucceeded = (id, data) => dispatch =>
+  dispatch({
+    type: types.UPDATE_PLACE_SUCCESS,
+    id,
+    data,
+  });
 
 export default function updatePlaces(kind, id, data) {
   return (dispatch) => {

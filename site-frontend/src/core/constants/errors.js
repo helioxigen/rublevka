@@ -3,8 +3,11 @@ const defaultLocale = 'ru';
 const errors = {
   ru: {
     already_archived: 'Уже в архиве',
-    call_not_in_progress: 'Статус звонка не в \"В процессе\"',
-    cannot_apply_state: ({ from, to }) => from && to ? `Нельзя переместить в статус \"${to}\" из текущего статуса \"${from}\"` : 'Нельзя переместить в новый статус',
+    call_not_in_progress: 'Статус звонка не в "В процессе"',
+    cannot_apply_state: ({ from, to }) =>
+      from && to
+        ? `Нельзя переместить в статус \"${to}\" из текущего статуса \"${from}\"`
+        : 'Нельзя переместить в новый статус',
     cannot_delete_archived: 'Нельзя удалять из архива',
     cannot_update_state: 'Статус нельзя обновлять вручную',
     cannot_update_final_state: 'Cтатус нельзя обновлять после завершения',
@@ -23,7 +26,8 @@ const errors = {
     value_empty: 'Значение не должно быть пустым',
     value_invalid_email: 'Неверный формат email',
     value_invalid_uuid: 'Неверный ID',
-    value_length_out_of_range: ({ from, to }) => `Значение вне допустимого диапазона (от ${from} до ${to})`,
+    value_length_out_of_range: ({ from, to }) =>
+      `Значение вне допустимого диапазона (от ${from} до ${to})`,
     value_length_too_long: ({ to }) => `Значение больше ${to}`,
     value_length_too_short: ({ to }) => `Значение меньше ${to}`,
     value_less_than: 'Начало должно быть раньше конца',

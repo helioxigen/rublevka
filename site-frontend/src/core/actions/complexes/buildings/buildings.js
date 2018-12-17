@@ -9,13 +9,16 @@ const loadComplexBuildingsByComplexIdStarted = complexId => ({
   complexId,
 });
 
-const loadComplexBuildingsByComplexIdSucceeded = (complexId, { items /* , pagination */ }) => dispatch =>
+const loadComplexBuildingsByComplexIdSucceeded = (
+  complexId,
+  { items /* , pagination */ },
+) => dispatch =>
   // dispatch(paginationActions.updatePagination(`complexBuildingsByComplexId`, pagination));
-   dispatch({
-     type: types.LOAD_COMPLEX_BUILDINGS_BY_COMPLEX_ID_SUCCESS,
-     complexId,
-     items,
-   });
+  dispatch({
+    type: types.LOAD_COMPLEX_BUILDINGS_BY_COMPLEX_ID_SUCCESS,
+    complexId,
+    items,
+  });
 
 const loadComplexBuildingsByComplexIdFailed = (complexId, { errors }) => ({
   type: types.LOAD_COMPLEX_BUILDINGS_BY_COMPLEX_ID_FAIL,
@@ -26,10 +29,11 @@ const loadComplexBuildingsStarted = () => ({
   type: types.LOAD_COMPLEX_BUILDINGS,
 });
 
-const loadComplexBuildingsSucceeded = ({ items }) => dispatch => dispatch({
-  type: types.LOAD_COMPLEX_BUILDINGS,
-  items,
-});
+const loadComplexBuildingsSucceeded = ({ items }) => dispatch =>
+  dispatch({
+    type: types.LOAD_COMPLEX_BUILDINGS,
+    items,
+  });
 
 const loadComplexBuildingsFailed = ({ errors }) => ({
   type: types.LOAD_COMPLEX_BUILDINGS,
@@ -56,6 +60,4 @@ const loadComplexBuildings = queryParams => (dispatch) => {
 
 export default loadComplexBuildingsByComplexId;
 
-export {
-  loadComplexBuildings,
-};
+export { loadComplexBuildings };

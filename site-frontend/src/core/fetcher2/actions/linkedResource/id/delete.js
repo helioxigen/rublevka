@@ -9,7 +9,14 @@ export const deleteLinkedResourceRecordStarted = (type, resource, resourceId, li
   id,
 });
 
-export const deleteLinkedResourceRecordFailed = (type, resource, resourceId, listName, id, errors) => ({
+export const deleteLinkedResourceRecordFailed = (
+  type,
+  resource,
+  resourceId,
+  listName,
+  id,
+  errors,
+) => ({
   type,
   resource,
   resourceId,
@@ -30,9 +37,8 @@ export const deleteLinkedResourceRecord = (resource, resourceId, listName, id) =
   const pathName = `${resource}.${listName}`;
   const path = `${apiPaths[pathName](resourceId)}/${id}`;
 
-  return API.del(path)
-    .then(
-      () => Promise.resolve(),
-      ({ body: { errors } }) => Promise.reject(errors),
-    );
+  return API.del(path).then(
+    () => Promise.resolve(),
+    ({ body: { errors } }) => Promise.reject(errors),
+  );
 };

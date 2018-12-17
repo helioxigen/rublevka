@@ -10,7 +10,9 @@ import * as dict from 'cem/constants/properties/dictionaries';
 
 import UI from 'cem/components/ui';
 const {
-  Select, Heading, PriceInput,
+  Select,
+  Heading,
+  PriceInput,
   Grid: { Row, Col },
 } = UI;
 
@@ -31,20 +33,48 @@ export default ({ fields, isStatic }) => {
           <Heading size="md">Запрос</Heading>
           <Row>
             <Col sm="6">
-              <FormField label="Тип предложения" field={fields.requestDetails.offerKind} float options={dict.offerKinds} static={isStatic}>
+              <FormField
+                label="Тип предложения"
+                field={fields.requestDetails.offerKind}
+                float
+                options={dict.offerKinds}
+                static={isStatic}
+              >
                 <Select className={sUtils.fontSizeMd} options={options.offerKinds} />
               </FormField>
             </Col>
 
             <Col sm="6" smOffset="1">
-              <FormField label="Категория" field={fields.requestDetails.category} float options={dict.categories} static={isStatic}>
-                <Select className={sUtils.fontSizeMd} options={options.categories} labelKey="title" valueKey="id" />
+              <FormField
+                label="Категория"
+                field={fields.requestDetails.category}
+                float
+                options={dict.categories}
+                static={isStatic}
+              >
+                <Select
+                  className={sUtils.fontSizeMd}
+                  options={options.categories}
+                  labelKey="title"
+                  valueKey="id"
+                />
               </FormField>
             </Col>
 
             <Col sm="6" smOffset="1">
-              <FormField label="Тип" field={fields.requestDetails.kind} float options={dict.kinds} static={isStatic}>
-                <Select className={sUtils.fontSizeMd} options={options.kinds} labelKey="title" valueKey="id" />
+              <FormField
+                label="Тип"
+                field={fields.requestDetails.kind}
+                float
+                options={dict.kinds}
+                static={isStatic}
+              >
+                <Select
+                  className={sUtils.fontSizeMd}
+                  options={options.kinds}
+                  labelKey="title"
+                  valueKey="id"
+                />
               </FormField>
             </Col>
           </Row>
@@ -53,20 +83,43 @@ export default ({ fields, isStatic }) => {
             <Col md="12">
               <Row>
                 <Col sm="6" md="8">
-                  <FormField float field={fields.requestDetails.price.from} label="Цена, от" static={isStatic} price>
+                  <FormField
+                    float
+                    field={fields.requestDetails.price.from}
+                    label="Цена, от"
+                    static={isStatic}
+                    price
+                  >
                     <PriceInput className={sUtils.fontSizeMd} block type="text" />
                   </FormField>
                 </Col>
 
                 <Col sm="6" md="8">
-                  <FormField float field={fields.requestDetails.price.to} label="Цена, до" static={isStatic} price>
+                  <FormField
+                    float
+                    field={fields.requestDetails.price.to}
+                    label="Цена, до"
+                    static={isStatic}
+                    price
+                  >
                     <PriceInput className={sUtils.fontSizeMd} block type="text" />
                   </FormField>
                 </Col>
 
                 <Col sm="6" md="4">
-                  <FormField field={fields.requestDetails.currency} label="Валюта" float options={dict.currencies} static={isStatic}>
-                    <Select className={sUtils.fontSizeMd} options={options.currencies} labelKey="title" valueKey="id" />
+                  <FormField
+                    field={fields.requestDetails.currency}
+                    label="Валюта"
+                    float
+                    options={dict.currencies}
+                    static={isStatic}
+                  >
+                    <Select
+                      className={sUtils.fontSizeMd}
+                      options={options.currencies}
+                      labelKey="title"
+                      valueKey="id"
+                    />
                   </FormField>
                 </Col>
               </Row>

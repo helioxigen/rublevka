@@ -20,7 +20,11 @@ export default (id, data) => (dispatch) => {
   dispatch(updateRemovalRequestStarted(id));
 
   return API.put(`/v1/properties/orders/removal/${id}`, data)
-    .then(() => dispatch(pop('success', `Заявка (ID: ${id})`, 'Успешно обновлена')) && dispatch(updateRemovalRequestSucceeded(id)))
+    .then(
+      () =>
+        dispatch(pop('success', `Заявка (ID: ${id})`, 'Успешно обновлена')) &&
+        dispatch(updateRemovalRequestSucceeded(id)),
+    )
     .catch(({ body }) => {
       dispatch(updateRemovalRequestFailed(body));
       return body;

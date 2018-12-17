@@ -1,11 +1,7 @@
 import commonFields from './common';
 import validate from 'cem/validators/leads/selection';
 
-const requestCityLocationFields = [
-  'subLocalityId',
-  'complexBuildingId',
-  'street',
-];
+const requestCityLocationFields = ['subLocalityId', 'complexBuildingId', 'street'];
 
 const requestCityFields = [
   'area.from',
@@ -50,10 +46,7 @@ const requestFields = [
   ...requestCountryFields.map(field => `countryProperty.${field}`),
 ];
 
-const fields = [
-  ...commonFields,
-  ...requestFields.map(field => `requestDetails.${field}`),
-];
+const fields = [...commonFields, ...requestFields.map(field => `requestDetails.${field}`)];
 
 const formSettings = {
   form: 'leadSelectionRequest',

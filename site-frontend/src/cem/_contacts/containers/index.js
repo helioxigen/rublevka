@@ -8,13 +8,4 @@ import Deals from './show/deals';
 import ClientLeads from './show/client_leads';
 import Tasks from './show/tasks';
 
-export {
-  List,
-
-  Show,
-  About,
-  Properties,
-  Deals,
-  ClientLeads,
-  Tasks,
-};
+export { List, Show, About, Properties, Deals, ClientLeads, Tasks };

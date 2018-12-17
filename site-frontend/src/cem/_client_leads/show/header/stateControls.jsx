@@ -1,12 +1,16 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import ModalReject from "cem/_client_leads/show/modal/reject";
-import ModalToProcess from "cem/_client_leads/show/modal/toProcess";
-import UI from "cem/components/ui";
-const { Button, Tooltip, Grid: { Row, Col } } = UI;
+import ModalReject from 'cem/_client_leads/show/modal/reject';
+import ModalToProcess from 'cem/_client_leads/show/modal/toProcess';
+import UI from 'cem/components/ui';
+const {
+  Button,
+  Tooltip,
+  Grid: { Row, Col },
+} = UI;
 
-import sUtils from "cem/styles/utils";
-import sButton from "cem/styles/buttons";
+import sUtils from 'cem/styles/utils';
+import sButton from 'cem/styles/buttons';
 
 export default class extends Component {
   state = {
@@ -35,64 +39,59 @@ export default class extends Component {
       handleSubmit,
       currentRequestDetails = { properties: [] },
     } = this.props;
-    const canToSpam = state === `new` && !stateToApprove;
-    const canMoveToInProgress =
-      state === `new` && !!requestKind && !stateToApprove;
-    const canToProcessed = state === `in_progress` && !stateToApprove;
-    const canToRejected =
-      (state === `new` || state === `in_progress`) && !stateToApprove;
+    const canToSpam = state === 'new' && !stateToApprove;
+    const canMoveToInProgress = state === 'new' && !!requestKind && !stateToApprove;
+    const canToProcessed = state === 'in_progress' && !stateToApprove;
+    const canToRejected = (state === 'new' || state === 'in_progress') && !stateToApprove;
 
-    const isThenDeal = requestKind !== `selling`;
+    const isThenDeal = requestKind !== 'selling';
 
     const processingDisabled =
-      requestKind === `properties` && !currentRequestDetails.properties.length;
+      requestKind === 'properties' && !currentRequestDetails.properties.length;
 
     return (
       <Row className={sUtils.textCenter}>
         <Col xs="20">
-          {canToSpam &&
+          {canToSpam && (
             <Button
               type="button"
               kind="danger"
               className={sUtils.pushedRight2}
-              onClick={() => this.open(`spam`)}
+              onClick={() => this.open('spam')}
             >
               спам
-            </Button>}
+            </Button>
+          )}
 
-          {canToRejected &&
+          {canToRejected && (
             <Button
               type="button"
               kind="danger"
               className={sUtils.pushedRight2}
-              onClick={() => this.open(`reject`)}
+              onClick={() => this.open('reject')}
             >
               отклонить лид
-            </Button>}
+            </Button>
+          )}
 
-          {canMoveToInProgress &&
+          {canMoveToInProgress && (
             <Button
               type="button"
               kind="primary"
-              onClick={() => toProcess(`in_progress`, undefined, true)}
+              onClick={() => toProcess('in_progress', undefined, true)}
             >
               начать обработку
-            </Button>}
+            </Button>
+          )}
 
-          {canToProcessed &&
-            isThenDeal &&
+          {canToProcessed && isThenDeal && (
             <ModalToProcess
               submitBtn={
-                <Button
-                  className={sButton.btnWide}
-                  kind="success"
-                  size="lg"
-                  block
-                >
+                <Button className={sButton.btnWide} kind="success" size="lg" block>
                   Перевести в сделку
                 </Button>
               }
-              onClick={dealDetails => toProcess(`process`, dealDetails, true)}
+              onClick={dealDetails => toProcess('process', dealDetails, true)}
               handleSubmit={handleSubmit}
             >
               <Tooltip
@@ -101,25 +100,22 @@ export default class extends Component {
                 position="top"
                 isHidden={!processingDisabled}
               >
-                <Button
-                  type="button"
-                  kind="success"
-                  disabled={processingDisabled}
-                >
+                <Button type="button" kind="success" disabled={processingDisabled}>
                   перевести в сделку
                 </Button>
               </Tooltip>
-            </ModalToProcess>}
+            </ModalToProcess>
+          )}
 
-          {canToProcessed &&
-            !isThenDeal &&
+          {canToProcessed && !isThenDeal && (
             <Button
               type="button"
               kind="success"
-              onClick={() => toProcess(`process`, undefined, true)}
+              onClick={() => toProcess('process', undefined, true)}
             >
               обработать
-            </Button>}
+            </Button>
+          )}
 
           <ModalReject
             toState={this.state.toState}

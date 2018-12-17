@@ -22,7 +22,12 @@ export const loadListFailed = (type, group, errors) => ({
   errors,
 });
 
-export const loadList = (resourceName, group, { postfix = '', defaultQueryParamsByGroup }, queryParams) => {
+export const loadList = (
+  resourceName,
+  group,
+  { postfix = '', defaultQueryParamsByGroup },
+  queryParams,
+) => {
   if (!resourceName) throwFormattedError('required', resourceName);
   if (!group) throwFormattedError('required', group);
   if (!defaultQueryParamsByGroup) throwFormattedError('required', defaultQueryParamsByGroup);
@@ -30,9 +35,8 @@ export const loadList = (resourceName, group, { postfix = '', defaultQueryParams
 
   const requestParams = mapListQueryParams(defaultQueryParamsByGroup[group], queryParams);
 
-  return API.get(`${apiPaths[resourceName]}${postfix}`, requestParams)
-    .then(
-      ({ body: { items, pagination } }) => Promise.resolve({ items, pagination }),
-      ({ body: { errors } }) => Promise.reject(errors),
-    );
+  return API.get(`${apiPaths[resourceName]}${postfix}`, requestParams).then(
+    ({ body: { items, pagination } }) => Promise.resolve({ items, pagination }),
+    ({ body: { errors } }) => Promise.reject(errors),
+  );
 };

@@ -21,7 +21,9 @@ export default function updateLead(searchRequestId, id, lead) {
     dispatch(updateLeadStarted(id, lead));
 
     const requestKind = lead.requestDetails && lead.requestDetails.requestKind;
-    const transformedLead = (requestKind && (requestKind === 'selling' ? transformLeadOut(lead) : transformLead(lead))) || lead;
+    const transformedLead =
+      (requestKind && (requestKind === 'selling' ? transformLeadOut(lead) : transformLead(lead))) ||
+      lead;
 
     return API.put(`/v1/client_leads/${id}`, transformedLead).then(
       () => dispatch(pop('success', `Лид (ID: ${id})`, 'Успешно обновлён')),

@@ -1,6 +1,10 @@
 import { API } from 'core/config/sources';
 
-import { LOAD_PROPERTY, LOAD_PROPERTY_SUCCEEDED, LOAD_PROPERTY_FAILED } from '../../constants/properties';
+import {
+  LOAD_PROPERTY,
+  LOAD_PROPERTY_SUCCEEDED,
+  LOAD_PROPERTY_FAILED,
+} from '../../constants/properties';
 import loadComplex from 'core/actions/complexes/id/load';
 
 // import { loadSimilarProperties } from './similar';

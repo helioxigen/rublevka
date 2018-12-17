@@ -5,52 +5,55 @@ import cloneDeep from 'lodash/cloneDeep';
 
 const initialState = {};
 
-export default handleActions({
-  [types.UPDATE_FILTER]: (state, { resource, values }) => ({
-    ...state,
-    [resource]: {
-      ...state[resource],
-      ...values,
-    },
-  }),
+export default handleActions(
+  {
+    [types.UPDATE_FILTER]: (state, { resource, values }) => ({
+      ...state,
+      [resource]: {
+        ...state[resource],
+        ...values,
+      },
+    }),
 
-  [types.REMOVE_FILTER]: (state, { resource, key, value }) => {
-    if (value) {
-      const el = state[resource][key];
+    [types.REMOVE_FILTER]: (state, { resource, key, value }) => {
+      if (value) {
+        const el = state[resource][key];
 
-      if (Array.isArray(el)) {
-        return {
-          ...state,
-          [resource]: {
-            ...state[resource],
-            [key]: el.filter(item => item !== value),
-          },
-        };
-      }
+        if (Array.isArray(el)) {
+          return {
+            ...state,
+            [resource]: {
+              ...state[resource],
+              [key]: el.filter(item => item !== value),
+            },
+          };
+        }
 
-      if (typeof el !== 'null' && typeof el === 'object' && !Array.isArray(el)) {
+        if (typeof el !== 'null' && typeof el === 'object' && !Array.isArray(el)) {
+          const newState = cloneDeep(state);
+
+          delete newState[resource][key][value];
+
+          return newState;
+        }
+      } else {
         const newState = cloneDeep(state);
 
-        delete newState[resource][key][value];
+        delete newState[resource][key];
 
         return newState;
       }
-    } else {
-      const newState = cloneDeep(state);
+    },
 
-      delete newState[resource][key];
+    [types.SET_FILTER]: (state, { resource, values }) => ({
+      ...state,
+      [resource]: values,
+    }),
 
-      return newState;
-    }
+    [types.CLEAR_FILTER]: (state, { resource }) => ({
+      ...state,
+      [resource]: {},
+    }),
   },
-
-  [types.SET_FILTER]: (state, { resource, values }) => ({
-    ...state,
-    [resource]: values,
-  }),
-
-  [types.CLEAR_FILTER]: (state, { resource }) => ({
-    ...state,
-    [resource]: {},
-  }),
-}, initialState);
+  initialState,
+);

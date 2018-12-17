@@ -10,67 +10,70 @@ const initialState = {
   routes: {},
 };
 
-const places = handleActions({
-  [types.LOAD_PLACES]: (state, { kind, params }) => ({
-    ...state,
-    [kind]: {
-      isFetching: true,
-      params,
-    },
-  }),
-
-  [types.LOAD_PLACES_SUCCEEDED]: (state, { kind, items, pagination, timestamp }) => ({
-    ...state,
-    [kind]: {
-      isFetching: false,
-      ...keyBy(items.map(item => ({ data: item })), 'data.id'),
-      items,
-      pagination,
-      timestamp,
-    },
-  }),
-
-  [types.LOAD_PLACES_FAILED]: (state, { kind, error }) => ({
-    ...state,
-    [kind]: {
-      ...state[kind],
-      isFetching: false,
-      error,
-    },
-  }),
-
-  [types.LOAD_PLACE]: (state, { kind, id }) => ({
-    ...state,
-    [kind]: {
-      ...state[kind],
-      [id]: {
+const places = handleActions(
+  {
+    [types.LOAD_PLACES]: (state, { kind, params }) => ({
+      ...state,
+      [kind]: {
         isFetching: true,
+        params,
       },
-    },
-  }),
+    }),
 
-  [types.LOAD_PLACE_SUCCEEDED]: (state, { kind, id, data, timestamp }) => ({
-    ...state,
-    [kind]: {
-      ...state[kind],
-      [id]: {
+    [types.LOAD_PLACES_SUCCEEDED]: (state, { kind, items, pagination, timestamp }) => ({
+      ...state,
+      [kind]: {
         isFetching: false,
-        data,
+        ...keyBy(items.map(item => ({ data: item })), 'data.id'),
+        items,
+        pagination,
         timestamp,
       },
-    },
-  }),
+    }),
 
-  [types.LOAD_PLACE_FAILED]: (state, { kind, id, error }) => ({
-    ...state,
-    [kind]: {
-      ...state[kind],
-      [id]: {
+    [types.LOAD_PLACES_FAILED]: (state, { kind, error }) => ({
+      ...state,
+      [kind]: {
+        ...state[kind],
         isFetching: false,
         error,
       },
-    },
-  }),
-}, initialState);
+    }),
+
+    [types.LOAD_PLACE]: (state, { kind, id }) => ({
+      ...state,
+      [kind]: {
+        ...state[kind],
+        [id]: {
+          isFetching: true,
+        },
+      },
+    }),
+
+    [types.LOAD_PLACE_SUCCEEDED]: (state, { kind, id, data, timestamp }) => ({
+      ...state,
+      [kind]: {
+        ...state[kind],
+        [id]: {
+          isFetching: false,
+          data,
+          timestamp,
+        },
+      },
+    }),
+
+    [types.LOAD_PLACE_FAILED]: (state, { kind, id, error }) => ({
+      ...state,
+      [kind]: {
+        ...state[kind],
+        [id]: {
+          isFetching: false,
+          error,
+        },
+      },
+    }),
+  },
+  initialState,
+);
 
 export default places;

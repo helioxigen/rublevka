@@ -1,1 +1,1 @@
-export const getFilterByKind = kind => kind === 'all' ? {} : { kind };
+export const getFilterByKind = kind => (kind === 'all' ? {} : { kind });

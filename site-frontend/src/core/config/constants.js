@@ -11,16 +11,20 @@ export const filters = {
       {
         value: 'house',
         label: 'дом',
-      }, {
+      },
+      {
         value: 'townhouse',
         label: 'таунхаус',
-      }, {
+      },
+      {
         value: 'penthouse',
         label: 'пентхаус',
-      }, {
+      },
+      {
         value: 'land',
         label: 'участок',
-      }, {
+      },
+      {
         value: 'flat',
         label: 'квартира',
       },
@@ -29,26 +33,27 @@ export const filters = {
       {
         value: 'house',
         label: 'дом',
-      }, {
+      },
+      {
         value: 'townhouse',
         label: 'таунхаус',
-      }, {
+      },
+      {
         value: 'penthouse',
         label: 'пентхаус',
-      }, {
+      },
+      {
         value: 'land',
         label: 'участок',
-      }, {
+      },
+      {
         value: 'flat',
         label: 'квартира',
       },
     ],
   },
 
-  dealType: [
-    { value: 'sale', label: 'Купить' },
-    { value: 'rent', label: 'Снять' },
-  ],
+  dealType: [{ value: 'sale', label: 'Купить' }, { value: 'rent', label: 'Снять' }],
 };
 
 export const filter = {
@@ -94,16 +99,20 @@ export const filter = {
       {
         value: 'house',
         label: 'дом',
-      }, {
+      },
+      {
         value: 'townhouse',
         label: 'таунхаус',
-      }, {
+      },
+      {
         value: 'penthouse',
         label: 'пентхаус',
-      }, {
+      },
+      {
         value: 'land',
         label: 'участок',
-      }, {
+      },
+      {
         value: 'flat',
         label: 'квартира',
       },
@@ -112,16 +121,20 @@ export const filter = {
       {
         value: 'house',
         label: 'дом',
-      }, {
+      },
+      {
         value: 'townhouse',
         label: 'таунхаус',
-      }, {
+      },
+      {
         value: 'penthouse',
         label: 'пентхаус',
-      }, {
+      },
+      {
         value: 'land',
         label: 'участок',
-      }, {
+      },
+      {
         value: 'flat',
         label: 'квартира',
       },
@@ -158,10 +171,7 @@ export const filter = {
     { value: '185', label: 'Дмитровское ш.' },
   ],
 
-  dealType: [
-    { value: 'sale', label: 'Купить' },
-    { value: 'rent', label: 'Снять' },
-  ],
+  dealType: [{ value: 'sale', label: 'Купить' }, { value: 'rent', label: 'Снять' }],
 };
 
 export const dictionary = {

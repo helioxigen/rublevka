@@ -1,10 +1,7 @@
 import commonFields from './common';
 import validate from 'cem/validators/leads/properties';
 
-const propertyRequestFields = [
-  'propertyId',
-  'propertyKind',
-];
+const propertyRequestFields = ['propertyId', 'propertyKind'];
 
 const fields = [
   ...commonFields,

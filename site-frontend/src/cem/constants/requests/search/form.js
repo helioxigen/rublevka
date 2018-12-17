@@ -1,10 +1,4 @@
-const fields = [
-  'propertyCategory',
-  'note',
-  'propertyIds[]',
-  'toggle',
-  'responsibleUserId',
-];
+const fields = ['propertyCategory', 'note', 'propertyIds[]', 'toggle', 'responsibleUserId'];
 
 export default {
   form: 'propertySearchRequest',

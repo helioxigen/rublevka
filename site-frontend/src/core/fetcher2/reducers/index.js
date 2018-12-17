@@ -18,7 +18,7 @@ export const listLoadFail = (state, group, errors) => ({
 });
 
 export const listLoadSuccess = (state, group, items, append = false, pk = 'id') => {
-  const previousIds = (!!append && state[group].ids) ? state[group].ids : [];
+  const previousIds = !!append && state[group].ids ? state[group].ids : [];
 
   return {
     ...state,

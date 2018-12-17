@@ -13,10 +13,12 @@ const createSearchRequestStarted = data => ({
 const createSearchRequestSucceeded = (id, { propertyCategory }) => (dispatch) => {
   const eventName = REQUESTS_SEARCH_BY_CATEGORY_SUBMITTED(propertyCategory);
 
-  dispatch(sendAnalytics(eventName, {
-    id,
-    propertyCategory,
-  }));
+  dispatch(
+    sendAnalytics(eventName, {
+      id,
+      propertyCategory,
+    }),
+  );
 
   return dispatch({
     type: types.CREATE_SEARCH_REQUEST_SUCCESS,

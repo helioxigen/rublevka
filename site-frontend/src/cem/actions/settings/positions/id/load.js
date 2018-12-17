@@ -15,7 +15,8 @@ const loadPositionSucceeded = (id, data) => ({
 });
 
 export default function loadPosition(id) {
-  return dispatch => API.get(`/v1/roles/${id}`).then(
+  return dispatch =>
+    API.get(`/v1/roles/${id}`).then(
       ({ body }) => Promise.resolve(dispatch(loadPositionSucceeded(id, body))),
       ({ body: { errors } }) => Promise.resolve(dispatch(loadPositionFailed(id, errors))),
     );

@@ -12,11 +12,17 @@ import { reduxForm } from 'redux-form';
 
 import UI from 'cem/components/ui';
 const {
-  Daypicker, AsyncSelect, Select,
-  Modal, Button, Icon, Heading, PriceInput,
+  Daypicker,
+  AsyncSelect,
+  Select,
+  Modal,
+  Button,
+  Icon,
+  Heading,
+  PriceInput,
   Grid: { Row, Col },
   Form: { Group, Input, Label, Static },
- } = UI;
+} = UI;
 
 import s from 'cem/styles/modal/list';
 import sUtils from 'cem/styles/utils';
@@ -49,11 +55,14 @@ class ModalApproved extends Component {
 
     const dealDetails = {
       expectedFinishDateAt: normalizeDate(values.expectedFinishDate),
-      expectedAgentFee: isAgentFixed !== `true` ? values.expectedAgentFee : undefined,
-      expectedAgentFixedPrice: isAgentFixed === `true` ? {
-        price: values.expectedAgentFixedPrice.price,
-        currency: values.expectedAgentFixedPrice.currency,
-      } : undefined,
+      expectedAgentFee: isAgentFixed !== 'true' ? values.expectedAgentFee : undefined,
+      expectedAgentFixedPrice:
+        isAgentFixed === 'true'
+          ? {
+            price: values.expectedAgentFixedPrice.price,
+            currency: values.expectedAgentFixedPrice.currency,
+          }
+          : undefined,
       budget: values.budget,
       currency: values.currency,
       offerKind: values.offerKind,
@@ -73,7 +82,7 @@ class ModalApproved extends Component {
   calculateCommision(commission, budget = this.props.values.budget) {
     const { isAgentFixed } = this.props.values;
 
-    if (isAgentFixed === `true`) {
+    if (isAgentFixed === 'true') {
       this.setState({ commission });
       this.props.fields.expectedCommission.onChange(commission);
     } else {
@@ -102,7 +111,14 @@ class ModalApproved extends Component {
       <div className={s.modalContainer}>
         {React.cloneElement(this.props.children, { onClick: ::this.toggle })}
 
-        <Modal size="sm" closePortal={::this.close} isOpened={this.state.isOpened} onClose={::this.close} closeOnEsc closeOnOutsideClick>
+        <Modal
+          size="sm"
+          closePortal={::this.close}
+          isOpened={this.state.isOpened}
+          onClose={::this.close}
+          closeOnEsc
+          closeOnOutsideClick
+        >
           <div className={s.container}>
             <Row>
               <Col xs="20">
@@ -143,10 +159,16 @@ class ModalApproved extends Component {
               <Col sm="20">
                 <Group>
                   <Label block>Ожидаемая дата завершения сделки</Label>
-                  <Daypicker className={cn(sUtils.fullWidth, sDaypicker.daypicker)} restrict="past"
+                  <Daypicker
+                    className={cn(sUtils.fullWidth, sDaypicker.daypicker)}
+                    restrict="past"
                     onDayClick={fields.expectedFinishDate.onChange}
                     control={<Input block type="text" {...fields.expectedFinishDate} />}
-                    button={<Button className={sDaypicker.btn}><Icon className={sDaypicker.icon} icon="calendar" /></Button>}
+                    button={
+                      <Button className={sDaypicker.btn}>
+                        <Icon className={sDaypicker.icon} icon="calendar" />
+                      </Button>
+                    }
                   />
                 </Group>
               </Col>
@@ -154,19 +176,33 @@ class ModalApproved extends Component {
 
             <Row>
               <Col sm="20">
-                <Label className={sUtils.pushedBottom1} block>Форма комиссии</Label>
+                <Label className={sUtils.pushedBottom1} block>
+                  Форма комиссии
+                </Label>
                 <Group>
                   <Label className={s.radioLabel} block>
-                    <Input type="radio" {...fields.isAgentFixed} value="false" checked={values.isAgentFixed !== `true`}/>Процент
+                    <Input
+                      type="radio"
+                      {...fields.isAgentFixed}
+                      value="false"
+                      checked={values.isAgentFixed !== 'true'}
+                    />
+                    Процент
                   </Label>
                   <Label className={s.radioLabel} block>
-                    <Input type="radio" {...fields.isAgentFixed} value="true" checked={values.isAgentFixed === `true`}/>Фиксированная сумма
+                    <Input
+                      type="radio"
+                      {...fields.isAgentFixed}
+                      value="true"
+                      checked={values.isAgentFixed === 'true'}
+                    />
+                    Фиксированная сумма
                   </Label>
                 </Group>
               </Col>
             </Row>
 
-            {values.isAgentFixed !== `true` && (
+            {values.isAgentFixed !== 'true' && (
               <Row>
                 <Col sm="10">
                   <FormField label="Комиссия, %" field={commissionField} float>
@@ -177,18 +213,24 @@ class ModalApproved extends Component {
                   <Group>
                     <Label block>Ожидаемая комиссия</Label>
                     <Static>
-                      {values.currency !== `RUB` && dict.currencies[values.currency]}
+                      {values.currency !== 'RUB' && dict.currencies[values.currency]}
                       {values.expectedCommission || 0}
-                      {values.currency === `RUB` && ` ${dict.currencies[values.currency] || ``}`}</Static>
+                      {values.currency === 'RUB' && ` ${dict.currencies[values.currency] || ''}`}
+                    </Static>
                   </Group>
                 </Col>
               </Row>
             )}
 
-            {values.isAgentFixed === `true` && (
+            {values.isAgentFixed === 'true' && (
               <Row>
                 <Col sm="10">
-                  <FormField label="Сумма комиссии" field={fields.expectedAgentFixedPrice.price} float price>
+                  <FormField
+                    label="Сумма комиссии"
+                    field={fields.expectedAgentFixedPrice.price}
+                    float
+                    price
+                  >
                     <PriceInput block type="text" />
                   </FormField>
                 </Col>
@@ -203,7 +245,11 @@ class ModalApproved extends Component {
             <Row>
               <Col sm="20">
                 <FormField label="Кем является контакт" field={fields.contactKindId} float>
-                  <AsyncSelect asyncOptions={fetchDictionary(`deal_contact_type`)} labelKey="title" valueKey="id" />
+                  <AsyncSelect
+                    asyncOptions={fetchDictionary('deal_contact_type')}
+                    labelKey="title"
+                    valueKey="id"
+                  />
                 </FormField>
               </Col>
             </Row>
@@ -216,10 +262,18 @@ class ModalApproved extends Component {
 }
 
 const formSettings = {
-  form: `leadModalApproved`,
+  form: 'leadModalApproved',
   fields: [
-    `offerKind`, `budget`, `isAgentFixed`, `currency`, `expectedCommission`, `expectedAgentFee`, `expectedFinishDate`,
-    `expectedAgentFixedPrice.price`, `expectedAgentFixedPrice.currency`, `contactKindId`,
+    'offerKind',
+    'budget',
+    'isAgentFixed',
+    'currency',
+    'expectedCommission',
+    'expectedAgentFee',
+    'expectedFinishDate',
+    'expectedAgentFixedPrice.price',
+    'expectedAgentFixedPrice.currency',
+    'contactKindId',
   ],
 };
 

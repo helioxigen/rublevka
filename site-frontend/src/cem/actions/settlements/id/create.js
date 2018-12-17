@@ -31,8 +31,14 @@ export default function createSettlement(settlement) {
   return (dispatch) => {
     dispatch(createSettlementStarted(settlement));
 
-    return API.post('/v1/places/settlements', transformSettlementOut({ ...settlement, state: 'draft' })).then(
-      ({ headers }) => API.get(headers.location).then(({ body }) => dispatch(createSettlementSucceeded(body.id, transformSettlementIn(body)))),
+    return API.post(
+      '/v1/places/settlements',
+      transformSettlementOut({ ...settlement, state: 'draft' }),
+    ).then(
+      ({ headers }) =>
+        API.get(headers.location).then(({ body }) =>
+          dispatch(createSettlementSucceeded(body.id, transformSettlementIn(body))),
+        ),
       ({ body }) => {
         dispatch(createSettlementFailed(body));
         return body;

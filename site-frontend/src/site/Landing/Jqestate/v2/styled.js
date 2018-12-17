@@ -4,7 +4,11 @@ import media from 'site/styles/media';
 
 import UI from 'site/ui';
 
-const { Icon, Button, Grid: { Container } } = UI;
+const {
+  Icon,
+  Button,
+  Grid: { Container },
+} = UI;
 
 export const Bg = styled.div`
   position: relative;

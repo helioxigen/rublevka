@@ -13,11 +13,12 @@ const loadPlaceFailed = (id, { errors }) => ({
   id,
 });
 
-const loadPlaceSucceeded = (id, data) => dispatch => dispatch({
-  type: types.LOAD_PLACE_SUCCESS,
-  id,
-  data,
-});
+const loadPlaceSucceeded = (id, data) => dispatch =>
+  dispatch({
+    type: types.LOAD_PLACE_SUCCESS,
+    id,
+    data,
+  });
 
 export default function loadPlaces(kind, id) {
   return (dispatch) => {

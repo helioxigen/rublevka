@@ -61,32 +61,18 @@ export default {
   },
   post: {
     defaultResponseCode: 201,
-    201: {
-
-    },
-    404: {
-
-    },
-    500: {
-
-    },
+    201: {},
+    404: {},
+    500: {},
   },
   put: {
     defaultResponseCode: 200,
-    200: {
-
-    },
-    404: {
-
-    },
+    200: {},
+    404: {},
   },
   delete: {
     defaultResponseCode: 204,
-    204: {
-
-    },
-    404: {
-
-    },
+    204: {},
+    404: {},
   },
 };

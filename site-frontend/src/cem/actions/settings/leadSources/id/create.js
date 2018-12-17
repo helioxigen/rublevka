@@ -4,7 +4,6 @@ import { API } from 'core/config/sources';
 import loadList from '../list/load';
 import { pop } from 'cem/actions/toastr';
 
-
 const createIdStarted = data => ({
   type: types.CREATE_ID,
   data,

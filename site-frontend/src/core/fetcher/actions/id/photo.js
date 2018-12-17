@@ -25,9 +25,8 @@ export const uploadElementPhoto = (resourceName, resourceId, src) => {
   if (!resourceId) throwFormattedError('required', resourceId);
   if (!apiPaths[resourceName]) throwFormattedError('apiPathEmpty', resourceName);
 
-  return API.post(`${apiPaths[resourceName]}/${resourceId}/photo`, { src })
-    .then(
-      ({ body: { id } }) => Promise.resolve({ photoId: id }),
-      ({ status, body: { errors } }) => Promise.reject(errors, status),
-    );
+  return API.post(`${apiPaths[resourceName]}/${resourceId}/photo`, { src }).then(
+    ({ body: { id } }) => Promise.resolve({ photoId: id }),
+    ({ status, body: { errors } }) => Promise.reject(errors, status),
+  );
 };

@@ -13,11 +13,13 @@ const loadDutiesStarted = queryParams => ({
 });
 
 const loadDutiesSucceeded = ({ items, pagination }) => (dispatch) => {
-  dispatch(userActions.loadList({
-    filter: {
-      id: union(items.map(item => item.staffUserId)),
-    },
-  }));
+  dispatch(
+    userActions.loadList({
+      filter: {
+        id: union(items.map(item => item.staffUserId)),
+      },
+    }),
+  );
   dispatch(updatePagination('duty', pagination));
   dispatch({
     type: types.LOAD_DUTIES_SUCCESS,

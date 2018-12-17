@@ -6,7 +6,12 @@ import updateProperty from './id/update';
 import changeResidentialComplex, { changeResidentialComplexComplete } from './id/changeResidential';
 import changeLocation from './id/changeLocation';
 import { uploadPhoto, uploadLayout } from './photos';
-import { searchResidential, updateResidential, createResidential, loadResidential } from './residential';
+import {
+  searchResidential,
+  updateResidential,
+  createResidential,
+  loadResidential,
+} from './residential';
 import { loadTasksByPropertyId, updateTasksPagination } from './tasks';
 import { loadLeadsByPropertyId } from './leads';
 import loadPropertyEvents from './events';

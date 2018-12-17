@@ -33,9 +33,8 @@ export const makeDefaultQueryParamsByGroup = (group, options = {}) =>
   //     },
   //   };
   // } else {
-   defaultParamsByGroup
-  // }
-;
+  defaultParamsByGroup;
+// }
 
 export const getDefaultsByGroup = (group, options) => defaultParamsByGroup[group];
 

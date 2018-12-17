@@ -23,9 +23,10 @@ const createComplexBuilding = complex => (dispatch) => {
   dispatch(createComplexBuildingStarted());
 
   return API.post('/v1/complex_buildings', transformDataOut(complex)).then(
-    ({ headers }) => API.get(headers.location).then(
-      ({ body }) => dispatch(createComplexBuildingSucceeded(body.id, transformDataIn(body))),
-    ),
+    ({ headers }) =>
+      API.get(headers.location).then(({ body }) =>
+        dispatch(createComplexBuildingSucceeded(body.id, transformDataIn(body))),
+      ),
     ({ body }) => {
       dispatch(createComplexBuildingFailed(body));
       return body;

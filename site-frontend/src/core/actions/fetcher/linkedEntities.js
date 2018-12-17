@@ -11,7 +11,12 @@ const loadLinkedEntitiesForEntityStarted = (baseEntityTypeId, entityTypeId) => (
   entityTypeId,
 });
 
-const loadLinkedEntitiesForEntitySucceeded = (baseEntityTypeId, entityTypeId, linkedResourcesSchemes, { items }) => (dispatch) => {
+const loadLinkedEntitiesForEntitySucceeded = (
+  baseEntityTypeId,
+  entityTypeId,
+  linkedResourcesSchemes,
+  { items },
+) => (dispatch) => {
   dispatch({
     type: types.LOAD_LINKED_LIST_SUCCESS,
     baseEntityTypeId,
@@ -27,31 +32,49 @@ const loadLinkedEntitiesForEntityFailed = (baseEntityTypeId, entityTypeId, { err
   errors,
 });
 
-const loadLinkedEntitiesForEntity = (baseEntityTypeId, entityTypeId, { queryParams = {}, apiPath = '', linkedResourcesSchemes = [] }) => (dispatch) => {
+const loadLinkedEntitiesForEntity = (
+  baseEntityTypeId,
+  entityTypeId,
+  { queryParams = {}, apiPath = '', linkedResourcesSchemes = [] },
+) => (dispatch) => {
   dispatch(loadLinkedEntitiesForEntityStarted(baseEntityTypeId, entityTypeId));
 
   return API.get(apiPath || `/v1/${entityTypeId}`, queryParams).then(
-      ({ body }) => dispatch(loadLinkedEntitiesForEntitySucceeded(baseEntityTypeId, entityTypeId, linkedResourcesSchemes, body)),
-      ({ body }) => dispatch(loadLinkedEntitiesForEntityFailed(baseEntityTypeId, entityTypeId, body)),
-    );
+    ({ body }) =>
+      dispatch(
+        loadLinkedEntitiesForEntitySucceeded(
+          baseEntityTypeId,
+          entityTypeId,
+          linkedResourcesSchemes,
+          body,
+        ),
+      ),
+    ({ body }) => dispatch(loadLinkedEntitiesForEntityFailed(baseEntityTypeId, entityTypeId, body)),
+  );
 };
 
 export default (linkedResourcesSchemes, baseEntityTypeId, items) => (dispatch) => {
   linkedResourcesSchemes.forEach((linkedEntity) => {
-    const linkedEntityIds = union(items.map((item) => {
-      if (Array.isArray(linkedEntity.primaryKeyPath)) {
-        return linkedEntity.primaryKeyPath.map(keyPathItem => get(item, keyPathItem)).filter(keyPathItem => !!keyPathItem)[0];
-      }
-      return get(item, linkedEntity.primaryKeyPath);
-    })).filter(item => !!item);
+    const linkedEntityIds = union(
+      items.map((item) => {
+        if (Array.isArray(linkedEntity.primaryKeyPath)) {
+          return linkedEntity.primaryKeyPath
+            .map(keyPathItem => get(item, keyPathItem))
+            .filter(keyPathItem => !!keyPathItem)[0];
+        }
+        return get(item, linkedEntity.primaryKeyPath);
+      }),
+    ).filter(item => !!item);
 
     if (linkedEntityIds.length) {
-      dispatch(loadLinkedEntitiesForEntity(baseEntityTypeId, linkedEntity.typeId, {
-        queryParams: {
-          filter: { id: linkedEntityIds.join(','), ...linkedEntity.filter },
-        },
-        apiPath: linkedEntity.apiPath,
-      }));
+      dispatch(
+        loadLinkedEntitiesForEntity(baseEntityTypeId, linkedEntity.typeId, {
+          queryParams: {
+            filter: { id: linkedEntityIds.join(','), ...linkedEntity.filter },
+          },
+          apiPath: linkedEntity.apiPath,
+        }),
+      );
     }
   });
 };

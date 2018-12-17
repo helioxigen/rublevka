@@ -11,9 +11,6 @@ const styles = {
   ...molecules.styles,
 };
 
-const UI = initUI(
-  atoms.components,
-  molecules.components,
-)(styles);
+const UI = initUI(atoms.components, molecules.components)(styles);
 
 export default UI;

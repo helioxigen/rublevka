@@ -27,7 +27,12 @@ const loadComplexesFailed = ({ errors }) => ({
 const loadComplexes = queryParams => (dispatch) => {
   dispatch(loadComplexesStarted());
 
-  return API.get('/v1/complexes', { ...queryParams, filterNot: defaultFilterNot, filter: mapFilter(queryParams.filter), orderBy: { updatedAt: 'desc' } }).then(
+  return API.get('/v1/complexes', {
+    ...queryParams,
+    filterNot: defaultFilterNot,
+    filter: mapFilter(queryParams.filter),
+    orderBy: { updatedAt: 'desc' },
+  }).then(
     ({ body }) => dispatch(loadComplexesSucceeded(body)),
     ({ body }) => dispatch(loadComplexesFailed(body)),
   );

@@ -8,7 +8,9 @@ import { fetchResource } from 'cem/helpers/autocomplete';
 import cn from 'classnames';
 import UI from 'cem/components/ui';
 const {
-  Form, StaticDictionary, Label,
+  Form,
+  StaticDictionary,
+  Label,
   Form: { Group, Static },
   Grid: { Row, Col },
 } = UI;
@@ -36,41 +38,47 @@ export default ({ state, stateToApprove, id, leadKind, requestKind, data = {} })
           </Group>
         </Col>
         {id !== 'create' && (
-        <Col sm="4">
-          <Group>
-            <Form.Label block>Дата поступления</Form.Label>
-            <Static className={sUtils.fontSizeMd}>
-              {moment(data.createdAt).format('D MMM HH:mm, ddd')}
-            </Static>
-          </Group>
-        </Col>
-          )}
+          <Col sm="4">
+            <Group>
+              <Form.Label block>Дата поступления</Form.Label>
+              <Static className={sUtils.fontSizeMd}>
+                {moment(data.createdAt).format('D MMM HH:mm, ddd')}
+              </Static>
+            </Group>
+          </Col>
+        )}
         {leadKind !== 'recommendation' && (
-        <Col sm="3" md="4">
-          <Group>
-            <Form.Label block>Источник</Form.Label>
-            <Static className={sUtils.fontSizeMd}>
-              <StaticDictionary fetch={fetchResource('/v1/client_lead_sources', 'slug')} value={data.clientLeadSourceId} labelKey="title" />
-            </Static>
-          </Group>
-        </Col>
-          )}
+          <Col sm="3" md="4">
+            <Group>
+              <Form.Label block>Источник</Form.Label>
+              <Static className={sUtils.fontSizeMd}>
+                <StaticDictionary
+                  fetch={fetchResource('/v1/client_lead_sources', 'slug')}
+                  value={data.clientLeadSourceId}
+                  labelKey="title"
+                />
+              </Static>
+            </Group>
+          </Col>
+        )}
         {id !== 'create' && (
-        <Col sm="5" md="4">
-          <Group>
-            <Form.Label block>Статус</Form.Label>
-            {!!stateToApprove && (
-            <Label kind="warning" style={{ marginTop: '7px' }}>ожидает подтверждения</Label>
-                )}
-            {!stateToApprove && (
-            <Static className={cn(sUtils.fontSizeMd, s[dict.states[state].style])}>
-              {dict.states[state].title}
-            </Static>
-                )}
-          </Group>
-        </Col>
-          )}
+          <Col sm="5" md="4">
+            <Group>
+              <Form.Label block>Статус</Form.Label>
+              {!!stateToApprove && (
+                <Label kind="warning" style={{ marginTop: '7px' }}>
+                  ожидает подтверждения
+                </Label>
+              )}
+              {!stateToApprove && (
+                <Static className={cn(sUtils.fontSizeMd, s[dict.states[state].style])}>
+                  {dict.states[state].title}
+                </Static>
+              )}
+            </Group>
+          </Col>
+        )}
       </Row>
     </Col>
   </Row>
-  );
+);

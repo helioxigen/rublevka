@@ -40,9 +40,7 @@ const createIdStarted = () => ({
 });
 
 const createIdSucceeded = (id, photo) => (dispatch) => {
-  uploadPhoto(id, photo).then(() =>
-    dispatch({ type: types.CREATE_ID_SUCCESS }),
-  );
+  uploadPhoto(id, photo).then(() => dispatch({ type: types.CREATE_ID_SUCCESS }));
 };
 
 const createIdFailed = errors => ({
@@ -55,10 +53,11 @@ function createId({ photo, ...contact }) {
     dispatch(createIdStarted());
 
     return API.post('/v1/contacts', transform(contact)).then(
-      ({ headers }) => API.get(headers.location).then(({ body: { id } }) => {
-        dispatch(createIdSucceeded(id, photo));
-        return id;
-      }),
+      ({ headers }) =>
+        API.get(headers.location).then(({ body: { id } }) => {
+          dispatch(createIdSucceeded(id, photo));
+          return id;
+        }),
       ({ body }) => {
         dispatch(createIdFailed(body));
         return Promise.reject(body);
@@ -77,7 +76,8 @@ const updateIdSucceeded = (contact, photo) => (dispatch) => {
 };
 
 function updateId({ photo, ...contact }) {
-  return dispatch => API.put(`/v1/contacts/${contact.id}`, transform(contact)).then(
+  return dispatch =>
+    API.put(`/v1/contacts/${contact.id}`, transform(contact)).then(
       () => dispatch(updateIdSucceeded(contact, photo)),
       ({ body }) => {
         dispatch(pop('error', 'Возникли ошибки'));
@@ -178,7 +178,10 @@ function createDocument(contactId, { file, ...document }) {
     dispatch(createDocumentStarted());
 
     return uploadFile(contactId, file).then(
-      location => API.get(location).then(({ body: { id } }) => dispatch(updateDocument(contactId, id, document))),
+      location =>
+        API.get(location).then(({ body: { id } }) =>
+          dispatch(updateDocument(contactId, id, document)),
+        ),
       ({ errors }) => {
         dispatch(createDocumentFailed(errors));
         return { errors };
@@ -187,7 +190,6 @@ function createDocument(contactId, { file, ...document }) {
   };
 }
 // Create Document End
-
 
 // Load Linked Contacts
 const loadLinkedContactsStarted = () => ({ type: types.LOAD_LINKED_CONTACTS });
@@ -235,13 +237,19 @@ function addLinkedContact(contactId, linkedContact) {
 
 // Update Linked Contact
 const updateLinkedContactStarted = () => ({ type: types.UPDATE_LINKED_CONTACT });
-const updateLinkedContactFailed = ({ errors }) => ({ type: types.UPDATE_LINKED_CONTACT_FAIL, ...errors });
+const updateLinkedContactFailed = ({ errors }) => ({
+  type: types.UPDATE_LINKED_CONTACT_FAIL,
+  ...errors,
+});
 
 function updateLinkedContact(contactId, linkedContact) {
   return (dispatch) => {
     dispatch(updateLinkedContactStarted());
 
-    return API.put(`/v1/contacts/${contactId}/linked_contacts/${linkedContact.linkedContactId}`, linkedContact).then(
+    return API.put(
+      `/v1/contacts/${contactId}/linked_contacts/${linkedContact.linkedContactId}`,
+      linkedContact,
+    ).then(
       () => dispatch(loadLinkedContacts(contactId)),
       ({ body }) => {
         dispatch(updateLinkedContactFailed(body));
@@ -254,7 +262,10 @@ function updateLinkedContact(contactId, linkedContact) {
 
 // Delete Linked Contact
 const deleteLinkedContactStarted = () => ({ type: types.DELETE_LINKED_CONTACT });
-const deleteLinkedContactFailed = ({ errors }) => ({ type: types.DELETE_LINKED_CONTACT_FAIL, ...errors });
+const deleteLinkedContactFailed = ({ errors }) => ({
+  type: types.DELETE_LINKED_CONTACT_FAIL,
+  ...errors,
+});
 
 function deleteLinkedContact(contactId, linkedContactId) {
   return (dispatch) => {
@@ -272,7 +283,16 @@ function deleteLinkedContact(contactId, linkedContactId) {
 // Delete Linked Contact End
 
 export {
-  loadContact, createId, updateId, uploadFile,
-  loadDocuments, createDocument, updateDocument, deleteDocument,
-  loadLinkedContacts, addLinkedContact, updateLinkedContact, deleteLinkedContact,
+  loadContact,
+  createId,
+  updateId,
+  uploadFile,
+  loadDocuments,
+  createDocument,
+  updateDocument,
+  deleteDocument,
+  loadLinkedContacts,
+  addLinkedContact,
+  updateLinkedContact,
+  deleteLinkedContact,
 };

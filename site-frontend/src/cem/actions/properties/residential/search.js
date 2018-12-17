@@ -30,14 +30,12 @@ export default function (location) {
       'filter[location.house]': location.house,
     };
 
-    return API.get('/v1/complexes', filter).then(
-      ({ body }) => {
-        if (body.items.length) {
-          dispatch(loadResidential(body.items[0].id));
-          return dispatch(searchResidentialSucceeded(body.items[0].id));
-        }
-        return dispatch(searchResidentialFailed());
-      },
-    );
+    return API.get('/v1/complexes', filter).then(({ body }) => {
+      if (body.items.length) {
+        dispatch(loadResidential(body.items[0].id));
+        return dispatch(searchResidentialSucceeded(body.items[0].id));
+      }
+      return dispatch(searchResidentialFailed());
+    });
   };
 }

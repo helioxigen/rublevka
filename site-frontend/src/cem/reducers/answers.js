@@ -7,20 +7,23 @@ const initialState = {
   selection: {},
 };
 
-export default handleActions({
-  [types.LOAD_ANSWERS]: (state, { requestId, kind }) => ({
-    ...state,
-    [kind]: {
-      ...state[kind],
-      [requestId]: { isFetching: true },
-    },
-  }),
+export default handleActions(
+  {
+    [types.LOAD_ANSWERS]: (state, { requestId, kind }) => ({
+      ...state,
+      [kind]: {
+        ...state[kind],
+        [requestId]: { isFetching: true },
+      },
+    }),
 
-  [types.LOAD_ANSWERS_SUCCESS]: (state, { requestId, answers, kind }) => ({
-    ...state,
-    [kind]: {
-      ...state[kind],
-      [requestId]: { items: answers },
-    },
-  }),
-}, initialState);
+    [types.LOAD_ANSWERS_SUCCESS]: (state, { requestId, answers, kind }) => ({
+      ...state,
+      [kind]: {
+        ...state[kind],
+        [requestId]: { items: answers },
+      },
+    }),
+  },
+  initialState,
+);

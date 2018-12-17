@@ -14,11 +14,12 @@ const createPlaceFailed = (data, { errors }) => ({
   data,
 });
 
-const createPlaceSucceeded = ({ headers, body: data }) => dispatch => dispatch({
-  type: types.CREATE_PLACE_SUCCESS,
-  id: extractIdFromLocation(headers.location),
-  data,
-});
+const createPlaceSucceeded = ({ headers, body: data }) => dispatch =>
+  dispatch({
+    type: types.CREATE_PLACE_SUCCESS,
+    id: extractIdFromLocation(headers.location),
+    data,
+  });
 
 export default function createPlaces(kind, data) {
   return (dispatch) => {

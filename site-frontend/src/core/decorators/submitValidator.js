@@ -14,77 +14,90 @@ import { composeErrorMessage } from 'core/helpers/errors';
 
 import set from 'lodash/set';
 
-const pickActions = (dispatch) => ({
+const pickActions = dispatch => ({
   validatorActions: bindActionCreators({ pop, sendError }, dispatch),
 });
 
-const submitValidator = (settings = { fieldsRemapping: {} }) => FormComponent => connect(() => ({}), pickActions)(
-  class extends Component {
-    /**
-     * Calls 'handleSubmit' with async API validation hook.
-     *
-     * @param {Function} apiAction Fullfilled promise as the result of an API action.
-     * @param {Function} onSuccess Callback that is called if API response succeeded (doesn't contain errors).
-     * @param {Function} onFail Callback that is called if API response failed (contains errors).
-     * @param {Boolean} doPreValidate ?
-     *
-     * @returns {Function} The result of a call to original 'handleSubmit' from 'redux-form'.
-     */
-    handleSubmitWithValidation(apiAction, onSuccess, onFail, doPreValidate = true) {
-      return event => {
-        if (event && typeof preventDefault === `function`) event.preventDefault();
-        if (Object.keys(recursiveCleanUp(this.props.errors)).length && doPreValidate) {
-          console.log(this.props.errors); // eslint-disable-line no-console
-          this.props.validatorActions.pop(`error`, `Проверьте обязательные поля`);
-        }
-        const handleResponse = (values, dispatch) => new Promise((resolve, reject) => {
-          // Returning a promise in order to reject in case server errors are returned
-          apiAction(values, dispatch).then((response = {}) => {
-            if (!response.errors) {
-              resolve();
-              if (typeof onSuccess === `function`) onSuccess(response);
-            } else {
-              const errors = {};
+const submitValidator = (settings = { fieldsRemapping: {} }) => FormComponent =>
+  connect(
+    () => ({}),
+    pickActions,
+  )(
+    class extends Component {
+      /**
+       * Calls 'handleSubmit' with async API validation hook.
+       *
+       * @param {Function} apiAction Fullfilled promise as the result of an API action.
+       * @param {Function} onSuccess Callback that is called if API response succeeded (doesn't contain errors).
+       * @param {Function} onFail Callback that is called if API response failed (contains errors).
+       * @param {Boolean} doPreValidate ?
+       *
+       * @returns {Function} The result of a call to original 'handleSubmit' from 'redux-form'.
+       */
+      handleSubmitWithValidation(apiAction, onSuccess, onFail, doPreValidate = true) {
+        return (event) => {
+          if (event && typeof preventDefault === 'function') event.preventDefault();
+          if (Object.keys(recursiveCleanUp(this.props.errors)).length && doPreValidate) {
+            console.log(this.props.errors); // eslint-disable-line no-console
+            this.props.validatorActions.pop('error', 'Проверьте обязательные поля');
+          }
+          const handleResponse = (values, dispatch) =>
+            new Promise((resolve, reject) => {
+              // Returning a promise in order to reject in case server errors are returned
+              apiAction(values, dispatch).then((response = {}) => {
+                if (!response.errors) {
+                  resolve();
+                  if (typeof onSuccess === 'function') onSuccess(response);
+                } else {
+                  const errors = {};
 
-              response.errors.every(error => {
-                const errorParam = settings.fieldsRemapping[error.param] || error.param;
-                const isValidationError = validationErrorCodes.indexOf(error.code) > -1;
+                  response.errors.every((error) => {
+                    const errorParam = settings.fieldsRemapping[error.param] || error.param;
+                    const isValidationError = validationErrorCodes.indexOf(error.code) > -1;
 
-                const errorMessage = composeErrorMessage(error);
+                    const errorMessage = composeErrorMessage(error);
 
-                if (!isValidationError) {
-                  this.props.validatorActions.pop(`error`, `Возникла критическая ошибка, обратитесь в чат`, errorMessage);
-                  this.props.validatorActions.sendError(`CriticalError`, `${error.code}: ${errorMessage}`);
-                  return false;
+                    if (!isValidationError) {
+                      this.props.validatorActions.pop(
+                        'error',
+                        'Возникла критическая ошибка, обратитесь в чат',
+                        errorMessage,
+                      );
+                      this.props.validatorActions.sendError(
+                        'CriticalError',
+                        `${error.code}: ${errorMessage}`,
+                      );
+                      return false;
+                    }
+
+                    set(errors, errorParam, errorMessage);
+                    return true;
+                  });
+
+                  // TODO Avoid showing this message (as it duplicates the message from client validation)
+                  if (Object.keys(errors).length) {
+                    this.props.validatorActions.pop('error', 'Проверьте обязательные поля');
+                  }
+
+                  if (typeof onFail === 'function') onFail(response);
+                  if (doPreValidate) reject(errors);
                 }
-
-                set(errors, errorParam, errorMessage);
-                return true;
               });
+            });
+          if (doPreValidate) this.props.handleSubmit(handleResponse)(event);
+          if (!doPreValidate) handleResponse();
+        };
+      }
 
-              // TODO Avoid showing this message (as it duplicates the message from client validation)
-              if (!!Object.keys(errors).length) {
-                this.props.validatorActions.pop(`error`, `Проверьте обязательные поля`);
-              }
+      render() {
+        const { handleSubmit, validatorActions, ...restProps } = this.props; // eslint-disable-line no-unused-vars
+        return <FormComponent handleSubmit={::this.handleSubmitWithValidation} {...restProps} />;
+      }
+    },
+  );
 
-              if (typeof onFail === `function`) onFail(response);
-              if (doPreValidate) reject(errors);
-            }
-          });
-        });
-        if (doPreValidate) this.props.handleSubmit(handleResponse)(event);
-        if (!doPreValidate) handleResponse();
-      };
-    }
-
-    render() {
-      const { handleSubmit, validatorActions, ...restProps } = this.props; // eslint-disable-line no-unused-vars
-      return <FormComponent handleSubmit={::this.handleSubmitWithValidation} {...restProps} />;
-    }
-  }
-);
-
-export const validatorShortcut = (reduxFormSettings, validatorSettings) => (component) => reduxForm(reduxFormSettings)(submitValidator(validatorSettings)(component));
+export const validatorShortcut = (reduxFormSettings, validatorSettings) => component =>
+  reduxForm(reduxFormSettings)(submitValidator(validatorSettings)(component));
 
 export default submitValidator;
 

@@ -13,9 +13,10 @@ const getInitialField = (fieldName, key, filter = {}) => {
     };
   }
   return {
-    [fieldName]: stringFields.indexOf(fieldName) > -1
-      ? filter[key]
-      : (filter[key] && filter[key].split(',')) || [],
+    [fieldName]:
+      stringFields.indexOf(fieldName) > -1
+        ? filter[key]
+        : (filter[key] && filter[key].split(',')) || [],
   };
 };
 
@@ -49,8 +50,8 @@ const getRequestValueForFilterField = (key, filter = {}) => {
     return { 'filter[rentOffer.price]': filter[key].price };
   } else if (key === 'location') {
     return {
-      'filter[location.settlementId]': filter[key].settlementId &&
-        filter[key].settlementId.join(','),
+      'filter[location.settlementId]':
+        filter[key].settlementId && filter[key].settlementId.join(','),
     };
   }
   return {
@@ -73,8 +74,8 @@ export const transformRequestValues = ({ filter = {}, filterNot = {}, ...values 
         ...result,
         ...(key === 'location'
           ? {
-            'filterNot[location.settlementId]': filterNot[key].settlementId &&
-                filterNot[key].settlementId.join(','),
+            'filterNot[location.settlementId]':
+                filterNot[key].settlementId && filterNot[key].settlementId.join(','),
           }
           : {
             [`filterNot[${key}]`]: Array.isArray(filterNot[key])

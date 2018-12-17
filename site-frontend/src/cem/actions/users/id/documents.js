@@ -38,7 +38,8 @@ const updateDocumentFailed = errors => ({
 });
 
 export function updateDocument(id, documentId, document) {
-  return dispatch => API.put(`/v1/users/staff/${id}/documents/${documentId}`, document).then(
+  return dispatch =>
+    API.put(`/v1/users/staff/${id}/documents/${documentId}`, document).then(
       () => dispatch(loadDocuments(id)),
       ({ body }) => {
         dispatch(updateDocumentFailed(body));
@@ -54,8 +55,12 @@ const createDocumentFailed = errors => ({
 });
 
 export function createDocument(resourceId, { file, ...document }) {
-  return dispatch => uploadFile(resourceId, file).then(
-      location => API.get(location).then(({ body: { id } }) => dispatch(updateDocument(resourceId, id, document))),
+  return dispatch =>
+    uploadFile(resourceId, file).then(
+      location =>
+        API.get(location).then(({ body: { id } }) =>
+          dispatch(updateDocument(resourceId, id, document)),
+        ),
       ({ errors }) => {
         dispatch(createDocumentFailed(errors));
         return { errors };

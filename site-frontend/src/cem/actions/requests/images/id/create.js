@@ -11,10 +11,12 @@ const createImageRequestSucceeded = ({ propertyId, propertyCategory, kind, ...da
   const eventName = REQUESTS_IMAGES_BY_KIND_SUBMITTED(kind);
 
   return (dispatch) => {
-    dispatch(sendAnalytics(eventName, {
-      propertyId,
-      propertyCategory,
-    }));
+    dispatch(
+      sendAnalytics(eventName, {
+        propertyId,
+        propertyCategory,
+      }),
+    );
 
     return dispatch({
       type: types.CREATE_IMAGES_REQUEST_SUCCESS,
@@ -34,8 +36,9 @@ export default function createImageRequest(data) {
     dispatch(createImageRequestStarted());
 
     return API.post('/v1/orders/images', data)
-      .then(({ headers }) => API.get(headers.location)
-        .then(({ body }) => dispatch(createImageRequestSucceeded(body))))
+      .then(({ headers }) =>
+        API.get(headers.location).then(({ body }) => dispatch(createImageRequestSucceeded(body))),
+      )
       .catch(({ body }) => {
         dispatch(createImageRequestFailed(body));
         return body;

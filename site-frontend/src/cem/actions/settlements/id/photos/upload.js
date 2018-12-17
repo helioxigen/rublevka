@@ -14,7 +14,8 @@ const uploadPhotoFailed = (id, errors) => ({
 });
 
 export default function uploadPhoto(id, src) {
-  return dispatch => API.post(`/v1/places/settlements/${id}/images`, { src }).then(
+  return dispatch =>
+    API.post(`/v1/places/settlements/${id}/images`, { src }).then(
       () => {},
       ({ body }) => {
         dispatch(uploadPhotoFailed(id, body));

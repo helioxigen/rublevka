@@ -1,5 +1,3 @@
 import loadUsers from './list/load';
 
-export {
-  loadUsers,
-};
+export { loadUsers };

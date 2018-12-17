@@ -1,6 +1,7 @@
 import errorsDict from 'core/constants/errors';
 
-export const formatListErrorMessage = errors => errors.map(error => errorsDict[error.code]).join(', ');
+export const formatListErrorMessage = errors =>
+  errors.map(error => errorsDict[error.code]).join(', ');
 
 export const composeErrorMessage = (error) => {
   const errorMessage = errorsDict[error.code] || error.message;

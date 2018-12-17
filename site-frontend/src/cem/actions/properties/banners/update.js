@@ -1,6 +1,9 @@
 import { API } from 'core/config/sources';
 import * as types from 'cem/constants/properties/actions';
-import { PROPERTY_BANNERS_CHANGED_STATE, PROPERTY_BANNERS_GAVE_ACTIVE } from 'cem/constants/analytics';
+import {
+  PROPERTY_BANNERS_CHANGED_STATE,
+  PROPERTY_BANNERS_GAVE_ACTIVE,
+} from 'cem/constants/analytics';
 import sendAnalytics from 'core/actions/analytics';
 
 const updateBannerStarted = (propertyId, category, bannerId, data) => ({
@@ -28,19 +31,23 @@ export default function updateBanner(propertyId, category, bannerId, data) {
   return (dispatch) => {
     const { state } = data;
     dispatch(updateBannerStarted(propertyId, category, bannerId, data));
-    dispatch(sendAnalytics(PROPERTY_BANNERS_CHANGED_STATE, {
-      propertyId,
-      category,
-      bannerId,
-      state,
-    }));
-
-    if (state === 'active') {
-      dispatch(sendAnalytics(PROPERTY_BANNERS_GAVE_ACTIVE, {
+    dispatch(
+      sendAnalytics(PROPERTY_BANNERS_CHANGED_STATE, {
         propertyId,
         category,
         bannerId,
-      }));
+        state,
+      }),
+    );
+
+    if (state === 'active') {
+      dispatch(
+        sendAnalytics(PROPERTY_BANNERS_GAVE_ACTIVE, {
+          propertyId,
+          category,
+          bannerId,
+        }),
+      );
     }
 
     return API.put(`/v1/properties/${category}/${propertyId}/banners/${bannerId}`, data)

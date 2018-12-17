@@ -19,7 +19,8 @@ export const LOAD_COMPLEX_BUILDINGS_SUCCESS = 'complex_buildings.list.load.succe
 export const LOAD_COMPLEX_BUILDINGS_FAIL = 'complex_buildings.list.load.failed';
 
 export const LOAD_COMPLEX_BUILDINGS_BY_COMPLEX_ID = 'complex_buildings.by.complex.load.started';
-export const LOAD_COMPLEX_BUILDINGS_BY_COMPLEX_ID_SUCCESS = 'complex_buildings.by.complex.load.succeeded';
+export const LOAD_COMPLEX_BUILDINGS_BY_COMPLEX_ID_SUCCESS =
+  'complex_buildings.by.complex.load.succeeded';
 export const LOAD_COMPLEX_BUILDINGS_BY_COMPLEX_ID_FAIL = 'complex_buildings.by.complex.load.failed';
 
 export const SEARCH_COMPLEXES = 'complexes.search.started';

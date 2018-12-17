@@ -50,7 +50,13 @@ const specificationFields = {
   'specification.furniture': { title: 'Мебель', dictionaryKey: 'furnitureKinds' },
   'specification.layout': { title: 'Планировка', dictionaryKey: 'layouts' },
   'specification.legacyLayouts': { title: 'Поэтажное описание', ignore: true },
-  'specification.legacyLayouts.items': { title: 'Поэтажное описание', dictionaryKey: 'layouts', messageKind: 'floorDescrption', ignoreEvents: ['moved'], ignore: true },
+  'specification.legacyLayouts.items': {
+    title: 'Поэтажное описание',
+    dictionaryKey: 'layouts',
+    messageKind: 'floorDescrption',
+    ignoreEvents: ['moved'],
+    ignore: true,
+  },
   'specification.layouts.wine_room': { title: 'Винные, кол-во' },
   'specification.layouts.dressing_room': { title: 'Гардеробные' },
   'specification.layouts.living_room': { title: 'Гостиные' },
@@ -146,11 +152,26 @@ const commonFields = {
   category: { title: 'Категория' },
   kind: { title: 'Тип' },
   state: { title: 'Статус' },
-  equipment: { title: 'Оборудование', dictionaryKey: 'equipment', declensionForms: ['предмет', 'предмета', 'предметов'] },
+  equipment: {
+    title: 'Оборудование',
+    dictionaryKey: 'equipment',
+    declensionForms: ['предмет', 'предмета', 'предметов'],
+  },
   note: { title: 'Примечание' },
-  images: { title: 'Фотографии', declensionForms: ['фотография', 'фотографии', 'фотографий'], messageKind: 'image' },
-  layoutImages: { title: 'Планировки', declensionForms: ['планировка', 'планировки', 'планировок'], messageKind: 'image' },
-  zipalPackageIds: { title: 'Пакеты выгрузки в Zipal', declensionForms: ['пакет', 'пакета', 'пакетов'] },
+  images: {
+    title: 'Фотографии',
+    declensionForms: ['фотография', 'фотографии', 'фотографий'],
+    messageKind: 'image',
+  },
+  layoutImages: {
+    title: 'Планировки',
+    declensionForms: ['планировка', 'планировки', 'планировок'],
+    messageKind: 'image',
+  },
+  zipalPackageIds: {
+    title: 'Пакеты выгрузки в Zipal',
+    declensionForms: ['пакет', 'пакета', 'пакетов'],
+  },
   saleOffer: { title: 'Условия продажи', messageKind: 'offer' },
   rentOffer: { title: 'Условия аренды', messageKind: 'offer' },
   residentialComplexId: { title: 'Жилищный комплекс', messageKind: 'residentialComplex' },
@@ -171,8 +192,14 @@ const layoutFields = {
 };
 
 export const ignoredFields = [
-  'updatedAt', 'clientLeadId', 'createdByUserId', 'updatedByUserId', 'id',
-  'category', 'createdAt', 'updatedAt',
+  'updatedAt',
+  'clientLeadId',
+  'createdByUserId',
+  'updatedByUserId',
+  'id',
+  'category',
+  'createdAt',
+  'updatedAt',
 ];
 
 export default {

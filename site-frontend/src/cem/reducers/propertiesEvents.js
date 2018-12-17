@@ -7,34 +7,37 @@ const initialState = {
   property_updated: {},
 };
 
-export default handleActions({
-  [types.LOAD_EVENTS]: (state, { id, eventKind }) => ({
-    ...state,
-    [eventKind]: {
-      ...state[eventKind],
-      [id]: {
-        isFetching: true,
+export default handleActions(
+  {
+    [types.LOAD_EVENTS]: (state, { id, eventKind }) => ({
+      ...state,
+      [eventKind]: {
+        ...state[eventKind],
+        [id]: {
+          isFetching: true,
+        },
       },
-    },
-  }),
+    }),
 
-  [types.LOAD_EVENTS_FAIL]: (state, { id, eventKind, errors }) => ({
-    ...state,
-    [eventKind]: {
-      ...state[eventKind],
-      [id]: {
-        errors,
+    [types.LOAD_EVENTS_FAIL]: (state, { id, eventKind, errors }) => ({
+      ...state,
+      [eventKind]: {
+        ...state[eventKind],
+        [id]: {
+          errors,
+        },
       },
-    },
-  }),
+    }),
 
-  [types.LOAD_EVENTS_SUCCESS]: (state, { id, eventKind, items }) => ({
-    ...state,
-    [eventKind]: {
-      ...state[eventKind],
-      [id]: {
-        items,
+    [types.LOAD_EVENTS_SUCCESS]: (state, { id, eventKind, items }) => ({
+      ...state,
+      [eventKind]: {
+        ...state[eventKind],
+        [id]: {
+          items,
+        },
       },
-    },
-  }),
-}, initialState);
+    }),
+  },
+  initialState,
+);

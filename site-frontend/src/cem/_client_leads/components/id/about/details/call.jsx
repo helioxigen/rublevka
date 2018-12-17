@@ -5,7 +5,8 @@ import * as dict from 'cem/constants/leads/dictionaries';
 import cn from 'classnames';
 import UI from 'cem/components/ui';
 const {
-  FormattedTime, Heading,
+  FormattedTime,
+  Heading,
   Grid: { Row, Col },
   Form: { Label, Static, Group },
 } = UI;
@@ -34,9 +35,7 @@ export default ({ phoneCallDetails = {} }) => {
             <Col sm="15" md="8">
               <Group>
                 <Label block>Причина</Label>
-                <Static className={sUtils.fontSizeMd}>
-                  {phoneCallDetails.reason}
-                </Static>
+                <Static className={sUtils.fontSizeMd}>{phoneCallDetails.reason}</Static>
               </Group>
             </Col>
           )}

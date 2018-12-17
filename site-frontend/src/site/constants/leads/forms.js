@@ -1,10 +1,6 @@
 export const contactBrokerSettings = {
   form: 'leadsContactAgent',
-  fields: [
-    'firstName',
-    'phoneNumber',
-    'email',
-  ],
+  fields: ['firstName', 'phoneNumber', 'email'],
   validate: values => ({
     phoneNumber: !values.phoneNumber && 'Обязательно',
   }),
@@ -30,7 +26,13 @@ export const requestSettings = {
     };
 
     // if (!values.contactDetails.phoneNumber) errors.contactDetails.phoneNumber = `Похоже, допущена ошибка при написании телефона, попробуйте еще раз`;
-    if (values.contactDetails.phoneNumber && !values.contactDetails.phoneNumber.match(/^\+7\s*\(\d{3}\)\s*\d{3}\-\d{2}\-\d{2}$/g)) errors.contactDetails.phoneNumber = 'Похоже, допущена ошибка при написании телефона, попробуйте еще раз';
+    if (
+      values.contactDetails.phoneNumber &&
+      !values.contactDetails.phoneNumber.match(/^\+7\s*\(\d{3}\)\s*\d{3}\-\d{2}\-\d{2}$/g)
+    ) {
+      errors.contactDetails.phoneNumber =
+        'Похоже, допущена ошибка при написании телефона, попробуйте еще раз';
+    }
 
     return errors;
   },

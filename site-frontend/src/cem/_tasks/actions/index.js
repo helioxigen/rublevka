@@ -5,7 +5,4 @@ import deleteTask from './id/delete';
 
 import loadTasks from './list/load';
 
-export {
-  loadTasks,
-  loadTask, createTask, updateTask, deleteTask,
-};
+export { loadTasks, loadTask, createTask, updateTask, deleteTask };

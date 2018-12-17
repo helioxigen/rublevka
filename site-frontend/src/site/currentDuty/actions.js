@@ -11,24 +11,24 @@ const loadDuties = propertyCategory => (dispatch, getState) => {
   const isExpired = now.getTime() > finishAt.getTime();
 
   if (!currentDutyByPropertyCategory.finishAt || isExpired) {
-    return API.get(apiPath, { defaultStaffUserId: 1 })
-      .then(
-        ({ body: { items } }) => {
-          dispatch({
-            type: types.LOAD_LIST_SUCCEEDED,
-            items,
-          });
+    return API.get(apiPath, { defaultStaffUserId: 1 }).then(
+      ({ body: { items } }) => {
+        dispatch({
+          type: types.LOAD_LIST_SUCCEEDED,
+          items,
+        });
 
-          return Promise.resolve(items);
-        }, ({ body: { errors } }) => {
-          dispatch({
-            type: types.LOAD_LIST_FAILED,
-            errors,
-          });
+        return Promise.resolve(items);
+      },
+      ({ body: { errors } }) => {
+        dispatch({
+          type: types.LOAD_LIST_FAILED,
+          errors,
+        });
 
-          return Promise.reject(errors);
-        },
-      );
+        return Promise.reject(errors);
+      },
+    );
   }
   return Promise.resolve();
 };

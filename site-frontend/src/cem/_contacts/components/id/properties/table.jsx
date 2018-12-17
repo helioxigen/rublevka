@@ -5,7 +5,9 @@ import { FormattedCurrency } from 'react-formatted';
 
 import UI from 'cem/components/ui';
 const {
-  Table, Button, Icon,
+  Table,
+  Button,
+  Icon,
   Table: { Container, Row, Cell, Heading },
 } = UI;
 
@@ -25,8 +27,8 @@ export default props => (
         <Heading>Статус</Heading>
         <Table.Heading />
       </Row>
-      {props.items.map((item, index) =>
-        (<Row key={index}>
+      {props.items.map((item, index) => (
+        <Row key={index}>
           <Cell>{item.id}</Cell>
           <Cell>{categories[item.category]}</Cell>
           <Cell>{kinds[item.kind]}</Cell>
@@ -37,19 +39,27 @@ export default props => (
           </Cell>
           <Cell>
             {/* TODO Ugliness... */}
-            {!!item.saleOffer && !!item.saleOffer.price && <FormattedCurrency symbol={item.saleOffer.currency} value={item.saleOffer.price} />}
+            {!!item.saleOffer && !!item.saleOffer.price && (
+              <FormattedCurrency symbol={item.saleOffer.currency} value={item.saleOffer.price} />
+            )}
             {!!item.rentOffer && !!item.rentOffer.price && ' / '}
-            {!!item.rentOffer && !!item.rentOffer.price && <FormattedCurrency symbol={item.rentOffer.currency} value={item.rentOffer.price} />}
+            {!!item.rentOffer && !!item.rentOffer.price && (
+              <FormattedCurrency symbol={item.rentOffer.currency} value={item.rentOffer.price} />
+            )}
             {!item.saleOffer && !item.rentOffer && '—'}
           </Cell>
           <Cell className={s[states[item.state].style]}>{states[item.state].title}</Cell>
           <Cell>
-            <Button to={`/properties/${item.category}/${item.id}`} className={sButton.btnTableAction} size="xs">
+            <Button
+              to={`/properties/${item.category}/${item.id}`}
+              className={sButton.btnTableAction}
+              size="xs"
+            >
               <Icon className={s.btnIcon} icon="arrow-left" />
             </Button>
           </Cell>
-        </Row>),
-      )}
+        </Row>
+      ))}
     </Container>
   </div>
 );

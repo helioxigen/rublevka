@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 
 import UI from 'cem/components/ui';
-const { Media, Heading, Grid: { Row, Col } } = UI;
+const {
+  Media,
+  Heading,
+  Grid: { Row, Col },
+} = UI;
 
 import s from 'cem/styles/id/content';
 import sUtils from 'cem/styles/utils';
 
-const Image = ({ photo = {} }) =>
-  (<UI.Image
+const Image = ({ photo = {} }) => (
+  <UI.Image
     src={
       photo.url
         ? `${photo.url}-128`
@@ -18,20 +22,18 @@ const Image = ({ photo = {} }) =>
     height="70"
     title=""
     alt=""
-  />);
+  />
+);
 
-const Description = props =>
-  (<div>
+const Description = props => (
+  <div>
     <h4 className={s.heading}>
       {props.user.data.firstName} {props.user.data.lastName}
     </h4>
-    <p className={s.description}>
-      {props.user.data.workPhoneNumber}
-    </p>
-    <p className={s.description}>
-      {props.user.data.email}
-    </p>
-  </div>);
+    <p className={s.description}>{props.user.data.workPhoneNumber}</p>
+    <p className={s.description}>{props.user.data.email}</p>
+  </div>
+);
 
 class Status extends Component {
   componentWillMount() {
@@ -70,15 +72,16 @@ class Status extends Component {
 
     return (
       <Row>
-        {createdByUser.data &&
+        {createdByUser.data && (
           <Col sm="10">
             <Heading size="md">Принял</Heading>
             <Media
               left={<Image photo={createdByUser.data.photo} />}
               body={<Description user={createdByUser} />}
             />
-          </Col>}
-        {responsibleUser.data &&
+          </Col>
+        )}
+        {responsibleUser.data && (
           <Col sm="10" className={sUtils.pushedTopXs4}>
             <Row>
               <Col xs="20">
@@ -93,7 +96,8 @@ class Status extends Component {
                 />
               </Col>
             </Row>
-          </Col>}
+          </Col>
+        )}
       </Row>
     );
   }

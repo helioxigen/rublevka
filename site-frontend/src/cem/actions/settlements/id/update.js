@@ -22,7 +22,9 @@ export default function updateSettlement(id, settlement) {
     dispatch(updateSettlementStarted(id, settlement));
 
     return API.put(`/v1/places/settlements/${id}`, transformSettlementOut(settlement)).then(
-      () => dispatch(pop('success', `Посёлок (ID: ${id})`, 'Успешно обновлён')) && dispatch(loadSettlement(id)),
+      () =>
+        dispatch(pop('success', `Посёлок (ID: ${id})`, 'Успешно обновлён')) &&
+        dispatch(loadSettlement(id)),
       ({ body }) => {
         dispatch(pop('error', `Посёлок (ID: ${id})`, 'При обновлении посёлка что-то пошло не так'));
         dispatch(updateSettlementFailed(id, body));

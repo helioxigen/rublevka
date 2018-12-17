@@ -66,7 +66,11 @@ export const transformOutputValues = (values) => {
       id: responsibleUser.id || parseInt(values.responsibleUserId, 0),
     },
 
-    deadline: dateAndTimeToIso8601(values._deadline.date, values._deadline.time, values._deadline.utcOffset),
+    deadline: dateAndTimeToIso8601(
+      values._deadline.date,
+      values._deadline.time,
+      values._deadline.utcOffset,
+    ),
     ...details,
   };
 };

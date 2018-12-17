@@ -19,14 +19,13 @@ export const createElementFailed = (type, errors) => ({
 export const createElement = (resource, data) => {
   if (!resource) throwFormattedError('required', resource);
 
-  return API.post(resource, data)
-    .then(
-      ({ headers }) => {
-        const locationParts = headers.location.split('/');
-        const id = locationParts[locationParts.length - 1];
+  return API.post(resource, data).then(
+    ({ headers }) => {
+      const locationParts = headers.location.split('/');
+      const id = locationParts[locationParts.length - 1];
 
-        return Promise.resolve({ id });
-      },
-      ({ body: { errors } }) => Promise.reject(errors),
-    );
+      return Promise.resolve({ id });
+    },
+    ({ body: { errors } }) => Promise.reject(errors),
+  );
 };

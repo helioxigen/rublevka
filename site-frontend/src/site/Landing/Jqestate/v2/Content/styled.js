@@ -6,7 +6,10 @@ import media from 'site/styles/media';
 
 import UI from 'site/ui';
 
-const { Button, Grid: { Col } } = UI;
+const {
+  Button,
+  Grid: { Col },
+} = UI;
 
 export const Wrapper = styled.section`
   padding-top: 1rem;
@@ -384,7 +387,9 @@ export const StLinkRent = StLink.extend`
   `};
 `;
 
-export const StLinkLast = StLink.extend`border-radius: 0 0 0.4rem 0.4rem;`;
+export const StLinkLast = StLink.extend`
+  border-radius: 0 0 0.4rem 0.4rem;
+`;
 export const StLinkRentLast = StLinkLast.extend`
   ${media.sm`
     padding: 1.9rem 1.5rem;
@@ -409,7 +414,9 @@ export const StLinkMobile = StLink.extend`
   `};
 `;
 
-export const Counter = styled.span`margin-left: 0.5rem;`;
+export const Counter = styled.span`
+  margin-left: 0.5rem;
+`;
 
 export const Btn = styled(Button)`
   font-size: 1.6rem;

@@ -24,9 +24,7 @@ export default id => (dispatch) => {
   return loadElement(apiPath, id).then(
     (data) => {
       const values = transformInputValues(data);
-      dispatch(
-        loadElementSucceeded(types.LOAD_NEWSLETTER_SUCCEEDED, id, values),
-      );
+      dispatch(loadElementSucceeded(types.LOAD_NEWSLETTER_SUCCEEDED, id, values));
 
       return values;
     },

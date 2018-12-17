@@ -9,7 +9,8 @@ const updateDivisionSucceeded = id => ({
 });
 
 export default function updateDivision(id, data) {
-  return dispatch => API.put(`/v1/divisions/${id}`, data).then(
+  return dispatch =>
+    API.put(`/v1/divisions/${id}`, data).then(
       () => dispatch(updateDivisionSucceeded(id)),
       ({ body }) => {
         dispatch(pop('danger', 'Ошибка обновления отдела!'));

@@ -26,8 +26,8 @@ export const loadLinkedListSucceeded = (type, resource, resourceId, listName, it
   items,
 });
 
-export const loadLinkedList = (resource, resourceId, listName, queryParams = {}) => API.get(apiPaths[`${resource}.${listName}`](resourceId), queryParams)
-    .then(
-      ({ body: { items, pagination } }) => Promise.resolve({ items, pagination }),
-      ({ body: { errors } }) => Promise.reject(errors),
-    );
+export const loadLinkedList = (resource, resourceId, listName, queryParams = {}) =>
+  API.get(apiPaths[`${resource}.${listName}`](resourceId), queryParams).then(
+    ({ body: { items, pagination } }) => Promise.resolve({ items, pagination }),
+    ({ body: { errors } }) => Promise.reject(errors),
+  );

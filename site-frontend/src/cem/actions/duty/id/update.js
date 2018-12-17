@@ -9,7 +9,8 @@ const updateDutySucceeded = id => ({
 });
 
 export default function updateDuty(id, data) {
-  return dispatch => API.put(`/v1/daily_duty/${id}`, prepareFormValuesForSubmit(data)).then(
+  return dispatch =>
+    API.put(`/v1/daily_duty/${id}`, prepareFormValuesForSubmit(data)).then(
       () => dispatch(updateDutySucceeded(id)),
       ({ body }) => body,
     );

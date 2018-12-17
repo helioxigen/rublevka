@@ -1,4 +1,9 @@
-import { loadElement, loadElementStarted, loadElementFailed, loadElementSucceeded } from 'core/fetcher2/actions';
+import {
+  loadElement,
+  loadElementStarted,
+  loadElementFailed,
+  loadElementSucceeded,
+} from 'core/fetcher2/actions';
 
 import * as types from 'cem/_tasks/constants/actions';
 import { apiPath } from 'cem/_tasks/constants/defaults';
@@ -8,20 +13,20 @@ import { transformInputValues } from 'cem/_tasks/helpers/transformInputValues';
 const load = id => (dispatch) => {
   dispatch(loadElementStarted(types.LOAD, id));
 
-  return loadElement(apiPath, id)
-    .then(
-      (data) => {
-        const values = transformInputValues(data);
+  return loadElement(apiPath, id).then(
+    (data) => {
+      const values = transformInputValues(data);
 
-        dispatch(loadElementSucceeded(types.LOAD_SUCCEEDED, id, values));
+      dispatch(loadElementSucceeded(types.LOAD_SUCCEEDED, id, values));
 
-        return values;
-      }, (errors) => {
-        dispatch(loadElementFailed(types.LOAD_FAILED, id, errors));
+      return values;
+    },
+    (errors) => {
+      dispatch(loadElementFailed(types.LOAD_FAILED, id, errors));
 
-        return errors;
-      },
-    );
+      return errors;
+    },
+  );
 };
 
 export default load;

@@ -8,7 +8,8 @@ const updateTaskSucceeded = id => ({
 });
 
 export default function updateTask(id, data) {
-  return dispatch => API.put(`/v1/tasks/${id}`, data).then(
+  return dispatch =>
+    API.put(`/v1/tasks/${id}`, data).then(
       () => dispatch(updateTaskSucceeded(id)),
       ({ body }) => body,
     );

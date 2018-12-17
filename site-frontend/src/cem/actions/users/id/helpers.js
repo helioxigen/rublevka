@@ -3,7 +3,11 @@ import { API } from 'core/config/resources';
 import store from 'cem/store';
 import { formatDateToDay } from 'core/helpers';
 
-export const transform = ({ details, details: { adPhoneNumbers = [], startedWorkAt, finishedWorkAt }, ...data }) => ({
+export const transform = ({
+  details,
+  details: { adPhoneNumbers = [], startedWorkAt, finishedWorkAt },
+  ...data
+}) => ({
   ...data,
   details: {
     ...details,
@@ -15,7 +19,9 @@ export const transform = ({ details, details: { adPhoneNumbers = [], startedWork
 
 export function uploadPhoto(id, images) {
   if (images) {
-    const { auth: { token } } = store.getState();
+    const {
+      auth: { token },
+    } = store.getState();
     const headers = {
       Authorization: `Bearer ${token}`,
     };
@@ -34,7 +40,9 @@ export function uploadPhoto(id, images) {
 }
 
 export function uploadFile(id, file, type = 'documents') {
-  const { auth: { token } } = store.getState();
+  const {
+    auth: { token },
+  } = store.getState();
   const headers = {
     Authorization: `Bearer ${token}`,
   };

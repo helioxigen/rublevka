@@ -26,14 +26,22 @@ export const validate = (values) => {
     }
   } else {
     if (!values.details.expectedAgentFee) {
-      if (values.details.offerKind === 'purchase') errors.details.expectedAgentFee = 'Укажите комиссию';
+      if (values.details.offerKind === 'purchase') {
+        errors.details.expectedAgentFee = 'Укажите комиссию';
+      }
     }
-    if (normalizeNumber(values.details.expectedAgentFee) > 100) errors.details.expectedAgentFee = 'Комиссия не может быть больше 100%';
+    if (normalizeNumber(values.details.expectedAgentFee) > 100) {
+      errors.details.expectedAgentFee = 'Комиссия не может быть больше 100%';
+    }
   }
 
   if (!values.details.expectedFinishDateAt) errors.details.expectedFinishDateAt = 'Укажите дату';
 
-  if (values.state === 'negotiation' || values.state === 'agreement' || values.state === 'deposit_paid') {
+  if (
+    values.state === 'negotiation' ||
+    values.state === 'agreement' ||
+    values.state === 'deposit_paid'
+  ) {
     if (!values.details.propertyId) errors.details.propertyId = 'Укажите объект недвижимости';
   }
 

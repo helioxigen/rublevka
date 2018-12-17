@@ -6,7 +6,9 @@ import * as dict from 'cem/_client_leads/constants/dictionaries';
 
 import UI from 'cem/components/ui';
 const {
-  Button, StaticDictionary, Heading,
+  Button,
+  StaticDictionary,
+  Heading,
   Grid: { Row, Col },
 } = UI;
 
@@ -19,10 +21,17 @@ const dictionaryResourcesByState = {
   spam: 'spam_reason',
 };
 
-export default ({ state, stateDetails = {}, isCurrentUserDepartmentManager, updatedByUserId, updatedAt, process }) => {
+export default ({
+  state,
+  stateDetails = {},
+  isCurrentUserDepartmentManager,
+  updatedByUserId,
+  updatedAt,
+  process,
+}) => {
   const isReasonPresented = !!stateDetails.reasonId;
   const isNeedToApprove = !!stateDetails.toApprove;
-  const isApproved = (state === 'rejected' || state === 'spam');
+  const isApproved = state === 'rejected' || state === 'spam';
   const isApprovedByUser = !!updatedByUserId;
 
   return (
@@ -34,7 +43,10 @@ export default ({ state, stateDetails = {}, isCurrentUserDepartmentManager, upda
               {`${dict.states[stateDetails.toApprove || state].title}`}, причина:
             </Heading>
             <p className={sUtils.pushedTop1_5}>
-              <StaticDictionary fetch={fetchDictionary(dictionaryResourcesByState[state])} value={stateDetails.reasonId} />
+              <StaticDictionary
+                fetch={fetchDictionary(dictionaryResourcesByState[state])}
+                value={stateDetails.reasonId}
+              />
             </p>
           </Col>
         </Row>
@@ -43,7 +55,12 @@ export default ({ state, stateDetails = {}, isCurrentUserDepartmentManager, upda
       {isNeedToApprove && isCurrentUserDepartmentManager && (
         <Row sm="center" className={cn(sUtils.pushedTop2, sUtils.textCenter)}>
           <Col sm="12">
-            <Button className={sUtils.pushedRight2} type="button" kind="danger" onClick={() => process('disapprove')}>
+            <Button
+              className={sUtils.pushedRight2}
+              type="button"
+              kind="danger"
+              onClick={() => process('disapprove')}
+            >
               не одобрить
             </Button>
             <Button type="button" kind="success" onClick={() => process('approve')}>
@@ -62,7 +79,11 @@ export default ({ state, stateDetails = {}, isCurrentUserDepartmentManager, upda
               </Col>
               <Col sm="6" smOffset="1">
                 <p className={sUtils.textCenter}>
-                  <StaticDictionary fetch={fetchResource('/v1/users/staff', 'name')} value={updatedByUserId} labelKey="lastName" />
+                  <StaticDictionary
+                    fetch={fetchResource('/v1/users/staff', 'name')}
+                    value={updatedByUserId}
+                    labelKey="lastName"
+                  />
                 </p>
               </Col>
               <Col sm="6" smOffset="1">

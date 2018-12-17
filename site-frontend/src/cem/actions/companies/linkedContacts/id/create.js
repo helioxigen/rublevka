@@ -28,19 +28,36 @@ const createContactFailed = (companyId, errors) => ({
 export default (companyId, data) => (dispatch) => {
   dispatch(createContactStarted(companyId));
 
-  return API.post('/v1/contacts', { ...data, additionalDetails: { autoRegion: undefined }, companyDetails: { ...data.companyDetails, companyId } }).then(
-    ({ headers }) => API.get(headers.location).then(({ body }) => {
-      dispatch(createContactSucceeded(companyId, body));
-      return body;
-    }),
+  return API.post('/v1/contacts', {
+    ...data,
+    additionalDetails: { autoRegion: undefined },
+    companyDetails: { ...data.companyDetails, companyId },
+  }).then(
+    ({ headers }) =>
+      API.get(headers.location).then(({ body }) => {
+        dispatch(createContactSucceeded(companyId, body));
+        return body;
+      }),
     // NOTE This beast mimics the one from "cem/actions/properties/contacts/create.js"
     // TODO Refactor these...
     ({ body: { errors } }) => {
-      if (errors && errors.some(error => error.param === 'details.phoneNumber' || error.param === 'phoneNumber')) {
-        return API.get('/v1/contacts', { filter: { 'details.phoneNumber': normalizePhoneNumber(data.details.phoneNumber) } }).then(
+      if (
+        errors &&
+        errors.some(error => error.param === 'details.phoneNumber' || error.param === 'phoneNumber')
+      ) {
+        return API.get('/v1/contacts', {
+          filter: { 'details.phoneNumber': normalizePhoneNumber(data.details.phoneNumber) },
+        }).then(
           ({ body }) => {
             const existingContactData = body.items[0];
-            dispatch(pop('info', `Под таким номером телефона записан ${existingContactData.details.firstName} ${existingContactData.details.lastName}`));
+            dispatch(
+              pop(
+                'info',
+                `Под таким номером телефона записан ${existingContactData.details.firstName} ${
+                  existingContactData.details.lastName
+                }`,
+              ),
+            );
             dispatch(updateLinkedContact(companyId, existingContactData));
             dispatch(createContactSucceeded(companyId, body));
             return existingContactData;

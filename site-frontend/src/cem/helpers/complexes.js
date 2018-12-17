@@ -11,11 +11,11 @@ const transformLocation = (location) => {
   }
 };
 
-const transformAdjacentTerritory = (adjacentTerritory) => ({
+const transformAdjacentTerritory = adjacentTerritory => ({
   ...adjacentTerritory,
-  isAccessOpen: adjacentTerritory.isAccessOpen === `true`,
-  isAllowedCars: adjacentTerritory.isAllowedCars === `true`,
-  isGreeneryPlanted: adjacentTerritory.isGreeneryPlanted === `true`,
+  isAccessOpen: adjacentTerritory.isAccessOpen === 'true',
+  isAllowedCars: adjacentTerritory.isAllowedCars === 'true',
+  isGreeneryPlanted: adjacentTerritory.isGreeneryPlanted === 'true',
 });
 
 export const transformDataOut = (data) => {
@@ -26,22 +26,23 @@ export const transformDataOut = (data) => {
     location: transformLocation(values.location),
     linkedContactIds: data.linkedContactIds || [],
     accreditors: data.accreditors || [],
-    adjacentTerritory: values.adjacentTerritory ? transformAdjacentTerritory(values.adjacentTerritory) : {},
+    adjacentTerritory: values.adjacentTerritory
+      ? transformAdjacentTerritory(values.adjacentTerritory)
+      : {},
     purchaseTimeConditions: data.purchaseTimeConditions || undefined,
-    keysIssueDate: data.keysIssueDate && data.keysIssueDate.split(`T`)[0],
+    keysIssueDate: data.keysIssueDate && data.keysIssueDate.split('T')[0],
   };
 };
 
-export const transformDataIn = (data) => ({
+export const transformDataIn = data => ({
   ...data,
   adjacentTerritory: {
     ...data.adjacentTerritory,
-    isAccessOpen: data.adjacentTerritory.isAccessOpen ? `true` : `false`,
-    isAllowedCars: data.adjacentTerritory.isAllowedCars ? `true` : `false`,
-    isGreeneryPlanted: data.adjacentTerritory.isGreeneryPlanted ? `true` : `false`,
+    isAccessOpen: data.adjacentTerritory.isAccessOpen ? 'true' : 'false',
+    isAllowedCars: data.adjacentTerritory.isAllowedCars ? 'true' : 'false',
+    isGreeneryPlanted: data.adjacentTerritory.isGreeneryPlanted ? 'true' : 'false',
   },
 });
-
 
 const makeStatsPriceFilter = (currency, priceFrom, priceTo) => {
   if (currency && (priceFrom || priceTo)) {
@@ -57,17 +58,17 @@ const makeStatsPriceFilter = (currency, priceFrom, priceTo) => {
 export const mapFilter = (filter = {}) => {
   const {
     name,
-    [`location.street`]: street,
-    [`stats.price.currency`]: priceCurrency,
-    [`stats.price.from`]: priceFrom,
-    [`stats.price.to`]: priceTo,
-    ...restFilterFields,
+    'location.street': street,
+    'stats.price.currency': priceCurrency,
+    'stats.price.from': priceFrom,
+    'stats.price.to': priceTo,
+    ...restFilterFields
   } = filter;
 
-  return ({
+  return {
     ...restFilterFields,
     name: name ? `*${name}*` : undefined,
     'location.street': street ? `*${street}*` : undefined,
     ...makeStatsPriceFilter(priceCurrency, priceFrom, priceTo),
-  });
+  };
 };

@@ -3,7 +3,10 @@ import { getPrevNext, getTitlePostfix } from 'core/helpers/seo';
 import { prepositionalRoutesById } from 'core/places/constants/dictionaries';
 import { translitKinds } from 'site/constants/properties/dictionaries';
 
-const { config: { domain }, config } = global;
+const {
+  config: { domain },
+  config,
+} = global;
 const canonical = `https://${domain}/zagorodnaya/kottedzhnye-poselki`;
 
 export const list = {
@@ -39,11 +42,15 @@ export const show = {
     const route = prepositionalRoutesById[routeId];
 
     if (dealType === 'sale') {
-      return `Коттеджный поселок ${name} на ${route} шоссе — купить дом или участок в КП ${name} | ${config.name}`;
+      return `Коттеджный поселок ${name} на ${route} шоссе — купить дом или участок в КП ${name} | ${
+        config.name
+      }`;
     }
 
     if (dealType === 'rent') {
-      return `Коттеджный поселок ${name} на ${route} шоссе — арендовать дом в КП ${name} | ${config.name}`;
+      return `Коттеджный поселок ${name} на ${route} шоссе — арендовать дом в КП ${name} | ${
+        config.name
+      }`;
     }
   },
   description: (name, dealType, kind) => {
@@ -72,13 +79,13 @@ export const show = {
     };
 
     if (!kind) {
-      return `${dictionary[dealType]
-        .title} недвижимость в коттеджном поселке ${name}. Лучшие предложения на ${global.config
-        .domain}!`;
+      return `${
+        dictionary[dealType].title
+      } недвижимость в коттеджном поселке ${name}. Лучшие предложения на ${global.config.domain}!`;
     }
-    return `${dictionary[dealType].titleWithCategory} ${dictionary[dealType][
-      kind
-    ]} в коттеджном поселке ${name}. Лучшие предложения на ${domain}!`;
+    return `${dictionary[dealType].titleWithCategory} ${
+      dictionary[dealType][kind]
+    } в коттеджном поселке ${name}. Лучшие предложения на ${domain}!`;
   },
   // `${name}, коттеджный поселок, коттедж, дом, квартира, таунхаус, участок, Москва, Московская область, Подмосковье, КП, цена, купить, продажа, аренда, снять, отзывы, недвижимость, карта, www.jqestate.ru`,
   keywords: (name, dealType, translitKind) => {
@@ -98,14 +105,16 @@ export const show = {
 
     if (!kind) {
       // районы, загородная недвижимость, список, перечень, Московская область, Подмосковье, {адрес сайта}
-      return `${dictionary.dealType[dealType][0]} недвижимость, ${dictionary.dealType[
-        dealType
-      ][1]} недвижимости, коттеджный поселок, ${name}, ${global.config
-        .domain}, цена, стоимость, отзывы, квартира, таунхаус, участок, дом`;
+      return `${dictionary.dealType[dealType][0]} недвижимость, ${
+        dictionary.dealType[dealType][1]
+      } недвижимости, коттеджный поселок, ${name}, ${
+        global.config.domain
+      }, цена, стоимость, отзывы, квартира, таунхаус, участок, дом`;
     }
-    return `${dictionary.dealType[dealType][0]} ${dictionary.kind[kind][0]}, ${dictionary.dealType[
-      dealType
-    ][1]} ${dictionary.kind[kind][1]}, коттеджный поселок, ${name}, ${global.config
-      .domain}, цена, стоимость, отзывы`;
+    return `${dictionary.dealType[dealType][0]} ${dictionary.kind[kind][0]}, ${
+      dictionary.dealType[dealType][1]
+    } ${dictionary.kind[kind][1]}, коттеджный поселок, ${name}, ${
+      global.config.domain
+    }, цена, стоимость, отзывы`;
   },
 };

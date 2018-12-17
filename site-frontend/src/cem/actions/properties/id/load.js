@@ -26,7 +26,10 @@ export default function (propertyId) {
     dispatch(loadPropertyStarted());
 
     return API.get(`/v1/properties/${propertyId}`).then(
-      ({ body: { category } }) => API.get(`/v1/properties/${category}/${propertyId}`).then(({ body }) => dispatch(loadPropertySucceeded(category, propertyId, body))),
+      ({ body: { category } }) =>
+        API.get(`/v1/properties/${category}/${propertyId}`).then(({ body }) =>
+          dispatch(loadPropertySucceeded(category, propertyId, body)),
+        ),
       ({ body }) => dispatch(loadPropertyFailed(propertyId, body)),
     );
   };

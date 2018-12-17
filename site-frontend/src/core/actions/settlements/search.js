@@ -33,7 +33,7 @@ export function searchSettlements(query, offset, isPaginated = false) {
     const filter = {
       state: 'public',
       name: query ? `*${query}*` : undefined,
-      'location.routeId': config.routes && config.routes.map(route => route.id) || undefined,
+      'location.routeId': (config.routes && config.routes.map(route => route.id)) || undefined,
     };
 
     const pagination = {
@@ -41,7 +41,12 @@ export function searchSettlements(query, offset, isPaginated = false) {
       offset,
     };
 
-    API.get(`/v1/places/settlements${isPaginated ? '' : '/map'}`, { orderBy, filter, ...(isPaginated ? { pagination } : {}), includes: ['name', 'id'] }).then(
+    API.get(`/v1/places/settlements${isPaginated ? '' : '/map'}`, {
+      orderBy,
+      filter,
+      ...(isPaginated ? { pagination } : {}),
+      includes: ['name', 'id'],
+    }).then(
       ({ body }) => dispatch(searchSettlementsSucceeded(body, !!offset)),
       ({ body }) => dispatch(searchSettlementsFailed(query, body)),
     );

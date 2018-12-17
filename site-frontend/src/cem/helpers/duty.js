@@ -23,7 +23,15 @@ export function prepareInitialValues(data) {
 }
 
 export function prepareFormValuesForSubmit(values) {
-  const { startDate, finishDate, startTime, finishTime, utcOffset, departmentId, ...restValues } = values; // eslint-disable-line no-unused-vars
+  const {
+    startDate,
+    finishDate,
+    startTime,
+    finishTime,
+    utcOffset,
+    departmentId,
+    ...restValues
+  } = values; // eslint-disable-line no-unused-vars
 
   return {
     ...restValues,

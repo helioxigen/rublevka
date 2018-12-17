@@ -44,9 +44,7 @@ export const fields = [
 
 export const documentFormSettings = {
   form: 'taskDocument',
-  fields: [
-    'file',
-  ],
+  fields: ['file'],
   validate: validateDocumentForm,
 };
 

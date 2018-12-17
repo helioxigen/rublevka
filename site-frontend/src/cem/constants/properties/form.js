@@ -1,6 +1,4 @@
-import {
-  detailsFields
-} from 'cem/constants/complexBuildings/form';
+import { detailsFields } from 'cem/constants/complexBuildings/form';
 
 const saleFields = [
   'saleOffer.isAgentFixed',

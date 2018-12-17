@@ -13,10 +13,7 @@ import s from 'cem/styles/id/content';
 
 // UI
 const {
-  Grid: {
-    Row,
-    Col,
-  },
+  Grid: { Row, Col },
   Heading,
   Icon,
 } = UI;
@@ -29,7 +26,9 @@ export default class extends Component {
       const hasRequestKind = !!clientLead.requestDetails.requestKind;
 
       const leadKindTitle = leadKinds[clientLead.kind].title;
-      const requestKindTitle = hasRequestKind ? requestKinds[clientLead.requestDetails.requestKind].title : null;
+      const requestKindTitle = hasRequestKind
+        ? requestKinds[clientLead.requestDetails.requestKind].title
+        : null;
 
       return (
         <Row>

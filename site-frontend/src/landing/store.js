@@ -50,7 +50,11 @@ const logger = createLogger({
 
 const store = compose(
   applyMiddleware(thunk, logger, tracker),
-  typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' && process.env.APP_ENV === 'development' ? window.devToolsExtension() : fn => fn,
+  typeof window === 'object' &&
+    typeof window.devToolsExtension !== 'undefined' &&
+    process.env.APP_ENV === 'development'
+    ? window.devToolsExtension()
+    : fn => fn,
 )(createStore)(reducer);
 
 export default store;

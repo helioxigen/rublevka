@@ -4,9 +4,13 @@ import media from 'site/styles/media';
 
 import UI from 'site/ui';
 
-const { Grid: { Container } } = UI;
+const {
+  Grid: { Container },
+} = UI;
 
-export const Wrapper = styled.div`background: ${p => p.theme.brandWhite};`;
+export const Wrapper = styled.div`
+  background: ${p => p.theme.brandWhite};
+`;
 
 export const ListWrapper = styled.div`
   max-width: 1600px;
@@ -18,7 +22,9 @@ export const DescWrapper = styled.div`
   padding: 3rem 0;
 `;
 
-export const ContainerRel = styled(Container)`position: relative;`;
+export const ContainerRel = styled(Container)`
+  position: relative;
+`;
 
 export const Title = styled.h1`
   font-size: 1.8rem;

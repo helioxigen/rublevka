@@ -1,10 +1,6 @@
 import validate from 'cem/validators/complexes';
 
-const imagesFields = [
-  'images[].id',
-  'images[].url',
-  'images[].isPublic',
-];
+const imagesFields = ['images[].id', 'images[].url', 'images[].isPublic'];
 
 const locationFields = [
   'location.countryName',

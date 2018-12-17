@@ -8,7 +8,8 @@ const updateEntitySucceeded = (entityTypeId, id) => ({
   id,
 });
 
-export default (entityTypeId, id, data, { apiPath = '' }) => dispatch => API.put(apiPath ? `${apiPath}/${id}` : `/v1/${entityTypeId}/${id}`, data).then(
+export default (entityTypeId, id, data, { apiPath = '' }) => dispatch =>
+  API.put(apiPath ? `${apiPath}/${id}` : `/v1/${entityTypeId}/${id}`, data).then(
     () => dispatch(updateEntitySucceeded(entityTypeId, id)),
     ({ body }) => body,
   );

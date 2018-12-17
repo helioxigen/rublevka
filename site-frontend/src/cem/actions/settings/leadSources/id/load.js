@@ -12,7 +12,8 @@ const loadLeadSourceFailed = (id, { errors }) => ({
   errors,
 });
 
-export default id => dispatch => API.get(`/v1/client_lead_sources/${id}`).then(
+export default id => dispatch =>
+  API.get(`/v1/client_lead_sources/${id}`).then(
     ({ body }) => dispatch(loadLeadSourceSucceeded(id, body)),
     ({ body }) => dispatch(loadLeadSourceFailed(id, body)),
   );

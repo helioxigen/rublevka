@@ -1,6 +1,10 @@
 import { API } from 'core/config/sources';
 
-import { LOAD_PROPERTIES, LOAD_PROPERTIES_SUCCEEDED, LOAD_PROPERTIES_FAILED } from '../../constants/properties';
+import {
+  LOAD_PROPERTIES,
+  LOAD_PROPERTIES_SUCCEEDED,
+  LOAD_PROPERTIES_FAILED,
+} from '../../constants/properties';
 
 import { makeFilter, makeFilterNot, makeRoomsFilterAndFilterNot } from 'core/utils/properties';
 

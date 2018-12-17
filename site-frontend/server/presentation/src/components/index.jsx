@@ -26,9 +26,9 @@ export default class extends Component {
             <div
               className="banner-image"
               style={{
-                backgroundImage: `url(https://images.jqestate.ru/${images[0].id}-${showLogo
-                  ? 'jqestate'
-                  : 'presentation'}-1024)`,
+                backgroundImage: `url(https://images.jqestate.ru/${images[0].id}-${
+                  showLogo ? 'jqestate' : 'presentation'
+                }-1024)`,
               }}
             />
           )}

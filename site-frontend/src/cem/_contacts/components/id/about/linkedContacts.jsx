@@ -11,7 +11,11 @@ import { fetchDictionary, fetchResource } from 'cem/helpers/autocomplete';
 
 import UI from 'cem/components/ui';
 const {
-  Grid, Table, Button, Icon, AsyncSelect,
+  Grid,
+  Table,
+  Button,
+  Icon,
+  AsyncSelect,
   Form: { Group, Helper },
   Table: { Cell, Row, Heading },
   Grid: { Col },
@@ -24,25 +28,24 @@ import sButton from 'cem/styles/buttons';
 const validate = (values) => {
   const errors = {};
 
-  if (!values.linkedContactId) errors.linkedContactId = `Укажите контакт`;
-  if (!values.kindId) errors.kindId = `Укажите тип`;
+  if (!values.linkedContactId) errors.linkedContactId = 'Укажите контакт';
+  if (!values.kindId) errors.kindId = 'Укажите тип';
 
   return errors;
 };
 
 class LinkedContactFormRaw extends Component {
   onSubmitSuccess() {
-    if (this.props.formKey === `add`) this.props.resetForm();
+    if (this.props.formKey === 'add') this.props.resetForm();
   }
 
   createOrUpdate(values) {
     const { formKey, contactId, actions } = this.props;
 
-    if (formKey === `add`) {
+    if (formKey === 'add') {
       return actions.addLinkedContact(contactId, values);
-    } else {
-      return actions.updateLinkedContact(contactId, values);
     }
+    return actions.updateLinkedContact(contactId, values);
   }
 
   remove() {
@@ -62,20 +65,46 @@ class LinkedContactFormRaw extends Component {
 
             <Row>
               <Cell>
-                {formKey === `add` &&
-                  <Group className={sUtils.resetIndentation} kind={fields.linkedContactId.touched && !!fields.linkedContactId.error && `error`}>
-                    <AsyncSelect className={sUtils.resetBorder} {...fields.linkedContactId} asyncOptions={fetchResource(`/v1/contacts`, `lastName`, [`details.firstName`, `details.lastName`])} />
-                    {fields.linkedContactId.touched && fields.linkedContactId.error && <Helper>{fields.linkedContactId.error}</Helper>}
+                {formKey === 'add' && (
+                  <Group
+                    className={sUtils.resetIndentation}
+                    kind={
+                      fields.linkedContactId.touched && !!fields.linkedContactId.error && 'error'
+                    }
+                  >
+                    <AsyncSelect
+                      className={sUtils.resetBorder}
+                      {...fields.linkedContactId}
+                      asyncOptions={fetchResource('/v1/contacts', 'lastName', [
+                        'details.firstName',
+                        'details.lastName',
+                      ])}
+                    />
+                    {fields.linkedContactId.touched && fields.linkedContactId.error && (
+                      <Helper>{fields.linkedContactId.error}</Helper>
+                    )}
                   </Group>
-                }
-                {formKey !== `add` && <span>{values.contactTitle}</span>}
+                )}
+                {formKey !== 'add' && <span>{values.contactTitle}</span>}
               </Cell>
               <Cell>
                 <Grid.Row>
                   <Col xs="16">
-                    <Group className={sUtils.resetIndentation} kind={fields.kindId.touched && !!fields.kindId.error && `error`}>
-                      <AsyncSelect className={sUtils.resetBorder} {...fields.kindId} asyncOptions={fetchDictionary(`contact_link_type`)} labelKey="title" valueKey="id" onBlur={() => {}} />
-                      {fields.kindId.touched && fields.kindId.error && <Helper>{fields.kindId.error}</Helper>}
+                    <Group
+                      className={sUtils.resetIndentation}
+                      kind={fields.kindId.touched && !!fields.kindId.error && 'error'}
+                    >
+                      <AsyncSelect
+                        className={sUtils.resetBorder}
+                        {...fields.kindId}
+                        asyncOptions={fetchDictionary('contact_link_type')}
+                        labelKey="title"
+                        valueKey="id"
+                        onBlur={() => {}}
+                      />
+                      {fields.kindId.touched && fields.kindId.error && (
+                        <Helper>{fields.kindId.error}</Helper>
+                      )}
                     </Group>
                   </Col>
                 </Grid.Row>
@@ -83,29 +112,60 @@ class LinkedContactFormRaw extends Component {
               <Cell>
                 <Grid.Row>
                   <Col xs="16">
-                    <Group className={sUtils.resetIndentation} kind={fields.relationshipToKindId.touched && !!fields.relationshipToKindId.error && `error`}>
-                      <AsyncSelect className={sUtils.resetBorder} {...fields.relationshipToKindId} asyncOptions={fetchDictionary(`contact_link_type`)} labelKey="title" valueKey="id" onBlur={() => {}} />
-                      {fields.relationshipToKindId.touched && fields.relationshipToKindId.error && <Helper>{fields.relationshipToKindId.error}</Helper>}
+                    <Group
+                      className={sUtils.resetIndentation}
+                      kind={
+                        fields.relationshipToKindId.touched &&
+                        !!fields.relationshipToKindId.error &&
+                        'error'
+                      }
+                    >
+                      <AsyncSelect
+                        className={sUtils.resetBorder}
+                        {...fields.relationshipToKindId}
+                        asyncOptions={fetchDictionary('contact_link_type')}
+                        labelKey="title"
+                        valueKey="id"
+                        onBlur={() => {}}
+                      />
+                      {fields.relationshipToKindId.touched && fields.relationshipToKindId.error && (
+                        <Helper>{fields.relationshipToKindId.error}</Helper>
+                      )}
                     </Group>
                   </Col>
                 </Grid.Row>
               </Cell>
-              {formKey !== `add` && (
+              {formKey !== 'add' && (
                 <Cell>
                   <Group className={sUtils.resetIndentation}>
-                    <Button className={sButton.btnTableAction} size="xs" onClick={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)} disabled={pristine}>
+                    <Button
+                      className={sButton.btnTableAction}
+                      size="xs"
+                      onClick={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}
+                      disabled={pristine}
+                    >
                       <Icon className={s.btnIcon} icon="checkmark" />
                     </Button>
-                    <Button className={sButton.btnTableAction} kind="danger" size="xs" onClick={handleSubmit(::this.remove)}>
+                    <Button
+                      className={sButton.btnTableAction}
+                      kind="danger"
+                      size="xs"
+                      onClick={handleSubmit(::this.remove)}
+                    >
                       <Icon className={s.btnIcon} icon="delete" />
                     </Button>
                   </Group>
                 </Cell>
               )}
-              {formKey === `add` && (
+              {formKey === 'add' && (
                 <Cell>
                   <Group className={sUtils.resetIndentation}>
-                    <Button className={sButton.btnTableAction} size="xs" onClick={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)} disabled={pristine}>
+                    <Button
+                      className={sButton.btnTableAction}
+                      size="xs"
+                      onClick={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}
+                      disabled={pristine}
+                    >
                       <Icon className={s.btnIcon} icon="checkmark" />
                     </Button>
                   </Group>
@@ -120,15 +180,15 @@ class LinkedContactFormRaw extends Component {
 }
 
 const formFields = [
-  `linkedContactId`,
-  `kindId`,
-  `relationshipToKindId`,
-  `contactTitle`,
-  `kindTitle`,
+  'linkedContactId',
+  'kindId',
+  'relationshipToKindId',
+  'contactTitle',
+  'kindTitle',
 ];
 
 const formSettings = {
-  form: `linkedContact`,
+  form: 'linkedContact',
   fields: formFields,
   validate,
 };
@@ -152,9 +212,21 @@ class LinkedContacts extends Component {
             <Heading width="35%">Кем приходится (этот контакт)</Heading>
             <Heading width="10%">Действия</Heading>
           </Row>
-          <LinkedContactForm contactId={this.props.contactId} formKey="add" actions={this.props.actions} />
+          <LinkedContactForm
+            contactId={this.props.contactId}
+            formKey="add"
+            actions={this.props.actions}
+          />
 
-          {items.map(item => <LinkedContactForm key={item.linkedContactId} contactId={this.props.contactId} formKey={item.linkedContactId.toString()} initialValues={item} actions={this.props.actions} />)}
+          {items.map(item => (
+            <LinkedContactForm
+              key={item.linkedContactId}
+              contactId={this.props.contactId}
+              formKey={item.linkedContactId.toString()}
+              initialValues={item}
+              actions={this.props.actions}
+            />
+          ))}
         </Table.Container>
       </div>
     );
@@ -165,8 +237,11 @@ const pickState = ({ contacts: { linkedContacts = {} } }) => ({
   state: { linkedContacts },
 });
 
-const pickActions = (dispatch) => ({
+const pickActions = dispatch => ({
   actions: bindActionCreators(ContactActions, dispatch),
 });
 
-export default connect(pickState, pickActions)(LinkedContacts);
+export default connect(
+  pickState,
+  pickActions,
+)(LinkedContacts);

@@ -29,9 +29,8 @@ export const loadLinkedResourceRecord = (resource, resourceId, listName, id) => 
   const pathName = `${resource}.${listName}`;
   const path = `${apiPaths[pathName](resourceId)}/${id}`;
 
-  return API.get(path)
-    .then(
-      ({ body: data }) => Promise.resolve({ data }),
-      ({ body: { errors } }) => Promise.reject(errors),
-    );
+  return API.get(path).then(
+    ({ body: data }) => Promise.resolve({ data }),
+    ({ body: { errors } }) => Promise.reject(errors),
+  );
 };

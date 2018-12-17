@@ -21,7 +21,8 @@ export default function updateDocument(complexId, id, doc) {
     dispatch(updateDocumentsStarted(complexId, id));
 
     return API.put(`/v1/places/settlements/${complexId}/documents/${id}`, doc).then(
-      () => dispatch(pop('success', 'Документ успешно обновлён')) && dispatch(loadDocumetns(complexId)),
+      () =>
+        dispatch(pop('success', 'Документ успешно обновлён')) && dispatch(loadDocumetns(complexId)),
       ({ body }) => {
         dispatch(updateDocumentsFailed(complexId, body));
         return body;

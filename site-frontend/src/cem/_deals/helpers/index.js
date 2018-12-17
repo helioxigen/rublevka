@@ -15,7 +15,9 @@ export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNo
       id: filter.id,
 
       'contactDetails.id': filter.contactId,
-      'contactDetails.phoneNumber': filter.contactPhoneNumber ? `*${filter.contactPhoneNumber}*` : undefined,
+      'contactDetails.phoneNumber': filter.contactPhoneNumber
+        ? `*${filter.contactPhoneNumber}*`
+        : undefined,
       'contactDetails.email': filter.contactEmail ? `*${filter.contactEmail}*` : undefined,
 
       state: filter.state,
@@ -24,7 +26,10 @@ export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNo
       'responsibleUser.divisionId': filter.ruDivisionId,
       'responsibleUser.id': filter.ruId,
 
-      'details.expectedFinishDateAt': makeDateRange(formatFilterDate(filter.expectedFinishDateFrom), formatFilterDate(filter.expectedFinishDateTo)),
+      'details.expectedFinishDateAt': makeDateRange(
+        formatFilterDate(filter.expectedFinishDateFrom),
+        formatFilterDate(filter.expectedFinishDateTo),
+      ),
 
       'tasksWeight.zero.deadline': formatFilterDate(tasksWeightZeroDeadline),
       'tasksWeight.toDo': filter.tasksWeightToDo,

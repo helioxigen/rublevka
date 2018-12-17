@@ -5,8 +5,4 @@ import createSelection from './id/create';
 import updateSelection from './id/update';
 import uploadSelectionPhoto from './id/photo';
 
-export {
-  loadSelections,
-
-  loadSelection, createSelection, updateSelection, uploadSelectionPhoto,
-};
+export { loadSelections, loadSelection, createSelection, updateSelection, uploadSelectionPhoto };

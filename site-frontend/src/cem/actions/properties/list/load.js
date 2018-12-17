@@ -17,12 +17,12 @@ const loadPropertiesByCategoryStarted = (category, group, queryParams) => ({
 const loadPropertiesByCategorySucceeded = (category, group, data) => (dispatch) => {
   dispatch(updatePagination(`properties.${category}.${group}`, data.pagination));
 
-  return dispatch(({
+  return dispatch({
     type: types.LOAD_PROPERTIES_SUCCESS,
     category,
     group,
     ...data,
-  }));
+  });
 };
 
 const loadPropertiesByCategoryFailed = (category, group, errors) => ({
@@ -32,7 +32,11 @@ const loadPropertiesByCategoryFailed = (category, group, errors) => ({
   errors,
 });
 
-export const loadPropertiesByCategory = (category = 'city', queryParams = { filter: {} }, group = 'default') => (dispatch) => {
+export const loadPropertiesByCategory = (
+  category = 'city',
+  queryParams = { filter: {} },
+  group = 'default',
+) => (dispatch) => {
   dispatch(loadPropertiesByCategoryStarted(category, group, queryParams));
 
   const filter = mapFilter(queryParams.filter);

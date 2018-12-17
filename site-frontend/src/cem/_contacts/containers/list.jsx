@@ -30,7 +30,8 @@ import isEqual from 'lodash/isEqual';
 
 // UI
 const {
-  Loading, Heading,
+  Loading,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -57,7 +58,7 @@ class List extends Component {
     hasRight: PropTypes.func.isRequired,
     hasAllRights: PropTypes.func.isRequired,
     hasAnyRight: PropTypes.func.isRequired,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -73,7 +74,8 @@ class List extends Component {
   componentWillReceiveProps(nextProps) {
     const isGroupUpdated = !isEqual(this.props.params.group, nextProps.params.group);
 
-    if (isGroupUpdated) { // TODO: move that check to isUpdated
+    if (isGroupUpdated) {
+      // TODO: move that check to isUpdated
       this.group = nextProps.params.group;
       this.resource = `${resourceName}.${this.group}`;
     }
@@ -110,7 +112,7 @@ class List extends Component {
     const hasErrors = !isFetching && !!errors.length;
     const hasItems = !!ids.length;
 
-    const title = `Контакты`; // TODO: use react-i18l
+    const title = 'Контакты'; // TODO: use react-i18l
 
     return (
       <section>
@@ -134,23 +136,13 @@ class List extends Component {
           </div>
         </Container>
 
-        {isFetching && (
-          <Loading />
-        )}
+        {isFetching && <Loading />}
 
-        {hasErrors && (
-          <ListErrorMessage errors={errors} />
-        )}
+        {hasErrors && <ListErrorMessage errors={errors} />}
 
-        {!isFetching && !ids.length && (
-          <Heading notFound>Контакты не найдены</Heading>
-        )}
+        {!isFetching && !ids.length && <Heading notFound>Контакты не найдены</Heading>}
 
-        {hasItems && (
-          ids.map(id => (
-            <Card key={id} contact={state._contacts[id].data} />
-          ))
-        )}
+        {hasItems && ids.map(id => <Card key={id} contact={state._contacts[id].data} />)}
 
         {hasItems && (
           <Container fluid>
@@ -197,4 +189,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(List);
+export default connect(
+  pickState,
+  pickActions,
+)(List);

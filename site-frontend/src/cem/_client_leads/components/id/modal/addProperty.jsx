@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 
 import UI from 'cem/components/ui';
 const {
-  Modal, Heading,
+  Modal,
+  Heading,
   Grid: { Row, Col },
   Form: { Group, Input },
- } = UI;
+} = UI;
 
 import s from 'cem/styles/modal/list';
 import sUtils from 'cem/styles/utils';
@@ -41,7 +42,14 @@ export default class extends Component {
       <div className={s.modalContainer}>
         {React.cloneElement(this.props.children, { onClick: ::this.toggle })}
 
-        <Modal size="md" closePortal={::this.close} isOpened={this.state.isOpened} onClose={::this.close} closeOnEsc closeOnOutsideClick>
+        <Modal
+          size="md"
+          closePortal={::this.close}
+          isOpened={this.state.isOpened}
+          onClose={::this.close}
+          closeOnEsc
+          closeOnOutsideClick
+        >
           <div className={s.container}>
             <Row>
               <Col xs="20">
@@ -51,12 +59,20 @@ export default class extends Component {
             <Row className={sUtils.pushedTop3}>
               <Col xs="20">
                 <Group>
-                  <Input block kind="primary" value={this.state.id || undefined} onChange={(event) => this.setState({ id: Number(event.target.value) })} />
+                  <Input
+                    block
+                    kind="primary"
+                    value={this.state.id || undefined}
+                    onChange={event => this.setState({ id: Number(event.target.value) })}
+                  />
                 </Group>
               </Col>
             </Row>
           </div>
-          {React.cloneElement(this.props.submitBtn, { onClick: ::this.handleOnClick, disabled: !this.state.id })}
+          {React.cloneElement(this.props.submitBtn, {
+            onClick: ::this.handleOnClick,
+            disabled: !this.state.id,
+          })}
         </Modal>
       </div>
     );

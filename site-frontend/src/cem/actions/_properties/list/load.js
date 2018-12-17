@@ -7,21 +7,22 @@ import { updatePagination } from 'core/actions/pagination';
 const loadProperties = (queryParams, group, resource) => (dispatch) => {
   dispatch(loadListStarted(types.LOAD_PROPERTIES, group));
 
-  return loadList(resource, group, { defaultQueryParamsByGroup }, { ...queryParams })
-    .then(
-      ({ items, pagination }) => {
-        dispatch(updatePagination(`${resource}.${group}`, pagination));
-        dispatch(loadListSucceeded(types.LOAD_PROPERTIES_SUCCEEDED, group, items));
+  return loadList(resource, group, { defaultQueryParamsByGroup }, { ...queryParams }).then(
+    ({ items, pagination }) => {
+      dispatch(updatePagination(`${resource}.${group}`, pagination));
+      dispatch(loadListSucceeded(types.LOAD_PROPERTIES_SUCCEEDED, group, items));
 
-        return items;
-      }, (errors) => {
-        dispatch(loadListFailed(types.LOAD_PROPERTIES_FAILED, group, errors));
+      return items;
+    },
+    (errors) => {
+      dispatch(loadListFailed(types.LOAD_PROPERTIES_FAILED, group, errors));
 
-        return errors;
-      },
-    );
+      return errors;
+    },
+  );
 };
 
-const loadPropertiesByCategory = (queryParams, group, category) => dispatch => dispatch(loadProperties(queryParams, group, `${category}Properties`));
+const loadPropertiesByCategory = (queryParams, group, category) => dispatch =>
+  dispatch(loadProperties(queryParams, group, `${category}Properties`));
 
 export default loadPropertiesByCategory;

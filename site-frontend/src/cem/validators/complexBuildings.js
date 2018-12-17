@@ -49,13 +49,23 @@ const validateCommonFields = (values) => {
   };
 
   if (!values.saleOffer.kind) errors.saleOffer.kind = 'Укажите тип сделки';
-  if (!values.saleOffer.isAgentFixed) errors.saleOffer.isAgentFixed = 'Укажите формат агентской комиссии';
+  if (!values.saleOffer.isAgentFixed) {
+    errors.saleOffer.isAgentFixed = 'Укажите формат агентской комиссии';
+  }
   if (values.saleOffer.isAgentFixed === 'false') {
-    if (!values.saleOffer.agentFee) errors.saleOffer.agentFee = 'Укажите размер комисии в процентах';
-    if (normalizeNumber(values.saleOffer.agentFee) > 100) errors.saleOffer.agentFee = 'Комиссия не может быть больше 100%';
+    if (!values.saleOffer.agentFee) {
+      errors.saleOffer.agentFee = 'Укажите размер комисии в процентах';
+    }
+    if (normalizeNumber(values.saleOffer.agentFee) > 100) {
+      errors.saleOffer.agentFee = 'Комиссия не может быть больше 100%';
+    }
   } else if (values.saleOffer.agentFixedPrice) {
-    if (!values.saleOffer.agentFixedPrice.price) errors.saleOffer.agentFixedPrice.price = 'Укажите цену';
-    if (!values.saleOffer.agentFixedPrice.currency) errors.saleOffer.agentFixedPrice.currency = 'Укажите валюту';
+    if (!values.saleOffer.agentFixedPrice.price) {
+      errors.saleOffer.agentFixedPrice.price = 'Укажите цену';
+    }
+    if (!values.saleOffer.agentFixedPrice.currency) {
+      errors.saleOffer.agentFixedPrice.currency = 'Укажите валюту';
+    }
   } else {
     errors.saleOffer.agentFixedPrice.price = 'Укажите цену';
     errors.saleOffer.agentFixedPrice.currency = 'Укажите валюту';
@@ -64,7 +74,9 @@ const validateCommonFields = (values) => {
   if (values.information) {
     if (!values.information.condition) errors.information.condition = 'Укажите состояние';
     if (!values.information.renovate) errors.information.renovate = 'Укажите ремонт';
-    if (!values.information.conditioning) errors.information.conditioning = 'Укажите кондиционирование';
+    if (!values.information.conditioning) {
+      errors.information.conditioning = 'Укажите кондиционирование';
+    }
     if (!values.information.ventilation) errors.information.ventilation = 'Укажите вентиляцию';
     if (!values.information.furniture) errors.information.furniture = 'Укажите мебель';
   } else {
@@ -84,7 +96,9 @@ const validatePropertiesTableFields = (values) => {
 
   if (!values.state) errors.state = 'Обязательно';
 
-  if (!values.saleOffer.price || values.saleOffer.price === '0') errors.saleOffer.price = 'Обязательно';
+  if (!values.saleOffer.price || values.saleOffer.price === '0') {
+    errors.saleOffer.price = 'Обязательно';
+  }
   if (!values.saleOffer.currency) errors.saleOffer.currency = 'Обязательно';
 
   if (values.specification) {
@@ -99,9 +113,6 @@ const validatePropertiesTableFields = (values) => {
   return errors;
 };
 
-export {
-  validateCommonFields,
-  validatePropertiesTableFields,
-};
+export { validateCommonFields, validatePropertiesTableFields };
 
 export default validate;

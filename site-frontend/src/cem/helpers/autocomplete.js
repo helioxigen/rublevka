@@ -17,27 +17,35 @@ const getPath = (object, objectPath) => {
 
 const getKeys = (object, keys) => keys.map(key => getPath(object, key)).filter(item => item);
 
-export const fetchDictionary = (kind, parentId = null) => (value, valueKey = 'id', id, callback, exclude = [], parent = parentId) => {
+export const fetchDictionary = (kind, parentId = null) => (
+  value,
+  valueKey = 'id',
+  id,
+  callback,
+  exclude = [],
+  parent = parentId,
+) => {
   const filter = {
     'filter[kind]': kind,
     'filter[title]': value ? `*${value}*` : undefined,
     'filter[id]': id,
-    'filter[parentId]': (parent && !id) && `${parent}`,
+    'filter[parentId]': parent && !id && `${parent}`,
     'filterNot[id]': exclude,
   };
 
-  API.get('/v1/dictionary_items', filter).then(
-    ({ body: { items } }) => {
-      callback(items);
-    },
-  );
+  API.get('/v1/dictionary_items', filter).then(({ body: { items } }) => {
+    callback(items);
+  });
 };
 
 export const findCompanies = (query, options, callback) => {
   if (options.length) callback(options);
   if (!options.length) {
     return DADATA.post('/suggest/party', { count: 10, query }).then(({ body: { suggestions } }) => {
-      const newOptions = suggestions.map(item => ({ label: `Добавить ${item.value} (ОГРН: ${item.data.ogrn})\n${item.data.address.value}?`, ...item.data }));
+      const newOptions = suggestions.map(item => ({
+        label: `Добавить ${item.value} (ОГРН: ${item.data.ogrn})\n${item.data.address.value}?`,
+        ...item.data,
+      }));
       if (callback) {
         callback(newOptions);
       }
@@ -46,7 +54,14 @@ export const findCompanies = (query, options, callback) => {
   }
 };
 
-export const fetchResource = (resource, filterBy, labels, customFilterNot = {}, customFilter = {}, postProcess) => (value, valueKey = 'id', id, callback, exclude = [], linkedTo = {}) => {
+export const fetchResource = (
+  resource,
+  filterBy,
+  labels,
+  customFilterNot = {},
+  customFilter = {},
+  postProcess,
+) => (value, valueKey = 'id', id, callback, exclude = [], linkedTo = {}) => {
   const labelKeys = labels || [filterBy];
   const linkedFilter = {};
   Object.keys(linkedTo).map(key => (linkedFilter[`filter[${key}]`] = linkedTo[key]));
@@ -56,14 +71,20 @@ export const fetchResource = (resource, filterBy, labels, customFilterNot = {}, 
     [`filter[${valueKey}]`]: id,
     [`filterNot[${valueKey}]`]: exclude,
     ...linkedFilter,
-    ...Object.keys(customFilter).reduce((result, key) => ({
-      ...result,
-      [`filter[${key}]`]: customFilter[key],
-    }), {}),
-    ...Object.keys(customFilterNot).reduce((result, key) => ({
-      ...result,
-      [`filterNot[${key}]`]: customFilterNot[key],
-    }), {}),
+    ...Object.keys(customFilter).reduce(
+      (result, key) => ({
+        ...result,
+        [`filter[${key}]`]: customFilter[key],
+      }),
+      {},
+    ),
+    ...Object.keys(customFilterNot).reduce(
+      (result, key) => ({
+        ...result,
+        [`filterNot[${key}]`]: customFilterNot[key],
+      }),
+      {},
+    ),
     pagination: {
       limit: 256,
     },
@@ -71,25 +92,30 @@ export const fetchResource = (resource, filterBy, labels, customFilterNot = {}, 
 
   if (filterBy) options[`filter[${filterBy}]`] = value ? `*${value}*` : undefined;
 
-  API.get(resource, options).then(
-    ({ body: { items } }) => {
-      const selectOptions = items.map((item) => {
-        const label = (labels instanceof Function) ? labels(item) : getKeys(item, labelKeys).join(' ');
-        return { value: item.id, label, ...item };
-      });
-      if (!postProcess) callback(selectOptions);
-      if (postProcess) postProcess(value, selectOptions, callback);
-    },
-  );
+  API.get(resource, options).then(({ body: { items } }) => {
+    const selectOptions = items.map((item) => {
+      const label = labels instanceof Function ? labels(item) : getKeys(item, labelKeys).join(' ');
+      return { value: item.id, label, ...item };
+    });
+    if (!postProcess) callback(selectOptions);
+    if (postProcess) postProcess(value, selectOptions, callback);
+  });
 };
 
 export const fetchAddress = (count, locations = []) => (query, valueKey, value, callback) => {
   if (query) {
-    return DADATA.post('/suggest/address', { count, query, locations }).then(({ body: { suggestions } }) => {
-      const options = suggestions.map(item => ({ value: item.data.fias_id, label: item.value, data: item.data, isFromDadata: true }));
-      if (callback) callback(options);
-      return Promise.resolve(options);
-    });
+    return DADATA.post('/suggest/address', { count, query, locations }).then(
+      ({ body: { suggestions } }) => {
+        const options = suggestions.map(item => ({
+          value: item.data.fias_id,
+          label: item.value,
+          data: item.data,
+          isFromDadata: true,
+        }));
+        if (callback) callback(options);
+        return Promise.resolve(options);
+      },
+    );
   }
 };
 
@@ -103,7 +129,11 @@ export const findAddress = (query, options, callback) => {
 export const fetchCompanies = (count, postProcess) => (query, valueKey, value, callback) => {
   if (query) {
     return DADATA.post('/suggest/party', { count, query }).then(({ body: { suggestions } }) => {
-      const options = suggestions.map(item => ({ value: false, label: `${item.value} (ОГРН: ${item.data.ogrn})\n${item.data.address.value}`, data: item.data }));
+      const options = suggestions.map(item => ({
+        value: false,
+        label: `${item.value} (ОГРН: ${item.data.ogrn})\n${item.data.address.value}`,
+        data: item.data,
+      }));
       if (callback) {
         if (postProcess) postProcess(options, callback);
         if (!postProcess) callback(options);
@@ -112,6 +142,8 @@ export const fetchCompanies = (count, postProcess) => (query, valueKey, value, c
     });
   }
   if (value) {
-    API.get(`/v1/companies/${value}`).then(({ body }) => callback([{ value: body.id, label: body.name, ...body }]));
+    API.get(`/v1/companies/${value}`).then(({ body }) =>
+      callback([{ value: body.id, label: body.name, ...body }]),
+    );
   }
 };

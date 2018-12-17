@@ -31,9 +31,10 @@ const createComplex = complex => (dispatch) => {
   dispatch(createComplexStarted());
 
   return API.post('/v1/complexes', transformDataOut(complex)).then(
-    ({ headers }) => API.get(headers.location).then(
-      ({ body }) => dispatch(createComplexSucceeded(body.id, transformDataIn(body))),
-    ),
+    ({ headers }) =>
+      API.get(headers.location).then(({ body }) =>
+        dispatch(createComplexSucceeded(body.id, transformDataIn(body))),
+      ),
     ({ body }) => {
       dispatch(createComplexFailed(body));
       return body;

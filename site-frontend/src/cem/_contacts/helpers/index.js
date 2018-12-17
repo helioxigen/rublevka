@@ -13,7 +13,9 @@ export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNo
     filter: {
       ...restFilter,
       'details.name': name ? `*${name}*` : undefined,
-      'details.phoneNumber': restFilter['details.phoneNumber'] ? `*${restFilter['details.phoneNumber']}*` : undefined,
+      'details.phoneNumber': restFilter['details.phoneNumber']
+        ? `*${restFilter['details.phoneNumber']}*`
+        : undefined,
       'details.email': restFilter['details.email'] ? `*${restFilter['details.email']}*` : undefined,
     },
     filterNot,

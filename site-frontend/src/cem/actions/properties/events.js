@@ -28,7 +28,12 @@ const loadPropertyEventsSucceeded = (id, eventKind, { items, pagination }) => (d
   });
 };
 
-export default (category, id, eventKind = 'property_pdf_export', queryParams = { filter: {}, pagination: {} }) => (dispatch) => {
+export default (
+  category,
+  id,
+  eventKind = 'property_pdf_export',
+  queryParams = { filter: {}, pagination: {} },
+) => (dispatch) => {
   dispatch(loadPropertyEventsStarted(id, eventKind));
   const query = {
     ...queryParams,

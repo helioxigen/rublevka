@@ -8,8 +8,7 @@ import {
 import * as types from 'cem/_newsletters/constants/actions';
 import { apiPath } from 'cem/_newsletters/constants/defaults';
 
-import transformOutputValues
-  from 'cem/_newsletters/helpers/transformOutputValues';
+import transformOutputValues from 'cem/_newsletters/helpers/transformOutputValues';
 
 export default data => (dispatch) => {
   dispatch(createElementStarted(types.CREATE_NEWSLETTER));

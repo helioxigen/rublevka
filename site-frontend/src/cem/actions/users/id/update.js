@@ -10,7 +10,8 @@ const updateUserSucceeded = id => (dispatch) => {
   return dispatch(loadUser(id));
 };
 
-const updateUser = ({ id, ...data }) => dispatch => API.put(`/v1/users/staff/${id}`, transform(data)).then(
+const updateUser = ({ id, ...data }) => dispatch =>
+  API.put(`/v1/users/staff/${id}`, transform(data)).then(
     () => dispatch(updateUserSucceeded(id)),
     ({ body }) => {
       dispatch(pop('error', 'Возникли ошибки'));

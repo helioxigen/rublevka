@@ -23,7 +23,10 @@ export default function (propertyId, id, data, category = 'city') {
   return (dispatch) => {
     dispatch(updateContractStarted());
 
-    return API.put(`/v1/properties/${category}/${propertyId}/contracts/${id}`, transformContract(data)).then(
+    return API.put(
+      `/v1/properties/${category}/${propertyId}/contracts/${id}`,
+      transformContract(data),
+    ).then(
       () => {
         dispatch(pop('success', 'Контракты обновлены'));
         return dispatch(loadContracts(propertyId));

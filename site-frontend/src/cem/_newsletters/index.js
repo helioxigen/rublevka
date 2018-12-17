@@ -1,2 +1,2 @@
-export List from "./list";
-export Show from "./show";
+export List from './list';
+export Show from './show';

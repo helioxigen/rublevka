@@ -5,10 +5,7 @@ export const additionalSourceOptions = {
   clusterRadius: 100,
 };
 
-const clusteredLayersOptions = [
-  [30, 'transparent'],
-  [2, 'transparent'],
-];
+const clusteredLayersOptions = [[30, 'transparent'], [2, 'transparent']];
 
 export const layers = [
   ...clusteredLayersOptions.map((clusteredLayer, index) => ({
@@ -19,11 +16,14 @@ export const layers = [
       'circle-color': clusteredLayer[1],
       'circle-radius': 20,
     },
-    filter: index === clusteredLayersOptions.length - 1 ? ['>=', 'point_count', clusteredLayer[0]] : [
-      'all',
-      ['>=', 'point_count', clusteredLayer[0]],
-      ['<', 'point_count', clusteredLayersOptions[index + 1][0]],
-    ],
+    filter:
+      index === clusteredLayersOptions.length - 1
+        ? ['>=', 'point_count', clusteredLayer[0]]
+        : [
+          'all',
+            ['>=', 'point_count', clusteredLayer[0]],
+            ['<', 'point_count', clusteredLayersOptions[index + 1][0]],
+        ],
   })),
   {
     id: 'counter-for-clusters',
@@ -34,10 +34,7 @@ export const layers = [
       'text-field': '{point_count}',
       'text-size': 16,
       'text-font': ['Arial Unicode MS Bold'],
-      'icon-offset': [
-        0,
-        4.5,
-      ],
+      'icon-offset': [0, 4.5],
     },
     paint: {
       'text-color': '#ffffff',

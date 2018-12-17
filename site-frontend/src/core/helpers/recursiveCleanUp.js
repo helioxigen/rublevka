@@ -8,7 +8,7 @@ export default function recursiveCleanUp(input) {
     if (value === null) delete obj[key];
     if (typeof value === 'string' && value.length === 0) delete obj[key];
 
-    if ((value instanceof Object) && !(value instanceof Array) && !(value instanceof Function)) {
+    if (value instanceof Object && !(value instanceof Array) && !(value instanceof Function)) {
       if (Object.keys(recursiveCleanUp(value)).length === 0) {
         delete obj[key];
       } else {

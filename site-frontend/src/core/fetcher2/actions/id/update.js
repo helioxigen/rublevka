@@ -22,9 +22,8 @@ export const updateElement = (resource, id, data) => {
   if (!resource) throwFormattedError('required', resource);
   if (!id) throwFormattedError('required', id);
 
-  return API.put(`${resource}/${id}`, data)
-    .then(
-      () => Promise.resolve(data),
-      ({ body: { errors } }) => Promise.reject(errors),
-    );
+  return API.put(`${resource}/${id}`, data).then(
+    () => Promise.resolve(data),
+    ({ body: { errors } }) => Promise.reject(errors),
+  );
 };

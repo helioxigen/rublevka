@@ -15,8 +15,6 @@ export default function loadTask(id) {
   return (dispatch) => {
     dispatch(loadTaskStarted(id));
 
-    return API.get(`/v1/tasks/${id}`).then(
-      ({ body }) => dispatch(loadTaskSucceeded(body)),
-    );
+    return API.get(`/v1/tasks/${id}`).then(({ body }) => dispatch(loadTaskSucceeded(body)));
   };
 }

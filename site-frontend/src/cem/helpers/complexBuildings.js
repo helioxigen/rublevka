@@ -54,19 +54,26 @@ export const transformDataIn = data => ({
     withRubbishChute: data.details.withRubbishChute ? 'true' : 'false',
     withWasteDisposalRoom: data.details.withWasteDisposalRoom ? 'true' : 'false',
   },
-  ...(data.propertyDefaults ? {
-    propertyDefaults: {
-      ...data.propertyDefaults,
-      ...(data.propertyDefaults.saleOffer ? {
-        saleOffer: {
-          ...data.propertyDefaults.saleOffer,
-          isAgentFixed: String(!!data.propertyDefaults.saleOffer.agentFixedPrice && !!Object.keys(data.propertyDefaults.saleOffer.agentFixedPrice).length),
-          agentFee: normalizeNumber(data.propertyDefaults.saleOffer.agentFee),
-          isBargain: data.propertyDefaults.saleOffer.isBargain ? 'true' : 'false',
-          isInstallment: data.propertyDefaults.saleOffer.isInstallment ? 'true' : 'false',
-          isMortgage: data.propertyDefaults.saleOffer.isMortgage ? 'true' : 'false',
-        },
-      } : {}),
-    },
-  } : {}),
+  ...(data.propertyDefaults
+    ? {
+      propertyDefaults: {
+        ...data.propertyDefaults,
+        ...(data.propertyDefaults.saleOffer
+            ? {
+              saleOffer: {
+                ...data.propertyDefaults.saleOffer,
+                isAgentFixed: String(
+                    !!data.propertyDefaults.saleOffer.agentFixedPrice &&
+                      !!Object.keys(data.propertyDefaults.saleOffer.agentFixedPrice).length,
+                  ),
+                agentFee: normalizeNumber(data.propertyDefaults.saleOffer.agentFee),
+                isBargain: data.propertyDefaults.saleOffer.isBargain ? 'true' : 'false',
+                isInstallment: data.propertyDefaults.saleOffer.isInstallment ? 'true' : 'false',
+                isMortgage: data.propertyDefaults.saleOffer.isMortgage ? 'true' : 'false',
+              },
+            }
+            : {}),
+      },
+    }
+    : {}),
 });

@@ -13,7 +13,8 @@ const updatePositionSucceeded = id => (dispatch) => {
 };
 
 export default function updatePosition(id, data) {
-  return dispatch => API.put(`/v1/roles/${id}`, data).then(
+  return dispatch =>
+    API.put(`/v1/roles/${id}`, data).then(
       () => dispatch(updatePositionSucceeded(id)),
       ({ body }) => {
         dispatch(pop('danger', 'Ошибка обновления роли!'));

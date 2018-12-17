@@ -1,8 +1,1 @@
-export const formFields = [
-  'signedById',
-  'createdAt',
-  'validFrom',
-  'validTo',
-  'kindId',
-  'file',
-];
+export const formFields = ['signedById', 'createdAt', 'validFrom', 'validTo', 'kindId', 'file'];

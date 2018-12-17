@@ -8,7 +8,8 @@ const createEntitySucceeded = (entityTypeId, id) => ({
   id,
 });
 
-export default (entityTypeId, data, { apiPath = '' }) => dispatch => API.post(apiPath || `/v1/${entityTypeId}`, data).then(
+export default (entityTypeId, data, { apiPath = '' }) => dispatch =>
+  API.post(apiPath || `/v1/${entityTypeId}`, data).then(
     ({ headers }) => {
       const id = headers.location.split('/').pop();
       dispatch(createEntitySucceeded(entityTypeId, id));

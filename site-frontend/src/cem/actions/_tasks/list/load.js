@@ -15,20 +15,26 @@ const loadLinkedUsers = userIds => (dispatch) => {
 const loadTasks = (queryParams, group) => (dispatch, getState) => {
   dispatch(loadListStarted(types.LOAD_TASKS, group));
 
-  return loadList(resourceName, group, { defaultQueryParamsByGroup }, { ...queryParams })
-    .then(
-      ({ items, pagination }) => {
-        dispatch(loadLinkedUsers(items.filter(item => !getState().users[item.responsibleUser.id]).map(item => item.responsibleUser.id)));
-        dispatch(updatePagination(`${resourceName}.${group}`, pagination));
-        dispatch(loadListSucceeded(types.LOAD_TASKS_SUCCEEDED, group, items));
+  return loadList(resourceName, group, { defaultQueryParamsByGroup }, { ...queryParams }).then(
+    ({ items, pagination }) => {
+      dispatch(
+        loadLinkedUsers(
+          items
+            .filter(item => !getState().users[item.responsibleUser.id])
+            .map(item => item.responsibleUser.id),
+        ),
+      );
+      dispatch(updatePagination(`${resourceName}.${group}`, pagination));
+      dispatch(loadListSucceeded(types.LOAD_TASKS_SUCCEEDED, group, items));
 
-        return items;
-      }, (errors) => {
-        dispatch(loadListFailed(types.LOAD_TASKS_FAILED, group, errors));
+      return items;
+    },
+    (errors) => {
+      dispatch(loadListFailed(types.LOAD_TASKS_FAILED, group, errors));
 
-        return errors;
-      },
-    );
+      return errors;
+    },
+  );
 };
 
 export default loadTasks;

@@ -10,7 +10,9 @@ export const transform = data => ({
   ...data,
   additionalDetails: {
     ...data.additionalDetails,
-    autoRegion: data.additionalDetails ? formHelpers.normalizeNumber(data.additionalDetails.autoRegion) : undefined,
+    autoRegion: data.additionalDetails
+      ? formHelpers.normalizeNumber(data.additionalDetails.autoRegion)
+      : undefined,
   },
   companyDetails: {
     ...data.companyDetails,
@@ -19,7 +21,9 @@ export const transform = data => ({
 
 export function uploadPhoto(id, images) {
   if (images) {
-    const { auth: { token } } = store.getState();
+    const {
+      auth: { token },
+    } = store.getState();
     const headers = {
       Authorization: `Bearer ${token}`,
     };
@@ -38,7 +42,9 @@ export function uploadPhoto(id, images) {
 }
 
 export function uploadFile(id, file, type = 'documents') {
-  const { auth: { token } } = store.getState();
+  const {
+    auth: { token },
+  } = store.getState();
   const headers = {
     Authorization: `Bearer ${token}`,
   };
@@ -56,8 +62,11 @@ export function uploadFile(id, file, type = 'documents') {
 export const mapFilters = ({ name, ...filters }) => ({
   ...filters,
   'details.firstName,details.middleName,details.lastName': name ? `*${name}*` : undefined,
-  'details.phoneNumber': filters['details.phoneNumber'] ? `*${filters['details.phoneNumber']}*` : undefined,
+  'details.phoneNumber': filters['details.phoneNumber']
+    ? `*${filters['details.phoneNumber']}*`
+    : undefined,
   'details.email': filters['details.email'] ? `*${filters['details.email']}*` : undefined,
 });
 
-export const normalizePhoneNumber = value => replace(value, new RegExp('(\\-|\\+|\\(|\\)|\\s)', 'g'), '');
+export const normalizePhoneNumber = value =>
+  replace(value, new RegExp('(\\-|\\+|\\(|\\)|\\s)', 'g'), '');

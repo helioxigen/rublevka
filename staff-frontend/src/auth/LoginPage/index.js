@@ -58,7 +58,7 @@ const Input = styled(InputBase)`
   margin-top: 44px;
   background-image: url(${ruFlag});
   background-repeat: no-repeat;
-  background-position 0px 19px;
+  background-position: 0px 19px;
   padding-left: 40px;
   width: calc(100% - 40px);
   margin-bottom: ${({ errors }) => (errors ? 8 : 24)}px;
@@ -110,7 +110,7 @@ export default class extends React.Component {
           </PhoneContainer>
           <Formik
             initialValues={{ code: '' }}
-            validate={(values) => {
+            validate={values => {
               if (!values.code) {
                 return { code: 'Введите код' };
               }
@@ -155,10 +155,12 @@ export default class extends React.Component {
     return (
       <Col md={5}>
         <Title>Войти</Title>
-        <Description>Войдите в свой аккаунт, чтобы получить доступ к объектам.</Description>
+        <Description>
+          Войдите в свой аккаунт, чтобы получить доступ к объектам.
+        </Description>
         <Formik
           initialValues={{ phone }}
-          validate={(values) => {
+          validate={values => {
             if (!values.phone) {
               return { phone: 'Необходимо ввести номер телефона' };
             }
@@ -169,7 +171,9 @@ export default class extends React.Component {
 
             return {};
           }}
-          onSubmit={values => this.setState({ codeSent: true, phone: values.phone })}
+          onSubmit={values =>
+            this.setState({ codeSent: true, phone: values.phone })
+          }
         >
           {({ isSubmitting }) => (
             <Form>

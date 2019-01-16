@@ -11,6 +11,18 @@ export const Main = styled.main`
   font-family: 'FSElliotPro', sans-serif;
 `;
 
+const LogoContainer = styled(Link)`
+  color: #fff;
+  &:hover {
+    opacity: 0.7;
+  }
+`;
+
+const LogoImage = styled.img`
+  width: 38px;
+  height: 33px;
+`;
+
 export const Input = styled.input`
   outline: none;
   width: 100%;
@@ -25,7 +37,8 @@ export const Input = styled.input`
   background-color: transparent;
 
   &:focus {
-    border-bottom: 2px solid ${({ errors }) => (errors ? theme.red : theme.blue)};
+    border-bottom: 2px solid
+      ${({ errors }) => (errors ? theme.red : theme.blue)};
   }
 
   &::-webkit-outer-spin-button,
@@ -50,18 +63,6 @@ export const Button = styled.button`
   &:hover {
     cursor: pointer;
   }
-`;
-
-const LogoContainer = styled(Link)`
-  color: #fff;
-  &:hover {
-    opacity: 0.7;
-  }
-`;
-
-const LogoImage = styled.img`
-  width: 38px;
-  height: 33px;
 `;
 
 export const Logo = () => (

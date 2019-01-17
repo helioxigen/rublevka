@@ -1,0 +1,5 @@
+openapi: 3.0.0
+info:
+    title: "Swagger jqestate"
+    description: "This is the description of api of jqestate."
+    version: "0.0.0"

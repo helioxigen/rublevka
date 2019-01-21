@@ -1,14 +1,46 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
 import logo from './images/logo.svg';
 import theme from './theme';
 
-export { Title, Paragraph, ErrorMessage } from './Typography';
+export {
+  Title,
+  Title2,
+  Body,
+  BodyBold,
+  BodyBig,
+  BodyBigBold,
+  ErrorMessage,
+  Label,
+  LabelRegular,
+  LabelSmall,
+} from './Typography';
 export { default as theme } from './theme';
+
+export const GlobalStyle = createGlobalStyle`
+  a {
+  color: inherit; 
+  text-decoration: inherit; 
+  },
+  
+  
+  //TODO GLOBAL CLASS REDEFINITION
+  .container {
+    padding: 0 ;
+  },
+  
+  ${reset}
+`;
 
 export const Main = styled.main`
   font-family: 'FSElliotPro', sans-serif;
+  height: 100%;
+`;
+
+export const Layout = styled.div`
+  padding: 54px;
 `;
 
 const LogoContainer = styled(Link)`

@@ -8,7 +8,7 @@ import {
   Main,
   Logo,
   Title,
-  Paragraph,
+  BodyBig,
   Input as InputBase,
   ErrorMessage,
   Button as ButtonBase,
@@ -25,7 +25,7 @@ const AuthSection = styled.section`
   padding-bottom: 54px;
 `;
 
-const Description = styled(Paragraph)`
+const Description = styled(BodyBig)`
   padding-top: 30px;
 `;
 

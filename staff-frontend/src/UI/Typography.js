@@ -3,7 +3,7 @@ import theme from './theme';
 
 export const Title = styled.h1`
   margin: 0;
-  font-size: 42px;
+  font-size: 40px;
   font-weight: bold;
   color: ${theme.black};
   text-align: left;

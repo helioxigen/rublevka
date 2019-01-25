@@ -24,6 +24,10 @@
     "fp/no-class": 0,
     "fp/no-this": 0,
     "fp/no-nil": 0,
-    "fp/no-unused-expression": 0
+    "fp/no-unused-expression": 0,
+    "object-curly-newline" : 0,
+    "no-confusing-arrow" : 0,
+    "implicit-arrow-linebreak" : 0,
+    "operator-linebreak" : 0
   }
 }

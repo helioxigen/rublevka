@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { GlobalStyle, Main } from './UI';
 import Auth from './auth/LoginPage/index';
-import ObjectInfoPage from './ObjectInfoPage';
+import PropertyDetailsPage from './properties/DetailsPage';
 import Navigation from './Navigation';
 
 // TODO REMOVE; TEST DATA
@@ -17,6 +17,11 @@ const testObjectsInfoList = [
     name: 'Посёлки',
     path: '/townships',
     count: '3123',
+  },
+  {
+    name: 'Объект',
+    path: '/object',
+    count: '1',
   },
 ];
 
@@ -46,7 +51,7 @@ class App extends React.PureComponent {
                   path="/login"
                   component={() => <Redirect to="/object" />}
                 />
-                <Route path="/object" component={ObjectInfoPage} />
+                <Route path="/object" component={PropertyDetailsPage} />
               </Switch>
             </MainContainer>
           ) : (

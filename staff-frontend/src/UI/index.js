@@ -25,6 +25,8 @@ export const GlobalStyle = createGlobalStyle`
   text-decoration: inherit; 
   },
   
+  @import url('fonts/FSElliotPro.otf');
+  @import url('fonts/FSElliotProBold.otf');
   
   //TODO GLOBAL CLASS REDEFINITION
   .container {

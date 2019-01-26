@@ -1,0 +1,7 @@
+six
+flask
+flask_sqlalchemy
+psycopg2
+sqlalchemy
+sqlalchemy-utils
+sqlalchemy-citext

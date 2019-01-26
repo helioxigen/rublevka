@@ -37,11 +37,11 @@ def create_app(app_config_name=None, **kwargs):
     else:
         if env_app_config_name:
             assert env_app_config_name == app_config_name, (
-                    "FLASK_CONFIG environment variable (\"%s\") and app_config_name argument "
-                    "(\"%s\") are both set and are not the same." % (
-                        env_app_config_name,
-                        app_config_name
-                    )
+                "FLASK_CONFIG environment variable (\"%s\") and app_config_name argument "
+                "(\"%s\") are both set and are not the same." % (
+                    env_app_config_name,
+                    app_config_name
+                )
             )
 
     try:
@@ -58,7 +58,7 @@ def create_app(app_config_name=None, **kwargs):
         else:
             raise
 
-    if app.config['REVERSE_PROXY_SETUP']:
+    if app.config.get('REVERSE_PROXY_SETUP', False):
         app.wsgi_app = ProxyFix(app.wsgi_app)
 
     from . import extensions
@@ -68,3 +68,10 @@ def create_app(app_config_name=None, **kwargs):
     modules.init_app(app)
 
     return app
+
+
+def main(*args):
+    app = create_app()
+    app.run(host='0.0.0.0')
+
+    return 0

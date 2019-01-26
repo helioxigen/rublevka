@@ -1,9 +1,8 @@
 import os
 import sys
-from app import create_app
+from jqestate import main
 
 if __name__ == '__main__':
-    sys.path.insert(0, os.path.dirname(os.getcwd()) + '/app')
+    # sys.path.insert(0, os.path.join(os.getcwd(), 'jqestate'))
 
-    app = create_app()
-    app.run()
+    sys.exit(main())

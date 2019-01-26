@@ -1,0 +1,44 @@
+version: "3"
+services:
+  jqestate_postgres_dev:
+    container_name: jqestate_postgres_dev
+    image: jqestate_postgres_dev
+    build:
+      context: .
+      dockerfile: db.Dockerfile
+    env_file:
+      - common.env
+    ports:
+      - "5445:5432"
+    volumes:
+      - jqestate_pgdata_dev:/var/lib/postgresql/data
+    networks:
+      master_network:
+        aliases:
+          - jqestate_api_postgres_dev
+  jqestate_backend_dev:
+    image: jqestate_backend_dev
+    container_name: jqestate_backend_dev
+    depends_on:
+      - jqestate_postgres_dev
+    restart: always
+    env_file:
+      - common.env
+    environment:
+      - SECRET_KEY
+      - APP_CONFIG=development
+      - DEV_DATABASE_URI=postgresql://postgres:@jqestate_api_postgres_dev/jqestate_db
+    build: .
+    volumes:
+      - .:/home/app
+    ports:
+      - 5002:5000
+    networks:
+      master_network:
+        aliases:
+          - jqestate_backend_dev
+networks:
+  master_network:
+    external: true
+volumes:
+  jqestate_pgdata_dev:

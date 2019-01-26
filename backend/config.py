@@ -3,19 +3,17 @@ import os
 
 
 class BaseConfig:
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = os.getenv('SECRET_KEY')
 
     PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
-    SERVER_NAME = '0.0.0.0'
-
     # POSTGRESQL
     SQLALCHEMY_DATABASE_URI = 'postgresql://{user}:{password}@{host}:{port}/{name}'.format(
-        user=os.environ.get('POSTGRES_USER'),
-        password=os.environ.get('POSTGRES_PASSWORD'),
-        host=os.environ.get('POSTGRES_HOST'),
-        port=os.environ.get('POSTGRES_PORT', 5432),
-        name=os.environ.get('POSTGRES_DB'),
+        user=os.getenv('POSTGRES_USER', ''),
+        password=os.getenv('POSTGRES_PASSWORD', ''),
+        host=os.getenv('POSTGRES_HOST', ''),
+        port=os.getenv('POSTGRES_PORT', 5432),
+        name=os.getenv('POSTGRES_DB', ''),
     )
 
     # SQLITE
@@ -43,7 +41,8 @@ class BaseConfig:
     }
 
     ENABLED_MODULES = (
-
+        'api',
+        'database',
     )
 
     SWAGGER_UI_JSONEDITOR = True
@@ -56,11 +55,13 @@ class BaseConfig:
 
 
 class ProductionConfig(BaseConfig):
-    SECRET_KEY = os.getenv('EXAMPLE_API_SERVER_SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = os.getenv('EXAMPLE_API_SERVER_SQLALCHEMY_DATABASE_URI')
+    SECRET_KEY = os.getenv('PRODUCT_SECRET_KEY') or BaseConfig.SECRET_KEY
+    SQLALCHEMY_DATABASE_URI = os.getenv('PRODUCT_DATABASE_URI') or BaseConfig.SQLALCHEMY_DATABASE_URI
 
 
 class DevelopmentConfig(BaseConfig):
+    SQLALCHEMY_DATABASE_URI = os.getenv('DEV_DATABASE_URI') \
+                              or 'postgresql://postgres:@192.168.99.100:32768/jqestate'
     DEBUG = True
 
 

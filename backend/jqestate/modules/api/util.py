@@ -105,8 +105,8 @@ def deserialize_model(data, klass):
 
     for attr, attr_type in six.iteritems(instance.openapi_types):
         if data is not None \
-            and instance.attribute_map[attr] in data \
-            and isinstance(data, (list, dict)):
+                and instance.attribute_map[attr] in data \
+                and isinstance(data, (list, dict)):
             value = data[instance.attribute_map[attr]]
             setattr(instance, attr, _deserialize(value, attr_type))
 
@@ -139,3 +139,7 @@ def _deserialize_dict(data, boxed_type):
     """
     return {k: _deserialize(v, boxed_type)
             for k, v in six.iteritems(data)}
+
+
+def bounds(min_val, max_val, value):
+    return max(min_val, min(max_val, value))

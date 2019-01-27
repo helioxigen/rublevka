@@ -16,9 +16,6 @@ class BaseConfig:
         name=os.getenv('POSTGRES_DB', ''),
     )
 
-    # SQLITE
-    # SQLALCHEMY_DATABASE_URI = 'sqlite:///%s' % (os.path.join(PROJECT_ROOT, "example.db"))
-
     DEBUG = False
     ERROR_404_HELP = False
 
@@ -55,18 +52,12 @@ class BaseConfig:
 
 
 class ProductionConfig(BaseConfig):
-    SECRET_KEY = os.getenv('PRODUCT_SECRET_KEY') or BaseConfig.SECRET_KEY
-    SQLALCHEMY_DATABASE_URI = os.getenv('PRODUCT_DATABASE_URI') or BaseConfig.SQLALCHEMY_DATABASE_URI
+    pass
 
 
 class DevelopmentConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = os.getenv('DEV_DATABASE_URI') \
-                              or 'postgresql://postgres:@192.168.99.100:32768/jqestate'
     DEBUG = True
 
 
 class TestingConfig(BaseConfig):
     TESTING = True
-
-    # Use in-memory SQLite database for testing
-    SQLALCHEMY_DATABASE_URI = 'sqlite://'

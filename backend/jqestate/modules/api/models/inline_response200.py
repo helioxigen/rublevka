@@ -6,8 +6,8 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from .base_model_ import Model
-from .inline_response200_pagination import InlineResponse200Pagination
-from .model_property import ModelProperty
+from .pagination import Pagination
+from .country_property import CountryProperty
 from .. import util
 
 
@@ -21,13 +21,13 @@ class InlineResponse200(Model):
         """InlineResponse200 - a model defined in OpenAPI
 
         :param items: The items of this InlineResponse200.  # noqa: E501
-        :type items: List[ModelProperty]
+        :type items: List[CountryProperty]
         :param pagination: The pagination of this InlineResponse200.  # noqa: E501
         :type pagination: InlineResponse200Pagination
         """
         self.openapi_types = {
-            'items': List[ModelProperty],
-            'pagination': InlineResponse200Pagination
+            'items': List[CountryProperty],
+            'pagination': Pagination
         }
 
         self.attribute_map = {
@@ -55,7 +55,7 @@ class InlineResponse200(Model):
 
 
         :return: The items of this InlineResponse200.
-        :rtype: List[ModelProperty]
+        :rtype: List[CountryProperty]
         """
         return self._items
 
@@ -65,7 +65,7 @@ class InlineResponse200(Model):
 
 
         :param items: The items of this InlineResponse200.
-        :type items: List[ModelProperty]
+        :type items: List[CountryProperty]
         """
 
         self._items = items

@@ -1,11 +1,12 @@
 version: "3"
 services:
   jqestate_postgres_local:
-    container_name: jqestate_postgres_local
     image: jqestate_postgres_local
+    container_name: jqestate_postgres_local
     build:
-      context: .
-      dockerfile: db.Dockerfile
+      context: ../
+      dockerfile: devops/db.Dockerfile
+    restart: always
     env_file:
       - common.env
     ports:
@@ -19,6 +20,9 @@ services:
   jqestate_backend_local:
     image: jqestate_backend_local
     container_name: jqestate_backend_local
+    build:
+      context: ../
+      dockerfile: devops/Dockerfile
     depends_on:
       - jqestate_postgres_local
     restart: always
@@ -26,10 +30,10 @@ services:
       - common.env
       - local.env
     environment:
-      - DEV_DATABASE_URI=postgresql://postgres:@jqestate_api_postgres_local/jqestate_db
-    build: .
+      - APP_CONFIG=development
+      - POSTGRES_HOST=jqestate_api_postgres_local
     volumes:
-      - .:/home/app
+      - ../:/home/app
     ports:
       - 5000:5000
     networks:

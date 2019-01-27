@@ -44,6 +44,6 @@ class JSONEncoder(FlaskJSONEncoder):
                     continue
                 attr = o.attribute_map[attr]
                 dikt[attr] = value
-            return dikt if any([attr for _, attr in dikt.items()]) else None
+            return dikt
         else:
             return super().default(o)

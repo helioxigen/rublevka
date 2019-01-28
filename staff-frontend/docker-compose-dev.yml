@@ -1,7 +1,9 @@
 version: '3'
 
 services:
-  qj_staff_frontend_dev:
+  jq_staff_frontend_dev:
+    image: jq_staff_frontend_dev
+    container_name: jq_staff_frontend_dev
     environment:
       - REACT_APP_ENV=development
       - PUBLIC_URL=https://jq-staff-dev.sputnikproduction.com
@@ -12,7 +14,7 @@ services:
     networks:
       master_network:
         aliases:
-          - qj_staff_frontend_dev
+          - jq_staff_frontend_dev
 networks:
   master_network:
     external: true

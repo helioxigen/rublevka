@@ -9,6 +9,9 @@ pipeline:
       - cd staff-frontend/
       - docker-compose -f docker-compose-dev.yml build
       - docker-compose -f docker-compose-dev.yml up -d
+      - cd ../backend/
+      - docker-compose -f devops/docker-compose-dev.yml build
+      - docker-compose -f devops/docker-compose-dev.yml up -d
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     when:

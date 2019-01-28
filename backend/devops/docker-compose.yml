@@ -1,8 +1,8 @@
 version: "3"
 services:
-  jqestate_postgres_local:
-    image: jqestate_postgres_local
-    container_name: jqestate_postgres_local
+  jq_postgres_local:
+    image: jq_postgres_local
+    container_name: jq_postgres_local
     build:
       context: ../
       dockerfile: devops/db.Dockerfile
@@ -10,28 +10,28 @@ services:
     env_file:
       - common.env
     ports:
-      - "5444:5432"
+      - "5100:5432"
     volumes:
-      - jqestate_pgdata_local:/var/lib/postgresql/data
+      - jq_pgdata_local:/var/lib/postgresql/data
     networks:
       master_network:
         aliases:
-          - jqestate_api_postgres_local
-  jqestate_backend_local:
-    image: jqestate_backend_local
-    container_name: jqestate_backend_local
+          - jq_postgres_local
+  jq_backend_local:
+    image: jq_backend_local
+    container_name: jq_backend_local
     build:
       context: ../
       dockerfile: devops/Dockerfile
     depends_on:
-      - jqestate_postgres_local
+      - jq_postgres_local
     restart: always
     env_file:
       - common.env
       - local.env
     environment:
       - APP_CONFIG=development
-      - POSTGRES_HOST=jqestate_api_postgres_local
+      - POSTGRES_HOST=jq_postgres_local
     volumes:
       - ../:/home/app
     ports:
@@ -39,9 +39,9 @@ services:
     networks:
       master_network:
         aliases:
-          - jqestate_backend_local
+          - jq_backend_local
 networks:
   master_network:
     external: true
 volumes:
-  jqestate_pgdata_local:
+  jq_pgdata_local:

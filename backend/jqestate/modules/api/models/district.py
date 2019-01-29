@@ -6,6 +6,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from .base_model_ import Model
+from .district_location import DistrictLocation
 from .. import util
 
 

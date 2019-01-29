@@ -14,7 +14,7 @@ from .rent_offer import RentOffer
 from .sale_offer import SaleOffer
 from .country_property_additional_details import CountryPropertyAdditionalDetails
 from .country_property_state_details import CountryPropertyStateDetails
-from .country_property_responsible_user import CountryPropertyResponsibleUser
+from .country_property_responsible_user import StaffUser
 from .country_property_land_details import CountryPropertyLandDetails
 from .image import Image
 
@@ -63,7 +63,7 @@ class CountryProperty(Model):
         :param state_details: The state_details of this CountryProperty.  # noqa: E501
         :type state_details: CountryPropertyStateDetails
         :param responsible_user: The responsible_user of this CountryProperty.  # noqa: E501
-        :type responsible_user: CountryPropertyResponsibleUser
+        :type responsible_user: StaffUser
         :param removal_order_id: The removal_order_id of this CountryProperty.  # noqa: E501
         :type removal_order_id: int
         :param updated_by_user_id: The updated_by_user_id of this CountryProperty.  # noqa: E501
@@ -99,7 +99,7 @@ class CountryProperty(Model):
             'linked_contact_ids': List[int],
             'additional_details': CountryPropertyAdditionalDetails,
             'state_details': CountryPropertyStateDetails,
-            'responsible_user': CountryPropertyResponsibleUser,
+            'responsible_user': StaffUser,
             'removal_order_id': int,
             'updated_by_user_id': int,
             'badge': int,
@@ -505,7 +505,7 @@ class CountryProperty(Model):
 
 
         :return: The responsible_user of this CountryProperty.
-        :rtype: CountryPropertyResponsibleUser
+        :rtype: StaffUser
         """
         return self._responsible_user
 
@@ -515,7 +515,7 @@ class CountryProperty(Model):
 
 
         :param responsible_user: The responsible_user of this CountryProperty.
-        :type responsible_user: CountryPropertyResponsibleUser
+        :type responsible_user: StaffUser
         """
 
         self._responsible_user = responsible_user

@@ -7,7 +7,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql.sqltypes import NullType
 
 from .core import db
-from .types import ArrayForEnum, CIText
+from .types import ArrayForEnum, ArrayForCIText, CIText
 
 
 class Application(db.Model):
@@ -242,7 +242,7 @@ class ClientLead(db.Model):
     contact = relationship('Contact', backref='client_leads')
 
     cbu_id = Column(ForeignKey('staff_users.id'), nullable=False)
-    cbu = relationship('StaffUser',  foreign_keys=cbu_id, backref='staffuser_staffuser_client_leads')
+    cbu = relationship('StaffUser', foreign_keys=cbu_id, backref='staffuser_staffuser_client_leads')
 
     cbu_department_id = Column(ForeignKey('departments.id'), nullable=False)
     cbu_department = relationship('Department', foreign_keys=cbu_department_id, backref='department_client_leads')
@@ -755,7 +755,7 @@ class Country(db.Model):
     id = Column(Integer, primary_key=True, server_default=FetchedValue())
     name = Column(CIText, nullable=False)
     kind_name = Column(String(255))
-    aliases = Column(ARRAY(CIText), nullable=False, server_default=FetchedValue())
+    aliases = Column(ArrayForCIText(CIText), nullable=False, server_default=FetchedValue())
     created_at = Column(DateTime(True), nullable=False, server_default=FetchedValue())
     updated_at = Column(DateTime(True), nullable=False, server_default=FetchedValue())
     place_type = Column(
@@ -1035,7 +1035,7 @@ class District(db.Model):
     id = Column(Integer, primary_key=True, server_default=FetchedValue())
     name = Column(CIText, nullable=False)
     kind_name = Column(String(255))
-    aliases = Column(ARRAY(CIText), nullable=False, server_default=FetchedValue())
+    aliases = Column(ArrayForCIText(CIText), nullable=False, server_default=FetchedValue())
     created_at = Column(DateTime(True), nullable=False, server_default=FetchedValue())
     updated_at = Column(DateTime(True), nullable=False, server_default=FetchedValue())
     place_type = Column(
@@ -1198,7 +1198,7 @@ class Locality(db.Model):
     id = Column(Integer, primary_key=True, server_default=FetchedValue())
     name = Column(CIText, nullable=False)
     kind_name = Column(String(255))
-    aliases = Column(ARRAY(CIText), nullable=False, server_default=FetchedValue())
+    aliases = Column(ArrayForCIText(CIText), nullable=False, server_default=FetchedValue())
     created_at = Column(DateTime(True), nullable=False, server_default=FetchedValue())
     updated_at = Column(DateTime(True), nullable=False, server_default=FetchedValue())
     place_type = Column(
@@ -1206,14 +1206,17 @@ class Locality(db.Model):
              'subway', name='place_type'), nullable=False, server_default=FetchedValue())
     property_categories = Column(ArrayForEnum(ENUM('commercial', 'city', 'country', name='property_category')),
                                  nullable=False, server_default=FetchedValue())
-    region_id = Column(ForeignKey('regions.id'), nullable=False)
-    district_id = Column(ForeignKey('districts.id'))
-    country_id = Column(ForeignKey('countries.id'), nullable=False)
-    route_id = Column(ForeignKey('routes.id'))
 
+    country_id = Column(ForeignKey('countries.id'), nullable=False)
     country = relationship('Country', primaryjoin='Locality.country_id == Country.id', backref='localities')
+
+    district_id = Column(ForeignKey('districts.id'))
     district = relationship('District', primaryjoin='Locality.district_id == District.id', backref='localities')
+
+    region_id = Column(ForeignKey('regions.id'), nullable=False)
     region = relationship('Region', primaryjoin='Locality.region_id == Region.id', backref='localities')
+
+    route_id = Column(ForeignKey('routes.id'))
     route = relationship('Route', primaryjoin='Locality.route_id == Route.id', backref='localities')
 
 
@@ -1267,7 +1270,7 @@ class Place(db.Model):
     id = Column(Integer, primary_key=True, server_default=FetchedValue())
     name = Column(CIText, nullable=False)
     kind_name = Column(String(255))
-    aliases = Column(ARRAY(CIText), nullable=False, server_default=FetchedValue())
+    aliases = Column(ArrayForCIText(CIText), nullable=False, server_default=FetchedValue())
     created_at = Column(DateTime(True), nullable=False, server_default=FetchedValue())
     updated_at = Column(DateTime(True), nullable=False, server_default=FetchedValue())
     place_type = Column(
@@ -1504,7 +1507,7 @@ class Region(db.Model):
     id = Column(Integer, primary_key=True, server_default=FetchedValue())
     name = Column(CIText, nullable=False)
     kind_name = Column(String(255))
-    aliases = Column(ARRAY(CIText), nullable=False, server_default=FetchedValue())
+    aliases = Column(ArrayForCIText(CIText), nullable=False, server_default=FetchedValue())
     created_at = Column(DateTime(True), nullable=False, server_default=FetchedValue())
     updated_at = Column(DateTime(True), nullable=False, server_default=FetchedValue())
     place_type = Column(
@@ -1546,7 +1549,7 @@ class Route(db.Model):
     id = Column(Integer, primary_key=True, server_default=FetchedValue())
     name = Column(CIText, nullable=False)
     kind_name = Column(String(255))
-    aliases = Column(ARRAY(CIText), nullable=False, server_default=FetchedValue())
+    aliases = Column(ArrayForCIText(CIText), nullable=False, server_default=FetchedValue())
     created_at = Column(DateTime(True), nullable=False, server_default=FetchedValue())
     updated_at = Column(DateTime(True), nullable=False, server_default=FetchedValue())
     place_type = Column(
@@ -1612,7 +1615,7 @@ class Settlement(db.Model):
     id = Column(Integer, primary_key=True, server_default=FetchedValue())
     name = Column(CIText, nullable=False, index=True)
     kind_name = Column(String(255))
-    aliases = Column(ARRAY(CIText), nullable=False, server_default=FetchedValue())
+    aliases = Column(ArrayForCIText(CIText), nullable=False, server_default=FetchedValue())
     created_at = Column(DateTime(True), nullable=False, server_default=FetchedValue())
     updated_at = Column(DateTime(True), nullable=False, server_default=FetchedValue())
     place_type = Column(
@@ -1820,7 +1823,7 @@ class SubLocality(db.Model):
     id = Column(Integer, primary_key=True, server_default=FetchedValue())
     name = Column(CIText, nullable=False)
     kind_name = Column(String(255))
-    aliases = Column(ARRAY(CIText), nullable=False, server_default=FetchedValue())
+    aliases = Column(ArrayForCIText(CIText), nullable=False, server_default=FetchedValue())
     created_at = Column(DateTime(True), nullable=False, server_default=FetchedValue())
     updated_at = Column(DateTime(True), nullable=False, server_default=FetchedValue())
     place_type = Column(
@@ -1828,17 +1831,18 @@ class SubLocality(db.Model):
              'subway', name='place_type'), nullable=False, server_default=FetchedValue())
     property_categories = Column(ArrayForEnum(ENUM('commercial', 'city', 'country', name='property_category')),
                                  nullable=False, server_default=FetchedValue())
-    locality_id = Column(ForeignKey('localities.id'), nullable=False)
-    country_id = Column(ForeignKey('countries.id'), nullable=False)
-    region_id = Column(ForeignKey('regions.id'), nullable=False)
-    district_id = Column(ForeignKey('districts.id'))
 
-    country = relationship('Country', primaryjoin='SubLocality.country_id == Country.id', backref='sub_localities')
-    district = relationship('District', primaryjoin='SubLocality.district_id == District.id',
-                            backref='sub_localities')
-    locality = relationship('Locality', primaryjoin='SubLocality.locality_id == Locality.id',
-                            backref='sub_localities')
-    region = relationship('Region', primaryjoin='SubLocality.region_id == Region.id', backref='sub_localities')
+    country_id = Column(ForeignKey('countries.id'), nullable=False)
+    country = relationship('Country', foreign_keys=country_id, backref='sub_localities')
+
+    region_id = Column(ForeignKey('regions.id'), nullable=False)
+    region = relationship('Region', foreign_keys=region_id, backref='sub_localities')
+
+    district_id = Column(ForeignKey('districts.id'))
+    district = relationship('District', foreign_keys=district_id, backref='sub_localities')
+
+    locality_id = Column(ForeignKey('localities.id'), nullable=False)
+    locality = relationship('Locality', foreign_keys=locality_id, backref='sub_localities')
 
 
 class Subway(db.Model):
@@ -1847,7 +1851,7 @@ class Subway(db.Model):
     id = Column(Integer, primary_key=True, server_default=FetchedValue())
     name = Column(CIText, nullable=False)
     kind_name = Column(String(255))
-    aliases = Column(ARRAY(CIText), nullable=False, server_default=FetchedValue())
+    aliases = Column(ArrayForCIText(CIText), nullable=False, server_default=FetchedValue())
     created_at = Column(DateTime(True), nullable=False, server_default=FetchedValue())
     updated_at = Column(DateTime(True), nullable=False, server_default=FetchedValue())
     place_type = Column(

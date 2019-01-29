@@ -75,6 +75,12 @@ class Communication(Model):
         :param sewerage_supply: The sewerage_supply of this Communication.
         :type sewerage_supply: str
         """
+        allowed_values = ["central", "septic"]  # noqa: E501
+        if sewerage_supply not in allowed_values:
+            raise ValueError(
+                "Invalid value for `sewerage_supply` ({0}), must be one of {1}"
+                .format(sewerage_supply, allowed_values)
+            )
 
         self._sewerage_supply = sewerage_supply
 
@@ -96,6 +102,12 @@ class Communication(Model):
         :param gas_supply: The gas_supply of this Communication.
         :type gas_supply: str
         """
+        allowed_values = ["without_gas", "gas_holder", "near_border", "mains", "diesel"]  # noqa: E501
+        if gas_supply not in allowed_values:
+            raise ValueError(
+                "Invalid value for `gas_supply` ({0}), must be one of {1}"
+                .format(gas_supply, allowed_values)
+            )
 
         self._gas_supply = gas_supply
 
@@ -138,5 +150,11 @@ class Communication(Model):
         :param water_supply: The water_supply of this Communication.
         :type water_supply: str
         """
+        allowed_values = ["purification", "central", "well"]  # noqa: E501
+        if water_supply not in allowed_values:
+            raise ValueError(
+                "Invalid value for `water_supply` ({0}), must be one of {1}"
+                .format(water_supply, allowed_values)
+            )
 
         self._water_supply = water_supply

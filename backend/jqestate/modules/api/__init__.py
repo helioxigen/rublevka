@@ -9,7 +9,17 @@ from flask import Flask, Blueprint, request as req
 from .encoder import JSONEncoder
 from .controllers.country_properties_controller import get_country_properties
 from .controllers.country_property_controller import get_contry_property
+from .controllers.places_controller import get_countries, get_districts, \
+    get_localities, get_sub_localities, get_regions, get_routes
+from .controllers.place_controller import get_country, get_district, \
+    get_locality, get_sub_locality, get_region, get_route
 from .util import bounds
+
+
+def call_with_limit_and_offset(callable):
+    limit = max(0, min(100, int(req.args.get('pagination[limit]', 32))))
+    offset = int(req.args.get('pagination[offset]', 0))
+    return callable(limit, offset)
 
 
 def init_app(app: Flask, **kwargs):
@@ -17,13 +27,72 @@ def init_app(app: Flask, **kwargs):
     api.json_encoder = JSONEncoder
 
     api.add_url_rule(
-        '/properties/country', None,
-        lambda: get_country_properties(
-            bounds(0, 100, int(req.args.get('pagination[limit]', 32))),
-            int(req.args.get('pagination[offset]', 0)))
+        '/properties/country', 'get_country_properties',
+        lambda: call_with_limit_and_offset(get_country_properties)
     )
     api.add_url_rule(
-        '/properties/country/<int:id>', None, get_contry_property
+        '/properties/country/<int:id>', None,
+        get_contry_property
+    )
+
+    api.add_url_rule(
+        '/places/countries', 'get_countries',
+        lambda: call_with_limit_and_offset(get_countries)
+    )
+
+    api.add_url_rule(
+        '/places/countries/<id>', None,
+        get_country
+    )
+
+    api.add_url_rule(
+        '/places/regions', 'get_regions',
+        lambda: call_with_limit_and_offset(get_regions)
+    )
+
+    api.add_url_rule(
+        '/places/regions/<id>', None,
+        get_region
+    )
+
+    api.add_url_rule(
+        '/places/districts', 'get_districts',
+        lambda: call_with_limit_and_offset(get_districts)
+    )
+
+    api.add_url_rule(
+        '/places/districts/<id>', None,
+        get_district
+    )
+
+    api.add_url_rule(
+        '/places/localities', 'get_localities',
+        lambda: call_with_limit_and_offset(get_localities)
+    )
+
+    api.add_url_rule(
+        '/places/localities/<id>', None,
+        get_locality
+    )
+
+    api.add_url_rule(
+        '/places/sub_localities', 'get_sub_localities',
+        lambda: call_with_limit_and_offset(get_sub_localities)
+    )
+
+    api.add_url_rule(
+        '/places/sub_localities/<id>', None,
+        get_sub_locality
+    )
+
+    api.add_url_rule(
+        '/places/routes', 'get_routes',
+        lambda: call_with_limit_and_offset(get_routes)
+    )
+
+    api.add_url_rule(
+        '/places/routes/<id>', None,
+        get_route
     )
 
     app.register_blueprint(api)

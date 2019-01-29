@@ -9,7 +9,7 @@ class BaseConfig:
 
     # POSTGRESQL
     SQLALCHEMY_DATABASE_URI = 'postgresql://{user}:{password}@{host}:{port}/{name}'.format(
-        user=os.getenv('POSTGRES_USER', ''),
+        user=os.getenv('POSTGRES_USER', 'postgres'),
         password=os.getenv('POSTGRES_PASSWORD', ''),
         host=os.getenv('POSTGRES_HOST', ''),
         port=os.getenv('POSTGRES_PORT', 5432),

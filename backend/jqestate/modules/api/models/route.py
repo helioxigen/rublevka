@@ -5,6 +5,7 @@ from datetime import date, datetime  # noqa: F401
 
 from typing import List, Dict  # noqa: F401
 
+from .district_location import DistrictLocation as RegionLocation # because RegionLocation same as DistrictLocation
 from .base_model_ import Model
 from .. import util
 

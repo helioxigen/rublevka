@@ -3,13 +3,14 @@ info:
   title: "Swagger jqestate"
   description: "This is the api of jqestate."
   version: "0.0.1"
-
+servers:
+  - url: http://localhost:5000/v1
 paths:
   /properties/country:
     get:
       tags:
         - "country properties"
-      summary: "Return property in same country"
+      summary: "Returns list of country properties"
       description: ""
       operationId: "getPropertiesInCountry"
       parameters:
@@ -21,19 +22,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  items:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/CountryProperty"
-                  pagination:
-                    $ref: '#/components/schemas/Pagination'
-          schema:
-            type: integer
-            default: 0
-            minimum: 0
-          description: The number of items to skip before starting to collect the result set
+                $ref: "#/components/schemas/PaginationWrapper"
   /properties/country/{id}:
     get:
       tags:
@@ -45,7 +34,7 @@ paths:
         - in: path
           name: id
           required: true
-          description: Parameter description in CommonMark or HTML.
+          description: "Id of country property"
           schema:
             type : integer
             format: int64
@@ -63,36 +52,266 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiErrorResponse"
+
+  /places/countries:
+    get:
+      tags:
+        - "places"
+      summary: "Return countries"
+      description: ""
+      operationId: "getCountries"
+      parameters:
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/offsetParam'
       responses:
         "200":
           description: "successful operation"
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  items:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/CountryProperty"
-                  pagination:
-                    $ref: '#/components/schemas/Pagination'
-                    type: object
-                    properties:
-                      total:
-                        type: integer
-                      limit:
-                        type: integer
-                      offset:
-                        type: integer
-        "404":
-          description: "Not found"
+                $ref: "#/components/schemas/PaginationWrapper"
+  /places/regions:
+    get:
+      tags:
+        - "places"
+      summary: "Return regions"
+      description: ""
+      operationId: "getRegions"
+      parameters:
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/offsetParam'
+      responses:
+        "200":
+          description: "successful operation"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiErrorResponse"
+                $ref: "#/components/schemas/PaginationWrapper"
+  /places/districts:
+    get:
+      tags:
+        - "places"
+      summary: "Return districts"
+      description: ""
+      operationId: "getDistricts"
+      parameters:
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/offsetParam'
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginationWrapper"
+  /places/localities:
+    get:
+      tags:
+        - "places"
+      summary: "Return localities"
+      description: ""
+      operationId: "getLocalities"
+      parameters:
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/offsetParam'
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginationWrapper"
+  /places/sub_localities:
+    get:
+      tags:
+        - "places"
+      summary: "Return sub_localities"
+      description: ""
+      operationId: "getSubLocalities"
+      parameters:
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/offsetParam'
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginationWrapper"
+  /places/routes:
+    get:
+      tags:
+        - "places"
+      summary: "Return routes"
+      description: ""
+      operationId: "getRoutes"
+      parameters:
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/offsetParam'
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginationWrapper"
+
+  /places/countries/{id}:
+    get:
+      tags:
+        - "place"
+      summary: "Return countries"
+      description: ""
+      operationId: "getCountry"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: "Id of country"
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Country"
+  /places/regions/{id}:
+    get:
+      tags:
+        - "place"
+      summary: "Return regions"
+      description: ""
+      operationId: "getRegion"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: "Id of region"
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Region"
+  /places/districts/{id}:
+    get:
+      tags:
+        - "place"
+      summary: "Return districts"
+      description: ""
+      operationId: "getDistrict"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: "Id of district"
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/District"
+  /places/localities/{id}:
+    get:
+      tags:
+        - "place"
+      summary: "Return localities"
+      description: ""
+      operationId: "getLocality"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: "Id of locality"
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Locality"
+  /places/sub_localities/{id}:
+    get:
+      tags:
+        - "place"
+      summary: "Return sub_localities"
+      description: ""
+      operationId: "getSubLocality"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: "Id of sub locality"
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Locality"
+  /places/routes/{id}:
+    get:
+      tags:
+        - "place"
+      summary: "Return routes"
+      description: ""
+      operationId: "getRoute"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: "Id of routes"
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Route"
 components:
   schemas:
+    PaginationWrapper:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            oneOf:
+              - $ref: "#/components/schemas/CountryProperty"
+              - $ref: "#/components/schemas/Country"
+              - $ref: "#/components/schemas/Region"
+              - $ref: "#/components/schemas/District"
+              - $ref: "#/components/schemas/Locality"
+              - $ref: "#/components/schemas/SubLocality"
+              - $ref: "#/components/schemas/Route"
+        pagination:
+          $ref: '#/components/schemas/Pagination'
     CountryProperty:
       type: object
       properties:
@@ -154,17 +373,7 @@ components:
             reason:
               type: string
         responsibleUser:
-          type: object
-          properties:
-            id:
-              type: integer
-              format: int64
-            departmentId:
-              type: integer
-              format: int64
-            divisionId:
-              type: integer
-              format: int64
+          $ref: "#/components/schemas/StaffUser"
         removalOrderId:
           type: integer
         updatedByUserId:
@@ -446,9 +655,11 @@ components:
             type: string
         createdAt:
           type: string
+          format: date-time
           description: The date of creation
         updatedAt:
           type: string
+          format: date-time
           description: The date of updation
     Region:
       type: object
@@ -476,9 +687,11 @@ components:
               type: string
         createdAt:
           type: string
+          format: date-time
           description: The date of creation
         updatedAt:
           type: string
+          format: date-time
           description: The date of updation
     District:
       type: object
@@ -510,9 +723,11 @@ components:
               type: string
         createdAt:
           type: string
+          format: date-time
           description: The date of creation
         updatedAt:
           type: string
+          format: date-time
           description: The date of updation
     Locality:
       type: object
@@ -520,6 +735,8 @@ components:
         id:
           type: integer
         name:
+          type: string
+        kindName:
           type: string
         propertyCategories:
           type: array
@@ -550,9 +767,55 @@ components:
               type: string
         createdAt:
           type: string
+          format: date-time
           description: The date of creation
         updatedAt:
           type: string
+          format: date-time
+          description: The date of updation
+    SubLocality:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        kindName:
+          type: string
+        propertyCategories:
+          type: array
+          items:
+            type: string
+        aliases:
+          type: array
+          items:
+            type: string
+        location:
+          type: object
+          properties:
+            countryId:
+              type: integer
+            countryName:
+              type: string
+            regionId:
+              type: integer
+            regionName:
+              type: string
+            districtId:
+              type: integer
+            districtName:
+              type: string
+            localityId:
+              type: integer
+            localityName:
+              type: string
+        createdAt:
+          type: string
+          format: date-time
+          description: The date of creation
+        updatedAt:
+          type: string
+          format: date-time
           description: The date of updation
     Route:
       type: object
@@ -578,12 +841,30 @@ components:
               type: integer
             countryName:
               type: string
+            regionId:
+              type: integer
+            regionName:
+              type: string
         createdAt:
           type: string
+          format: date-time
           description: The date of creation
         updatedAt:
           type: string
+          format: date-time
           description: The date of updation
+    StaffUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        departmentId:
+          type: integer
+          format: int64
+        divisionId:
+          type: integer
+          format: int64
     Pagination:
       type: object
       properties:
@@ -605,7 +886,7 @@ components:
           type: string
   parameters:
     offsetParam:
-      name: offset
+      name: pagination[offset]
       in: query
       description: Number of items to skip before returning the results.
       required: false
@@ -615,7 +896,7 @@ components:
         minimum: 0
         default: 0
     limitParam:
-      name: limit
+      name: pagination[limit]
       in: query
       description: Maximum number of items to return.
       required: false

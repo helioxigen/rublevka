@@ -32,6 +32,8 @@ services:
       - APP_CONFIG=development
       - POSTGRES_HOST=jq_postgres_dev
       - SECRET_KEY
+    volumes:
+      - ../:/home/app
     ports:
       - 5001:5000
     networks:

@@ -12,7 +12,7 @@ paths:
         - "country properties"
       summary: "Returns list of country properties"
       description: ""
-      operationId: "getPropertiesInCountry"
+      operationId: "getCountryProperty"
       parameters:
         - $ref: '#/components/parameters/limitParam'
         - $ref: '#/components/parameters/offsetParam'
@@ -23,6 +23,22 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PaginationWrapper"
+    post:
+      tags:
+        - "country properties"
+      summary: "Create new country property"
+      description: ""
+      operationId: "createCountryProperty"
+      requestBody:
+        description: "Country property values"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostPutCountryProperty'
+      responses:
+        "200":
+          description: "successful operation"
   /properties/country/{id}:
     get:
       tags:
@@ -303,7 +319,7 @@ components:
           type: array
           items:
             oneOf:
-              - $ref: "#/components/schemas/CountryProperty"
+              - $ref: "#/components/schemas/GetCountryProperty"
               - $ref: "#/components/schemas/Country"
               - $ref: "#/components/schemas/Region"
               - $ref: "#/components/schemas/District"
@@ -312,7 +328,7 @@ components:
               - $ref: "#/components/schemas/Route"
         pagination:
           $ref: '#/components/schemas/Pagination'
-    CountryProperty:
+    GetCountryProperty:
       type: object
       properties:
         id:
@@ -331,6 +347,112 @@ components:
           $ref: "#/components/schemas/Communication"
         location:
           $ref: "#/components/schemas/Location"
+        specification:
+          $ref: "#/components/schemas/Specification"
+        externalId:
+          type: string
+        rentOffer:
+          $ref: "#/components/schemas/RentOffer"
+        saleOffer:
+          $ref: "#/components/schemas/SaleOffer"
+        state:
+          type: string
+          enum: ["draft", "public", "postponed", "sold", "rented", "private", "deleted"]
+        clientLeadId:
+          type: integer
+          format: int64
+        linkedContactIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        additionalDetails:
+          type: object
+          properties:
+            garageArea:
+              type: number
+            parkingArea:
+              type: number
+            bathhouseArea:
+              type: number
+            staffHouseArea:
+              type: number
+            spaArea:
+              type: number
+            securityHouseArea:
+              type: number
+            guestHouseArea:
+              type: number
+        stateDetails:
+          type: object
+          properties:
+            reason:
+              type: string
+        responsibleUser:
+          $ref: "#/components/schemas/StaffUser"
+        removalOrderId:
+          type: integer
+        updatedByUserId:
+          type: integer
+        badge:
+          type: integer
+        category:
+          type: string
+        equipment:
+          type: array
+          items:
+            type: string
+        kind:
+          type: string
+        images:
+          type: array
+          items:
+            $ref: "#/components/schemas/Image"
+        layoutImages:
+          type: array
+          items:
+            $ref: "#/components/schemas/Image"
+        landDetails:
+          type: object
+          properties:
+            area:
+              type: number
+            landscapeKind:
+              type: array
+              items:
+                type: string
+            landscaping:
+              type: boolean
+    PostPutCountryProperty:
+      type: object
+      properties:
+        createdByUserId:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          description: The date of creation
+        updatedAt:
+          type: string
+          format: datatime
+        location:
+          type: object
+          properties:
+            latitude:
+              type: string
+              description: "Широта"
+            longitude:
+              type: string
+              description: "Долгота"
+            settlementId:
+              type: integer
+              minimum: 1
+            street:
+              type: string
+            house:
+              type: string
+        communication:
+          $ref: "#/components/schemas/Communication"
         specification:
           $ref: "#/components/schemas/Specification"
         externalId:
@@ -598,10 +720,10 @@ components:
       properties:
         latitude:
           type: string
-          description: "Долгота"
+          description: "Широта"
         longitude:
           type: string
-          description: "Широта"
+          description: "Долгота"
         countryId:
           type: integer
           format: int64

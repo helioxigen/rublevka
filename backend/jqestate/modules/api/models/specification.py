@@ -477,7 +477,7 @@ class Specification(Model):
         :param condition: The condition of this Specification.
         :type condition: str
         """
-        allowed_values = ["central", "own", "absent"]  # noqa: E501
+        allowed_values = ["great", "good", "normal", "bad"]  # noqa: E501
         if condition not in allowed_values:
             raise ValueError(
                 "Invalid value for `condition` ({0}), must be one of {1}"

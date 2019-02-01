@@ -7,7 +7,7 @@ from typing import List, Dict, Union  # noqa: F401
 
 from .base_model_ import Model
 from .pagination import Pagination
-from .country_property import CountryProperty
+from .get_country_property import GetCountryProperty
 from .country import Country
 from .region import Region
 from .district import District
@@ -17,7 +17,7 @@ from .route import Route
 from .. import util
 
 OneOfCountryPropertyCountryRegionDistrictLocalitySubLocalityRoute = Union[
-    CountryProperty, Country, Region, District, Locality, SubLocality, Route]
+    GetCountryProperty, Country, Region, District, Locality, SubLocality, Route]
 
 
 class PaginationWrapper(Model):

@@ -47,7 +47,7 @@ class StaffUser(Model):
 
         :param dikt: A dict.
         :type: dict
-        :return: The CountryProperty_responsibleUser of this CountryPropertyResponsibleUser.  # noqa: E501
+        :return: The StaffUser of this StaffUser.  # noqa: E501
         :rtype: StaffUser
         """
         return util.deserialize_model(dikt, cls)

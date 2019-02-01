@@ -1,17 +1,15 @@
 from typing import List
 
-from flask import current_app, jsonify
+from flask import current_app, request, jsonify, abort
 
 from .. import util
-from ..mappers import DbCountryProperty_to_ResCountryProperty
+from ..mappers import DbCountryProperty_to_ResCountryProperty, PostPutCountryProperty_to_DbCountryProperty
 
 from ...database.models import CountryProperty as DbCountryPropertyModel
 
 
 def get_country_properties(limit=32, offset=0):  # noqa: E501
     """Return houses in same country
-
-     # noqa: E501
 
     :param limit: The numbers of items to return
     :type limit: int

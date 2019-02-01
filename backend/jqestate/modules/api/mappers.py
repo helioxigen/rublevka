@@ -1,7 +1,13 @@
+from datetime import datetime
+
+from flask import current_app
+from jqestate.modules.api.models import PostPutCountryProperty
+
+
 def DbCountryProperty_to_ResCountryProperty(item):
-    from .models import CountryProperty as ResCountryProperty, Communication, Location, Specification, RentOffer, \
-        SaleOffer, CountryPropertyAdditionalDetails, CountryPropertyStateDetails, StaffUser, \
-        CountryPropertyLandDetails
+    from .models import GetCountryProperty as ResCountryProperty, Communication, Location, Specification, RentOffer, \
+        SaleOffer, GetCountryPropertyAdditionalDetails, GetCountryPropertyStateDetails, StaffUser, \
+        GetCountryPropertyLandDetails
     return ResCountryProperty(
         id=item.id,
         created_by_user_id=item.created_by_user_id,
@@ -25,9 +31,6 @@ def DbCountryProperty_to_ResCountryProperty(item):
             locality_id=item.l_locality_id,
             locality_name=item.l_locality.name \
                 if item.l_locality_id is not None else None,
-            settlement_id=item.l_settlement_id,
-            settlement_name=item.l_settlement.name \
-                if item.l_settlement_id is not None else None,
             route_id=item.l_route_id,
             route_name=item.l_route.name \
                 if item.l_route_id is not None else None,
@@ -36,6 +39,9 @@ def DbCountryProperty_to_ResCountryProperty(item):
                 if item.l_region_id is not None else None,
             street=item.l_street,
             house=item.l_house,
+            settlement_id=item.l_settlement_id,
+            settlement_name=item.l_settlement.name \
+                if item.l_settlement_id is not None else None,
             mkad_distance=item.l_settlement.l_mkad_distance \
                 if item.l_settlement is not None else None
         ),
@@ -92,7 +98,7 @@ def DbCountryProperty_to_ResCountryProperty(item):
         state=item.state,
         client_lead_id=item.client_lead_id,
         linked_contact_ids=item.linked_contact_ids,
-        additional_details=CountryPropertyAdditionalDetails(
+        additional_details=GetCountryPropertyAdditionalDetails(
             garage_area=item.ad_garage_area,
             parking_area=item.ad_parking_area,
             bathhouse_area=item.ad_bathhouse_area,
@@ -101,13 +107,13 @@ def DbCountryProperty_to_ResCountryProperty(item):
             security_house_area=item.ad_security_house_area,
             guest_house_area=item.ad_guest_house_area
         ),
-        state_details=CountryPropertyStateDetails(
+        state_details=GetCountryPropertyStateDetails(
             reason=item.sd_reason
         ),
         responsible_user=StaffUser(
-            id=item.responsible_user.id,
-            department_id=item.responsible_user.department_id,
-            division_id=item.responsible_user.division_id
+            id=item.ru_id,
+            department_id=item.ru_department_id,
+            division_id=item.ru_division_id
         ),
         removal_order_id=item.removal_order_id,
         updated_by_user_id=item.updated_by_user_id,
@@ -117,12 +123,120 @@ def DbCountryProperty_to_ResCountryProperty(item):
         kind=item.kind,
         images=item.images,
         layout_images=item.layout_images,
-        land_details=CountryPropertyLandDetails(
+        land_details=GetCountryPropertyLandDetails(
             area=item.ld_area,
             landscape_kind=item.ld_landscape_kind,
             landscaping=item.ld_landscaping,
         )
     )
+
+
+def PostPutCountryProperty_to_DbCountryProperty(item: PostPutCountryProperty, id=None):
+    from ..database.models import CountryProperty as DbCountryProperty
+    model = DbCountryProperty(
+        id=None,
+        created_by_user_id=item.created_by_user_id,
+        created_at=item.created_at or datetime.now(),
+        updated_at=item.updated_at or datetime.now(),
+
+        c_sewerage_supply=item.communication.sewerage_supply,
+        c_gas_supply=item.communication.gas_supply,
+        c_power_supply=item.communication.power_supply,
+        c_water_supply=item.communication.water_supply,
+
+        l_latitude=item.location.latitude,
+        l_longitude=item.location.longitude,
+        l_settlement_id=item.location.settlement_id,
+        l_street=item.location.street,
+        l_house=item.location.house,
+
+        s_loggias=item.specification.loggias,
+        s_bedrooms=item.specification.bedrooms,
+        s_area=item.specification.area,
+        s_elevators=item.specification.elevators,
+        s_balconies=item.specification.balconies,
+        s_roof_material=item.specification.roof_material,
+        s_legacy_layouts=item.specification.legacy_layouts,
+        s_renovate=item.specification.renovate,
+        s_layouts=item.specification.layouts.to_dict(),
+        s_wcs=item.specification.wcs,
+        s_rooms=item.specification.rooms,
+        s_ceiling_height=item.specification.ceiling_height,
+        s_with_ventilation=item.specification.with_ventilation,
+        s_wall_material=item.specification.wall_material,
+        s_condition=item.specification.condition,
+        s_floors=item.specification.floors,
+        s_furniture=item.specification.furniture,
+        s_built_year=item.specification.built_year,
+        s_spaces=item.specification.spaces,
+        s_with_conditioning=item.specification.with_conditioning,
+
+        external_id=item.external_id,
+
+        ro_price=item.rent_offer.price,
+        ro_price_delta=item.rent_offer.price_delta,
+        ro_agent_fee=item.rent_offer.agent_fee,
+        ro_agent_fixed_price=item.rent_offer.agent_fixed_price,
+        ro_currency=item.rent_offer.currency,
+        ro_is_allowed_children=item.rent_offer.is_allowed_children,
+        ro_is_allowed_pets=item.rent_offer.is_allowed_pets,
+        ro_is_disabled=item.rent_offer.is_disabled,
+        ro_deposit=item.rent_offer.deposit,
+        ro_period=item.rent_offer.period,
+
+        so_price=item.sale_offer.price,
+        so_price_delta=item.sale_offer.price_delta,
+        so_agent_fixed_price=item.sale_offer.agent_fixed_price,
+        so_agent_fee=item.sale_offer.agent_fee,
+        so_kind=item.sale_offer.kind,
+        so_is_bargain=item.sale_offer.is_bargain,
+        so_is_resale=item.sale_offer.is_resale,
+        so_is_disabled=item.sale_offer.is_disabled,
+        so_is_mortgage=item.sale_offer.is_mortgage,
+        so_is_installment=item.sale_offer.is_installment,
+        so_currency=item.sale_offer.currency,
+
+        state=item.state,
+        client_lead_id=item.client_lead_id,
+        linked_contact_ids=item.linked_contact_ids,
+
+        ad_garage_area=item.additional_details.garage_area,
+        ad_parking_area=item.additional_details.parking_area,
+        ad_bathhouse_area=item.additional_details.bathhouse_area,
+        ad_staff_house_area=item.additional_details.staff_house_area,
+        ad_spa_area=item.additional_details.spa_area,
+        ad_security_house_area=item.additional_details.security_house_area,
+        ad_guest_house_area=item.additional_details.guest_house_area,
+
+        sd_reason=item.state_details.reason,
+
+        ru_id=item.responsible_user.id,
+        ru_department_id=item.responsible_user.department_id,
+        ru_division_id=item.responsible_user.division_id,
+
+        removal_order_id=item.removal_order_id,
+        updated_by_user_id=item.updated_by_user_id,
+        badge_id=item.badge,
+        category=item.category,
+        equipment=item.equipment,
+        kind=item.kind,
+        images=item.images,
+        layout_images=item.layout_images,
+        ld_area=item.land_details.area,
+        ld_landscape_kind=item.land_details.landscape_kind,
+        ld_landscaping=item.land_details.landscaping
+    )
+    settlement = current_app.models.Settlement.query.get(model.l_settlement_id)
+
+    if settlement is None:
+        raise ValueError("settlement was not found")
+
+    model.l_country_id = settlement.l_country_id,
+    model.l_district_id = settlement.l_district_id,
+    model.l_locality_id = settlement.l_locality_id,
+    model.l_region_id = settlement.l_region_id,
+    model.l_route_id = settlement.l_route_id
+    return model
 
 
 def DbCountryModel_to_Country(item):

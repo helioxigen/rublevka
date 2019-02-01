@@ -861,13 +861,7 @@ class CountryProperty(db.Model):
              name='property_renovate'))
     s_condition = Column(ENUM('great', 'good', 'normal', 'bad', name='property_condition'))
     s_furniture = Column(ENUM('full', 'partial', 'absent', name='property_furniture'))
-    l_settlement_id = Column(ForeignKey('settlements.id'))
-    l_country_id = Column(ForeignKey('countries.id'))
-    l_region_id = Column(ForeignKey('regions.id'))
-    l_district_id = Column(ForeignKey('districts.id'))
-    l_locality_id = Column(ForeignKey('localities.id'))
     ad_bathhouse_area = Column(Float)
-    l_route_id = Column(ForeignKey('routes.id'))
     l_latitude = Column(String(255))
     l_longitude = Column(String(255))
     s_layouts = Column(HSTORE(Text()), nullable=False, server_default=FetchedValue())
@@ -875,16 +869,27 @@ class CountryProperty(db.Model):
     s_wcs = Column(SmallInteger)
     s_legacy_layouts = Column(JSON, nullable=False, server_default=FetchedValue())
 
+    l_country_id = Column(ForeignKey('countries.id'))
     l_country = relationship('Country', primaryjoin='CountryProperty.l_country_id == Country.id',
                              backref='country_properties')
+
+    l_district_id = Column(ForeignKey('districts.id'))
     l_district = relationship('District', primaryjoin='CountryProperty.l_district_id == District.id',
                               backref='country_properties')
+
+    l_locality_id = Column(ForeignKey('localities.id'))
     l_locality = relationship('Locality', primaryjoin='CountryProperty.l_locality_id == Locality.id',
                               backref='country_properties')
+
+    l_region_id = Column(ForeignKey('regions.id'))
     l_region = relationship('Region', primaryjoin='CountryProperty.l_region_id == Region.id',
                             backref='country_properties')
+
+    l_route_id = Column(ForeignKey('routes.id'))
     l_route = relationship('Route', primaryjoin='CountryProperty.l_route_id == Route.id',
                            backref='country_properties')
+
+    l_settlement_id = Column(ForeignKey('settlements.id'))
     l_settlement = relationship('Settlement', primaryjoin='CountryProperty.l_settlement_id == Settlement.id',
                                 backref='country_properties')
 

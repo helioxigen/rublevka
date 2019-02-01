@@ -8,7 +8,11 @@ from flask import Flask, Blueprint, request as req
 
 from .encoder import JSONEncoder
 from .controllers.country_properties_controller import get_country_properties
-from .controllers.country_property_controller import get_contry_property
+from .controllers.country_property_controller import \
+    get_contry_property, \
+    create_country_property, \
+    update_country_property, \
+    delete_country_property
 from .controllers.places_controller import get_countries, get_districts, \
     get_localities, get_sub_localities, get_regions, get_routes
 from .controllers.place_controller import get_country, get_district, \
@@ -30,9 +34,25 @@ def init_app(app: Flask, **kwargs):
         '/properties/country', 'get_country_properties',
         lambda: call_with_limit_and_offset(get_country_properties)
     )
+
+    api.add_url_rule(
+        '/properties/country', None,
+        create_country_property, methods=['POST']
+    )
+
     api.add_url_rule(
         '/properties/country/<int:id>', None,
         get_contry_property
+    )
+
+    api.add_url_rule(
+        '/properties/country/<int:id>', None,
+        update_country_property, methods=['PUT']
+    )
+
+    api.add_url_rule(
+        '/properties/country/<int:id>', None,
+        update_country_property, methods=['DELETE']
     )
 
     api.add_url_rule(

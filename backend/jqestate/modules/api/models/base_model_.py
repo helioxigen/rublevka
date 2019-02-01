@@ -8,13 +8,6 @@ from .. import util
 T = typing.TypeVar('T')
 
 
-def to_camel_case(snake_str):
-    components = snake_str.split('_')
-    # We capitalize the first letter of each component except the first one
-    # with the 'title' method and join them together.
-    return components[0] + ''.join(x.title() for x in components[1:])
-
-
 class Model(object):
     # openapiTypes: The key is attribute name and the
     # value is attribute type.
@@ -38,7 +31,6 @@ class Model(object):
 
         for attr, _ in six.iteritems(self.openapi_types):
             value = getattr(self, attr)
-            attr = to_camel_case(attr)
             if isinstance(value, list):
                 result[attr] = list(map(
                     lambda x: x.to_dict() if hasattr(x, "to_dict") else x,

@@ -18,5 +18,7 @@ def init_app(app):
     from .logging import Logging
     logging = Logging()
 
-    for extension in (logging, ):
+    from . import cors
+
+    for extension in (logging, cors):
         extension.init_app(app)

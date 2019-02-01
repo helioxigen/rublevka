@@ -25,7 +25,7 @@ paths:
                 $ref: "#/components/schemas/PaginationWrapper"
     post:
       tags:
-        - "country properties"
+        - "country property"
       summary: "Create new country property"
       description: ""
       operationId: "createCountryProperty"
@@ -39,6 +39,12 @@ paths:
       responses:
         "200":
           description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetCountryProperty"
+        "404":
+          description: "not found"
   /properties/country/{id}:
     get:
       tags:
@@ -52,7 +58,7 @@ paths:
           required: true
           description: "Id of country property"
           schema:
-            type : integer
+            type: integer
             format: int64
             minimum: 1
       responses:
@@ -61,14 +67,72 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CountryProperty"
+                $ref: "#/components/schemas/GetCountryProperty"
         "404":
           description: "Not found"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiErrorResponse"
-
+    put:
+      tags:
+        - "country property"
+      summary: "Update country property"
+      description: ""
+      operationId: "updateCountryProperty"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: "Id of country property"
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      requestBody:
+        description: "Country property values"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostPutCountryProperty'
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetCountryProperty"
+        "201":
+          description: "created new"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetCountryProperty"
+    delete:
+      tags:
+        - "country property"
+      summary: "Delete country property"
+      description: ""
+      operationId: "deleteCountryProperty"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: "Id of country property"
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetCountryProperty"
+        "404":
+          description: "not found"
   /places/countries:
     get:
       tags:
@@ -185,7 +249,7 @@ paths:
           required: true
           description: "Id of country"
           schema:
-            type : integer
+            type: integer
             format: int64
             minimum: 1
       responses:
@@ -208,7 +272,7 @@ paths:
           required: true
           description: "Id of region"
           schema:
-            type : integer
+            type: integer
             format: int64
             minimum: 1
       responses:
@@ -231,7 +295,7 @@ paths:
           required: true
           description: "Id of district"
           schema:
-            type : integer
+            type: integer
             format: int64
             minimum: 1
       responses:
@@ -254,7 +318,7 @@ paths:
           required: true
           description: "Id of locality"
           schema:
-            type : integer
+            type: integer
             format: int64
             minimum: 1
       responses:
@@ -277,7 +341,7 @@ paths:
           required: true
           description: "Id of sub locality"
           schema:
-            type : integer
+            type: integer
             format: int64
             minimum: 1
       responses:
@@ -300,7 +364,7 @@ paths:
           required: true
           description: "Id of routes"
           schema:
-            type : integer
+            type: integer
             format: int64
             minimum: 1
       responses:
@@ -611,7 +675,7 @@ components:
           enum: ['blue_max', 'wood', 'brick', 'block', 'monolith', 'canadian_sip']
         condition:
           type: string
-          enum: ['central', 'own', 'absent']
+          enum: ['great', 'good', 'normal', 'bad']
         floors:
           type: integer
         furniture:
@@ -663,6 +727,7 @@ components:
           type: number
         period:
           type: string
+          nullable: true
           enum: ["day", "month", "year"]
     SaleOffer:
       type: object
@@ -720,10 +785,10 @@ components:
       properties:
         latitude:
           type: string
-          description: "Широта"
+          description: "Долгота"
         longitude:
           type: string
-          description: "Долгота"
+          description: "Широта"
         countryId:
           type: integer
           format: int64

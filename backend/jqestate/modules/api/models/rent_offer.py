@@ -327,7 +327,7 @@ class RentOffer(Model):
         :param period: The period of this RentOffer.
         :type period: str
         """
-        allowed_values = ["day", "month", "year"]  # noqa: E501
+        allowed_values = [None, "day", "month", "year"]  # noqa: E501
         if period not in allowed_values:
             raise ValueError(
                 "Invalid value for `period` ({0}), must be one of {1}"

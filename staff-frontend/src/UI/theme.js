@@ -6,6 +6,6 @@ export default {
   gray: '#969696',
   buttonGray: '#EFEFEF',
   lightBlue: '#EAF1FF',
-  sidebarBackground: '#e5e5e5',
+  sidebarBackground: '#f5f5f5',
   white: '#fff',
 };

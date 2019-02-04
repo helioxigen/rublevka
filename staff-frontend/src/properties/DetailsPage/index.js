@@ -1,6 +1,6 @@
 import React from 'react';
-import EditView from './EditView';
-import InfoView from './InfoView';
+import ObjectEdit from './ObjectEdit';
+import ObjectInfo from './ObjectInfo';
 
 // TODO TEMPORARY TEST DATA
 const testObjectSettings = {
@@ -9,7 +9,7 @@ const testObjectSettings = {
   yes: 1,
 };
 
-class DetailsPage extends React.PureComponent {
+class PropertyDetailsPage extends React.PureComponent {
   state = {
     editMode: false,
     objectSettings: testObjectSettings,
@@ -17,19 +17,24 @@ class DetailsPage extends React.PureComponent {
 
   render() {
     const { editMode, objectSettings } = this.state;
+    const { match } = this.props;
+    const { id: propertyId } = match.params;
     return (
       <React.Fragment>
         {editMode ? (
-          <EditView
+          <ObjectEdit
             objectSettings={objectSettings}
             disableEditMode={() => this.setState({ editMode: false })}
           />
         ) : (
-          <InfoView enableEditMode={() => this.setState({ editMode: true })} />
+          <ObjectInfo
+            propertyId={propertyId}
+            enableEditMode={() => this.setState({ editMode: true })}
+          />
         )}
       </React.Fragment>
     );
   }
 }
 
-export default DetailsPage;
+export default PropertyDetailsPage;

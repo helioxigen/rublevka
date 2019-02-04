@@ -7,6 +7,12 @@ import PropertyDetailsPage from './properties/DetailsPage';
 import Navigation from './Navigation';
 
 // TODO REMOVE; TEST DATA
+const createPropertyRoute = id => ({
+  name: `Лот ${id}`,
+  path: `/properties/${id}`,
+  count: '1',
+});
+
 const testObjectsInfoList = [
   {
     name: 'Загородные обьекты',
@@ -18,11 +24,12 @@ const testObjectsInfoList = [
     path: '/townships',
     count: '3123',
   },
-  {
-    name: 'Объект',
-    path: '/object',
-    count: '1',
-  },
+  createPropertyRoute(30),
+  createPropertyRoute(31),
+  createPropertyRoute(32),
+  createPropertyRoute(34),
+  createPropertyRoute(35),
+  createPropertyRoute(36),
 ];
 
 const MainContainer = styled(Main)`
@@ -49,9 +56,9 @@ class App extends React.PureComponent {
                 <Route
                   exact
                   path="/login"
-                  component={() => <Redirect to="/object" />}
+                  component={() => <Redirect to="/country-objects" />}
                 />
-                <Route path="/object" component={PropertyDetailsPage} />
+                <Route path="/properties/:id" component={PropertyDetailsPage} />
               </Switch>
             </MainContainer>
           ) : (

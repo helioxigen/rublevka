@@ -54,16 +54,16 @@ import {
 import dropdownPhotoIcon from './img/dropdown-photo-icon.svg';
 import searchIcon from './img/search-icon.svg';
 
-class EditView extends React.PureComponent {
+class ObjectEdit extends React.PureComponent {
   componentDidMount() {
-    document.addEventListener('keydown', this.onKeyPressed, false);
+    document.addEventListener('keydown', this.handleEscKey, false);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', this.onKeyPressed, false);
+    document.removeEventListener('keydown', this.handleEscKey, false);
   }
 
-  onKeyPressed = event => {
+  handleEscKey = event => {
     const { disableEditMode } = this.props;
     if (event.keyCode === 27) {
       disableEditMode();
@@ -458,4 +458,4 @@ class EditView extends React.PureComponent {
   }
 }
 
-export default EditView;
+export default ObjectEdit;

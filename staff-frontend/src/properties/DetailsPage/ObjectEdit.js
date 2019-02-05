@@ -84,7 +84,7 @@ class ObjectEdit extends React.PureComponent {
                 <Col xs={4}>
                   <MainSelectTitle>Тип</MainSelectTitle>
                 </Col>
-                <Col xsOffset={1} xs={7}>
+                <Col xs={8}>
                   <MainSelectTitle>Статус</MainSelectTitle>
                 </Col>
               </Row>
@@ -92,7 +92,7 @@ class ObjectEdit extends React.PureComponent {
                 <Col xs={4}>
                   <Select selectData={selectTypeData} selected={type} />
                 </Col>
-                <Col xsOffset={1} xs={7}>
+                <Col xs={8}>
                   <Select selectData={selectStatusData} selected={status} />
                 </Col>
               </MainStatusBar>
@@ -142,7 +142,7 @@ class ObjectEdit extends React.PureComponent {
                   />
                   <EditPropertyInput placeholder="Процент, %" />
                 </Col>
-                <Col xsOffset={1} xs={2}>
+                <Col xs={3}>
                   <PropertyTitle>Рассрочка</PropertyTitle>
                   <Select selectData={selectBinaryData} selected={yes} filled />
                   <PropertyTitle>Ипотека</PropertyTitle>
@@ -185,7 +185,7 @@ class ObjectEdit extends React.PureComponent {
                   <EditPropertyInput placeholder="Сумма, $" />
                   <Switcher selected={2} />
                 </Col>
-                <Col xsOffset={1} xs={2}>
+                <Col xs={3}>
                   <PropertyTitle>С детьми</PropertyTitle>
                   <Select selectData={selectBinaryData} selected={yes} filled />
                   <PropertyTitle>С животными</PropertyTitle>
@@ -233,7 +233,7 @@ class ObjectEdit extends React.PureComponent {
                     filled
                   />
                 </Col>
-                <Col xsOffset={1} xs={2}>
+                <Col xs={3}>
                   <PropertyTitle>Лифт</PropertyTitle>
                   <Select
                     selectData={selectBinaryExistData}
@@ -257,7 +257,6 @@ class ObjectEdit extends React.PureComponent {
                   <PropertyTitle>Отделка</PropertyTitle>
                   <Select selectData={selectFinishData} selected={0} filled />
                   <PropertyTitle>Состояние</PropertyTitle>
-                  <Select selectData={selectFinishData} selected={0} filled />
                   <SelectEmotion selected="good" />
                 </Col>
               </EditPropertyRow>
@@ -276,7 +275,7 @@ class ObjectEdit extends React.PureComponent {
                   <PropertyTitle>Крыша</PropertyTitle>
                   <SelectBubble selected={1} selectData={selectRoogData} />
                 </Col>
-                <Col xsOffset={1} xs={2}>
+                <Col xs={3}>
                   <PropertyTitle>Кондиционирование</PropertyTitle>
                   <Select selectData={selectBinaryData} selected={yes} filled />
                   <PropertyTitle>Вентиляция</PropertyTitle>

@@ -3,7 +3,7 @@ import theme from './theme';
 
 export const Title = styled.h1`
   margin: 0;
-  font-size: 40px;
+  font-size: 28px;
   font-weight: bold;
   color: ${theme.black};
   text-align: left;
@@ -14,7 +14,7 @@ export const Title2 = styled.h2`
   font-weight: bold;
   color: ${theme.black};
   text-align: left;
-  font-size: 26px;
+  font-size: 20px;
 `;
 
 export const BodyBig = styled.p`
@@ -31,7 +31,7 @@ export const BodyBigBold = styled(BodyBig)`
 
 export const Body = styled.p`
   line-height: 26px;
-  font-size: 16px;
+  font-size: 14px;
   margin: 0;
   color: ${theme.black};
   text-align: left;

@@ -8,7 +8,7 @@ export const MainTitle = styled(Title)`
 `;
 
 export const SubTitle = styled(Title)`
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 `;
 
 export const BodyBigGray = styled(BodyBig)`
@@ -20,7 +20,7 @@ export const BodyBigBlue = styled(BodyBig)`
 `;
 
 export const PropertyTitle = styled(Label)`
-  margin-bottom: 15.5px;
+  margin-bottom: 5px;
   white-space: nowrap;
 `;
 
@@ -32,7 +32,7 @@ export const PropertySubTitle = styled(Label)`
 `;
 
 export const PropertyBigValue = styled(Title2)`
-  margin-bottom: 23.5px;
+  margin-bottom: 16px;
 `;
 
 export const PropertyValue = styled.div`
@@ -42,11 +42,11 @@ export const PropertyValue = styled.div`
 `;
 
 export const Property = styled(Col)`
-  margin-bottom: 45.5px;
+  margin-bottom: 40px;
 `;
 
 export const PropertyOption = styled(Col)`
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   display: flex;
   flex-flow: row nowrap;
   justify-content: start;
@@ -78,7 +78,7 @@ export const SeparatorLine = styled(Col)`
   height: 1px;
   width: 100%;
   background-color: ${theme.alto};
-  margin-bottom: ${props => (props.big ? '66px' : '35px')};
+  margin-bottom: ${props => (props.big ? '70px' : '32px')};
 `;
 
 export const PointIcon = styled.img`
@@ -89,7 +89,7 @@ export const PointIcon = styled.img`
 `;
 
 export const TitleAddress = styled(Col)`
-  margin-bottom: 26px;
+  margin-bottom: 30px;
   display: flex;
   flex-flow: row nowrap;
   justify-content: start;
@@ -141,11 +141,12 @@ export const PhotoCloseButton = styled.div`
 `;
 
 export const PlotLocationInput = styled(Input)`
-  font-size: 18px;
+  font-size: 13px;
+  font-weight: bold;
 `;
 
 export const PlotLocationInfo = styled(BodyBig)`
-  margin-bottom: 50px;
+  margin-bottom: 35px;
 `;
 export const PhotoExample = styled.img`
   width: 100%;
@@ -154,7 +155,7 @@ export const PhotoExample = styled.img`
 `;
 
 export const EditButton = styled(BodyBigBlue)`
-  margin-bottom: 45px;
+  margin-bottom: 35px;
   cursor: pointer;
 `;
 export const PhotoEditTools = styled(Col)`
@@ -193,11 +194,11 @@ export const MainSelectTitle = styled(Title2)`
 `;
 
 export const MainStatusBar = styled(Row)`
-  margin-bottom: 52px;
+  margin-bottom: 12px;
 `;
 
 export const Dropdown = styled(Row)`
-  margin-bottom: 90px;
+  margin-bottom: 65px;
 `;
 
 export const DropdownTitle = styled(Title2)`
@@ -212,7 +213,7 @@ export const DropdownContainer = styled.div`
   align-items: center;
   flex-flow: column;
   justify-content: center;
-  padding: 40px;
+  padding: 10px 40px;
 `;
 
 export const DropdownButton = styled.button`
@@ -228,7 +229,7 @@ export const DropdownButton = styled.button`
 export const DropdownIcon = styled.img`
   width: 58px;
   height: 50px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 `;
 
 export const DropdownAnnotation = styled(Body)`
@@ -237,22 +238,25 @@ export const DropdownAnnotation = styled(Body)`
 `;
 
 export const EditPropertyRow = styled(Row)`
-  margin-bottom: 80px;
+  margin-bottom: 50px;
 `;
 
 export const EditPropertyInput = styled(Input)`
-  font-size: 26px;
+  font-size: 15px;
   margin-bottom: 25px;
+  font-weight: bold;
+  width: calc(100% - 20px);
 `;
 
 export const PlotInput = styled(Input)`
-  font-size: 26px;
+  font-size: 20px;
+  font-weight: bold;
   padding-left: 30px;
 `;
 
 export const PlotInputContainer = styled(Col)`
   position: relative;
-  margin-bottom: 50px;
+  margin-bottom: 35px;
 `;
 
 export const Separator = ({ big = false }) => (

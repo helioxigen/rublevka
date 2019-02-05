@@ -8,7 +8,7 @@ const SelectBubble = styled.div`
   justify-content: start;
   flex-flow: row wrap;
   width: 100%;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 `;
 
 const SelectBubbleItem = styled.div`
@@ -20,9 +20,9 @@ const SelectBubbleItem = styled.div`
   flex-flow: row nowrap;
   border-radius: 18px;
   cursor: pointer;
+  margin-bottom: 10px;
   white-space: nowrap;
   margin-right: 10px;
-  margin-bottom: 10px;
   background-color: ${({ selected }) =>
     selected ? theme.blue : theme.buttonGray};
 
@@ -52,7 +52,7 @@ export default class extends React.PureComponent {
     const {
       selectData,
       selected = '',
-      unselectable = false,
+      unselectable = 0,
       onCloseClick,
     } = this.props;
     const { expand } = this.state;
@@ -73,7 +73,7 @@ export default class extends React.PureComponent {
               </SelectBubbleTitle>
               <CloseIcon
                 src={closeIcon}
-                unselectable={unselectable.toString()}
+                unselectable={unselectable}
                 selected={isSelected}
                 onClick={onCloseClick}
               />

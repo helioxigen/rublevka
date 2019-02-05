@@ -63,11 +63,11 @@ export const Input = styled.input`
   display: block;
   transition: border-bottom 0.3s ease-in-out;
   border: none;
-  border-bottom: 2px solid ${({ errors }) => (errors ? theme.red : theme.alto)};
+  border-bottom: 1px solid ${({ errors }) => (errors ? theme.red : theme.alto)};
   padding: 10px 0px;
   font-family: 'FSElliotPro';
   color: #333;
-  font-size: 31px;
+  font-size: 20px;
   background-color: transparent;
 
   &:focus {
@@ -80,6 +80,11 @@ export const Input = styled.input`
     -webkit-appearance: none;
     margin: 0;
   }
+  
+  &::placeholder {
+    opacity: .25;
+  }
+}
 `;
 
 export const Button = styled.button`

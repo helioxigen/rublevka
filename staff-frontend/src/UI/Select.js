@@ -6,11 +6,11 @@ const Select = styled.div`
   display: flex;
   justify-content: start;
   flex-flow: row nowrap;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 `;
 
 const SelectItem = styled.div`
-  padding: 5px 15px 3px 15px;
+  padding: 2px 10px 0;
   border: 1px solid ${props => (props.selected ? theme.blue : theme.alto)};
   border-right-color: ${props => (props.selected ? theme.blue : 'transparent')};
   box-sizing: border-box;
@@ -25,6 +25,15 @@ const SelectItem = styled.div`
     :last-child {
       border-right-color: ${theme.blue};
     }
+
+    & + div {
+      border-left-color: transparent;
+    }
+  }
+
+  & + div {
+    border-left-color: ${props =>
+      props.filled && props.selected && 'transparent'};
   }
 
   :first-child {

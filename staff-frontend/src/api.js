@@ -13,7 +13,7 @@ const currEnvironment = environment.development;
 
 const baseUrlByEnvironment = {
   [environment.development]: 'https://staff-dev.rublevka.ru/v1/',
-  [environment.legacy]: 'https://staff-dev.rublevka.ru/v1/',
+  [environment.legacy]: 'https://',
 };
 
 const getApi = () => {
@@ -29,6 +29,9 @@ const getApi = () => {
 const getProperty = id => getApi().get(`properties/country/${id}`);
 
 const getPropertiesList = () => getApi().get('properties/country/');
+
+export const getPropertyImages = (id, height) =>
+  axios.get(`https://images.jqestate.ru/${id}-jqestate-${height}`);
 
 export const properties = { getProperty, getPropertiesList };
 

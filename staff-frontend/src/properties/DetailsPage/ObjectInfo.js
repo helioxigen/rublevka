@@ -98,11 +98,10 @@ class ObjectInfo extends React.PureComponent {
                 <PointIcon src={pointIcon} />
                 <BodyBig>
                   {properties.location.localityName},{' '}
-                  {properties.location.mkadDistance} от МКАД
+                  {properties.location.mkadDistance}км от МКАД
                 </BodyBig>
               </TitleAddress>
             </Row>
-            <Separator />
             <Row>
               <PhotoExampleContainer xs={12}>
                 <PhotoExampleWrapper>
@@ -140,7 +139,7 @@ class ObjectInfo extends React.PureComponent {
                 <PropertyTitle>Стоимость</PropertyTitle>
                 <PropertyBigValue>{currentPrice || '—'}</PropertyBigValue>
                 <PropertyValue>
-                  <BodyBold>Стоимость за м :&nbsp;</BodyBold>
+                  <BodyBold>Стоимость за м² :&nbsp;</BodyBold>
                   <Body>
                     {currentPrice
                       ? `${currencies[properties.saleOffer.currency]} + ' ' +
@@ -245,7 +244,7 @@ class ObjectInfo extends React.PureComponent {
               <Property xs={3}>
                 <PropertyTitle>Площадь дома</PropertyTitle>
                 <PropertyValue>
-                  <Body>{properties.specification.area} м</Body>
+                  <Body>{properties.specification.area} м²</Body>
                 </PropertyValue>
               </Property>
               <Property xs={3}>

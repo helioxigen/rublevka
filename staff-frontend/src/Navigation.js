@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import { theme, Logo } from './UI';
 
 const StNavigation = styled.div`
-  width: 256px;
+  min-width: 257px;
+  width: 257px;
   min-height: 100vh;
+  box-sizing: border-box;
   padding: 20px 15px;
   background-color: ${theme.sidebarBackground};
 `;

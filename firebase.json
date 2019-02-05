@@ -1,7 +1,4 @@
 {
-  "functions": {
-    "predeploy": ["npm --prefix \"$RESOURCE_DIR\" run lint"]
-  },
   "hosting": {
     "public": "export-app-frontend/build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
@@ -11,8 +8,5 @@
         "destination": "/index.html"
       }
     ]
-  },
-  "storage": {
-    "rules": "storage.rules"
   }
 }

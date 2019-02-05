@@ -6,7 +6,6 @@ Module enable registering endpoints
 """
 from flask import Flask, Blueprint, request as req
 
-from .encoder import JSONEncoder
 from .controllers.country_properties_controller import get_country_properties
 from .controllers.country_property_controller import \
     get_contry_property, \
@@ -26,9 +25,18 @@ def call_with_limit_and_offset(callable):
     return callable(limit, offset)
 
 
+def registering_json_encoder(app):
+    from .encoder import JqestateJSONEncoder
+    app.json_encoder = JqestateJSONEncoder
+
+
 def init_app(app: Flask, **kwargs):
+    if not hasattr(app, 'db'):
+        from jqestate.exceptions import DependencyException
+        raise DependencyException("Module database not loaded yet. Please load it before loading api")
+
     api = Blueprint('rest_api', __name__, url_prefix='/v1')
-    api.json_encoder = JSONEncoder
+    registering_json_encoder(api)
 
     api.add_url_rule(
         '/properties/country', 'get_country_properties',
@@ -52,7 +60,7 @@ def init_app(app: Flask, **kwargs):
 
     api.add_url_rule(
         '/properties/country/<int:id>', None,
-        update_country_property, methods=['DELETE']
+        delete_country_property, methods=['DELETE']
     )
 
     api.add_url_rule(

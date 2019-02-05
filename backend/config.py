@@ -38,8 +38,8 @@ class BaseConfig:
     }
 
     ENABLED_MODULES = (
-        'api',
         'database',
+        'api',
     )
 
     SWAGGER_UI_JSONEDITOR = True

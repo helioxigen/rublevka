@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy as BaseSQLAlchemy, \
     _EngineConnector, _record_queries, _EngineDebuggingSignalEvents
 from sqlalchemy.engine.url import make_url
 
-from .encoder import JSONEncoder
+from .encoder import DbJSONEncoder
 
 
 class EngineConnector(_EngineConnector):
@@ -18,7 +18,7 @@ class EngineConnector(_EngineConnector):
                 return self._engine
             info = make_url(uri)
             options = {'convert_unicode': True,
-                       'json_serializer': lambda el, *args, **kwargs: json.dumps(el, *args, cls=JSONEncoder, **kwargs)}
+                       'json_serializer': lambda el, *args, **kwargs: json.dumps(el, *args, cls=DbJSONEncoder, **kwargs)}
             self._sa.apply_pool_defaults(self._app, options)
             self._sa.apply_driver_hacks(self._app, info, options)
             if echo:

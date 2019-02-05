@@ -22,7 +22,7 @@ services:
     container_name: jq_backend_local
     build:
       context: ../
-      dockerfile: devops/Dockerfile
+      dockerfile: devops/app.Dockerfile
     depends_on:
       - jq_postgres_local
     restart: always

@@ -4,8 +4,6 @@ from functools import partial
 
 from decimal import Decimal
 
-import six
-
 
 class FlaskJSONEncoder(json.JSONEncoder):
     def __init__(self, *args, **kwargs):
@@ -31,18 +29,10 @@ class FlaskJSONEncoder(json.JSONEncoder):
         return super().default(o)
 
 
-class JSONEncoder(FlaskJSONEncoder):
+class DbJSONEncoder(FlaskJSONEncoder):
     include_nulls = True
 
     def default(self, o):
-        if all(map(partial(hasattr,o), ['to_dict', 'openapi_types', 'attribute_map'])):
-            dikt = {}
-            for attr, _ in six.iteritems(o.openapi_types):
-                value = getattr(o, attr)
-                if value is None and not self.include_nulls:
-                    continue
-                attr = o.attribute_map[attr]
-                dikt[attr] = value
-            return dikt
-        else:
-            return super().default(o)
+        return {key: getattr(o, attr_name) for attr_name, key in o.attribute_map.items()} \
+            if all(map(partial(hasattr, o), ['to_dict', 'openapi_types', 'attribute_map'])) \
+            else super().default(o)

@@ -1,5 +1,4 @@
 # encoding: utf-8
-# pylint: disable=invalid-name,wrong-import-position,wrong-import-order
 """
 Extensions setup
 ================

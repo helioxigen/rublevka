@@ -3,8 +3,6 @@ from flask import json
 
 from decimal import Decimal
 
-import six
-
 from .models.base_model_ import Model
 
 
@@ -32,18 +30,7 @@ class FlaskJSONEncoder(json.JSONEncoder):
         return super().default(o)
 
 
-class JSONEncoder(FlaskJSONEncoder):
-    include_nulls = True
-
+class JqestateJSONEncoder(FlaskJSONEncoder):
     def default(self, o):
-        if isinstance(o, Model):
-            dikt = {}
-            for attr, _ in six.iteritems(o.openapi_types):
-                value = getattr(o, attr)
-                if value is None and not self.include_nulls:
-                    continue
-                attr = o.attribute_map[attr]
-                dikt[attr] = value
-            return dikt
-        else:
-            return super().default(o)
+        return {key: getattr(o, attr_name) for attr_name, key in o.attribute_map.items()} \
+            if isinstance(o, Model) else super().default(o)

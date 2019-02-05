@@ -5,12 +5,13 @@ import { FormattedNumber } from 'react-intl';
 import Loader from 'react-loader-spinner';
 import isEqual from 'lodash/isEqual';
 
-import { Button, CheckboxLabel, media } from '../UI';
+import { CheckboxLabel, media } from '../UI';
 import deleteItem from './requests/deleteItem';
 import updateItem from './requests/updateItem';
 import { kinds } from './dictionaries';
 
 import iconDelete from './icon-delete.svg';
+import iconClose from './icon-close.png';
 import placeholder from './placeholder.jpg';
 
 export const CardSt = styled.div`
@@ -82,6 +83,10 @@ export const ActionsAndOptions = styled.div`
   display: flex;
 
   align-items: center;
+
+  ${media.greaterThan('sm')`
+    align-items: normal;
+  `}
 `;
 
 export const Options = styled.div`
@@ -89,7 +94,7 @@ export const Options = styled.div`
 `;
 
 export const Actions = styled.div`
-  flex-basis: 20%;
+  flex-basis: 30%;
   text-align: right;
 `;
 
@@ -234,8 +239,12 @@ export default class extends Component {
             {!loading
               && (confirmDelete ? (
                 <>
-                  <Button onClick={this.handleDelete}>Да</Button>
-                  <Button onClick={this.toggleDeleteConfirm}>Нет</Button>
+                  <ActionButton onClick={this.handleDelete}>
+                    <img src={iconDelete} alt="" />
+                  </ActionButton>
+                  <ActionButton onClick={this.toggleDeleteConfirm}>
+                    <img src={iconClose} alt="" />
+                  </ActionButton>
                 </>
               ) : (
                 <ActionButton onClick={this.toggleDeleteConfirm}>

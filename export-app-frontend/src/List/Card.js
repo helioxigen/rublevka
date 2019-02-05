@@ -1,3 +1,4 @@
+/* eslint-disable react/style-prop-object */
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import { FormattedNumber } from 'react-intl';
@@ -90,7 +91,7 @@ export default class extends Component {
     /* eslint-disable react/destructuring-assignment */
     top3: this.props.top3,
     premium: this.props.premium,
-    /* eslint-enable */
+    /* eslint-enable react/destructuring-assignment */
     loading: false,
     confirmDelete: false,
   };

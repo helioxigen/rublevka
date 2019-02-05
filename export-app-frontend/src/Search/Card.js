@@ -1,3 +1,4 @@
+/* eslint-disable react/style-prop-object */
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { FormattedNumber } from 'react-intl';

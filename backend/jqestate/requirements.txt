@@ -2,7 +2,7 @@ six
 flask
 flask-cors
 flask-sqlalchemy
-psycopg2
+psycopg2-binary
 sqlalchemy
 sqlalchemy-utils
 sqlalchemy-citext

@@ -70,8 +70,6 @@ class App extends Component {
   componentDidMount() {
     this.setState({ itemsLoading: true, itemsError: false });
 
-    this.unsubscribeFromProperties = subscribeToItems(this.getItems);
-
     this.unsubscribe = FirebaseDefaultInstance.auth.onAuthStateChanged(
       (userData) => {
         if (userData) {
@@ -81,7 +79,7 @@ class App extends Component {
             }
 
             if (doc.data().canView) {
-              //
+              this.unsubscribeFromProperties = subscribeToItems(this.getItems);
             }
 
             this.updateUser(doc.data());

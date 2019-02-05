@@ -110,6 +110,8 @@ class Card extends Component {
       rentOffer = {},
     } = item;
 
+    const publicImages = images.filter(({ isPublic }) => !!isPublic);
+
     const areaSize = item.kind === 'land'
       ? `${landDetails.area} сот`
       : `${specification.area} м²`;
@@ -122,8 +124,8 @@ class Card extends Component {
         <Header>
           <Image
             src={
-              images[0]
-                ? `//images.jqestate.ru/${images[0].id}-thumbnail-128`
+              publicImages[0]
+                ? `//images.rublevka.ru/${publicImages[0].id}-thumbnail-128`
                 : placeholder
             }
             alt=""

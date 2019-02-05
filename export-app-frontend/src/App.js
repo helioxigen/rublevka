@@ -57,7 +57,9 @@ const Alert = styled.div`
 
 class App extends Component {
   state = {
-    user: {},
+    user: {
+      canView: true,
+    },
 
     itemsOnSale: [],
     itemsOnRent: [],
@@ -119,12 +121,10 @@ class App extends Component {
   };
 
   render() {
-    const { user } = this.state;
+    const { user = {} } = this.state;
     const { currentUser = {} } = FirebaseDefaultInstance.auth || {};
 
-    return !user.isLoggedIn ? (
-      <Login firebaseInstance={FirebaseDefaultInstance} />
-    ) : (
+    return (
       <IntlProvider locale="ru">
         <main>
           <Header>
@@ -132,13 +132,18 @@ class App extends Component {
           </Header>
 
           <div className="container">
+            {!user.isLoggedIn && (
+              <Login firebaseInstance={FirebaseDefaultInstance} />
+            )}
             {user.admin && (
               <>
                 <Search />
                 <List {...this.state} />
               </>
             )}
-            {(!user.admin || !user.canView) && <Alert>Нет прав</Alert>}
+            {user.isLoggedIn && (!user.admin || !user.canView) && (
+              <Alert>Нет прав</Alert>
+            )}
             <Footer>
               <UserInfo>
                 {currentUser && (

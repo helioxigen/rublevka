@@ -27,6 +27,7 @@ const Form = ({
       value={value}
       onChange={onChange}
       placeholder="Введите ID объектов..."
+      autoFocus
       type="text"
     />
   </FormSt>

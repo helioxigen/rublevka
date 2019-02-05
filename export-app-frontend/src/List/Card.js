@@ -5,7 +5,7 @@ import { FormattedNumber } from 'react-intl';
 import Loader from 'react-loader-spinner';
 import isEqual from 'lodash/isEqual';
 
-import { Button, CheckboxLabel } from '../UI';
+import { Button, CheckboxLabel, media } from '../UI';
 import deleteItem from './requests/deleteItem';
 import updateItem from './requests/updateItem';
 import { kinds } from './dictionaries';
@@ -16,8 +16,13 @@ import placeholder from './placeholder.jpg';
 export const CardSt = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   padding: 16px 0;
+
+  ${media.greaterThan('sm')`
+    flex-direction: row;
+    align-items: center;
+  `}
 
   border-bottom: 1px solid #edeff5;
 
@@ -33,6 +38,12 @@ export const CardSt = styled.div`
   }
 `;
 
+export const Header = styled.div`
+  flex-basis: 30%;
+  display: flex;
+  align-items: center;
+`;
+
 export const Image = styled.img`
   max-height: 48px;
   margin-right: 16px;
@@ -42,17 +53,22 @@ export const Image = styled.img`
 `;
 
 export const ID = styled.div`
-  flex-basis: 8%;
+  flex-basis: 30%;
   font-weight: bold;
 `;
 
 export const Price = styled.div`
-  flex-basis: 17%;
+  flex-basis: 45%;
 `;
 
 export const Title = styled.div`
-  flex-basis: 50%;
+  flex-basis: 45%;
   font-weight: bolder;
+  margin: 16px 0;
+
+  ${media.greaterThan('sm')`
+    margin: 0;
+  `}
 `;
 
 export const SubTitle = styled.p`
@@ -61,12 +77,19 @@ export const SubTitle = styled.p`
   font-weight: normal;
 `;
 
+export const ActionsAndOptions = styled.div`
+  flex-basis: 25%;
+  display: flex;
+
+  align-items: center;
+`;
+
 export const Options = styled.div`
-  flex-basis: 20%;
+  flex-basis: 80%;
 `;
 
 export const Actions = styled.div`
-  flex-basis: 5%;
+  flex-basis: 20%;
   text-align: right;
 `;
 
@@ -75,6 +98,10 @@ export const ActionButton = styled.button`
   border: 0;
   padding: 0;
   cursor: pointer;
+
+  &[disabled] {
+    opacity: 0.3;
+  }
 
   img {
     height: 28px;
@@ -163,25 +190,28 @@ export default class extends Component {
 
     return (
       <CardSt isLoading={loading}>
-        <Image
-          src={
-            images[0]
-              ? `//images.jqestate.ru/${images[0].id}-thumbnail-128`
-              : placeholder
-          }
-          alt=""
-        />
-        <ID>
-          <FormattedNumber value={id} />
-        </ID>
-        <Price>
-          <FormattedNumber
-            style="currency"
-            maximumSignificantDigits={1}
-            currency={currency}
-            value={price}
+        <Header>
+          <Image
+            src={
+              images[0]
+                ? `//images.jqestate.ru/${images[0].id}-thumbnail-128`
+                : placeholder
+            }
+            alt=""
           />
-        </Price>
+          <ID>
+            <FormattedNumber value={id} />
+          </ID>
+          <Price>
+            <FormattedNumber
+              style="currency"
+              maximumSignificantDigits={1}
+              currency={currency}
+              value={price}
+            />
+          </Price>
+        </Header>
+
         <Title>
           {`${kinds[data.kind]} ${areaSize}`}
           <SubTitle>
@@ -189,29 +219,31 @@ export default class extends Component {
           </SubTitle>
         </Title>
 
-        <Options>
-          <CheckboxLabel onClick={this.toggleTop3} isActive={!!top3}>
-            топ-3
-          </CheckboxLabel>
-          <CheckboxLabel onClick={this.togglePremium} isActive={!!premium}>
-            премиум
-          </CheckboxLabel>
-        </Options>
+        <ActionsAndOptions>
+          <Options>
+            <CheckboxLabel onClick={this.toggleTop3} isActive={!!top3}>
+              топ-3
+            </CheckboxLabel>
+            <CheckboxLabel onClick={this.togglePremium} isActive={!!premium}>
+              премиум
+            </CheckboxLabel>
+          </Options>
 
-        <Actions>
-          {loading && <Loading />}
-          {!loading
-            && (confirmDelete ? (
-              <>
-                <Button onClick={this.handleDelete}>Да</Button>
-                <Button onClick={this.toggleDeleteConfirm}>Нет</Button>
-              </>
-            ) : (
-              <ActionButton onClick={this.toggleDeleteConfirm}>
-                <img src={iconDelete} alt="" />
-              </ActionButton>
-            ))}
-        </Actions>
+          <Actions>
+            {loading && <Loading />}
+            {!loading
+              && (confirmDelete ? (
+                <>
+                  <Button onClick={this.handleDelete}>Да</Button>
+                  <Button onClick={this.toggleDeleteConfirm}>Нет</Button>
+                </>
+              ) : (
+                <ActionButton onClick={this.toggleDeleteConfirm}>
+                  <img src={iconDelete} alt="" />
+                </ActionButton>
+              ))}
+          </Actions>
+        </ActionsAndOptions>
       </CardSt>
     );
   }

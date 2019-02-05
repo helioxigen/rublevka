@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+export { media } from './scUtils';
+
 export const Input = styled.input`
   font-size: 24px;
   font-family: inherit;
@@ -18,6 +20,7 @@ export const CheckboxLabel = styled.label`
   font-size: 13px;
   line-height: 1;
   margin-right: 8px;
+  margin-bottom: 8px;
   display: inline-block;
 
   &:last-child {

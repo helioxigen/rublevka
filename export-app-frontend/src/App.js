@@ -70,14 +70,16 @@ class App extends Component {
   componentDidMount() {
     this.setState({ itemsLoading: true, itemsError: false });
 
-    this.unsubscribeFromProperties = subscribeToItems(this.getItems);
-
     this.unsubscribe = FirebaseDefaultInstance.auth.onAuthStateChanged(
       (userData) => {
         if (userData) {
           FirebaseDefaultInstance.get('users', userData.email).then((doc) => {
             if (!doc.exists) {
               FirebaseDefaultInstance.setWithKey('users', userData.email, {});
+            }
+
+            if (doc.data().canView) {
+              this.unsubscribeFromProperties = subscribeToItems(this.getItems);
             }
 
             this.updateUser(doc.data());

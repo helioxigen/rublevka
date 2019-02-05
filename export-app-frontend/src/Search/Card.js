@@ -11,10 +11,12 @@ import {
   Price,
   Title as OrigTitle,
   SubTitle,
-  Options,
+  Options as OrigOptions,
   Actions,
   ActionButton,
   Loading,
+  Header as OrigHeader,
+  ActionsAndOptions as OrigActionsAndOptions,
 } from '../List/Card';
 
 import { kinds } from '../List/dictionaries';
@@ -22,8 +24,20 @@ import { kinds } from '../List/dictionaries';
 import iconAdd from './icon-add.svg';
 import placeholder from '../List/placeholder.jpg';
 
-const Title = styled(OrigTitle)`
+const Header = styled(OrigHeader)`
   flex-basis: 30%;
+`;
+
+const Title = styled(OrigTitle)`
+  flex-basis: 27%;
+`;
+
+const ActionsAndOptions = styled(OrigActionsAndOptions)`
+  flex-basis: 43%;
+`;
+
+const Options = styled(OrigOptions)`
+  flex-basis: 50%;
 `;
 
 const OptionTitle = styled.h4`
@@ -105,39 +119,42 @@ class Card extends Component {
 
     return (
       <CardSt isLoading={loading}>
-        <Image
-          src={
-            images[0]
-              ? `//images.jqestate.ru/${images[0].id}-thumbnail-128`
-              : placeholder
-          }
-          alt=""
-        />
-        <ID>
-          <FormattedNumber value={id} />
-        </ID>
-        <Price>
-          {saleOffer && (
-            <FormattedNumber
-              style="currency"
-              maximumSignificantDigits={1}
-              currency={saleOffer.currency}
-              value={saleOffer.price}
-            />
-          )}
-          <br />
-          {rentOffer && (
-            <SubTitle>
+        <Header>
+          <Image
+            src={
+              images[0]
+                ? `//images.jqestate.ru/${images[0].id}-thumbnail-128`
+                : placeholder
+            }
+            alt=""
+          />
+          <ID>
+            <FormattedNumber value={id} />
+          </ID>
+          <Price>
+            {saleOffer && (
               <FormattedNumber
                 style="currency"
                 maximumSignificantDigits={1}
-                currency={rentOffer.currency}
-                value={rentOffer.price}
+                currency={saleOffer.currency}
+                value={saleOffer.price}
               />
-              {' в месяц'}
-            </SubTitle>
-          )}
-        </Price>
+            )}
+            <br />
+            {rentOffer && (
+              <SubTitle>
+                <FormattedNumber
+                  style="currency"
+                  maximumSignificantDigits={1}
+                  currency={rentOffer.currency}
+                  value={rentOffer.price}
+                />
+                {' в мес'}
+              </SubTitle>
+            )}
+          </Price>
+        </Header>
+
         <Title>
           {`${kinds[item.kind]} ${areaSize}`}
           <SubTitle>
@@ -145,54 +162,56 @@ class Card extends Component {
           </SubTitle>
         </Title>
 
-        <Options>
-          {saleOffer && (
-            <>
-              <OptionTitle>Продажа</OptionTitle>
-              <CheckboxLabel
-                onClick={() => this.toggleTop3('saleOptions')}
-                isActive={!!saleOptions.top3}
-              >
-                топ-3
-              </CheckboxLabel>
-              <CheckboxLabel
-                onClick={() => this.togglePremium('saleOptions')}
-                isActive={!!saleOptions.premium}
-              >
-                премиум
-              </CheckboxLabel>
-            </>
-          )}
-        </Options>
+        <ActionsAndOptions>
+          <Options>
+            {saleOffer && (
+              <>
+                <OptionTitle>Продажа</OptionTitle>
+                <CheckboxLabel
+                  onClick={() => this.toggleTop3('saleOptions')}
+                  isActive={!!saleOptions.top3}
+                >
+                  топ-3
+                </CheckboxLabel>
+                <CheckboxLabel
+                  onClick={() => this.togglePremium('saleOptions')}
+                  isActive={!!saleOptions.premium}
+                >
+                  премиум
+                </CheckboxLabel>
+              </>
+            )}
+          </Options>
 
-        <Options>
-          {rentOffer && (
-            <>
-              <OptionTitle>Аренда</OptionTitle>
-              <CheckboxLabel
-                onClick={() => this.toggleTop3('rentOptions')}
-                isActive={!!rentOptions.top3}
-              >
-                топ-3
-              </CheckboxLabel>
-              <CheckboxLabel
-                onClick={() => this.togglePremium('rentOptions')}
-                isActive={!!rentOptions.premium}
-              >
-                премиум
-              </CheckboxLabel>
-            </>
-          )}
-        </Options>
+          <Options>
+            {rentOffer && (
+              <>
+                <OptionTitle>Аренда</OptionTitle>
+                <CheckboxLabel
+                  onClick={() => this.toggleTop3('rentOptions')}
+                  isActive={!!rentOptions.top3}
+                >
+                  топ-3
+                </CheckboxLabel>
+                <CheckboxLabel
+                  onClick={() => this.togglePremium('rentOptions')}
+                  isActive={!!rentOptions.premium}
+                >
+                  премиум
+                </CheckboxLabel>
+              </>
+            )}
+          </Options>
 
-        <Actions>
-          {loading && <Loading />}
-          {!loading && (
-            <ActionButton onClick={this.handleAdd} disabled={!canAdd}>
-              <img src={iconAdd} alt="" />
-            </ActionButton>
-          )}
-        </Actions>
+          <Actions>
+            {loading && <Loading />}
+            {!loading && (
+              <ActionButton onClick={this.handleAdd} disabled={!canAdd}>
+                <img src={iconAdd} alt="" />
+              </ActionButton>
+            )}
+          </Actions>
+        </ActionsAndOptions>
       </CardSt>
     );
   }

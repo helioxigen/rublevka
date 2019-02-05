@@ -10,6 +10,7 @@ const Input = styled.input`
   line-height: 1;
   display: block;
   box-sizing: border-box;
+  border: 0;
 
   &:focus,
   &:active {

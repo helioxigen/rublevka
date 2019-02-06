@@ -50,7 +50,7 @@ const CopyUrlButton = styled.button`
   }
 `;
 
-const urlToFeed = 'https://firebasestorage.googleapis.com/v0/b/rublevka-export-384da.appspot.com/o/cian-feed.xml?alt=media';
+const urlToFeed = 'https://storage.cloud.google.com/rublevka-export-384da.appspot.com/cian-feed.xml';
 
 export default function ({ currentUser }) {
   return (

@@ -129,9 +129,7 @@ class Card extends Component {
             }
             alt=""
           />
-          <ID>
-            <FormattedNumber value={id} />
-          </ID>
+          <ID>{id}</ID>
           <Price>
             {saleOffer && (
               <FormattedNumber

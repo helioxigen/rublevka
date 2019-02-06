@@ -6,6 +6,7 @@ import ru from 'react-intl/locale-data/ru';
 import Search from './Search';
 import List from './List';
 import Login from './Login';
+import Footer from './Footer';
 // import History from './History';
 
 import { FBRublevka } from './firebase';
@@ -19,29 +20,6 @@ addLocaleData(ru);
 const Header = styled.header`
   text-align: center;
   margin-bottom: 36px;
-`;
-
-const Footer = styled.footer`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const UserInfo = styled.div`
-  margin-top: 16px;
-  display: flex;
-  align-items: center;
-  min-height: 44px;
-`;
-
-const UserInfoImg = styled.img`
-  height: 32px;
-  border-radius: 50%;
-  margin-right: 16px;
-`;
-
-const UserInfoName = styled.p`
-  color: #393a3a;
-  font-weight: bold;
 `;
 
 const Logo = styled.img`
@@ -157,17 +135,7 @@ class App extends Component {
             {user.isLoggedIn && (!user.admin || !user.canView) && (
               <Alert>Нет прав</Alert>
             )}
-            <Footer>
-              <UserInfo>
-                {currentUser && (
-                  <>
-                    <UserInfoImg src={currentUser.photoURL} />
-
-                    <UserInfoName>{currentUser.displayName}</UserInfoName>
-                  </>
-                )}
-              </UserInfo>
-            </Footer>
+            <Footer currentUser={currentUser} />
           </div>
         </main>
       </IntlProvider>

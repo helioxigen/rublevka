@@ -109,9 +109,7 @@ export default class extends Component {
             }
             alt=""
           />
-          <ID>
-            <FormattedNumber value={id} />
-          </ID>
+          <ID>{id}</ID>
           <Price>
             <FormattedNumber
               style="currency"
@@ -144,7 +142,9 @@ export default class extends Component {
             {!loading
               && (confirmDelete ? (
                 <>
-                  <ActionButton onClick={() => onDelete(docID, { id, offerKind })}>
+                  <ActionButton
+                    onClick={() => onDelete(docID, { id, offerKind })}
+                  >
                     <img src={iconDelete} alt="" />
                   </ActionButton>
                   <ActionButton onClick={this.toggleDeleteConfirm}>

@@ -7,6 +7,7 @@ const API_PAGE_SIZE = 256;
 
 export default function getItems() {
   return FBRublevka.getCollection('properties')
+    .orderBy('top3', 'desc')
     .get()
     .then(snapshot => snapshot.docs.map(mapDocs))
     .then((docs) => {

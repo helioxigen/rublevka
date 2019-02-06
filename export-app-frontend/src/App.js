@@ -135,7 +135,7 @@ class App extends Component {
             {user.isLoggedIn && (!user.admin || !user.canView) && (
               <Alert>Нет прав</Alert>
             )}
-            <Footer currentUser={currentUser} />
+            {user.isLoggedIn && <Footer currentUser={currentUser} />}
           </div>
         </main>
       </IntlProvider>

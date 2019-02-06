@@ -26,23 +26,7 @@ class FirebaseClass {
   setWithKey = (collection, key, data) => this.db
     .collection(collection)
     .doc(key)
-    .set(data);
-
-  setIfNotExists = (collection, data) => {
-    const col = this.db.collection(collection);
-
-    return col
-      .where('id', '==', data.id)
-      .where('offerKind', '==', data.offerKind)
-      .get()
-      .then(res => res.docs)
-      .then((docs) => {
-        if (docs.length > 0) {
-          return Promise.reject(new Error('exists'));
-        }
-        return col.add(data);
-      });
-  };
+    .set(data, { merge: true });
 
   addOrUpdate = (collection, data) => {
     const col = this.db.collection(collection);
@@ -56,22 +40,32 @@ class FirebaseClass {
         if (docs.length > 0) {
           const { id } = docs[0];
 
-          return this.setWithKey(collection, id, data);
+          return this.update(collection, id, data);
         }
 
-        return col.add(data);
+        return this.add(collection, data);
       });
   };
+
+  add = (collection, { user, ...data }) => this.db.collection(collection).add({
+    ...data,
+    updatedBy: user.email,
+    updatedAt: new Date(),
+  });
 
   delete = (collection, id) => this.db
     .collection(collection)
     .doc(id)
     .delete();
 
-  update = (collection, id, data) => this.db
+  update = (collection, id, { user, ...data }) => this.db
     .collection(collection)
     .doc(id)
-    .update(data);
+    .update({
+      ...data,
+      updatedBy: user.email,
+      updatedAt: new Date(),
+    });
 }
 
 const rublevkaExportAppConfig = {
@@ -83,6 +77,6 @@ const rublevkaExportAppConfig = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 };
 
-const FirebaseDefaultInstance = new FirebaseClass(rublevkaExportAppConfig);
+const FBRublevka = new FirebaseClass(rublevkaExportAppConfig);
 
-export { FirebaseClass, FirebaseDefaultInstance };
+export { FirebaseClass, FBRublevka };

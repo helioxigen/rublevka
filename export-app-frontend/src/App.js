@@ -6,9 +6,12 @@ import ru from 'react-intl/locale-data/ru';
 import Search from './Search';
 import List from './List';
 import Login from './Login';
-import { FirebaseDefaultInstance } from './firebase';
+// import History from './History';
+
+import { FBRublevka } from './firebase';
 import getItems from './List/requests/getItems';
-import subscribeToItems from './List/requests/subscribeToItems';
+// import getHistory from './List/requests/getHistory';
+import { subscribe } from './List/requests';
 import rublevkaLogo from './rublevka.svg';
 
 addLocaleData(ru);
@@ -70,34 +73,42 @@ class App extends Component {
   componentDidMount() {
     this.setState({ itemsLoading: true, itemsError: false });
 
-    this.unsubscribe = FirebaseDefaultInstance.auth.onAuthStateChanged(
-      (userData) => {
-        if (userData) {
-          FirebaseDefaultInstance.get('users', userData.email).then((doc) => {
-            if (!doc.exists) {
-              FirebaseDefaultInstance.setWithKey('users', userData.email, {});
-            }
+    this.unsubscribeFromAuth = FBRublevka.auth.onAuthStateChanged((userData) => {
+      if (userData) {
+        const { email, displayName, photoURL } = userData;
+        const data = { displayName, photoURL };
 
-            if (doc.data().canView) {
-              this.unsubscribeFromProperties = subscribeToItems(this.getItems);
-            }
+        FBRublevka.get('users', email).then((doc) => {
+          FBRublevka.setWithKey('users', email, data);
 
-            this.updateUser(doc.data());
-          });
-        }
-      },
-    );
+          if (doc.data().canView) {
+            this.unsubscribeFromProperties = subscribe(this.getItems);
+            // this.unsubscribeFromHistory = subscribeToHistory(this.getHistory);
+          }
+
+          this.updateUser({ email, ...doc.data() });
+        });
+      }
+    });
   }
 
   componentWillUnmount() {
-    if (typeof this.unsubscribe === 'function') {
-      this.unsubscribe();
+    if (typeof this.unsubscribeFromAuth === 'function') {
+      this.unsubscribeFromAuth();
     }
 
     if (typeof this.unsubscribeFromProperties === 'function') {
-      this.unsubscribe();
+      this.unsubscribeFromProperties();
     }
+
+    // if (typeof this.unsubscribeFromHistory === 'function') {
+    //   this.unsubscribeFromHistory();
+    // }
   }
+
+  // getHistory = () => {
+  //   getHistory().then(history => this.setState({ history }));
+  // };
 
   getItems = () => {
     getItems()
@@ -124,7 +135,7 @@ class App extends Component {
 
   render() {
     const { user = {} } = this.state;
-    const { currentUser = {} } = FirebaseDefaultInstance.auth || {};
+    const { currentUser = {} } = FBRublevka.auth || {};
 
     return (
       <IntlProvider locale="ru">
@@ -134,12 +145,12 @@ class App extends Component {
           </Header>
 
           <div className="container">
-            {!user.isLoggedIn && (
-              <Login firebaseInstance={FirebaseDefaultInstance} />
-            )}
+            {/* <History history={history} /> */}
+
+            {!user.isLoggedIn && <Login firebaseInstance={FBRublevka} />}
             {user.admin && (
               <>
-                <Search />
+                <Search user={user} />
                 <List {...this.state} />
               </>
             )}

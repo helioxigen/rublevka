@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { FormattedNumber } from 'react-intl';
 
-import { CheckboxLabel } from '../UI';
+import { CheckboxLabel, CardLoading } from '../UI';
 import {
   CardSt,
   Image,
@@ -14,15 +14,14 @@ import {
   Options as OrigOptions,
   Actions,
   ActionButton,
-  Loading,
   Header as OrigHeader,
   ActionsAndOptions as OrigActionsAndOptions,
-} from '../List/Card';
+} from '../List/styled';
 
 import { kinds } from '../List/dictionaries';
 
 import iconAdd from './icon-add.svg';
-import placeholder from '../List/placeholder.jpg';
+import placeholder from '../List/img/placeholder.jpg';
 
 const Header = styled(OrigHeader)`
   flex-basis: 30%;
@@ -206,7 +205,7 @@ class Card extends Component {
           </Options>
 
           <Actions>
-            {loading && <Loading />}
+            {loading && <CardLoading />}
             {!loading && (
               <ActionButton onClick={this.handleAdd} disabled={!canAdd}>
                 <img src={iconAdd} alt="" />

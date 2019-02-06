@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Card from './Card';
-// import { Text } from '../UI/Typography';
-// import { Input } from '../UI';
+
+import { remove, update, addToHistory } from './requests';
 
 const Section = styled.section`
   background-color: #fff;
@@ -11,6 +11,7 @@ const Section = styled.section`
   box-shadow: 0px 0px 8px #eaeaea;
   border: 1px solid #eaeaea;
   border-radius: 4px;
+  min-height: 100px;
 `;
 
 const Heading = styled.h2`
@@ -21,38 +22,28 @@ const Heading = styled.h2`
   padding-bottom: 10px;
 `;
 
-const renderItem = item => (
-  <Card
-    data={item.data}
-    premium={item.premium}
-    docID={item.docID}
-    offerKind={item.offerKind}
-    top3={item.top3}
-    key={item.id}
-    id={item.id}
-  />
-);
-
 class List extends Component {
-  state = {
-    filterOnSale: '',
-    filterOnRent: '',
+  onSave = (docID, data) => {
+    const { user } = this.props;
+
+    return update(docID, { ...data, user }).then(() => addToHistory({ ...data, user }));
   };
 
-  handleChangeFilterOnSale = (e) => {
-    this.setState({ filterOnSale: e.target.value });
-  };
+  onDelete = (docID, { id, offerKind }) => {
+    const { user } = this.props;
 
-  handleChangeFilterOnRent = (e) => {
-    this.setState({ filterOnRent: e.target.value });
+    remove(docID).then(() => addToHistory({
+      id,
+      offerKind,
+      kind: 'remove',
+      user,
+    }));
   };
 
   render() {
     const {
       itemsOnRent, itemsOnSale, itemsError, itemsLoading,
     } = this.props;
-
-    const { filterOnRent, filterOnSale } = this.state;
 
     const loaded = !itemsLoading && !itemsError;
 
@@ -61,21 +52,37 @@ class List extends Component {
         <Section>
           <Heading>Продажа</Heading>
           {loaded
-            && itemsOnSale
-              .filter(
-                item => !filterOnSale || `${item.id}`.startsWith(filterOnSale),
-              )
-              .map(renderItem)}
+            && itemsOnSale.map(item => (
+              <Card
+                key={item.id}
+                data={item.data}
+                premium={item.premium}
+                docID={item.docID}
+                offerKind={item.offerKind}
+                top3={item.top3}
+                id={item.id}
+                onSave={this.onSave}
+                onDelete={this.onDelete}
+              />
+            ))}
         </Section>
 
         <Section>
           <Heading>Аренда</Heading>
           {loaded
-            && itemsOnRent
-              .filter(
-                item => !filterOnRent || `${item.id}`.startsWith(filterOnRent),
-              )
-              .map(renderItem)}
+            && itemsOnRent.map(item => (
+              <Card
+                key={item.id}
+                data={item.data}
+                premium={item.premium}
+                docID={item.docID}
+                offerKind={item.offerKind}
+                top3={item.top3}
+                id={item.id}
+                onSave={this.onSave}
+                onDelete={this.onDelete}
+              />
+            ))}
         </Section>
       </section>
     );

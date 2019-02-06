@@ -1,12 +1,12 @@
 import { splitEvery, flatten } from 'ramda';
-import { FirebaseDefaultInstance } from '../../firebase';
+import { FBRublevka } from '../../firebase';
 import { mapDocs, reduceDocs } from './helpers';
 import getItemsFromAPI from '../../requests/getItemsFromAPI';
 
 const API_PAGE_SIZE = 256;
 
 export default function getItems() {
-  return FirebaseDefaultInstance.getCollection('properties')
+  return FBRublevka.getCollection('properties')
     .get()
     .then(snapshot => snapshot.docs.map(mapDocs))
     .then((docs) => {

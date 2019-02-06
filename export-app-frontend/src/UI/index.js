@@ -1,4 +1,6 @@
+import React from 'react';
 import styled, { css } from 'styled-components';
+import Loader from 'react-loader-spinner';
 
 export { media } from './scUtils';
 
@@ -33,3 +35,7 @@ export const CheckboxLabel = styled.label`
       color: #fff;
     `}
 `;
+
+export function CardLoading() {
+  return <Loader type="Puff" color="#33b373" height={28} width={28} />;
+}

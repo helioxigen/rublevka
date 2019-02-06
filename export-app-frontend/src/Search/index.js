@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Form from './Form';
 import Card from './Card';
-import sendItemToDB from './requests/sendItemToDB';
+import { addOrUpdate, addToHistory } from '../List/requests';
 import getItemsFromAPI from '../requests/getItemsFromAPI';
 
 const Search = styled.section`
@@ -54,11 +54,23 @@ export default class extends Component {
       });
   };
 
-  handleSaveToDB = ({ top3 = null, premium = null, ...data }) => sendItemToDB({ ...data, top3, premium }).then(() => {
-    this.setState(state => ({
-      items: state.items.filter(i => i.id !== data.id),
-    }));
-  });
+  onSave = ({ top3 = null, premium = null, ...data }) => {
+    const { user } = this.props;
+    const item = {
+      ...data,
+      top3,
+      premium,
+      user,
+    };
+
+    return addOrUpdate(item)
+      .then(() => addToHistory(item))
+      .then(() => {
+        this.setState(state => ({
+          items: state.items.filter(i => i.id !== data.id),
+        }));
+      });
+  };
 
   render() {
     const {
@@ -81,7 +93,7 @@ export default class extends Component {
             {items.map(item => (
               <Card
                 item={item}
-                onSave={this.handleSaveToDB}
+                onSave={this.onSave}
                 id={item.id}
                 key={item.id}
               />

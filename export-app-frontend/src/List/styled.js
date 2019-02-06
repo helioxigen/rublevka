@@ -47,12 +47,19 @@ export const ID = styled.div`
 
 export const Price = styled.div`
   flex-basis: 45%;
+  text-align: right;
+  font-size: 24px;
+
+  ${media.greaterThan('sm')`
+    font-size: 14px;
+    text-align: left;
+  `}
 `;
 
 export const Title = styled.div`
   flex-basis: 45%;
   font-weight: bolder;
-  margin: 16px 0;
+  margin: 12px 0 16px 0;
 
   ${media.greaterThan('sm')`
     margin: 0;

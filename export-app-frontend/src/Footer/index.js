@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { media } from '../UI';
 import iconCopy from './icon-copy.png';
 
 const Footer = styled.footer`
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+
+  ${media.greaterThan('sm')`
+    flex-direction: row;
+  `}
 `;
 
 const UserInfo = styled.div`
@@ -41,7 +47,7 @@ const CopyUrlInput = styled.input`
 const CopyUrlButton = styled.button`
   background: #fff;
   border: 1px solid #edeff5;
-  margin-left: -1px;
+  margin-right: -1px;
   padding: 6px 10px;
   cursor: pointer;
 
@@ -50,9 +56,26 @@ const CopyUrlButton = styled.button`
   }
 `;
 
-const urlToFeed = 'https://storage.cloud.google.com/rublevka-export-384da.appspot.com/cian-feed.xml';
+const CopiedText = styled.p`
+  font-size: 14px;
+  color: #23cc79;
+  margin-right: 6px;
+`;
+
+const urlToFeed = 'https://firebasestorage.googleapis.com/v0/b/rublevka-export-384da.appspot.com/o/cian-feed.xml?alt=media';
 
 export default function ({ currentUser }) {
+  const [copied, toggleCopy] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      toggleCopy(false);
+      clearTimeout(timer);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [copied]);
+
   return (
     <Footer>
       <UserInfo>
@@ -66,13 +89,13 @@ export default function ({ currentUser }) {
       </UserInfo>
 
       <CopyUrlToFeed>
-        <CopyUrlInput type="text" defaultValue={urlToFeed} disabled />
-
-        <CopyToClipboard text={urlToFeed}>
+        {copied && <CopiedText>Скопировано</CopiedText>}
+        <CopyToClipboard text={urlToFeed} onCopy={() => toggleCopy(true)}>
           <CopyUrlButton>
             <img src={iconCopy} alt="" />
           </CopyUrlButton>
         </CopyToClipboard>
+        <CopyUrlInput type="text" defaultValue={urlToFeed} disabled />
       </CopyUrlToFeed>
     </Footer>
   );

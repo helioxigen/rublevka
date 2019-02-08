@@ -761,12 +761,15 @@ components:
     MultiCurrencyPrice:
       type: object
       properties:
-        eur:
-          type: number
         usd:
           type: number
+          nullable: true
+        eur:
+          type: number
+          nullable: true
         rub:
           type: number
+          nullable: true
     Image:
       type: object
       properties:

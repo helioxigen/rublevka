@@ -2,7 +2,7 @@
 
 from datetime import date, datetime  # noqa: F401
 
-from typing import List, Dict  # noqa: F401
+from typing import Optional, List, Dict  # noqa: F401
 
 from ..models.base_model_ import Model
 from .. import util
@@ -18,11 +18,11 @@ class MultiCurrencyPrice(Model):
         """MultiCurrencyPrice - a model defined in OpenAPI
 
         :param eur: The eur of this MultiCurrencyPrice.  # noqa: E501
-        :type eur: float
+        :type eur: Optional[float]
         :param usd: The usd of this MultiCurrencyPrice.  # noqa: E501
-        :type usd: float
+        :type usd: Optional[float]
         :param rub: The rub of this MultiCurrencyPrice.  # noqa: E501
-        :type rub: float
+        :type rub: Optional[float]
         """
         self.openapi_types = {
             'eur': float,

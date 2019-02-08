@@ -1,7 +1,55 @@
-import datetime
-
 import six
 import typing
+import datetime
+import requests
+
+from xml.etree import ElementTree as etree
+
+
+def is_it_necessary_to_update_exchange_rates():
+    storage = is_it_necessary_to_update_exchange_rates
+    now = datetime.datetime.now()
+
+    if not hasattr(storage, 'last_date_measurement'):
+        storage.last_date_measurement = now
+        return True
+
+    is_spend_time_more_than_a_day = (now - storage.last_date_measurement).days > 0
+    if is_spend_time_more_than_a_day:
+        storage.last_date_measurement = now
+    return is_spend_time_more_than_a_day
+
+
+def feel_MultiCurrencyPrice(currency, price):
+    from .models.multi_currency_price import MultiCurrencyPrice
+    if currency is None or price is None:
+        return MultiCurrencyPrice(usd=None, eur=None, rub=None)
+    storage = feel_MultiCurrencyPrice
+
+    if is_it_necessary_to_update_exchange_rates():
+        response = requests.get('http://www.cbr.ru/scripts/XML_daily.asp')
+        root = etree.fromstring(response.text)
+        storage.usd = float(root.find(".//Valute[@ID='R01235']/Value").text.replace(',', '.'))
+        storage.eur = float(root.find(".//Valute[@ID='R01239']/Value").text.replace(',', '.'))
+
+    if currency == 'RUB':
+        return MultiCurrencyPrice(
+            rub=price,
+            usd=price / storage.usd,
+            eur=price / storage.eur,
+        )
+    elif currency == 'USD':
+        return MultiCurrencyPrice(
+            rub=price * storage.usd,
+            usd=price,
+            eur=price * storage.usd / storage.eur,
+        )
+    elif currency == 'EUR':
+        return MultiCurrencyPrice(
+            rub=price * storage.eur,
+            usd=price * storage.eur / storage.usd,
+            eur=price,
+        )
 
 
 def _deserialize(data, klass):

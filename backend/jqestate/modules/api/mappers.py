@@ -8,6 +8,7 @@ def DbCountryProperty_to_ResCountryProperty(item):
     from .models import GetCountryProperty as ResCountryProperty, Communication, Location, Specification, RentOffer, \
         SaleOffer, GetCountryPropertyAdditionalDetails, GetCountryPropertyStateDetails, StaffUser, \
         GetCountryPropertyLandDetails
+    from .util import feel_MultiCurrencyPrice
     return ResCountryProperty(
         id=item.id,
         created_by_user_id=item.created_by_user_id,
@@ -73,7 +74,7 @@ def DbCountryProperty_to_ResCountryProperty(item):
             price_delta=item.ro_price_delta,
             agent_fee=item.ro_agent_fee,
             agent_fixed_price=item.ro_agent_fixed_price,
-            # multi_currency_price=,
+            multi_currency_price=feel_MultiCurrencyPrice(item.ro_currency, item.ro_price),
             currency=item.ro_currency,
             is_allowed_children=item.ro_is_allowed_children,
             is_allowed_pets=item.ro_is_allowed_pets,
@@ -87,7 +88,7 @@ def DbCountryProperty_to_ResCountryProperty(item):
             agent_fixed_price=item.so_agent_fixed_price,
             agent_fee=item.so_agent_fee,
             kind=item.so_kind,
-            # multi_currency_price=,
+            multi_currency_price=feel_MultiCurrencyPrice(item.so_currency, item.so_price),
             is_bargain=item.so_is_bargain,
             is_resale=item.so_is_resale,
             is_disabled=item.so_is_disabled,

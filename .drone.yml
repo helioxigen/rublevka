@@ -15,7 +15,7 @@ pipeline:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     when:
-      branch: [develop, feat/style_refactor]
+      branch: [develop, feat/section-into-segment]
       event: [push]
   deploy_export_app:
     image: node
@@ -36,4 +36,4 @@ pipeline:
       branch: [develop]
       event: [push]
 
-branches: [master, develop, feat/style_refactor]
+branches: [master, develop, feat/section-into-segment]

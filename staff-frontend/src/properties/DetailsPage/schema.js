@@ -92,7 +92,7 @@ export const selectBinaryExistData = [
   },
 ];
 
-export const selectСommissionData = [
+export const selectCommissionData = [
   {
     name: 'Фиксированная',
     value: '1',

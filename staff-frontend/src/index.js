@@ -6,7 +6,10 @@ import 'normalize.css';
 import './index.css';
 // import * as serviceWorker from './serviceWorker';
 
-if (process.env.NODE_ENV === 'production' && process.env.DRONE_COMMIT) {
+if (
+  process.env.NODE_ENV === 'production' &&
+  process.env.REACT_APP_DRONE_COMMIT
+) {
   Sentry.init({
     dsn: process.env.REACT_APP_STAFF_SENTRY_DSN,
     environment: process.env.REACT_APP_ENV,

@@ -3,6 +3,14 @@ clone:
     image: plugins/git
 
 pipeline:
+  restore-cache:
+    image: drillster/drone-volume-cache
+    restore: true
+    mount:
+      - ./node_modules
+    volumes:
+      - /tmp/cache:/cache
+
   deploy_staff_dev:
     image: docker/compose:1.22.0
     secrets: [react_app_env, react_app_staff_sentry_dsn]
@@ -11,6 +19,7 @@ pipeline:
       - docker-compose -f docker-compose-dev.yml build
       - docker-compose -f docker-compose-dev.yml up -d
       - cd ../backend/
+      - echo $DRONE_SECRETS
       - docker-compose -f devops/docker-compose-dev.yml build
       - docker-compose -f devops/docker-compose-dev.yml up -d
     volumes:
@@ -38,5 +47,13 @@ pipeline:
     when:
       branch: [develop]
       event: [push]
+
+  rebuild-cache:
+    image: drillster/drone-volume-cache
+    rebuild: true
+    mount:
+      - ./node_modules
+    volumes:
+      - /tmp/cache:/cache
 
 branches: [master, develop]

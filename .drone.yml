@@ -15,11 +15,11 @@ pipeline:
     image: docker/compose:1.22.0
     secrets: [react_app_env, react_app_staff_sentry_dsn]
     commands:
+      - echo $DRONE_SECRETS
       - cd staff-frontend/
       - docker-compose -f docker-compose-dev.yml build
       - docker-compose -f docker-compose-dev.yml up -d
       - cd ../backend/
-      - echo $DRONE_SECRETS
       - docker-compose -f devops/docker-compose-dev.yml build
       - docker-compose -f devops/docker-compose-dev.yml up -d
     volumes:
@@ -27,26 +27,26 @@ pipeline:
     when:
       branch: [develop]
       event: [push]
-  deploy_export_app:
-    image: node
-    commands:
-      - npm install -g firebase-tools
-      - cd export-app-firebase
-      - npm install
-      - cd ../export-app-frontend
-      - npm install
-      - npm run build
-      - firebase deploy --token "$FIREBASE_TOKEN"
-    secrets:
-      [
-        react_app_firebase_api_key,
-        react_app_firebase_auth_domain,
-        react_app_firebase_project_id,
-        firebase_token,
-      ]
-    when:
-      branch: [develop]
-      event: [push]
+  # deploy_export_app:
+  #   image: node
+  #   commands:
+  #     - npm install -g firebase-tools
+  #     - cd export-app-firebase
+  #     - npm install
+  #     - cd ../export-app-frontend
+  #     - npm install
+  #     - npm run build
+  #     - firebase deploy --token "$FIREBASE_TOKEN"
+  #   secrets:
+  #     [
+  #       react_app_firebase_api_key,
+  #       react_app_firebase_auth_domain,
+  #       react_app_firebase_project_id,
+  #       firebase_token,
+  #     ]
+  #   when:
+  #     branch: [develop]
+  #     event: [push]
 
   rebuild-cache:
     image: drillster/drone-volume-cache

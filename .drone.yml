@@ -5,6 +5,7 @@ clone:
 pipeline:
   deploy_staff_dev:
     image: docker/compose:1.22.0
+    secrets: [react_app_env]
     commands:
       - cd staff-frontend/
       - docker-compose -f docker-compose-dev.yml build
@@ -32,7 +33,6 @@ pipeline:
         react_app_firebase_api_key,
         react_app_firebase_auth_domain,
         react_app_firebase_project_id,
-        react_app_env,
         firebase_token,
       ]
     when:

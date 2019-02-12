@@ -33,7 +33,7 @@ pipeline:
       - yarn config set cache-folder .yarn-cache
       - yarn add firebase-tools
       - cd export-app-firebase
-      - yarn
+      - yarn --ignore-engines
     when:
       branch: [develop]
       event: [push]
@@ -42,7 +42,7 @@ pipeline:
     image: node:8.15.0
     commands:
       - cd staff-frontend
-      - yarn
+      - yarn --ignore-engines
       - yarn build
     secrets: [react_app_env, react_app_staff_sentry_dsn]
     when:
@@ -53,7 +53,7 @@ pipeline:
     image: node:8.15.0
     commands:
       - cd ../export-app-frontend
-      - yarn
+      - yarn --ignore-engines
       - yarn build
     secrets:
       [

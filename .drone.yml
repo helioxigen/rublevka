@@ -15,7 +15,7 @@ pipeline:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     when:
-      branch: [develop, feat/section-into-segment]
+      branch: [develop]
       event: [push]
   deploy_export_app:
     image: node
@@ -24,6 +24,7 @@ pipeline:
       - cd export-app-firebase
       - npm install
       - cd ../export-app-frontend
+      - npm install
       - npm run build
       - firebase deploy --token "$FIREBASE_TOKEN"
     secrets:

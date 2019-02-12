@@ -11,7 +11,7 @@ const envs = {
   },
 };
 
-const { apiPath } = envs[process.env.REACT_APP_ENV || 'local'];
+const { apiPath } = envs[process.env.REACT_APP_ENV || 'development'];
 
 // TODO FIXME use queryparams
 export const get = (resource, qp) =>

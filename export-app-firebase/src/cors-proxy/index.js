@@ -25,6 +25,16 @@ function transformRes(r) {
     : r.text();
 }
 
+function getBody(method, ctype, body) {
+  if (method !== 'get') {
+    if (ctype === 'application/json') return JSON.stringify(body);
+
+    return body;
+  }
+
+  return null;
+}
+
 exports.cors = functions.https.onRequest((req, res) => {
   cors(req, res, () => {
     const url = req.query.url ? req.query.url : req.body.url;
@@ -33,16 +43,11 @@ exports.cors = functions.https.onRequest((req, res) => {
       res.status(403).send('URL is empty.');
     }
 
-    const body =
-      req.get('content-type') === 'application/json'
-        ? JSON.stringify(req.body)
-        : req.body;
-
     fetch(url, {
       method: req.method,
-      body,
+      body: getBody(req.method, req.get('content-type'), req.body),
       headers: {
-        'Content-Type': req.get('Content-Type'),
+        'Content-Type': req.get('content-type'),
       },
     })
       .then(transformRes)

@@ -13,9 +13,8 @@ pipeline:
 
   deploy_staff_dev:
     image: docker/compose:1.22.0
-    secrets: [react_app_env, react_app_staff_sentry_dsn]
     commands:
-      - echo $DRONE_SECRETS
+      - echo $REACT_APP_ENV && echo $REACT_APP_STAFF_SENTRY_DSN
       - cd staff-frontend/
       - docker-compose -f docker-compose-dev.yml build
       - docker-compose -f docker-compose-dev.yml up -d
@@ -24,6 +23,7 @@ pipeline:
       - docker-compose -f devops/docker-compose-dev.yml up -d
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    secrets: [react_app_env, react_app_staff_sentry_dsn]
     when:
       branch: [develop]
       event: [push]

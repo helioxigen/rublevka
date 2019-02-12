@@ -38,6 +38,12 @@ pipeline:
       branch: [develop]
       event: [push]
 
+  rebuild-cache-1:
+    image: drillster/drone-volume-cache
+    rebuild: true
+    mount:
+      - ./.yarn-cache
+
   install_staff_frontend:
     image: node:8.15.0
     commands:
@@ -49,10 +55,16 @@ pipeline:
       branch: [develop]
       event: [push]
 
+  rebuild-cache-2:
+    image: drillster/drone-volume-cache
+    rebuild: true
+    mount:
+      - ./.yarn-cache
+
   install_export_app_frontend:
     image: node:8.15.0
     commands:
-      - cd ../export-app-frontend
+      - cd export-app-frontend
       - yarn --ignore-engines
       - yarn build
     secrets:
@@ -74,7 +86,7 @@ pipeline:
       branch: [develop]
       event: [push]
 
-  rebuild-cache:
+  rebuild-cache-3:
     image: drillster/drone-volume-cache
     rebuild: true
     mount:

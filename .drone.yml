@@ -32,11 +32,11 @@ pipeline:
       - cd export-app-firebase
       - npm install
 
-      - cd ../export-app-frontend
+      - cd ../staff-frontend
       - npm install
       - npm run build
 
-      - cd ../staff-frontend
+      - cd ../export-app-frontend
       - npm install
       - npm run build
 

@@ -5,7 +5,7 @@ clone:
 pipeline:
   deploy_staff_dev:
     image: docker/compose:1.22.0
-    secrets: [react_app_env]
+    secrets: [react_app_env, react_app_staff_sentry_dsn]
     commands:
       - cd staff-frontend/
       - docker-compose -f docker-compose-dev.yml build

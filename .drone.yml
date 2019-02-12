@@ -27,7 +27,7 @@ pipeline:
       event: [push]
 
   install_firebase:
-    image: node
+    image: node:8.9.0
     commands:
       - yarn --version
       - yarn config set cache-folder .yarn-cache
@@ -39,7 +39,7 @@ pipeline:
       event: [push]
 
   install_staff_frontend:
-    image: node
+    image: node:8.9.0
     commands:
       - cd staff-frontend
       - yarn
@@ -50,7 +50,7 @@ pipeline:
       event: [push]
 
   install_export_app_frontend:
-    image: node
+    image: node:8.9.0
     commands:
       - cd ../export-app-frontend
       - yarn
@@ -66,7 +66,7 @@ pipeline:
       event: [push]
 
   deploy_to_firebase:
-    image: node
+    image: node:8.9.0
     commands:
       - yarn firebase deploy --token "$FIREBASE_TOKEN"
     secrets: [firebase_token]

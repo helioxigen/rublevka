@@ -1,3 +1,4 @@
+/* eslint-disable */
 export const mergeParams = (
   defaults = {},
   { filter, filterNot, pagination, orderBy, ...restParams } = {},

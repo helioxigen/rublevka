@@ -1,3 +1,4 @@
+/* eslint-disable react/style-prop-object */
 import React from 'react';
 import { Col, Row } from 'react-flexbox-grid';
 import { FormattedNumber } from 'react-intl';

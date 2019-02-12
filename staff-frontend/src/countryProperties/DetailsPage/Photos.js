@@ -12,7 +12,7 @@ import {
   DropdownContainer,
   DropdownIcon,
   DropdownTitle,
-  PhotoCloseButton,
+  // PhotoCloseButton,
   PhotoEditTool,
   PhotoEditTools,
   Photo,

@@ -3,7 +3,7 @@ clone:
     image: plugins/git
 
 pipeline:
-  deploy_dev:
+  deploy_staff_dev:
     image: docker/compose:1.22.0
     commands:
       - cd staff-frontend/
@@ -20,9 +20,10 @@ pipeline:
   deploy_export_app:
     image: node
     commands:
-      - cd export-app-frontend
-      - npm install
       - npm install -g firebase-tools
+      - cd export-app-firebase
+      - npm install
+      - cd ../export-app-frontend
       - npm run build
       - firebase deploy --token "$FIREBASE_TOKEN"
     secrets:
@@ -36,4 +37,4 @@ pipeline:
       branch: [develop]
       event: [push]
 
-branches: [master, develop, feat/section-into-segment]
+branches: [master, develop]

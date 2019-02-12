@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "https://dev.rublevka.ru/api",
   "dependencies": {
+    "@sentry/browser": "^4.5.4",
     "axios": "^0.18.0",
     "formik": "^1.4.2",
     "ky": "^0.6.0",

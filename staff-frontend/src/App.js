@@ -1,4 +1,6 @@
 import React from 'react';
+import * as Sentry from '@sentry/browser';
+
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { IntlProvider, addLocaleData } from 'react-intl';
@@ -47,7 +49,21 @@ const MainContainer = styled(Main)`
 class App extends React.PureComponent {
   state = {
     isAuthorized: true, // FIXME
+    error: null,
   };
+
+  componentDidCatch(error, errorInfo) {
+    this.setState({ error }, () => {
+      Sentry.withScope(scope => {
+        Object.keys(errorInfo).forEach(key => {
+          scope.setExtra(key, errorInfo[key]);
+        });
+
+        // eslint-disable-next-line react/destructuring-assignment
+        Sentry.captureException(this.state.error);
+      });
+    });
+  }
 
   render() {
     const { isAuthorized } = this.state;

@@ -4,7 +4,7 @@ const envs = {
   },
   development: {
     apiPath:
-      process.env.REACT_APP_API_ENDPOINT || 'https://api-dev.rublevka.ru',
+      process.env.REACT_APP_API_ENDPOINT || 'https://dev.rublevka.ru/api',
   },
   local: {
     apiPath: process.env.REACT_APP_API_ENDPOINT || '',

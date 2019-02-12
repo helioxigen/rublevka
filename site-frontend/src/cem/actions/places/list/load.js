@@ -13,7 +13,7 @@ const loadPlacesFailed = ({ errors }) => ({
   errors,
 });
 
-const loadPlacesSucceeded = ({ items, pagination }) => (dispatch) => {
+const loadPlacesSucceeded = ({ items, pagination }) => dispatch => {
   dispatch(updatePagination('places', pagination));
 
   return dispatch({
@@ -23,7 +23,7 @@ const loadPlacesSucceeded = ({ items, pagination }) => (dispatch) => {
 };
 
 export default function loadPlaces(kind, pagination = {}) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadPlacesStarted(kind));
 
     return API.get(`/v1/places/${kind}`, { pagination })

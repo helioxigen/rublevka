@@ -6,7 +6,11 @@ import {
 } from 'core/fetcher2/actions';
 
 import * as types from 'cem/_deals/constants/actions';
-import { getDefaultsByGroup, resourceName, apiPath } from 'cem/_deals/constants/defaults';
+import {
+  getDefaultsByGroup,
+  resourceName,
+  apiPath,
+} from 'cem/_deals/constants/defaults';
 import { updatePagination } from 'core/actions/pagination';
 import loadContacts from 'cem/_contacts/actions/loadList';
 
@@ -19,9 +23,14 @@ import uniq from 'lodash/uniq';
 
 const groupForLinkedResources = 'forDeals';
 
-const loadDeals = (queryParams, group, options = {}) => (dispatch, getState) => {
+const loadDeals = (queryParams, group, options = {}) => (
+  dispatch,
+  getState,
+) => {
   const defaultQueryParams = getDefaultsByGroup(group, options);
-  const params = mapParams(recursiveCleanUp(mergeParams(defaultQueryParams, queryParams)));
+  const params = mapParams(
+    recursiveCleanUp(mergeParams(defaultQueryParams, queryParams)),
+  );
 
   dispatch(loadListStarted(types.LOAD_LIST, group, options.append, params));
 
@@ -32,7 +41,12 @@ const loadDeals = (queryParams, group, options = {}) => (dispatch, getState) => 
 
       dispatch(updatePagination(`${resourceName}.${group}`, pagination));
       dispatch(
-        loadListSucceeded(types.LOAD_LIST_SUCCEEDED, group, transformedItems, options.append),
+        loadListSucceeded(
+          types.LOAD_LIST_SUCCEEDED,
+          group,
+          transformedItems,
+          options.append,
+        ),
       );
 
       const linkedContactsIds = uniq(
@@ -40,12 +54,17 @@ const loadDeals = (queryParams, group, options = {}) => (dispatch, getState) => 
       ).filter(id => isInState(getState(), '_contacts', id));
 
       if (linkedContactsIds.length) {
-        dispatch(loadContacts({ filter: { id: linkedContactsIds } }, groupForLinkedResources));
+        dispatch(
+          loadContacts(
+            { filter: { id: linkedContactsIds } },
+            groupForLinkedResources,
+          ),
+        );
       }
 
       return Promise.resolve(transformedItems);
     },
-    (errors) => {
+    errors => {
       dispatch(loadListFailed(types.LOAD_LIST_FAILED, group, errors));
 
       return Promise.reject(errors);

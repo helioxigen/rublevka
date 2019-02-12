@@ -21,7 +21,7 @@ const animate = (duration, easing, onUpdate, onStart, onEnd) => {
 
       onUpdate(easing(pos));
     }
-  }());
+  })();
 };
 
 export default animate;

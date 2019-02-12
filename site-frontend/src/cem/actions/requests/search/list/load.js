@@ -14,18 +14,28 @@ const loadSearchRequestsStarted = key => ({
   key,
 });
 
-const loadSearchRequestsSucceeded = (key, { items, pagination }) => (dispatch, getState) => {
+const loadSearchRequestsSucceeded = (key, { items, pagination }) => (
+  dispatch,
+  getState,
+) => {
   const creatorUserIds = items
     .filter(item => !getState().users[item.createdByUser.id])
     .map(item => item.createdByUser.id);
   const responsibleUserIds = items
-    .filter(item => item.responsibleUser && !getState().users[item.responsibleUser.id])
+    .filter(
+      item =>
+        item.responsibleUser && !getState().users[item.responsibleUser.id],
+    )
     .map(item => item.responsibleUser.id);
 
   if (creatorUserIds.length || responsibleUserIds.length) {
     dispatch(
       UsersActions.loadList({
-        filter: { id: uniq([...creatorUserIds, ...responsibleUserIds]).filter(item => item) },
+        filter: {
+          id: uniq([...creatorUserIds, ...responsibleUserIds]).filter(
+            item => item,
+          ),
+        },
       }),
     );
   }
@@ -45,7 +55,7 @@ const loadSearchRequestsFailed = (key, { errors }) => ({
   errors,
 });
 
-export default (key, queryParams = { filter: {} }) => (dispatch) => {
+export default (key, queryParams = { filter: {} }) => dispatch => {
   dispatch(loadSearchRequestsStarted(key));
 
   return API.get('/v1/properties/orders/search', {

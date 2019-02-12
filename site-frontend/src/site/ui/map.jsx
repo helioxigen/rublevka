@@ -42,7 +42,11 @@ export default class extends Component {
       this.refs.mapgl.getMap().scrollZoom.enable();
       this.refs.mapgl.getMap().dragPan.enable();
     } else {
-      this.refs.container.removeEventListener(`wheel`, cancelScrollEvent, false);
+      this.refs.container.removeEventListener(
+        `wheel`,
+        cancelScrollEvent,
+        false,
+      );
       this.refs.mapgl.getMap().scrollZoom.disable();
       this.refs.mapgl.getMap().dragPan.disable();
     }
@@ -70,24 +74,54 @@ export default class extends Component {
 
     return (
       <container ref="container" className={className}>
-        <MapGL center={center} features={generatedMarkers} zoom={this.state.zoom} ref="mapgl" controls={false} />
+        <MapGL
+          center={center}
+          features={generatedMarkers}
+          zoom={this.state.zoom}
+          ref="mapgl"
+          controls={false}
+        />
 
-        {!this.state.fullscreen && !this.props.noFullScreen && !this.props.isFullScreenDisabled &&
-          <UI.Button className={s.btnFullScreen} type="button" onClick={() => ::this.toggleFullscreen(!this.state.fullscreen)}>
-            <UI.Icon className={s.iconFrame} icon="frame" />
-            На весь экран
-          </UI.Button>
-        }
+        {!this.state.fullscreen &&
+          !this.props.noFullScreen &&
+          !this.props.isFullScreenDisabled && (
+            <UI.Button
+              className={s.btnFullScreen}
+              type="button"
+              onClick={() => ::this.toggleFullscreen(!this.state.fullscreen)}
+            >
+              <UI.Icon className={s.iconFrame} icon="frame" />
+              На весь экран
+            </UI.Button>
+          )}
 
-        {this.state.fullscreen &&
-          <UI.Button className={cn(s.btnFullScreenClose)} type="button" onClick={() => ::this.toggleFullscreen(!this.state.fullscreen)}>
+        {this.state.fullscreen && (
+          <UI.Button
+            className={cn(s.btnFullScreenClose)}
+            type="button"
+            onClick={() => ::this.toggleFullscreen(!this.state.fullscreen)}
+          >
             <UI.Icon className={s.iconTimes} icon="times" />
           </UI.Button>
-        }
+        )}
 
         <div className={s.btnControlContainer}>
-          <UI.Button className={cn(s.btnControl, s.hideXs)} type="button" onClick={::this.zoomIn} disabled={zoomLevel >= 16}>+</UI.Button>
-          <UI.Button className={cn(s.btnControl, s.hideXs)} type="button" onClick={::this.zoomOut} disabled={zoomLevel <= 0}>–</UI.Button>
+          <UI.Button
+            className={cn(s.btnControl, s.hideXs)}
+            type="button"
+            onClick={::this.zoomIn}
+            disabled={zoomLevel >= 16}
+          >
+            +
+          </UI.Button>
+          <UI.Button
+            className={cn(s.btnControl, s.hideXs)}
+            type="button"
+            onClick={::this.zoomOut}
+            disabled={zoomLevel <= 0}
+          >
+            –
+          </UI.Button>
         </div>
       </container>
     );

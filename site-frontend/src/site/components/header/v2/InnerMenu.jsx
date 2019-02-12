@@ -7,7 +7,10 @@ import UI from 'site/ui';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const { Grid, Grid: { Row, Col } } = UI;
+const {
+  Grid,
+  Grid: { Row, Col },
+} = UI;
 
 export const Nav = styled.nav`
   position: static;
@@ -125,7 +128,10 @@ export default props => (
       <Row>
         <Col xs="12">
           <Wrapper>
-            <StLink activeClassName="active" to={`/zagorodnaya/${props.dealType}/dom`}>
+            <StLink
+              activeClassName="active"
+              to={`/zagorodnaya/${props.dealType}/dom`}
+            >
               <Img
                 src="https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/jqestate.ru/menu-houses.jpg"
                 srcSet="https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/jqestate.ru/menu-houses@2x.jpg 2x"

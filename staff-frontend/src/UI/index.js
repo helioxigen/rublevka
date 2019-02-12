@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styled, { createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
+import styled from 'styled-components';
 import logo from './images/logo.svg';
 import theme from './theme';
 
@@ -19,30 +18,13 @@ export {
 } from './Typography';
 export { default as theme } from './theme';
 
-export const GlobalStyle = createGlobalStyle`
-  a {
-  color: inherit; 
-  text-decoration: inherit; 
-  },
-  
-  @import url('fonts/FSElliotPro.otf');
-  @import url('fonts/FSElliotProBold.otf');
-  
-  //TODO GLOBAL CLASS REDEFINITION
-  .container {
-    padding: 0 ;
-  },
-  
-  ${reset}
-`;
-
 export const Main = styled.main`
   font-family: 'FSElliotPro', sans-serif;
   height: 100%;
 `;
 
 export const Layout = styled.div`
-  padding: 54px;
+  padding: 54px 24px;
 `;
 
 const LogoContainer = styled(Link)`

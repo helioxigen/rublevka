@@ -22,7 +22,13 @@ import UI from 'site/ui';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const { Button, Icon, Form, Grid: { Row, Col }, Form: { Group, Input } } = UI;
+const {
+  Button,
+  Icon,
+  Form,
+  Grid: { Row, Col },
+  Form: { Group, Input },
+} = UI;
 
 const Wrapper = styled.div`
   position: relative;
@@ -173,7 +179,10 @@ class ReserveForm extends Component {
 
     await this.handleValidation();
 
-    if (this.state.phoneErrors.length === 0 && this.state.emailErrors.length === 0) {
+    if (
+      this.state.phoneErrors.length === 0 &&
+      this.state.emailErrors.length === 0
+    ) {
       this.setState({
         requestSending: true,
       });
@@ -228,7 +237,8 @@ class ReserveForm extends Component {
                     onChange={e => this.onChange('email', e.target.value)}
                     required
                   />
-                  {emailErrors !== 0 && emailErrors.map(error => <Error>{error}</Error>)}
+                  {emailErrors !== 0 &&
+                    emailErrors.map(error => <Error>{error}</Error>)}
                 </StGroup>
                 <StGroup>
                   <StInput
@@ -240,7 +250,8 @@ class ReserveForm extends Component {
                     required
                     onChange={e => this.onChange('phoneNumber', e.target.value)}
                   />
-                  {phoneErrors !== 0 && phoneErrors.map(error => <Error>{error}</Error>)}
+                  {phoneErrors !== 0 &&
+                    phoneErrors.map(error => <Error>{error}</Error>)}
                 </StGroup>
                 <StButton disabled={!!this.state.requestSending} kind="success">
                   Забронировать просмотр
@@ -249,18 +260,19 @@ class ReserveForm extends Component {
             </Row>
           )}
 
-          {!!this.state.requestSending &&
-            !this.state.requestSent && (
-              <LoaderWrapper>
-                <Loader />
-              </LoaderWrapper>
-            )}
+          {!!this.state.requestSending && !this.state.requestSent && (
+            <LoaderWrapper>
+              <Loader />
+            </LoaderWrapper>
+          )}
 
           {!!this.state.requestSent && (
             <SuccessWrapper>
               <Logo icon="jqestate-logo" />
               <SuccessTitle>Заявка отправлена!</SuccessTitle>
-              <Message>Через 10 минут наш брокер обязательно свяжется с вами.</Message>
+              <Message>
+                Через 10 минут наш брокер обязательно свяжется с вами.
+              </Message>
             </SuccessWrapper>
           )}
         </Form.Container>
@@ -276,7 +288,7 @@ const pickState = ({ currentDuty }) => ({
   },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadDuties,
     createClientLead,
@@ -289,4 +301,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(ReserveForm);
+export default connect(
+  pickState,
+  pickActions,
+)(ReserveForm);

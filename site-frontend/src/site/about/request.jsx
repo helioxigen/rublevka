@@ -32,4 +32,7 @@ const pickActions = dispatch => ({
   ),
 });
 
-export default connect(pickState, pickActions)(RequestFormContainer);
+export default connect(
+  pickState,
+  pickActions,
+)(RequestFormContainer);

@@ -45,13 +45,31 @@ class Kind extends Component {
       <Container fluid styleName="contentContainer">
         <Row md="middle">
           <Col styleName="kindContainer">
-            <Button className={cn(theme.hollowBtn, items.indexOf('flat') > -1 && theme.active)} onClick={() => this.onUpdate('flat')}>
+            <Button
+              className={cn(
+                theme.hollowBtn,
+                items.indexOf('flat') > -1 && theme.active,
+              )}
+              onClick={() => this.onUpdate('flat')}
+            >
               Квартира
             </Button>
-            <Button className={cn(theme.hollowBtn, items.indexOf('apartment') > -1 && theme.active)} onClick={() => this.onUpdate('apartment')}>
+            <Button
+              className={cn(
+                theme.hollowBtn,
+                items.indexOf('apartment') > -1 && theme.active,
+              )}
+              onClick={() => this.onUpdate('apartment')}
+            >
               Апартаменты
             </Button>
-            <Button className={cn(theme.hollowBtn, items.indexOf('penthouse') > -1 && theme.active)} onClick={() => this.onUpdate('penthouse')}>
+            <Button
+              className={cn(
+                theme.hollowBtn,
+                items.indexOf('penthouse') > -1 && theme.active,
+              )}
+              onClick={() => this.onUpdate('penthouse')}
+            >
               Пентхаус
             </Button>
           </Col>

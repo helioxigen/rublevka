@@ -52,13 +52,39 @@ class ContactLinkingModal extends Component {
     };
     return (
       <div className={cn(s.modalWrapper, this.props.className)}>
-        <Button type="button" className={sButton.btnRoundPlus} onClick={::this.toggle}>
+        <Button
+          type="button"
+          className={sButton.btnRoundPlus}
+          onClick={::this.toggle}
+        >
           <Icon className={s.icon} icon="modal" />
         </Button>
-        <Modal size="sm" closePortal={::this.close} isOpened={this.state.isOpened} onClose={::this.close} closeOnEsc closeOnOutsideClick>
+        <Modal
+          size="sm"
+          closePortal={::this.close}
+          isOpened={this.state.isOpened}
+          onClose={::this.close}
+          closeOnEsc
+          closeOnOutsideClick
+        >
           <div>
-            {this.state.isLinkingStepSelected && <ContactLinkingForm {...this.props} closeModal={::this.close} onNextStep={::this.onNextStep} initialValues={initialValues} resetPhoneNumber={::this.resetPhoneNumber} />}
-            {!this.state.isLinkingStepSelected && <ContactCreationForm {...this.props} closeModal={::this.close} onPreviousStep={::this.onPreviousStep} initialValues={initialValues} />}
+            {this.state.isLinkingStepSelected && (
+              <ContactLinkingForm
+                {...this.props}
+                closeModal={::this.close}
+                onNextStep={::this.onNextStep}
+                initialValues={initialValues}
+                resetPhoneNumber={::this.resetPhoneNumber}
+              />
+            )}
+            {!this.state.isLinkingStepSelected && (
+              <ContactCreationForm
+                {...this.props}
+                closeModal={::this.close}
+                onPreviousStep={::this.onPreviousStep}
+                initialValues={initialValues}
+              />
+            )}
           </div>
         </Modal>
       </div>

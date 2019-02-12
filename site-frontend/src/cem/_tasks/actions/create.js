@@ -10,11 +10,11 @@ import { apiPath } from 'cem/_tasks/constants/defaults';
 
 import { transformOutputValues } from 'cem/_tasks/helpers/transformOutputValues';
 
-const create = values => (dispatch) => {
+const create = values => dispatch => {
   dispatch(createElementStarted(types.CREATE, values));
 
   return createElement(apiPath, transformOutputValues(values)).then(
-    (body) => {
+    body => {
       dispatch(createElementSucceeded(types.CREATE_SUCCEEDED, body));
 
       return body;

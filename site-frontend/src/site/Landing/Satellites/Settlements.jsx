@@ -34,7 +34,12 @@ const settlementsData = ((global.config.landing || {}).settlements || {}).tabs;
 const group = 'forLandingBySettlements';
 const resource = `${resourceName}.${group}`;
 
-const { Button, Loading, CardVisibility, Grid: { Row, Col, Container } } = UI;
+const {
+  Button,
+  Loading,
+  CardVisibility,
+  Grid: { Row, Col, Container },
+} = UI;
 
 class Properties extends Component {
   constructor(props) {
@@ -103,7 +108,8 @@ class Properties extends Component {
     const { settlements = {} } = state;
     const { ids = [], isFetching } = state.countryProperties[group] || {};
 
-    const description = settlementsData[this.state.selectedSettlementIndex].description;
+    const description =
+      settlementsData[this.state.selectedSettlementIndex].description;
 
     const settlement = settlements[this.state.selectedSettlementId] || {};
     const { data = {} } = settlement;
@@ -132,12 +138,16 @@ class Properties extends Component {
                 <Col xs="12" className={cn(sUtils.pushedTop1, s.scroll)}>
                   <ul className={s.tabList}>
                     {settlementsData.map((item, i) => {
-                      const isActive = this.state.selectedSettlementId === item.id;
+                      const isActive =
+                        this.state.selectedSettlementId === item.id;
                       const { id, title } = item;
                       return (
                         <li
                           key={id}
-                          className={cn(st.landing.tab, isActive && st.landing.tabActive)}
+                          className={cn(
+                            st.landing.tab,
+                            isActive && st.landing.tabActive,
+                          )}
                           onClick={() => ::this.toggleTab(item, i)}
                         >
                           {title}
@@ -145,7 +155,10 @@ class Properties extends Component {
                       );
                     })}
 
-                    <Link to="/zagorodnaya/kottedzhnye-poselki" className={st.landing.tab}>
+                    <Link
+                      to="/zagorodnaya/kottedzhnye-poselki"
+                      className={st.landing.tab}
+                    >
                       <li className={sUtils.hideXsSmMd}>Все поселки</li>
                     </Link>
                   </ul>
@@ -159,35 +172,44 @@ class Properties extends Component {
           <Container className={sUtils.fullWidth} fluid>
             <CardVisibility md="hidden">
               <Row>
-                {!isFetching && ids.map(id =>
-                  <Card key={id} id={id} dealType="prodaja" showLocation />,
-                )}
-
                 {!isFetching &&
-                  isTotalProperties &&
-                  <PromoCard count={totalPropertiesCount} id={this.state.selectedSettlementId} />}
+                  ids.map(id => (
+                    <Card key={id} id={id} dealType="prodaja" showLocation />
+                  ))}
+
+                {!isFetching && isTotalProperties && (
+                  <PromoCard
+                    count={totalPropertiesCount}
+                    id={this.state.selectedSettlementId}
+                  />
+                )}
               </Row>
             </CardVisibility>
 
             <CardVisibility xs="hidden" sm="hidden" lg="hidden">
               <Row>
-                {!isFetching && idsForMd.map(id =>
-                  <Card key={id} id={id} dealType="prodaja" showLocation />,
-                )}
+                {!isFetching &&
+                  idsForMd.map(id => (
+                    <Card key={id} id={id} dealType="prodaja" showLocation />
+                  ))}
 
                 {!isFetching && isTotalProperties && (
-                  <PromoCard count={totalPropertiesCount} id={this.state.selectedSettlementId} name={this.state.selectedSettlementName} />
+                  <PromoCard
+                    count={totalPropertiesCount}
+                    id={this.state.selectedSettlementId}
+                    name={this.state.selectedSettlementName}
+                  />
                 )}
               </Row>
             </CardVisibility>
           </Container>
 
-          <Container className={cn(sUtils.pushedTopXs3Md4, sUtils.pushedBottom6)}>
+          <Container
+            className={cn(sUtils.pushedTopXs3Md4, sUtils.pushedBottom6)}
+          >
             <Row sm="center">
               <Col xs="12">
-                <p className={s.text}>
-                  {description}
-                </p>
+                <p className={s.text}>{description}</p>
               </Col>
             </Row>
 
@@ -209,7 +231,14 @@ class Properties extends Component {
             <Row sm="center" className={sUtils.pushedTopSm1}>
               <Col>
                 <Link to={'/zagorodnaya/kottedzhnye-poselki'}>
-                  <p className={cn(st.landing.linkPrimaryUnderline, sUtils.hideFromLg)}>Показать все поселки</p>
+                  <p
+                    className={cn(
+                      st.landing.linkPrimaryUnderline,
+                      sUtils.hideFromLg,
+                    )}
+                  >
+                    Показать все поселки
+                  </p>
                 </Link>
               </Col>
             </Row>
@@ -221,7 +250,13 @@ class Properties extends Component {
 }
 
 // redux connectors
-const pickState = ({ countryProperties, settlements, filters, pagination, order }) => ({
+const pickState = ({
+  countryProperties,
+  settlements,
+  filters,
+  pagination,
+  order,
+}) => ({
   state: {
     countryProperties,
     settlements,
@@ -231,7 +266,7 @@ const pickState = ({ countryProperties, settlements, filters, pagination, order 
   },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadProperties,
     loadSettlement,
@@ -243,4 +278,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Properties);
+export default connect(
+  pickState,
+  pickActions,
+)(Properties);

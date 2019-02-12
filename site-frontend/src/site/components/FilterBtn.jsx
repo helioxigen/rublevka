@@ -21,7 +21,8 @@ const StIcon = styled(Icon)`
 `;
 
 const Btn = styled(Button)`
-  padding: ${p => (p.withCounter ? '1.5rem 1.8rem 1.3rem' : '1.5rem 2.2rem 1.3rem')};
+  padding: ${p =>
+    p.withCounter ? '1.5rem 1.8rem 1.3rem' : '1.5rem 2.2rem 1.3rem'};
   ${p => p.withoutText && 'padding: 1.5rem 1.4rem;'};
   font-size: 1.6rem;
   background-color: ${p => p.theme.brandPrimary};

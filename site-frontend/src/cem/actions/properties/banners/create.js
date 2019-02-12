@@ -22,7 +22,7 @@ const createBannerFailed = (propertyId, data, { errors }) => ({
 });
 
 export default function createBanner(propertyId, category, data) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(createBannerStarted(propertyId, category, data));
 
     return API.post(`/v1/properties/${category}/${propertyId}/banners`, data)
@@ -32,6 +32,8 @@ export default function createBanner(propertyId, category, data) {
 
         return dispatch(createBannerSucceeded(propertyId, bannerId));
       })
-      .catch(({ body }) => dispatch(createBannerFailed(propertyId, body, body)));
+      .catch(({ body }) =>
+        dispatch(createBannerFailed(propertyId, body, body)),
+      );
   };
 }

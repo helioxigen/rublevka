@@ -41,10 +41,17 @@ import sTypography from 'site/styles/typography';
 // helpers
 import isEqual from 'lodash/isEqual';
 import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from 'core/helpers/shouldLoad';
-import { categories, dealTypes, kinds } from 'site/constants/properties/dictionaries';
+import {
+  categories,
+  dealTypes,
+  kinds,
+} from 'site/constants/properties/dictionaries';
 
 // UI
-const { Visibility, Grid: { Container, Row, Col } } = UI;
+const {
+  Visibility,
+  Grid: { Container, Row, Col },
+} = UI;
 
 // component
 class List extends Component {
@@ -109,9 +116,18 @@ class List extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const isGroupUpdated = !isEqual(this.props.params.dealType, nextProps.params.dealType);
-    const isCategoryUpdated = !isEqual(this.props.params.category, nextProps.params.category);
-    const isKindUpdated = !isEqual(this.props.params.kind, nextProps.params.kind);
+    const isGroupUpdated = !isEqual(
+      this.props.params.dealType,
+      nextProps.params.dealType,
+    );
+    const isCategoryUpdated = !isEqual(
+      this.props.params.category,
+      nextProps.params.category,
+    );
+    const isKindUpdated = !isEqual(
+      this.props.params.kind,
+      nextProps.params.kind,
+    );
 
     if (isGroupUpdated || isCategoryUpdated) {
       this.group = dealTypes[nextProps.params.dealType];
@@ -119,7 +135,9 @@ class List extends Component {
         resource: categories[nextProps.params.category],
         dealType: nextProps.params.dealType,
       });
-      this.resource = `${categories[nextProps.params.category]}Properties.${this.group}`;
+      this.resource = `${categories[nextProps.params.category]}Properties.${
+        this.group
+      }`;
 
       track(
         analyticsEvents.propertiesListOpened({
@@ -134,7 +152,11 @@ class List extends Component {
       });
     }
 
-    if (isUpdated(this.resource, this.props, nextProps) || isGroupUpdated || isCategoryUpdated) {
+    if (
+      isUpdated(this.resource, this.props, nextProps) ||
+      isGroupUpdated ||
+      isCategoryUpdated
+    ) {
       const params = {
         pagination: {
           offset: 22 * (nextProps.location.query.page - 1),
@@ -187,14 +209,17 @@ class List extends Component {
   }
 
   renderCards() {
-    const { state, params: { dealType } } = this.props;
+    const {
+      state,
+      params: { dealType },
+    } = this.props;
     const { ids = [] } = state.countryProperties[this.group] || {};
     const pagination = state.pagination[this.resource] || {};
 
     const formOffset = (pagination.offset / pagination.limit) % 4;
     const isPageEven = (pagination.offset / pagination.limit) % 2 === 0;
 
-    return ids.map((id) => {
+    return ids.map(id => {
       if (ids.indexOf(id) === 7 + formOffset) {
         return [
           <ResultForm propertyCategory="country" type="private" />,
@@ -317,12 +342,21 @@ class List extends Component {
         {this.state.resource === 'city' && (
           <Container fluid>
             <Row>
-              {ids.map(id => <CardCity dealType={params.dealType} key={id} id={id} showLocation />)}
+              {ids.map(id => (
+                <CardCity
+                  dealType={params.dealType}
+                  key={id}
+                  id={id}
+                  showLocation
+                />
+              ))}
             </Row>
           </Container>
         )}
 
-        {!isFetching && !ids.length && <NotFound resetFilter={this.resetFilter} />}
+        {!isFetching && !ids.length && (
+          <NotFound resetFilter={this.resetFilter} />
+        )}
 
         {hasItems && (
           <Container fluid>
@@ -349,8 +383,14 @@ class List extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
-  const { countryProperties, cityProperties, filters, pagination, order } = state;
+const pickState = state => {
+  const {
+    countryProperties,
+    cityProperties,
+    filters,
+    pagination,
+    order,
+  } = state;
 
   return {
     state: {
@@ -363,7 +403,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadCountryProperties,
     loadCityProperties,
@@ -379,4 +419,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(List);
+export default connect(
+  pickState,
+  pickActions,
+)(List);

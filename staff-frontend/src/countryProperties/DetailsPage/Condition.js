@@ -7,12 +7,12 @@ import {
   PropertyBigValue,
   PropertyTitle,
   PropertyValue,
-} from './style';
+} from './styled';
 import { Body } from '../../UI';
 import SelectEmotion from '../../UI/SelectEmotion';
-import { furnitureKinds, renovateKinds } from '../dictionaries';
+import { furnitureKinds, renovateKinds } from '../constants/dictionaries';
 import Select from '../../UI/Select';
-import { selectFinishData, selectFurnitureData } from './schema';
+import { selectFinishData, selectFurnitureData, conditions } from './schema';
 
 const ConditionSection = ({ enableEditMode, isEditMode, property }) => {
   if (!isEditMode) {
@@ -45,7 +45,7 @@ const ConditionSection = ({ enableEditMode, isEditMode, property }) => {
             <Property xs={4}>
               <PropertyTitle>Состояние</PropertyTitle>
               <PropertyValue>
-                <Body>Отличное</Body>
+                <Body>{conditions[property.specification.condition]}</Body>
               </PropertyValue>
             </Property>
             <Col xs={12}>
@@ -63,11 +63,15 @@ const ConditionSection = ({ enableEditMode, isEditMode, property }) => {
       </Col>
       <Col xsOffset={1} xs={9}>
         <PropertyTitle>Мебель</PropertyTitle>
-        <Select selectData={selectFurnitureData} selected={0} filled />
+        <Select
+          selectData={selectFurnitureData}
+          selected={property.specification.furniture}
+          filled
+        />
         <PropertyTitle>Отделка</PropertyTitle>
         <Select selectData={selectFinishData} selected={0} filled />
         <PropertyTitle>Состояние</PropertyTitle>
-        <SelectEmotion selected="good" />
+        <SelectEmotion selected={property.specification.condition} />
       </Col>
     </EditPropertyRow>
   );

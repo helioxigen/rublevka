@@ -3,7 +3,12 @@ import { makeFilterRange } from 'site/helpers';
 const saleMultiplier = 1000000;
 const rentMultiplier = 1000;
 
-export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNot = {} }) => {
+export const mapParams = ({
+  pagination = {},
+  orderBy = {},
+  filter = {},
+  filterNot = {},
+}) => {
   const { limit, offset } = pagination;
   const {
     sale = {},
@@ -46,12 +51,18 @@ export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNo
       'specification.area': makeFilterRange(area.min, area.max),
       'landDetails.area': makeFilterRange(landArea.min, landArea.max),
       'specification.renovate': filter.renovate,
-      'location.mkadDistance': makeFilterRange(mkadDistance.min, mkadDistance.max),
+      'location.mkadDistance': makeFilterRange(
+        mkadDistance.min,
+        mkadDistance.max,
+      ),
 
       'location.routeId': routeIds || routes.map(route => route.id),
-      'location.districtId': districtId || districts.map(district => district.id),
-      'location.localityId': localityId || localities.map(locality => locality.id),
-      'location.settlementId': settlementId || settlements.map(settlement => settlement.id),
+      'location.districtId':
+        districtId || districts.map(district => district.id),
+      'location.localityId':
+        localityId || localities.map(locality => locality.id),
+      'location.settlementId':
+        settlementId || settlements.map(settlement => settlement.id),
 
       'specification.bedrooms': makeFilterRange(bedrooms.min, bedrooms.max),
       'specification.wcs': makeFilterRange(wcs.min, wcs.max),

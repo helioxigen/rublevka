@@ -1,4 +1,4 @@
-export default (values) => {
+export default values => {
   const expectedFinishDateAt = new Date(values.expectedFinishDateAt);
   const { contactKindId } = values;
 

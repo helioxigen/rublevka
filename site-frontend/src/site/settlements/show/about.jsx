@@ -10,7 +10,11 @@ import RequestModal from 'site/request/selectionModal';
 
 import cn from 'classnames';
 import UI from 'site/ui';
-const { Icon, Button, Grid: { Container, Row, Col } } = UI;
+const {
+  Icon,
+  Button,
+  Grid: { Container, Row, Col },
+} = UI;
 
 import s from 'site/styles/settlements/id/about';
 import st from 'site/styles/themes';
@@ -18,7 +22,9 @@ import sUtils from 'site/styles/utils';
 
 function getImgUrl(publicImages) {
   if (publicImages.length) {
-    return `url(${global.config.cloudfront || cloudfront}/${publicImages[0].id}-1024)`;
+    return `url(${global.config.cloudfront || cloudfront}/${
+      publicImages[0].id
+    }-1024)`;
   } else if (typeof window !== 'undefined') {
     return 'url(https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder-settlement.jpg)';
   }
@@ -29,7 +35,8 @@ export default class extends Component {
     const { data = {} } = this.props;
     const { location = {} } = data;
 
-    const publicImages = (data.images && data.images.filter(image => !!image.isPublic)) || [];
+    const publicImages =
+      (data.images && data.images.filter(image => !!image.isPublic)) || [];
     const imgUrl = getImgUrl(publicImages);
 
     return (
@@ -42,7 +49,10 @@ export default class extends Component {
                   <Link to={'/zagorodnaya/prodaja'} className={s.navItem}>
                     Загородная недвижимость
                   </Link>
-                  <Link to={'/zagorodnaya/kottedzhnye-poselki'} className={s.navItem}>
+                  <Link
+                    to={'/zagorodnaya/kottedzhnye-poselki'}
+                    className={s.navItem}
+                  >
                     <Icon className={s.iconArrow} icon="arrow-down" />
                     Посёлки
                   </Link>
@@ -102,7 +112,10 @@ export default class extends Component {
                         <Col lg="5">
                           <Scroll.Link
                             activeClass="active"
-                            className={cn(st.settlement.anchor, sUtils.pushedRight4)}
+                            className={cn(
+                              st.settlement.anchor,
+                              sUtils.pushedRight4,
+                            )}
                             to="scrollTo"
                             spy
                             smooth
@@ -129,9 +142,15 @@ export default class extends Component {
                       <Row className={cn(sUtils.pushedTop4_5, s.dividerTopXs)}>
                         <Col lg="5">
                           <RequestModal
-                            propertyCategory={this.props.params && this.props.params.category}
+                            propertyCategory={
+                              this.props.params && this.props.params.category
+                            }
                           >
-                            <Button className={s.button} kind="success" size="sm">
+                            <Button
+                              className={s.button}
+                              kind="success"
+                              size="sm"
+                            >
                               Заказать звонок
                             </Button>
                           </RequestModal>

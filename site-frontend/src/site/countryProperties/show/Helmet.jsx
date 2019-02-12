@@ -5,7 +5,10 @@ import Helmet from 'react-helmet';
 import { helmet } from 'site/config/seo';
 
 import { formatPrice } from 'site/helpers';
-import { dealTypes, kindsTranslit } from 'site/constants/properties/dictionaries';
+import {
+  dealTypes,
+  kindsTranslit,
+} from 'site/constants/properties/dictionaries';
 
 const routeIds = global.config.routes.map(item => item.id) || [];
 
@@ -24,9 +27,9 @@ export default ({ data, kind, ...props }) => {
       meta.push({
         name: 'header',
         header: 'Location',
-        content: `https://${global.config.domain}/zagorodnaya/${props.dealType}/${kindsTranslit[
-          data.kind
-        ]}/${data.id}`,
+        content: `https://${global.config.domain}/zagorodnaya/${
+          props.dealType
+        }/${kindsTranslit[data.kind]}/${data.id}`,
       });
 
       return <Helmet meta={meta} />;

@@ -9,10 +9,14 @@ import {
   PropertySubTitle,
   PropertyTitle,
   PropertyValue,
-} from './style';
+} from './styled';
 import Select from '../../UI/Select';
 import { Body } from '../../UI';
-import { gasSupply, sewerageSupply, waterSupply } from '../dictionaries';
+import {
+  gasSupply,
+  sewerageSupply,
+  waterSupply,
+} from '../constants/dictionaries';
 import SelectBubble from '../../UI/SelectBubble';
 import {
   selectGasData,
@@ -78,17 +82,32 @@ const CommunicationSection = ({ enableEditMode, isEditMode, property }) => {
       </Col>
       <Col xsOffset={1} xs={2}>
         <PropertyTitle>Электричество</PropertyTitle>
-        <EditPropertyInput placeholder="Электр-во,кВт" />
+        <EditPropertyInput
+          defaultValue={property.communication.powerSupply}
+          placeholder="Электр-во,кВт"
+        />
       </Col>
       <Col xsOffset={1} xs={6}>
         <PropertyTitle>
           Газ <PropertySubTitle>Опционально</PropertySubTitle>
         </PropertyTitle>
-        <SelectBubble selected={1} unselectable selectData={selectGasData} />
+        <SelectBubble
+          selected={property.communication.gasSupply}
+          unselectable
+          selectData={selectGasData}
+        />
         <PropertyTitle>Канализация</PropertyTitle>
-        <Select selectData={selectSewageData} selected={1} filled />
+        <Select
+          selectData={selectSewageData}
+          selected={property.communication.sewerageSupply}
+          filled
+        />
         <PropertyTitle>Водоснабжение</PropertyTitle>
-        <Select selectData={selectSewageWaterSupply} selected={1} filled />
+        <Select
+          selectData={selectSewageWaterSupply}
+          selected={property.communication.waterSupply}
+          filled
+        />
       </Col>
     </EditPropertyRow>
   );

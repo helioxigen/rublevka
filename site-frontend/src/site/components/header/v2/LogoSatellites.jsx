@@ -7,7 +7,10 @@ import media from 'site/styles/media';
 
 import UI from 'site/ui';
 
-const { Icon, Navbar: { Brand } } = UI;
+const {
+  Icon,
+  Navbar: { Brand },
+} = UI;
 
 const isRublevka = global.config.domain === 'rublevka.ru';
 const isRiga = global.config.domain === 'riga.ru';

@@ -9,17 +9,13 @@ const {
   Rating,
   Grid: { Row, Col },
   Form: { Label, Group },
- } = UI;
+} = UI;
 
 import s from 'cem/styles/modal/list';
 
 const formSettings = {
   form: 'hubImageRequestQuestions',
-  fields: [
-    'questions[].questionId',
-    'questions[].text',
-    'questions[].rate',
-  ],
+  fields: ['questions[].questionId', 'questions[].text', 'questions[].rate'],
 };
 
 export default reduxForm(formSettings)(
@@ -33,7 +29,9 @@ export default reduxForm(formSettings)(
             <Row className={s.pushedBottom1}>
               <Col sm="20">
                 <Group>
-                  <Label className={s.pushedBottom1_2}>{question.text.value}</Label>
+                  <Label className={s.pushedBottom1_2}>
+                    {question.text.value}
+                  </Label>
                   <Rating {...question.rate} captions={captions} />
                 </Group>
               </Col>

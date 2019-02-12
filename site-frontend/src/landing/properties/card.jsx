@@ -10,14 +10,18 @@ import CardModal from 'landing/request/cardModal';
 import s from 'landing/styles/properties/card';
 
 import UI from 'site/ui';
-const { Grid: { Col } } = UI;
+const {
+  Grid: { Col },
+} = UI;
 
 function getImgUrl(data) {
   const { images = [] } = data;
   const publicImages = images.filter(({ isPublic }) => !!isPublic);
 
   if (publicImages.length) {
-    return `url(${global.config.cloudfront || cloudfront}/${publicImages[0].id}-thumbnail-512)`;
+    return `url(${global.config.cloudfront || cloudfront}/${
+      publicImages[0].id
+    }-thumbnail-512)`;
   } else if (typeof window !== 'undefined') {
     return 'url(https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder.jpg)';
   }
@@ -29,14 +33,24 @@ class Card extends Component {
     const { countryProperties = {} } = state;
     const { data = {} } = countryProperties[id] || {};
 
-    const { saleOffer = {}, landDetails = {}, specification = {}, badge = {} } = data;
+    const {
+      saleOffer = {},
+      landDetails = {},
+      specification = {},
+      badge = {},
+    } = data;
     const { multiCurrencyPrice = {} } = saleOffer;
 
     const imgUrl = getImgUrl(data);
 
     return (
       <Col xs="12" sm="6" md="4" lg="3" className={s.container}>
-        <CardModal data={data} propertyCategory="country" propertyId={data.id} dealType="sale">
+        <CardModal
+          data={data}
+          propertyCategory="country"
+          propertyId={data.id}
+          dealType="sale"
+        >
           <div className={s.wrapper}>
             <div style={{ backgroundImage: imgUrl }} className={s.background} />
 
@@ -48,18 +62,25 @@ class Card extends Component {
 
             <div className={s.content}>
               <p className={s.price}>
-                <FormattedCurrency value={multiCurrencyPrice.usd} symbol="USD" />
+                <FormattedCurrency
+                  value={multiCurrencyPrice.usd}
+                  symbol="USD"
+                />
               </p>
 
               <p className={s.text}>
                 <span>{Math.floor(landDetails.area)} сот.</span>
 
                 {!!specification.totalArea && (
-                  <span className={s.area}>{Math.floor(specification.totalArea)} м²</span>
+                  <span className={s.area}>
+                    {Math.floor(specification.totalArea)} м²
+                  </span>
                 )}
 
                 {!!specification.area && (
-                  <span className={s.area}>{Math.floor(specification.area)} м²</span>
+                  <span className={s.area}>
+                    {Math.floor(specification.area)} м²
+                  </span>
                 )}
               </p>
             </div>
@@ -71,7 +92,7 @@ class Card extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { countryProperties } = state;
 
   return {

@@ -16,7 +16,7 @@ const {
   Button,
   Icon,
   Grid: { Container, Row, Col },
- } = UI;
+} = UI;
 
 import cn from 'classnames';
 import s from 'site/styles/property/settlement';
@@ -32,7 +32,9 @@ function cancelScrollEvent(event) {
 
 function getImgUrl(publicImages) {
   if (!!publicImages.length) {
-    return `url(${global.config.cloudfront || cloudfront}/${publicImages[0].id}-thumbnail-512)`;
+    return `url(${global.config.cloudfront || cloudfront}/${
+      publicImages[0].id
+    }-thumbnail-512)`;
   } else if (typeof window !== `undefined`) {
     return `url(https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder.jpg)`;
   }
@@ -78,7 +80,11 @@ class SettlementMap extends Component {
       this.refs.mapgl.getMap().scrollZoom.enable();
       this.refs.mapgl.getMap().dragPan.enable();
     } else {
-      this.refs.container.removeEventListener(`wheel`, cancelScrollEvent, false);
+      this.refs.container.removeEventListener(
+        `wheel`,
+        cancelScrollEvent,
+        false,
+      );
       this.refs.mapgl.getMap().scrollZoom.disable();
       this.refs.mapgl.getMap().dragPan.disable();
     }
@@ -118,17 +124,41 @@ class SettlementMap extends Component {
         <div className={cn(s.wrapper, this.state.fullscreen && s.fullscreen)}>
           <Container fluid>
             <Row>
-              <Col xs="12" sm="5" md="4" lg="3" smOffset="0" mdOffset="8" lgOffset="9" className={sUtils.resetPadding}>
+              <Col
+                xs="12"
+                sm="5"
+                md="4"
+                lg="3"
+                smOffset="0"
+                mdOffset="8"
+                lgOffset="9"
+                className={sUtils.resetPadding}
+              >
                 <div className={s.card}>
                   <div className={s.image} style={{ backgroundImage: imgUrl }}>
                     <div className={s.content}>
                       <div className={s.title}>{data.name}</div>
                       <div className={s.location}>
-                        <span><Icon className={s.locationIcon} icon="location" /></span>
-                        {location.mkadDistance && <span className={sUtils.pushedLeft1}>{location.mkadDistance} км</span>}
-                        {location.routeName && <span className={sUtils.pushedLeft1}>{location.routeName} ш.</span>}
+                        <span>
+                          <Icon className={s.locationIcon} icon="location" />
+                        </span>
+                        {location.mkadDistance && (
+                          <span className={sUtils.pushedLeft1}>
+                            {location.mkadDistance} км
+                          </span>
+                        )}
+                        {location.routeName && (
+                          <span className={sUtils.pushedLeft1}>
+                            {location.routeName} ш.
+                          </span>
+                        )}
                       </div>
-                      <Button to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${this.props.settlementId}`} className={s.btn}>
+                      <Button
+                        to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
+                          data.name,
+                        )}_${this.props.settlementId}`}
+                        className={s.btn}
+                      >
                         Все предложения {statistics.totalProperties}
                       </Button>
                     </div>
@@ -139,31 +169,59 @@ class SettlementMap extends Component {
           </Container>
         </div>
 
-        <MapGL center={center} features={generatedMarkers} zoom={this.state.zoom} ref="mapgl" controls={false} />
+        <MapGL
+          center={center}
+          features={generatedMarkers}
+          zoom={this.state.zoom}
+          ref="mapgl"
+          controls={false}
+        />
 
         {!this.state.fullscreen && !this.props.noFullScreen && (
-          <UI.Button className={cn(sUtils.btnFullScreenBottomLeft, sUtils.hideXsSm)} type="button" onClick={() => ::this.toggleFullscreen(!this.state.fullscreen)}>
+          <UI.Button
+            className={cn(sUtils.btnFullScreenBottomLeft, sUtils.hideXsSm)}
+            type="button"
+            onClick={() => ::this.toggleFullscreen(!this.state.fullscreen)}
+          >
             <UI.Icon className={sUtils.iconFrame} icon="frame" />
             На весь экран
           </UI.Button>
         )}
 
         {this.state.fullscreen && (
-          <UI.Button className={cn(sUtils.btnFullScreenClose)} type="button" onClick={() => ::this.toggleFullscreen(!this.state.fullscreen)}>
+          <UI.Button
+            className={cn(sUtils.btnFullScreenClose)}
+            type="button"
+            onClick={() => ::this.toggleFullscreen(!this.state.fullscreen)}
+          >
             <UI.Icon className={sUtils.iconTimes} icon="times" />
           </UI.Button>
         )}
 
         <div className={sUtils.btnControlContainer}>
-          <UI.Button className={cn(sUtils.btnControl, sUtils.hideXsSm)} type="button" onClick={::this.zoomIn} disabled={zoomLevel >= 16}>+</UI.Button>
-          <UI.Button className={cn(sUtils.btnControl, sUtils.hideXsSm)} type="button" onClick={::this.zoomOut} disabled={zoomLevel <= 0}>–</UI.Button>
+          <UI.Button
+            className={cn(sUtils.btnControl, sUtils.hideXsSm)}
+            type="button"
+            onClick={::this.zoomIn}
+            disabled={zoomLevel >= 16}
+          >
+            +
+          </UI.Button>
+          <UI.Button
+            className={cn(sUtils.btnControl, sUtils.hideXsSm)}
+            type="button"
+            onClick={::this.zoomOut}
+            disabled={zoomLevel <= 0}
+          >
+            –
+          </UI.Button>
         </div>
       </container>
     );
   }
 }
 
-const pickState = (state) => {
+const pickState = state => {
   const { settlements } = state;
 
   return {
@@ -173,7 +231,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadSettlement,
   };
@@ -183,4 +241,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(SettlementMap);
+export default connect(
+  pickState,
+  pickActions,
+)(SettlementMap);

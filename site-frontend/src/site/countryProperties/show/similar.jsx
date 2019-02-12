@@ -11,7 +11,9 @@ import { resourceName } from 'core/countryProperties/constants/defaults';
 import { dealTypes } from 'site/constants/properties/dictionaries';
 
 import UI from 'site/ui';
-const { Grid: { Container, Row } } = UI;
+const {
+  Grid: { Container, Row },
+} = UI;
 
 import Card from 'site/countryProperties/card';
 
@@ -59,13 +61,17 @@ class Similar extends Component {
           </Container>
         )}
 
-        <Row>{ids.map(id => <Card dealType={dealType} key={id} id={id} showLocation />)}</Row>
+        <Row>
+          {ids.map(id => (
+            <Card dealType={dealType} key={id} id={id} showLocation />
+          ))}
+        </Row>
       </section>
     );
   }
 }
 
-const pickState = (state) => {
+const pickState = state => {
   const { countryProperties } = state;
 
   return {
@@ -75,7 +81,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadProperties,
   };
@@ -85,4 +91,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Similar);
+export default connect(
+  pickState,
+  pickActions,
+)(Similar);

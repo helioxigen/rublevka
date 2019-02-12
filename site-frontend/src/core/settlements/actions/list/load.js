@@ -17,12 +17,14 @@ import recursiveCleanUp from 'core/helpers/recursiveCleanUp';
 import { mapParams } from 'core/settlements/helpers';
 import { mergeParams } from 'core/fetcher2/helpers';
 
-const loadSettlements = (queryParams, group, options) => (dispatch) => {
+const loadSettlements = (queryParams, group, options) => dispatch => {
   dispatch(loadListStarted(types.LOAD_LIST, group));
 
   const apiPath = apiPathByGroup[group];
   const defaultQueryParams = getDefaultsByGroup(group, options);
-  const params = mapParams(recursiveCleanUp(mergeParams(defaultQueryParams, queryParams)));
+  const params = mapParams(
+    recursiveCleanUp(mergeParams(defaultQueryParams, queryParams)),
+  );
 
   return loadList(apiPath, group, params).then(
     ({ items, pagination }) => {
@@ -31,7 +33,7 @@ const loadSettlements = (queryParams, group, options) => (dispatch) => {
 
       return Promise.resolve(items);
     },
-    (errors) => {
+    errors => {
       dispatch(loadListFailed(types.LOAD_LIST_FAILED, group, errors));
 
       return Promise.reject(errors);

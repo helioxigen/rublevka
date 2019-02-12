@@ -7,7 +7,9 @@ import Breadcrumbs from './Breadcrumbs';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col },
+} = UI;
 
 const Section = styled.section`
   position: relative;
@@ -61,7 +63,7 @@ const Description = styled.p`
   `};
 `;
 
-export default (props) => {
+export default props => {
   const { data = {} } = props;
 
   return (

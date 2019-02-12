@@ -5,7 +5,10 @@ import media from 'site/styles/media';
 
 import UI from 'site/ui';
 
-const { Icon, Navbar: { Brand } } = UI;
+const {
+  Icon,
+  Navbar: { Brand },
+} = UI;
 
 const Wrapper = styled.div`
   width: 100%;

@@ -1,4 +1,4 @@
-const formatNumber = (value) => {
+const formatNumber = value => {
   const valueAsArray = String(value)
     .split('')
     .reverse('');
@@ -20,7 +20,11 @@ const normalizeNumber = (value, previousValue) => {
 
   if (valueAsString.length >= 20) {
     return normalizeNumber(valueAsString.substring(0, 19), previousValue);
-  } else if (value && !isNaN(value) && valueAsString[valueAsString.length - 1] !== '.') {
+  } else if (
+    value &&
+    !isNaN(value) &&
+    valueAsString[valueAsString.length - 1] !== '.'
+  ) {
     if (valueAsString.indexOf('.') === -1) {
       return parseInt(value, 10);
     }
@@ -35,9 +39,10 @@ const normalizeNumber = (value, previousValue) => {
 
 const normalizeString = value => (value ? String(value) : undefined);
 
-const normalizeStringBool = value => (typeof value === 'string' ? value === 'true' : !!value);
+const normalizeStringBool = value =>
+  typeof value === 'string' ? value === 'true' : !!value;
 
-const normalizeBool = (value) => {
+const normalizeBool = value => {
   if (typeof value === 'boolean') {
     return value;
   } else if (value === 'true') {
@@ -61,23 +66,29 @@ const normalizeArray = (value, delimeter = ',') => {
   return [];
 };
 
-const normalizeName = (value) => {
+const normalizeName = value => {
   if (!value) return value;
   const valueLower = value.toLowerCase();
-  const valueCapitalized = valueLower.charAt(0).toUpperCase() + valueLower.slice(1);
+  const valueCapitalized =
+    valueLower.charAt(0).toUpperCase() + valueLower.slice(1);
 
   return valueCapitalized;
 };
 
 const normalizeDate = value =>
-  value && !/\d{4}-\d{2}-\d{2}/.test(value) ? value.toISOString().split('T')[0] : value;
+  value && !/\d{4}-\d{2}-\d{2}/.test(value)
+    ? value.toISOString().split('T')[0]
+    : value;
 
 const normalizeYear = ({ isLimitedToPast }) => (value, previousValue) => {
   if (value === '') return '';
 
-  const isFormatCorrect = /^([1,2]|[1,2][0-9]|[1,2][0-9][0-9]|[1,2][0-9][0-9][0-9])$/.test(value);
+  const isFormatCorrect = /^([1,2]|[1,2][0-9]|[1,2][0-9][0-9]|[1,2][0-9][0-9][0-9])$/.test(
+    value,
+  );
 
-  return isFormatCorrect && (!isLimitedToPast || value <= new Date().getFullYear())
+  return isFormatCorrect &&
+    (!isLimitedToPast || value <= new Date().getFullYear())
     ? Number(value)
     : previousValue;
 };

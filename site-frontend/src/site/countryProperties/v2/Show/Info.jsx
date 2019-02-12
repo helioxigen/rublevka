@@ -39,7 +39,11 @@ import {
   Unit,
 } from './styled';
 
-const { Visibility, CountIndicator, Grid: { Row, Col } } = UI;
+const {
+  Visibility,
+  CountIndicator,
+  Grid: { Row, Col },
+} = UI;
 
 class PropertyInfo extends Component {
   static propTypes = {
@@ -116,7 +120,10 @@ class PropertyInfo extends Component {
                 <CallBtnWrapper>
                   <Visibility lg="hidden">
                     {!isWorkTime && (
-                      <ByPropertyModal propertyCategory="country" propertyId={data.id}>
+                      <ByPropertyModal
+                        propertyCategory="country"
+                        propertyId={data.id}
+                      >
                         <BookingBtn>Забронировать просмотр</BookingBtn>
                       </ByPropertyModal>
                     )}
@@ -148,7 +155,7 @@ const pickState = ({ currentDuty }) => ({
   },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadDuties,
     createClientLead,
@@ -161,4 +168,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(PropertyInfo);
+export default connect(
+  pickState,
+  pickActions,
+)(PropertyInfo);

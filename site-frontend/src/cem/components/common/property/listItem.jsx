@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 import UI from 'cem/components/ui';
-const { Media, Image, Button, Icon, ParamList, Grid: { Container, Row, Col } } = UI;
+const {
+  Media,
+  Image,
+  Button,
+  Icon,
+  ParamList,
+  Grid: { Container, Row, Col },
+} = UI;
 import { FormattedCurrency } from 'react-formatted';
 
 import cn from 'classnames';
@@ -19,11 +26,9 @@ const PropertyImage = ({ id }) => (
   <Image
     className={cn({ [s.imageProperties]: !id }, s.placeholder)}
     src={
-      id ? (
-        `${api.cloudfront}/${id}-thumbnail-128`
-      ) : (
-        'https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder-photo.svg'
-      )
+      id
+        ? `${api.cloudfront}/${id}-thumbnail-128`
+        : 'https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder-photo.svg'
     }
     kind="circle"
     width="64"
@@ -38,7 +43,10 @@ const PropertyDescription = ({ id, kind, saleOffer = {}, rentOffer = {} }) => (
       <p className={s.objectDescription}>
         Продажа:{' '}
         {saleOffer.price ? (
-          <FormattedCurrency symbol={saleOffer.currency} value={saleOffer.price} />
+          <FormattedCurrency
+            symbol={saleOffer.currency}
+            value={saleOffer.price}
+          />
         ) : (
           '—'
         )}
@@ -48,7 +56,10 @@ const PropertyDescription = ({ id, kind, saleOffer = {}, rentOffer = {} }) => (
       <p className={s.objectDescription}>
         Аренда:{' '}
         {rentOffer.price ? (
-          <FormattedCurrency symbol={rentOffer.currency} value={rentOffer.price} />
+          <FormattedCurrency
+            symbol={rentOffer.currency}
+            value={rentOffer.price}
+          />
         ) : (
           '—'
         )}
@@ -60,7 +71,12 @@ const PropertyDescription = ({ id, kind, saleOffer = {}, rentOffer = {} }) => (
 
 const PropertyPreviewImage = ({ id }) =>
   id ? (
-    <Image src={`${api.cloudfront}/${id}-thumbnail-128`} kind="circle" width="114" height="114" />
+    <Image
+      src={`${api.cloudfront}/${id}-thumbnail-128`}
+      kind="circle"
+      width="114"
+      height="114"
+    />
   ) : (
     <Icon icon="placeholder" className={s.placeholder} />
   );
@@ -93,7 +109,9 @@ const PropertyPreviewDescription = ({
       </Col>
       <Col sm="7" md="5" lg="8">
         <ParamList label="Статус" big>
-          <span className={cn(s[dict.states[state] && dict.states[state].style])}>
+          <span
+            className={cn(s[dict.states[state] && dict.states[state].style])}
+          >
             {dict.states[state] && dict.states[state].title}
           </span>
         </ParamList>
@@ -121,7 +139,10 @@ const PropertyPreviewDescription = ({
       <Col sm="7" md="5" lg="4">
         <ParamList label="Продажа" big>
           {saleOffer.price ? (
-            <FormattedCurrency symbol={saleOffer.currency} value={saleOffer.price} />
+            <FormattedCurrency
+              symbol={saleOffer.currency}
+              value={saleOffer.price}
+            />
           ) : (
             '—'
           )}
@@ -130,7 +151,10 @@ const PropertyPreviewDescription = ({
       <Col sm="7" md="5" lg="8">
         <ParamList label="Аренда" big>
           {rentOffer.price ? (
-            <FormattedCurrency symbol={rentOffer.currency} value={rentOffer.price} />
+            <FormattedCurrency
+              symbol={rentOffer.currency}
+              value={rentOffer.price}
+            />
           ) : (
             '—'
           )}
@@ -146,13 +170,23 @@ class Property extends Component {
   };
 
   render() {
-    const { itemData, isPreview, showAddress, isStatic, handleDelete } = this.props;
+    const {
+      itemData,
+      isPreview,
+      showAddress,
+      isStatic,
+      handleDelete,
+    } = this.props;
     return Object.keys(itemData).length ? (
       <section className={sUtils.pushedBottom3}>
         {!isPreview && (
           <Media
             left={
-              <PropertyImage id={itemData.images && itemData.images[0] && itemData.images[0].id} />
+              <PropertyImage
+                id={
+                  itemData.images && itemData.images[0] && itemData.images[0].id
+                }
+              />
             }
             body={<PropertyDescription {...itemData} />}
           />
@@ -163,7 +197,11 @@ class Property extends Component {
               <Media
                 left={
                   <PropertyPreviewImage
-                    id={itemData.images && itemData.images[0] && itemData.images[0].id}
+                    id={
+                      itemData.images &&
+                      itemData.images[0] &&
+                      itemData.images[0].id
+                    }
                   />
                 }
                 body={

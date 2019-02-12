@@ -10,5 +10,8 @@ export const leadKinds = [
 ];
 
 export const states = {
-  active: [{ value: 'new', label: 'Новый' }, { value: 'in_progress', label: 'В работе' }],
+  active: [
+    { value: 'new', label: 'Новый' },
+    { value: 'in_progress', label: 'В работе' },
+  ],
 };

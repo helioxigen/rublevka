@@ -24,12 +24,20 @@ const loadDealsLaneFailed = (kind, { errors }) => ({
   errors,
 });
 
-export default (kind, queryParams = { filter: {}, filterNot: {} }, reset = false) => (dispatch) => {
+export default (
+  kind,
+  queryParams = { filter: {}, filterNot: {} },
+  reset = false,
+) => dispatch => {
   dispatch(loadDealsLaneStarted(kind, reset));
 
   return API.get('/v1/deals', {
     ...queryParams,
-    ...mapLaneFilterAndFilterNot(queryParams.filter, queryParams.filterNot, kind),
+    ...mapLaneFilterAndFilterNot(
+      queryParams.filter,
+      queryParams.filterNot,
+      kind,
+    ),
   }).then(
     ({ body }) => dispatch(loadDealsLaneSucceeded(kind, body, reset)),
     ({ body }) => dispatch(loadDealsLaneFailed(kind, body)),

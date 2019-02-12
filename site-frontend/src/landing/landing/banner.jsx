@@ -12,7 +12,9 @@ const {
 
 function getImgUrl(publicImages) {
   if (publicImages.length) {
-    return `url(${global.config.cloudfront || cloudfront}/${publicImages[0].id}-1024)`;
+    return `url(${global.config.cloudfront || cloudfront}/${
+      publicImages[0].id
+    }-1024)`;
   } else if (typeof window !== 'undefined') {
     return '';
   }
@@ -24,7 +26,8 @@ class Banner extends Component {
 
     const { location = {}, details = {} } = data;
 
-    const publicImages = data.images && data.images.filter(image => !!image.isPublic) || [];
+    const publicImages =
+      (data.images && data.images.filter(image => !!image.isPublic)) || [];
     const imgUrl = getImgUrl(publicImages);
 
     return (
@@ -34,7 +37,15 @@ class Banner extends Component {
             <h1 className={s.title}>{data.name}</h1>
             <p className={s.subTitle}>загородный поселок премиум класса</p>
 
-            <Scroll.Link activeClass="active" className={s.btn} to="properties" spy smooth offset={-50} duration={800}>
+            <Scroll.Link
+              activeClass="active"
+              className={s.btn}
+              to="properties"
+              spy
+              smooth
+              offset={-50}
+              duration={800}
+            >
               Показать предложения
             </Scroll.Link>
 

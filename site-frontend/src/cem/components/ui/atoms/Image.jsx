@@ -7,5 +7,11 @@ export default (styles = {}) => ({ className, kind, responsive, ...rest }) => {
     [styles.responsive]: !!responsive,
   };
 
-  return <img {...rest} className={cn(styles.img, anotherClass, className)} alt={rest.alt} />;
+  return (
+    <img
+      {...rest}
+      className={cn(styles.img, anotherClass, className)}
+      alt={rest.alt}
+    />
+  );
 };

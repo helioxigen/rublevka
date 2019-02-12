@@ -28,11 +28,14 @@ const getApi = () => {
 
 const getProperty = id => getApi().get(`properties/country/${id}`);
 
+const setProperty = (id, property) =>
+  getApi().put(`properties/country/${id}`, property);
+
 const getPropertiesList = () => getApi().get('properties/country/');
 
 export const getPropertyImages = (id, height) =>
   axios.get(`https://images.jqestate.ru/${id}-jqestate-${height}`);
 
-export const properties = { getProperty, getPropertiesList };
+export const properties = { getProperty, getPropertiesList, setProperty };
 
 export default { properties };

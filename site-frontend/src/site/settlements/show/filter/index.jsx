@@ -6,7 +6,8 @@ import SelectGroup from 'core/components/ui/select/selectGroup';
 
 import UI from 'site/ui';
 const {
-  Button, Visibility,
+  Button,
+  Visibility,
   Grid: { Col },
 } = UI;
 
@@ -74,29 +75,65 @@ class SettlementFilter extends Component {
             />
           </div>
 
-          {isResaleProperty && isRentProperties &&
-            <Button className={cn(st.settlement.hollowBtn, dealType === `sale` && st.settlement.active)} onClick={() => this.props.toggleDealType(`sale`)}>
+          {isResaleProperty && isRentProperties && (
+            <Button
+              className={cn(
+                st.settlement.hollowBtn,
+                dealType === `sale` && st.settlement.active,
+              )}
+              onClick={() => this.props.toggleDealType(`sale`)}
+            >
               Продажа
             </Button>
-          }
-          {isResaleProperty && isRentProperties &&
-            <Button className={cn(st.settlement.hollowBtn, dealType === `rent` && st.settlement.active)} onClick={() => this.props.toggleDealType(`rent`)}>
+          )}
+          {isResaleProperty && isRentProperties && (
+            <Button
+              className={cn(
+                st.settlement.hollowBtn,
+                dealType === `rent` && st.settlement.active,
+              )}
+              onClick={() => this.props.toggleDealType(`rent`)}
+            >
               Аренда
             </Button>
-          }
-          <Button className={cn(st.settlement.hollowBtn, items.indexOf(`house`) > -1 && st.settlement.active)} onClick={() => this.onUpdate(`house`)}>
+          )}
+          <Button
+            className={cn(
+              st.settlement.hollowBtn,
+              items.indexOf(`house`) > -1 && st.settlement.active,
+            )}
+            onClick={() => this.onUpdate(`house`)}
+          >
             Дом
           </Button>
-          <Button className={cn(st.settlement.hollowBtn, items.indexOf(`land`) > -1 && st.settlement.active)} onClick={() => this.onUpdate(`land`)}>
+          <Button
+            className={cn(
+              st.settlement.hollowBtn,
+              items.indexOf(`land`) > -1 && st.settlement.active,
+            )}
+            onClick={() => this.onUpdate(`land`)}
+          >
             Участок
           </Button>
-          {isResaleProperty &&
-            <Button className={cn(st.settlement.hollowBtn, items.indexOf(`townhouse`) > -1 && st.settlement.active)} onClick={() => this.onUpdate(`townhouse`)}>
+          {isResaleProperty && (
+            <Button
+              className={cn(
+                st.settlement.hollowBtn,
+                items.indexOf(`townhouse`) > -1 && st.settlement.active,
+              )}
+              onClick={() => this.onUpdate(`townhouse`)}
+            >
               Таунхаус
             </Button>
-          }
+          )}
           {isSelected && (
-            <Button className={cn(st.filterSatellites.btnClearAllSettlements, sUtils.textPrimary)} onClick={this.props.resetFilter}>
+            <Button
+              className={cn(
+                st.filterSatellites.btnClearAllSettlements,
+                sUtils.textPrimary,
+              )}
+              onClick={this.props.resetFilter}
+            >
               Сбросить
             </Button>
           )}
@@ -112,30 +149,66 @@ class SettlementFilter extends Component {
           </div>
 
           <div className={s.hollowBtnContainer}>
-            {isResaleProperty && isRentProperties &&
-              <Button className={cn(st.settlement.hollowBtn, dealType === `sale` && st.settlement.active)} onClick={() => this.props.toggleDealType(`sale`)}>
+            {isResaleProperty && isRentProperties && (
+              <Button
+                className={cn(
+                  st.settlement.hollowBtn,
+                  dealType === `sale` && st.settlement.active,
+                )}
+                onClick={() => this.props.toggleDealType(`sale`)}
+              >
                 Продажа
               </Button>
-            }
-            {isResaleProperty && isRentProperties &&
-              <Button className={cn(st.settlement.hollowBtn, dealType === `rent` && st.settlement.active)} onClick={() => this.props.toggleDealType(`rent`)}>
+            )}
+            {isResaleProperty && isRentProperties && (
+              <Button
+                className={cn(
+                  st.settlement.hollowBtn,
+                  dealType === `rent` && st.settlement.active,
+                )}
+                onClick={() => this.props.toggleDealType(`rent`)}
+              >
                 Аренда
               </Button>
-            }
-            <Button className={cn(st.settlement.hollowBtn, items.indexOf(`house`) > -1 && st.settlement.active)} onClick={() => this.onUpdate(`house`)}>
+            )}
+            <Button
+              className={cn(
+                st.settlement.hollowBtn,
+                items.indexOf(`house`) > -1 && st.settlement.active,
+              )}
+              onClick={() => this.onUpdate(`house`)}
+            >
               Дом
             </Button>
-            <Button className={cn(st.settlement.hollowBtn, items.indexOf(`land`) > -1 && st.settlement.active)} onClick={() => this.onUpdate(`land`)}>
+            <Button
+              className={cn(
+                st.settlement.hollowBtn,
+                items.indexOf(`land`) > -1 && st.settlement.active,
+              )}
+              onClick={() => this.onUpdate(`land`)}
+            >
               Участок
             </Button>
-            {isResaleProperty &&
-              <Button className={cn(st.settlement.hollowBtn, items.indexOf(`townhouse`) > -1 && st.settlement.active)} onClick={() => this.onUpdate(`townhouse`)}>
+            {isResaleProperty && (
+              <Button
+                className={cn(
+                  st.settlement.hollowBtn,
+                  items.indexOf(`townhouse`) > -1 && st.settlement.active,
+                )}
+                onClick={() => this.onUpdate(`townhouse`)}
+              >
                 Таунхаус
               </Button>
-            }
+            )}
 
             {isSelected && (
-              <Button className={cn(st.filterSatellites.btnClearAllSettlements, sUtils.textPrimary)} onClick={this.props.resetFilter}>
+              <Button
+                className={cn(
+                  st.filterSatellites.btnClearAllSettlements,
+                  sUtils.textPrimary,
+                )}
+                onClick={this.props.resetFilter}
+              >
                 Сбросить
               </Button>
             )}
@@ -147,7 +220,7 @@ class SettlementFilter extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { settlements } = state;
 
   return {

@@ -22,7 +22,7 @@ const createCommentFailed = (entityKey, entityId, { errors }) => ({
   errors,
 });
 
-export default (entityKey, entityId, comment) => (dispatch) => {
+export default (entityKey, entityId, comment) => dispatch => {
   dispatch(createCommentStarted(entityKey, entityId));
 
   return API.post(apiPaths(entityId)[entityKey], comment).then(

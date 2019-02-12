@@ -42,7 +42,8 @@ const SelectItem = styled.div`
 
   :last-child {
     border-radius: 0px 4px 4px 0px;
-    border-right: 1px solid ${theme.alto};
+    border-right: 1px solid
+      ${props => (props.selected ? theme.blue : theme.alto)};
   }
 `;
 
@@ -52,12 +53,20 @@ export default ({ selectData = [], selected = '', filled }) => (
   <Select>
     {selectData.map(selectDataItem => (
       <SelectItem
-        selected={selected.toString() === selectDataItem.value.toString()}
+        selected={
+          selected
+            ? selected.toString() === selectDataItem.value.toString()
+            : selectDataItem.value === '0' || selectDataItem.value === false
+        }
         key={selectDataItem.name}
         filled={filled}
       >
         <SelectName
-          selected={selected.toString() === selectDataItem.value.toString()}
+          selected={
+            selected
+              ? selected.toString() === selectDataItem.value.toString()
+              : selectDataItem.value === '0' || selectDataItem.value === false
+          }
           filled={filled}
         >
           {selectDataItem.name}

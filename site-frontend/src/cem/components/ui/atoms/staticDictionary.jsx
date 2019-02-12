@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default () => (
+export default () =>
   class extends Component {
     constructor() {
       super();
@@ -22,7 +22,8 @@ export default () => (
 
     componentWillMount() {
       const { valueKey = `id` } = this.props;
-      if (this.props.value) this.props.fetch(null, valueKey, this.props.value, ::this.setLabel);
+      if (this.props.value)
+        this.props.fetch(null, valueKey, this.props.value, ::this.setLabel);
     }
 
     setLabel([item]) {
@@ -32,7 +33,10 @@ export default () => (
     render() {
       const { labelKey = `title` } = this.props;
 
-      return <span className={this.props.className}>{this.state.item[labelKey] || `—`}</span>;
+      return (
+        <span className={this.props.className}>
+          {this.state.item[labelKey] || `—`}
+        </span>
+      );
     }
-  }
-);
+  };

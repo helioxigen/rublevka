@@ -10,7 +10,7 @@ import store from 'cem/store';
 import { API } from 'core/config/sources';
 
 export default class extends Component {
-  state = {}
+  state = {};
 
   componentWillMount() {
     persistStore(store, { whitelist: [`auth`] }, () => {
@@ -24,7 +24,9 @@ export default class extends Component {
           API.setHeader(`X-Sign-As-User-Id`, auth.signedAsUserDetails.id);
         }
 
-        store.dispatch(loadCurrentUser()).then(() => this.setState({ rehydrated: true }));
+        store
+          .dispatch(loadCurrentUser())
+          .then(() => this.setState({ rehydrated: true }));
       } else {
         this.setState({ rehydrated: true });
       }

@@ -1,17 +1,18 @@
 import { formHelpers } from 'cem/helpers';
 const { normalizeNumber } = formHelpers;
 
-export const cancelValidate = (values) => {
+export const cancelValidate = values => {
   const errors = {
     stateDetails: {},
   };
 
-  if (!values.stateDetails.reason) errors.stateDetails.reason = 'Укажите причину';
+  if (!values.stateDetails.reason)
+    errors.stateDetails.reason = 'Укажите причину';
 
   return errors;
 };
 
-export const validate = (values) => {
+export const validate = values => {
   const errors = {
     details: {},
   };
@@ -35,14 +36,16 @@ export const validate = (values) => {
     }
   }
 
-  if (!values.details.expectedFinishDateAt) errors.details.expectedFinishDateAt = 'Укажите дату';
+  if (!values.details.expectedFinishDateAt)
+    errors.details.expectedFinishDateAt = 'Укажите дату';
 
   if (
     values.state === 'negotiation' ||
     values.state === 'agreement' ||
     values.state === 'deposit_paid'
   ) {
-    if (!values.details.propertyId) errors.details.propertyId = 'Укажите объект недвижимости';
+    if (!values.details.propertyId)
+      errors.details.propertyId = 'Укажите объект недвижимости';
   }
 
   return errors;

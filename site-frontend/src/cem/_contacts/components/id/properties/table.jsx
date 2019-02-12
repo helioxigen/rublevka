@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { kinds, categories, states } from 'cem/constants/properties/dictionaries';
+import {
+  kinds,
+  categories,
+  states,
+} from 'cem/constants/properties/dictionaries';
 import { FormattedCurrency } from 'react-formatted';
 
 import UI from 'cem/components/ui';
@@ -40,15 +44,23 @@ export default props => (
           <Cell>
             {/* TODO Ugliness... */}
             {!!item.saleOffer && !!item.saleOffer.price && (
-              <FormattedCurrency symbol={item.saleOffer.currency} value={item.saleOffer.price} />
+              <FormattedCurrency
+                symbol={item.saleOffer.currency}
+                value={item.saleOffer.price}
+              />
             )}
             {!!item.rentOffer && !!item.rentOffer.price && ' / '}
             {!!item.rentOffer && !!item.rentOffer.price && (
-              <FormattedCurrency symbol={item.rentOffer.currency} value={item.rentOffer.price} />
+              <FormattedCurrency
+                symbol={item.rentOffer.currency}
+                value={item.rentOffer.price}
+              />
             )}
             {!item.saleOffer && !item.rentOffer && '—'}
           </Cell>
-          <Cell className={s[states[item.state].style]}>{states[item.state].title}</Cell>
+          <Cell className={s[states[item.state].style]}>
+            {states[item.state].title}
+          </Cell>
           <Cell>
             <Button
               to={`/properties/${item.category}/${item.id}`}

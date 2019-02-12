@@ -20,7 +20,8 @@ const directPaths = {
 
 export const linkedPaths = {
   'exportPackages.errorLogs': id => `/v1/export/packages/${id}/error_logs`,
-  'settlements.linkedContacts': id => `/v1/places/settlements/${id}/linked_contacts`,
+  'settlements.linkedContacts': id =>
+    `/v1/places/settlements/${id}/linked_contacts`,
 };
 
 export default {

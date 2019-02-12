@@ -32,5 +32,6 @@ export const UPLOAD_PHOTOS = 'settlements.id.photos.upload.started';
 export const UPLOAD_PHOTOS_FAIL = 'settlements.id.photos.upload.failed';
 
 export const LOAD_PROPERTIES = 'settlements.id.properties.load.started';
-export const LOAD_PROPERTIES_SUCCESS = 'settlements.id.properties.load.succeeded';
+export const LOAD_PROPERTIES_SUCCESS =
+  'settlements.id.properties.load.succeeded';
 export const LOAD_PROPERTIES_FAIL = 'settlements.id.properties.load.failed';

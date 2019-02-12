@@ -1,7 +1,13 @@
 import React from 'react';
 import cn from 'classnames';
 
-export default (s = {}) => ({ label, children, big, small, valueClassName }) => {
+export default (s = {}) => ({
+  label,
+  children,
+  big,
+  small,
+  valueClassName,
+}) => {
   const className = {
     [s.titleBigger]: !!big,
     [s.listDescription]: !big,

@@ -12,7 +12,9 @@ const canonical = `https://${domain}/zagorodnaya/kottedzhnye-poselki`;
 export const list = {
   h1: 'Посёлки',
   title: queryPage =>
-    `Коттеджные посёлки в Московской области на ${domain}${getTitlePostfix(queryPage)}`,
+    `Коттеджные посёлки в Московской области на ${domain}${getTitlePostfix(
+      queryPage,
+    )}`,
 
   meta: () => [
     {
@@ -81,7 +83,9 @@ export const show = {
     if (!kind) {
       return `${
         dictionary[dealType].title
-      } недвижимость в коттеджном поселке ${name}. Лучшие предложения на ${global.config.domain}!`;
+      } недвижимость в коттеджном поселке ${name}. Лучшие предложения на ${
+        global.config.domain
+      }!`;
     }
     return `${dictionary[dealType].titleWithCategory} ${
       dictionary[dealType][kind]

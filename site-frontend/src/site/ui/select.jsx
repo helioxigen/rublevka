@@ -11,13 +11,18 @@ class Select extends Component {
     if (this.props.handleChange) {
       this.props.handleChange(reference, selected);
     } else {
-      this.props.onChange(selected[0] && selected[0][valueKey] || undefined);
+      this.props.onChange((selected[0] && selected[0][valueKey]) || undefined);
     }
   }
 
   render() {
     return (
-      <ReactSelect {...this.props} onChange={::this.handleChange} onBlur={() => {}} onFocus={() => {}} />
+      <ReactSelect
+        {...this.props}
+        onChange={::this.handleChange}
+        onBlur={() => {}}
+        onFocus={() => {}}
+      />
     );
   }
 }

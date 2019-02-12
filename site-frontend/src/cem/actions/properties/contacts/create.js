@@ -4,11 +4,14 @@ import * as types from 'cem/constants/properties/actions';
 
 import { pop } from 'cem/actions/toastr';
 
-import { transform, normalizePhoneNumber } from 'cem/_contacts/old_actions/helpers';
+import {
+  transform,
+  normalizePhoneNumber,
+} from 'cem/_contacts/old_actions/helpers';
 
 const createContactStarted = () => ({ type: types.CREATE_CONTACT });
 
-export default values => (dispatch) => {
+export default values => dispatch => {
   const { photo, ...otherValues } = values; // eslint-disable-line no-unused-vars
 
   dispatch(createContactStarted());
@@ -18,10 +21,18 @@ export default values => (dispatch) => {
     ({ body: { errors } }) => {
       if (
         errors &&
-        errors.some(error => error.param === 'details.phoneNumber' || error.param === 'phoneNumber')
+        errors.some(
+          error =>
+            error.param === 'details.phoneNumber' ||
+            error.param === 'phoneNumber',
+        )
       ) {
         return API.get('/v1/contacts', {
-          filter: { 'details.phoneNumber': normalizePhoneNumber(otherValues.details.phoneNumber) },
+          filter: {
+            'details.phoneNumber': normalizePhoneNumber(
+              otherValues.details.phoneNumber,
+            ),
+          },
         }).then(
           ({ body }) => {
             const data = body.items[0];

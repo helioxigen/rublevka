@@ -51,12 +51,12 @@ class App extends Component {
   componentDidMount() {
     this.setState({ itemsLoading: true, itemsError: false });
 
-    this.unsubscribeFromAuth = FBRublevka.auth.onAuthStateChanged((userData) => {
+    this.unsubscribeFromAuth = FBRublevka.auth.onAuthStateChanged(userData => {
       if (userData) {
         const { email, displayName, photoURL } = userData;
         const data = { displayName, photoURL };
 
-        FBRublevka.get('users', email).then((doc) => {
+        FBRublevka.get('users', email).then(doc => {
           FBRublevka.setWithKey('users', email, data);
 
           if (doc.data().canView) {
@@ -90,7 +90,7 @@ class App extends Component {
 
   getItems = () => {
     getItems()
-      .then((newState) => {
+      .then(newState => {
         this.setState(newState);
       })
       .catch(() => {
@@ -101,7 +101,7 @@ class App extends Component {
       });
   };
 
-  updateUser = (data) => {
+  updateUser = data => {
     this.setState(state => ({
       user: {
         ...state.user,

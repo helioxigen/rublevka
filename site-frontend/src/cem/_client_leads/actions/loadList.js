@@ -6,7 +6,11 @@ import {
 } from 'core/fetcher2/actions';
 
 import * as types from 'cem/_client_leads/constants/actions';
-import { getDefaultsByGroup, resourceName, apiPath } from 'cem/_client_leads/constants/defaults';
+import {
+  getDefaultsByGroup,
+  resourceName,
+  apiPath,
+} from 'cem/_client_leads/constants/defaults';
 
 import { updatePagination } from 'core/actions/pagination';
 import loadContacts from 'cem/_contacts/actions/loadList';
@@ -22,7 +26,9 @@ const groupForLinkedResources = 'forClientLeads';
 
 export default (queryParams, group, options = {}) => (dispatch, getState) => {
   const defaultQueryParams = getDefaultsByGroup(group, options);
-  const params = mapParams(recursiveCleanUp(mergeParams(defaultQueryParams, queryParams)));
+  const params = mapParams(
+    recursiveCleanUp(mergeParams(defaultQueryParams, queryParams)),
+  );
 
   dispatch(loadListStarted(types.LOAD_LIST, group, options.append, params));
 
@@ -32,20 +38,29 @@ export default (queryParams, group, options = {}) => (dispatch, getState) => {
 
       dispatch(updatePagination(`${resourceName}.${group}`, pagination));
       dispatch(
-        loadListSucceeded(types.LOAD_LIST_SUCCEEDED, group, transformedItems, options.append),
+        loadListSucceeded(
+          types.LOAD_LIST_SUCCEEDED,
+          group,
+          transformedItems,
+          options.append,
+        ),
       );
 
       const contactIds = uniq(
-        transformedItems.map(clientLead => clientLead.contactId).filter(id => !!id),
+        transformedItems
+          .map(clientLead => clientLead.contactId)
+          .filter(id => !!id),
       ).filter(id => !isInState(getState(), '_contacts', id));
 
       if (contactIds.length) {
-        dispatch(loadContacts({ filter: { id: contactIds } }, groupForLinkedResources));
+        dispatch(
+          loadContacts({ filter: { id: contactIds } }, groupForLinkedResources),
+        );
       }
 
       return Promise.resolve(transformedItems);
     },
-    (errors) => {
+    errors => {
       dispatch(loadListFailed(types.LOAD_LIST_FAILED, group, errors));
 
       return Promise.reject(errors);

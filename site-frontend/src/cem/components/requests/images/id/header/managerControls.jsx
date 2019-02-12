@@ -17,14 +17,14 @@ export default ({ data: { state, stateDetails = {} } }) => {
 
   return (
     <section>
-      {isReasonPresented &&
+      {isReasonPresented && (
         <Row>
           <Col sm="10" smOffset="5">
             <Heading size="sm">{text[state]}</Heading>
             <p className={sUtils.pushedTop1_5}>{stateDetails.reason}</p>
           </Col>
         </Row>
-      }
+      )}
     </section>
   );
 };

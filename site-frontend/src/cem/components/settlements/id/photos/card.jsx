@@ -6,14 +6,22 @@ import { cloudfront } from 'core/config/resources';
 import { DragSource, DropTarget } from 'react-dnd';
 
 import UI from 'cem/components/ui';
-const { Button, Icon, Grid: { Row, Col, Container }, Form: { Group, Label, Input } } = UI;
+const {
+  Button,
+  Icon,
+  Grid: { Row, Col, Container },
+  Form: { Group, Label, Input },
+} = UI;
 
 import cn from 'classnames';
 import s from 'cem/styles/ui/card';
 import sUtils from 'cem/styles/utils';
 
 const Image = ({ id }) => (
-  <div className={s.imageContainer} style={{ backgroundImage: `url(${cloudfront}/${id}-256)` }} />
+  <div
+    className={s.imageContainer}
+    style={{ backgroundImage: `url(${cloudfront}/${id}-256)` }}
+  />
 );
 
 const sourceSpec = {
@@ -53,7 +61,12 @@ const PhotosDescription = props => (
       <Col sm="9">
         <Group>
           <Label className={s.label}>
-            <Input type="checkbox" {...props.isPublic} disabled={props.disabled} /> На сайте
+            <Input
+              type="checkbox"
+              {...props.isPublic}
+              disabled={props.disabled}
+            />{' '}
+            На сайте
           </Label>
         </Group>
       </Col>
@@ -63,7 +76,11 @@ const PhotosDescription = props => (
           <Icon className={s.icon} icon="download" /> Скачать
         </a>
         {!props.disabled && (
-          <Button className={s.btn} type="button" onClick={() => props.remove(props.index)}>
+          <Button
+            className={s.btn}
+            type="button"
+            onClick={() => props.remove(props.index)}
+          >
             <Icon className={s.icon} icon="delete" /> Удалить
           </Button>
         )}
@@ -72,8 +89,14 @@ const PhotosDescription = props => (
   </Container>
 );
 
-const Card = (props) => {
-  const { connectDropTarget, connectDragSource, isDragging, id, toggleCarousel } = props;
+const Card = props => {
+  const {
+    connectDropTarget,
+    connectDragSource,
+    isDragging,
+    id,
+    toggleCarousel,
+  } = props;
 
   return connectDragSource(
     connectDropTarget(

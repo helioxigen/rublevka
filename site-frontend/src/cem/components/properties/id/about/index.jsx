@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 
 import UI from 'cem/components/ui';
-const { Grid: { Row } } = UI;
+const {
+  Grid: { Row },
+} = UI;
 
 import AboutCity from './city';
 import AboutCountry from './country';
 
 export default class About extends Component {
   render() {
-    const { params: { category } } = this.props;
+    const {
+      params: { category },
+    } = this.props;
 
     return (
       <Row>

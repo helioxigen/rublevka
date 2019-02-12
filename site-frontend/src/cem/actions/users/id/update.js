@@ -5,7 +5,7 @@ import { loadUser } from './load';
 
 import { transform } from './helpers';
 
-const updateUserSucceeded = id => (dispatch) => {
+const updateUserSucceeded = id => dispatch => {
   dispatch(pop('success', 'Изменения сохранены'));
   return dispatch(loadUser(id));
 };

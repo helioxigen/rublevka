@@ -28,10 +28,17 @@ import NotFound from 'site/properties/notFound';
 import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from 'core/helpers/shouldLoad';
 import { dealTypes } from 'site/constants/properties/dictionaries';
 
-import { Wrapper, ListWrapper, OrderWrapper, PaginationWrapper } from './styled';
+import {
+  Wrapper,
+  ListWrapper,
+  OrderWrapper,
+  PaginationWrapper,
+} from './styled';
 
 // UI
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col },
+} = UI;
 
 // component
 class List extends Component {
@@ -104,11 +111,14 @@ class List extends Component {
     const { selections = {} } = state;
     const { data = {} } = selections[selectionId] || {};
 
-    const { forSelections = {} } = state[`${data.propertyCategory}Properties`] || {};
+    const { forSelections = {} } =
+      state[`${data.propertyCategory}Properties`] || {};
     const { ids = [], isFetching } = forSelections;
 
     const hasItems = !!ids.length;
-    const pagination = state.pagination[`${data.propertyCategory}Properties.${this.group}`] || {};
+    const pagination =
+      state.pagination[`${data.propertyCategory}Properties.${this.group}`] ||
+      {};
     const dealType = data.offerKind === 'rent' ? 'arenda' : 'prodaja';
 
     return (
@@ -117,8 +127,14 @@ class List extends Component {
           <Helmet
             title={seo.title(dealTypes[dealType], params.kind)}
             meta={[
-              { name: 'description', content: seo.description(dealTypes[dealType], params.kind) },
-              { name: 'keywords', content: seo.keywords(dealTypes[dealType], params.kind) },
+              {
+                name: 'description',
+                content: seo.description(dealTypes[dealType], params.kind),
+              },
+              {
+                name: 'keywords',
+                content: seo.keywords(dealTypes[dealType], params.kind),
+              },
             ]}
           />
         )}
@@ -131,10 +147,16 @@ class List extends Component {
               <Col sm="12">
                 <OrderWrapper>
                   <OrderBy
-                    resourceName={`${data.propertyCategory}Properties.${this.group}`}
+                    resourceName={`${data.propertyCategory}Properties.${
+                      this.group
+                    }`}
                     group={this.group}
                     actions={actions}
-                    state={state.order[`${data.propertyCategory}Properties.${this.group}`]}
+                    state={
+                      state.order[
+                        `${data.propertyCategory}Properties.${this.group}`
+                      ]
+                    }
                     updatePagination={this.props.actions.updatePagination}
                     fields={[
                       `${dealTypes[dealType]}Offer.multiCurrencyPrice.usd`,
@@ -150,7 +172,9 @@ class List extends Component {
           <ListWrapper>
             <Container fluid>
               <Row>
-                {ids.map(item => <Card dealType={dealType} key={item} id={item} showLocation />)}
+                {ids.map(item => (
+                  <Card dealType={dealType} key={item} id={item} showLocation />
+                ))}
               </Row>
             </Container>
           </ListWrapper>
@@ -158,28 +182,27 @@ class List extends Component {
 
         {!isFetching && !ids.length && <NotFound />}
 
-        {hasItems &&
-          pagination.total > 36 && (
-            <PaginationWrapper>
-              <section>
-                <Pagination
-                  total={pagination.total}
-                  offset={pagination.offset}
-                  limit={pagination.limit}
-                  resource={`${data.propertyCategory}Properties.${this.group}`}
-                  updatePagination={this.props.actions.updatePagination}
-                  isScrollToTop
-                />
-              </section>
-            </PaginationWrapper>
-          )}
+        {hasItems && pagination.total > 36 && (
+          <PaginationWrapper>
+            <section>
+              <Pagination
+                total={pagination.total}
+                offset={pagination.offset}
+                limit={pagination.limit}
+                resource={`${data.propertyCategory}Properties.${this.group}`}
+                updatePagination={this.props.actions.updatePagination}
+                isScrollToTop
+              />
+            </section>
+          </PaginationWrapper>
+        )}
       </Wrapper>
     );
   }
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { countryProperties, selections, filters, pagination, order } = state;
 
   return {
@@ -193,7 +216,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadSelection,
     loadCountryProperties,
@@ -207,4 +230,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(List);
+export default connect(
+  pickState,
+  pickActions,
+)(List);

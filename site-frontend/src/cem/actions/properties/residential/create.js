@@ -20,8 +20,8 @@ const createResidentialSucceded = id => ({
   id,
 });
 
-export default function (data, location) {
-  return (dispatch) => {
+export default function(data, location) {
+  return dispatch => {
     dispatch(createResidentialStarted());
 
     const complex = {

@@ -29,7 +29,7 @@ function loadSimilarFailed(id, error) {
 }
 
 export function loadSimilarProperties(kind, id, dealType) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadSimilarStarted(id));
 
     return API.get(`/v1/properties/${kind}/${id}/similar/${dealType}`).then(

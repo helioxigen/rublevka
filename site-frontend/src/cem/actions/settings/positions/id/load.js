@@ -18,6 +18,7 @@ export default function loadPosition(id) {
   return dispatch =>
     API.get(`/v1/roles/${id}`).then(
       ({ body }) => Promise.resolve(dispatch(loadPositionSucceeded(id, body))),
-      ({ body: { errors } }) => Promise.resolve(dispatch(loadPositionFailed(id, errors))),
+      ({ body: { errors } }) =>
+        Promise.resolve(dispatch(loadPositionFailed(id, errors))),
     );
 }

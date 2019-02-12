@@ -9,7 +9,11 @@ import loadComplexBuilding from 'cem/actions/complexBuildings/id/load';
 
 import UI from 'cem/components/ui';
 const {
-  ParamList, Icon, Media, Image, Heading,
+  ParamList,
+  Icon,
+  Media,
+  Image,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -19,20 +23,34 @@ import sUtils from 'cem/styles/utils';
 
 import * as dict from 'cem/constants/complexBuildings/dictionaries';
 
-const BuildingImage = ({ src }) => (
-  src ? <Image src={`${src}-128`} kind="circle" width="114" height="114" /> : <Icon icon="placeholder" className={s.placeholder} />
-);
+const BuildingImage = ({ src }) =>
+  src ? (
+    <Image src={`${src}-128`} kind="circle" width="114" height="114" />
+  ) : (
+    <Icon icon="placeholder" className={s.placeholder} />
+  );
 
 class BuildingDescription extends Component {
   render() {
-    const { data: { details = {} } } = this.props;
+    const {
+      data: { details = {} },
+    } = this.props;
 
     return (
       <Container fluid className={sUtils.pushedBottom6}>
         <Row>
           <Col sm="7" md="5" lg="4">
             <ParamList big label="Тип дома">
-              <span className={cn(dict.houseKinds[details.houseKind] && s[dict.houseKinds[details.houseKind].style])}>{dict.houseKinds[details.houseKind] && dict.houseKinds[details.houseKind].title || '—'}</span>
+              <span
+                className={cn(
+                  dict.houseKinds[details.houseKind] &&
+                    s[dict.houseKinds[details.houseKind].style],
+                )}
+              >
+                {(dict.houseKinds[details.houseKind] &&
+                  dict.houseKinds[details.houseKind].title) ||
+                  '—'}
+              </span>
             </ParamList>
           </Col>
         </Row>
@@ -70,7 +88,11 @@ class ComplexBuilding extends Component {
     return (
       <section>
         <Heading size="sm">
-          {`ЖК ${data.complexName || alternativeName || 'без названия'}, корпус ${(data.location && data.location.building) || 'не задан'} (ID: ${id})`}
+          {`ЖК ${data.complexName ||
+            alternativeName ||
+            'без названия'}, корпус ${(data.location &&
+            data.location.building) ||
+            'не задан'} (ID: ${id})`}
           <Link className={s.linkIcon} to={`/places/complexes/buildings/${id}`}>
             <Icon className={s.icon} icon="arrow" />
           </Link>
@@ -78,7 +100,11 @@ class ComplexBuilding extends Component {
         <Row>
           <Col xs="20">
             <Media
-              left={<BuildingImage src={data.images && data.images[0] && data.images[0].url} />}
+              left={
+                <BuildingImage
+                  src={data.images && data.images[0] && data.images[0].url}
+                />
+              }
               body={<BuildingDescription data={data} />}
             />
           </Col>
@@ -96,4 +122,7 @@ const pickActions = dispatch => ({
   actions: bindActionCreators({ loadComplexBuilding }, dispatch),
 });
 
-export default connect(pickState, pickActions)(ComplexBuilding);
+export default connect(
+  pickState,
+  pickActions,
+)(ComplexBuilding);

@@ -11,7 +11,9 @@ import ListErrorMessage from 'cem/components/common/listErrorMessage';
 
 import UI from 'cem/components/ui';
 const {
-  Button, Loading, Heading,
+  Button,
+  Loading,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -39,11 +41,19 @@ class List extends Component {
     const filter = state.filters.companies || {};
     const nextFilter = nextProps.state.filters.companies || {};
 
-    const isPaginationUpdated = pagination.offset !== undefined && pagination.offset !== nextPagination.offset;
+    const isPaginationUpdated =
+      pagination.offset !== undefined &&
+      pagination.offset !== nextPagination.offset;
     const isFilterUpdated = !isEqual(filter, nextFilter);
 
     if (isPaginationUpdated || isFilterUpdated) {
-      actions.loadCompanies({ pagination: { offset: nextPagination.offset, limit: nextPagination.limit }, filter: nextFilter });
+      actions.loadCompanies({
+        pagination: {
+          offset: nextPagination.offset,
+          limit: nextPagination.limit,
+        },
+        filter: nextFilter,
+      });
     }
   }
 
@@ -67,28 +77,42 @@ class List extends Component {
               <Col xs="20">
                 <Heading size="lg">
                   Компании
-                  {isCreateAllowed &&
+                  {isCreateAllowed && (
                     <CreateModal formKey="create">
-                      <Button className={sUtils.pushedLeftSm2} type="button" kind="accent" size="xs">добавить</Button>
+                      <Button
+                        className={sUtils.pushedLeftSm2}
+                        type="button"
+                        kind="accent"
+                        size="xs"
+                      >
+                        добавить
+                      </Button>
                     </CreateModal>
-                  }
+                  )}
                 </Heading>
               </Col>
             </Row>
-            <Row>
-              {!errors.length && <Filter />}
-            </Row>
+            <Row>{!errors.length && <Filter />}</Row>
           </div>
         </Container>
         {!isFetching && !!errors.length && <ListErrorMessage errors={errors} />}
-        {!isFetching && !errors.length && !items.length && <Heading notFound>Не найдено компаний</Heading>}
+        {!isFetching && !errors.length && !items.length && (
+          <Heading notFound>Не найдено компаний</Heading>
+        )}
         {isFetching && <Loading />}
 
-        {items.map(item => <Card key={item.id} data={item} />)}
+        {items.map(item => (
+          <Card key={item.id} data={item} />
+        ))}
         <Container fluid>
           <Row xs="center">
             <Col sm="10" className={sUtils.pushed6_0}>
-              {!isFetching && !!items.length && <Pagination {...pagination} onUpdate={::this.handlePaginationUpdate} />}
+              {!isFetching && !!items.length && (
+                <Pagination
+                  {...pagination}
+                  onUpdate={::this.handlePaginationUpdate}
+                />
+              )}
             </Col>
           </Row>
         </Container>
@@ -101,8 +125,14 @@ const pickState = ({ companies, pagination, filters }) => ({
   state: { companies, pagination, filters },
 });
 
-const pickActions = (dispatch) => ({
-  actions: bindActionCreators({ ...CompaniesActions, ...PaginationActions, ...FilterActions }, dispatch),
+const pickActions = dispatch => ({
+  actions: bindActionCreators(
+    { ...CompaniesActions, ...PaginationActions, ...FilterActions },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, pickActions)(List);
+export default connect(
+  pickState,
+  pickActions,
+)(List);

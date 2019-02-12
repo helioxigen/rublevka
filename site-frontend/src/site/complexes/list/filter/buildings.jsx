@@ -3,7 +3,8 @@ import { filter } from 'core/config/constants';
 
 import UI from 'site/ui';
 const {
-  CheckboxGroup, Checkbox,
+  CheckboxGroup,
+  Checkbox,
   Form: { Group },
   Grid: { Row, Col, Container },
 } = UI;
@@ -64,7 +65,9 @@ class Buildings extends Component {
                   </Col>
                   <Col md="4" className={s.extraPadding}>
                     <Group>
-                      <label className={cn(s.label, sUtils.pushedBottom1_5)}>Парковка</label>
+                      <label className={cn(s.label, sUtils.pushedBottom1_5)}>
+                        Парковка
+                      </label>
                       <Checkbox
                         className={s.checkbox}
                         controlClassName={s.checkboxControl}
@@ -89,7 +92,6 @@ class Buildings extends Component {
               </Container>
             </div>
           </Col>
-
         </Row>
       </Container>
     );

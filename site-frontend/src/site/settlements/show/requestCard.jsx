@@ -19,7 +19,11 @@ class RequestCard extends Component {
       <Col xs="12" sm="6" md="4" className={sUtils.hideXs}>
         <div className={s.cardRequest}>
           <p className={s.cardRequestTitle}>Поможем выбрать дом</p>
-          <a href={`tel:${global.config.phones.country}`} id="comagicDTPhoneNumber" className={s.textLg}>
+          <a
+            href={`tel:${global.config.phones.country}`}
+            id="comagicDTPhoneNumber"
+            className={s.textLg}
+          >
             <StaticMask pattern="+1 (111) 111-11-11">
               {global.config.phones.country}
             </StaticMask>
@@ -29,7 +33,9 @@ class RequestCard extends Component {
             <p className={s.textSm}>Или закажите звонок</p>
 
             <RequestModal category="country">
-              <Button className={s.btn} kind="success" size="sm">Заказать звонок</Button>
+              <Button className={s.btn} kind="success" size="sm">
+                Заказать звонок
+              </Button>
             </RequestModal>
           </div>
         </div>

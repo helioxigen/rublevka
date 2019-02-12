@@ -17,7 +17,9 @@ export default handleActions(
     }),
 
     [types.LOAD_LIST_SUCCESS]: (state, { entityTypeId, items, append }) => {
-      const newItems = append ? [...(state[entityTypeId].list.items || []), ...items] : items;
+      const newItems = append
+        ? [...(state[entityTypeId].list.items || []), ...items]
+        : items;
       return {
         ...state,
         [entityTypeId]: {
@@ -53,7 +55,9 @@ export default handleActions(
       [baseEntityTypeId]: {
         ...state[baseEntityTypeId],
         [entityTypeId]: {
-          ...(state[baseEntityTypeId] ? state[baseEntityTypeId][entityTypeId] : {}),
+          ...(state[baseEntityTypeId]
+            ? state[baseEntityTypeId][entityTypeId]
+            : {}),
           list: {
             isFetching: true,
           },
@@ -61,12 +65,17 @@ export default handleActions(
       },
     }),
 
-    [types.LOAD_LINKED_LIST_SUCCESS]: (state, { baseEntityTypeId, entityTypeId, items }) => ({
+    [types.LOAD_LINKED_LIST_SUCCESS]: (
+      state,
+      { baseEntityTypeId, entityTypeId, items },
+    ) => ({
       ...state,
       [baseEntityTypeId]: {
         ...state[baseEntityTypeId],
         [entityTypeId]: {
-          ...(state[baseEntityTypeId] ? state[baseEntityTypeId][entityTypeId] : {}),
+          ...(state[baseEntityTypeId]
+            ? state[baseEntityTypeId][entityTypeId]
+            : {}),
           list: {
             items,
           },
@@ -83,12 +92,17 @@ export default handleActions(
       },
     }),
 
-    [types.LOAD_LINKED_LIST_FAIL]: (state, { baseEntityTypeId, entityTypeId, errors }) => ({
+    [types.LOAD_LINKED_LIST_FAIL]: (
+      state,
+      { baseEntityTypeId, entityTypeId, errors },
+    ) => ({
       ...state,
       [baseEntityTypeId]: {
         ...state[baseEntityTypeId],
         [entityTypeId]: {
-          ...(state[baseEntityTypeId] ? state[baseEntityTypeId][entityTypeId] : {}),
+          ...(state[baseEntityTypeId]
+            ? state[baseEntityTypeId][entityTypeId]
+            : {}),
           list: {
             errors,
           },

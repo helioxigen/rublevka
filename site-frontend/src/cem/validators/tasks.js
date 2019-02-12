@@ -1,4 +1,4 @@
-export const validateTaskForm = (values) => {
+export const validateTaskForm = values => {
   const errors = {
     deadline: {},
     contactDetails: {},
@@ -12,14 +12,16 @@ export const validateTaskForm = (values) => {
 
   if (values.kind === 'free') {
     if (values.freeDetails.linkKind === 'property') {
-      if (!values.freeDetails.contactId) errors.freeDetails.contactId = 'Укажите контактное лицо!';
+      if (!values.freeDetails.contactId)
+        errors.freeDetails.contactId = 'Укажите контактное лицо!';
     }
     if (!values.freeDetails.goal) errors.freeDetails.goal = 'Укажите цель!';
   } else {
     if (!values.kind) errors.kind = 'Укажите тип!';
 
     if (values.kind !== 'preview' && values.kind !== 'negotiation') {
-      if (!values.contactDetails.goal) errors.contactDetails.goal = 'Укажите цель!';
+      if (!values.contactDetails.goal)
+        errors.contactDetails.goal = 'Укажите цель!';
     }
 
     if (values.kind === 'preview') {
@@ -44,4 +46,6 @@ export const validateTaskForm = (values) => {
   return errors;
 };
 
-export const validateDocumentForm = values => ({ file: !values.file && 'Обязательно' });
+export const validateDocumentForm = values => ({
+  file: !values.file && 'Обязательно',
+});

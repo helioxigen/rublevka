@@ -35,7 +35,7 @@ export default class extends Component {
     }
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
 
     const { search } = this.state;
@@ -73,9 +73,7 @@ export default class extends Component {
   };
 
   render() {
-    const {
-      search, items, itemsLoading, itemsError,
-    } = this.state;
+    const { search, items, itemsLoading, itemsError } = this.state;
 
     const loaded = !itemsLoading && !itemsError && items.length > 0;
 

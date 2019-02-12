@@ -6,7 +6,7 @@ import Body from 'site/components/body';
 import cn from 'classnames';
 import sUtils from 'site/styles/utils';
 
-const Modal = (s = {}, { Button, Icon }) => (props) => {
+const Modal = (s = {}, { Button, Icon }) => props => {
   const contentClassName = {
     [s[props.size]]: !!props.size,
   };
@@ -20,9 +20,14 @@ const Modal = (s = {}, { Button, Icon }) => (props) => {
   return (
     <Portal {...props} className={cn(props.className, s.container)}>
       <Body className={props.isOpened ? sUtils.scrollNotFixed : sUtils.scroll}>
-        <div {...props} className={cn(s.content, contentClassName, props.contentClassName)} style={props.style}>
+        <div
+          {...props}
+          className={cn(s.content, contentClassName, props.contentClassName)}
+          style={props.style}
+        >
           {props.children}
-          {!props.hideCloseButton && React.cloneElement(closeButton, { onClick: props.closePortal })}
+          {!props.hideCloseButton &&
+            React.cloneElement(closeButton, { onClick: props.closePortal })}
         </div>
       </Body>
     </Portal>

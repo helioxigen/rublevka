@@ -26,7 +26,13 @@ import media from 'site/styles/media';
 
 const isJQ = global.config.domain === 'jq.estate';
 
-const { Button, Icon, Form, Grid: { Container, Row, Col }, Form: { Group, Input } } = UI;
+const {
+  Button,
+  Icon,
+  Form,
+  Grid: { Container, Row, Col },
+  Form: { Group, Input },
+} = UI;
 
 const Wrapper = styled.div`
   position: relative;
@@ -34,9 +40,13 @@ const Wrapper = styled.div`
   padding: 4.5rem 0 6rem;
 `;
 
-const RoutesWrapper = styled.div`margin: 2rem 0;`;
+const RoutesWrapper = styled.div`
+  margin: 2rem 0;
+`;
 
-const WrapperItems = styled.div`margin: 1.8rem 0 0;`;
+const WrapperItems = styled.div`
+  margin: 1.8rem 0 0;
+`;
 
 const FilterButton = styled.span`
   display: inline-block;
@@ -99,7 +109,9 @@ const FilterTitle = styled.h2`
   margin: 0;
 `;
 
-const SuccessWrapper = styled.div`padding-top: 2rem;`;
+const SuccessWrapper = styled.div`
+  padding-top: 2rem;
+`;
 
 const Logo = styled(Icon)`
   width: 5rem;
@@ -180,7 +192,10 @@ class SellPropertyForm extends Component {
 
     await this.handleValidation();
 
-    if (this.state.phoneErrors.length === 0 && this.state.emailErrors.length === 0) {
+    if (
+      this.state.phoneErrors.length === 0 &&
+      this.state.emailErrors.length === 0
+    ) {
       this.setState({
         requestSending: true,
       });
@@ -218,7 +233,9 @@ class SellPropertyForm extends Component {
               <Row>
                 <Col xs="12">
                   <Title>
-                    Заполните форму и мы<br />свяжемся с вами
+                    Заполните форму и мы
+                    <br />
+                    свяжемся с вами
                   </Title>
                   <StGroup>
                     <StInput
@@ -237,9 +254,13 @@ class SellPropertyForm extends Component {
                       placeholder="+7 (___) ___-__-__"
                       value={this.state.phoneNumber}
                       required
-                      onChange={e => this.onChange('phoneNumber', e.target.value)}
+                      onChange={e =>
+                        this.onChange('phoneNumber', e.target.value)
+                      }
                     />
-                    {this.state.phoneErrors.map(error => <Error>{error}</Error>)}
+                    {this.state.phoneErrors.map(error => (
+                      <Error>{error}</Error>
+                    ))}
                   </StGroup>
                   <StGroup>
                     <StInput
@@ -250,7 +271,9 @@ class SellPropertyForm extends Component {
                       onChange={e => this.onChange('email', e.target.value)}
                       required
                     />
-                    {this.state.emailErrors.map(error => <Error>{error}</Error>)}
+                    {this.state.emailErrors.map(error => (
+                      <Error>{error}</Error>
+                    ))}
                   </StGroup>
                   {isJQ && (
                     <RoutesWrapper>
@@ -258,7 +281,7 @@ class SellPropertyForm extends Component {
                       <Row>
                         <Col xs="12">
                           <WrapperItems>
-                            {routes.map((route) => {
+                            {routes.map(route => {
                               const { id, name } = route;
                               const isActive = this.state.routeId === id;
                               return (
@@ -276,7 +299,10 @@ class SellPropertyForm extends Component {
                       </Row>
                     </RoutesWrapper>
                   )}
-                  <StButton disabled={!!this.state.requestSending} kind="success">
+                  <StButton
+                    disabled={!!this.state.requestSending}
+                    kind="success"
+                  >
                     Отправить
                   </StButton>
                 </Col>
@@ -284,18 +310,19 @@ class SellPropertyForm extends Component {
             </Container>
           )}
 
-          {!!this.state.requestSending &&
-            !this.state.requestSent && (
-              <LoaderWrapper>
-                <Loader />
-              </LoaderWrapper>
-            )}
+          {!!this.state.requestSending && !this.state.requestSent && (
+            <LoaderWrapper>
+              <Loader />
+            </LoaderWrapper>
+          )}
 
           {!!this.state.requestSent && (
             <SuccessWrapper>
               <Logo icon="jqestate-logo" />
               <SuccessTitle>Заявка отправлена!</SuccessTitle>
-              <Message>Через 10 минут наш брокер обязательно свяжется с вами.</Message>
+              <Message>
+                Через 10 минут наш брокер обязательно свяжется с вами.
+              </Message>
             </SuccessWrapper>
           )}
         </Form.Container>
@@ -311,7 +338,7 @@ const pickState = ({ currentDuty }) => ({
   },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadDuties,
     createClientLead,
@@ -324,4 +351,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(SellPropertyForm);
+export default connect(
+  pickState,
+  pickActions,
+)(SellPropertyForm);

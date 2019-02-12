@@ -29,16 +29,22 @@ export const DELETE_DOCUMENT = 'users.id.document.id.delete';
 export const DELETE_DOCUMENT_FAIL = 'users.id.document.id.delete.failed';
 
 export const LOAD_SUBORDINATE_USERS = 'users.subordinates.load.list.started';
-export const LOAD_SUBORDINATE_USERS_SUCCESS = 'users.subordinates.load.list.succeeded';
-export const LOAD_SUBORDINATE_USERS_FAIL = 'users.subordinates.load.list.failed';
+export const LOAD_SUBORDINATE_USERS_SUCCESS =
+  'users.subordinates.load.list.succeeded';
+export const LOAD_SUBORDINATE_USERS_FAIL =
+  'users.subordinates.load.list.failed';
 
 export const LOAD_NOTIFICATION_SETTINGS = 'users.notifications.load.started';
-export const LOAD_NOTIFICATION_SETTINGS_SUCCESS = 'users.notifications.load.succeeded';
-export const LOAD_NOTIFICATION_SETTINGS_FAIL = 'users.notifications.load.failed';
+export const LOAD_NOTIFICATION_SETTINGS_SUCCESS =
+  'users.notifications.load.succeeded';
+export const LOAD_NOTIFICATION_SETTINGS_FAIL =
+  'users.notifications.load.failed';
 
 export const UPDATE_NOTIFICATION_SETTINGS = 'users.notifications.load.started';
-export const UPDATE_NOTIFICATION_SETTINGS_SUCCESS = 'users.notifications.load.succeeded';
-export const UPDATE_NOTIFICATION_SETTINGS_FAIL = 'users.notifications.load.failed';
+export const UPDATE_NOTIFICATION_SETTINGS_SUCCESS =
+  'users.notifications.load.succeeded';
+export const UPDATE_NOTIFICATION_SETTINGS_FAIL =
+  'users.notifications.load.failed';
 
 export const UPLOAD_PHOTO = 'users.id.photo.upload.started';
 export const UPLOAD_PHOTO_SUCCESS = 'users.id.photo.upload.succeeded';

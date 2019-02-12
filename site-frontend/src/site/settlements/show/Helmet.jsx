@@ -17,9 +17,9 @@ export default ({ placeName, placeKind, data, dealType, kind }) => {
   if (data) {
     const meta = [];
 
-    const canonical = `https://${global.config.domain}/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
-      data.name,
-    )}_${data.id}`;
+    const canonical = `https://${
+      global.config.domain
+    }/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${data.id}`;
 
     // send 404 if settlement can't be on this site
     if (!routeIds.includes(data.location.routeId)) {
@@ -48,7 +48,9 @@ export default ({ placeName, placeKind, data, dealType, kind }) => {
     ];
     // ↑ fucking russian seo
 
-    meta.push(makeMetaElement('description', data.name, dealType, kind, placeKind));
+    meta.push(
+      makeMetaElement('description', data.name, dealType, kind, placeKind),
+    );
     // makeMetaElement('keywords', data.name, dealType, kind),
 
     return <Helmet title={title} meta={meta} link={link} />;

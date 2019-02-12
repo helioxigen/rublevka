@@ -1,7 +1,11 @@
 export const offerKinds = {
   purchase: 'Покупка',
   rent: 'Аренда',
-  sale: 'Продажа',
+};
+
+export const dealTypes = {
+  sale: 'purchase',
+  rent: 'rent',
 };
 
 export const resaleKinds = {
@@ -21,6 +25,7 @@ export const kinds = {
   townhouse: 'Таунхаус',
   penthouse: 'Пентхаус',
   land: 'Участок',
+  office: 'Офис',
 };
 
 export const conditions = {
@@ -40,7 +45,7 @@ export const saleKinds = {
 export const currencies = {
   USD: '$',
   EUR: '€',
-  RUB: '₽',
+  RUB: 'руб',
 };
 
 export const categories = {
@@ -241,6 +246,12 @@ export const ventilationKinds = {
   central: 'Центральная',
   own: 'Собственная',
   absent: 'Отсутствует',
+};
+
+export const placesToPlaceId = {
+  districts: 'districtId',
+  routes: 'routeIds',
+  localities: 'localityId',
 };
 
 export const mainLayouts = {

@@ -14,8 +14,9 @@ export const CardSt = styled.div`
 
   border-bottom: 1px solid #edeff5;
 
-  ${p => p.isLoading
-    && css`
+  ${p =>
+    p.isLoading &&
+    css`
       background-color: #a1ecc7;
       margin: 0 -24px;
       padding: 16px 24px;

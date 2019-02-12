@@ -20,7 +20,13 @@ import media from 'site/styles/media';
 
 import * as analyticsEvents from 'core/analytics/constants';
 
-const { Button, Icon, Form, Grid: { Row, Col }, Form: { Group, Input } } = UI;
+const {
+  Button,
+  Icon,
+  Form,
+  Grid: { Row, Col },
+  Form: { Group, Input },
+} = UI;
 
 const Wrapper = styled.div`
   padding: 0.3rem 0 0;
@@ -156,7 +162,10 @@ class ReserveForm extends Component {
 
     await this.handleValidation();
 
-    if (this.state.phoneErrors.length === 0 && this.state.emailErrors.length === 0) {
+    if (
+      this.state.phoneErrors.length === 0 &&
+      this.state.emailErrors.length === 0
+    ) {
       this.props.actions.loadDuties(this.props.propertyCategory).then(() => {
         const data = {
           kind: 'online',
@@ -197,7 +206,12 @@ class ReserveForm extends Component {
         this.props.actions.createClientLead(data).then(() => {
           this.setState({ requestSent: true }, () => {
             this.props.actions.setSharedRetargetingKey('vk');
-            track(analyticsEvents.propertyRequestSubmitted({ dealType, ...this.props.data }));
+            track(
+              analyticsEvents.propertyRequestSubmitted({
+                dealType,
+                ...this.props.data,
+              }),
+            );
 
             fbq('track', 'Lead');
           });
@@ -233,7 +247,8 @@ class ReserveForm extends Component {
                     onChange={e => this.onChange('email', e.target.value)}
                     required
                   />
-                  {emailErrors !== 0 && emailErrors.map(error => <Error>{error}</Error>)}
+                  {emailErrors !== 0 &&
+                    emailErrors.map(error => <Error>{error}</Error>)}
                 </StGroup>
                 <StGroup>
                   <StInput
@@ -245,7 +260,8 @@ class ReserveForm extends Component {
                     required
                     onChange={e => this.onChange('phoneNumber', e.target.value)}
                   />
-                  {phoneErrors !== 0 && phoneErrors.map(error => <Error>{error}</Error>)}
+                  {phoneErrors !== 0 &&
+                    phoneErrors.map(error => <Error>{error}</Error>)}
                 </StGroup>
                 <StButton kind="success">Забронировать просмотр</StButton>
               </Col>
@@ -256,7 +272,9 @@ class ReserveForm extends Component {
             <SuccessWrapper>
               <Logo icon="jqestate-logo" />
               <SuccessTitle>Заявка отправлена!</SuccessTitle>
-              <Message>Через 10 минут наш брокер обязательно свяжется с вами.</Message>
+              <Message>
+                Через 10 минут наш брокер обязательно свяжется с вами.
+              </Message>
             </SuccessWrapper>
           )}
         </Form.Container>
@@ -272,7 +290,7 @@ const pickState = ({ currentDuty }) => ({
   },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadDuties,
     createClientLead,
@@ -285,4 +303,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(ReserveForm);
+export default connect(
+  pickState,
+  pickActions,
+)(ReserveForm);

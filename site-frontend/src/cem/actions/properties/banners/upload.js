@@ -22,11 +22,18 @@ const uploadBannerFailed = (propertyId, bannerId, { errors }) => ({
 });
 
 export default function uploadBanner(propertyId, category, bannerId, src) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(uploadBannerStarted(propertyId, category, bannerId, src));
 
-    return API.post(`/v1/properties/${category}/${propertyId}/banners/${bannerId}/image`, { src })
-      .then(({ body }) => dispatch(uploadBannerSucceeded(propertyId, bannerId, body)))
-      .catch(({ body }) => dispatch(uploadBannerFailed(propertyId, bannerId, body)));
+    return API.post(
+      `/v1/properties/${category}/${propertyId}/banners/${bannerId}/image`,
+      { src },
+    )
+      .then(({ body }) =>
+        dispatch(uploadBannerSucceeded(propertyId, bannerId, body)),
+      )
+      .catch(({ body }) =>
+        dispatch(uploadBannerFailed(propertyId, bannerId, body)),
+      );
   };
 }

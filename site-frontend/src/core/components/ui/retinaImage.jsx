@@ -14,7 +14,9 @@ export default () => (props: Props) => {
     return <img {...props} src={src} alt={props.alt} />;
   }
 
-  const src = isRetina() ? `${props.src}-${props.size * 2}` : `${props.src}-${props.size}`;
+  const src = isRetina()
+    ? `${props.src}-${props.size * 2}`
+    : `${props.src}-${props.size}`;
 
   return <img {...props} src={src} alt={props.alt} />;
 };

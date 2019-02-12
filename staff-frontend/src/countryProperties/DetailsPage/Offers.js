@@ -1,5 +1,6 @@
 import React from 'react';
 import { Col, Row } from 'react-flexbox-grid';
+import { FormattedNumber } from 'react-intl';
 import {
   EditButton,
   EditPropertyInput,
@@ -11,11 +12,16 @@ import {
   PropertyValue,
   Separator,
   SubTitle,
-} from './style';
+} from './styled';
 import Select from '../../UI/Select';
 import SelectBubble from '../../UI/SelectBubble';
-import { Body, BodyBold } from '../../UI';
-import { currencies, resaleKinds, saleKinds, states } from '../dictionaries';
+import { Body, BodyBig, BodyBold } from '../../UI';
+import {
+  currencies,
+  resaleKinds,
+  saleKinds,
+  states,
+} from '../constants/dictionaries';
 import Switcher from '../../UI/Switcher';
 import {
   selectBinaryData,
@@ -28,11 +34,13 @@ import {
 const ConditionsSection = ({
   enableEditMode,
   isEditMode,
-  currentPrice,
   property,
-  isRent = false,
+  setNewPrice = () => {},
+  // isRent = false,
+  id,
 }) => {
   if (!isEditMode) {
+    const { saleOffer } = property;
     return (
       <>
         <Row>
@@ -43,17 +51,30 @@ const ConditionsSection = ({
         <Row>
           <Property xs={4}>
             <PropertyTitle>Стоимость</PropertyTitle>
-            <PropertyBigValue>{currentPrice || '—'}</PropertyBigValue>
+            <PropertyBigValue>
+              {saleOffer.price && (
+                <FormattedNumber
+                  style="currency"
+                  maximumSignificantDigits={1}
+                  currency={saleOffer.currency}
+                  value={saleOffer.price}
+                />
+              )}
+            </PropertyBigValue>
             <PropertyValue>
-              <BodyBold>Стоимость за м² :&nbsp;</BodyBold>
+              <BodyBold>Стоимость за м²:&nbsp;</BodyBold>
               <Body>
-                {currentPrice
-                  ? `${currencies[property.saleOffer.currency]} + ' ' +
-                      ${Math.round(
-                        currentPrice / property.specification.area,
-                        -2,
-                      )}`
-                  : '—'}
+                {saleOffer.price && (
+                  <FormattedNumber
+                    style="currency"
+                    maximumSignificantDigits={1}
+                    currency={saleOffer.currency}
+                    value={Math.round(
+                      saleOffer.price / property.specification.area,
+                      -2,
+                    )}
+                  />
+                )}
               </Body>
             </PropertyValue>
           </Property>
@@ -63,75 +84,64 @@ const ConditionsSection = ({
             <PropertyValue>
               <BodyBold>Полная комиссия:&nbsp;</BodyBold>
               <Body>
-                {currentPrice
-                  ? currentPrice * 0.01 * property.saleOffer.agentFee
-                  : '—'}
+                {saleOffer.price && (
+                  <FormattedNumber
+                    style="currency"
+                    maximumSignificantDigits={1}
+                    currency={saleOffer.currency}
+                    value={saleOffer.price * 0.01 * property.saleOffer.agentFee}
+                  />
+                )}
               </Body>
             </PropertyValue>
           </Property>
           <Property xs={4}>
             <PropertyTitle>Текущий статус</PropertyTitle>
             <PropertyBigValue>
-              {property.state ? states[property.state].title : 'Нет информации'}
+              {property.state && states[property.state].title}
             </PropertyBigValue>
           </Property>
         </Row>
+
         <Separator big />
+
         <Row>
           <Property xs={4}>
             <PropertyTitle>Тип продажи</PropertyTitle>
-            <PropertyValue>
-              <Body>{saleKinds[property.saleOffer.kind]}</Body>
-            </PropertyValue>
+            <BodyBig>{saleKinds[property.saleOffer.kind]}</BodyBig>
           </Property>
           <Property xs={4}>
             <PropertyTitle>Ипотека</PropertyTitle>
-            <PropertyValue>
-              <Body>
-                {property.saleOffer.isMortgage ? 'Возможна' : 'Невозможна'}
-              </Body>
-            </PropertyValue>
+            <BodyBig>
+              {property.saleOffer.isMortgage ? 'Возможна' : 'Невозможна'}
+            </BodyBig>
           </Property>
           <Property xs={4}>
             <PropertyTitle>Закрытая продажа</PropertyTitle>
-            <PropertyValue>
-              <Body>{property.state === 'private' ? 'Да' : 'Нет'}</Body>
-            </PropertyValue>
+            <BodyBig>{property.state === 'private' ? 'Да' : 'Нет'}</BodyBig>
           </Property>
           <Property xs={4}>
             <PropertyTitle>Статус продажи</PropertyTitle>
-            <PropertyValue>
-              <Body>{resaleKinds[property.saleOffer.isResale]}</Body>
-            </PropertyValue>
+            <BodyBig>{resaleKinds[property.saleOffer.isResale]}</BodyBig>
           </Property>
           <Property xs={4}>
             <PropertyTitle>Рассрочка</PropertyTitle>
-            <PropertyValue>
-              <Body>
-                {property.saleOffer.isInstallment ? 'Возможна' : 'Невозможна'}
-              </Body>
-            </PropertyValue>
+            <BodyBig>
+              {property.saleOffer.isInstallment ? 'Возможна' : 'Невозможна'}
+            </BodyBig>
           </Property>
           <Property xs={4}>
             <PropertyTitle>Показывать на сайте</PropertyTitle>
-            <PropertyValue>
-              <Body>{property.saleOffer.isDisabled ? 'Нет' : 'Да'}</Body>
-            </PropertyValue>
+            <BodyBig>{property.saleOffer.isDisabled ? 'Нет' : 'Да'}</BodyBig>
           </Property>
           <Property xs={4}>
             <PropertyTitle>Торг</PropertyTitle>
-            <PropertyValue>
-              <Body>
-                {property.saleOffer.isBargain ? 'Возможен' : 'Невозможен'}
-              </Body>
-            </PropertyValue>
+            <BodyBig>
+              {property.saleOffer.isBargain ? 'Возможен' : 'Невозможен'}
+            </BodyBig>
           </Property>
         </Row>
-        <Row>
-          <Col xs={12}>
-            <EditButton onClick={enableEditMode}>Редактировать</EditButton>
-          </Col>
-        </Row>
+        <EditButton onClick={enableEditMode}>Редактировать</EditButton>
       </>
     );
   }
@@ -143,23 +153,41 @@ const ConditionsSection = ({
           <SubTitle>Продажа</SubTitle>
         </Col>
         <Col xsOffset={1} xs={2}>
-          <EditPropertyInput placeholder="Цена, Руб" />
-          <Switcher selected={2} />
+          <EditPropertyInput
+            onBlur={e => setNewPrice(id, +e.target.value)}
+            placeholder="Цена, Руб"
+          />
+          <Switcher selected={currencies[property.saleOffer.currency]} />
         </Col>
         <Col xsOffset={1} xs={3}>
           <PropertyTitle>Сделка</PropertyTitle>
           <SelectBubble selected={3} selectData={selectDealData} />
           <PropertyTitle>Комиссия</PropertyTitle>
           <Select selectData={selectCommissionData} selected={1} filled />
-          <EditPropertyInput placeholder="Процент, %" />
+          <EditPropertyInput
+            defaultValue={property.saleOffer.agentFee}
+            placeholder="Процент, %"
+          />
         </Col>
         <Col xs={3}>
           <PropertyTitle>Рассрочка</PropertyTitle>
-          <Select selectData={selectBinaryData} selected={1} filled />
+          <Select
+            selectData={selectBinaryData}
+            selected={property.saleOffer.isInstallment}
+            filled
+          />
           <PropertyTitle>Ипотека</PropertyTitle>
-          <Select selectData={selectBinaryData} selected={1} filled />
+          <Select
+            selectData={selectBinaryData}
+            selected={property.saleOffer.isMortgage}
+            filled
+          />
           <PropertyTitle>Торг</PropertyTitle>
-          <Select selectData={selectBinaryData} selected={1} filled />
+          <Select
+            selectData={selectBinaryData}
+            selected={property.saleOffer.isBargain}
+            filled
+          />
         </Col>
       </EditPropertyRow>
       <EditPropertyRow>
@@ -168,7 +196,7 @@ const ConditionsSection = ({
         </Col>
         <Col xsOffset={1} xs={2}>
           <EditPropertyInput placeholder="Цена, Руб" />
-          <Switcher selected={2} />
+          <Switcher selected={currencies[property.saleOffer.currency]} />
         </Col>
         <Col xsOffset={1} xs={3}>
           <PropertyTitle>
@@ -185,7 +213,7 @@ const ConditionsSection = ({
           <PropertyTitle>Комиссия</PropertyTitle>
           <Select selectData={selectCommissionData} selected={1} filled />
           <EditPropertyInput placeholder="Сумма, $" />
-          <Switcher selected={2} />
+          <Switcher selected={currencies[property.saleOffer.currency]} />
         </Col>
         <Col xs={3}>
           <PropertyTitle>С детьми</PropertyTitle>

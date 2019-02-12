@@ -1,5 +1,8 @@
 import { handleActions } from 'redux-actions';
-import { UPDATE_DISPLAY_OPTION, RESET_DISPLAY_OPTION } from 'site/displayOptions/constants';
+import {
+  UPDATE_DISPLAY_OPTION,
+  RESET_DISPLAY_OPTION,
+} from 'site/displayOptions/constants';
 
 const initialState = {
   currency: 'usd',

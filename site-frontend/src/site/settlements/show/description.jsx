@@ -54,11 +54,20 @@ class Description extends Component {
         {!isFetching && description && (
           <Col xs="12" sm="10">
             <div className={s.description}>
-              <h2 className={cn(s.title, !!main.sale || !!satellite.sale && sUtils.pushedBottom1_5)}>
+              <h2
+                className={cn(
+                  s.title,
+                  !!main.sale || (!!satellite.sale && sUtils.pushedBottom1_5),
+                )}
+              >
                 Описание посёлка {data.name}
               </h2>
 
-              <div className={hasLongText && this.state.isTextHidden && s.hiddenText}>
+              <div
+                className={
+                  hasLongText && this.state.isTextHidden && s.hiddenText
+                }
+              >
                 <div className={s.descriptionText}>
                   <ReactMarkdown source={text} />
                 </div>
@@ -70,9 +79,15 @@ class Description extends Component {
         {!isFetching && hasLongText && this.state.isTextHidden && (
           <Col xs="12">
             <div>
-              {(!!main.sale || !!satellite.sale) &&
-                <Button onClick={::this.showText} size="lg" className={st.settlement.btnLoad}>Читать полностью</Button>
-              }
+              {(!!main.sale || !!satellite.sale) && (
+                <Button
+                  onClick={::this.showText}
+                  size="lg"
+                  className={st.settlement.btnLoad}
+                >
+                  Читать полностью
+                </Button>
+              )}
             </div>
           </Col>
         )}

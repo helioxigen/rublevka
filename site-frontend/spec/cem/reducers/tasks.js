@@ -53,7 +53,9 @@ export default () => {
     });
 
     it(`should handle LOAD_TASK_SUCCESS and include tasks data`, () => {
-      expect(reducer({}, { type: types.LOAD_TASK_SUCCESS, data: { id } })).to.deep.equal({
+      expect(
+        reducer({}, { type: types.LOAD_TASK_SUCCESS, data: { id } }),
+      ).to.deep.equal({
         [id]: {
           data: { id },
         },
@@ -61,11 +63,18 @@ export default () => {
     });
 
     it(`should not handle LOAD_TASKS`, () => {
-      expect(reducer(defaultInitialState, { type: types.LOAD_TASKS })).to.deep.equal(defaultInitialState);
+      expect(
+        reducer(defaultInitialState, { type: types.LOAD_TASKS }),
+      ).to.deep.equal(defaultInitialState);
     });
 
     it(`should handle LOAD_TASKS_FAIL`, () => {
-      expect(reducer(defaultInitialState, { type: types.LOAD_TASKS_FAIL, errors: [] })).to.deep.equal({
+      expect(
+        reducer(defaultInitialState, {
+          type: types.LOAD_TASKS_FAIL,
+          errors: [],
+        }),
+      ).to.deep.equal({
         ...defaultInitialState,
         list: {
           errors: [],

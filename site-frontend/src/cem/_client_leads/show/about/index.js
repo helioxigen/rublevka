@@ -21,12 +21,18 @@ export default {
 
   // to remove
   recommendation: {
-    About: reduxForm(formSettings.recommendation)(submitValidator()(DefaultAbout)),
+    About: reduxForm(formSettings.recommendation)(
+      submitValidator()(DefaultAbout),
+    ),
     Header: reduxForm(formSettings.recommendation)(submitValidator()(Header)),
   },
 
   withoutRequestKind: {
-    About: reduxForm(formSettings.withoutRequestKind)(submitValidator()(WithoutRequestKind)),
-    Header: reduxForm(formSettings.withoutRequestKind)(submitValidator()(Header)),
+    About: reduxForm(formSettings.withoutRequestKind)(
+      submitValidator()(WithoutRequestKind),
+    ),
+    Header: reduxForm(formSettings.withoutRequestKind)(
+      submitValidator()(Header),
+    ),
   },
 };

@@ -8,7 +8,8 @@ const initialState = {};
 
 export default handleActions(
   {
-    [types.LOAD_USERS]: (state, { group }) => reducers.listLoadStart(state, group),
+    [types.LOAD_USERS]: (state, { group }) =>
+      reducers.listLoadStart(state, group),
 
     [types.LOAD_USERS_FAILED]: (state, { group, errors }) =>
       reducers.listLoadFail(state, group, errors),

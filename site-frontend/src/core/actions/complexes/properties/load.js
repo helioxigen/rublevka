@@ -16,7 +16,12 @@ const loadPropertiesStarted = (saleType, id, append) => ({
   append,
 });
 
-const loadPropertiesSucceeded = (saleType, id, { items, pagination }, append) => (dispatch) => {
+const loadPropertiesSucceeded = (
+  saleType,
+  id,
+  { items, pagination },
+  append,
+) => dispatch => {
   dispatch(updatePagination(pagination, 'complexBuilding.properties', ''));
 
   return dispatch({
@@ -40,7 +45,7 @@ const loadProperties = (
   saleType = 'primary',
   queryParams = { filter: {}, orderBy: {}, pagination: {} },
   append = false,
-) => (dispatch) => {
+) => dispatch => {
   dispatch(loadPropertiesStarted(saleType, id, append));
 
   return API.get('/v1/properties/city', {
@@ -52,7 +57,11 @@ const loadProperties = (
   );
 };
 
-const loadPrimaryProperties = (id, queryParams = { filter: {} }, append = false) => (dispatch) => {
+const loadPrimaryProperties = (
+  id,
+  queryParams = { filter: {} },
+  append = false,
+) => dispatch => {
   const defaultFilter = {
     'saleOffer.isResale': 'false',
     state: 'public',

@@ -14,19 +14,22 @@ class FirebaseClass {
 
   // prettier can't fold that line
   // eslint-disable-next-line max-len
-  getCollectionOnSnapshot = (collection, cb) => this.db.collection(collection).onSnapshot(cb);
+  getCollectionOnSnapshot = (collection, cb) =>
+    this.db.collection(collection).onSnapshot(cb);
 
-  get = (collection, id) => this.db
-    .collection(collection)
-    .doc(id)
-    .get();
+  get = (collection, id) =>
+    this.db
+      .collection(collection)
+      .doc(id)
+      .get();
 
   set = (collection, data) => this.db.collection(collection).add(data);
 
-  setWithKey = (collection, key, data) => this.db
-    .collection(collection)
-    .doc(key)
-    .set(data, { merge: true });
+  setWithKey = (collection, key, data) =>
+    this.db
+      .collection(collection)
+      .doc(key)
+      .set(data, { merge: true });
 
   addOrUpdate = (collection, data) => {
     const col = this.db.collection(collection);
@@ -36,7 +39,7 @@ class FirebaseClass {
       .where('offerKind', '==', data.offerKind)
       .get()
       .then(res => res.docs)
-      .then((docs) => {
+      .then(docs => {
         if (docs.length > 0) {
           const { id } = docs[0];
 
@@ -47,25 +50,28 @@ class FirebaseClass {
       });
   };
 
-  add = (collection, { user, ...data }) => this.db.collection(collection).add({
-    ...data,
-    updatedBy: user.email,
-    updatedAt: new Date(),
-  });
-
-  delete = (collection, id) => this.db
-    .collection(collection)
-    .doc(id)
-    .delete();
-
-  update = (collection, id, { user, ...data }) => this.db
-    .collection(collection)
-    .doc(id)
-    .update({
+  add = (collection, { user, ...data }) =>
+    this.db.collection(collection).add({
       ...data,
       updatedBy: user.email,
       updatedAt: new Date(),
     });
+
+  delete = (collection, id) =>
+    this.db
+      .collection(collection)
+      .doc(id)
+      .delete();
+
+  update = (collection, id, { user, ...data }) =>
+    this.db
+      .collection(collection)
+      .doc(id)
+      .update({
+        ...data,
+        updatedBy: user.email,
+        updatedAt: new Date(),
+      });
 }
 
 const rublevkaExportAppConfig = {

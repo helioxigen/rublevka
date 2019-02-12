@@ -3,7 +3,12 @@ import React, { Component } from 'react';
 import FormField from 'cem/helpers/formField';
 
 import UI from 'cem/components/ui';
-const { AsyncSelect, Select, Heading, Grid: { Row, Col } } = UI;
+const {
+  AsyncSelect,
+  Select,
+  Heading,
+  Grid: { Row, Col },
+} = UI;
 
 import sUtils from 'cem/styles/utils';
 
@@ -14,7 +19,10 @@ import * as propertyOptions from 'cem/constants/properties/options';
 import * as dict from 'cem/constants/settings/exportPackages/dictionaries';
 import * as options from 'cem/constants/settings/exportPackages/options';
 
-const offerKinds = [{ value: 'sale', label: 'Продажа' }, { value: 'rent', label: 'Аренда' }];
+const offerKinds = [
+  { value: 'sale', label: 'Продажа' },
+  { value: 'rent', label: 'Аренда' },
+];
 
 const getOfferKindValue = (saleOfferPriceValue, rentOfferPriceValue) => {
   if (saleOfferPriceValue) {
@@ -48,7 +56,7 @@ class Filters extends Component {
         fields.filter.saleOffer.price.value,
         fields.filter.rentOffer.price.value,
       ),
-      onChange: (selectedOfferKind) => {
+      onChange: selectedOfferKind => {
         if (selectedOfferKind === 'sale') {
           fields.filter.saleOffer.price.onChange('0..');
         } else {
@@ -86,12 +94,24 @@ class Filters extends Component {
                 </FormField>
               </Col>
               <Col sm="7">
-                <FormField label="Тип предложения" field={offerKindField} static={!isUpdateAllowed}>
-                  <Select className={sUtils.fontSizeMd} options={offerKinds} {...offerKindField} />
+                <FormField
+                  label="Тип предложения"
+                  field={offerKindField}
+                  static={!isUpdateAllowed}
+                >
+                  <Select
+                    className={sUtils.fontSizeMd}
+                    options={offerKinds}
+                    {...offerKindField}
+                  />
                 </FormField>
               </Col>
               <Col sm="7">
-                <FormField label="Статус" field={fields.filter.state} static={!isUpdateAllowed}>
+                <FormField
+                  label="Статус"
+                  field={fields.filter.state}
+                  static={!isUpdateAllowed}
+                >
                   <Select
                     className={sUtils.fontSizeMd}
                     valueKey="id"
@@ -154,7 +174,11 @@ class Filters extends Component {
             </Row>
             <Row>
               <Col sm="20">
-                <FormField label="ID" field={fields.filter.id} static={!isUpdateAllowed}>
+                <FormField
+                  label="ID"
+                  field={fields.filter.id}
+                  static={!isUpdateAllowed}
+                >
                   <Select
                     multi
                     allowCreate
@@ -175,7 +199,11 @@ class Filters extends Component {
                     <AsyncSelect
                       multi
                       valueKey="id"
-                      asyncOptions={fetchResource('/v1/places/settlements', 'name', ['name'])}
+                      asyncOptions={fetchResource(
+                        '/v1/places/settlements',
+                        'name',
+                        ['name'],
+                      )}
                       {...fields.filter.location.settlementId}
                     />
                   </FormField>
@@ -187,7 +215,11 @@ class Filters extends Component {
             <Heading size="md">Исключить объекты</Heading>
             <Row>
               <Col sm="20">
-                <FormField label="ID" field={fields.filterNot.id} static={!isUpdateAllowed}>
+                <FormField
+                  label="ID"
+                  field={fields.filterNot.id}
+                  static={!isUpdateAllowed}
+                >
                   <Select
                     multi
                     allowCreate
@@ -208,7 +240,11 @@ class Filters extends Component {
                     <AsyncSelect
                       multi
                       valueKey="id"
-                      asyncOptions={fetchResource('/v1/places/settlements', 'name', ['name'])}
+                      asyncOptions={fetchResource(
+                        '/v1/places/settlements',
+                        'name',
+                        ['name'],
+                      )}
                       {...fields.filterNot.location.settlementId}
                     />
                   </FormField>

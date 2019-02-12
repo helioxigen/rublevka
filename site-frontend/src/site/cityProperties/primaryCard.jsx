@@ -33,7 +33,13 @@ import sUtils from 'site/styles/utils';
 
 class CardExtended extends Component {
   render() {
-    const { data, specification, information, publicLayoutImages, cbData } = this.props;
+    const {
+      data,
+      specification,
+      information,
+      publicLayoutImages,
+      cbData,
+    } = this.props;
     const layoutImages = publicLayoutImages && !!publicLayoutImages.length;
 
     if (data && layoutImages) {
@@ -42,8 +48,9 @@ class CardExtended extends Component {
           <Row>
             <Col md="5" className={sUtils.pushedBottomXs3}>
               <Image
-                src={`${global.config.cloudfront || cloudfront}/${publicLayoutImages[0]
-                  .id}-thumbnail-512`}
+                src={`${global.config.cloudfront || cloudfront}/${
+                  publicLayoutImages[0].id
+                }-thumbnail-512`}
                 alt="Планировка"
                 responsive
               />
@@ -57,27 +64,32 @@ class CardExtended extends Component {
                     <Col md="6">
                       {specification && (
                         <ParamList label="Площадь:">
-                          &nbsp;{specification.totalArea ? specification.totalArea : '—'} м²
+                          &nbsp;
+                          {specification.totalArea
+                            ? specification.totalArea
+                            : '—'}{' '}
+                          м²
                         </ParamList>
                       )}
-                      {specification &&
-                      !!specification.ceilHeight && (
+                      {specification && !!specification.ceilHeight && (
                         <ParamList label="Высота потолков:">
                           &nbsp;{specification.ceilHeight} м
                         </ParamList>
                       )}
                       {information && (
                         <ParamList label="Ремонт:">
-                          &nbsp;{information.renovate ? dict.renovate[information.renovate] : '—'}
+                          &nbsp;
+                          {information.renovate
+                            ? dict.renovate[information.renovate]
+                            : '—'}
                         </ParamList>
                       )}
                       {information && (
                         <ParamList label="Вентиляция:">
-                          &nbsp;{information.ventilation ? (
-                            dict.ventilation[information.ventilation]
-                          ) : (
-                            '—'
-                          )}
+                          &nbsp;
+                          {information.ventilation
+                            ? dict.ventilation[information.ventilation]
+                            : '—'}
                         </ParamList>
                       )}
                     </Col>
@@ -87,46 +99,54 @@ class CardExtended extends Component {
                           &nbsp;{specification.wcs ? specification.wcs : '–'}
                         </ParamList>
                         <ParamList label="Балкон:">
-                          &nbsp;{specification.balconies ? specification.balconies : 'нет'}
+                          &nbsp;
+                          {specification.balconies
+                            ? specification.balconies
+                            : 'нет'}
                         </ParamList>
                         <ParamList label="Планировка:">
-                          &nbsp;{specification.layout ? dict.layouts[specification.layout] : '—'}
+                          &nbsp;
+                          {specification.layout
+                            ? dict.layouts[specification.layout]
+                            : '—'}
                         </ParamList>
                       </Col>
                     )}
                   </Row>
                 </Col>
 
-                {cbData &&
-                cbData.details && (
+                {cbData && cbData.details && (
                   <Col sm="6" md="12" className={sUtils.pushedTopXs3Sm0Md3_7}>
                     <h5 className={s.titleSm}>Здание</h5>
                     <Row className={sUtils.pushedTop1}>
                       {cbData.details && (
                         <Col md="6">
                           <ParamList label="Количество лифтов:">
-                            &nbsp;{cbData.details.elevators ? cbData.details.elevators : '—'}
+                            &nbsp;
+                            {cbData.details.elevators
+                              ? cbData.details.elevators
+                              : '—'}
                           </ParamList>
                           <ParamList label="Мусоропровод:">
-                            &nbsp;{cbData.details.withRubbishChute ? 'есть' : '—'}
+                            &nbsp;
+                            {cbData.details.withRubbishChute ? 'есть' : '—'}
                           </ParamList>
                           <ParamList label="Паркинг:">
                             &nbsp;{cbData.details.parkings ? 'есть' : '—'}
                           </ParamList>
                         </Col>
                       )}
-                      {cbData &&
-                      cbData.details && (
+                      {cbData && cbData.details && (
                         <Col md="6">
                           <ParamList label="Подземный гараж:">
-                            &nbsp;{cbData.details.undergroundGarages ? 'есть' : '—'}
+                            &nbsp;
+                            {cbData.details.undergroundGarages ? 'есть' : '—'}
                           </ParamList>
                           <ParamList label="Безопасность:">
-                            &nbsp;{cbData.details.security ? (
-                              dict.security[cbData.details.security]
-                            ) : (
-                              '–'
-                            )}
+                            &nbsp;
+                            {cbData.details.security
+                              ? dict.security[cbData.details.security]
+                              : '–'}
                           </ParamList>
                         </Col>
                       )}
@@ -138,11 +158,17 @@ class CardExtended extends Component {
                 <Col xs="12">
                   <Row>
                     <Col sm={layoutImages ? '6' : '4'}>
-                      <CurrentDutyCard propertyCategory="city" dontReplacePhoneNumber />
+                      <CurrentDutyCard
+                        propertyCategory="city"
+                        dontReplacePhoneNumber
+                      />
                     </Col>
                     <Col sm={layoutImages ? '6' : '4'}>
                       <div className={sUtils.pushedTopXs3_5Sm0}>
-                        <ByPropertyModal propertyCategory="city" propertyId={data.id}>
+                        <ByPropertyModal
+                          propertyCategory="city"
+                          propertyId={data.id}
+                        >
                           <Button
                             className={sUtils.displayBlockXs}
                             size="xlg"
@@ -160,7 +186,10 @@ class CardExtended extends Component {
             </Col>
             {!layoutImages && (
               <Col sm="4" className={sUtils.pushedTopXs3_5Sm0}>
-                <CurrentDutyCard propertyCategory="city" dontReplacePhoneNumber />
+                <CurrentDutyCard
+                  propertyCategory="city"
+                  dontReplacePhoneNumber
+                />
 
                 <div className={sUtils.pushedTopXs3_5Sm0}>
                   <ByPropertyModal propertyCategory="city" propertyId={data.id}>
@@ -191,27 +220,32 @@ class CardExtended extends Component {
                     <Col xs="12">
                       {specification && (
                         <ParamList label="Площадь:">
-                          &nbsp;{specification.totalArea ? specification.totalArea : '—'} м²
+                          &nbsp;
+                          {specification.totalArea
+                            ? specification.totalArea
+                            : '—'}{' '}
+                          м²
                         </ParamList>
                       )}
-                      {specification &&
-                      !!specification.ceilHeight && (
+                      {specification && !!specification.ceilHeight && (
                         <ParamList label="Высота потолков:">
                           &nbsp;{specification.ceilHeight} м
                         </ParamList>
                       )}
                       {information && (
                         <ParamList label="Ремонт:">
-                          &nbsp;{information.renovate ? dict.renovate[information.renovate] : '—'}
+                          &nbsp;
+                          {information.renovate
+                            ? dict.renovate[information.renovate]
+                            : '—'}
                         </ParamList>
                       )}
                       {information && (
                         <ParamList label="Вентиляция:">
-                          &nbsp;{information.ventilation ? (
-                            dict.ventilation[information.ventilation]
-                          ) : (
-                            '—'
-                          )}
+                          &nbsp;
+                          {information.ventilation
+                            ? dict.ventilation[information.ventilation]
+                            : '—'}
                         </ParamList>
                       )}
                     </Col>
@@ -221,10 +255,16 @@ class CardExtended extends Component {
                           &nbsp;{specification.wcs ? specification.wcs : '–'}
                         </ParamList>
                         <ParamList label="Балкон:">
-                          &nbsp;{specification.balconies ? specification.balconies : 'нет'}
+                          &nbsp;
+                          {specification.balconies
+                            ? specification.balconies
+                            : 'нет'}
                         </ParamList>
                         <ParamList label="Планировка:">
-                          &nbsp;{specification.layout ? dict.layouts[specification.layout] : '—'}
+                          &nbsp;
+                          {specification.layout
+                            ? dict.layouts[specification.layout]
+                            : '—'}
                         </ParamList>
                       </Col>
                     )}
@@ -237,10 +277,14 @@ class CardExtended extends Component {
                       {cbData.details && (
                         <Col xs="12">
                           <ParamList label="Количество лифтов:">
-                            &nbsp;{cbData.details.elevators ? cbData.details.elevators : '—'}
+                            &nbsp;
+                            {cbData.details.elevators
+                              ? cbData.details.elevators
+                              : '—'}
                           </ParamList>
                           <ParamList label="Мусоропровод:">
-                            &nbsp;{cbData.details.withRubbishChute ? 'есть' : '—'}
+                            &nbsp;
+                            {cbData.details.withRubbishChute ? 'есть' : '—'}
                           </ParamList>
                           <ParamList label="Паркинг:">
                             &nbsp;{cbData.details.parkings ? 'есть' : '—'}
@@ -250,14 +294,14 @@ class CardExtended extends Component {
                       {cbData.details && (
                         <Col xs="12">
                           <ParamList label="Подземный гараж:">
-                            &nbsp;{cbData.details.undergroundGarages ? 'есть' : '—'}
+                            &nbsp;
+                            {cbData.details.undergroundGarages ? 'есть' : '—'}
                           </ParamList>
                           <ParamList label="Безопасность:">
-                            &nbsp;{cbData.details.security ? (
-                              dict.security[cbData.details.security]
-                            ) : (
-                              '–'
-                            )}
+                            &nbsp;
+                            {cbData.details.security
+                              ? dict.security[cbData.details.security]
+                              : '–'}
                           </ParamList>
                         </Col>
                       )}
@@ -269,11 +313,17 @@ class CardExtended extends Component {
             <Col md="4" className={sUtils.pushedTopXs3_5Sm0}>
               <Row>
                 <Col sm="6" md="12">
-                  <CurrentDutyCard propertyCategory="city" dontReplacePhoneNumber />
+                  <CurrentDutyCard
+                    propertyCategory="city"
+                    dontReplacePhoneNumber
+                  />
                 </Col>
                 <Col sm="6" md="12">
                   <div className={sUtils.pushedTopXs3_5Sm0Md3_5}>
-                    <ByPropertyModal propertyCategory="city" propertyId={data.id}>
+                    <ByPropertyModal
+                      propertyCategory="city"
+                      propertyId={data.id}
+                    >
                       <Button
                         className={sUtils.displayBlockXs}
                         size="xlg"
@@ -329,18 +379,27 @@ class Card extends Component {
     const rentPrice = data.rentOffer && data.rentOffer.multiCurrencyPrice.usd;
 
     // linked complex building data
-    const { data: cbData = {} } = state.complexBuildings[complexBuildingId] || {};
+    const { data: cbData = {} } =
+      state.complexBuildings[complexBuildingId] || {};
 
     if (!isFetching) {
-      const publicLayoutImages = data.layoutImages.filter(image => !!image.isPublic);
+      const publicLayoutImages = data.layoutImages.filter(
+        image => !!image.isPublic,
+      );
 
       return (
         <section>
           <div className={s.card} onClick={() => this.handleClick(id, data)}>
             <ul className={s.flexList}>
-              {specification &&
-              specification.rooms && (
-                <li className={cn(s.listItem, sUtils.bold, sUtils.minWidth27, s.maxWidth12)}>
+              {specification && specification.rooms && (
+                <li
+                  className={cn(
+                    s.listItem,
+                    sUtils.bold,
+                    sUtils.minWidth27,
+                    s.maxWidth12,
+                  )}
+                >
                   <Icon className={cn(s.icon, sUtils.hideXs)} icon="room" />
                   <span className={cn(s.textMd, s.paddingLeft3)}>
                     <CountIndicator
@@ -354,7 +413,8 @@ class Card extends Component {
                 <li className={cn(s.listItem, sUtils.hideXs, s.maxWidth12)}>
                   <Icon className={s.icon} icon="floor" />
                   <span className={cn(s.textMd, s.paddingLeft3)}>
-                    {specification.floor ? specification.floor : '—'}/{cbData.details.floors} этаж
+                    {specification.floor ? specification.floor : '—'}/
+                    {cbData.details.floors} этаж
                   </span>
                 </li>
               )}
@@ -369,15 +429,27 @@ class Card extends Component {
               <li className={cn(s.listItem)}>
                 <span className={cn(s.textMd, s.paddingLeft3)}>
                   <Icon className={cn(s.icon, sUtils.hideXs)} icon="dollar" />
-                  {salePrice && <FormattedCurrency symbol="USD" value={salePrice} />}
+                  {salePrice && (
+                    <FormattedCurrency symbol="USD" value={salePrice} />
+                  )}
                   {rentPrice && (
                     <span>
-                      <FormattedCurrency symbol="USD" value={rentPrice} />/месяц
+                      <FormattedCurrency symbol="USD" value={rentPrice} />
+                      /месяц
                     </span>
                   )}
                 </span>
               </li>
-              <li className={cn(s.listItem, s.textMd, sUtils.hideXsSm, s.maxWidth13)}>ID: {id}</li>
+              <li
+                className={cn(
+                  s.listItem,
+                  s.textMd,
+                  sUtils.hideXsSm,
+                  s.maxWidth13,
+                )}
+              >
+                ID: {id}
+              </li>
               <li className={cn(s.listItem, sUtils.alignRight)}>
                 <Button
                   className={cn(s.btnPrimary, isOpened && s.active)}
@@ -409,7 +481,7 @@ class Card extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { cityProperties, complexBuildings } = state;
 
   return {

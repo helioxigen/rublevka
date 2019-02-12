@@ -13,7 +13,10 @@ import popularSettlements from 'site/settlements/constants/popularSettlements';
 import { nameToSlug } from 'core/helpers/nameToSlug';
 
 import { resourceName } from 'core/settlements/constants/defaults';
-import { dealTypesTranslit, kindsTranslit } from 'site/constants/properties/dictionaries';
+import {
+  dealTypesTranslit,
+  kindsTranslit,
+} from 'site/constants/properties/dictionaries';
 import { kinds } from 'site/constants/places';
 
 // styles
@@ -46,7 +49,9 @@ function renderSearchResult(data) {
     return (
       <DropdownLink
         onClick={fbPixelDataSend()}
-        to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${data.id}`}
+        to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${
+          data.id
+        }`}
       >
         {data.name}
       </DropdownLink>
@@ -55,9 +60,12 @@ function renderSearchResult(data) {
   return (
     <DropdownLink
       onClick={fbPixelDataSend()}
-      to={`/zagorodnaya/${dealTypesTranslit[dealType]}/${kindsTranslit[data.kind]}/${data.id}`}
+      to={`/zagorodnaya/${dealTypesTranslit[dealType]}/${
+        kindsTranslit[data.kind]
+      }/${data.id}`}
     >
-      ID {data.id}, {kinds[data.kind].toLowerCase()} в посёлке «{data.settlementName}»
+      ID {data.id}, {kinds[data.kind].toLowerCase()} в посёлке «
+      {data.settlementName}»
     </DropdownLink>
   );
 }
@@ -109,7 +117,12 @@ class Search extends Component {
 
   render() {
     const popularForRoute = popularSettlements[global.config.domain];
-    const { withoutBorder, withoutButton, fluidWidth, mobileRound } = this.props;
+    const {
+      withoutBorder,
+      withoutButton,
+      fluidWidth,
+      mobileRound,
+    } = this.props;
 
     return (
       <Wrapper>
@@ -127,32 +140,30 @@ class Search extends Component {
             />
             {!withoutButton && <SearchButton>Найти</SearchButton>}
 
-            {this.state.isOpened &&
-              !this.state.name && (
-                <Dropdown fluidWidth={fluidWidth}>
-                  <DropdownTitle>Популярные посёлки:</DropdownTitle>
-                  <div>
-                    {Object.keys(popularForRoute).map(id => (
-                      <DropdownLink
-                        to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
-                          popularForRoute[id],
-                        )}_${id}`}
-                        key={id}
-                      >
-                        {popularForRoute[id]}
-                      </DropdownLink>
-                    ))}
-                  </div>
-                </Dropdown>
-              )}
+            {this.state.isOpened && !this.state.name && (
+              <Dropdown fluidWidth={fluidWidth}>
+                <DropdownTitle>Популярные посёлки:</DropdownTitle>
+                <div>
+                  {Object.keys(popularForRoute).map(id => (
+                    <DropdownLink
+                      to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
+                        popularForRoute[id],
+                      )}_${id}`}
+                      key={id}
+                    >
+                      {popularForRoute[id]}
+                    </DropdownLink>
+                  ))}
+                </div>
+              </Dropdown>
+            )}
 
-            {this.state.isOpened &&
-              this.state.name && (
-                <Dropdown>
-                  <DropdownTitle>Возможно, вы ищете:</DropdownTitle>
-                  {this.state.searchResults.map(data => renderSearchResult(data))}
-                </Dropdown>
-              )}
+            {this.state.isOpened && this.state.name && (
+              <Dropdown>
+                <DropdownTitle>Возможно, вы ищете:</DropdownTitle>
+                {this.state.searchResults.map(data => renderSearchResult(data))}
+              </Dropdown>
+            )}
           </SearchWrapper>
         </Form.Container>
       </Wrapper>

@@ -17,7 +17,8 @@ export default (s = {}) => {
         this.load(nextProps);
       }
 
-      if (!isEqual(nextProps.value, this.state)) { // we can hardly reset value from parent component
+      if (!isEqual(nextProps.value, this.state)) {
+        // we can hardly reset value from parent component
         this.load(nextProps);
       }
     }
@@ -51,7 +52,10 @@ export default (s = {}) => {
     render() {
       const { step, min, max, labelFormat = {} } = this.props;
 
-      const handleTitleClassName = cn(s.handleTitle, this.props.handleTitleClassName);
+      const handleTitleClassName = cn(
+        s.handleTitle,
+        this.props.handleTitleClassName,
+      );
 
       const className = cn(s.slider, this.props.className);
       const barClassName = cn(s.bar, this.props.barClassName);
@@ -62,11 +66,13 @@ export default (s = {}) => {
       const isMinReached = this.state.min === min;
       const isMaxReached = this.state.max === max;
 
-      const minValue = (isMinReached && onMinValue) ? onMinValue : this.state.min;
-      const maxValue = (isMaxReached && onMaxValue) ? onMaxValue : this.state.max;
+      const minValue = isMinReached && onMinValue ? onMinValue : this.state.min;
+      const maxValue = isMaxReached && onMaxValue ? onMaxValue : this.state.max;
 
-      const labelMin = `${labelFormat.prefix || ``}${minValue}${labelFormat.postfix || ``}`;
-      const labelMax = `${labelFormat.prefix || ``}${maxValue}${labelFormat.postfix || ``}`;
+      const labelMin = `${labelFormat.prefix ||
+        ``}${minValue}${labelFormat.postfix || ``}`;
+      const labelMax = `${labelFormat.prefix ||
+        ``}${maxValue}${labelFormat.postfix || ``}`;
 
       return (
         <div>
@@ -78,14 +84,10 @@ export default (s = {}) => {
             className={className}
             barClassName={barClassName}
             handleClassName={handleClassName}
-
             step={step}
-
             min={min}
             max={max}
-
             value={[this.state.min, this.state.max]}
-
             onChange={::this.handleChange}
             onAfterChange={::this.handleAfterChange}
             pearling

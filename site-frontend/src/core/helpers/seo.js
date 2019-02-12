@@ -1,6 +1,7 @@
 import qs from 'qs';
 
-const qsStringify = (...args) => qs.stringify(...args, { addQueryPrefix: true });
+const qsStringify = (...args) =>
+  qs.stringify(...args, { addQueryPrefix: true });
 
 export const getPrevNext = (baseUrl, queryPage, totalPages) => {
   if (queryPage === totalPages) {
@@ -49,7 +50,7 @@ export const getPrevNext = (baseUrl, queryPage, totalPages) => {
   ];
 };
 
-export const getTitlePostfix = (queryPage) => {
+export const getTitlePostfix = queryPage => {
   if (queryPage > 1) return ` — cтраница ${queryPage}`;
 
   return '';

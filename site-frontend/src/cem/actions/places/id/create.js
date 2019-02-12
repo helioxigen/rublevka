@@ -22,7 +22,7 @@ const createPlaceSucceeded = ({ headers, body: data }) => dispatch =>
   });
 
 export default function createPlaces(kind, data) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(createPlaceStarted(kind, data));
 
     return API.post(`/v1/places/${kind}`, data)

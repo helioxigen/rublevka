@@ -108,7 +108,7 @@ export default (s = {}, { RetinaImage, Icon }) => {
         const offset = sliderWidth - slideCount * navItemWidth;
 
         if (direction === `right`) {
-          transform = - sliderWidth + offset;
+          transform = -sliderWidth + offset;
 
           if (this.state.transform + transform <= sliderWidth - navWidth) {
             // to end
@@ -139,11 +139,18 @@ export default (s = {}, { RetinaImage, Icon }) => {
     }
 
     animateNav(slideToAnimate) {
-      const { currentSlide, imagesLastIndex, navWidth, sliderWidth } = this.state;
+      const {
+        currentSlide,
+        imagesLastIndex,
+        navWidth,
+        sliderWidth,
+      } = this.state;
       const slider = this.refs.slider;
       let direction;
 
-      const navItemWidth = this.props.hideNav ? 0 : this.refs[`navItem${slideToAnimate}`].clientWidth;
+      const navItemWidth = this.props.hideNav
+        ? 0
+        : this.refs[`navItem${slideToAnimate}`].clientWidth;
 
       if (currentSlide > slideToAnimate) {
         direction = `left`;
@@ -153,10 +160,17 @@ export default (s = {}, { RetinaImage, Icon }) => {
 
       if (sliderWidth >= navWidth) return;
 
-      const sliderOffset = Math.floor(slider.getBoundingClientRect()[direction]);
-      const navItemOffset = Math.floor(this.refs[`navItem${slideToAnimate}`].getBoundingClientRect()[direction]);
+      const sliderOffset = Math.floor(
+        slider.getBoundingClientRect()[direction],
+      );
+      const navItemOffset = Math.floor(
+        this.refs[`navItem${slideToAnimate}`].getBoundingClientRect()[
+          direction
+        ],
+      );
       const delta = Math.floor(sliderOffset - navItemOffset);
-      const transform = direction === `right` ? delta - navItemWidth : delta + navItemWidth;
+      const transform =
+        direction === `right` ? delta - navItemWidth : delta + navItemWidth;
       const transformToApply = this.state.navTransform + transform; // < sliderWidth - navWidth
 
       if (slideToAnimate === 0 || transformToApply > 0) {
@@ -164,12 +178,19 @@ export default (s = {}, { RetinaImage, Icon }) => {
         return;
       }
 
-      if (slideToAnimate === imagesLastIndex || transformToApply < sliderWidth - navWidth) {
+      if (
+        slideToAnimate === imagesLastIndex ||
+        transformToApply < sliderWidth - navWidth
+      ) {
         this.slideNavToEnd();
         return;
       }
 
-      if (delta < navItemWidth && slideToAnimate < imagesLastIndex && slideToAnimate > 0) {
+      if (
+        delta < navItemWidth &&
+        slideToAnimate < imagesLastIndex &&
+        slideToAnimate > 0
+      ) {
         if (direction === `left` && transform < 0) return;
         if (direction === `right` && transform > 0) return;
 
@@ -258,47 +279,114 @@ export default (s = {}, { RetinaImage, Icon }) => {
       };
 
       return (
-        <div className={cn(s.carousel, { [s.isFullscreen]: fullscreen })} ref="slider">
-          <div className={s.overlay} onClick={this.props.fullscreenOnly ? ::this.close : ::this.fullscreenToggle }></div>
+        <div
+          className={cn(s.carousel, { [s.isFullscreen]: fullscreen })}
+          ref="slider"
+        >
+          <div
+            className={s.overlay}
+            onClick={
+              this.props.fullscreenOnly ? ::this.close : ::this.fullscreenToggle
+            }
+          />
 
           {this.state.imagesLength > 1 && (
             <div>
-              <button className={cn(s.trackBtn, s.trackBtnLeft)} onClick={this.onBtnClick.bind(this, currentSlide - 1)}>
-                <Icon className={cn(s.trackIcon, s.trackIconLeft)} icon="arrow-down"/>
+              <button
+                className={cn(s.trackBtn, s.trackBtnLeft)}
+                onClick={this.onBtnClick.bind(this, currentSlide - 1)}
+              >
+                <Icon
+                  className={cn(s.trackIcon, s.trackIconLeft)}
+                  icon="arrow-down"
+                />
               </button>
-              <button className={cn(s.trackBtn, s.trackBtnRight)} onClick={this.onBtnClick.bind(this, currentSlide + 1)}>
-                <Icon className={cn(s.trackIcon, s.trackIconRight)} icon="arrow-down"/>
+              <button
+                className={cn(s.trackBtn, s.trackBtnRight)}
+                onClick={this.onBtnClick.bind(this, currentSlide + 1)}
+              >
+                <Icon
+                  className={cn(s.trackIcon, s.trackIconRight)}
+                  icon="arrow-down"
+                />
               </button>
             </div>
           )}
 
-          <button className={s.trackBtn} onClick={this.props.fullscreenOnly ? ::this.close : ::this.fullscreenToggle }>
-            {this.props.fullscreenOnly && <Icon className={s.trackIcon} icon="times"/>}
+          <button
+            className={s.trackBtn}
+            onClick={
+              this.props.fullscreenOnly ? ::this.close : ::this.fullscreenToggle
+            }
+          >
+            {this.props.fullscreenOnly && (
+              <Icon className={s.trackIcon} icon="times" />
+            )}
           </button>
 
-          <Swipeable className={s.width} onSwipedLeft={this.onBtnClick.bind(this, currentSlide + 1)} onSwipedRight={this.onBtnClick.bind(this, currentSlide - 1)}>
-            <div onClick={this.onBtnClick.bind(this, currentSlide + 1)} ref="sliderWrapper">
-              {this.state.images.map((item, index) =>
-                <div className={this.props.hideNav ? s.trackSlideFull : s.trackSlide} key={index} style={slideTransform[index]}>
-                  <RetinaImage className={s.trackImage} src={item.src} size={1024} alt={item.id} />
+          <Swipeable
+            className={s.width}
+            onSwipedLeft={this.onBtnClick.bind(this, currentSlide + 1)}
+            onSwipedRight={this.onBtnClick.bind(this, currentSlide - 1)}
+          >
+            <div
+              onClick={this.onBtnClick.bind(this, currentSlide + 1)}
+              ref="sliderWrapper"
+            >
+              {this.state.images.map((item, index) => (
+                <div
+                  className={
+                    this.props.hideNav ? s.trackSlideFull : s.trackSlide
+                  }
+                  key={index}
+                  style={slideTransform[index]}
+                >
+                  <RetinaImage
+                    className={s.trackImage}
+                    src={item.src}
+                    size={1024}
+                    alt={item.id}
+                  />
                 </div>
-              )}
+              ))}
             </div>
           </Swipeable>
 
-          {this.props.title && <h6 className={s.title}>{title} ({this.state.images.length})</h6>}
+          {this.props.title && (
+            <h6 className={s.title}>
+              {title} ({this.state.images.length})
+            </h6>
+          )}
 
           {!this.props.hideNav && (
             <div className={s.nav}>
-              <Swipeable onSwipedLeft={::this.navSwipedLeft} onSwipedRight={::this.navSwipedRight}>
+              <Swipeable
+                onSwipedLeft={::this.navSwipedLeft}
+                onSwipedRight={::this.navSwipedRight}
+              >
                 <div style={navStyle} className={s.navItemContainer} ref="nav">
-                  {(this.props.thumbnails || this.state.images).map((item, index) => {
-                    return (
-                      <div className={cn(s.navItem, { [s.isActive]: index === currentSlide })} onClick={this.slideTo.bind(this, index)} ref={`navItem${index}`} key={index}>
-                        <RetinaImage className={s.navItemImage} src={item.src} size={128} alt={item.id} onLoad={::this.onImgLoad}/>
-                      </div>
-                    );
-                  })}
+                  {(this.props.thumbnails || this.state.images).map(
+                    (item, index) => {
+                      return (
+                        <div
+                          className={cn(s.navItem, {
+                            [s.isActive]: index === currentSlide,
+                          })}
+                          onClick={this.slideTo.bind(this, index)}
+                          ref={`navItem${index}`}
+                          key={index}
+                        >
+                          <RetinaImage
+                            className={s.navItemImage}
+                            src={item.src}
+                            size={128}
+                            alt={item.id}
+                            onLoad={::this.onImgLoad}
+                          />
+                        </div>
+                      );
+                    },
+                  )}
                 </div>
               </Swipeable>
             </div>

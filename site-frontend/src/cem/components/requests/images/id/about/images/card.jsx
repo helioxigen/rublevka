@@ -38,4 +38,6 @@ const collectTarget = connect => ({
   connectDropTarget: connect.dropTarget(),
 });
 
-export default DropTarget('hub.images.card', targetSpec, collectTarget)(DragSource('hub.images.card', sourceSpec, collectSource)(Card));
+export default DropTarget('hub.images.card', targetSpec, collectTarget)(
+  DragSource('hub.images.card', sourceSpec, collectSource)(Card),
+);

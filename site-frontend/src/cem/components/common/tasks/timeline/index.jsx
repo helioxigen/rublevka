@@ -15,7 +15,9 @@ import Card from './card';
 
 import UI from 'cem/components/ui';
 const {
-  Button, Loading, Heading,
+  Button,
+  Loading,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -43,18 +45,25 @@ class TasksTimeline extends Component {
     const pagination = state.pagination[resource(group)] || {};
     const nextPagination = nextProps.state.pagination[resource(group)] || {};
 
-    const isPaginationUpdated = pagination !== undefined && !isEqual(pagination, nextPagination);
+    const isPaginationUpdated =
+      pagination !== undefined && !isEqual(pagination, nextPagination);
 
     if (isPaginationUpdated) {
-      actions.loadTasks({ filter, pagination: { offset: nextPagination.offset } }, group);
+      actions.loadTasks(
+        { filter, pagination: { offset: nextPagination.offset } },
+        group,
+      );
     }
   }
 
   render() {
     const {
-      state, actions, group,
+      state,
+      actions,
+      group,
       taskCreationParams,
-      isTaskCreationAllowed = true, propertyCardHidden,
+      isTaskCreationAllowed = true,
+      propertyCardHidden,
     } = this.props;
 
     const { ids = [], isFetching, errors = [] } = state._tasks[group] || {};
@@ -64,19 +73,45 @@ class TasksTimeline extends Component {
         <section className={s.section}>
           <Row>
             <Col xs="20" className={sUtils.pushedBottom1_5}>
-              {isTaskCreationAllowed && <Button to={`/tasks/create?${objectToQueryString(taskCreationParams)}`} size="xs" kind="accent">Добавить</Button>}
+              {isTaskCreationAllowed && (
+                <Button
+                  to={`/tasks/create?${objectToQueryString(
+                    taskCreationParams,
+                  )}`}
+                  size="xs"
+                  kind="accent"
+                >
+                  Добавить
+                </Button>
+              )}
             </Col>
             <Col xs="20">
-              {!isFetching && !!errors.length && <ListErrorMessage errors={errors} />}
-              {!isFetching && !errors.length && !ids.length && <Heading notFound>Нет задач</Heading>}
-              {!isFetching && ids.map((id) => {
-                const taskData = state._tasks[id] && state._tasks[id].data;
-                const userData = taskData && state.users[taskData.responsibleUser.id] && state.users[taskData.responsibleUser.id].data;
+              {!isFetching && !!errors.length && (
+                <ListErrorMessage errors={errors} />
+              )}
+              {!isFetching && !errors.length && !ids.length && (
+                <Heading notFound>Нет задач</Heading>
+              )}
+              {!isFetching &&
+                ids.map(id => {
+                  const taskData = state._tasks[id] && state._tasks[id].data;
+                  const userData =
+                    taskData &&
+                    state.users[taskData.responsibleUser.id] &&
+                    state.users[taskData.responsibleUser.id].data;
 
-                return <Card key={id} actions={actions} data={taskData} userData={userData} propertyCardHidden={propertyCardHidden} />;
-              })}
+                  return (
+                    <Card
+                      key={id}
+                      actions={actions}
+                      data={taskData}
+                      userData={userData}
+                      propertyCardHidden={propertyCardHidden}
+                    />
+                  );
+                })}
               {isFetching && <Loading />}
-              {!isFetching && !!ids.length &&
+              {!isFetching && !!ids.length && (
                 <Container fluid>
                   <Row xs="center">
                     <Col sm="10" className={sUtils.pushed6_0}>
@@ -84,7 +119,7 @@ class TasksTimeline extends Component {
                     </Col>
                   </Row>
                 </Container>
-              }
+              )}
             </Col>
           </Row>
         </section>
@@ -98,7 +133,13 @@ const pickState = ({ _tasks, users, pagination }) => ({
 });
 
 const pickActions = dispatch => ({
-  actions: bindActionCreators({ ...TasksActions, changeStatus, pop, pushPath }, dispatch),
+  actions: bindActionCreators(
+    { ...TasksActions, changeStatus, pop, pushPath },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, pickActions)(TasksTimeline);
+export default connect(
+  pickState,
+  pickActions,
+)(TasksTimeline);

@@ -68,7 +68,9 @@ class Square extends Component {
                 <SelectGroup
                   options={landAreas}
                   selected={landArea}
-                  onUpdate={(key, value) => this.onUpdate(key, value, 'landArea')}
+                  onUpdate={(key, value) =>
+                    this.onUpdate(key, value, 'landArea')
+                  }
                 />
               </div>
             </Col>

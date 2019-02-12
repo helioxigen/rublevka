@@ -10,8 +10,12 @@ import { settings as timelineSettings } from 'cem/constants/requests/images/time
 import cn from 'classnames';
 import UI from 'cem/components/ui';
 const {
-  Button, Back, Icon,
-  Form, Grid, Heading,
+  Button,
+  Back,
+  Icon,
+  Form,
+  Grid,
+  Heading,
   Grid: { Row, Col },
 } = UI;
 
@@ -64,9 +68,19 @@ class Header extends Component {
 
   render() {
     const {
-      handleSubmit, formKey, values, pristine, error, submitting,
-      data, location: { query: { kind } },
-      isCurrentUserSupervisor, isCurrentUserCreator, isCurrentUserResponsible,
+      handleSubmit,
+      formKey,
+      values,
+      pristine,
+      error,
+      submitting,
+      data,
+      location: {
+        query: { kind },
+      },
+      isCurrentUserSupervisor,
+      isCurrentUserCreator,
+      isCurrentUserResponsible,
     } = this.props;
 
     const heading = {
@@ -76,13 +90,23 @@ class Header extends Component {
 
     return (
       <header className={s.header}>
-        <Form.Container onSubmit={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}>
+        <Form.Container
+          onSubmit={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}
+        >
           <Grid.Container fluid>
             <Row>
               <Col xs="20" className={sUtils.positionRelative}>
                 <Heading size="lg">
-                  <Back button={<Button type="button" className={sButton.btnBack}><Icon className={s.iconBack} icon="arrow-right" /></Button>} />
-                  {formKey !== `create` ? `Заявка (ID: ${formKey})` : `Заказать ${heading[kind]}`}
+                  <Back
+                    button={
+                      <Button type="button" className={sButton.btnBack}>
+                        <Icon className={s.iconBack} icon="arrow-right" />
+                      </Button>
+                    }
+                  />
+                  {formKey !== `create`
+                    ? `Заявка (ID: ${formKey})`
+                    : `Заказать ${heading[kind]}`}
                 </Heading>
               </Col>
             </Row>
@@ -92,16 +116,43 @@ class Header extends Component {
                   <RequestDetails {...this.props} />
                 </Col>
               </Row>
-              {data && <StateControls state={data.state} values={values} changeState={::this.changeState} isCurrentUserSupervisor={isCurrentUserSupervisor} isCurrentUserCreator={isCurrentUserCreator} isCurrentUserResponsible={isCurrentUserResponsible} />}
+              {data && (
+                <StateControls
+                  state={data.state}
+                  values={values}
+                  changeState={::this.changeState}
+                  isCurrentUserSupervisor={isCurrentUserSupervisor}
+                  isCurrentUserCreator={isCurrentUserCreator}
+                  isCurrentUserResponsible={isCurrentUserResponsible}
+                />
+              )}
               <div className={sUtils.scrollX}>
                 <div className={sUtils.width120}>
-                  {data && formKey !== `create` && <Timeline className={sUtils.maxWidth83} settings={timelineSettings} state={data.state} stateDetails={data.stateDetails} createdAt={data.createdAt} />}
+                  {data && formKey !== `create` && (
+                    <Timeline
+                      className={sUtils.maxWidth83}
+                      settings={timelineSettings}
+                      state={data.state}
+                      stateDetails={data.stateDetails}
+                      createdAt={data.createdAt}
+                    />
+                  )}
                 </div>
               </div>
               {data && formKey !== `create` && <ManagerControls data={data} />}
             </div>
           </Grid.Container>
-          <Button className={cn(sButton.btnFixedBottom, formKey !== `create` && pristine && sUtils.hidden)} disabled={error || submitting} type="submit" kind={formKey === `create` ? `success` : `warning`} size="md" block>
+          <Button
+            className={cn(
+              sButton.btnFixedBottom,
+              formKey !== `create` && pristine && sUtils.hidden,
+            )}
+            disabled={error || submitting}
+            type="submit"
+            kind={formKey === `create` ? `success` : `warning`}
+            size="md"
+            block
+          >
             {formKey === `create` ? `Создать` : `Сохранить`}
           </Button>
         </Form.Container>

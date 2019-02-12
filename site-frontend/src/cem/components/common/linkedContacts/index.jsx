@@ -5,7 +5,8 @@ import ContactCreationModal from 'cem/containers/common/linkedContacts/modal.jsx
 
 import UI from 'cem/components/ui';
 const {
-  Table, Heading,
+  Table,
+  Heading,
   Grid: { Row, Col },
 } = UI;
 
@@ -21,10 +22,15 @@ export default class Contacts extends Component {
           <Col xs="20">
             <Heading size="md">
               Контакты
-              {isContactLinkingAllowed && <ContactCreationModal callback={actions.create} resource={this.props.resource} />}
+              {isContactLinkingAllowed && (
+                <ContactCreationModal
+                  callback={actions.create}
+                  resource={this.props.resource}
+                />
+              )}
             </Heading>
 
-            {!!items.length &&
+            {!!items.length && (
               <div className={sUtils.scrollX}>
                 <Table.Container width="100%" className={sUtils.width120}>
                   <Table.Row>
@@ -35,11 +41,18 @@ export default class Contacts extends Component {
                   </Table.Row>
 
                   {items.map((item, index) => (
-                    <ContactForm key={index} actions={actions} formKey={item.linkedContactId} initialValues={item} resource={this.props.resource} isContactLinkingAllowed={isContactLinkingAllowed} />
+                    <ContactForm
+                      key={index}
+                      actions={actions}
+                      formKey={item.linkedContactId}
+                      initialValues={item}
+                      resource={this.props.resource}
+                      isContactLinkingAllowed={isContactLinkingAllowed}
+                    />
                   ))}
                 </Table.Container>
               </div>
-            }
+            )}
             {!items.length && (
               <Heading notFound>Нет связанных контактов</Heading>
             )}

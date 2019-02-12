@@ -21,7 +21,10 @@ const Wrapper = styled.div`
   `};
 `;
 
-const { Modal, Grid: { Row, Col } } = UI;
+const {
+  Modal,
+  Grid: { Row, Col },
+} = UI;
 
 class CallbackModal extends Component {
   static propTypes = {

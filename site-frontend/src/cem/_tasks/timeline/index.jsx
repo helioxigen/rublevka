@@ -14,7 +14,12 @@ import Card from './card';
 
 // ui
 import UI from 'cem/components/ui';
-const { Button, Loading, Heading, Grid: { Container, Row, Col } } = UI;
+const {
+  Button,
+  Loading,
+  Heading,
+  Grid: { Container, Row, Col },
+} = UI;
 
 import s from 'cem/styles/id/content';
 import sUtils from 'cem/styles/utils';
@@ -74,43 +79,55 @@ class TasksTimeline extends Component {
           <div className={sUtils.pushedBottom1_5}>
             <Heading size="md">
               Задачи
-              {isTaskCreationAllowed &&
-                hasItems &&
+              {isTaskCreationAllowed && hasItems && (
                 <Button
                   className={sUtils.pushedLeftSm2}
-                  to={`/tasks/create?${objectToQueryString(taskCreationParams)}`}
+                  to={`/tasks/create?${objectToQueryString(
+                    taskCreationParams,
+                  )}`}
                   kind="primary"
                 >
                   Поставить
-                </Button>}
+                </Button>
+              )}
             </Heading>
           </div>
           <div>
-            {!isFetching &&
-              !hasItems &&
+            {!isFetching && !hasItems && (
               <div className={sUtils.textCenter}>
                 <Heading notFound className={sUtils.pushedBottom1_5}>
                   Нет задач 😟
                 </Heading>
 
-                {isTaskCreationAllowed &&
+                {isTaskCreationAllowed && (
                   <Button
-                    to={`/tasks/create?${objectToQueryString(taskCreationParams)}`}
+                    to={`/tasks/create?${objectToQueryString(
+                      taskCreationParams,
+                    )}`}
                     kind="primary"
                   >
                     Поставить
-                  </Button>}
-              </div>}
+                  </Button>
+                )}
+              </div>
+            )}
             {isFetching && <Loading />}
-            {ids.map(id => <Card key={id} taskId={id} propertyCardHidden={propertyCardHidden} />)}
-            {hasItems &&
+            {ids.map(id => (
+              <Card
+                key={id}
+                taskId={id}
+                propertyCardHidden={propertyCardHidden}
+              />
+            ))}
+            {hasItems && (
               <Container fluid>
                 <Row xs="center" className={sUtils.textCenter}>
                   <Col sm="10" className={sUtils.pushed6_0}>
                     <Pagination resource={this.resource} isScrollToTop />
                   </Col>
                 </Row>
-              </Container>}
+              </Container>
+            )}
           </div>
         </section>
       </Row>

@@ -6,7 +6,10 @@ import FilterMobileCountry from 'site/countryProperties/v2/List/Filter/FilterMob
 
 import { IconFilter, BtnFilter, FilterWrapper } from '../styled';
 
-const { Visibility, Grid: { Row, Col } } = UI;
+const {
+  Visibility,
+  Grid: { Row, Col },
+} = UI;
 
 class Filter extends Component {
   constructor(props) {

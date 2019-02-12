@@ -1,6 +1,9 @@
 import React from 'react';
 import { Col, Row } from 'react-flexbox-grid';
 import Dropzone from 'react-dropzone';
+
+import { getImage } from '../../utils';
+
 import {
   AddPhotoIcon,
   Dropdown,
@@ -12,46 +15,39 @@ import {
   PhotoCloseButton,
   PhotoEditTool,
   PhotoEditTools,
-  PhotoExample,
-  PhotoExampleContainer,
-  PhotoExampleWrapper,
-} from './style';
-import example from './img/example1.png';
+  Photo,
+  Photos,
+} from './styled';
 import addPhotoIcon from './img/add-photo-icon.svg';
 import dropdownPhotoIcon from './img/dropdown-photo-icon.svg';
 
-const PhotoSection = ({ enablePhotoEditMode, isEditMode }) =>
-  !isEditMode ? (
-    <>
-      <Row>
-        <PhotoExampleContainer xs={12}>
-          <PhotoExampleWrapper>
-            <PhotoExample src={example} />
-            <PhotoCloseButton />
-          </PhotoExampleWrapper>
-          <PhotoExampleWrapper>
-            <PhotoExample src={example} />
-            <PhotoCloseButton />
-          </PhotoExampleWrapper>
-          <PhotoExampleWrapper>
-            <PhotoExample src={example} />
-            <PhotoCloseButton />
-          </PhotoExampleWrapper>
-        </PhotoExampleContainer>
-      </Row>
-      <Row>
-        <PhotoEditTools xs={12}>
-          <PhotoEditTool>
-            Посмотреть все фотографии
-            <AddPhotoIcon src={addPhotoIcon} />
-          </PhotoEditTool>
-          <PhotoEditTool onClick={enablePhotoEditMode}>
-            Редактировать
-          </PhotoEditTool>
+const PhotoSection = ({ data, enableEditMode, isEditMode }) => {
+  const [isViewAll, toggleViewAll] = React.useState(false);
+
+  if (!isEditMode) {
+    const images = isViewAll ? data.images : data.images.slice(0, 2);
+
+    return (
+      <>
+        <Photos isViewAll={isViewAll}>
+          {images.map(({ id }) => (
+            <Photo key={id} src={getImage(id, 512, 'thumbnail')} />
+          ))}
+        </Photos>
+        <PhotoEditTools>
+          {data.images.length > 2 && (
+            <PhotoEditTool onClick={() => toggleViewAll(true)}>
+              Посмотреть все фотографии
+              <AddPhotoIcon src={addPhotoIcon} />
+            </PhotoEditTool>
+          )}
+          <PhotoEditTool onClick={enableEditMode}>Редактировать</PhotoEditTool>
         </PhotoEditTools>
-      </Row>
-    </>
-  ) : (
+      </>
+    );
+  }
+
+  return (
     <>
       <Row>
         <Col xs={12}>
@@ -80,5 +76,5 @@ const PhotoSection = ({ enablePhotoEditMode, isEditMode }) =>
       </Dropdown>
     </>
   );
-
+};
 export default PhotoSection;

@@ -17,11 +17,13 @@ const unlinkDocumentFailed = (propertyId, id, errors) => ({
   id,
 });
 
-export default function (propertyId, id, category = 'city') {
-  return (dispatch) => {
+export default function(propertyId, id, category = 'city') {
+  return dispatch => {
     dispatch(unlinkDocumentStarted());
 
-    return API.del(`/v1/properties/${category}/${propertyId}/documents/${id}`).then(
+    return API.del(
+      `/v1/properties/${category}/${propertyId}/documents/${id}`,
+    ).then(
       () => dispatch(loadDocuments(propertyId)),
       ({ body }) => {
         dispatch(unlinkDocumentFailed(propertyId, id, body));

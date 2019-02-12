@@ -9,7 +9,9 @@ import RemovalRequestsActions from 'cem/actions/requests/remove';
 
 import UI from 'cem/components/ui';
 const {
-  Button, Icon, Heading,
+  Button,
+  Icon,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 import LaneHeader from 'cem/components/requests/remove/list/laneHeader';
@@ -34,7 +36,13 @@ class ListContainer extends Component {
             <Row>
               <Col xs="20">
                 <Heading size="lg">Активные заявки на удаление объекта</Heading>
-                <Button className={sButton.btnTo} size="xs" to="/requests/properties/to_remove/archive"><Icon className={s.iconArchive} icon="archive" /></Button>
+                <Button
+                  className={sButton.btnTo}
+                  size="xs"
+                  to="/requests/properties/to_remove/archive"
+                >
+                  <Icon className={s.iconArchive} icon="archive" />
+                </Button>
               </Col>
             </Row>
             <Row>
@@ -46,7 +54,8 @@ class ListContainer extends Component {
           <Container fluid className={sUtils.width60}>
             <Row className={sDeals.row}>
               {Object.keys(lanes).map((key, index) => {
-                const { total = 0 } = state.pagination[`removalRequests.${key}`] || {};
+                const { total = 0 } =
+                  state.pagination[`removalRequests.${key}`] || {};
                 return (
                   <Col key={index} xs="10">
                     <LaneHeader laneKey={key} count={total} />
@@ -56,10 +65,18 @@ class ListContainer extends Component {
             </Row>
             <Row>
               <Col xs="10" className={sDeals.column}>
-                <Lane laneKey="managerApproval" actions={actions} state={state} />
+                <Lane
+                  laneKey="managerApproval"
+                  actions={actions}
+                  state={state}
+                />
               </Col>
               <Col xs="10" className={sDeals.column}>
-                <Lane laneKey="hubManagerApproval" actions={actions} state={state} />
+                <Lane
+                  laneKey="hubManagerApproval"
+                  actions={actions}
+                  state={state}
+                />
               </Col>
             </Row>
           </Container>
@@ -74,7 +91,13 @@ const pickState = ({ auth, pagination, filters, users, removalRequests }) => ({
 });
 
 const pickActions = dispatch => ({
-  actions: bindActionCreators({ ...RemovalRequestsActions, ...PaginationActions, ...FilterActions }, dispatch),
+  actions: bindActionCreators(
+    { ...RemovalRequestsActions, ...PaginationActions, ...FilterActions },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, pickActions)(ListContainer);
+export default connect(
+  pickState,
+  pickActions,
+)(ListContainer);

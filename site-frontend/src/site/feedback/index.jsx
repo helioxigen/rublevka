@@ -53,42 +53,61 @@ class FeedbackContainer extends Component {
           <div className={s.wrapper}>
             <Container fluid>
               <Row>
-                <Col xs="12" sm="6" md="5" lg="4" className={sUtils.resetPadding}>
+                <Col
+                  xs="12"
+                  sm="6"
+                  md="5"
+                  lg="4"
+                  className={sUtils.resetPadding}
+                >
                   <div className={cn(s.card, s.fullWidth)}>
                     <h2 className={sUtils.bold}>Офис в Жуковке</h2>
                     <div className={sUtils.pushedTop_1}>
                       {isJQ && (
                         <p className={s.address}>
-                          Рублёво-Успенское шоссе, Жуковка,&nbsp;54&nbsp;Б,&nbsp;2&nbsp;этаж
+                          Рублёво-Успенское шоссе,
+                          Жуковка,&nbsp;54&nbsp;Б,&nbsp;2&nbsp;этаж
                         </p>
                       )}
 
                       {isRublevka && (
                         <p className={s.address}>
-                          Рублёво-Успенское шоссе, Жуковка, БЦ&nbsp;«Олимп»,&nbsp;1&nbsp;этаж
+                          Рублёво-Успенское шоссе, Жуковка,
+                          БЦ&nbsp;«Олимп»,&nbsp;1&nbsp;этаж
                         </p>
                       )}
 
                       {isRiga && (
-                        <p className={s.address}>Рублёво-Успенское шоссе, Жуковка,&nbsp;71</p>
+                        <p className={s.address}>
+                          Рублёво-Успенское шоссе, Жуковка,&nbsp;71
+                        </p>
                       )}
 
                       {!isRublevka && !isRiga && (
                         <a className={sUtils.textBlack} href="tel:+74954324545">
-                          <StaticMask pattern="+1 (111) 111-11-11">74954324545</StaticMask>
+                          <StaticMask pattern="+1 (111) 111-11-11">
+                            74954324545
+                          </StaticMask>
                         </a>
                       )}
                       {isRublevka && (
                         <a className={sUtils.textBlack} href="tel:+74954323322">
-                          <StaticMask pattern="+1 (111) 111-11-11">74954323322</StaticMask>
+                          <StaticMask pattern="+1 (111) 111-11-11">
+                            74954323322
+                          </StaticMask>
                         </a>
                       )}
                       {isRiga && (
                         <a className={sUtils.textBlack} href="tel:+74954321313">
-                          <StaticMask pattern="+1 (111) 111-11-11">74954321313</StaticMask>
+                          <StaticMask pattern="+1 (111) 111-11-11">
+                            74954321313
+                          </StaticMask>
                         </a>
                       )}
-                      <a className={sUtils.textBlack} href={`mailto:info@${global.config.domain}`}>
+                      <a
+                        className={sUtils.textBlack}
+                        href={`mailto:info@${global.config.domain}`}
+                      >
                         <p>info@{global.config.domain}</p>
                       </a>
                     </div>
@@ -117,7 +136,9 @@ class FeedbackContainer extends Component {
           <MapComponent
             center={[marker.lng, marker.lat]}
             markers={[marker]}
-            container={<div className={cn(sUtils.mapContainer, sUtils.hideXs)} />}
+            container={
+              <div className={cn(sUtils.mapContainer, sUtils.hideXs)} />
+            }
             zoom={13}
             isFullScreenDisabled
           />

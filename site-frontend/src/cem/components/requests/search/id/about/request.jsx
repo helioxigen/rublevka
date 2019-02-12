@@ -17,8 +17,16 @@ export default ({ fields, formKey, isUpdateAllowed }) => (
     <Row>
       <Col sm="20">
         <Heading size="md">Примечание</Heading>
-        <FormField field={fields.note} isStatic={formKey !== 'create' && !isUpdateAllowed}>
-          <Textarea block rows="9" className={s.textarea} placeholder="Например, адрес" />
+        <FormField
+          field={fields.note}
+          isStatic={formKey !== 'create' && !isUpdateAllowed}
+        >
+          <Textarea
+            block
+            rows="9"
+            className={s.textarea}
+            placeholder="Например, адрес"
+          />
         </FormField>
       </Col>
     </Row>

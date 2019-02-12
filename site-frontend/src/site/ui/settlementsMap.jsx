@@ -20,7 +20,11 @@ export default class extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { fullscreen: false, zoom: props.zoom || 13, center: props.center };
+    this.state = {
+      fullscreen: false,
+      zoom: props.zoom || 13,
+      center: props.center,
+    };
   }
 
   handleViewportChange(bounds, center) {
@@ -37,7 +41,10 @@ export default class extends Component {
     if (data.layer.id === `unclustered`) {
       onSettlementClick(coordinates, data);
     } else if (startsWith(data.layer.id, `cluster-`)) {
-      this.setState({ center: [coordinates.lng, coordinates.lat], zoom: this.state.zoom + 1 });
+      this.setState({
+        center: [coordinates.lng, coordinates.lat],
+        zoom: this.state.zoom + 1,
+      });
     }
   }
 
@@ -47,7 +54,11 @@ export default class extends Component {
       this.refs.container.addEventListener(`wheel`, cancelScrollEvent, false);
       this.refs.mapgl.getMap().scrollZoom.enable();
     } else {
-      this.refs.container.removeEventListener(`wheel`, cancelScrollEvent, false);
+      this.refs.container.removeEventListener(
+        `wheel`,
+        cancelScrollEvent,
+        false,
+      );
       this.refs.mapgl.getMap().scrollZoom.disable();
     }
   }
@@ -82,11 +93,36 @@ export default class extends Component {
 
     return (
       <container ref="container" className={className}>
-        <MapGL center={this.state.center} features={generatedMarkers} zoom={this.state.zoom} ref="mapgl" controls={false} layers={layers} additionalSourceOptions={additionalSourceOptions}
-          onChangeViewport={::this.handleViewportChange} onFeatureClick={::this.handleFeatureClick} onMount={::this.handleMount} onDoubleClick={::this.handleDoubleClick} />
+        <MapGL
+          center={this.state.center}
+          features={generatedMarkers}
+          zoom={this.state.zoom}
+          ref="mapgl"
+          controls={false}
+          layers={layers}
+          additionalSourceOptions={additionalSourceOptions}
+          onChangeViewport={::this.handleViewportChange}
+          onFeatureClick={::this.handleFeatureClick}
+          onMount={::this.handleMount}
+          onDoubleClick={::this.handleDoubleClick}
+        />
         <div className={s.btnControlContainer}>
-          <UI.Button className={s.btnControl} type="button" onClick={::this.zoomIn} disabled={this.state.zoom >= 16}>+</UI.Button>
-          <UI.Button className={s.btnControl} type="button" onClick={::this.zoomOut} disabled={this.state.zoom <= 0}>–</UI.Button>
+          <UI.Button
+            className={s.btnControl}
+            type="button"
+            onClick={::this.zoomIn}
+            disabled={this.state.zoom >= 16}
+          >
+            +
+          </UI.Button>
+          <UI.Button
+            className={s.btnControl}
+            type="button"
+            onClick={::this.zoomOut}
+            disabled={this.state.zoom <= 0}
+          >
+            –
+          </UI.Button>
         </div>
       </container>
     );

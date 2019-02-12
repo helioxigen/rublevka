@@ -16,7 +16,10 @@ const loadTasksStarted = (kind, appendResult) => ({
   appendResult,
 });
 
-const loadTasksSucceeded = (kind, { items, pagination }, appendResult) => (dispatch, getState) => {
+const loadTasksSucceeded = (kind, { items, pagination }, appendResult) => (
+  dispatch,
+  getState,
+) => {
   const contactIds = uniq(
     items
       .map(
@@ -32,7 +35,9 @@ const loadTasksSucceeded = (kind, { items, pagination }, appendResult) => (dispa
             freeDetails.contactId ||
             negotiationDetails.contactId;
 
-          return contactId && !getState().contacts[contactId] ? contactId : undefined;
+          return contactId && !getState().contacts[contactId]
+            ? contactId
+            : undefined;
         },
       )
       .filter(id => id),
@@ -41,10 +46,12 @@ const loadTasksSucceeded = (kind, { items, pagination }, appendResult) => (dispa
   const clientLeadIds = uniq(
     items
       .map(({ contactDetails = {}, freeDetails = {} }) => {
-        const clientLeadId = contactDetails.clientLeadId || freeDetails.clientLeadId;
+        const clientLeadId =
+          contactDetails.clientLeadId || freeDetails.clientLeadId;
 
         return clientLeadId &&
-          (!getState().leads[clientLeadId] || !getState().leads[clientLeadId].data)
+          (!getState().leads[clientLeadId] ||
+            !getState().leads[clientLeadId].data)
           ? clientLeadId
           : undefined;
       })
@@ -75,12 +82,20 @@ const loadTasksFailed = (kind, { errors }) => ({
   errors,
 });
 
-const loadTasks = (kind, queryParams = {}, appendResult = false) => (dispatch) => {
+const loadTasks = (
+  kind,
+  queryParams = {},
+  appendResult = false,
+) => dispatch => {
   dispatch(loadTasksStarted(kind, queryParams));
 
   const filter = mapListFilter(queryParams.filter, kind);
 
-  return API.get('/v1/tasks', { ...queryParams, filter, orderBy: { deadline: 'asc' } }).then(
+  return API.get('/v1/tasks', {
+    ...queryParams,
+    filter,
+    orderBy: { deadline: 'asc' },
+  }).then(
     ({ body }) => dispatch(loadTasksSucceeded(kind, body, appendResult)),
     ({ body }) => dispatch(loadTasksFailed(kind, body)),
   );

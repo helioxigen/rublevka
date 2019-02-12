@@ -7,10 +7,11 @@ import submitValidator from 'core/decorators/submitValidator';
 
 import UI from 'cem/components/ui';
 const {
-  Modal, Heading,
+  Modal,
+  Heading,
   Grid: { Row, Col },
   Form: { Textarea },
- } = UI;
+} = UI;
 
 import s from 'cem/styles/modal/list';
 import sUtils from 'cem/styles/utils';
@@ -74,9 +75,18 @@ export default reduxForm(formSettings)(
 
         return (
           <div className={s.modalContainer}>
-            {React.cloneElement(this.props.children, { onClick: ::this.toggle })}
+            {React.cloneElement(this.props.children, {
+              onClick: ::this.toggle,
+            })}
 
-            <Modal size="md" closePortal={::this.close} isOpened={this.state.isOpened} onClose={::this.close} closeOnEsc closeOnOutsideClick>
+            <Modal
+              size="md"
+              closePortal={::this.close}
+              isOpened={this.state.isOpened}
+              onClose={::this.close}
+              closeOnEsc
+              closeOnOutsideClick
+            >
               <div className={s.container}>
                 <Row>
                   <Col xs="20">
@@ -96,11 +106,16 @@ export default reduxForm(formSettings)(
                   </Col>
                 </Row>
               </div>
-              {React.cloneElement(submitBtn, { ...submitBtn.props, type: `button`, disabled: !fields.reason.value, onClick: handleSubmit(::this.update) })}
+              {React.cloneElement(submitBtn, {
+                ...submitBtn.props,
+                type: `button`,
+                disabled: !fields.reason.value,
+                onClick: handleSubmit(::this.update),
+              })}
             </Modal>
           </div>
         );
       }
-    }
-  )
+    },
+  ),
 );

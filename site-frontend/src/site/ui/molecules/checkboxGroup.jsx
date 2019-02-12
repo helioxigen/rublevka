@@ -20,9 +20,12 @@ export default (styles = {}, { Checkbox }) => {
       } else {
         const index = selected.indexOf(key);
         if (index !== -1) {
-          this.props.handleChange(ref, update(selected, {
-            $splice: [[index, 1]],
-          }));
+          this.props.handleChange(
+            ref,
+            update(selected, {
+              $splice: [[index, 1]],
+            }),
+          );
         }
       }
     }
@@ -36,18 +39,27 @@ export default (styles = {}, { Checkbox }) => {
 
       return (
         <div className={cn(styles.formGroup, this.props.className)}>
-          {!!children &&
+          {!!children && (
             <label className={cn(styles.heading, this.props.labelClassName)}>
               {children}
             </label>
-          }
-          {items.map(item =>
-            <div className={cn(styles.container, displayBlock)} key={item.value}>
-              <Checkbox className={this.props.checkboxClassName} controlClassName={this.props.controlClassName} handleChange={::this.handleChange} reference={item.value} checked={selected.indexOf(item.value) !== -1}>
+          )}
+          {items.map(item => (
+            <div
+              className={cn(styles.container, displayBlock)}
+              key={item.value}
+            >
+              <Checkbox
+                className={this.props.checkboxClassName}
+                controlClassName={this.props.controlClassName}
+                handleChange={::this.handleChange}
+                reference={item.value}
+                checked={selected.indexOf(item.value) !== -1}
+              >
                 {item.label}
               </Checkbox>
             </div>
-          )}
+          ))}
         </div>
       );
     }

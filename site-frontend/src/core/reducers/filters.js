@@ -29,7 +29,11 @@ export default handleActions(
           };
         }
 
-        if (typeof el !== 'null' && typeof el === 'object' && !Array.isArray(el)) {
+        if (
+          typeof el !== 'null' &&
+          typeof el === 'object' &&
+          !Array.isArray(el)
+        ) {
           const newState = cloneDeep(state);
 
           delete newState[resource][key][value];

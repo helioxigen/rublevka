@@ -20,10 +20,10 @@ export const layers = [
       index === clusteredLayersOptions.length - 1
         ? ['>=', 'point_count', clusteredLayer[0]]
         : [
-          'all',
+            'all',
             ['>=', 'point_count', clusteredLayer[0]],
             ['<', 'point_count', clusteredLayersOptions[index + 1][0]],
-        ],
+          ],
   })),
   {
     id: 'counter-for-clusters',

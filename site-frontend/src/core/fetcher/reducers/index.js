@@ -18,7 +18,13 @@ export const listLoadFail = (state, group, errors) => ({
   },
 });
 
-export const listLoadSuccess = (state, group, items, append = false, pk = 'id') => {
+export const listLoadSuccess = (
+  state,
+  group,
+  items,
+  append = false,
+  pk = 'id',
+) => {
   const previousIds = append && state[group].ids ? state[group].ids : [];
 
   return {
@@ -84,7 +90,12 @@ const linkedListLoadStartKeepState = (state, resourceId, listName) => {
   };
 };
 
-export const linkedListLoadStart = (state, resourceId, listName, resetState = true) => {
+export const linkedListLoadStart = (
+  state,
+  resourceId,
+  listName,
+  resetState = true,
+) => {
   if (resetState) {
     return linkedListLoadStartResetState(state, resourceId, listName);
   }
@@ -101,7 +112,13 @@ export const linkedListLoadFail = (state, resourceId, listName, errors) => ({
   },
 });
 
-export const linkedListLoadSuccess = (state, resourceId, listName, items, pk = 'id') => ({
+export const linkedListLoadSuccess = (
+  state,
+  resourceId,
+  listName,
+  items,
+  pk = 'id',
+) => ({
   ...state,
   [resourceId]: {
     ...(state[resourceId] || {}),

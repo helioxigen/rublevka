@@ -6,35 +6,31 @@ import {
   MainTitle,
   PointIcon,
   TitleAddress,
-} from './style';
+} from './styled';
 import Select from '../../UI/Select';
+import { kinds } from '../constants/dictionaries';
 import { selectStatusData, selectTypeData } from './schema';
 import pointIcon from './img/point-icon.svg';
 import { BodyBig } from '../../UI';
 
-const TitleSection = ({ isEditMode, property }) => {
+export default function Header({ isEditMode, property }) {
   if (!isEditMode) {
     return (
       <>
-        <Row>
-          <Col xs={12}>
-            <MainTitle>
-              Продажа дома в {property.location.settlementName}
-            </MainTitle>
-          </Col>
-        </Row>
-        <Row>
-          <TitleAddress xs={12}>
-            <PointIcon src={pointIcon} />
-            <BodyBig>
-              {property.location.localityName}, {property.location.mkadDistance}
-              км от МКАД
-            </BodyBig>
-          </TitleAddress>
-        </Row>
+        <MainTitle>
+          {kinds[property.kind]} в посёлке {property.location.settlementName}
+        </MainTitle>
+        <TitleAddress>
+          <PointIcon src={pointIcon} />
+          <BodyBig>
+            {property.location.localityName}, {property.location.mkadDistance}{' '}
+            км от МКАД
+          </BodyBig>
+        </TitleAddress>
       </>
     );
   }
+
   return (
     <>
       <Row>
@@ -55,6 +51,4 @@ const TitleSection = ({ isEditMode, property }) => {
       </MainStatusBar>
     </>
   );
-};
-
-export default TitleSection;
+}

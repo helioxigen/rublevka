@@ -14,14 +14,18 @@ const loadLeadsFailed = (lookupValue, lookupField, { errors }) => ({
 });
 
 export default function loadLeadsByContactId(lookupValue, lookupField) {
-  return (dispatch) => {
+  return dispatch => {
     const query = {
       filter: { [lookupField]: lookupValue },
       pagination: { limit: 256 },
     };
 
     API.get('/v1/client_leads', query)
-      .then(({ body }) => dispatch(loadLeadsSucceeded(lookupValue, lookupField, body)))
-      .catch(({ body }) => dispatch(loadLeadsFailed(lookupValue, lookupField, body)));
+      .then(({ body }) =>
+        dispatch(loadLeadsSucceeded(lookupValue, lookupField, body)),
+      )
+      .catch(({ body }) =>
+        dispatch(loadLeadsFailed(lookupValue, lookupField, body)),
+      );
   };
 }

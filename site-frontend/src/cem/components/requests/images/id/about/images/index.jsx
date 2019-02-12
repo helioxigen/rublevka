@@ -22,15 +22,32 @@ export default DragDropContext(HTML5Backend)(
     }
 
     render() {
-      const { fields, values, isUploading, data, isImageUploadAllowed } = this.props;
-      const isDisabled = !isImageUploadAllowed && [`done`, `approved`, `finished`, `rejected`].indexOf(data.state) > -1;
+      const {
+        fields,
+        values,
+        isUploading,
+        data,
+        isImageUploadAllowed,
+      } = this.props;
+      const isDisabled =
+        !isImageUploadAllowed &&
+        [`done`, `approved`, `finished`, `rejected`].indexOf(data.state) > -1;
       const title = dicts.kinds[data.kind];
 
       return (
         <Col md="20">
-          <PhotoList Card={<Card showDelete />} title={title} items={fields.images} upload={::this.upload} isUploading={isUploading} value={values.images} toggle={fields.toggle} disabled={isDisabled} />
+          <PhotoList
+            Card={<Card showDelete />}
+            title={title}
+            items={fields.images}
+            upload={::this.upload}
+            isUploading={isUploading}
+            value={values.images}
+            toggle={fields.toggle}
+            disabled={isDisabled}
+          />
         </Col>
       );
     }
-  }
+  },
 );

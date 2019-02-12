@@ -1,5 +1,9 @@
 import { API } from 'core/config/sources';
-import { LOAD_PLACES, LOAD_PLACES_SUCCEEDED, LOAD_PLACES_FAILED } from '../../constants/places';
+import {
+  LOAD_PLACES,
+  LOAD_PLACES_SUCCEEDED,
+  LOAD_PLACES_FAILED,
+} from '../../constants/places';
 import { makeFilter } from 'core/utils/places';
 
 function loadStarted(kind, params) {
@@ -30,7 +34,7 @@ function loadFailed(kind, error) {
 }
 
 export function loadPlaces(kind, params) {
-  return (dispatch) => {
+  return dispatch => {
     const filter = makeFilter(params);
 
     dispatch(loadStarted(kind, params));

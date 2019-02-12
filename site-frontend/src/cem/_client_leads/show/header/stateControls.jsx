@@ -40,9 +40,11 @@ export default class extends Component {
       currentRequestDetails = { properties: [] },
     } = this.props;
     const canToSpam = state === 'new' && !stateToApprove;
-    const canMoveToInProgress = state === 'new' && !!requestKind && !stateToApprove;
+    const canMoveToInProgress =
+      state === 'new' && !!requestKind && !stateToApprove;
     const canToProcessed = state === 'in_progress' && !stateToApprove;
-    const canToRejected = (state === 'new' || state === 'in_progress') && !stateToApprove;
+    const canToRejected =
+      (state === 'new' || state === 'in_progress') && !stateToApprove;
 
     const isThenDeal = requestKind !== 'selling';
 
@@ -87,7 +89,12 @@ export default class extends Component {
           {canToProcessed && isThenDeal && (
             <ModalToProcess
               submitBtn={
-                <Button className={sButton.btnWide} kind="success" size="lg" block>
+                <Button
+                  className={sButton.btnWide}
+                  kind="success"
+                  size="lg"
+                  block
+                >
                   Перевести в сделку
                 </Button>
               }
@@ -100,7 +107,11 @@ export default class extends Component {
                 position="top"
                 isHidden={!processingDisabled}
               >
-                <Button type="button" kind="success" disabled={processingDisabled}>
+                <Button
+                  type="button"
+                  kind="success"
+                  disabled={processingDisabled}
+                >
                   перевести в сделку
                 </Button>
               </Tooltip>

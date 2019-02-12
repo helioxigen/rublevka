@@ -24,7 +24,9 @@ import sUtils from 'site/styles/utils';
 
 import global from 'window-or-global';
 
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col },
+} = UI;
 
 const isJQ = global.config.domain === 'jq.estate';
 
@@ -52,7 +54,8 @@ class About extends Component {
                   <div className={sUtils.hideFromSm}>
                     <h1 className={cn(s.titleMd, s.bold)}>JQ Estate</h1>
                     <h2 className={cn(s.titleMd, sUtils.pushedTop1_5)}>
-                      Агентство элитной<br className={sUtils.hideFromSm} /> недвижимости
+                      Агентство элитной
+                      <br className={sUtils.hideFromSm} /> недвижимости
                     </h2>
                   </div>
 
@@ -62,16 +65,24 @@ class About extends Component {
                     </h1>
                   </div>
 
-                  <p className={cn(s.textGrey, s.textMd, sUtils.pushedTopXs3_5Sm4_5Md2_8)}>
-                    Работаем с 2006 года. <br className={sUtils.hideFromMd} /> Помогаем с покупкой и
-                    арендой домов, квартир и участков.
+                  <p
+                    className={cn(
+                      s.textGrey,
+                      s.textMd,
+                      sUtils.pushedTopXs3_5Sm4_5Md2_8,
+                    )}
+                  >
+                    Работаем с 2006 года. <br className={sUtils.hideFromMd} />{' '}
+                    Помогаем с покупкой и арендой домов, квартир и участков.
                   </p>
                 </Col>
               </Row>
             </Container>
           </div>
 
-          <div className={cn(s.dividerTop, s.hideDividerFromSm, s.stepsContainer)}>
+          <div
+            className={cn(s.dividerTop, s.hideDividerFromSm, s.stepsContainer)}
+          >
             <Container>
               <Row>
                 <Col xs="12">
@@ -94,7 +105,8 @@ class About extends Component {
                     </li>
                   </ul>
                   <p className={s.textFrame}>
-                    Наши клиенты покупают быстро и без головной боли, потому что мы о них заботимся.
+                    Наши клиенты покупают быстро и без головной боли, потому что
+                    мы о них заботимся.
                   </p>
                 </Col>
               </Row>
@@ -103,10 +115,16 @@ class About extends Component {
 
           <Principles />
           {/* <UsersList group="tops" title="Команда" /> */}
-          <UsersList group="countryDepartment" title="Загородный департамент" showExperience />
+          <UsersList
+            group="countryDepartment"
+            title="Загородный департамент"
+            showExperience
+          />
           {/* <UsersList group="cityDepartment" title="Городской департамент" showExperience /> */}
 
-          <div className={s.requestContainer}>{/* <Request {...this.props} /> */}</div>
+          <div className={s.requestContainer}>
+            {/* <Request {...this.props} /> */}
+          </div>
         </section>
       );
     }
@@ -121,4 +139,7 @@ const mapDispatch = dispatch => ({
   actions: bindActionCreators({ loadUsers, ...PaginationActions }, dispatch),
 });
 
-export default connect(mapState, mapDispatch)(About);
+export default connect(
+  mapState,
+  mapDispatch,
+)(About);

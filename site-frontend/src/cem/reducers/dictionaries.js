@@ -35,7 +35,10 @@ export default handleActions(
       },
     }),
 
-    [types.LOAD_WORDS_BY_KIND_SUCCESS]: (state, { kind, items, pagination }) => ({
+    [types.LOAD_WORDS_BY_KIND_SUCCESS]: (
+      state,
+      { kind, items, pagination },
+    ) => ({
       ...state,
       [kind]: {
         items,

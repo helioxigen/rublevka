@@ -1,6 +1,11 @@
 // import { makeFilterRange, formatFilterDate } from 'core/helpers';
 
-export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNot = {} }) => {
+export const mapParams = ({
+  pagination = {},
+  orderBy = {},
+  filter = {},
+  filterNot = {},
+}) => {
   const { name, ...restFilter } = filter;
   const { limit, offset } = pagination;
 
@@ -16,7 +21,9 @@ export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNo
       'details.phoneNumber': restFilter['details.phoneNumber']
         ? `*${restFilter['details.phoneNumber']}*`
         : undefined,
-      'details.email': restFilter['details.email'] ? `*${restFilter['details.email']}*` : undefined,
+      'details.email': restFilter['details.email']
+        ? `*${restFilter['details.email']}*`
+        : undefined,
     },
     filterNot,
   };

@@ -13,7 +13,6 @@ const {
 import sUtils from 'cem/styles/utils';
 
 export default class extends Component {
-
   componentWillMount() {
     const { createdByUserId, updatedByUserId } = this.props.data || {};
 
@@ -35,30 +34,40 @@ export default class extends Component {
 
   render() {
     const { data, state } = this.props;
-    const { createdByUserId, updatedByUserId, createdAt, updatedAt, responsibleUser = {} } = data;
+    const {
+      createdByUserId,
+      updatedByUserId,
+      createdAt,
+      updatedAt,
+      responsibleUser = {},
+    } = data;
     const createdUser = state.users[createdByUserId];
     const updatedUser = state.users[updatedByUserId];
 
     return (
       <section className={this.props.className}>
-        {responsibleUser.id &&
+        {responsibleUser.id && (
           <Row className={sUtils.pushedBottom6}>
             <Col xs="20">
               <User id={responsibleUser.id} title="Ответственный" />
             </Col>
           </Row>
-        }
+        )}
         <Row>
           {createdUser && (
             <Col sm="10">
               <Heading size="md">Создан</Heading>
               <Group>
                 <Label block>Дата создания</Label>
-                <Static><FormattedDate mask="dd.mm.yy HH:MM" value={createdAt} /></Static>
+                <Static>
+                  <FormattedDate mask="dd.mm.yy HH:MM" value={createdAt} />
+                </Static>
               </Group>
               <Group className={sUtils.resetIndentation}>
                 <Label block>Создал</Label>
-                <Static>{createdUser.data.firstName} {createdUser.data.lastName}</Static>
+                <Static>
+                  {createdUser.data.firstName} {createdUser.data.lastName}
+                </Static>
               </Group>
             </Col>
           )}
@@ -68,11 +77,15 @@ export default class extends Component {
               <Heading size="md">Изменен</Heading>
               <Group>
                 <Label block>Дата изменения</Label>
-                <Static><FormattedDate mask="dd.mm.yy HH:MM" value={updatedAt} /></Static>
+                <Static>
+                  <FormattedDate mask="dd.mm.yy HH:MM" value={updatedAt} />
+                </Static>
               </Group>
               <Group className={sUtils.resetIndentation}>
                 <Label block>Изменил</Label>
-                <Static>{updatedUser.data.firstName} {updatedUser.data.lastName}</Static>
+                <Static>
+                  {updatedUser.data.firstName} {updatedUser.data.lastName}
+                </Static>
               </Group>
             </Col>
           )}

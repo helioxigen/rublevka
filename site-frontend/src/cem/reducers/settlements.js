@@ -94,7 +94,13 @@ export default handleActions(
       { resource, resourceId, listName, items },
     ) => {
       if (resource === resourceName) {
-        return linkedListLoadSuccess(state, resourceId, listName, items, 'linkedContactId');
+        return linkedListLoadSuccess(
+          state,
+          resourceId,
+          listName,
+          items,
+          'linkedContactId',
+        );
       }
       return state;
     },

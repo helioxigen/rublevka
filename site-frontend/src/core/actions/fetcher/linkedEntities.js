@@ -5,7 +5,10 @@ import * as types from 'core/constants/fetcher';
 import union from 'lodash/union';
 import get from 'lodash/get';
 
-const loadLinkedEntitiesForEntityStarted = (baseEntityTypeId, entityTypeId) => ({
+const loadLinkedEntitiesForEntityStarted = (
+  baseEntityTypeId,
+  entityTypeId,
+) => ({
   type: types.LOAD_LINKED_LIST,
   baseEntityTypeId,
   entityTypeId,
@@ -16,7 +19,7 @@ const loadLinkedEntitiesForEntitySucceeded = (
   entityTypeId,
   linkedResourcesSchemes,
   { items },
-) => (dispatch) => {
+) => dispatch => {
   dispatch({
     type: types.LOAD_LINKED_LIST_SUCCESS,
     baseEntityTypeId,
@@ -25,7 +28,11 @@ const loadLinkedEntitiesForEntitySucceeded = (
   });
 };
 
-const loadLinkedEntitiesForEntityFailed = (baseEntityTypeId, entityTypeId, { errors }) => ({
+const loadLinkedEntitiesForEntityFailed = (
+  baseEntityTypeId,
+  entityTypeId,
+  { errors },
+) => ({
   type: types.LOAD_LINKED_LIST_FAIL,
   baseEntityTypeId,
   entityTypeId,
@@ -36,7 +43,7 @@ const loadLinkedEntitiesForEntity = (
   baseEntityTypeId,
   entityTypeId,
   { queryParams = {}, apiPath = '', linkedResourcesSchemes = [] },
-) => (dispatch) => {
+) => dispatch => {
   dispatch(loadLinkedEntitiesForEntityStarted(baseEntityTypeId, entityTypeId));
 
   return API.get(apiPath || `/v1/${entityTypeId}`, queryParams).then(
@@ -49,14 +56,21 @@ const loadLinkedEntitiesForEntity = (
           body,
         ),
       ),
-    ({ body }) => dispatch(loadLinkedEntitiesForEntityFailed(baseEntityTypeId, entityTypeId, body)),
+    ({ body }) =>
+      dispatch(
+        loadLinkedEntitiesForEntityFailed(baseEntityTypeId, entityTypeId, body),
+      ),
   );
 };
 
-export default (linkedResourcesSchemes, baseEntityTypeId, items) => (dispatch) => {
-  linkedResourcesSchemes.forEach((linkedEntity) => {
+export default (
+  linkedResourcesSchemes,
+  baseEntityTypeId,
+  items,
+) => dispatch => {
+  linkedResourcesSchemes.forEach(linkedEntity => {
     const linkedEntityIds = union(
-      items.map((item) => {
+      items.map(item => {
         if (Array.isArray(linkedEntity.primaryKeyPath)) {
           return linkedEntity.primaryKeyPath
             .map(keyPathItem => get(item, keyPathItem))

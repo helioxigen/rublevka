@@ -73,7 +73,13 @@ export const laneFilters = {
   },
 };
 
-export const captions = ['неудовлетворен', 'достаточно', 'хорошо', 'очень хорошо', 'отлично'];
+export const captions = [
+  'неудовлетворен',
+  'достаточно',
+  'хорошо',
+  'очень хорошо',
+  'отлично',
+];
 
 export const propertyCategories = {
   city: 'Городская',

@@ -5,8 +5,12 @@ import { FormattedNumber } from 'react-formatted';
 
 import UI from 'cem/components/ui';
 const {
-  Button, Daypicker, Icon,
-  Select, AsyncSelect, Heading,
+  Button,
+  Daypicker,
+  Icon,
+  Select,
+  AsyncSelect,
+  Heading,
   Grid: { Row, Col },
   Form: { Group, Label, Input },
 } = UI;
@@ -31,25 +35,45 @@ const FilterExtended = ({ fields }) => (
       <Col sm="5">
         <Group>
           <Label>Департамент</Label>
-          <AsyncSelect asyncOptions={fetchResource(`/v1/departments`, `name`, [`name`])} {...fields[`responsibleUser.departmentId`]} />
+          <AsyncSelect
+            asyncOptions={fetchResource(`/v1/departments`, `name`, [`name`])}
+            {...fields[`responsibleUser.departmentId`]}
+          />
         </Group>
       </Col>
       <Col sm="5">
         <Group>
           <Label>Отдел</Label>
-          <AsyncSelect asyncOptions={fetchResource(`/v1/divisions`, `name`, [`name`])} {...fields[`responsibleUser.divisionId`]} />
+          <AsyncSelect
+            asyncOptions={fetchResource(`/v1/divisions`, `name`, [`name`])}
+            {...fields[`responsibleUser.divisionId`]}
+          />
         </Group>
       </Col>
       <Col sm="5">
         <Group>
           <Label>Ответственный</Label>
-          <AsyncSelect asyncOptions={fetchResource(`/v1/users/staff`, `lastName,firstName`, [`firstName`, `lastName`])} {...fields[`responsibleUser.id`]} />
+          <AsyncSelect
+            asyncOptions={fetchResource(
+              `/v1/users/staff`,
+              `lastName,firstName`,
+              [`firstName`, `lastName`],
+            )}
+            {...fields[`responsibleUser.id`]}
+          />
         </Group>
       </Col>
       <Col sm="5">
         <Group>
           <Label>Поставил</Label>
-          <AsyncSelect asyncOptions={fetchResource(`/v1/users/staff`, `lastName,firstName`, [`firstName`, `lastName`])} {...fields[`reportedByUserId`]} />
+          <AsyncSelect
+            asyncOptions={fetchResource(
+              `/v1/users/staff`,
+              `lastName,firstName`,
+              [`firstName`, `lastName`],
+            )}
+            {...fields[`reportedByUserId`]}
+          />
         </Group>
       </Col>
     </Row>
@@ -61,8 +85,17 @@ const FilterExtended = ({ fields }) => (
     <Row className={sUtils.pushedTop1}>
       <Col sm="4">
         <Label className={s.checkboxLabel}>
-          <Input type="checkbox" {...fields[`stateDetails.toApprove`]} checked={!!fields[`stateDetails.toApprove`].value}
-            onChange={event => event.target.value === `done,canceled` ? fields[`stateDetails.toApprove`].onChange(``) : fields[`stateDetails.toApprove`].onChange(`done,canceled`)} /> ожидает подтверждения
+          <Input
+            type="checkbox"
+            {...fields[`stateDetails.toApprove`]}
+            checked={!!fields[`stateDetails.toApprove`].value}
+            onChange={event =>
+              event.target.value === `done,canceled`
+                ? fields[`stateDetails.toApprove`].onChange(``)
+                : fields[`stateDetails.toApprove`].onChange(`done,canceled`)
+            }
+          />{' '}
+          ожидает подтверждения
         </Label>
       </Col>
     </Row>
@@ -79,7 +112,14 @@ class Filter extends Component {
   }
 
   render() {
-    const { fields, count, resetFilter, filterCount, extendedFilterCount, stats: { weight = {} } } = this.props;
+    const {
+      fields,
+      count,
+      resetFilter,
+      filterCount,
+      extendedFilterCount,
+      stats: { weight = {} },
+    } = this.props;
 
     return (
       <Col xs="20" className={sUtils.pushedTop5}>
@@ -96,21 +136,38 @@ class Filter extends Component {
               </Group>
               <Group className={cn(sUtils.pushedRight2, sUtils.flexItem)}>
                 <Label>Тип</Label>
-                <Select options={options.linkKinds} {...fields[`details.linkKind`]} />
+                <Select
+                  options={options.linkKinds}
+                  {...fields[`details.linkKind`]}
+                />
               </Group>
               <Group className={cn(sUtils.pushedRight2, sUtils.flexItem)}>
                 <Label block>Дата от</Label>
-                <Daypicker className={cn(sDaypicker.daypicker, sUtils.fullWidth)} kind="from"
+                <Daypicker
+                  className={cn(sDaypicker.daypicker, sUtils.fullWidth)}
+                  kind="from"
                   onDayClick={day => fields.deadlineFrom.onChange(day)}
                   control={<Input block type="text" {...fields.deadlineFrom} />}
-                  button={<Button className={sDaypicker.btn}><Icon className={sDaypicker.icon} icon="calendar" /></Button>} />
+                  button={
+                    <Button className={sDaypicker.btn}>
+                      <Icon className={sDaypicker.icon} icon="calendar" />
+                    </Button>
+                  }
+                />
               </Group>
               <Group className={cn(sUtils.pushedRight2, sUtils.flexItem)}>
                 <Label block>Дата до</Label>
-                <Daypicker className={cn(sDaypicker.daypicker, sUtils.fullWidth)} kind="to"
+                <Daypicker
+                  className={cn(sDaypicker.daypicker, sUtils.fullWidth)}
+                  kind="to"
                   onDayClick={day => fields.deadlineTo.onChange(day)}
                   control={<Input block type="text" {...fields.deadlineTo} />}
-                  button={<Button className={sDaypicker.btn}><Icon className={sDaypicker.icon} icon="calendar" /></Button>} />
+                  button={
+                    <Button className={sDaypicker.btn}>
+                      <Icon className={sDaypicker.icon} icon="calendar" />
+                    </Button>
+                  }
+                />
               </Group>
               <Group className={sUtils.flexItem}>
                 <Label>Статус</Label>
@@ -124,12 +181,34 @@ class Filter extends Component {
           <Col xs="20">
             <div className={s.btnGroup}>
               <p className={s.stats}>
-                Объём: <span className={s.primary}><FormattedNumber value={weight.toDo || 0} /></span> / <span className={s.success}><FormattedNumber value={weight.done || 0} /></span>
+                Объём:{' '}
+                <span className={s.primary}>
+                  <FormattedNumber value={weight.toDo || 0} />
+                </span>{' '}
+                /{' '}
+                <span className={s.success}>
+                  <FormattedNumber value={weight.done || 0} />
+                </span>
               </p>
-              <Button size="xs" kind="primary" className={sUtils.pushedRight1} type="button" onClick={::this.toggleExtended}>
-                {this.state.extended ? `Скрыть` : `Показать` } расширенный фильтр {!!extendedFilterCount && `(${extendedFilterCount})`}
+              <Button
+                size="xs"
+                kind="primary"
+                className={sUtils.pushedRight1}
+                type="button"
+                onClick={::this.toggleExtended}
+              >
+                {this.state.extended ? `Скрыть` : `Показать`} расширенный фильтр{' '}
+                {!!extendedFilterCount && `(${extendedFilterCount})`}
               </Button>
-              <Button className={sUtils.pushedTopXs2} size="xs" type="button" onClick={resetFilter} disabled={!filterCount}>Сбросить</Button>
+              <Button
+                className={sUtils.pushedTopXs2}
+                size="xs"
+                type="button"
+                onClick={resetFilter}
+                disabled={!filterCount}
+              >
+                Сбросить
+              </Button>
               {!!count && <p className={s.textFind}>Найдено: {count}</p>}
             </div>
           </Col>

@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import Pagination from 'core/components/pagination';
 import UI from 'cem/components/ui';
 const {
-  Loading, Heading,
+  Loading,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -20,18 +21,32 @@ export default class extends Component {
 
   render() {
     const {
-      items, isFetching, errors, linkedItemsMap,
+      items,
+      isFetching,
+      errors,
+      linkedItemsMap,
       card,
       filter,
-      pagination, handlePaginationUpdate,
-      title, notFoundCaption,
-      isAddButtonShown, addButton, optionButtons = [],
-      isFilterActive, isPaginatorActive,
+      pagination,
+      handlePaginationUpdate,
+      title,
+      notFoundCaption,
+      isAddButtonShown,
+      addButton,
+      optionButtons = [],
+      isFilterActive,
+      isPaginatorActive,
     } = this.props;
 
-    const paginator = !!this.props.paginator ?
-      React.cloneElement(this.props.paginator, { ...this.props.paginator.props, ...pagination, onUpdate: handlePaginationUpdate }) :
-      <Pagination {...pagination} onUpdate={handlePaginationUpdate} />;
+    const paginator = !!this.props.paginator ? (
+      React.cloneElement(this.props.paginator, {
+        ...this.props.paginator.props,
+        ...pagination,
+        onUpdate: handlePaginationUpdate,
+      })
+    ) : (
+      <Pagination {...pagination} onUpdate={handlePaginationUpdate} />
+    );
 
     return (
       <section>
@@ -44,29 +59,49 @@ export default class extends Component {
                   {isAddButtonShown && addButton}
                 </Heading>
                 <section>
-                  {optionButtons.map((button, index) => React.cloneElement(button, { ...button.props, key: index }))}
+                  {optionButtons.map((button, index) =>
+                    React.cloneElement(button, { ...button.props, key: index }),
+                  )}
                 </section>
               </Col>
             </Row>
-            {isFilterActive && !!filter && !errors.length &&
+            {isFilterActive && !!filter && !errors.length && (
               <Row>
-                {React.cloneElement(filter, { ...filter.props, count: pagination.total })}
+                {React.cloneElement(filter, {
+                  ...filter.props,
+                  count: pagination.total,
+                })}
               </Row>
-            }
+            )}
           </div>
         </Container>
         {!isFetching && !!errors.length && <ListErrorMessage errors={errors} />}
-        {!isFetching && !errors.length && !items.length && <Heading notFound>{notFoundCaption}</Heading>}
-        {isFetching && <Loading />}
-        {!isFetching && !!items.length && items.map(item =>
-          React.cloneElement(card, { ...card.props, key: item.id, data: item, ...linkedItemsMap })
+        {!isFetching && !errors.length && !items.length && (
+          <Heading notFound>{notFoundCaption}</Heading>
         )}
+        {isFetching && <Loading />}
+        {!isFetching &&
+          !!items.length &&
+          items.map(item =>
+            React.cloneElement(card, {
+              ...card.props,
+              key: item.id,
+              data: item,
+              ...linkedItemsMap,
+            }),
+          )}
 
         {/*
           TODO: This is a temporary solution. Hiding and showing pagination
           using a simple condition, causes invariant violation error that has to be dealt with somehow.
         */}
-        <Container fluid style={{ display: !(isPaginatorActive && !isFetching && !!items.length) && `none` }}>
+        <Container
+          fluid
+          style={{
+            display:
+              !(isPaginatorActive && !isFetching && !!items.length) && `none`,
+          }}
+        >
           <Row xs="center">
             <Col sm="10" className={sUtils.pushed6_0}>
               {paginator}

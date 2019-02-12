@@ -20,7 +20,7 @@ const searchComplexesFailed = (query, { errors }) => ({
   errors,
 });
 
-export const searchComplexes = (query, offset) => (dispatch) => {
+export const searchComplexes = (query, offset) => dispatch => {
   dispatch(searchComplexesStarted(query));
 
   const orderBy = {
@@ -37,7 +37,12 @@ export const searchComplexes = (query, offset) => (dispatch) => {
     state: 'public',
   };
 
-  API.get('/v1/complexes', { filter, pagination, includes: ['name', 'id'], orderBy }).then(
+  API.get('/v1/complexes', {
+    filter,
+    pagination,
+    includes: ['name', 'id'],
+    orderBy,
+  }).then(
     ({ body }) => dispatch(searchComplexesSucceeded(body, !!offset)),
     ({ body }) => dispatch(searchComplexesFailed(query, body)),
   );

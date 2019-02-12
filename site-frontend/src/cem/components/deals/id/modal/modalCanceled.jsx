@@ -9,10 +9,12 @@ import submitValidator from 'core/decorators/submitValidator';
 
 import UI from 'cem/components/ui';
 const {
-  Form, Modal, Heading,
+  Form,
+  Modal,
+  Heading,
   Grid: { Row, Col },
   Form: { Group, Textarea },
- } = UI;
+} = UI;
 
 import s from 'cem/styles/modal/list';
 import sUtils from 'cem/styles/utils';
@@ -58,8 +60,16 @@ export default reduxForm(formSettings)(
 
       update(values) {
         const { actions } = this.props;
-        const { expectedAgentFee, expectedAgentFixedPrice, ...otherDetails } = values.details; // eslint-disable-line no-unused-vars
-        return Promise.resolve(actions.changeState(`unsuccessful`, { reason: values.stateDetails.reason }));
+        const {
+          expectedAgentFee,
+          expectedAgentFixedPrice,
+          ...otherDetails
+        } = values.details; // eslint-disable-line no-unused-vars
+        return Promise.resolve(
+          actions.changeState(`unsuccessful`, {
+            reason: values.stateDetails.reason,
+          }),
+        );
       }
 
       render() {
@@ -67,10 +77,25 @@ export default reduxForm(formSettings)(
 
         return (
           <div className={s.modalContainer}>
-            {React.cloneElement(this.props.children, { onClick: ::this.toggle })}
+            {React.cloneElement(this.props.children, {
+              onClick: ::this.toggle,
+            })}
 
-            <Modal size="md" closePortal={::this.close} isOpened={this.state.isOpened} onClose={::this.close} closeOnEsc closeOnOutsideClick>
-              <Form.Container onSubmit={handleSubmit(::this.update, ::this.onSubmitSuccess, ::this.onSubmitFail)}>
+            <Modal
+              size="md"
+              closePortal={::this.close}
+              isOpened={this.state.isOpened}
+              onClose={::this.close}
+              closeOnEsc
+              closeOnOutsideClick
+            >
+              <Form.Container
+                onSubmit={handleSubmit(
+                  ::this.update,
+                  ::this.onSubmitSuccess,
+                  ::this.onSubmitFail,
+                )}
+              >
                 <div className={s.container}>
                   <Row>
                     <Col xs="20">
@@ -79,13 +104,25 @@ export default reduxForm(formSettings)(
                   </Row>
                   <Row>
                     <Col xs="20" className={sUtils.pushedTop3}>
-                      <p className={s.text}>Пожалуйста, опишите, как можно подробнее, причину, по которой данная сделка не состоялась. Данное описание будет отправлено вашему руководителю, после чего будет принято окончательное решение по закрытию данной сделке.</p>
+                      <p className={s.text}>
+                        Пожалуйста, опишите, как можно подробнее, причину, по
+                        которой данная сделка не состоялась. Данное описание
+                        будет отправлено вашему руководителю, после чего будет
+                        принято окончательное решение по закрытию данной сделке.
+                      </p>
                     </Col>
                   </Row>
                   <Row className={sUtils.pushedTop3}>
                     <Col xs="20">
                       <Group>
-                        <Textarea className={s.textarea} rows="9" block kind="primary" {...fields.stateDetails.reason} value={fields.stateDetails.reason.value || ``} />
+                        <Textarea
+                          className={s.textarea}
+                          rows="9"
+                          block
+                          kind="primary"
+                          {...fields.stateDetails.reason}
+                          value={fields.stateDetails.reason.value || ``}
+                        />
                       </Group>
                     </Col>
                   </Row>
@@ -96,6 +133,6 @@ export default reduxForm(formSettings)(
           </div>
         );
       }
-    }
-  )
+    },
+  ),
 );

@@ -8,7 +8,7 @@ import {
 import * as types from 'cem/_dictionaries/constants/actions';
 import { resourceName } from 'cem/_dictionaries/constants/defaults';
 
-const update = data => (dispatch) => {
+const update = data => dispatch => {
   dispatch(updateElementStarted(types.UPDATE, data.id));
 
   return updateElement(resourceName, data.id, data).then(
@@ -17,7 +17,7 @@ const update = data => (dispatch) => {
 
       return data;
     },
-    (errors) => {
+    errors => {
       dispatch(updateElementFailed(types.UPDATE_FAILED, data.id, errors));
       return { errors };
     },

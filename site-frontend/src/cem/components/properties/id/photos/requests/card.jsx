@@ -6,7 +6,11 @@ import { cloudfront } from 'core/config/resources';
 import { FormattedDate } from 'react-formatted';
 
 import UI from 'cem/components/ui';
-const { Icon, Image, Grid: { Container, Row, Col } } = UI;
+const {
+  Icon,
+  Image,
+  Grid: { Container, Row, Col },
+} = UI;
 
 import cn from 'classnames';
 import s from 'cem/styles/ui/card2';
@@ -14,15 +18,15 @@ import sUtils from 'cem/styles/utils';
 
 import { states } from 'cem/constants/requests/images/dictionaries';
 
-const User = ({ data: { photo = {}, firstName, lastName, workPhoneNumber } }) => (
+const User = ({
+  data: { photo = {}, firstName, lastName, workPhoneNumber },
+}) => (
   <div className={s.mediaContainer}>
     <Image
       src={
-        photo.id ? (
-          `${cloudfront}/${photo.id}-128`
-        ) : (
-          'https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder-photo.svg'
-        )
+        photo.id
+          ? `${cloudfront}/${photo.id}-128`
+          : 'https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder-photo.svg'
       }
       kind="circle"
       width="42"
@@ -57,9 +61,13 @@ class Card extends Component {
             <Col sm="5">
               <User data={createdByUserData} />
             </Col>
-            <Col sm="5">{!!responsibleUserId && <User data={responsibleUserData} />}</Col>
+            <Col sm="5">
+              {!!responsibleUserId && <User data={responsibleUserData} />}
+            </Col>
             <Col sm="5" className={cn(sUtils.textRight, sUtils.pushedTopXs2)}>
-              <span className={cn(s.textMd, s[states[state].style])}>ID: {id}</span>
+              <span className={cn(s.textMd, s[states[state].style])}>
+                ID: {id}
+              </span>
               <Icon className={s.icon} icon="chevron-down" />
             </Col>
           </Row>

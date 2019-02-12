@@ -7,8 +7,24 @@ import sUtils from 'cem/styles/utils';
 export default props => (
   <div className={sUtils.scrollX}>
     <div className={s.tabsContainer}>
-      {props.id !== 'create' && <Link className={s.tab} activeClassName={s.active} to={`/deals/${props.id}/about`}>Информация</Link>}
-      {props.id !== 'create' && <Link className={s.tab} activeClassName={s.active} to={`/deals/${props.id}/tasks`}>Задачи</Link>}
+      {props.id !== 'create' && (
+        <Link
+          className={s.tab}
+          activeClassName={s.active}
+          to={`/deals/${props.id}/about`}
+        >
+          Информация
+        </Link>
+      )}
+      {props.id !== 'create' && (
+        <Link
+          className={s.tab}
+          activeClassName={s.active}
+          to={`/deals/${props.id}/tasks`}
+        >
+          Задачи
+        </Link>
+      )}
     </div>
   </div>
 );

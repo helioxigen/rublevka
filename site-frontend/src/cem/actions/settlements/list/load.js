@@ -10,7 +10,7 @@ const loadSettlementsStarted = params => ({
   params,
 });
 
-const loadSettlementsSucceeded = ({ items, pagination }) => (dispatch) => {
+const loadSettlementsSucceeded = ({ items, pagination }) => dispatch => {
   dispatch(updatePagination('settlements', pagination));
 
   dispatch({
@@ -25,7 +25,7 @@ const loadSettlementsFailed = ({ errors }) => ({
 });
 
 export default function loadSettlements(queryParams = {}) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadSettlementsStarted(queryParams));
 
     const filter = mapFilter(queryParams.filter);

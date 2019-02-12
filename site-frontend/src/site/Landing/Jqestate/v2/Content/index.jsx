@@ -14,7 +14,10 @@ import { HideXsSmMd, ShowXsSmMd } from 'site/styles/mediaUtils';
 
 import { Wrapper, HideXsCol } from './styled';
 
-const { Grid, Grid: { Row } } = UI;
+const {
+  Grid,
+  Grid: { Row },
+} = UI;
 
 export default () => (
   <Wrapper>

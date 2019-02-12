@@ -15,7 +15,12 @@ const mapRooms = (rooms = []) => {
   };
 };
 
-export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNot = {} }) => {
+export const mapParams = ({
+  pagination = {},
+  orderBy = {},
+  filter = {},
+  filterNot = {},
+}) => {
   const { limit, offset } = pagination;
   const { sale = {}, area = {}, subLocalityId, subLocalities = [] } = filter;
 
@@ -33,18 +38,29 @@ export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNo
       id: filter.id,
       name: filter.name ? `*${filter.name.trim()}*` : null,
       state: filter.state,
-      'location.subLocalityId': subLocalityId || subLocalities.map(subLocality => subLocality.id),
+      'location.subLocalityId':
+        subLocalityId || subLocalities.map(subLocality => subLocality.id),
 
       'properties.specification.totalArea': makeFilterRange(area.min, area.max),
       'properties.specification.rooms': rooms.toFilter,
 
       'buildings.details.constructionStage': filter.constructionStage,
       'buildings.details.constructionKind': filter.constructionKind,
-      'buildings.details.undergroundGarages': filter.undergroundGarages ? '0..' : null,
+      'buildings.details.undergroundGarages': filter.undergroundGarages
+        ? '0..'
+        : null,
       'buildings.details.parkings': filter.parkings ? '0..' : null,
 
-      'statistics.price.from.usd': makeFilterRange(sale.min, undefined, saleMultiplier),
-      'statistics.price.to.usd': makeFilterRange(undefined, sale.max, saleMultiplier),
+      'statistics.price.from.usd': makeFilterRange(
+        sale.min,
+        undefined,
+        saleMultiplier,
+      ),
+      'statistics.price.to.usd': makeFilterRange(
+        undefined,
+        sale.max,
+        saleMultiplier,
+      ),
     },
     filterNot: {
       ...filterNot,

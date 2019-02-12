@@ -30,7 +30,7 @@ class Questions extends Component {
     };
 
     return (
-      <section className={s.section} >
+      <section className={s.section}>
         <Container fluid>
           <Row>
             <Col xs="20">
@@ -56,4 +56,7 @@ const mapDispatch = dispatch => ({
   actions: bindActionCreators({ ...CSIActions }, dispatch),
 });
 
-export default connect(pickState, mapDispatch)(Questions);
+export default connect(
+  pickState,
+  mapDispatch,
+)(Questions);

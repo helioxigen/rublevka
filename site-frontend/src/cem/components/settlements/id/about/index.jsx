@@ -17,7 +17,6 @@ import sUtils from 'cem/styles/utils';
 export default props => (
   <Grid.Row>
     <section className={s.section}>
-
       <Address {...props} />
       <Description className={sUtils.pushedBottom3} {...props} />
       <Infrastructure className={sUtils.pushedBottom3} {...props} />
@@ -25,7 +24,6 @@ export default props => (
       {props.formKey !== 'create' && <Comments {...props} />}
       <DescriptionSite className={sUtils.pushedBottom3} {...props} />
       <Status {...props} />
-
     </section>
   </Grid.Row>
 );

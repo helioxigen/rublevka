@@ -47,10 +47,7 @@ class Similar extends Component {
   }
 
   render() {
-    const {
-      dealType,
-      state,
-    } = this.props;
+    const { dealType, state } = this.props;
 
     const { ids = [], isFetching } = state.cityProperties[this.group] || {};
 
@@ -74,7 +71,7 @@ class Similar extends Component {
   }
 }
 
-const pickState = (state) => {
+const pickState = state => {
   const { cityProperties } = state;
 
   return {
@@ -84,7 +81,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadProperties,
   };
@@ -94,4 +91,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Similar);
+export default connect(
+  pickState,
+  pickActions,
+)(Similar);

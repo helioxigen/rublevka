@@ -23,7 +23,9 @@ export default handleActions(
 
     [types.EXPIRE]: (state, { id }) => ({
       ...state,
-      notifications: [...state.notifications.filter(notification => notification.id !== id)],
+      notifications: [
+        ...state.notifications.filter(notification => notification.id !== id),
+      ],
     }),
 
     [types.FLUSH]: state => ({

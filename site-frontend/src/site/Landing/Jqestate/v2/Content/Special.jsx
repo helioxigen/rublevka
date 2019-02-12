@@ -13,7 +13,9 @@ import {
   TextWrapper,
 } from './styled';
 
-const { Grid: { Col } } = UI;
+const {
+  Grid: { Col },
+} = UI;
 
 export default () => (
   <Col xs="12" md="6">
@@ -23,7 +25,9 @@ export default () => (
           <TextWrapper>
             <TitleSpec>Спецпредложения</TitleSpec>
             <SubTitle>
-              Посмотрите наши специальные<SpecBreak />предложения
+              Посмотрите наши специальные
+              <SpecBreak />
+              предложения
             </SubTitle>
           </TextWrapper>
         </WithPattern>

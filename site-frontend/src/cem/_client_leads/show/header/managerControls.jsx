@@ -17,7 +17,10 @@ import s from 'cem/styles/id/header';
 import sUtils from 'cem/styles/utils';
 
 const dictionaryResourcesByState = {
-  rejected: ['client_lead_targeted_reject_reason', 'client_lead_non_targeted_reject_reason'],
+  rejected: [
+    'client_lead_targeted_reject_reason',
+    'client_lead_non_targeted_reject_reason',
+  ],
   spam: 'spam_reason',
 };
 
@@ -40,7 +43,8 @@ export default ({
         <Row>
           <Col sm="12" smOffset="4">
             <Heading size="sm">
-              {`${dict.states[stateDetails.toApprove || state].title}`}, причина:
+              {`${dict.states[stateDetails.toApprove || state].title}`},
+              причина:
             </Heading>
             <p className={sUtils.pushedTop1_5}>
               <StaticDictionary
@@ -63,7 +67,11 @@ export default ({
             >
               не одобрить
             </Button>
-            <Button type="button" kind="success" onClick={() => process('approve')}>
+            <Button
+              type="button"
+              kind="success"
+              onClick={() => process('approve')}
+            >
               одобрить
             </Button>
           </Col>

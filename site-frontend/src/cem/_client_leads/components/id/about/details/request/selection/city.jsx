@@ -24,7 +24,9 @@ export default ({ fields, isStatic }) => {
   };
 
   const fetchSubLocality = fetchResource('/v1/places/sub_localities', 'name');
-  const fetchResidentialComplex = fetchResource('/v1/complexes', 'name', null, { name: '|null|' });
+  const fetchResidentialComplex = fetchResource('/v1/complexes', 'name', null, {
+    name: '|null|',
+  });
 
   return (
     <section>
@@ -147,7 +149,11 @@ export default ({ fields, isStatic }) => {
                 float
                 static={isStatic}
               >
-                <Select options={options.conditions} labelKey="title" valueKey="id" />
+                <Select
+                  options={options.conditions}
+                  labelKey="title"
+                  valueKey="id"
+                />
               </FormField>
             </Col>
 
@@ -160,7 +166,11 @@ export default ({ fields, isStatic }) => {
                 float
                 static={isStatic}
               >
-                <Select options={options.renovate} labelKey="title" valueKey="id" />
+                <Select
+                  options={options.renovate}
+                  labelKey="title"
+                  valueKey="id"
+                />
               </FormField>
             </Col>
 
@@ -173,7 +183,11 @@ export default ({ fields, isStatic }) => {
                 float
                 static={isStatic}
               >
-                <Select options={options.furniture} labelKey="title" valueKey="id" />
+                <Select
+                  options={options.furniture}
+                  labelKey="title"
+                  valueKey="id"
+                />
               </FormField>
             </Col>
           </Row>

@@ -8,7 +8,6 @@ const {
   Grid: { Container, Row, Col },
 } = UI;
 
-
 import cn from 'classnames';
 import s from 'cem/styles/deals/card';
 import sUtils from 'cem/styles/utils';
@@ -16,22 +15,34 @@ import sUtils from 'cem/styles/utils';
 import { kinds } from 'cem/constants/requests/images/dictionaries';
 
 export default ({ data, creatorUserData = {}, responsibleUserData = {} }) => (
-  <Link to={`/requests/properties/images/${data.id}`} className={cn(s.card, sUtils.height17_5)}>
+  <Link
+    to={`/requests/properties/images/${data.id}`}
+    className={cn(s.card, sUtils.height17_5)}
+  >
     <Container fluid>
       <Row>
         <Col xs="20">
           <h4 className={s.title}>{kinds[data.kind]}</h4>
         </Col>
         <Col xs="10">
-          <ParamList label="Заказчик" small>{`${(creatorUserData.firstName && `${creatorUserData.firstName[0]}.`) || ''} ${creatorUserData.lastName || ''}`}</ParamList>
+          <ParamList label="Заказчик" small>{`${(creatorUserData.firstName &&
+            `${creatorUserData.firstName[0]}.`) ||
+            ''} ${creatorUserData.lastName || ''}`}</ParamList>
         </Col>
         <Col xs="10">
-          <ParamList label={responsibleUserData.id ? 'Ответственный' : ''} small>{`${(responsibleUserData.firstName && `${responsibleUserData.firstName[0]}.`) || ''} ${responsibleUserData.lastName || ''}`}</ParamList>
+          <ParamList
+            label={responsibleUserData.id ? 'Ответственный' : ''}
+            small
+          >{`${(responsibleUserData.firstName &&
+            `${responsibleUserData.firstName[0]}.`) ||
+            ''} ${responsibleUserData.lastName || ''}`}</ParamList>
         </Col>
       </Row>
       <Row className={sUtils.pushedTop2_7}>
         <Col sm="10">
-          <ParamList label="ID" small>{data.id}</ParamList>
+          <ParamList label="ID" small>
+            {data.id}
+          </ParamList>
         </Col>
         <Col sm="10">
           <ParamList label="Дата поступления" small>

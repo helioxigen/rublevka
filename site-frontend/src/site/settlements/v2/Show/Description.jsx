@@ -14,7 +14,11 @@ import media from 'site/styles/media';
 
 const isJQ = global.config.domain === 'jq.estate';
 
-const { Loading, Button, Grid: { Row, Col } } = UI;
+const {
+  Loading,
+  Button,
+  Grid: { Row, Col },
+} = UI;
 
 const Wrapper = styled.div`
   padding: 5rem 0;
@@ -83,32 +87,37 @@ class Description extends Component {
             </Col>
           )}
 
-          {!isFetching &&
-            description && (
-              <Col xs="12" sm="10">
-                <Desc>
-                  <Title>Описание посёлка {data.name}</Title>
+          {!isFetching && description && (
+            <Col xs="12" sm="10">
+              <Desc>
+                <Title>Описание посёлка {data.name}</Title>
 
-                  <div className={hasLongText && this.state.isTextHidden && s.hiddenText}>
-                    <DescText>
-                      <ReactMarkdown source={text} />
-                    </DescText>
-                  </div>
-                </Desc>
-              </Col>
-            )}
+                <div
+                  className={
+                    hasLongText && this.state.isTextHidden && s.hiddenText
+                  }
+                >
+                  <DescText>
+                    <ReactMarkdown source={text} />
+                  </DescText>
+                </div>
+              </Desc>
+            </Col>
+          )}
 
-          {!isFetching &&
-            hasLongText &&
-            this.state.isTextHidden && (
-              <Col xs="12">
-                {(!!main.sale || !!satellite.sale) && (
-                  <Button onClick={this.showText} size="lg" className={st.settlement.btnLoad}>
-                    Читать полностью
-                  </Button>
-                )}
-              </Col>
-            )}
+          {!isFetching && hasLongText && this.state.isTextHidden && (
+            <Col xs="12">
+              {(!!main.sale || !!satellite.sale) && (
+                <Button
+                  onClick={this.showText}
+                  size="lg"
+                  className={st.settlement.btnLoad}
+                >
+                  Читать полностью
+                </Button>
+              )}
+            </Col>
+          )}
         </Row>
       </Wrapper>
     );

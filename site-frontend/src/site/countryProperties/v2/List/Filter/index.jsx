@@ -15,7 +15,10 @@ import UI from 'site/ui';
 
 import animate from 'core/helpers/ui/animation';
 import FilterHelper from 'core/decorators/filter';
-import { dealTypes, kindsTranslit } from 'site/constants/properties/dictionaries';
+import {
+  dealTypes,
+  kindsTranslit,
+} from 'site/constants/properties/dictionaries';
 
 import cn from 'classnames';
 import st from 'site/styles/themes';
@@ -47,7 +50,13 @@ import {
 
 const isJQ = global.config.domain === 'jq.estate';
 
-const { Visibility, Button, BtnGroup, CountIndicator, Grid: { Container, Row, Col } } = UI;
+const {
+  Visibility,
+  Button,
+  BtnGroup,
+  CountIndicator,
+  Grid: { Container, Row, Col },
+} = UI;
 
 const theme = st.filterSatellites;
 const easingX = BezierEasing(0.86, 0, 0.07, 1);
@@ -88,7 +97,7 @@ class Filter extends Component {
     }
 
     this.setState({ currentLayout: null, isSubViewOpen: false }, () => {
-      animate(duration, easingX, (viewPosition) => {
+      animate(duration, easingX, viewPosition => {
         this.setState({ viewPosition });
       });
     });
@@ -117,7 +126,7 @@ class Filter extends Component {
       }
     };
 
-    const onUpdate = (subViewPosition) => {
+    const onUpdate = subViewPosition => {
       this.setState({ subViewPosition });
     };
 
@@ -133,7 +142,9 @@ class Filter extends Component {
     if (state.kind.length > 1) {
       this.props.dispatch(push(`/zagorodnaya/${dealType}`));
     } else {
-      this.props.dispatch(push(`/zagorodnaya/${dealType}/${kindsTranslit[value]}`));
+      this.props.dispatch(
+        push(`/zagorodnaya/${dealType}/${kindsTranslit[value]}`),
+      );
     }
   }
 
@@ -153,7 +164,9 @@ class Filter extends Component {
     this.props.actions.updateFilter(this.props.resourceName, values);
 
     if (key === 'kind' && value.length === 1) {
-      this.props.dispatch(push(`/zagorodnaya/${dealType}/${kindsTranslit[value]}`));
+      this.props.dispatch(
+        push(`/zagorodnaya/${dealType}/${kindsTranslit[value]}`),
+      );
     } else if (key === 'kind') {
       this.props.dispatch(push(`/zagorodnaya/${dealType}`));
     }
@@ -169,7 +182,11 @@ class Filter extends Component {
   removeFilter(key, value) {
     if (key === 'areas') {
       this.props.actions.removeFilter(this.props.resourceName, 'area', value);
-      this.props.actions.removeFilter(this.props.resourceName, 'landArea', value);
+      this.props.actions.removeFilter(
+        this.props.resourceName,
+        'landArea',
+        value,
+      );
     } else {
       this.props.actions.removeFilter(this.props.resourceName, key, value);
     }
@@ -270,7 +287,11 @@ class Filter extends Component {
             </Header>
           )}
 
-          <Overlay ref="overlay" isViewOpen={isViewOpen} onClick={this.toggle} />
+          <Overlay
+            ref="overlay"
+            isViewOpen={isViewOpen}
+            onClick={this.toggle}
+          />
 
           <StBtnGroup isViewOpen={isViewOpen}>
             <ResetBtn
@@ -312,17 +333,15 @@ class Filter extends Component {
         {/* mobile */}
         <Visibility md="hidden" lg="hidden">
           {/* closed */}
-          {!this.props.isViewOpen &&
-            !!count &&
-            viewSelected && (
-              <FilterMobile>
-                <Container>
-                  <Row>
-                    <FilterBtn toggle={this.toggle} filterCount={filterCount} />
-                  </Row>
-                </Container>
-              </FilterMobile>
-            )}
+          {!this.props.isViewOpen && !!count && viewSelected && (
+            <FilterMobile>
+              <Container>
+                <Row>
+                  <FilterBtn toggle={this.toggle} filterCount={filterCount} />
+                </Row>
+              </Container>
+            </FilterMobile>
+          )}
 
           {/* main view */}
           <MobileWrapper isViewOpen={isViewOpen}>
@@ -343,7 +362,10 @@ class Filter extends Component {
             </BtnGroup>
           </MobileWrapper>
 
-          <div className={theme.filterContainer} style={{ display: isViewOpen ? 'block' : 'none' }}>
+          <div
+            className={theme.filterContainer}
+            style={{ display: isViewOpen ? 'block' : 'none' }}
+          >
             <div className={theme.btnGroupContainer}>
               <Container>
                 <Row>
@@ -354,13 +376,19 @@ class Filter extends Component {
                     <BtnGroup className={theme.btnGroup}>
                       <Link
                         to="/zagorodnaya/prodaja"
-                        className={cn(theme.btnInGroup, dealType === 'sale' && theme.btnActive)}
+                        className={cn(
+                          theme.btnInGroup,
+                          dealType === 'sale' && theme.btnActive,
+                        )}
                       >
                         Купить
                       </Link>
                       <Link
                         to="/zagorodnaya/arenda"
-                        className={cn(theme.btnInGroup, dealType === 'rent' && theme.btnActive)}
+                        className={cn(
+                          theme.btnInGroup,
+                          dealType === 'rent' && theme.btnActive,
+                        )}
                       >
                         Снять
                       </Link>

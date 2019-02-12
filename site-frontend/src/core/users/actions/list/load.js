@@ -6,19 +6,25 @@ import {
 } from 'core/fetcher2/actions';
 
 import * as types from 'core/users/constants/actions';
-import { getDefaultsByGroup, resourceName, apiPathByGroup } from 'core/users/constants/defaults';
+import {
+  getDefaultsByGroup,
+  resourceName,
+  apiPathByGroup,
+} from 'core/users/constants/defaults';
 import { updatePagination } from 'core/actions/pagination';
 
 import recursiveCleanUp from 'core/helpers/recursiveCleanUp';
 import { mapParams } from 'core/users/helpers';
 import { mergeParams } from 'core/fetcher2/helpers';
 
-const loadUsers = (queryParams, group, options) => (dispatch) => {
+const loadUsers = (queryParams, group, options) => dispatch => {
   dispatch(loadListStarted(types.LOAD_LIST, group));
 
   const apiPath = apiPathByGroup[group];
   const defaultQueryParams = getDefaultsByGroup(group, options);
-  const params = mapParams(recursiveCleanUp(mergeParams(defaultQueryParams, queryParams)));
+  const params = mapParams(
+    recursiveCleanUp(mergeParams(defaultQueryParams, queryParams)),
+  );
 
   return loadList(apiPath, group, params).then(
     ({ items, pagination }) => {
@@ -27,7 +33,7 @@ const loadUsers = (queryParams, group, options) => (dispatch) => {
 
       return Promise.resolve(items);
     },
-    (errors) => {
+    errors => {
       dispatch(loadListFailed(types.LOAD_LIST_FAILED, group, errors));
 
       return Promise.reject(errors);

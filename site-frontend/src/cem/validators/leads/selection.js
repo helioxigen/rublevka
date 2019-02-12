@@ -1,6 +1,6 @@
 import { validateContactDetails } from './common';
 
-export default (values) => {
+export default values => {
   const errors = {
     contactDetails: validateContactDetails(values.contactDetails, values.state),
     requestDetails: {

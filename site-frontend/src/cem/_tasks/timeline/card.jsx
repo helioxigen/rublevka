@@ -37,7 +37,7 @@ class TaskCard extends Component {
   state = {
     isOpened: false,
     toState: undefined,
-  }
+  };
 
   onSuccess() {
     dispatch(pop(`success`, `Задача обновлена`));
@@ -85,7 +85,11 @@ class TaskCard extends Component {
           <div className={s.taskWrapper}>
             <Row className={s.taskHeader}>
               <Col xs="20">
-                <Heading size="md" style={{ display: `inline-block` }} className={s[stateDict.style]}>
+                <Heading
+                  size="md"
+                  style={{ display: `inline-block` }}
+                  className={s[stateDict.style]}
+                >
                   {kindDict.title}
 
                   <Link to={`/tasks/${data.id}`} className={s.linkIcon}>
@@ -118,7 +122,10 @@ class TaskCard extends Component {
                     <dd className={s.taskDescription}>
                       {details.goal}
                       {details.goalId && (
-                        <StaticDictionary fetch={fetchDictionary()} value={details.goalId} />
+                        <StaticDictionary
+                          fetch={fetchDictionary()}
+                          value={details.goalId}
+                        />
                       )}
                     </dd>
                   </dl>
@@ -137,25 +144,34 @@ class TaskCard extends Component {
                     <dd className={s.taskDescription}>
                       {data.result}
                       {data.resultId && (
-                        <StaticDictionary fetch={fetchDictionary()} value={data.resultId} />
+                        <StaticDictionary
+                          fetch={fetchDictionary()}
+                          value={data.resultId}
+                        />
                       )}
                     </dd>
                   </dl>
                 </Col>
               </Row>
             )}
-            {(data.kind === `negotiation`) && !propertyCardHidden && !!details.propertyId && (
-              <Row>
-                <Col sm="15" className={sUtils.pushedBottom3}>
-                  <section>
-                    <Heading size="sm">
-                      Объект
-                    </Heading>
-                    <Property isPreview id={details.propertyId} resourcePath={`/v1/properties/${details.propertyCategory}`} />
-                  </section>
-                </Col>
-              </Row>
-            )}
+            {data.kind === `negotiation` &&
+              !propertyCardHidden &&
+              !!details.propertyId && (
+                <Row>
+                  <Col sm="15" className={sUtils.pushedBottom3}>
+                    <section>
+                      <Heading size="sm">Объект</Heading>
+                      <Property
+                        isPreview
+                        id={details.propertyId}
+                        resourcePath={`/v1/properties/${
+                          details.propertyCategory
+                        }`}
+                      />
+                    </section>
+                  </Col>
+                </Row>
+              )}
             <Row>
               <Col sm="15">
                 <UserInlineCard headingSize="sm" id={responsibleUser.id} />

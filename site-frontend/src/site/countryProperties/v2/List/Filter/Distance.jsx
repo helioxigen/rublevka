@@ -7,7 +7,9 @@ import UI from 'site/ui';
 
 import { Wrapper, SelectWrapper, Unit } from './styled';
 
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col },
+} = UI;
 
 const key = 'mkadDistance';
 
@@ -40,7 +42,11 @@ class Distance extends Component {
           <Row md="middle">
             <Col md="10">
               <SelectWrapper>
-                <SelectGroup options={distances} selected={distance} onUpdate={this.onUpdate} />
+                <SelectGroup
+                  options={distances}
+                  selected={distance}
+                  onUpdate={this.onUpdate}
+                />
                 <Unit>км</Unit>
               </SelectWrapper>
             </Col>

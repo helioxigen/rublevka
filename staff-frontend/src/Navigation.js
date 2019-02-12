@@ -44,10 +44,10 @@ const Navigation = ({ menuItemsList }) => (
       <Logo />
     </LogoWrapper>
     <Menu>
-      {menuItemsList.map(menuItem => (
-        <MenuItem to={menuItem.path} key={menuItem.name}>
-          {menuItem.name}
-          <Count>{menuItem.count} </Count>
+      {menuItemsList.map(({ path, name, count }) => (
+        <MenuItem to={path} key={name}>
+          {name}
+          {count && <Count>{count}</Count>}
         </MenuItem>
       ))}
     </Menu>

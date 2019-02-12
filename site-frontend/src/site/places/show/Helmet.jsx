@@ -26,9 +26,9 @@ export default ({ placeKind, placeName, data, dealType }) => {
     const isRouteFromConfig = routeIds.includes(data.id);
     const isPlaceOnRoute = routeIds.includes(data.location.routeId);
 
-    const canonical = `https://${global.config.domain}/zagorodnaya/${enToTranslit[
-      placeKind
-    ]}/${nameToSlug(data.name)}_${data.id}/${dealTypesTranslit[dealType]}`;
+    const canonical = `https://${global.config.domain}/zagorodnaya/${
+      enToTranslit[placeKind]
+    }/${nameToSlug(data.name)}_${data.id}/${dealTypesTranslit[dealType]}`;
 
     // send 404 if route or place can't be on this site
     if ((isLocality && !isPlaceOnRoute) || (isRoute && !isRouteFromConfig)) {

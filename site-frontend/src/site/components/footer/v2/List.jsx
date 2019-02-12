@@ -39,18 +39,23 @@ class FooterList extends Component {
 
     return (
       <div>
-        {showedKeys.map(id =>
-          (<StLink to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(list[id])}_${id}`}>
+        {showedKeys.map(id => (
+          <StLink
+            to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
+              list[id],
+            )}_${id}`}
+          >
             {list[id]}
-          </StLink>),
-        )}
+          </StLink>
+        ))}
 
-        {isLongList &&
+        {isLongList && (
           <Visibility xs="hidden" sm="hidden">
             <LoadBtn onClick={this.toggle}>
               {this.state.isShowAll ? 'Скрыть' : 'Показать еще'}
             </LoadBtn>
-          </Visibility>}
+          </Visibility>
+        )}
       </div>
     );
   }

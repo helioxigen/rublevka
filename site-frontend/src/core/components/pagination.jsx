@@ -24,6 +24,13 @@ export default class extends Component {
     const currentPage = Math.max(Math.ceil(offset / limit));
     const totalPages = Math.max(Math.ceil(total / limit));
 
-    return <UI.Pager current={currentPage} total={totalPages} visiblePages={visiblePages} onPageChanged={::this.handlePageChanged} />;
+    return (
+      <UI.Pager
+        current={currentPage}
+        total={totalPages}
+        visiblePages={visiblePages}
+        onPageChanged={::this.handlePageChanged}
+      />
+    );
   }
 }

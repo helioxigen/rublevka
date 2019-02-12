@@ -33,7 +33,10 @@ import isEqual from 'lodash/isEqual';
 
 // ui
 import UI from 'site/ui';
-const { Loading, Grid: { Container, Row, Col } } = UI;
+const {
+  Loading,
+  Grid: { Container, Row, Col },
+} = UI;
 
 const complexBuildingsGroup = 'forComplex';
 
@@ -79,7 +82,10 @@ class Show extends Component {
 
     return Promise.all([
       actions.loadComplex(complexId),
-      actions.loadComplexBuildings({ filter: { complexId } }, complexBuildingsGroup),
+      actions.loadComplexBuildings(
+        { filter: { complexId } },
+        complexBuildingsGroup,
+      ),
       actions.loadProperties({}, 'forComplexOnlyPrimary', { complexId }),
     ]);
   }
@@ -103,14 +109,21 @@ class Show extends Component {
 
     return (
       <Container fluid>
-        {seo &&
+        {seo && (
           <Helmet
             title={seo.title(data.name, location.street)}
             meta={[
-              { name: 'description', content: seo.description(data.name, location.street) },
-              { name: 'keywords', content: seo.keywords(data.name, location.street) },
+              {
+                name: 'description',
+                content: seo.description(data.name, location.street),
+              },
+              {
+                name: 'keywords',
+                content: seo.keywords(data.name, location.street),
+              },
             ]}
-          />}
+          />
+        )}
 
         <Banner data={data} complexBuildingsIds={cbIds} />
 
@@ -120,7 +133,7 @@ class Show extends Component {
             {isFetching && <Loading />}
           </Container>
 
-          {isPositionAvailable &&
+          {isPositionAvailable && (
             <Col xs="12" className={sUtils.pushedBottomXs5Sm6}>
               <Row className={sUtils.positionRelative10}>
                 <MapComponent
@@ -129,7 +142,8 @@ class Show extends Component {
                   container={<div className={sUtils.mapContainer} />}
                 />
               </Row>
-            </Col>}
+            </Col>
+          )}
 
           <Container>
             <PrimaryProperties complexId={complexId} />
@@ -138,11 +152,13 @@ class Show extends Component {
           <Container>
             <Row sm="center">
               <Col sm="8" md="6" lg="4">
-                <RequestForm propertyCategory="city" className={sUtils.paddingBottom6} />
+                <RequestForm
+                  propertyCategory="city"
+                  className={sUtils.paddingBottom6}
+                />
               </Col>
             </Row>
           </Container>
-
         </section>
       </Container>
     );
@@ -153,7 +169,7 @@ const pickState = ({ complexes, complexBuildings }) => ({
   state: { complexes, complexBuildings },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadComplex,
     loadComplexBuildings,
@@ -164,4 +180,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Show);
+export default connect(
+  pickState,
+  pickActions,
+)(Show);

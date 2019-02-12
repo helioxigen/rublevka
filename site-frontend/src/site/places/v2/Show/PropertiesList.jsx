@@ -39,7 +39,10 @@ import styled from 'styled-components';
 import media from 'site/styles/media';
 
 // UI
-const { Loading, Grid: { Container, Row, Col } } = UI;
+const {
+  Loading,
+  Grid: { Container, Row, Col },
+} = UI;
 
 export const ListWrapper = styled.div`
   max-width: 1600px;
@@ -47,8 +50,12 @@ export const ListWrapper = styled.div`
   background: #fff;
 `;
 
-const Wrapper = styled.div`background: #fff;`;
-const Relative = styled(Container)`position: relative;`;
+const Wrapper = styled.div`
+  background: #fff;
+`;
+const Relative = styled(Container)`
+  position: relative;
+`;
 const FilterWrapper = styled.div`
   margin: 3rem 0;
   ${media.sm`
@@ -177,7 +184,9 @@ class PropertiesList extends Component {
       orderBy: { ...state.order[this.resource], ...params.orderBy },
     };
 
-    dispatch(loadProperties(options, this.group, { placeId, placeKind, dealType }));
+    dispatch(
+      loadProperties(options, this.group, { placeId, placeKind, dealType }),
+    );
   }
 
   resetFilter() {
@@ -192,7 +201,7 @@ class PropertiesList extends Component {
     const formOffset = (pagination.offset / pagination.limit) % 4;
     const isPageEven = (pagination.offset / pagination.limit) % 2 === 0;
 
-    return ids.map((id) => {
+    return ids.map(id => {
       if (ids.indexOf(id) === 7 + formOffset) {
         return [
           <ResultForm propertyCategory="country" type="private" />,
@@ -219,7 +228,15 @@ class PropertiesList extends Component {
   }
 
   render() {
-    const { data, actions, state, location, params, translatedPlaceKind, dealType } = this.props;
+    const {
+      data,
+      actions,
+      state,
+      location,
+      params,
+      translatedPlaceKind,
+      dealType,
+    } = this.props;
     const { ids = [], isFetching } = state.countryProperties[this.group] || {};
     const pagination = state.pagination[this.resource] || {};
 
@@ -262,7 +279,9 @@ class PropertiesList extends Component {
                       state={state.order[this.resource]}
                       updatePagination={this.props.actions.updatePagination}
                       fields={[
-                        `${dealTypes[params.dealType]}Offer.multiCurrencyPrice.usd`,
+                        `${
+                          dealTypes[params.dealType]
+                        }Offer.multiCurrencyPrice.usd`,
                         'location.mkadDistance',
                       ]}
                     />
@@ -301,22 +320,21 @@ class PropertiesList extends Component {
             )}
           </ListWrapper>
         </Wrapper>
-        {!isFetching &&
-          !ids.length && (
-            <NotFound
-              dealType={params.dealType}
-              place={params.place}
-              translatedPlaceKind={translatedPlaceKind}
-              resetFilter={this.resetFilter}
-            />
-          )}
+        {!isFetching && !ids.length && (
+          <NotFound
+            dealType={params.dealType}
+            place={params.place}
+            translatedPlaceKind={translatedPlaceKind}
+            resetFilter={this.resetFilter}
+          />
+        )}
       </section>
     );
   }
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { countryProperties, filters, pagination, order } = state;
 
   return {
@@ -329,7 +347,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadProperties,
     ...FilterActions,
@@ -344,4 +362,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(PropertiesList);
+export default connect(
+  pickState,
+  pickActions,
+)(PropertiesList);

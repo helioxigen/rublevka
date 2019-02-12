@@ -7,7 +7,8 @@ import validate from 'cem/validators/settlements';
 
 import UI from 'cem/components/ui';
 const {
-  Checklist, Heading,
+  Checklist,
+  Heading,
   Form: { Label, Input },
   Grid: { Row, Col },
 } = UI;
@@ -21,36 +22,57 @@ class Address extends Component {
     this.props.actions.loadWordsByKind('settlement_external_infrastructure');
   }
   render() {
-    const { fields: { details }, hasRight } = this.props;
-    const { items: externalItems = [] } = this.props.state.dictionaries.settlement_internal_infrastructure || {};
-    const { items: internalItems = [] } = this.props.state.dictionaries.settlement_external_infrastructure || {};
+    const {
+      fields: { details },
+      hasRight,
+    } = this.props;
+    const { items: externalItems = [] } =
+      this.props.state.dictionaries.settlement_internal_infrastructure || {};
+    const { items: internalItems = [] } =
+      this.props.state.dictionaries.settlement_external_infrastructure || {};
 
     return (
       <section className={this.props.className}>
         <Heading size="sm">Внутренняя инфраструктура</Heading>
         <Row className={sUtils.pushedBottom1}>
-
           {externalItems.map((item, index) => (
             <Col sm="6" key={index}>
               <Label className={cn(s.checkboxLabel, sUtils.pushedBottom2_5)}>
-                <Checklist {...details.externalInfrastructure} option={item.title} checkbox={<Input type="checkbox" disabled={!hasRight('settlement_update')} />} /> {item.title}
+                <Checklist
+                  {...details.externalInfrastructure}
+                  option={item.title}
+                  checkbox={
+                    <Input
+                      type="checkbox"
+                      disabled={!hasRight('settlement_update')}
+                    />
+                  }
+                />{' '}
+                {item.title}
               </Label>
             </Col>
           ))}
-
         </Row>
 
         <Heading size="sm">Внешняя инфраструктура</Heading>
         <Row className={sUtils.pushedBottom1}>
-
           {internalItems.map((item, index) => (
             <Col sm="6" key={index}>
               <Label className={cn(s.checkboxLabel, sUtils.pushedBottom2_5)}>
-                <Checklist {...details.internalInfrastructure} option={item.title} checkbox={<Input type="checkbox" disabled={!hasRight('settlement_update')} />} /> {item.title}
+                <Checklist
+                  {...details.internalInfrastructure}
+                  option={item.title}
+                  checkbox={
+                    <Input
+                      type="checkbox"
+                      disabled={!hasRight('settlement_update')}
+                    />
+                  }
+                />{' '}
+                {item.title}
               </Label>
             </Col>
           ))}
-
         </Row>
       </section>
     );

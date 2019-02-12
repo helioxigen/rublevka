@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 
 // UI
 import UI from 'site/ui';
-const { Button, Grid: { Row, Col } } = UI;
+const {
+  Button,
+  Grid: { Row, Col },
+} = UI;
 
 // components
 import Kind from './Kind';
@@ -122,7 +125,7 @@ class Filter extends Component {
             </Button>
           </div>
 
-          {this.state.isViewOpen &&
+          {this.state.isViewOpen && (
             <FilterMobileCountry
               resourceName={this.props.resourceName}
               resource={this.props.resource}
@@ -135,7 +138,8 @@ class Filter extends Component {
               onClose={::this.toggle}
               toggleResourceName={::this.toggleResourceName}
               isViewOpen
-            />}
+            />
+          )}
         </Col>
       </Row>
     );

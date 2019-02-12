@@ -27,7 +27,12 @@ export default ({ phoneCallDetails = {}, className }) => {
             <Group>
               <Label block>Статус</Label>
 
-              <Static className={cn(sUtils.fontSizeMd, s[dict.callStatuses[callStatus].style])}>
+              <Static
+                className={cn(
+                  sUtils.fontSizeMd,
+                  s[dict.callStatuses[callStatus].style],
+                )}
+              >
                 {dict.callStatuses[callStatus].title}
               </Static>
             </Group>
@@ -36,7 +41,9 @@ export default ({ phoneCallDetails = {}, className }) => {
             <Col sm="15">
               <Group>
                 <Label block>Причина</Label>
-                <Static className={sUtils.fontSizeMd}>{phoneCallDetails.reason}</Static>
+                <Static className={sUtils.fontSizeMd}>
+                  {phoneCallDetails.reason}
+                </Static>
               </Group>
             </Col>
           )}

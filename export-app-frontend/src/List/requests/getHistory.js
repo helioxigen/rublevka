@@ -12,13 +12,15 @@ export default function getHistory() {
     .orderBy('updatedAt', 'desc')
     .get()
     .then(snapshot => snapshot.docs.map(mapDocs))
-    .then(docs => docs.reduce(
-      (prev, curr) => ({
-        ...prev,
-        [curr.id]: docs
-          .filter(({ id }) => id === curr.id)
-          .sort((a, b) => a.updatedAt.seconds - b.updatedAt.seconds),
-      }),
-      {},
-    ));
+    .then(docs =>
+      docs.reduce(
+        (prev, curr) => ({
+          ...prev,
+          [curr.id]: docs
+            .filter(({ id }) => id === curr.id)
+            .sort((a, b) => a.updatedAt.seconds - b.updatedAt.seconds),
+        }),
+        {},
+      ),
+    );
 }

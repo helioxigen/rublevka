@@ -8,16 +8,16 @@ import {
 import * as types from 'core/selections/constants/actions';
 import { apiPath } from 'core/selections/constants/defaults';
 
-const load = id => (dispatch) => {
+const load = id => dispatch => {
   dispatch(loadElementStarted(types.LOAD, id));
 
   return loadElement(apiPath, id).then(
-    (data) => {
+    data => {
       dispatch(loadElementSucceeded(types.LOAD_SUCCEEDED, id, data));
 
       return data;
     },
-    (errors) => {
+    errors => {
       dispatch(loadElementFailed(types.LOAD_FAILED, id, errors));
 
       return errors;

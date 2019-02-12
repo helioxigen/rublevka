@@ -16,14 +16,20 @@ import s from 'site/styles/settlements/id/properties';
 import st from 'site/styles/themes';
 import sUtils from 'site/styles/utils';
 
-const { Visibility, CountIndicator, Grid: { Container, Row, Col } } = UI;
+const {
+  Visibility,
+  CountIndicator,
+  Grid: { Container, Row, Col },
+} = UI;
 
 function getImgUrl(data) {
   const { images = [], kind } = data;
   const publicImages = images.filter(image => !!image.isPublic);
 
   if (publicImages.length) {
-    return `url(${global.config.cloudfront || cloudfront}/${publicImages[0].id}-thumbnail-256)`;
+    return `url(${global.config.cloudfront || cloudfront}/${
+      publicImages[0].id
+    }-thumbnail-256)`;
   } else if (typeof window !== 'undefined' && kind === 'land') {
     return 'url(https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder-land.png)';
   } else if (typeof window !== 'undefined') {
@@ -45,11 +51,19 @@ class Card extends Component {
       return (
         <PrimaryCardModal propertyId={id} dealType="sale">
           <section className={s.card}>
-            <Visibility xs="hidden" sm="hidden" md="hidden" className={sUtils.fullWidth}>
+            <Visibility
+              xs="hidden"
+              sm="hidden"
+              md="hidden"
+              className={sUtils.fullWidth}
+            >
               <Container fluid>
                 <Row>
                   <Col sm="1">
-                    <div className={s.image} style={{ backgroundImage: imgUrl }} />
+                    <div
+                      className={s.image}
+                      style={{ backgroundImage: imgUrl }}
+                    />
                   </Col>
 
                   <Col sm="3" md="2">
@@ -76,7 +90,9 @@ class Card extends Component {
                     )}
 
                     {data.kind === 'land' && (
-                      <p className={s.textMd}>{dict.landscapeKinds[landscapeKind[0]]}</p>
+                      <p className={s.textMd}>
+                        {dict.landscapeKinds[landscapeKind[0]]}
+                      </p>
                     )}
                   </Col>
 
@@ -93,11 +109,19 @@ class Card extends Component {
               </Container>
             </Visibility>
 
-            <Visibility xs="hidden" sm="hidden" lg="hidden" className={sUtils.fullWidth}>
+            <Visibility
+              xs="hidden"
+              sm="hidden"
+              lg="hidden"
+              className={sUtils.fullWidth}
+            >
               <Container fluid>
                 <Row>
                   <Col sm="1">
-                    <div className={s.image} style={{ backgroundImage: imgUrl }} />
+                    <div
+                      className={s.image}
+                      style={{ backgroundImage: imgUrl }}
+                    />
                   </Col>
 
                   <Col sm="3" md="2">
@@ -124,10 +148,14 @@ class Card extends Component {
                     )}
 
                     {data.kind === 'land' && (
-                      <p className={s.textMd}>{dict.landscapeKinds[landscapeKind[0]]}</p>
+                      <p className={s.textMd}>
+                        {dict.landscapeKinds[landscapeKind[0]]}
+                      </p>
                     )}
 
-                    <p className={cn(s.textMd, sUtils.hideFromMd)}>ID: {data.id}</p>
+                    <p className={cn(s.textMd, sUtils.hideFromMd)}>
+                      ID: {data.id}
+                    </p>
                   </Col>
 
                   <Col sm="5" md="3">

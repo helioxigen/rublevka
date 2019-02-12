@@ -11,7 +11,7 @@ const {
   Heading,
   Form: { Group, Input, Label },
   Button,
- } = UI;
+} = UI;
 
 import s from 'cem/styles/modal/list';
 import sUtils from 'cem/styles/utils';
@@ -31,10 +31,10 @@ class RejectModal extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.toState && (this.props.toState !== nextProps.toState)) {
-      this.setState({ group: `client_lead_${nextProps.toState}_reason` }, () => (
-        this.load(nextProps)
-      ));
+    if (nextProps.toState && this.props.toState !== nextProps.toState) {
+      this.setState({ group: `client_lead_${nextProps.toState}_reason` }, () =>
+        this.load(nextProps),
+      );
     }
   }
 
@@ -52,11 +52,19 @@ class RejectModal extends Component {
     const { ids = [] } = _dictionaries[this.state.group] || {};
 
     return (
-      <Modal size="md" closePortal={::this.props.close} isOpened={this.props.isOpened} onClose={::this.props.close} closeOnEsc closeOnOutsideClick>
+      <Modal
+        size="md"
+        closePortal={::this.props.close}
+        isOpened={this.props.isOpened}
+        onClose={::this.props.close}
+        closeOnEsc
+        closeOnOutsideClick
+      >
         <div className={s.container}>
           <Heading size="md">Отклонить лид</Heading>
           <p className={s.text}>
-            Выберите, почему вы хотите отклонить лид. Руководитель проверит и подтвердит.
+            Выберите, почему вы хотите отклонить лид. Руководитель проверит и
+            подтвердит.
           </p>
           <div className={sUtils.pushedTop3}>
             {ids.map(id => (
@@ -74,7 +82,15 @@ class RejectModal extends Component {
             ))}
           </div>
         </div>
-        <Button className={sButton.btnWide} kind="danger" size="lg" block type="button" onClick={::this.handleOnClick} disabled={!this.state.selected}>
+        <Button
+          className={sButton.btnWide}
+          kind="danger"
+          size="lg"
+          block
+          type="button"
+          onClick={::this.handleOnClick}
+          disabled={!this.state.selected}
+        >
           Отклонить лид
         </Button>
       </Modal>

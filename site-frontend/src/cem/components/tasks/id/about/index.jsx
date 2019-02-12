@@ -20,11 +20,18 @@ import Information from './information';
 class About extends Component {
   render() {
     const {
-      id, data, formKey,
-      isDocumentsUploadAllowed, isCommentingAllowed,
+      id,
+      data,
+      formKey,
+      isDocumentsUploadAllowed,
+      isCommentingAllowed,
     } = this.props;
 
-    const isDocumentsSectionShown = formKey !== 'create' && data.kind === 'preview' && isDocumentsUploadAllowed && data.state !== 'canceled';
+    const isDocumentsSectionShown =
+      formKey !== 'create' &&
+      data.kind === 'preview' &&
+      isDocumentsUploadAllowed &&
+      data.state !== 'canceled';
 
     return (
       <Container fluid>
@@ -37,13 +44,13 @@ class About extends Component {
               <Result {...this.props} />
               {isDocumentsSectionShown && <Document taskId={formKey} />}
             </section>
-            {formKey !== 'create' && isCommentingAllowed &&
+            {formKey !== 'create' && isCommentingAllowed && (
               <Row className={sUtils.pushedBottom6}>
                 <Col md="18">
                   <Comments entity={{ key: 'tasks', id }} />
                 </Col>
               </Row>
-            }
+            )}
             <Row>
               <Col sm="18">
                 <Status {...this.props} />

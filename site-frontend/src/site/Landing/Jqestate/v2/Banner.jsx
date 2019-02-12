@@ -53,8 +53,13 @@ class Banner extends Component {
       <HideXsSm>
         <Bg>
           <Content>
-            <Title>Агентство&nbsp;загородной&nbsp;недвижимости&nbsp;JQ&nbsp;Estate</Title>
-            <Search withoutBorder placeholder="Введите ID объекта или название посёлка" />
+            <Title>
+              Агентство&nbsp;загородной&nbsp;недвижимости&nbsp;JQ&nbsp;Estate
+            </Title>
+            <Search
+              withoutBorder
+              placeholder="Введите ID объекта или название посёлка"
+            />
           </Content>
         </Bg>
       </HideXsSm>
@@ -75,4 +80,7 @@ const mapDispatch = dispatch => ({
   dispatch,
 });
 
-export default connect(mapState, mapDispatch)(Banner);
+export default connect(
+  mapState,
+  mapDispatch,
+)(Banner);

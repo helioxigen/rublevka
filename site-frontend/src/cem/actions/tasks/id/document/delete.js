@@ -15,7 +15,7 @@ const deleteConfirmationFailed = (taskId, { errors }) => ({
 });
 
 export default function deleteConfirmation(taskId) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(deleteConfirmationStarted(taskId));
 
     return API.del(`/v1/tasks/${taskId}/document`)

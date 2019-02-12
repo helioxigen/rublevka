@@ -8,7 +8,7 @@ const loadPositionsStarted = params => ({
   params,
 });
 
-const loadPositionsSucceeded = ({ items, pagination }) => (dispatch) => {
+const loadPositionsSucceeded = ({ items, pagination }) => dispatch => {
   dispatch(updatePagination('roles', pagination));
 
   dispatch({
@@ -23,7 +23,7 @@ const loadPositionsFailed = ({ errors }) => ({
 });
 
 export default function loadPositions(queryParams = {}) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadPositionsStarted(queryParams));
 
     return API.get('/v1/roles', queryParams).then(

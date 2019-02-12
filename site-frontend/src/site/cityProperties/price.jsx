@@ -13,12 +13,20 @@ class PropertyPrice extends Component {
 
     const isCurrencyFilterActive = !!selectedCurrency;
 
-    const dealPrice = isCurrencyFilterActive ? deal.multiCurrencyPrice && deal.multiCurrencyPrice[selectedCurrency] : deal.price;
-    const dealCurrency = isCurrencyFilterActive ? selectedCurrency : deal.currency;
+    const dealPrice = isCurrencyFilterActive
+      ? deal.multiCurrencyPrice && deal.multiCurrencyPrice[selectedCurrency]
+      : deal.price;
+    const dealCurrency = isCurrencyFilterActive
+      ? selectedCurrency
+      : deal.currency;
 
     return (
       <span>
-        <FormattedCurrency value={dealPrice} symbol={dealCurrency && dealCurrency.toUpperCase()} /> {dealType === `rent` ? `/ месяц` : ``}
+        <FormattedCurrency
+          value={dealPrice}
+          symbol={dealCurrency && dealCurrency.toUpperCase()}
+        />{' '}
+        {dealType === `rent` ? `/ месяц` : ``}
       </span>
     );
   }

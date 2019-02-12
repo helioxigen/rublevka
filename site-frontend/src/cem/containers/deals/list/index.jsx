@@ -38,38 +38,68 @@ class ListContainer extends Component {
         'stateDetails.toApprove': 'unsuccessful,successful',
       },
     });
-    actions.loadStats('agency_fee', {
-      filter: {
-        ...filters,
-        'stateDetails.toApprove': 'unsuccessful',
+    actions.loadStats(
+      'agency_fee',
+      {
+        filter: {
+          ...filters,
+          'stateDetails.toApprove': 'unsuccessful',
+        },
       },
-    }, 'unsuccessful');
-    actions.loadStats('agency_fee', {
-      filter: {
-        ...filters,
-        'stateDetails.toApprove': 'successful',
+      'unsuccessful',
+    );
+    actions.loadStats(
+      'agency_fee',
+      {
+        filter: {
+          ...filters,
+          'stateDetails.toApprove': 'successful',
+        },
       },
-    }, 'successful');
+      'successful',
+    );
   }
 
   componentWillReceiveProps(nextProps) {
     const { actions, state } = this.props;
 
-    const lanesState = Object.keys(state.deals).filter(kindKey => lanesArray.indexOf(kindKey) > -1).map(kindKey => state.deals[kindKey]);
-    const nextLanesState = Object.keys(nextProps.state.deals).filter(kindKey => lanesArray.indexOf(kindKey) > -1).map(kindKey => nextProps.state.deals[kindKey]);
+    const lanesState = Object.keys(state.deals)
+      .filter(kindKey => lanesArray.indexOf(kindKey) > -1)
+      .map(kindKey => state.deals[kindKey]);
+    const nextLanesState = Object.keys(nextProps.state.deals)
+      .filter(kindKey => lanesArray.indexOf(kindKey) > -1)
+      .map(kindKey => nextProps.state.deals[kindKey]);
 
-    const isEveryLaneStateComplete = lanesState.every(laneState => laneState.isComplete);
-    const isEveryNextLaneStateComplete = nextLanesState.every(laneState => laneState.isComplete);
+    const isEveryLaneStateComplete = lanesState.every(
+      laneState => laneState.isComplete,
+    );
+    const isEveryNextLaneStateComplete = nextLanesState.every(
+      laneState => laneState.isComplete,
+    );
 
     if (!isEveryLaneStateComplete && isEveryNextLaneStateComplete) {
-      const contactIds = uniq(nextLanesState.reduce((result, laneState) => [
-        ...result,
-        ...laneState.items.filter(item =>
-            item.contactDetails && item.contactDetails.id && !nextProps.state.contacts[item.contactDetails.id],
-          ).map(item => item.contactDetails.id),
-      ], []));
+      const contactIds = uniq(
+        nextLanesState.reduce(
+          (result, laneState) => [
+            ...result,
+            ...laneState.items
+              .filter(
+                item =>
+                  item.contactDetails &&
+                  item.contactDetails.id &&
+                  !nextProps.state.contacts[item.contactDetails.id],
+              )
+              .map(item => item.contactDetails.id),
+          ],
+          [],
+        ),
+      );
 
-      if (contactIds.length) actions.loadContacts({ filter: { id: contactIds }, pagination: { limit: 256 } });
+      if (contactIds.length)
+        actions.loadContacts({
+          filter: { id: contactIds },
+          pagination: { limit: 256 },
+        });
     }
 
     const filters = state.filters.deals || {};
@@ -82,18 +112,26 @@ class ListContainer extends Component {
           'stateDetails.toApprove': 'unsuccessful,successful',
         },
       });
-      actions.loadStats('agency_fee', {
-        filter: {
-          ...nextFilters,
-          'stateDetails.toApprove': 'unsuccessful',
+      actions.loadStats(
+        'agency_fee',
+        {
+          filter: {
+            ...nextFilters,
+            'stateDetails.toApprove': 'unsuccessful',
+          },
         },
-      }, 'unsuccessful');
-      actions.loadStats('agency_fee', {
-        filter: {
-          ...nextFilters,
-          'stateDetails.toApprove': 'successful',
+        'unsuccessful',
+      );
+      actions.loadStats(
+        'agency_fee',
+        {
+          filter: {
+            ...nextFilters,
+            'stateDetails.toApprove': 'successful',
+          },
         },
-      }, 'successful');
+        'successful',
+      );
     }
   }
 
@@ -129,7 +167,12 @@ class ListContainer extends Component {
                 const { total = 0 } = pagination;
                 return (
                   <Col key={index} xs="4">
-                    <LaneHeader laneKey={laneKey} count={total} stats={agencyFeeStats} stateFilter={stateFilter} />
+                    <LaneHeader
+                      laneKey={laneKey}
+                      count={total}
+                      stats={agencyFeeStats}
+                      stateFilter={stateFilter}
+                    />
                   </Col>
                 );
               })}
@@ -158,7 +201,14 @@ class ListContainer extends Component {
   }
 }
 
-const pickState = ({ auth, filters, deals, fetcher, pagination, contacts }) => ({
+const pickState = ({
+  auth,
+  filters,
+  deals,
+  fetcher,
+  pagination,
+  contacts,
+}) => ({
   state: { auth, filters, deals, fetcher, pagination, contacts },
 });
 
@@ -166,4 +216,7 @@ const pickActions = dispatch => ({
   actions: bindActionCreators({ ...DealsActions, loadContacts }, dispatch),
 });
 
-export default connect(pickState, pickActions)(ListContainer);
+export default connect(
+  pickState,
+  pickActions,
+)(ListContainer);

@@ -25,19 +25,36 @@ class KindContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { params: { kind }, state: { dictionaries }, actions } = this.props;
+    const {
+      params: { kind },
+      state: { dictionaries },
+      actions,
+    } = this.props;
     const { pagination } = dictionaries[kind] || {};
 
-    const { params: { kind: newKind }, state: { dictionaries: nextDictionaries } } = nextProps;
+    const {
+      params: { kind: newKind },
+      state: { dictionaries: nextDictionaries },
+    } = nextProps;
     const { pagination: nextPagination } = nextDictionaries[newKind] || {};
 
-    if (nextPagination && pagination && nextPagination.offset !== pagination.offset) {
+    if (
+      nextPagination &&
+      pagination &&
+      nextPagination.offset !== pagination.offset
+    ) {
       actions.loadWordsByKind(kind, nextPagination);
     }
   }
 
   handlePaginationUpdate(offset) {
-    const { actions, params: { kind }, state: { dictionaries: { pagination } } } = this.props;
+    const {
+      actions,
+      params: { kind },
+      state: {
+        dictionaries: { pagination },
+      },
+    } = this.props;
 
     actions.updatePagination({
       kind,
@@ -49,7 +66,10 @@ class KindContainer extends Component {
   }
 
   render() {
-    const { params: { category, kind }, state: { dictionaries } } = this.props;
+    const {
+      params: { category, kind },
+      state: { dictionaries },
+    } = this.props;
     const { items = [], pagination = {} } = dictionaries[kind] || {};
 
     if (dictionaries[kind] && dictionaries[kind].isFetching) {
@@ -61,15 +81,18 @@ class KindContainer extends Component {
         <Grid.Container fluid>
           <Words {...this.props} kind={kind} items={items} />
 
-          {dictionaries &&
-            dictionaries[kind] &&
+          {dictionaries && dictionaries[kind] && (
             <Grid.Row xs="center">
               <Grid.Col sm="10" className={stylesUtils.pushed6_0}>
-                {items &&
-                  !!items.length &&
-                  <Pagination {...pagination} onUpdate={this.handlePaginationUpdate} />}
+                {items && !!items.length && (
+                  <Pagination
+                    {...pagination}
+                    onUpdate={this.handlePaginationUpdate}
+                  />
+                )}
               </Grid.Col>
-            </Grid.Row>}
+            </Grid.Row>
+          )}
         </Grid.Container>
       </section>
     );
@@ -84,4 +107,7 @@ const pickActions = dispatch => ({
   actions: bindActionCreators(DictionariesActions, dispatch),
 });
 
-export default connect(pickState, pickActions)(KindContainer);
+export default connect(
+  pickState,
+  pickActions,
+)(KindContainer);

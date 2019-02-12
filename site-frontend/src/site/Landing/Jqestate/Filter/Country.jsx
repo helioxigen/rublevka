@@ -16,7 +16,9 @@ import * as analyticsEvents from 'core/analytics/constants';
 
 import UI from 'site/ui';
 const {
-  Button, Select, Visibility,
+  Button,
+  Select,
+  Visibility,
   Form,
   Grid: { Col },
 } = UI;
@@ -46,23 +48,27 @@ class Filter extends Component {
 
     const { dealType, kind, priceRange } = this.state;
 
-    const isPriceFilterEnabled = (
-      priceRange && (
-        priceRange.min ||
-        priceRange.max &&
-        priceRange.max >= 31
-      )
+    const isPriceFilterEnabled =
+      priceRange &&
+      (priceRange.min || (priceRange.max && priceRange.max >= 31));
+
+    const price = isPriceFilterEnabled
+      ? {
+          min: priceRange.min !== 0 ? priceRange.min : undefined,
+          max:
+            priceRange.max === 30.02 || priceRange.max === 100.02
+              ? undefined
+              : priceRange.max,
+        }
+      : undefined;
+
+    this.props.actions.updateFilter(
+      `countryProperties.${dealTypes[dealType]}`,
+      {
+        [dealTypes[dealType]]: price,
+        kind: [kind],
+      },
     );
-
-    const price = isPriceFilterEnabled ? {
-      min: priceRange.min !== 0 ? priceRange.min : undefined,
-      max: priceRange.max === 30.02 || priceRange.max === 100.02 ? undefined : priceRange.max,
-    } : undefined;
-
-    this.props.actions.updateFilter(`countryProperties.${dealTypes[dealType]}`, {
-      [dealTypes[dealType]]: price,
-      kind: [kind],
-    });
 
     track(analyticsEvents.landingSearchSubmitted());
     this.props.actions.push(`/zagorodnaya/${dealType}`);
@@ -77,7 +83,9 @@ class Filter extends Component {
   render() {
     const { kind, priceRange } = this.state;
     const dealType = dealTypes[this.state.dealType];
-    const kindOptions = options.kinds.country.filter(item => !(dealType === `rent` && item.value === `land`));
+    const kindOptions = options.kinds.country.filter(
+      item => !(dealType === `rent` && item.value === `land`),
+    );
 
     return (
       <Col xs="12">
@@ -88,7 +96,7 @@ class Filter extends Component {
               className={cn(sSelect.landingSelect, s.width16)}
               placeholder="Купить"
               options={options.dealType}
-              onChange={(value) => this.onChange(`dealType`, value)}
+              onChange={value => this.onChange(`dealType`, value)}
               disableReset
             />
 
@@ -97,20 +105,34 @@ class Filter extends Component {
               className={cn(sSelect.landingSelect, s.width25)}
               placeholder="Тип недвижимости"
               options={kindOptions}
-              onChange={(value) => this.onChange(`kind`, value)}
+              onChange={value => this.onChange(`kind`, value)}
               disableReset
             />
 
             <PriceSelect
               value={priceRange}
-              onChange={(value) => this.onChange(`priceRange`, value)}
+              onChange={value => this.onChange(`priceRange`, value)}
               dealType={dealType}
             />
 
-            <Button size="lg" kind="primary" className={cn(s.btnPrimary, s.resetLeftBorderRadius)} type="submit">Найти</Button>
+            <Button
+              size="lg"
+              kind="primary"
+              className={cn(s.btnPrimary, s.resetLeftBorderRadius)}
+              type="submit"
+            >
+              Найти
+            </Button>
           </Visibility>
           <Visibility md="hidden" lg="hidden">
-            <Button kind="primary" size="xlg" type="submit" to="/zagorodnaya/prodaja">Начать поиск</Button>
+            <Button
+              kind="primary"
+              size="xlg"
+              type="submit"
+              to="/zagorodnaya/prodaja"
+            >
+              Начать поиск
+            </Button>
           </Visibility>
         </Form.Container>
       </Col>
@@ -118,7 +140,7 @@ class Filter extends Component {
   }
 }
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     ...FilterActions,
     push,
@@ -129,4 +151,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(null, pickActions)(Filter);
+export default connect(
+  null,
+  pickActions,
+)(Filter);

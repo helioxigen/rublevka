@@ -10,7 +10,7 @@ const makeMetaElement = (element, name, dealType, placeKind) => ({
   content: helmet.places[placeKind].show[element](name, dealType),
 });
 
-export default (props) => {
+export default props => {
   const { placeKind, data, dealType } = props;
 
   if (data) {
@@ -20,7 +20,11 @@ export default (props) => {
       makeMetaElement('keywords', data.name, dealType, placeKind),
     ];
 
-    if (data.location && routeIds && routeIds.indexOf(data.location.routeId) === -1) {
+    if (
+      data.location &&
+      routeIds &&
+      routeIds.indexOf(data.location.routeId) === -1
+    ) {
       meta.push({ name: 'status-code', content: 404 });
     }
 

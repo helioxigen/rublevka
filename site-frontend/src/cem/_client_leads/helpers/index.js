@@ -1,11 +1,25 @@
 import { makeDateRange, formatFilterDate } from 'core/helpers';
 import recursiveCleanUp from 'cem/helpers/recursiveCleanUp';
 
-export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNot = {} }) => {
-  const { createdAtFrom, createdAtTo, awaitingApproval, notAwaitingApproval } = filter;
+export const mapParams = ({
+  pagination = {},
+  orderBy = {},
+  filter = {},
+  filterNot = {},
+}) => {
+  const {
+    createdAtFrom,
+    createdAtTo,
+    awaitingApproval,
+    notAwaitingApproval,
+  } = filter;
   const { limit, offset } = pagination;
 
-  const { tasksDeadlineDate, tasksDoesntHaveScheduled, tasksHasOverdue } = filter;
+  const {
+    tasksDeadlineDate,
+    tasksDoesntHaveScheduled,
+    tasksHasOverdue,
+  } = filter;
 
   return recursiveCleanUp({
     pagination: {
@@ -19,7 +33,9 @@ export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNo
       'requestDetails.requestKind': filter.requestKind,
       state: filter.state,
 
-      'contactDetails.phoneNumber': filter.phoneNumber ? `*${filter.phoneNumber}*` : undefined,
+      'contactDetails.phoneNumber': filter.phoneNumber
+        ? `*${filter.phoneNumber}*`
+        : undefined,
       contactId: filter.contactId,
 
       clientLeadSourceId: filter.clientLeadSourceId,
@@ -36,12 +52,19 @@ export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNo
       'tasks.scheduled': tasksDoesntHaveScheduled ? 'false' : undefined,
       'tasks.overdue': tasksHasOverdue,
 
-      createdAt: makeDateRange(formatFilterDate(createdAtFrom), formatFilterDate(createdAtTo)),
+      createdAt: makeDateRange(
+        formatFilterDate(createdAtFrom),
+        formatFilterDate(createdAtTo),
+      ),
 
-      ...(awaitingApproval ? { 'stateDetails.toApprove': 'spam,processed,rejected' } : {}),
+      ...(awaitingApproval
+        ? { 'stateDetails.toApprove': 'spam,processed,rejected' }
+        : {}),
     },
     filterNot: {
-      ...(notAwaitingApproval ? { 'stateDetails.toApprove': 'spam,processed,rejected' } : {}),
+      ...(notAwaitingApproval
+        ? { 'stateDetails.toApprove': 'spam,processed,rejected' }
+        : {}),
     },
   });
 };

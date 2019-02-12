@@ -17,7 +17,8 @@ export const UPDATE_PROPERTY_FAIL = 'properties.id.update.failed';
 export const CHANGE_PROPERTY_LOCATION = 'properties.id.location.change';
 
 export const LOAD_DOCUMENTS = 'properties.id.documents.id.load.started';
-export const LOAD_DOCUMENTS_SUCCESS = 'properties.id.documents.id.load.succeeded';
+export const LOAD_DOCUMENTS_SUCCESS =
+  'properties.id.documents.id.load.succeeded';
 export const LOAD_DOCUMENTS_FAIL = 'properties.id.documents.id.load.failed';
 
 export const LINK_DOCUMENT = 'properties.id.documents.link.started';
@@ -30,7 +31,8 @@ export const UNLINK_DOCUMENT = 'properties.id.documents.id.unlink.started';
 export const UNLINK_DOCUMENT_FAIL = 'properties.id.documents.id.unlink.failed';
 
 export const LOAD_CONTRACTS = 'properties.id.contracts.id.load.started';
-export const LOAD_CONTRACTS_SUCCESS = 'properties.id.contracts.id.load.succeeded';
+export const LOAD_CONTRACTS_SUCCESS =
+  'properties.id.contracts.id.load.succeeded';
 export const LOAD_CONTRACTS_FAIL = 'properties.id.contracts.id.load.failed';
 
 export const LINK_CONTRACT = 'properties.id.contracts.link.started';
@@ -43,7 +45,8 @@ export const UNLINK_CONTRACT = 'properties.id.contracts.id.unlink.started';
 export const UNLINK_CONTRACT_FAIL = 'properties.id.contracts.id.unlink.failed';
 
 export const LOAD_LINKED_CONTACTS = 'properties.id.contacts.load.started';
-export const LOAD_LINKED_CONTACTS_SUCCESS = 'properties.id.contacts.load.succeeded';
+export const LOAD_LINKED_CONTACTS_SUCCESS =
+  'properties.id.contacts.load.succeeded';
 export const LOAD_LINKED_CONTACTS_FAIL = 'properties.id.contacts.load.failed';
 
 export const LINK_CONTACT = 'properties.id.contacts.link.started';
@@ -70,21 +73,24 @@ export const UPLOAD_LAYOUT_SUCCESS = 'properteies.id.layout.upload.succeeded';
 
 export const CHANGE_LOCATION = 'properties.id.location.change';
 export const CHANGE_RESIDENTIAL = 'properties.id.complex.change';
-export const CHANGE_RESIDENTIAL_SUCCESS = 'properties.id.complex.change.succeeded';
+export const CHANGE_RESIDENTIAL_SUCCESS =
+  'properties.id.complex.change.succeeded';
 
 export const LOAD_RESIDENTIAL = 'properties.id.complex.load.started';
 export const LOAD_RESIDENTIAL_SUCCESS = 'properties.id.complex.load.succeeded';
 export const LOAD_RESIDENTIAL_FAIL = 'properties.id.complex.load.failed';
 
 export const SEARCH_RESIDENTIAL = 'properties.id.complex.search.started';
-export const SEARCH_RESIDENTIAL_SUCCESS = 'properties.id.complex.search.succeeded';
+export const SEARCH_RESIDENTIAL_SUCCESS =
+  'properties.id.complex.search.succeeded';
 export const SEARCH_RESIDENTIAL_FAIL = 'properties.id.complex.search.failed';
 
 export const UPDATE_RESIDENTIAL = 'properties.id.complex.update.started';
 export const UPDATE_RESIDENTIAL_FAIL = 'properties.id.complex.update.failed';
 
 export const CREATE_RESIDENTIAL = 'properties.id.complex.create.started';
-export const CREATE_RESIDENTIAL_SUCCESS = 'properties.id.complex.create.started';
+export const CREATE_RESIDENTIAL_SUCCESS =
+  'properties.id.complex.create.started';
 export const CREATE_RESIDENTIAL_FAIL = 'properties.id.complex.create.failed';
 
 export const LOAD_TASKS = 'properties.id.tasks.load.started';

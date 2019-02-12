@@ -8,8 +8,8 @@ const { Grid, Image, Media } = UI;
 
 import s from 'cem/styles/id/content';
 
-const ContactImage = ({ src }) =>
-  (<Image
+const ContactImage = ({ src }) => (
+  <Image
     src={
       src
         ? `${src}-64`
@@ -18,11 +18,13 @@ const ContactImage = ({ src }) =>
     kind="circle"
     width="64"
     height="64"
-  />);
+  />
+);
 
-const ContactDescription = ({ details = {} }) =>
-  (<div>
-    <h4 className={s.heading}>{`${details.firstName || ''} ${details.lastName || ''}`}</h4>
+const ContactDescription = ({ details = {} }) => (
+  <div>
+    <h4 className={s.heading}>{`${details.firstName || ''} ${details.lastName ||
+      ''}`}</h4>
     <div>
       <a className={s.mediaText} href={`tel:${details.phoneNumber}`}>
         {details.phoneNumber}
@@ -33,7 +35,8 @@ const ContactDescription = ({ details = {} }) =>
         {details.email}
       </a>
     </div>
-  </div>);
+  </div>
+);
 
 class Contact extends Component {
   render() {
@@ -50,7 +53,11 @@ class Contact extends Component {
             <Media
               left={
                 <ContactImage
-                  src={itemData.details && itemData.details.photo && itemData.details.photo.url}
+                  src={
+                    itemData.details &&
+                    itemData.details.photo &&
+                    itemData.details.photo.url
+                  }
                 />
               }
               body={<ContactDescription {...itemData} />}

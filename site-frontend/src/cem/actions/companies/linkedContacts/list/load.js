@@ -19,7 +19,7 @@ const loadLinkedContactsFailed = (companyId, errors) => ({
   errors,
 });
 
-export default (companyId, queryParams = { filter: {} }) => (dispatch) => {
+export default (companyId, queryParams = { filter: {} }) => dispatch => {
   dispatch(loadLinkedContactsStarted(companyId));
 
   const query = {

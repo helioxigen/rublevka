@@ -7,7 +7,9 @@ import { kindsTranslit } from 'site/constants/properties/dictionaries';
 
 import { FilterWrapperKind, StCheckbox, StLink } from './styled';
 
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col },
+} = UI;
 
 const key = 'kind';
 
@@ -34,7 +36,10 @@ class Kind extends Component {
       return kinds[kind];
     }
     return (
-      <StLink onClick={() => this.onUpdate(kind)} to={`${urlPath}/${kindsTranslit[kind]}`}>
+      <StLink
+        onClick={() => this.onUpdate(kind)}
+        to={`${urlPath}/${kindsTranslit[kind]}`}
+      >
         {kinds[kind]}
       </StLink>
     );

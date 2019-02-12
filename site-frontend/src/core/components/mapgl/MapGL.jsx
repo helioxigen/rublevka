@@ -11,25 +11,40 @@ class MapGl extends Component {
     features: [],
     controls: true,
     additionalSourceOptions: {},
-    layers: [{
-      id: `markers`,
-      type: `symbol`,
-      source: `markers`,
-      layout: {
-        'icon-image': `{marker-symbol}`,
+    layers: [
+      {
+        id: `markers`,
+        type: `symbol`,
+        source: `markers`,
+        layout: {
+          'icon-image': `{marker-symbol}`,
+        },
       },
-    }],
-  }
+    ],
+  };
 
   componentDidMount() {
-    const { center, zoom, features, controls, additionalSourceOptions, layers, onFeatureClick, onMount, onDoubleClick } = this.props;
+    const {
+      center,
+      zoom,
+      features,
+      controls,
+      additionalSourceOptions,
+      layers,
+      onFeatureClick,
+      onMount,
+      onDoubleClick,
+    } = this.props;
 
     const map = new mapboxgl.Map({
       container: this.refs.map,
       style: `mapbox://styles/justusebrain/cirxnq1qj003igynmiqwtan67`,
       zoom,
       center,
-      maxBounds: [[33.522700820307335, 54.23896244234837], [40.55395082030742, 57.281468045639826]],
+      maxBounds: [
+        [33.522700820307335, 54.23896244234837],
+        [40.55395082030742, 57.281468045639826],
+      ],
     });
 
     this._dataSource = new mapboxgl.GeoJSONSource({
@@ -54,17 +69,27 @@ class MapGl extends Component {
       ::this.handleViewportChange(map.getBounds(), map.getCenter());
     });
 
-    map.on(`dblclick`, (event) => {
+    map.on(`dblclick`, event => {
       if (onDoubleClick) onDoubleClick(event.lngLat);
     });
 
-    map.on(`mousemove`, (event) => {
-      const renderedFeatures = map.queryRenderedFeatures(event.point, { layers: [`unclustered`, `cluster-0`, `cluster-1`, `cluster-2`, `markers`] });
+    map.on(`mousemove`, event => {
+      const renderedFeatures = map.queryRenderedFeatures(event.point, {
+        layers: [
+          `unclustered`,
+          `cluster-0`,
+          `cluster-1`,
+          `cluster-2`,
+          `markers`,
+        ],
+      });
       map.getCanvas().style.cursor = renderedFeatures.length ? `pointer` : ``;
     });
 
-    map.on(`click`, (event) => {
-      const renderedFeatures = map.queryRenderedFeatures(event.point, { layers: [`unclustered`, `cluster-0`, `cluster-1`, `cluster-2`] });
+    map.on(`click`, event => {
+      const renderedFeatures = map.queryRenderedFeatures(event.point, {
+        layers: [`unclustered`, `cluster-0`, `cluster-1`, `cluster-2`],
+      });
       if (onFeatureClick && renderedFeatures.length) {
         onFeatureClick(event.lngLat, renderedFeatures[0]);
       }
@@ -81,7 +106,11 @@ class MapGl extends Component {
   shouldComponentUpdate(nextProps) {
     const { features, center, zoom } = this.props;
 
-    return !isEqual(nextProps.features, features) || !isEqual(nextProps.center, center) || !isEqual(nextProps.zoom, zoom);
+    return (
+      !isEqual(nextProps.features, features) ||
+      !isEqual(nextProps.center, center) ||
+      !isEqual(nextProps.zoom, zoom)
+    );
   }
 
   componentDidUpdate(prevProps) {

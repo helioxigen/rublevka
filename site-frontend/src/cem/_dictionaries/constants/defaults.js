@@ -102,7 +102,10 @@ export const groups = {
 
   client_lead_reject_reason: {
     filter: {
-      kind: ['client_lead_targeted_reject_reason', 'client_lead_non_targeted_reject_reason'],
+      kind: [
+        'client_lead_targeted_reject_reason',
+        'client_lead_non_targeted_reject_reason',
+      ],
     },
   },
 };

@@ -9,13 +9,13 @@ const deleteIdStarted = id => ({
   id,
 });
 
-const deleteIdSucceeded = () => (dispatch) => {
+const deleteIdSucceeded = () => dispatch => {
   dispatch(pop('success', 'Источник удалён'));
 
   return dispatch(loadList());
 };
 
-const deleteIdFailed = ({ errors }) => (dispatch) => {
+const deleteIdFailed = ({ errors }) => dispatch => {
   dispatch(pop('error', 'Произошла ошибка'));
 
   return dispatch({
@@ -24,8 +24,8 @@ const deleteIdFailed = ({ errors }) => (dispatch) => {
   });
 };
 
-export default function ({ id }) {
-  return (dispatch) => {
+export default function({ id }) {
+  return dispatch => {
     dispatch(deleteIdStarted(id));
 
     return API.del(`/v1/client_lead_sources/${id}`)

@@ -9,7 +9,8 @@ import LinkedContacts from 'cem/containers/companies/linkedContacts';
 
 import UI from 'cem/components/ui';
 const {
-  Form, Heading,
+  Form,
+  Heading,
   Grid: { Row, Col },
   Form: { Static, Group, Label },
 } = UI;
@@ -33,7 +34,14 @@ class About extends Component {
   }
 
   render() {
-    const { formKey, values, fields, isUpdateAllowed, handleSubmit, data = {} } = this.props;
+    const {
+      formKey,
+      values,
+      fields,
+      isUpdateAllowed,
+      handleSubmit,
+      data = {},
+    } = this.props;
     const onChange = handleSubmit(::this.update, ::this.onSubmitSuccess);
 
     return (
@@ -77,55 +85,78 @@ class About extends Component {
               </Col>
             </Row>
 
-            <Addresses actions={this.props.actions} field={fields.address} isStatic={!isUpdateAllowed} onChange={onChange} />
-            <Phones actions={this.props.actions} field={fields.phoneNumbers} isStatic={!isUpdateAllowed} onChange={onChange} />
+            <Addresses
+              actions={this.props.actions}
+              field={fields.address}
+              isStatic={!isUpdateAllowed}
+              onChange={onChange}
+            />
+            <Phones
+              actions={this.props.actions}
+              field={fields.phoneNumbers}
+              isStatic={!isUpdateAllowed}
+              onChange={onChange}
+            />
 
-            {formKey !== `create` &&
+            {formKey !== `create` && (
               <Row>
                 <Col xs="20">
-                  <LinkedContacts companyId={parseInt(formKey, 10)} isUpdateAllowed={isUpdateAllowed} />
+                  <LinkedContacts
+                    companyId={parseInt(formKey, 10)}
+                    isUpdateAllowed={isUpdateAllowed}
+                  />
                 </Col>
               </Row>
-            }
+            )}
 
             <Row className={sUtils.pushedBottom6}>
               <Col xs="20">
-                <User id={data.responsibleUserId} title="Ответственный"/>
+                <User id={data.responsibleUserId} title="Ответственный" />
               </Col>
             </Row>
 
             <Row>
-              {data.createdAt &&
+              {data.createdAt && (
                 <Col sm="10">
                   <Heading size="md">Создан</Heading>
                   <Group>
                     <Label block>Дата создания</Label>
-                    <Static><FormattedDate value={data.createdAt} mask="dd.mm.yyyy HH:MM" /></Static>
+                    <Static>
+                      <FormattedDate
+                        value={data.createdAt}
+                        mask="dd.mm.yyyy HH:MM"
+                      />
+                    </Static>
                   </Group>
-                  {data.createdByUserId &&
+                  {data.createdByUserId && (
                     <Group className={sUtils.resetIndentation}>
                       <Label block>Создал</Label>
                       <User id={data.createdByUserId} simple />
                     </Group>
-                  }
+                  )}
                 </Col>
-              }
+              )}
 
-              {data.updatedAt &&
+              {data.updatedAt && (
                 <Col className={sUtils.pushedTopXs4} sm="10">
                   <Heading size="md">Изменен</Heading>
                   <Group>
                     <Label block>Дата изменения</Label>
-                    <Static><FormattedDate value={data.updatedAt} mask="dd.mm.yyyy HH:MM" /></Static>
+                    <Static>
+                      <FormattedDate
+                        value={data.updatedAt}
+                        mask="dd.mm.yyyy HH:MM"
+                      />
+                    </Static>
                   </Group>
-                  {data.updatedByUserId &&
+                  {data.updatedByUserId && (
                     <Group>
                       <Label block>Изменил</Label>
                       <User id={data.updatedByUserId} simple />
                     </Group>
-                  }
+                  )}
                 </Col>
-              }
+              )}
             </Row>
           </Form.Container>
         </section>

@@ -21,7 +21,7 @@ const uploadImagesFailed = (id, { errors }) => ({
 });
 
 export default function uploadImages(id, images) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(uploadImagesStarted(id, images));
 
     return API.post(`/v1/orders/images/${id}/images`, { src: images })

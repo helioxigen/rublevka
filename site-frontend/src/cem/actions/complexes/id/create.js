@@ -11,7 +11,7 @@ const createComplexStarted = () => ({
   type: types.CREATE_COMPLEX,
 });
 
-const createComplexSucceeded = (id, data) => (dispatch) => {
+const createComplexSucceeded = (id, data) => dispatch => {
   dispatch({
     type: types.CREATE_COMPLEX_SUCCESS,
     id,
@@ -27,7 +27,7 @@ const createComplexFailed = errors => ({
   errors,
 });
 
-const createComplex = complex => (dispatch) => {
+const createComplex = complex => dispatch => {
   dispatch(createComplexStarted());
 
   return API.post('/v1/complexes', transformDataOut(complex)).then(

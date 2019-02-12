@@ -36,7 +36,9 @@ class Timeline extends Component {
       const newDuration = prevDuration + nextDuration;
       durations[item.state] = newDuration;
     });
-    Object.keys(durations).map(key => (durations[key] = moment.duration(durations[key]).humanize()));
+    Object.keys(durations).map(
+      key => (durations[key] = moment.duration(durations[key]).humanize()),
+    );
 
     return durations;
   }
@@ -48,7 +50,9 @@ class Timeline extends Component {
     const lastState = states[states.length - 1];
     const nextToLastState = states[states.length - 2];
 
-    return settings.rejectionStates.indexOf(state) === -1 ? lastState : nextToLastState;
+    return settings.rejectionStates.indexOf(state) === -1
+      ? lastState
+      : nextToLastState;
   }
 
   isFinal(state) {
@@ -72,30 +76,40 @@ class Timeline extends Component {
   }
 
   render() {
-    const { className, settings, state, stateDetails: { toApprove } = {} } = this.props;
+    const {
+      className,
+      settings,
+      state,
+      stateDetails: { toApprove } = {},
+    } = this.props;
     const durations = this.getDurations();
     const activeStages = this.getActiveStages();
 
     return (
       <div className={s.container}>
         <ul className={cn(s.flex, className)}>
-          {settings.stages
-            .map((stage, index) => {
-              const isUnsuccessful = settings.rejectionStates.indexOf(toApprove) > -1 || settings.rejectionStates.indexOf(state) > -1;
-              const isActive = activeStages.indexOf(stage.id) > -1;
-              const isLastActive = this.isLastActive(stage.id);
-              const isFinal = this.isFinal(stage.id);
+          {settings.stages.map((stage, index) => {
+            const isUnsuccessful =
+              settings.rejectionStates.indexOf(toApprove) > -1 ||
+              settings.rejectionStates.indexOf(state) > -1;
+            const isActive = activeStages.indexOf(stage.id) > -1;
+            const isLastActive = this.isLastActive(stage.id);
+            const isFinal = this.isFinal(stage.id);
 
-              return (
-                <TimelineStage
-                  key={index} title={stage.title} isInitial={!index}
-                  circleColor={isActive && (isLastActive && isUnsuccessful && 'danger' || 'success')}
-                  sliderColor={isActive && 'success'}
-                  duration={!isFinal ? durations[stage.id] : ''}
-                />
-              );
-            })
-          }
+            return (
+              <TimelineStage
+                key={index}
+                title={stage.title}
+                isInitial={!index}
+                circleColor={
+                  isActive &&
+                  ((isLastActive && isUnsuccessful && 'danger') || 'success')
+                }
+                sliderColor={isActive && 'success'}
+                duration={!isFinal ? durations[stage.id] : ''}
+              />
+            );
+          })}
         </ul>
       </div>
     );

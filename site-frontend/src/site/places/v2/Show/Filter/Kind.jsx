@@ -9,7 +9,10 @@ import media from 'site/styles/media';
 import { kinds } from 'site/constants/places';
 import { kindsTranslit } from 'site/constants/properties/dictionaries';
 
-const { Grid: { Container, Row, Col }, Checkbox } = UI;
+const {
+  Grid: { Container, Row, Col },
+  Checkbox,
+} = UI;
 
 const FilterWrapperKind = styled.div`
   padding-bottom: 0.2rem;
@@ -73,7 +76,10 @@ class Kind extends Component {
       return kinds[kind];
     }
     return (
-      <StLink onClick={() => this.onUpdate(kind)} to={`${urlPath}/${kindsTranslit[kind]}`}>
+      <StLink
+        onClick={() => this.onUpdate(kind)}
+        to={`${urlPath}/${kindsTranslit[kind]}`}
+      >
         {kinds[kind]}
       </StLink>
     );

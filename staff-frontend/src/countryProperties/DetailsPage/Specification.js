@@ -8,12 +8,16 @@ import {
   PropertyBigValue,
   PropertyTitle,
   PropertyValue,
-} from './style';
+} from './styled';
 import Select from '../../UI/Select';
 import { Body } from '../../UI';
-import { conditions, roofMaterials, wallMaterials } from '../dictionaries';
+import {
+  conditions,
+  roofMaterials,
+  wallMaterials,
+} from '../constants/dictionaries';
 import SelectBubble from '../../UI/SelectBubble';
-import { selectBinaryData, selectRoogData, selectWallData } from './schema';
+import { selectBinaryData, selectRoofData, selectWallData } from './schema';
 
 const ConstructiveSection = ({ enableEditMode, isEditMode, property }) => {
   if (!isEditMode) {
@@ -74,6 +78,7 @@ const ConstructiveSection = ({ enableEditMode, isEditMode, property }) => {
       </Row>
     );
   }
+
   return (
     <EditPropertyRow>
       <Col xs={2}>
@@ -81,13 +86,22 @@ const ConstructiveSection = ({ enableEditMode, isEditMode, property }) => {
       </Col>
       <Col xsOffset={1} xs={2}>
         <PropertyTitle>Год постройки</PropertyTitle>
-        <EditPropertyInput placeholder="Год" />
+        <EditPropertyInput
+          defaultValue={property.specification.builtYear}
+          placeholder="Год"
+        />
       </Col>
       <Col xsOffset={1} xs={3}>
         <PropertyTitle>Стены</PropertyTitle>
-        <SelectBubble selected={1} selectData={selectWallData} />
+        <SelectBubble
+          selected={property.specification.wallMaterial}
+          selectData={selectWallData}
+        />
         <PropertyTitle>Крыша</PropertyTitle>
-        <SelectBubble selected={1} selectData={selectRoogData} />
+        <SelectBubble
+          selected={property.specification.roofMaterial}
+          selectData={selectRoofData}
+        />
       </Col>
       <Col xs={3}>
         <PropertyTitle>Кондиционирование</PropertyTitle>

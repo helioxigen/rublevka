@@ -19,7 +19,7 @@ const updateQuestionFailed = (id, { errors }) => ({
 });
 
 export default function updateQuestsions(id, data) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(updateQuestionStarted(id, data));
 
     return API.put(`/v1/csi/questions/${id}`, data)

@@ -12,8 +12,12 @@ import validate from 'cem/validators/document';
 
 import UI from 'cem/components/ui';
 const {
-  Grid, Table, Button, Icon,
-  AsyncSelect, Heading,
+  Grid,
+  Table,
+  Button,
+  Icon,
+  AsyncSelect,
+  Heading,
   Form: { Group, Static, Helper, Input },
   Grid: { Col },
 } = UI;
@@ -28,89 +32,144 @@ const formSettings = {
   validate,
 };
 
-const DocumentForm = reduxForm(formSettings)(submitValidator()(
-  class extends Component {
-    onSubmitSuccess() {
-      const { formKey, actions } = this.props;
+const DocumentForm = reduxForm(formSettings)(
+  submitValidator()(
+    class extends Component {
+      onSubmitSuccess() {
+        const { formKey, actions } = this.props;
 
-      if (formKey === `create`) actions.pop(`success`, `Документ загружен!`);
-      if (formKey !== `create`) actions.pop(`success`, `Документ обновлён!`);
-    }
-
-    createOrUpdate() {
-      const { formKey, values, actions, complexBuildingId } = this.props;
-
-      if (formKey === `create`) {
-        actions.pop(`warning`, `Загрузка документа начата`);
-        return actions.uploadDocument(complexBuildingId, values);
+        if (formKey === `create`) actions.pop(`success`, `Документ загружен!`);
+        if (formKey !== `create`) actions.pop(`success`, `Документ обновлён!`);
       }
-      if (formKey !== `create`) return actions.updateDocument(complexBuildingId, formKey, values);
-    }
 
-    delete() {
-      const { formKey, actions, complexBuildingId } = this.props;
-      return actions.deleteDocument(complexBuildingId, formKey);
-    }
+      createOrUpdate() {
+        const { formKey, values, actions, complexBuildingId } = this.props;
 
-    render() {
-      const {
-        formKey, fields, handleSubmit, values, pristine, error, submitting,
-        complexBuildingId, state,
-      } = this.props;
+        if (formKey === `create`) {
+          actions.pop(`warning`, `Загрузка документа начата`);
+          return actions.uploadDocument(complexBuildingId, values);
+        }
+        if (formKey !== `create`)
+          return actions.updateDocument(complexBuildingId, formKey, values);
+      }
 
-      return (
-        <Table.Row>
-          <Table.Cell>
-            <Grid.Row>
-              <Col xs="16">
-                <Group className={sUtils.resetIndentation} kind={fields.kindId.touched && !!fields.kindId.error && `error`}>
-                  <AsyncSelect className={sUtils.resetBorder} asyncOptions={fetchDictionary(`complex_building_document_type`)} labelKey="title" valueKey="id" {...fields.kindId} />
-                  {fields.kindId.touched && fields.kindId.error && <Helper>{fields.kindId.error}</Helper>}
+      delete() {
+        const { formKey, actions, complexBuildingId } = this.props;
+        return actions.deleteDocument(complexBuildingId, formKey);
+      }
+
+      render() {
+        const {
+          formKey,
+          fields,
+          handleSubmit,
+          values,
+          pristine,
+          error,
+          submitting,
+          complexBuildingId,
+          state,
+        } = this.props;
+
+        return (
+          <Table.Row>
+            <Table.Cell>
+              <Grid.Row>
+                <Col xs="16">
+                  <Group
+                    className={sUtils.resetIndentation}
+                    kind={
+                      fields.kindId.touched && !!fields.kindId.error && `error`
+                    }
+                  >
+                    <AsyncSelect
+                      className={sUtils.resetBorder}
+                      asyncOptions={fetchDictionary(
+                        `complex_building_document_type`,
+                      )}
+                      labelKey="title"
+                      valueKey="id"
+                      {...fields.kindId}
+                    />
+                    {fields.kindId.touched && fields.kindId.error && (
+                      <Helper>{fields.kindId.error}</Helper>
+                    )}
+                  </Group>
+                </Col>
+              </Grid.Row>
+            </Table.Cell>
+            <Table.Cell>
+              {formKey !== `create` && (
+                <Group className={sUtils.resetIndentation}>
+                  <Static>{values.uploaderTitle}</Static>
                 </Group>
-              </Col>
-            </Grid.Row>
-          </Table.Cell>
-          <Table.Cell>
-            {formKey !== `create` &&
+              )}
+              {formKey === `create` && (
+                <Group
+                  className={sUtils.resetIndentation}
+                  kind={fields.file.touched && !!fields.file.error && `error`}
+                >
+                  <Input type="file" {...fields.file} value={null} />
+                  {fields.file.touched && fields.file.error && (
+                    <Helper>{fields.file.error}</Helper>
+                  )}
+                </Group>
+              )}
+            </Table.Cell>
+            <Table.Cell>
+              {formKey !== `create` && (
+                <Group className={sUtils.resetIndentation}>
+                  <Static>
+                    <FormattedDate
+                      mask="dd.mm.yy @ HH:MM"
+                      value={values.createdAt}
+                    />
+                  </Static>
+                </Group>
+              )}
+            </Table.Cell>
+            <Table.Cell>
               <Group className={sUtils.resetIndentation}>
-                <Static>{values.uploaderTitle}</Static>
-              </Group>
-            }
-            {formKey === `create` &&
-              <Group className={sUtils.resetIndentation} kind={fields.file.touched && !!fields.file.error && `error`}>
-                <Input type="file" {...fields.file} value={null} />
-                {fields.file.touched && fields.file.error && <Helper>{fields.file.error}</Helper>}
-              </Group>
-            }
-          </Table.Cell>
-          <Table.Cell>
-            {formKey !== `create` &&
-              <Group className={sUtils.resetIndentation}>
-                <Static><FormattedDate mask="dd.mm.yy @ HH:MM" value={values.createdAt} /></Static>
-              </Group>
-            }
-          </Table.Cell>
-          <Table.Cell>
-            <Group className={sUtils.resetIndentation}>
-              <Button className={sButton.btnTableAction} size="xs" onClick={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)} disabled={pristine || error || submitting}>
-                <Icon className={s.btnIcon} icon="checkmark" />
-              </Button>
-              {formKey !== `create` &&
-                <Button className={sButton.btnTableAction} size="xs" to={`${API}/v1/complex_buildings/${complexBuildingId}/documents/${formKey}/download?token=${state.auth.token}`} target="_blank">
-                  <Icon className={s.btnIcon} icon="download" />
+                <Button
+                  className={sButton.btnTableAction}
+                  size="xs"
+                  onClick={handleSubmit(
+                    ::this.createOrUpdate,
+                    ::this.onSubmitSuccess,
+                  )}
+                  disabled={pristine || error || submitting}
+                >
+                  <Icon className={s.btnIcon} icon="checkmark" />
                 </Button>
-              }
-              {formKey !== `create` &&
-                <Button className={sButton.btnTableAction} size="xs" type="button" onClick={::this.delete}>
-                  <Icon className={s.btnIcon} icon="delete" />
-                </Button>
-              }
-            </Group>
-          </Table.Cell>
-        </Table.Row>
-      );
-    }
-  })
+                {formKey !== `create` && (
+                  <Button
+                    className={sButton.btnTableAction}
+                    size="xs"
+                    to={`${API}/v1/complex_buildings/${complexBuildingId}/documents/${formKey}/download?token=${
+                      state.auth.token
+                    }`}
+                    target="_blank"
+                  >
+                    <Icon className={s.btnIcon} icon="download" />
+                  </Button>
+                )}
+                {formKey !== `create` && (
+                  <Button
+                    className={sButton.btnTableAction}
+                    size="xs"
+                    type="button"
+                    onClick={::this.delete}
+                  >
+                    <Icon className={s.btnIcon} icon="delete" />
+                  </Button>
+                )}
+              </Group>
+            </Table.Cell>
+          </Table.Row>
+        );
+      }
+    },
+  ),
 );
 
 class Documents extends Component {
@@ -148,10 +207,22 @@ class Documents extends Component {
                   <Table.Heading width="25%">Дата загрузки</Table.Heading>
                   <Table.Heading width="10%">Действия</Table.Heading>
                 </Table.Row>
-                <DocumentForm formKey="create" complexBuildingId={data.id} actions={actions} state={state} />
-                {documents.map((doc, index) =>
-                  <DocumentForm key={index} complexBuildingId={data.id} initialValues={doc} formKey={doc.id} actions={actions} state={state} />
-                )}
+                <DocumentForm
+                  formKey="create"
+                  complexBuildingId={data.id}
+                  actions={actions}
+                  state={state}
+                />
+                {documents.map((doc, index) => (
+                  <DocumentForm
+                    key={index}
+                    complexBuildingId={data.id}
+                    initialValues={doc}
+                    formKey={doc.id}
+                    actions={actions}
+                    state={state}
+                  />
+                ))}
               </Table.Container>
             </Col>
           </Grid.Row>

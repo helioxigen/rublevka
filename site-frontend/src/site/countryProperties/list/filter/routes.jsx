@@ -9,7 +9,10 @@ import s from 'site/styles/components/satellites/filter.css';
 import sUtils from 'site/styles/utils';
 import st from 'site/styles/themes';
 
-const { Button, Grid: { Container, Row, Col } } = UI;
+const {
+  Button,
+  Grid: { Container, Row, Col },
+} = UI;
 
 const styles = {
   ...s,
@@ -46,13 +49,17 @@ class Route extends Component {
         <Container fluid styleName="contentContainer">
           <Row md="middle">
             <Col styleName="kindContainer">
-              {global.config.routes.map((route) => {
+              {global.config.routes.map(route => {
                 const { id, name } = route;
                 const index = items.indexOf(id);
                 const isActive = index > -1;
                 const className = cn(theme.hollowBtn, isActive && theme.active);
                 return (
-                  <Button key={id} className={className} onClick={() => this.onUpdate(id)}>
+                  <Button
+                    key={id}
+                    className={className}
+                    onClick={() => this.onUpdate(id)}
+                  >
                     {name}
                   </Button>
                 );

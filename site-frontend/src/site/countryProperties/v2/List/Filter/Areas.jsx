@@ -7,7 +7,9 @@ import UI from 'site/ui';
 
 import { Wrapper, SelectWrapper, Title, Unit } from './styled';
 
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col },
+} = UI;
 
 class Square extends Component {
   onUpdate(ref, value, key) {
@@ -56,7 +58,9 @@ class Square extends Component {
                   <SelectGroup
                     options={landAreas}
                     selected={landArea}
-                    onUpdate={(key, value) => this.onUpdate(key, value, 'landArea')}
+                    onUpdate={(key, value) =>
+                      this.onUpdate(key, value, 'landArea')
+                    }
                   />
                   <Unit>сот.</Unit>
                 </SelectWrapper>

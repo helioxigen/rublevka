@@ -8,7 +8,10 @@ const loadSubordinateUsersStarted = id => ({
   id,
 });
 
-const loadSubordinateUsersSucceeded = (id, { pagination, items }) => (dispatch) => {
+const loadSubordinateUsersSucceeded = (
+  id,
+  { pagination, items },
+) => dispatch => {
   dispatch(updatePagination('users.subordinates', pagination));
 
   dispatch({

@@ -1,4 +1,4 @@
-export default function ({ lng, lat, icon = 'marker', id, name }) {
+export default function({ lng, lat, icon = 'marker', id, name }) {
   return {
     type: 'Feature',
     geometry: {

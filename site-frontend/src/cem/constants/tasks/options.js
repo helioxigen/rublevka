@@ -9,7 +9,16 @@ const commonKinds = ['call', 'email', 'sms', 'meeting', 'free'];
 const dealKinds = ['preview', 'negotiation'];
 
 export const kinds = {
-  common: [...commonKinds].map(key => ({ value: key, label: dict.kinds[key].title })),
-  deal: [...commonKinds, ...dealKinds].map(key => ({ value: key, label: dict.kinds[key].title })),
-  all: Object.keys(dict.kinds).map(key => ({ value: key, label: dict.kinds[key].title })),
+  common: [...commonKinds].map(key => ({
+    value: key,
+    label: dict.kinds[key].title,
+  })),
+  deal: [...commonKinds, ...dealKinds].map(key => ({
+    value: key,
+    label: dict.kinds[key].title,
+  })),
+  all: Object.keys(dict.kinds).map(key => ({
+    value: key,
+    label: dict.kinds[key].title,
+  })),
 };

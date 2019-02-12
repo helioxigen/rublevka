@@ -4,7 +4,9 @@ import UI from 'site/ui';
 
 import { Title, Navigation, StLink, Divider } from './styled';
 
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col },
+} = UI;
 
 export default () => (
   <Container>

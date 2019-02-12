@@ -12,7 +12,9 @@ export default function createDuty(data) {
   return dispatch =>
     API.post('/v1/daily_duty', prepareFormValuesForSubmit(data)).then(
       ({ headers }) =>
-        API.get(headers.location).then(({ body: { id } }) => dispatch(createDutySucceeded(id))),
+        API.get(headers.location).then(({ body: { id } }) =>
+          dispatch(createDutySucceeded(id)),
+        ),
       ({ body }) => body,
     );
 }

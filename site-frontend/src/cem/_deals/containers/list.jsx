@@ -30,7 +30,8 @@ import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from 'core/helpers
 
 // UI
 const {
-  Loading, Heading,
+  Loading,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -61,7 +62,7 @@ class List extends Component {
     params: PropTypes.shape({
       group: PropTypes.string.isRequired,
     }),
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -75,9 +76,13 @@ class List extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const isGroupUpdated = !isEqual(this.props.params.group, nextProps.params.group);
+    const isGroupUpdated = !isEqual(
+      this.props.params.group,
+      nextProps.params.group,
+    );
 
-    if (isGroupUpdated) { // TODO: move that check to isUpdated
+    if (isGroupUpdated) {
+      // TODO: move that check to isUpdated
       this.group = nextProps.params.group;
       this.resource = `${resourceName}.${this.group}`;
     }
@@ -108,7 +113,8 @@ class List extends Component {
 
   render() {
     const { state } = this.props;
-    const { ids = [], isFetching, errors = [] } = state._deals[this.group] || {};
+    const { ids = [], isFetching, errors = [] } =
+      state._deals[this.group] || {};
     const pagination = state.pagination[this.resource] || {};
 
     const hasErrors = !isFetching && !!errors.length;
@@ -122,9 +128,7 @@ class List extends Component {
           <div className={s.header}>
             <Row>
               <Col xs="20">
-                <Heading size="lg">
-                  {title}
-                </Heading>
+                <Heading size="lg">{title}</Heading>
               </Col>
             </Row>
 
@@ -139,23 +143,15 @@ class List extends Component {
           </div>
         </Container>
 
-        {isFetching && (
-          <Loading />
-        )}
+        {isFetching && <Loading />}
 
-        {hasErrors && (
-          <ListErrorMessage errors={errors} />
-        )}
+        {hasErrors && <ListErrorMessage errors={errors} />}
 
         {!isFetching && !ids.length && (
           <Heading notFound>Сделки не найдены</Heading>
         )}
 
-        {hasItems && (
-          ids.map(id => (
-            <Card key={id} id={id} />
-          ))
-        )}
+        {hasItems && ids.map(id => <Card key={id} id={id} />)}
 
         {hasItems && (
           <Container fluid>
@@ -177,7 +173,7 @@ class List extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { _deals, filters, pagination, order } = state;
 
   return {
@@ -190,7 +186,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     ..._DealsActions,
     ...FilterActions,
@@ -202,4 +198,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(List);
+export default connect(
+  pickState,
+  pickActions,
+)(List);

@@ -13,6 +13,8 @@ const PropertyPrice = ({ deal = {}, dealType, selectedCurrency = 'usd' }) => (
   </span>
 );
 
-const pickState = ({ displayOptions }) => ({ selectedCurrency: displayOptions.currency });
+const pickState = ({ displayOptions }) => ({
+  selectedCurrency: displayOptions.currency,
+});
 
 export default connect(pickState)(PropertyPrice);

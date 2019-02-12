@@ -68,7 +68,9 @@ class Parameters extends Component {
                 <SelectGroup
                   options={totalAreas}
                   selected={totalArea}
-                  onUpdate={(key, value) => this.onUpdate(key, value, 'totalArea')}
+                  onUpdate={(key, value) =>
+                    this.onUpdate(key, value, 'totalArea')
+                  }
                 />
               </div>
             </Col>

@@ -40,7 +40,10 @@ export default ({ fields, isStatic }) => {
                 options={dict.offerKinds}
                 static={isStatic}
               >
-                <Select className={sUtils.fontSizeMd} options={options.offerKinds} />
+                <Select
+                  className={sUtils.fontSizeMd}
+                  options={options.offerKinds}
+                />
               </FormField>
             </Col>
 
@@ -90,7 +93,11 @@ export default ({ fields, isStatic }) => {
                     static={isStatic}
                     price
                   >
-                    <PriceInput className={sUtils.fontSizeMd} block type="text" />
+                    <PriceInput
+                      className={sUtils.fontSizeMd}
+                      block
+                      type="text"
+                    />
                   </FormField>
                 </Col>
 
@@ -102,7 +109,11 @@ export default ({ fields, isStatic }) => {
                     static={isStatic}
                     price
                   >
-                    <PriceInput className={sUtils.fontSizeMd} block type="text" />
+                    <PriceInput
+                      className={sUtils.fontSizeMd}
+                      block
+                      type="text"
+                    />
                   </FormField>
                 </Col>
 
@@ -128,7 +139,9 @@ export default ({ fields, isStatic }) => {
         </Col>
       </Row>
 
-      {PropertyAbout && <PropertyAbout fields={fields.requestDetails} isStatic={isStatic} />}
+      {PropertyAbout && (
+        <PropertyAbout fields={fields.requestDetails} isStatic={isStatic} />
+      )}
     </div>
   );
 };

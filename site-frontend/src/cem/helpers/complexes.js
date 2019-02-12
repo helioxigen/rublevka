@@ -1,7 +1,7 @@
 import { formHelpers, recursiveCleanUp } from 'cem/helpers';
 const { normalizeNumber } = formHelpers;
 
-const transformLocation = (location) => {
+const transformLocation = location => {
   if (location) {
     return {
       ...location,
@@ -18,7 +18,7 @@ const transformAdjacentTerritory = adjacentTerritory => ({
   isGreeneryPlanted: adjacentTerritory.isGreeneryPlanted === 'true',
 });
 
-export const transformDataOut = (data) => {
+export const transformDataOut = data => {
   const values = recursiveCleanUp(data);
 
   return {
@@ -40,15 +40,21 @@ export const transformDataIn = data => ({
     ...data.adjacentTerritory,
     isAccessOpen: data.adjacentTerritory.isAccessOpen ? 'true' : 'false',
     isAllowedCars: data.adjacentTerritory.isAllowedCars ? 'true' : 'false',
-    isGreeneryPlanted: data.adjacentTerritory.isGreeneryPlanted ? 'true' : 'false',
+    isGreeneryPlanted: data.adjacentTerritory.isGreeneryPlanted
+      ? 'true'
+      : 'false',
   },
 });
 
 const makeStatsPriceFilter = (currency, priceFrom, priceTo) => {
   if (currency && (priceFrom || priceTo)) {
     return {
-      [`statistics.price.from.${currency.toLowerCase()}`]: priceFrom ? `${priceFrom}..` : undefined,
-      [`statistics.price.to.${currency.toLowerCase()}`]: priceTo ? `..${priceTo}` : undefined,
+      [`statistics.price.from.${currency.toLowerCase()}`]: priceFrom
+        ? `${priceFrom}..`
+        : undefined,
+      [`statistics.price.to.${currency.toLowerCase()}`]: priceTo
+        ? `..${priceTo}`
+        : undefined,
     };
   }
 

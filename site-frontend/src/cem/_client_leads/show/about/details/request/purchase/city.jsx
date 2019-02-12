@@ -24,7 +24,9 @@ export default ({ fields, isStatic, className }) => {
   };
 
   const fetchSubLocality = fetchResource('/v1/places/sub_localities', 'name');
-  const fetchComplex = fetchResource('/v1/complexes', 'name', null, { name: '|null|' });
+  const fetchComplex = fetchResource('/v1/complexes', 'name', null, {
+    name: '|null|',
+  });
 
   return (
     <section className={className}>
@@ -82,7 +84,12 @@ export default ({ fields, isStatic, className }) => {
             </FormField>
           </Col>
           <Col sm="6">
-            <FormField float label="Комнат до" field={propertyFields.rooms.to} isStatic={isStatic}>
+            <FormField
+              float
+              label="Комнат до"
+              field={propertyFields.rooms.to}
+              isStatic={isStatic}
+            >
               <Input block type="text" />
             </FormField>
           </Col>
@@ -114,11 +121,18 @@ export default ({ fields, isStatic, className }) => {
               float
               isStatic={isStatic}
             >
-              <AsyncSelect asyncOptions={fetchComplex} linkedTo={residentialComplexDependency} />
+              <AsyncSelect
+                asyncOptions={fetchComplex}
+                linkedTo={residentialComplexDependency}
+              />
             </FormField>
           </Col>
           <Col sm="20">
-            <FormField label="Улица" field={propertyFields.location.street} isStatic={isStatic}>
+            <FormField
+              label="Улица"
+              field={propertyFields.location.street}
+              isStatic={isStatic}
+            >
               <Input block type="text" />
             </FormField>
           </Col>
@@ -137,7 +151,11 @@ export default ({ fields, isStatic, className }) => {
               float
               isStatic={isStatic}
             >
-              <Select options={options.conditions} labelKey="title" valueKey="id" />
+              <Select
+                options={options.conditions}
+                labelKey="title"
+                valueKey="id"
+              />
             </FormField>
           </Col>
 
@@ -150,7 +168,11 @@ export default ({ fields, isStatic, className }) => {
               float
               isStatic={isStatic}
             >
-              <Select options={options.renovate} labelKey="title" valueKey="id" />
+              <Select
+                options={options.renovate}
+                labelKey="title"
+                valueKey="id"
+              />
             </FormField>
           </Col>
 
@@ -163,7 +185,11 @@ export default ({ fields, isStatic, className }) => {
               float
               isStatic={isStatic}
             >
-              <Select options={options.furniture} labelKey="title" valueKey="id" />
+              <Select
+                options={options.furniture}
+                labelKey="title"
+                valueKey="id"
+              />
             </FormField>
           </Col>
         </Row>

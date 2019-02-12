@@ -22,12 +22,18 @@ export const mapParams = ({ filter = {}, filterNot = {} }) => {
       'tasksWeight.zero.deadline': tasksWeightZeroDeadline
         ? formatFilterDate(tasksWeightZeroDeadline)
         : undefined,
-      ...(phoneNumber ? { 'contactDetails.phoneNumber': `*${phoneNumber}*` } : {}),
-      ...(awaitingApproval ? { 'stateDetails.toApprove': 'spam,processed,rejected' } : {}),
+      ...(phoneNumber
+        ? { 'contactDetails.phoneNumber': `*${phoneNumber}*` }
+        : {}),
+      ...(awaitingApproval
+        ? { 'stateDetails.toApprove': 'spam,processed,rejected' }
+        : {}),
     },
     filterNot: {
       ...filterNot,
-      ...(notAwaitingApproval ? { 'stateDetails.toApprove': 'spam,processed,rejected' } : {}),
+      ...(notAwaitingApproval
+        ? { 'stateDetails.toApprove': 'spam,processed,rejected' }
+        : {}),
     },
   };
 };

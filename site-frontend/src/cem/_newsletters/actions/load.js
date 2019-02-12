@@ -18,17 +18,19 @@ const transformInputValues = values => ({
   scheduledAtTime: moment(values.scheduledAt).format('HH:mm'),
 });
 
-export default id => (dispatch) => {
+export default id => dispatch => {
   dispatch(loadElementStarted(types.LOAD_NEWSLETTER, id));
 
   return loadElement(apiPath, id).then(
-    (data) => {
+    data => {
       const values = transformInputValues(data);
-      dispatch(loadElementSucceeded(types.LOAD_NEWSLETTER_SUCCEEDED, id, values));
+      dispatch(
+        loadElementSucceeded(types.LOAD_NEWSLETTER_SUCCEEDED, id, values),
+      );
 
       return values;
     },
-    (errors) => {
+    errors => {
       dispatch(loadElementFailed(types.LOAD_NEWSLETTER_FAILED, id, errors));
 
       return errors;

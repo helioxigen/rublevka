@@ -20,7 +20,7 @@ const loadTasksByPropertyIdFailed = (propertyId, { errors }) => ({
 });
 
 export default function loadTasksByPropertyId(id, customQueryParams = {}) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadTasksByPropertyIdStarted());
 
     const queryParams = {

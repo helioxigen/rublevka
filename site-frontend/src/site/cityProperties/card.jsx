@@ -16,7 +16,10 @@ import cn from 'classnames';
 import s from 'site/styles/components/card';
 import sUtils from 'site/styles/utils';
 
-import { dealTypes, kindsTranslit } from 'site/constants/properties/dictionaries';
+import {
+  dealTypes,
+  kindsTranslit,
+} from 'site/constants/properties/dictionaries';
 
 class Card extends Component {
   static propTypes = {
@@ -32,8 +35,9 @@ class Card extends Component {
         <div
           className={s.images}
           style={{
-            backgroundImage: `url(${global.config.cloudfront || cloudfront}/${publicImages[0]
-              .id}-thumbnail-512)`,
+            backgroundImage: `url(${global.config.cloudfront || cloudfront}/${
+              publicImages[0].id
+            }-thumbnail-512)`,
           }}
         />
       );
@@ -78,7 +82,9 @@ class Card extends Component {
         <Grid.Col xs="12" sm="6" md="4">
           <Link
             className={cn(s.card, this.props.className)}
-            to={`/gorodskaya/${this.props.dealType}/${kindsTranslit[data.kind]}/${data.id}`}
+            to={`/gorodskaya/${this.props.dealType}/${
+              kindsTranslit[data.kind]
+            }/${data.id}`}
           >
             <div className={s.imageContainer}>
               {this.renderPhoto(data)}
@@ -102,31 +108,39 @@ class Card extends Component {
               <div className={s.pushedTopXs1_7_Sm2_5}>
                 <dl className={s.list}>
                   <dd className={cn(s.listItem, sUtils.bold)}>
-                    <Price selectedCurrency={selectedCurrency} deal={deal} dealType={dealType} />
+                    <Price
+                      selectedCurrency={selectedCurrency}
+                      deal={deal}
+                      dealType={dealType}
+                    />
                   </dd>
                 </dl>
-                {data.specification &&
-                data.specification.rooms && (
+                {data.specification && data.specification.rooms && (
                   <dl className={s.list}>
-                    <dd className={s.listItem}>{data.specification.rooms} комн.</dd>
+                    <dd className={s.listItem}>
+                      {data.specification.rooms} комн.
+                    </dd>
                   </dl>
                 )}
-                {data.specification &&
-                data.specification.totalArea && (
+                {data.specification && data.specification.totalArea && (
                   <dl className={s.list}>
-                    <dd className={s.listItem}>{Math.floor(data.specification.totalArea)} м²</dd>
+                    <dd className={s.listItem}>
+                      {Math.floor(data.specification.totalArea)} м²
+                    </dd>
                   </dl>
                 )}
-                {data.landDetails &&
-                !!data.landDetails.area && (
+                {data.landDetails && !!data.landDetails.area && (
                   <dl className={s.list}>
-                    <dd className={s.listItem}>{Math.floor(data.landDetails.area)} сот</dd>
+                    <dd className={s.listItem}>
+                      {Math.floor(data.landDetails.area)} сот
+                    </dd>
                   </dl>
                 )}
-                {data.specification &&
-                !!data.specification.area && (
+                {data.specification && !!data.specification.area && (
                   <dl className={s.list}>
-                    <dd className={s.listItem}>{Math.floor(data.specification.area)} м²</dd>
+                    <dd className={s.listItem}>
+                      {Math.floor(data.specification.area)} м²
+                    </dd>
                   </dl>
                 )}
               </div>
@@ -141,7 +155,7 @@ class Card extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { cityProperties, displayOptions } = state;
 
   return {

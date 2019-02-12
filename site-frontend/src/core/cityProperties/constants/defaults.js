@@ -5,7 +5,9 @@ export const apiPath = '/v1/properties/city';
 
 export const getApiPathByGroup = (group, options) => {
   if (group === 'similar') {
-    return `/v1/properties/city/${options.id}/similar/${dealTypes[options.dealType]}`;
+    return `/v1/properties/city/${options.id}/similar/${
+      dealTypes[options.dealType]
+    }`;
   }
 
   return '/v1/properties/city';

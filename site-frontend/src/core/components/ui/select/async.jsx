@@ -9,17 +9,24 @@ import update from 'react/lib/update';
 import isEqual from 'lodash/isEqual';
 import differenceBy from 'lodash/differenceBy';
 
-const isValueExists = (value) => {
+const isValueExists = value => {
   return Array.isArray(value) ? !!value.length : !!value;
 };
 
-export default (s = {}, { Icon }) => (
+export default (s = {}, { Icon }) =>
   class extends Component {
     constructor(props) {
       super(props);
       this.onClickOutside = ::this.onClickOutside;
       this.state = { options: [] };
-      props.asyncOptions(null, props.valueKey, null, ::this.asyncCallback, null, props.linkedTo);
+      props.asyncOptions(
+        null,
+        props.valueKey,
+        null,
+        ::this.asyncCallback,
+        null,
+        props.linkedTo,
+      );
     }
 
     componentDidMount() {
@@ -33,9 +40,23 @@ export default (s = {}, { Icon }) => (
         // Load new labels if value changed
         this.initLoad(nextProps.value, nextProps.linkedTo);
       } else if (this.props.parent !== nextProps.parent) {
-        this.props.asyncOptions(null, this.props.valueKey, null, ::this.asyncCallback, nextProps.value, nextProps.parent);
+        this.props.asyncOptions(
+          null,
+          this.props.valueKey,
+          null,
+          ::this.asyncCallback,
+          nextProps.value,
+          nextProps.parent,
+        );
       } else if (!isEqual(this.props.linkedTo, nextProps.linkedTo)) {
-        this.props.asyncOptions(null, this.props.valueKey, null, ::this.asyncCallback, nextProps.value, nextProps.linkedTo);
+        this.props.asyncOptions(
+          null,
+          this.props.valueKey,
+          null,
+          ::this.asyncCallback,
+          nextProps.value,
+          nextProps.linkedTo,
+        );
       } else if (!this.state.selectedOptions && !this.state.initLoading) {
         // Load initial labels
         this.initLoad(nextProps.value, nextProps.linkedTo);
@@ -47,7 +68,11 @@ export default (s = {}, { Icon }) => (
       const { options } = this.state;
 
       this.setState({ initLoading: false });
-      this.setState({ options: differenceBy(options, selectedOptions, valueKey), selectedOptions, temporaryValue: undefined });
+      this.setState({
+        options: differenceBy(options, selectedOptions, valueKey),
+        selectedOptions,
+        temporaryValue: undefined,
+      });
     }
 
     asyncCallback(options) {
@@ -59,7 +84,12 @@ export default (s = {}, { Icon }) => (
 
       if (isValueExists(value)) {
         this.setState({ initLoading: true });
-        asyncOptions(null, this.props.valueKey, value, ::this.asyncInitCallback);
+        asyncOptions(
+          null,
+          this.props.valueKey,
+          value,
+          ::this.asyncInitCallback,
+        );
       }
     }
 
@@ -91,7 +121,14 @@ export default (s = {}, { Icon }) => (
       const { valueKey = `value` } = this.props;
 
       this.props.onChange(value ? value[valueKey] : undefined, value);
-      this.props.asyncOptions(null, this.props.valueKey, null, ::this.asyncCallback, null, this.props.linkedTo);
+      this.props.asyncOptions(
+        null,
+        this.props.valueKey,
+        null,
+        ::this.asyncCallback,
+        null,
+        this.props.linkedTo,
+      );
       this.unfocus();
     }
 
@@ -100,42 +137,77 @@ export default (s = {}, { Icon }) => (
       const input = event.target.value;
       const { asyncOptions } = this.props;
 
-      if (this.state.value !== input) asyncOptions(input, this.props.valueKey, null, ::this.asyncCallback, this.props.value, this.props.linkedTo || this.props.parent);
+      if (this.state.value !== input)
+        asyncOptions(
+          input,
+          this.props.valueKey,
+          null,
+          ::this.asyncCallback,
+          this.props.value,
+          this.props.linkedTo || this.props.parent,
+        );
     }
 
     getLabel(value) {
       const { labelKey = `label`, valueKey = `value`, simple } = this.props;
       const defaultValue = simple ? value : ``;
 
-      return this.state.options ? (this.state.options.find(option => option[valueKey] === value || value === option) || {})[labelKey] : defaultValue;
+      return this.state.options
+        ? (this.state.options.find(
+            option => option[valueKey] === value || value === option,
+          ) || {})[labelKey]
+        : defaultValue;
     }
 
     getSelectedLabel(value) {
       const { labelKey = `label`, valueKey = `value`, simple } = this.props;
       const defaultValue = simple ? value : ``;
 
-      return this.state.selectedOptions ? (this.state.selectedOptions.find(option => option[valueKey] === value || value === option) || {})[labelKey] : defaultValue;
+      return this.state.selectedOptions
+        ? (this.state.selectedOptions.find(
+            option => option[valueKey] === value || value === option,
+          ) || {})[labelKey]
+        : defaultValue;
     }
 
     getValue(value) {
       const { valueKey = `value` } = this.props;
 
-      return this.state.options ? (this.state.options.find(option => option[valueKey] === value || value === option) || { [valueKey]: value })[valueKey] : value;
+      return this.state.options
+        ? (this.state.options.find(
+            option => option[valueKey] === value || value === option,
+          ) || { [valueKey]: value })[valueKey]
+        : value;
     }
 
     addTag(tag) {
       const { value = [] } = this.props;
-      if (!value.filter(item => this.getValue(item) === this.getValue(tag)).length && tag) {
+      if (
+        !value.filter(item => this.getValue(item) === this.getValue(tag))
+          .length &&
+        tag
+      ) {
         this.props.onChange([...value, this.getValue(tag)], tag);
-        this.setState({ value: undefined, temporaryValue: [this.getLabel(tag)] });
+        this.setState({
+          value: undefined,
+          temporaryValue: [this.getLabel(tag)],
+        });
       }
     }
 
     removeTag(index) {
-      this.props.onChange(update(this.props.value, {
-        $splice: [[index, 1]],
-      }));
-      this.props.asyncOptions(null, this.props.valueKey, null, ::this.asyncCallback, this.props.value);
+      this.props.onChange(
+        update(this.props.value, {
+          $splice: [[index, 1]],
+        }),
+      );
+      this.props.asyncOptions(
+        null,
+        this.props.valueKey,
+        null,
+        ::this.asyncCallback,
+        this.props.value,
+      );
     }
 
     selectUp() {
@@ -191,76 +263,139 @@ export default (s = {}, { Icon }) => (
         case 27: // ESCAPE
           this.unfocus();
           break;
-        default: return;
+        default:
+          return;
       }
     }
 
     render() {
-      const { multi, value, allowCreate, disableReset, disabled = false, labelKey = `label` } = this.props;
+      const {
+        multi,
+        value,
+        allowCreate,
+        disableReset,
+        disabled = false,
+        labelKey = `label`,
+      } = this.props;
       const { selected, focus, options, temporaryValue } = this.state;
       const label = focus ? this.state.value : undefined;
-      const handleSelect = multi ? (option) => ::this.addTag(option) : ::this.select;
+      const handleSelect = multi
+        ? option => ::this.addTag(option)
+        : ::this.select;
 
       const className = {
         [s[this.props.valueClassName]]: focus ? label : this.props.value,
       };
 
       return (
-        <div className={cn(s.container, this.props.className, className)} ref="select" onKeyDown={::this.handleKeyDown}>
+        <div
+          className={cn(s.container, this.props.className, className)}
+          ref="select"
+          onKeyDown={::this.handleKeyDown}
+        >
           <ul className={s.list}>
-            {multi && value && value.length > 0 && value.map((item, index) =>
-              this.getSelectedLabel(item) &&
-              <li className={s.option} key={index}>
-                {this.getSelectedLabel(item)}
-                <span className={s.nowrap} onClick={() => ::this.removeTag(index)}>
-                  <Icon className={cn(s.iconDelete, s.changeBottom)} icon="delete" />
-                </span>
-              </li>
-            )}
-            {multi && temporaryValue && temporaryValue.length > 0 && temporaryValue.map((item, index) => (
-              <li className={s.option} key={index}>
-                {item}
-                <span className={s.nowrap}>
-                  <Icon className={cn(s.iconDelete, s.changeBottom)} icon="delete" />
-                </span>
-              </li>
-            ))}
+            {multi &&
+              value &&
+              value.length > 0 &&
+              value.map(
+                (item, index) =>
+                  this.getSelectedLabel(item) && (
+                    <li className={s.option} key={index}>
+                      {this.getSelectedLabel(item)}
+                      <span
+                        className={s.nowrap}
+                        onClick={() => ::this.removeTag(index)}
+                      >
+                        <Icon
+                          className={cn(s.iconDelete, s.changeBottom)}
+                          icon="delete"
+                        />
+                      </span>
+                    </li>
+                  ),
+              )}
+            {multi &&
+              temporaryValue &&
+              temporaryValue.length > 0 &&
+              temporaryValue.map((item, index) => (
+                <li className={s.option} key={index}>
+                  {item}
+                  <span className={s.nowrap}>
+                    <Icon
+                      className={cn(s.iconDelete, s.changeBottom)}
+                      icon="delete"
+                    />
+                  </span>
+                </li>
+              ))}
             <li className={cn(s.option, { [s.resetPadding]: !focus })}>
-              <AutosizeInput ref="input" placeholder={focus && !this.props.value ? this.props.placeholder : undefined} onFocus={::this.handleFocus} onChange={::this.handleSearch} value={label} className={cn(s.autosizeInput, s.hidden)} disabled={disabled} />
+              <AutosizeInput
+                ref="input"
+                placeholder={
+                  focus && !this.props.value
+                    ? this.props.placeholder
+                    : undefined
+                }
+                onFocus={::this.handleFocus}
+                onChange={::this.handleSearch}
+                value={label}
+                className={cn(s.autosizeInput, s.hidden)}
+                disabled={disabled}
+              />
             </li>
           </ul>
-          {!focus && !::this.getSelectedLabel(this.props.value) && (<span className={s.placeholder}>{this.props.placeholder}</span>)}
-          {!focus && !!::this.getSelectedLabel(this.props.value) && (<span className={this.props.className}>{::this.getSelectedLabel(this.props.value)}</span>)}
-          {!disabled &&
+          {!focus && !::this.getSelectedLabel(this.props.value) && (
+            <span className={s.placeholder}>{this.props.placeholder}</span>
+          )}
+          {!focus && !!::this.getSelectedLabel(this.props.value) && (
+            <span className={this.props.className}>
+              {::this.getSelectedLabel(this.props.value)}
+            </span>
+          )}
+          {!disabled && (
             <div className={s.control} onClick={::this.handleFocus} />
-          }
+          )}
           {!disabled && (
             <span>
               {!isValueExists(value) &&
-                (this.state.focus
-                  ? <Icon className={cn(s.iconChevron, s.up)} icon="arrow-down" />
-                  : <Icon className={cn(s.iconChevron)} icon="arrow-down" />)}
+                (this.state.focus ? (
+                  <Icon className={cn(s.iconChevron, s.up)} icon="arrow-down" />
+                ) : (
+                  <Icon className={cn(s.iconChevron)} icon="arrow-down" />
+                ))}
               {isValueExists(value) &&
-                (this.state.focus
-                  ? <Icon className={cn(s.iconChevron, s.up)} icon="arrow-down" />
-                  : <span>
-                      {!disableReset && (
-                        <span onClick={() => ::this.select(undefined)}>
-                          <Icon className={cn(s.iconDelete, s.extraRight)} icon="delete" />
-                        </span>
-                      )}
-                      <Icon className={cn(s.iconChevron)} icon="arrow-down" />
-                    </span>
-                )
-              }
+                (this.state.focus ? (
+                  <Icon className={cn(s.iconChevron, s.up)} icon="arrow-down" />
+                ) : (
+                  <span>
+                    {!disableReset && (
+                      <span onClick={() => ::this.select(undefined)}>
+                        <Icon
+                          className={cn(s.iconDelete, s.extraRight)}
+                          icon="delete"
+                        />
+                      </span>
+                    )}
+                    <Icon className={cn(s.iconChevron)} icon="arrow-down" />
+                  </span>
+                ))}
             </span>
           )}
           {focus && options && !!options.length && (
             <ul className={s.listInner}>
               {options.map((option, index) => (
-                <li className={cn(s.optionInner, { [s.selected]: index === selected })} key={index} type="button" onClick={() => handleSelect(option)}>
+                <li
+                  className={cn(s.optionInner, {
+                    [s.selected]: index === selected,
+                  })}
+                  key={index}
+                  type="button"
+                  onClick={() => handleSelect(option)}
+                >
                   {!allowCreate && `${option[labelKey] || option}`}
-                  {allowCreate && !isNaN(index) && (`Добавить: "${option[labelKey] || option}"?`)}
+                  {allowCreate &&
+                    !isNaN(index) &&
+                    `Добавить: "${option[labelKey] || option}"?`}
                 </li>
               ))}
             </ul>
@@ -275,5 +410,4 @@ export default (s = {}, { Icon }) => (
         </div>
       );
     }
-  }
-);
+  };

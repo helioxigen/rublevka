@@ -19,7 +19,7 @@ const loadConfirmationFailed = (taskId, { errors }) => ({
 });
 
 export default function loadConfirmation(taskId) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadConfirmationStarted(taskId));
 
     return API.get(`/v1/tasks/${taskId}/document`)

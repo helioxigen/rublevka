@@ -19,8 +19,8 @@ const loadContractsFailed = (propertyId, errors) => ({
   errors,
 });
 
-export default function (propertyId, category = 'city') {
-  return (dispatch) => {
+export default function(propertyId, category = 'city') {
+  return dispatch => {
     dispatch(loadContractsStarted(propertyId));
 
     return API.get(`/v1/properties/${category}/${propertyId}/contracts`).then(

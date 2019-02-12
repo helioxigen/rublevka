@@ -1,7 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
 
-export default (s = {}) => (props) => {
+export default (s = {}) => props => {
   const sizes = {
     [s[props.size]]: !!props.size,
   };

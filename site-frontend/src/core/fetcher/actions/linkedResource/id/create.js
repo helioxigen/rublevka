@@ -3,7 +3,13 @@ import { extractIdFromLocation } from 'core/utils/response';
 
 import apiPaths from 'core/fetcher/constants/apiPaths';
 
-export const createLinkedResourceRecordStarted = (type, resource, resourceId, listName, data) => ({
+export const createLinkedResourceRecordStarted = (
+  type,
+  resource,
+  resourceId,
+  listName,
+  data,
+) => ({
   type,
   resource,
   resourceId,
@@ -11,7 +17,13 @@ export const createLinkedResourceRecordStarted = (type, resource, resourceId, li
   data,
 });
 
-export const createLinkedResourceRecordFailed = (type, resource, resourceId, listName, errors) => ({
+export const createLinkedResourceRecordFailed = (
+  type,
+  resource,
+  resourceId,
+  listName,
+  errors,
+) => ({
   type,
   resource,
   resourceId,
@@ -19,18 +31,29 @@ export const createLinkedResourceRecordFailed = (type, resource, resourceId, lis
   errors,
 });
 
-export const createLinkedResourceRecordSucceeded = (type, resource, resourceId, listName) => ({
+export const createLinkedResourceRecordSucceeded = (
+  type,
+  resource,
+  resourceId,
+  listName,
+) => ({
   type,
   resource,
   resourceId,
   listName,
 });
 
-export const createLinkedResourceRecord = (resource, resourceId, listName, data) => {
+export const createLinkedResourceRecord = (
+  resource,
+  resourceId,
+  listName,
+  data,
+) => {
   const pathName = `${resource}.${listName}`;
 
   return API.post(apiPaths[pathName](resourceId), data).then(
-    ({ headers }) => Promise.resolve({ id: extractIdFromLocation(headers.location) }),
+    ({ headers }) =>
+      Promise.resolve({ id: extractIdFromLocation(headers.location) }),
     ({ body: { errors } }) => Promise.reject(errors),
   );
 };

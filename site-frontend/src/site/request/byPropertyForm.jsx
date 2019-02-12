@@ -91,7 +91,9 @@ class ByPropertyForm extends Component {
     const { dealType } = this.props;
 
     this.props.actions.loadDuties(this.props.propertyCategory).then(() => {
-      const { staffUserId = 1 } = this.props.state.currentDuty[this.props.propertyCategory];
+      const { staffUserId = 1 } = this.props.state.currentDuty[
+        this.props.propertyCategory
+      ];
 
       const data = {
         kind: 'online',
@@ -131,7 +133,12 @@ class ByPropertyForm extends Component {
       this.props.actions.createClientLead(data, staffUserId).then(() => {
         this.setState({ requestSent: true }, () => {
           this.props.actions.setSharedRetargetingKey('vk');
-          track(analyticsEvents.propertyRequestSubmitted({ dealType, ...this.props.data }));
+          track(
+            analyticsEvents.propertyRequestSubmitted({
+              dealType,
+              ...this.props.data,
+            }),
+          );
         });
       });
     });
@@ -140,7 +147,7 @@ class ByPropertyForm extends Component {
   render() {
     return (
       <Form.Container className={this.props.className} onSubmit={::this.submit}>
-        {!this.state.requestSent &&
+        {!this.state.requestSent && (
           <Container fluid>
             <Row>
               <Col xs="12">
@@ -148,8 +155,8 @@ class ByPropertyForm extends Component {
                   <h1 className={s.title}>Забронировать просмотр</h1>
 
                   <p className={s.text}>
-                    Заполните форму и мы свяжемся с вами в течение 10 минут, чтобы назначить
-                    бесплатный просмотр
+                    Заполните форму и мы свяжемся с вами в течение 10 минут,
+                    чтобы назначить бесплатный просмотр
                   </p>
                   {/* <p className={s.textGreySm}>
                     Похоже, допущена ошибка при написании номера телефона, попробуйте еще раз
@@ -221,7 +228,12 @@ class ByPropertyForm extends Component {
             </div>
           )} */}
 
-                <Button className={sUtils.pushedTop3} kind="primary" size="lg" block>
+                <Button
+                  className={sUtils.pushedTop3}
+                  kind="primary"
+                  size="lg"
+                  block
+                >
                   Забронировать просмотр
                 </Button>
 
@@ -230,9 +242,10 @@ class ByPropertyForm extends Component {
                 </p> */}
               </Col>
             </Row>
-          </Container>}
+          </Container>
+        )}
 
-        {!!this.state.requestSent &&
+        {!!this.state.requestSent && (
           <div>
             <Icon className={s.iconLogo} icon="jqestate-logo" />
 
@@ -240,7 +253,8 @@ class ByPropertyForm extends Component {
             <p className={cn(s.text, s.textGrey, s.pushedTop1_5)}>
               Через 10 минут наш агент свяжется с вами
             </p>
-          </div>}
+          </div>
+        )}
       </Form.Container>
     );
   }
@@ -253,7 +267,7 @@ const pickState = ({ currentDuty }) => ({
   },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadDuties,
     createClientLead,
@@ -265,4 +279,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(ByPropertyForm);
+export default connect(
+  pickState,
+  pickActions,
+)(ByPropertyForm);

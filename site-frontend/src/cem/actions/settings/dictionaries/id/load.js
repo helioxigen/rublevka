@@ -20,7 +20,7 @@ const loadWordsByKindFailed = (kind, { errors }) => ({
 });
 
 export default function loadWordsByKind(kind, pagination = {}) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadWordsByKindStarted(kind));
 
     const queryParams = {

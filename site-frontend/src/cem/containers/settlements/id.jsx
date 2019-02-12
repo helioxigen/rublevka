@@ -20,11 +20,18 @@ class IdContainer extends Component {
   }
 
   render() {
-    const { state, params: { id }, hasRight } = this.props;
+    const {
+      state,
+      params: { id },
+      hasRight,
+    } = this.props;
     const { data = {} } = state.settlements[id] || {};
 
     const permissionsProps = {
-      isUpdateAllowed: hasRight('settlement_update', data.responsibleUser && data.responsibleUser.id),
+      isUpdateAllowed: hasRight(
+        'settlement_update',
+        data.responsibleUser && data.responsibleUser.id,
+      ),
     };
 
     return (
@@ -32,19 +39,37 @@ class IdContainer extends Component {
         <Header {...this.props} formKey={id} initialValues={data} />
         <Tabs {...this.props} id={id} />
         <Grid.Container fluid>
-          {React.cloneElement(this.props.children, { ...this.props, formKey: id, initialValues: data, data, ...permissionsProps })}
+          {React.cloneElement(this.props.children, {
+            ...this.props,
+            formKey: id,
+            initialValues: data,
+            data,
+            ...permissionsProps,
+          })}
         </Grid.Container>
       </section>
     );
   }
 }
 
-const pickState = ({ auth, settlements, documentsBySettlementId, users, dictionaries }) => ({
+const pickState = ({
+  auth,
+  settlements,
+  documentsBySettlementId,
+  users,
+  dictionaries,
+}) => ({
   state: { auth, settlements, documentsBySettlementId, users, dictionaries },
 });
 
 const pickActions = dispatch => ({
-  actions: bindActionCreators({ ...SettlementActions, ...DictionaryActions, loadUser, pop }, dispatch),
+  actions: bindActionCreators(
+    { ...SettlementActions, ...DictionaryActions, loadUser, pop },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, pickActions)(IdContainer);
+export default connect(
+  pickState,
+  pickActions,
+)(IdContainer);

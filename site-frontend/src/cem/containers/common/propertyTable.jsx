@@ -15,7 +15,7 @@ import sUtils from 'cem/styles/utils';
 class Properties extends Component {
   state = {
     propertyId: undefined,
-  }
+  };
 
   removeProperty(index, idValue) {
     const { field, toggle, onRemoveProperty } = this.props;
@@ -32,7 +32,7 @@ class Properties extends Component {
     return (
       <section className={cn(sUtils.pushedBottom6, sUtils.scrollXMd)}>
         <Table.Container className={sUtils.width122}>
-          {!!ids.length &&
+          {!!ids.length && (
             <Table.Row>
               <Table.Heading width="5%">ID</Table.Heading>
               <Table.Heading width="15%">Статус</Table.Heading>
@@ -41,19 +41,36 @@ class Properties extends Component {
               <Table.Heading width="25%">Стоимость</Table.Heading>
               <Table.Heading width="15%">Действия</Table.Heading>
             </Table.Row>
-          }
-          {!!ids.length && ids.map((id, index) =>
-            <Property key={index} id={id.value} resourcePath={`/v1/properties/${propertyCategory}`} handleDelete={() => ::this.removeProperty(index, id.value)} isStatic={isStatic} />
           )}
+          {!!ids.length &&
+            ids.map((id, index) => (
+              <Property
+                key={index}
+                id={id.value}
+                resourcePath={`/v1/properties/${propertyCategory}`}
+                handleDelete={() => ::this.removeProperty(index, id.value)}
+                isStatic={isStatic}
+              />
+            ))}
         </Table.Container>
-        {!ids.length && <Heading notFound className={cn(sUtils.pushedBottom3, sUtils.pushedTop3)}>Нет объектов</Heading>}
+        {!ids.length && (
+          <Heading
+            notFound
+            className={cn(sUtils.pushedBottom3, sUtils.pushedTop3)}
+          >
+            Нет объектов
+          </Heading>
+        )}
       </section>
     );
   }
 }
 
-const mapDispatch = (dispatch) => ({
+const mapDispatch = dispatch => ({
   actions: bindActionCreators({ pop }, dispatch),
 });
 
-export default connect(null, mapDispatch)(Properties);
+export default connect(
+  null,
+  mapDispatch,
+)(Properties);

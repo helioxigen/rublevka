@@ -25,19 +25,23 @@ class Card extends Component {
         <Container fluid>
           <Row sm="middle">
             <Col sm={1}>
-              <span className={s.textMd}>
-                №{data.location.building}
-              </span>
+              <span className={s.textMd}>№{data.location.building}</span>
             </Col>
             <Col sm={8}>
               <span className={s.textMd}>
-                <CountIndicator count={data.details.floors} declensionForms={['этаж', 'этажа', 'этажей']} />
+                <CountIndicator
+                  count={data.details.floors}
+                  declensionForms={['этаж', 'этажа', 'этажей']}
+                />
               </span>
             </Col>
             <Col sm={2}>
               <span className={s.textMd}>
-                {!!data.details.deliveryQuarter && `${dict.deliveryQuarters[data.details.deliveryQuarter]}`}
-                {!!data.details.deliveryQuarter && !!data.details.builtYear && '/'}
+                {!!data.details.deliveryQuarter &&
+                  `${dict.deliveryQuarters[data.details.deliveryQuarter]}`}
+                {!!data.details.deliveryQuarter &&
+                  !!data.details.builtYear &&
+                  '/'}
                 {!!data.details.builtYear && `${data.details.builtYear}`}
               </span>
             </Col>
@@ -48,11 +52,16 @@ class Card extends Component {
             </Col>
             <Col sm={2} smOffset={1}>
               <span className={s.textMd}>
-                <CountIndicator count={data.statistics.propertiesCount} declensionForms={['объект', 'объекта', 'объектов']} />
+                <CountIndicator
+                  count={data.statistics.propertiesCount}
+                  declensionForms={['объект', 'объекта', 'объектов']}
+                />
               </span>
             </Col>
             <Col sm={2} className={cn(sUtils.textRight, sUtils.pushedTopXs2)}>
-              <span className={cn(s.textMd, s[dict.states[data.state].style])}>ID: {data.id}</span>
+              <span className={cn(s.textMd, s[dict.states[data.state].style])}>
+                ID: {data.id}
+              </span>
               <Icon className={s.icon} icon="chevron-down" />
             </Col>
           </Row>

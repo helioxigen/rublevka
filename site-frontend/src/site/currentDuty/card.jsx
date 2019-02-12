@@ -33,7 +33,9 @@ class Card extends Component {
     const { propertyCategory, state } = this.props;
     const data = state.currentDuty[propertyCategory] || {};
 
-    const phoneNumberElId = this.props.dontReplacePhoneNumber ? undefined : 'comagicDTPhoneNumber';
+    const phoneNumberElId = this.props.dontReplacePhoneNumber
+      ? undefined
+      : 'comagicDTPhoneNumber';
 
     return (
       <div className={cn(s.card, this.props.className)}>
@@ -63,8 +65,7 @@ class Card extends Component {
               className={s.avatar}
             />
           )}
-          {!data.photo &&
-          global.location && (
+          {!data.photo && global.location && (
             <Image
               src="https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder-photo.svg"
               kind="circle"
@@ -82,7 +83,7 @@ const pickState = ({ currentDuty }) => ({
   state: { currentDuty },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadDuties,
   };
@@ -92,4 +93,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Card);
+export default connect(
+  pickState,
+  pickActions,
+)(Card);

@@ -21,7 +21,7 @@ const loadStatsFailed = (kind, { errors }) => ({
   errors,
 });
 
-export default (kind, queryParams = { filter: {} }) => (dispatch) => {
+export default (kind, queryParams = { filter: {} }) => dispatch => {
   dispatch(loadStatsStarted(kind));
 
   return API.get(`/v1/tasks/statistics/${kind}`, {

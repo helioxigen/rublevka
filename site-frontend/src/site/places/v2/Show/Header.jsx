@@ -8,7 +8,10 @@ import placesSeo from 'site/config/seo/places';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const { Grid: { Container }, CountIndicator } = UI;
+const {
+  Grid: { Container },
+  CountIndicator,
+} = UI;
 
 const Section = styled.section`
   position: relative;
@@ -59,10 +62,12 @@ const Counter = styled.div`
   `};
 `;
 
-export default (props) => {
+export default props => {
   const { data = {}, placeKind, dealType, kind, totalProperties } = props;
-  const metaItem = data.meta && data.meta[(kind && `${dealType}_${kind}`) || dealType] || {};
-  const title = metaItem['h1'] || placesSeo[placeKind].show.h1(data, dealType, kind);
+  const metaItem =
+    (data.meta && data.meta[(kind && `${dealType}_${kind}`) || dealType]) || {};
+  const title =
+    metaItem['h1'] || placesSeo[placeKind].show.h1(data, dealType, kind);
 
   return (
     <Section>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import cn from 'classnames';
 
-const Button = (styles = {}) => (props) => {
+const Button = (styles = {}) => props => {
   const { className, children, kind, size, block, active, to, ...rest } = props;
   const anotherClass = {
     [styles[kind]]: !!kind,
@@ -13,7 +13,11 @@ const Button = (styles = {}) => (props) => {
 
   if (to) {
     return (
-      <Link {...rest} to={to} className={cn(styles.btn, anotherClass, className)}>
+      <Link
+        {...rest}
+        to={to}
+        className={cn(styles.btn, anotherClass, className)}
+      >
         {children}
       </Link>
     );

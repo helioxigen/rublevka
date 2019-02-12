@@ -26,24 +26,26 @@ class List extends Component {
   onSave = (docID, data) => {
     const { user } = this.props;
 
-    return update(docID, { ...data, user }).then(() => addToHistory({ ...data, user }));
+    return update(docID, { ...data, user }).then(() =>
+      addToHistory({ ...data, user }),
+    );
   };
 
   onDelete = (docID, { id, offerKind }) => {
     const { user } = this.props;
 
-    remove(docID).then(() => addToHistory({
-      id,
-      offerKind,
-      kind: 'remove',
-      user,
-    }));
+    remove(docID).then(() =>
+      addToHistory({
+        id,
+        offerKind,
+        kind: 'remove',
+        user,
+      }),
+    );
   };
 
   render() {
-    const {
-      itemsOnRent, itemsOnSale, itemsError, itemsLoading,
-    } = this.props;
+    const { itemsOnRent, itemsOnSale, itemsError, itemsLoading } = this.props;
 
     const loaded = !itemsLoading && !itemsError;
 
@@ -51,8 +53,8 @@ class List extends Component {
       <section>
         <Section>
           <Heading>Продажа</Heading>
-          {loaded
-            && itemsOnSale.map(item => (
+          {loaded &&
+            itemsOnSale.map(item => (
               <Card
                 key={item.id}
                 data={item.data}
@@ -69,8 +71,8 @@ class List extends Component {
 
         <Section>
           <Heading>Аренда</Heading>
-          {loaded
-            && itemsOnRent.map(item => (
+          {loaded &&
+            itemsOnRent.map(item => (
               <Card
                 key={item.id}
                 data={item.data}

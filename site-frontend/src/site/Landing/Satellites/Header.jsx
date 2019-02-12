@@ -12,7 +12,10 @@ import sUtils from 'site/styles/utils';
 
 const isRublevka = global.config.domain === 'rublevka.ru';
 const isRiga = global.config.domain === 'riga.ru';
-const { Icon, Grid: { Row, Col } } = UI;
+const {
+  Icon,
+  Grid: { Row, Col },
+} = UI;
 
 export default () => (
   <Row>

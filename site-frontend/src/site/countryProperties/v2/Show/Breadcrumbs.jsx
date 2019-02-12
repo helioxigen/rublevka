@@ -73,11 +73,15 @@ class PropertyBreadcrumbs extends Component {
         <Wrapper>
           <Ol itemScope itemType="http://schema.org/BreadcrumbList">
             {location.routeId && (
-              <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+              <Li
+                itemProp="itemListElement"
+                itemScope
+                itemType="http://schema.org/ListItem"
+              >
                 <StLink
-                  to={`/zagorodnaya/shosse/${nameToSlug(
-                    location.routeName,
-                  )}_${location.routeId}/prodaja`}
+                  to={`/zagorodnaya/shosse/${nameToSlug(location.routeName)}_${
+                    location.routeId
+                  }/prodaja`}
                   itemProp="item"
                 >
                   <span itemProp="name">{location.routeName}&nbsp;шоссе</span>
@@ -87,14 +91,20 @@ class PropertyBreadcrumbs extends Component {
               </Li>
             )}
             {location.districtId && (
-              <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+              <Li
+                itemProp="itemListElement"
+                itemScope
+                itemType="http://schema.org/ListItem"
+              >
                 <StLink
                   to={`/zagorodnaya/rayon/${nameToSlug(
                     location.districtName,
                   )}_${location.districtId}/prodaja`}
                   itemProp="item"
                 >
-                  <span itemProp="name">{location.districtName}&nbsp;район</span>
+                  <span itemProp="name">
+                    {location.districtName}&nbsp;район
+                  </span>
                   <meta itemProp="position" content="2" />
                   <StIcon icon="arrow-down" />
                 </StLink>
@@ -115,7 +125,11 @@ class PropertyBreadcrumbs extends Component {
               </Li>
             )} */}
             {location.settlementId && (
-              <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+              <Li
+                itemProp="itemListElement"
+                itemScope
+                itemType="http://schema.org/ListItem"
+              >
                 <StLink
                   to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
                     location.settlementName,

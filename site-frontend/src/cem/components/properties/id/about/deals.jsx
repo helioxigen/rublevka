@@ -27,9 +27,17 @@ export default class extends Component {
   }
 
   render() {
-    const { fields: { saleOffer, rentOffer }, options, isUpdateAllowed } = this.props;
-    const isSaleOffer = !!Object.keys(recursiveCleanUp(this.props.values.saleOffer)).length;
-    const isRentOffer = !!Object.keys(recursiveCleanUp(this.props.values.rentOffer)).length;
+    const {
+      fields: { saleOffer, rentOffer },
+      options,
+      isUpdateAllowed,
+    } = this.props;
+    const isSaleOffer = !!Object.keys(
+      recursiveCleanUp(this.props.values.saleOffer),
+    ).length;
+    const isRentOffer = !!Object.keys(
+      recursiveCleanUp(this.props.values.rentOffer),
+    ).length;
 
     return (
       <section className={this.props.className}>
@@ -45,8 +53,7 @@ export default class extends Component {
               <Col lg="16">
                 <Heading size="sm">
                   Продажа
-                  {isSaleOffer &&
-                  isUpdateAllowed && (
+                  {isSaleOffer && isUpdateAllowed && (
                     <Button
                       className={sButton.btnReset}
                       type="button"
@@ -69,12 +76,20 @@ export default class extends Component {
                       price
                       float
                     >
-                      <PriceInput className={sUtils.fontSizeMd} type="text" block />
+                      <PriceInput
+                        className={sUtils.fontSizeMd}
+                        type="text"
+                        block
+                      />
                     </FormField>
                   </Col>
                   <Col sm="10">
                     <Group
-                      kind={saleOffer.currency.touched && !!saleOffer.currency.error && 'error'}
+                      kind={
+                        saleOffer.currency.touched &&
+                        !!saleOffer.currency.error &&
+                        'error'
+                      }
                     >
                       <Label>Валюта</Label>
                       <Select
@@ -86,14 +101,22 @@ export default class extends Component {
                         valueKey="id"
                       />
                       {saleOffer.currency.touched &&
-                      saleOffer.currency.error && <Helper>{saleOffer.currency.error}</Helper>}
+                        saleOffer.currency.error && (
+                          <Helper>{saleOffer.currency.error}</Helper>
+                        )}
                     </Group>
                   </Col>
                 </Row>
 
                 <Row>
                   <Col md="10">
-                    <Group kind={saleOffer.kind.touched && !!saleOffer.kind.error && 'error'}>
+                    <Group
+                      kind={
+                        saleOffer.kind.touched &&
+                        !!saleOffer.kind.error &&
+                        'error'
+                      }
+                    >
                       <Label>Тип сделки</Label>
                       <Select
                         options={options.saleKinds}
@@ -102,13 +125,18 @@ export default class extends Component {
                         labelKey="title"
                         valueKey="id"
                       />
-                      {saleOffer.kind.touched &&
-                      saleOffer.kind.error && <Helper>{saleOffer.kind.error}</Helper>}
+                      {saleOffer.kind.touched && saleOffer.kind.error && (
+                        <Helper>{saleOffer.kind.error}</Helper>
+                      )}
                     </Group>
                   </Col>
                   <Col md="10">
                     <Group
-                      kind={saleOffer.isResale.touched && !!saleOffer.isResale.error && 'error'}
+                      kind={
+                        saleOffer.isResale.touched &&
+                        !!saleOffer.isResale.error &&
+                        'error'
+                      }
                     >
                       <Label>Тип продажи</Label>
                       {/* <Static>{dictionaries.resaleKinds[saleOffer.isResale.value]}</Static> */}
@@ -118,7 +146,9 @@ export default class extends Component {
                         disabled={!isUpdateAllowed}
                       />
                       {saleOffer.isResale.touched &&
-                      saleOffer.isResale.error && <Helper>{saleOffer.isResale.error}</Helper>}
+                        saleOffer.isResale.error && (
+                          <Helper>{saleOffer.isResale.error}</Helper>
+                        )}
                     </Group>
                   </Col>
                 </Row>
@@ -129,7 +159,9 @@ export default class extends Component {
                       <Label className={sUtils.pushedBottom1} block>
                         Показать на сайте
                       </Label>
-                      <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}>
+                      <Label
+                        className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                      >
                         <Input
                           type="radio"
                           {...saleOffer.isDisabled}
@@ -156,7 +188,9 @@ export default class extends Component {
                       <Label className={sUtils.pushedBottom1} block>
                         Ипотека
                       </Label>
-                      <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}>
+                      <Label
+                        className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                      >
                         <Input
                           type="radio"
                           {...saleOffer.isMortgage}
@@ -186,7 +220,9 @@ export default class extends Component {
                       <Label className={sUtils.pushedBottom1} block>
                         Рассрочка
                       </Label>
-                      <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}>
+                      <Label
+                        className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                      >
                         <Input
                           type="radio"
                           {...saleOffer.isInstallment}
@@ -213,7 +249,9 @@ export default class extends Component {
                       <Label className={sUtils.pushedBottom1} block>
                         Торг
                       </Label>
-                      <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}>
+                      <Label
+                        className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                      >
                         <Input
                           type="radio"
                           {...saleOffer.isBargain}
@@ -244,7 +282,9 @@ export default class extends Component {
                     </Label>
                     <Group
                       kind={
-                        saleOffer.isAgentFixed.touched && !!saleOffer.isAgentFixed.error && 'error'
+                        saleOffer.isAgentFixed.touched &&
+                        !!saleOffer.isAgentFixed.error &&
+                        'error'
                       }
                     >
                       <Label className={s.radioLabel} block>
@@ -268,9 +308,9 @@ export default class extends Component {
                         Фиксированная сумма
                       </Label>
                       {saleOffer.isAgentFixed.touched &&
-                      saleOffer.isAgentFixed.error && (
-                        <Helper>{saleOffer.isAgentFixed.error}</Helper>
-                      )}
+                        saleOffer.isAgentFixed.error && (
+                          <Helper>{saleOffer.isAgentFixed.error}</Helper>
+                        )}
                     </Group>
                   </Col>
                 </Row>
@@ -286,34 +326,44 @@ export default class extends Component {
                           static={!isUpdateAllowed}
                           price
                         >
-                          <PriceInput valueClassName="floatLabel" block type="text" />
+                          <PriceInput
+                            valueClassName="floatLabel"
+                            block
+                            type="text"
+                          />
                         </FormField>
                       )}
                       {saleOffer.isAgentFixed.value !== 'true' &&
-                      isUpdateAllowed && (
-                        <Group
-                          float
-                          kind={saleOffer.agentFee.touched && !!saleOffer.agentFee.error && 'error'}
-                        >
-                          <Input
-                            valueClassName="floatLabel"
-                            placeholder="Процент комиссии"
-                            block
-                            type="text"
-                            {...saleOffer.agentFee}
-                          />
-                          <Label>Процент комиссии</Label>
-                          {saleOffer.agentFee.touched &&
-                          saleOffer.agentFee.error && <Helper>{saleOffer.agentFee.error}</Helper>}
-                        </Group>
-                      )}
+                        isUpdateAllowed && (
+                          <Group
+                            float
+                            kind={
+                              saleOffer.agentFee.touched &&
+                              !!saleOffer.agentFee.error &&
+                              'error'
+                            }
+                          >
+                            <Input
+                              valueClassName="floatLabel"
+                              placeholder="Процент комиссии"
+                              block
+                              type="text"
+                              {...saleOffer.agentFee}
+                            />
+                            <Label>Процент комиссии</Label>
+                            {saleOffer.agentFee.touched &&
+                              saleOffer.agentFee.error && (
+                                <Helper>{saleOffer.agentFee.error}</Helper>
+                              )}
+                          </Group>
+                        )}
                       {saleOffer.isAgentFixed.value !== 'true' &&
-                      !isUpdateAllowed && (
-                        <Group>
-                          <Label block>Процент комиссии</Label>
-                          <Static>{saleOffer.agentFee.value}</Static>
-                        </Group>
-                      )}
+                        !isUpdateAllowed && (
+                          <Group>
+                            <Label block>Процент комиссии</Label>
+                            <Static>{saleOffer.agentFee.value}</Static>
+                          </Group>
+                        )}
                     </Col>
                     <Col sm="10">
                       {saleOffer.isAgentFixed.value === 'true' && (
@@ -333,9 +383,11 @@ export default class extends Component {
                             valueKey="id"
                           />
                           {saleOffer.agentFixedPrice.currency.touched &&
-                          saleOffer.agentFixedPrice.currency.error && (
-                            <Helper>{saleOffer.agentFixedPrice.currency.error}</Helper>
-                          )}
+                            saleOffer.agentFixedPrice.currency.error && (
+                              <Helper>
+                                {saleOffer.agentFixedPrice.currency.error}
+                              </Helper>
+                            )}
                         </Group>
                       )}
                     </Col>
@@ -350,8 +402,7 @@ export default class extends Component {
               <Col lg="16">
                 <Heading size="sm">
                   Аренда
-                  {isRentOffer &&
-                  isUpdateAllowed && (
+                  {isRentOffer && isUpdateAllowed && (
                     <Button
                       type="button"
                       className={sButton.btnReset}
@@ -374,12 +425,20 @@ export default class extends Component {
                       static={!isUpdateAllowed}
                       price
                     >
-                      <PriceInput className={sUtils.fontSizeMd} type="text" block />
+                      <PriceInput
+                        className={sUtils.fontSizeMd}
+                        type="text"
+                        block
+                      />
                     </FormField>
                   </Col>
                   <Col sm="10">
                     <Group
-                      kind={rentOffer.currency.touched && !!rentOffer.currency.error && 'error'}
+                      kind={
+                        rentOffer.currency.touched &&
+                        !!rentOffer.currency.error &&
+                        'error'
+                      }
                     >
                       <Label>Валюта</Label>
                       <Select
@@ -392,14 +451,22 @@ export default class extends Component {
                         onBlur={() => {}}
                       />
                       {rentOffer.currency.touched &&
-                      rentOffer.currency.error && <Helper>{rentOffer.currency.error}</Helper>}
+                        rentOffer.currency.error && (
+                          <Helper>{rentOffer.currency.error}</Helper>
+                        )}
                     </Group>
                   </Col>
                 </Row>
 
                 <Row>
                   <Col md="10">
-                    <Group kind={rentOffer.period.touched && !!rentOffer.period.error && 'error'}>
+                    <Group
+                      kind={
+                        rentOffer.period.touched &&
+                        !!rentOffer.period.error &&
+                        'error'
+                      }
+                    >
                       <Label>Период аренды</Label>
                       <Select
                         {...rentOffer.period}
@@ -408,12 +475,19 @@ export default class extends Component {
                         valueKey="id"
                         labelKey="title"
                       />
-                      {rentOffer.period.touched &&
-                      rentOffer.period.error && <Helper>{rentOffer.period.error}</Helper>}
+                      {rentOffer.period.touched && rentOffer.period.error && (
+                        <Helper>{rentOffer.period.error}</Helper>
+                      )}
                     </Group>
                   </Col>
                   <Col md="10">
-                    <Group kind={rentOffer.deposit.touched && !!rentOffer.deposit.error && 'error'}>
+                    <Group
+                      kind={
+                        rentOffer.deposit.touched &&
+                        !!rentOffer.deposit.error &&
+                        'error'
+                      }
+                    >
                       <Label>Залог</Label>
                       <Select
                         {...rentOffer.deposit}
@@ -422,8 +496,9 @@ export default class extends Component {
                         valueKey="id"
                         labelKey="title"
                       />
-                      {rentOffer.deposit.touched &&
-                      rentOffer.deposit.error && <Helper>{rentOffer.deposit.error}</Helper>}
+                      {rentOffer.deposit.touched && rentOffer.deposit.error && (
+                        <Helper>{rentOffer.deposit.error}</Helper>
+                      )}
                     </Group>
                   </Col>
                 </Row>
@@ -434,7 +509,9 @@ export default class extends Component {
                       <Label className={sUtils.pushedBottom1} block>
                         Показать на сайте
                       </Label>
-                      <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}>
+                      <Label
+                        className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                      >
                         <Input
                           type="radio"
                           {...rentOffer.isDisabled}
@@ -464,7 +541,9 @@ export default class extends Component {
                       <Label className={sUtils.pushedBottom1} block>
                         С детьми
                       </Label>
-                      <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}>
+                      <Label
+                        className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                      >
                         <Input
                           type="radio"
                           {...rentOffer.isAllowedChildren}
@@ -491,7 +570,9 @@ export default class extends Component {
                       <Label className={sUtils.pushedBottom1} block>
                         С животными
                       </Label>
-                      <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}>
+                      <Label
+                        className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                      >
                         <Input
                           type="radio"
                           {...rentOffer.isAllowedPets}
@@ -522,7 +603,9 @@ export default class extends Component {
                     </Label>
                     <Group
                       kind={
-                        rentOffer.isAgentFixed.touched && !!rentOffer.isAgentFixed.error && 'error'
+                        rentOffer.isAgentFixed.touched &&
+                        !!rentOffer.isAgentFixed.error &&
+                        'error'
                       }
                     >
                       <Label className={s.radioLabel} block>
@@ -546,9 +629,9 @@ export default class extends Component {
                         Фиксированная сумма
                       </Label>
                       {rentOffer.isAgentFixed.touched &&
-                      rentOffer.isAgentFixed.error && (
-                        <Helper>{rentOffer.isAgentFixed.error}</Helper>
-                      )}
+                        rentOffer.isAgentFixed.error && (
+                          <Helper>{rentOffer.isAgentFixed.error}</Helper>
+                        )}
                     </Group>
                   </Col>
                 </Row>
@@ -564,34 +647,44 @@ export default class extends Component {
                           static={!isUpdateAllowed}
                           price
                         >
-                          <PriceInput valueClassName="floatLabel" block type="text" />
+                          <PriceInput
+                            valueClassName="floatLabel"
+                            block
+                            type="text"
+                          />
                         </FormField>
                       )}
                       {rentOffer.isAgentFixed.value !== 'true' &&
-                      isUpdateAllowed && (
-                        <Group
-                          float
-                          kind={rentOffer.agentFee.touched && !!rentOffer.agentFee.error && 'error'}
-                        >
-                          <Input
-                            valueClassName="floatLabel"
-                            placeholder="Процент комиссии"
-                            block
-                            type="text"
-                            {...rentOffer.agentFee}
-                          />
-                          <Label>Процент комиссии</Label>
-                          {rentOffer.agentFee.touched &&
-                          rentOffer.agentFee.error && <Helper>{rentOffer.agentFee.error}</Helper>}
-                        </Group>
-                      )}
+                        isUpdateAllowed && (
+                          <Group
+                            float
+                            kind={
+                              rentOffer.agentFee.touched &&
+                              !!rentOffer.agentFee.error &&
+                              'error'
+                            }
+                          >
+                            <Input
+                              valueClassName="floatLabel"
+                              placeholder="Процент комиссии"
+                              block
+                              type="text"
+                              {...rentOffer.agentFee}
+                            />
+                            <Label>Процент комиссии</Label>
+                            {rentOffer.agentFee.touched &&
+                              rentOffer.agentFee.error && (
+                                <Helper>{rentOffer.agentFee.error}</Helper>
+                              )}
+                          </Group>
+                        )}
                       {rentOffer.isAgentFixed.value !== 'true' &&
-                      !isUpdateAllowed && (
-                        <Group>
-                          <Label block>Процент комиссии</Label>
-                          <Static>{rentOffer.agentFee.value}</Static>
-                        </Group>
-                      )}
+                        !isUpdateAllowed && (
+                          <Group>
+                            <Label block>Процент комиссии</Label>
+                            <Static>{rentOffer.agentFee.value}</Static>
+                          </Group>
+                        )}
                     </Col>
                     <Col sm="10">
                       {rentOffer.isAgentFixed.value === 'true' && (
@@ -611,9 +704,11 @@ export default class extends Component {
                             valueKey="id"
                           />
                           {rentOffer.agentFixedPrice.currency.touched &&
-                          rentOffer.agentFixedPrice.currency.error && (
-                            <Helper>{rentOffer.agentFixedPrice.currency.error}</Helper>
-                          )}
+                            rentOffer.agentFixedPrice.currency.error && (
+                              <Helper>
+                                {rentOffer.agentFixedPrice.currency.error}
+                              </Helper>
+                            )}
                         </Group>
                       )}
                     </Col>

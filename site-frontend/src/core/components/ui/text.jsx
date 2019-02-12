@@ -12,10 +12,11 @@ export default () => {
         const origin = this.props.children;
         const reduced = this.props.children.substr(0, this.props.truncate);
 
-        if (this.props.truncate && (origin.length !== reduced.length)) {
+        if (this.props.truncate && origin.length !== reduced.length) {
           return (
             <span title={this.props.children}>
-              {reduced}{this.props.ellipsis ? `…` : ``}
+              {reduced}
+              {this.props.ellipsis ? `…` : ``}
             </span>
           );
         } else {

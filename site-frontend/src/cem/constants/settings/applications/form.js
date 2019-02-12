@@ -1,1 +1,7 @@
-export const formFields = ['id', 'name', 'responsibleUserId', 'state', 'roleId'];
+export const formFields = [
+  'id',
+  'name',
+  'responsibleUserId',
+  'state',
+  'roleId',
+];

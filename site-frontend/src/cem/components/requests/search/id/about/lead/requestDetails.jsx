@@ -12,8 +12,13 @@ import * as dict from 'cem/constants/properties/dictionaries';
 import cn from 'classnames';
 import UI from 'cem/components/ui';
 const {
-  Form, Select, Heading, AsyncSelect,
-  Icon, Button, PriceInput,
+  Form,
+  Select,
+  Heading,
+  AsyncSelect,
+  Icon,
+  Button,
+  PriceInput,
   Form: { Group, Label, Input, Static, Helper },
   Grid: { Row, Col },
 } = UI;
@@ -39,15 +44,24 @@ class Selling extends Component {
   render() {
     const { isStatic, fields, values, data = {} } = this.props;
     const { saleOffer, rentOffer } = fields.requestDetails;
-    const isSaleOffer = !!Object.keys(recursiveCleanUp(this.props.values.requestDetails.saleOffer)).length;
-    const isRentOffer = !!Object.keys(recursiveCleanUp(this.props.values.requestDetails.rentOffer)).length;
+    const isSaleOffer = !!Object.keys(
+      recursiveCleanUp(this.props.values.requestDetails.saleOffer),
+    ).length;
+    const isRentOffer = !!Object.keys(
+      recursiveCleanUp(this.props.values.requestDetails.rentOffer),
+    ).length;
 
     return (
       <div>
         <Heading size="md">
           Информация об объекте
           {data.propertyId && (
-            <Link className={s.linkIcon} to={`/properties/${data.requestDetails.category}/${data.propertyId}`}>
+            <Link
+              className={s.linkIcon}
+              to={`/properties/${data.requestDetails.category}/${
+                data.propertyId
+              }`}
+            >
               <Icon className={s.icon} icon="arrow" />
             </Link>
           )}
@@ -55,13 +69,37 @@ class Selling extends Component {
 
         <Row className={sUtils.pushedBottom3}>
           <Col sm="10">
-            <FormField label="Тип" field={fields.requestDetails.kind} options={dict.kinds} float static={isStatic}>
-              <Select className={cn(sUtils.minHeight3_7, sUtils.fontSizeMd)} options={options.kinds} block valueKey="id" labelKey="title" />
+            <FormField
+              label="Тип"
+              field={fields.requestDetails.kind}
+              options={dict.kinds}
+              float
+              static={isStatic}
+            >
+              <Select
+                className={cn(sUtils.minHeight3_7, sUtils.fontSizeMd)}
+                options={options.kinds}
+                block
+                valueKey="id"
+                labelKey="title"
+              />
             </FormField>
           </Col>
           <Col sm="10">
-            <FormField label="Клиент является" field={fields.contactDetails.kindId} static={isStatic} asyncValue={fetchDictionary(`property_contact_link_type`)} float>
-              <AsyncSelect className={cn(sUtils.minHeight3_7, sUtils.fontSizeMd)} asyncOptions={fetchDictionary(`property_contact_link_type`)} block valueKey="id" labelKey="title" />
+            <FormField
+              label="Клиент является"
+              field={fields.contactDetails.kindId}
+              static={isStatic}
+              asyncValue={fetchDictionary(`property_contact_link_type`)}
+              float
+            >
+              <AsyncSelect
+                className={cn(sUtils.minHeight3_7, sUtils.fontSizeMd)}
+                asyncOptions={fetchDictionary(`property_contact_link_type`)}
+                block
+                valueKey="id"
+                labelKey="title"
+              />
             </FormField>
           </Col>
         </Row>
@@ -74,7 +112,15 @@ class Selling extends Component {
                 <Col xs="20">
                   <Heading size="sm">
                     Продажа
-                    {isSaleOffer && !isStatic && <Button className={sButton.btnReset} type="button" onClick={() => ::this.clearOffer(`saleOffer`)}>сбросить</Button>}
+                    {isSaleOffer && !isStatic && (
+                      <Button
+                        className={sButton.btnReset}
+                        type="button"
+                        onClick={() => ::this.clearOffer(`saleOffer`)}
+                      >
+                        сбросить
+                      </Button>
+                    )}
                   </Heading>
                 </Col>
               </Row>
@@ -82,31 +128,88 @@ class Selling extends Component {
                 <Col xs="20" className={sUtils.pushedBottom3}>
                   <Row>
                     <Col sm="10">
-                      <FormField label="Цена" float field={saleOffer.price} static={isStatic} price>
-                        <PriceInput valueClassName="floatLabel" className={sUtils.fontSizeMd} block type="text" placeholder="Цена" />
+                      <FormField
+                        label="Цена"
+                        float
+                        field={saleOffer.price}
+                        static={isStatic}
+                        price
+                      >
+                        <PriceInput
+                          valueClassName="floatLabel"
+                          className={sUtils.fontSizeMd}
+                          block
+                          type="text"
+                          placeholder="Цена"
+                        />
                       </FormField>
                     </Col>
                     <Col sm="10">
-                      <FormField label="Валюта" float field={saleOffer.currency} options={dict.currencies} static={isStatic}>
-                        <Select valueClassName="floatLabel" placeholder="Валюта" className={cn(sUtils.minHeight3_7, sUtils.fontSizeMd)} options={options.currencies} block valueKey="id" labelKey="title" />
+                      <FormField
+                        label="Валюта"
+                        float
+                        field={saleOffer.currency}
+                        options={dict.currencies}
+                        static={isStatic}
+                      >
+                        <Select
+                          valueClassName="floatLabel"
+                          placeholder="Валюта"
+                          className={cn(sUtils.minHeight3_7, sUtils.fontSizeMd)}
+                          options={options.currencies}
+                          block
+                          valueKey="id"
+                          labelKey="title"
+                        />
                       </FormField>
                     </Col>
                   </Row>
 
                   <Row>
                     <Col sm="10">
-                      <FormField label="Тип cделки" field={saleOffer.kind} options={dict.saleKinds} float static={isStatic}>
-                        <Select block options={options.saleKinds} placeholder="Тип сделки" valueKey="id" labelKey="title" valueClassName="floatLabel" />
+                      <FormField
+                        label="Тип cделки"
+                        field={saleOffer.kind}
+                        options={dict.saleKinds}
+                        float
+                        static={isStatic}
+                      >
+                        <Select
+                          block
+                          options={options.saleKinds}
+                          placeholder="Тип сделки"
+                          valueKey="id"
+                          labelKey="title"
+                          valueClassName="floatLabel"
+                        />
                       </FormField>
                     </Col>
                     <Col sm="10">
                       <Group className={sUtils.resetIndentation}>
-                        <Label className={sUtils.pushedBottom1} block>Торг</Label>
-                        <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}>
-                          <Input type="radio" {...saleOffer.isBargain} value="true" checked={saleOffer.isBargain.value === `true`} disabled={isStatic} /> Есть
+                        <Label className={sUtils.pushedBottom1} block>
+                          Торг
+                        </Label>
+                        <Label
+                          className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                        >
+                          <Input
+                            type="radio"
+                            {...saleOffer.isBargain}
+                            value="true"
+                            checked={saleOffer.isBargain.value === `true`}
+                            disabled={isStatic}
+                          />{' '}
+                          Есть
                         </Label>
                         <Label className={s.radioLabel}>
-                          <Input type="radio" {...saleOffer.isBargain} value="false" checked={saleOffer.isBargain.value !== `true`} disabled={isStatic} /> Нет
+                          <Input
+                            type="radio"
+                            {...saleOffer.isBargain}
+                            value="false"
+                            checked={saleOffer.isBargain.value !== `true`}
+                            disabled={isStatic}
+                          />{' '}
+                          Нет
                         </Label>
                       </Group>
                     </Col>
@@ -115,23 +218,59 @@ class Selling extends Component {
                   <Row className={sUtils.pushedBottom1_5}>
                     <Col sm="10">
                       <Group className={sUtils.resetIndentation}>
-                        <Label className={sUtils.pushedBottom1} block>Рассрочка</Label>
-                        <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}>
-                          <Input type="radio" {...saleOffer.isMortgage} value="true" checked={saleOffer.isMortgage.value === `true`} disabled={isStatic} /> Есть
+                        <Label className={sUtils.pushedBottom1} block>
+                          Рассрочка
+                        </Label>
+                        <Label
+                          className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                        >
+                          <Input
+                            type="radio"
+                            {...saleOffer.isMortgage}
+                            value="true"
+                            checked={saleOffer.isMortgage.value === `true`}
+                            disabled={isStatic}
+                          />{' '}
+                          Есть
                         </Label>
                         <Label className={s.radioLabel}>
-                          <Input type="radio" {...saleOffer.isMortgage} value="false" checked={saleOffer.isMortgage.value !== `true`} disabled={isStatic} /> Нет
+                          <Input
+                            type="radio"
+                            {...saleOffer.isMortgage}
+                            value="false"
+                            checked={saleOffer.isMortgage.value !== `true`}
+                            disabled={isStatic}
+                          />{' '}
+                          Нет
                         </Label>
                       </Group>
                     </Col>
                     <Col sm="10">
                       <Group className={sUtils.resetIndentation}>
-                        <Label className={sUtils.pushedBottom1} block>Ипотека</Label>
-                        <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}>
-                          <Input type="radio" {...saleOffer.isInstallment} value="true" checked={saleOffer.isInstallment.value === `true`} disabled={isStatic} /> Есть
+                        <Label className={sUtils.pushedBottom1} block>
+                          Ипотека
+                        </Label>
+                        <Label
+                          className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                        >
+                          <Input
+                            type="radio"
+                            {...saleOffer.isInstallment}
+                            value="true"
+                            checked={saleOffer.isInstallment.value === `true`}
+                            disabled={isStatic}
+                          />{' '}
+                          Есть
                         </Label>
                         <Label className={s.radioLabel}>
-                          <Input type="radio" {...saleOffer.isInstallment} value="false" checked={saleOffer.isInstallment.value !== `true`} disabled={isStatic} /> Нет
+                          <Input
+                            type="radio"
+                            {...saleOffer.isInstallment}
+                            value="false"
+                            checked={saleOffer.isInstallment.value !== `true`}
+                            disabled={isStatic}
+                          />{' '}
+                          Нет
                         </Label>
                       </Group>
                     </Col>
@@ -139,25 +278,60 @@ class Selling extends Component {
 
                   <Row>
                     <Col sm="20">
-                      <Label className={sUtils.pushedBottom1} block>Форма комиссии</Label>
-                      <Group kind={saleOffer.isAgentFixed.touched && !!saleOffer.isAgentFixed.error && `error`}>
+                      <Label className={sUtils.pushedBottom1} block>
+                        Форма комиссии
+                      </Label>
+                      <Group
+                        kind={
+                          saleOffer.isAgentFixed.touched &&
+                          !!saleOffer.isAgentFixed.error &&
+                          `error`
+                        }
+                      >
                         <Label className={s.radioLabel} block>
-                          <Input type="radio" {...saleOffer.isAgentFixed} value="false" checked={saleOffer.isAgentFixed.value !== `true`} disabled={isStatic} /> Процент
+                          <Input
+                            type="radio"
+                            {...saleOffer.isAgentFixed}
+                            value="false"
+                            checked={saleOffer.isAgentFixed.value !== `true`}
+                            disabled={isStatic}
+                          />{' '}
+                          Процент
                         </Label>
                         <Label className={s.radioLabel} block>
-                          <Input type="radio" {...saleOffer.isAgentFixed} value="true" checked={saleOffer.isAgentFixed.value === `true`} disabled={isStatic} /> Фиксированная сумма
+                          <Input
+                            type="radio"
+                            {...saleOffer.isAgentFixed}
+                            value="true"
+                            checked={saleOffer.isAgentFixed.value === `true`}
+                            disabled={isStatic}
+                          />{' '}
+                          Фиксированная сумма
                         </Label>
-                        {saleOffer.isAgentFixed.touched && saleOffer.isAgentFixed.error && <Helper>{saleOffer.isAgentFixed.error}</Helper>}
+                        {saleOffer.isAgentFixed.touched &&
+                          saleOffer.isAgentFixed.error && (
+                            <Helper>{saleOffer.isAgentFixed.error}</Helper>
+                          )}
                       </Group>
                     </Col>
                   </Row>
 
-
                   {saleOffer.isAgentFixed.value !== `true` && (
                     <Row>
                       <Col sm="10">
-                        <FormField label="Комиссия" field={saleOffer.agentFee} float static={isStatic} price>
-                          <PriceInput valueClassName="floatLabel" block type="text" placeholder="Комиссия" />
+                        <FormField
+                          label="Комиссия"
+                          field={saleOffer.agentFee}
+                          float
+                          static={isStatic}
+                          price
+                        >
+                          <PriceInput
+                            valueClassName="floatLabel"
+                            block
+                            type="text"
+                            placeholder="Комиссия"
+                          />
                         </FormField>
                       </Col>
                       <Col sm="10">
@@ -171,13 +345,36 @@ class Selling extends Component {
                   {saleOffer.isAgentFixed.value === `true` && (
                     <Row>
                       <Col sm="10">
-                        <FormField label="Комиссия" field={saleOffer.agentFixedPrice.price} float static={isStatic}>
-                          <Input valueClassName="floatLabel" block type="text" placeholder="Комиссия" />
+                        <FormField
+                          label="Комиссия"
+                          field={saleOffer.agentFixedPrice.price}
+                          float
+                          static={isStatic}
+                        >
+                          <Input
+                            valueClassName="floatLabel"
+                            block
+                            type="text"
+                            placeholder="Комиссия"
+                          />
                         </FormField>
                       </Col>
                       <Col sm="10">
-                        <FormField label="Валюта" field={saleOffer.agentFixedPrice.currency} options={dict.currencies} float static={isStatic}>
-                          <Select placeholder="Валюта" block options={options.currencies} valueKey="id" labelKey="title" valueClassName="floatLabel" />
+                        <FormField
+                          label="Валюта"
+                          field={saleOffer.agentFixedPrice.currency}
+                          options={dict.currencies}
+                          float
+                          static={isStatic}
+                        >
+                          <Select
+                            placeholder="Валюта"
+                            block
+                            options={options.currencies}
+                            valueKey="id"
+                            labelKey="title"
+                            valueClassName="floatLabel"
+                          />
                         </FormField>
                       </Col>
                     </Row>
@@ -193,7 +390,15 @@ class Selling extends Component {
                 <Col xs="20">
                   <Heading size="sm">
                     Аренда
-                    {isRentOffer && !isStatic && <Button className={sButton.btnReset} type="button" onClick={() => ::this.clearOffer(`rentOffer`)}>сбросить</Button>}
+                    {isRentOffer && !isStatic && (
+                      <Button
+                        className={sButton.btnReset}
+                        type="button"
+                        onClick={() => ::this.clearOffer(`rentOffer`)}
+                      >
+                        сбросить
+                      </Button>
+                    )}
                   </Heading>
                 </Col>
               </Row>
@@ -201,26 +406,72 @@ class Selling extends Component {
                 <Col xs="20" className={sUtils.pushedBottom3}>
                   <Row>
                     <Col sm="10">
-                      <FormField label="Цена" field={rentOffer.price} float static={isStatic} price>
-                        <PriceInput valueClassName="floatLabel" className={sUtils.fontSizeMd} block type="text" placeholder="Цена" />
+                      <FormField
+                        label="Цена"
+                        field={rentOffer.price}
+                        float
+                        static={isStatic}
+                        price
+                      >
+                        <PriceInput
+                          valueClassName="floatLabel"
+                          className={sUtils.fontSizeMd}
+                          block
+                          type="text"
+                          placeholder="Цена"
+                        />
                       </FormField>
                     </Col>
                     <Col sm="10">
-                      <FormField label="Валюта" field={rentOffer.currency} float options={dict.currencies} static={isStatic}>
-                        <Select placeholder="Валюта" className={cn(sUtils.minHeight3_7, sUtils.fontSizeMd)} options={options.currencies} valueKey="id" labelKey="title" />
+                      <FormField
+                        label="Валюта"
+                        field={rentOffer.currency}
+                        float
+                        options={dict.currencies}
+                        static={isStatic}
+                      >
+                        <Select
+                          placeholder="Валюта"
+                          className={cn(sUtils.minHeight3_7, sUtils.fontSizeMd)}
+                          options={options.currencies}
+                          valueKey="id"
+                          labelKey="title"
+                        />
                       </FormField>
                     </Col>
                   </Row>
 
                   <Row>
                     <Col sm="10">
-                      <FormField label="Период аренды" field={rentOffer.period} options={dict.periods} float static={isStatic}>
-                        <Select placeholder="Период аренды" options={options.rentPeriods} valueKey="id" labelKey="title" />
+                      <FormField
+                        label="Период аренды"
+                        field={rentOffer.period}
+                        options={dict.periods}
+                        float
+                        static={isStatic}
+                      >
+                        <Select
+                          placeholder="Период аренды"
+                          options={options.rentPeriods}
+                          valueKey="id"
+                          labelKey="title"
+                        />
                       </FormField>
                     </Col>
                     <Col sm="10">
-                      <FormField label="Залог" field={rentOffer.deposit} options={dict.deposits} float static={isStatic}>
-                        <Select options={options.depositAmounts} {...rentOffer.deposit} valueKey="id" labelKey="title" />
+                      <FormField
+                        label="Залог"
+                        field={rentOffer.deposit}
+                        options={dict.deposits}
+                        float
+                        static={isStatic}
+                      >
+                        <Select
+                          options={options.depositAmounts}
+                          {...rentOffer.deposit}
+                          valueKey="id"
+                          labelKey="title"
+                        />
                       </FormField>
                     </Col>
                   </Row>
@@ -228,23 +479,63 @@ class Selling extends Component {
                   <Row className={sUtils.pushedBottom1_5}>
                     <Col sm="10">
                       <Group className={sUtils.resetIndentation}>
-                        <Label className={sUtils.pushedBottom1} block>C детьми</Label>
-                        <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}>
-                          <Input type="radio" {...rentOffer.isAllowedChildren} value="true" checked={rentOffer.isAllowedChildren.value === `true`} disabled={isStatic} /> Да
+                        <Label className={sUtils.pushedBottom1} block>
+                          C детьми
+                        </Label>
+                        <Label
+                          className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                        >
+                          <Input
+                            type="radio"
+                            {...rentOffer.isAllowedChildren}
+                            value="true"
+                            checked={
+                              rentOffer.isAllowedChildren.value === `true`
+                            }
+                            disabled={isStatic}
+                          />{' '}
+                          Да
                         </Label>
                         <Label className={s.radioLabel}>
-                          <Input type="radio" {...rentOffer.isAllowedChildren} value="false" checked={rentOffer.isAllowedChildren.value !== `true`} disabled={isStatic} /> Нет
+                          <Input
+                            type="radio"
+                            {...rentOffer.isAllowedChildren}
+                            value="false"
+                            checked={
+                              rentOffer.isAllowedChildren.value !== `true`
+                            }
+                            disabled={isStatic}
+                          />{' '}
+                          Нет
                         </Label>
                       </Group>
                     </Col>
                     <Col sm="10">
                       <Group className={sUtils.resetIndentation}>
-                        <Label className={sUtils.pushedBottom1} block>C животными</Label>
-                        <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}>
-                          <Input type="radio" {...rentOffer.isAllowedPets} value="true" checked={rentOffer.isAllowedPets.value === `true`} disabled={isStatic} /> Да
+                        <Label className={sUtils.pushedBottom1} block>
+                          C животными
+                        </Label>
+                        <Label
+                          className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                        >
+                          <Input
+                            type="radio"
+                            {...rentOffer.isAllowedPets}
+                            value="true"
+                            checked={rentOffer.isAllowedPets.value === `true`}
+                            disabled={isStatic}
+                          />{' '}
+                          Да
                         </Label>
                         <Label className={s.radioLabel}>
-                          <Input type="radio" {...rentOffer.isAllowedPets} value="false" checked={rentOffer.isAllowedPets.value !== `true`} disabled={isStatic} /> Нет
+                          <Input
+                            type="radio"
+                            {...rentOffer.isAllowedPets}
+                            value="false"
+                            checked={rentOffer.isAllowedPets.value !== `true`}
+                            disabled={isStatic}
+                          />{' '}
+                          Нет
                         </Label>
                       </Group>
                     </Col>
@@ -252,25 +543,60 @@ class Selling extends Component {
 
                   <Row>
                     <Col sm="20">
-                      <Label className={sUtils.pushedBottom1} block>Форма комиссии</Label>
-                      <Group kind={rentOffer.isAgentFixed.touched && !!rentOffer.isAgentFixed.error && `error`}>
+                      <Label className={sUtils.pushedBottom1} block>
+                        Форма комиссии
+                      </Label>
+                      <Group
+                        kind={
+                          rentOffer.isAgentFixed.touched &&
+                          !!rentOffer.isAgentFixed.error &&
+                          `error`
+                        }
+                      >
                         <Label className={s.radioLabel} block>
-                          <Input type="radio" {...rentOffer.isAgentFixed} value="false" checked={rentOffer.isAgentFixed.value !== `true`} disabled={isStatic} /> Процент
+                          <Input
+                            type="radio"
+                            {...rentOffer.isAgentFixed}
+                            value="false"
+                            checked={rentOffer.isAgentFixed.value !== `true`}
+                            disabled={isStatic}
+                          />{' '}
+                          Процент
                         </Label>
                         <Label className={s.radioLabel} block>
-                          <Input type="radio" {...rentOffer.isAgentFixed} value="true" checked={rentOffer.isAgentFixed.value === `true`} disabled={isStatic} /> Фиксированная сумма
+                          <Input
+                            type="radio"
+                            {...rentOffer.isAgentFixed}
+                            value="true"
+                            checked={rentOffer.isAgentFixed.value === `true`}
+                            disabled={isStatic}
+                          />{' '}
+                          Фиксированная сумма
                         </Label>
-                        {rentOffer.isAgentFixed.touched && rentOffer.isAgentFixed.error && <Helper>{rentOffer.isAgentFixed.error}</Helper>}
+                        {rentOffer.isAgentFixed.touched &&
+                          rentOffer.isAgentFixed.error && (
+                            <Helper>{rentOffer.isAgentFixed.error}</Helper>
+                          )}
                       </Group>
                     </Col>
                   </Row>
 
-
                   {rentOffer.isAgentFixed.value !== `true` && (
                     <Row>
                       <Col sm="10">
-                        <FormField label="Комиссия" field={rentOffer.agentFee} float static={isStatic} price>
-                          <PriceInput valueClassName="floatLabel" block type="text" placeholder="Комиссия" />
+                        <FormField
+                          label="Комиссия"
+                          field={rentOffer.agentFee}
+                          float
+                          static={isStatic}
+                          price
+                        >
+                          <PriceInput
+                            valueClassName="floatLabel"
+                            block
+                            type="text"
+                            placeholder="Комиссия"
+                          />
                         </FormField>
                       </Col>
                       <Col sm="10">
@@ -284,13 +610,34 @@ class Selling extends Component {
                   {rentOffer.isAgentFixed.value === `true` && (
                     <Row>
                       <Col sm="10">
-                        <FormField label="Комиссия" field={rentOffer.agentFixedPrice.price} float static={isStatic}>
-                          <Input valueClassName="floatLabel" block type="text" placeholder="Комиссия" />
+                        <FormField
+                          label="Комиссия"
+                          field={rentOffer.agentFixedPrice.price}
+                          float
+                          static={isStatic}
+                        >
+                          <Input
+                            valueClassName="floatLabel"
+                            block
+                            type="text"
+                            placeholder="Комиссия"
+                          />
                         </FormField>
                       </Col>
                       <Col sm="10">
-                        <FormField label="Валюта" field={rentOffer.agentFixedPrice.currency} options={dict.currencies} float static={isStatic}>
-                          <Select block options={options.currencies} valueKey="id" labelKey="title" />
+                        <FormField
+                          label="Валюта"
+                          field={rentOffer.agentFixedPrice.currency}
+                          options={dict.currencies}
+                          float
+                          static={isStatic}
+                        >
+                          <Select
+                            block
+                            options={options.currencies}
+                            valueKey="id"
+                            labelKey="title"
+                          />
                         </FormField>
                       </Col>
                     </Row>

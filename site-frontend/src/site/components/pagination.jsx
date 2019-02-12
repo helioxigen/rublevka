@@ -39,7 +39,15 @@ export default class extends Component {
   }
 
   render() {
-    const { total, offset, limit, visiblePages, dealType, baseUrl, loadMore } = this.props;
+    const {
+      total,
+      offset,
+      limit,
+      visiblePages,
+      dealType,
+      baseUrl,
+      loadMore,
+    } = this.props;
     const currentPage = Math.max(Math.ceil(offset / limit));
     const totalPages = Math.max(Math.ceil(total / limit));
 

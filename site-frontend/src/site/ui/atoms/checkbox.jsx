@@ -21,10 +21,23 @@ export default (s = {}) => {
 
     render() {
       return (
-        <div className={cn(s.checkbox, { [s.active]: this.props.checked }, this.props.className)}>
+        <div
+          className={cn(
+            s.checkbox,
+            { [s.active]: this.props.checked },
+            this.props.className,
+          )}
+        >
           {JSON.stringify(this.props.value)}
           <label className={cn(s.label, this.props.labelClassName)}>
-            <input className={cn(s.control, this.props.controlClassName)} type="checkbox" ref={this.props.reference} onChange={::this.handleChange} checked={this.props.checked} /> &nbsp;
+            <input
+              className={cn(s.control, this.props.controlClassName)}
+              type="checkbox"
+              ref={this.props.reference}
+              onChange={::this.handleChange}
+              checked={this.props.checked}
+            />{' '}
+            &nbsp;
             {this.props.children}
           </label>
         </div>

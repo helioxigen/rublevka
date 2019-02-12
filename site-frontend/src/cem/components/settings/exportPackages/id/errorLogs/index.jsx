@@ -11,7 +11,8 @@ import ListErrorMessage from 'cem/components/common/listErrorMessage';
 import UI from 'cem/components/ui';
 const {
   Table,
-  Heading, Loading,
+  Heading,
+  Loading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -26,7 +27,7 @@ import { resourceName } from 'cem/constants/settings/exportPackages/defaults';
 import * as dict from 'cem/constants/settings/exportPackages/dictionaries';
 
 const listName = `errorLogs`;
-const resource = (id) => `${resourceName}.${id}.${listName}`;
+const resource = id => `${resourceName}.${id}.${listName}`;
 
 class ErrorLogs extends Component {
   componentWillMount() {
@@ -42,15 +43,20 @@ class ErrorLogs extends Component {
     const nextPagination = nextProps.state.pagination[resource(id)] || {};
 
     const filter = state.filters[`${resourceName}.${listName}`] || {};
-    const nextFilter = nextProps.state.filters[`${resourceName}.${listName}`] || {};
+    const nextFilter =
+      nextProps.state.filters[`${resourceName}.${listName}`] || {};
 
-    const isPaginationUpdated = pagination.offset !== undefined && !isEqual(pagination, nextPagination);
+    const isPaginationUpdated =
+      pagination.offset !== undefined && !isEqual(pagination, nextPagination);
     const isFilterUpdated = !isEqual(filter, nextFilter);
 
     if (isPaginationUpdated || isFilterUpdated) {
       const newOffset = isFilterUpdated ? 0 : nextPagination.offset;
 
-      actions.loadErrorLogs(id, { filter: nextFilter, pagination: { offset: newOffset } });
+      actions.loadErrorLogs(id, {
+        filter: nextFilter,
+        pagination: { offset: newOffset },
+      });
     }
   }
 
@@ -79,7 +85,7 @@ class ErrorLogs extends Component {
           <Heading size="md">Список ошибок</Heading>
           {isErrorsPresented && <ListErrorMessage errors={errors} />}
           {isNotFound && <Heading notFound>Ошибок нет</Heading>}
-          {isNotEmpty &&
+          {isNotEmpty && (
             <Table.Container width="100%">
               <Table.Row>
                 <Table.Heading width="10%">Дата создания</Table.Heading>
@@ -87,30 +93,51 @@ class ErrorLogs extends Component {
                 <Table.Heading width="20%">Причина</Table.Heading>
                 <Table.Heading width="40%">ID объектов</Table.Heading>
               </Table.Row>
-              {ids.map(id =>
+              {ids.map(id => (
                 <Table.Row key={id}>
-                  <Table.Cell><FormattedDate value={data[id].createdAt} mask="dd.mm.yyyy HH:MM" /></Table.Cell>
-                  <Table.Cell>{Array.isArray(data[id].params) ? data[id].params.map(fieldId => dict.propertyFields[fieldId]).filter(param => param).join(`, `) : ``}</Table.Cell>
+                  <Table.Cell>
+                    <FormattedDate
+                      value={data[id].createdAt}
+                      mask="dd.mm.yyyy HH:MM"
+                    />
+                  </Table.Cell>
+                  <Table.Cell>
+                    {Array.isArray(data[id].params)
+                      ? data[id].params
+                          .map(fieldId => dict.propertyFields[fieldId])
+                          .filter(param => param)
+                          .join(`, `)
+                      : ``}
+                  </Table.Cell>
                   <Table.Cell>{data[id].reason}</Table.Cell>
                   <Table.Cell>
-                    {data[id].propertyIds.map((propertyId, index) =>
-                      <Link key={index} to={`/properties/${category}/${propertyId}`}>{propertyId}{index !== data[id].propertyIds.length - 1 ? `, ` : ``}</Link>
-                    )}
+                    {data[id].propertyIds.map((propertyId, index) => (
+                      <Link
+                        key={index}
+                        to={`/properties/${category}/${propertyId}`}
+                      >
+                        {propertyId}
+                        {index !== data[id].propertyIds.length - 1 ? `, ` : ``}
+                      </Link>
+                    ))}
                   </Table.Cell>
                 </Table.Row>
-              )}
+              ))}
             </Table.Container>
-          }
+          )}
           {isFetching && <Loading />}
-          {isNotEmpty &&
+          {isNotEmpty && (
             <Container fluid>
               <Row xs="center">
                 <Col sm="10" className={sUtils.pushed6_0}>
-                  <Pagination {...pagination} onUpdate={::this.handlePaginationUpdate} />
+                  <Pagination
+                    {...pagination}
+                    onUpdate={::this.handlePaginationUpdate}
+                  />
                 </Col>
               </Row>
             </Container>
-          }
+          )}
         </Col>
       </Row>
     );

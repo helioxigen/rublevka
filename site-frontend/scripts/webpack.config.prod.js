@@ -62,7 +62,13 @@ export default {
     }),
     new webpack.optimize.UglifyJsPlugin(),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, '..', 'src', 'cem', 'index.production.html'),
+      template: path.join(
+        __dirname,
+        '..',
+        'src',
+        'cem',
+        'index.production.html',
+      ),
       minify: {
         collapseBooleanAttributes: true,
         collapseWhitespace: true,

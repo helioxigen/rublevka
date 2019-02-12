@@ -29,7 +29,9 @@ import { dealTypes } from 'site/constants/properties/dictionaries';
 
 // UI
 import UI from 'site/ui';
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col },
+} = UI;
 
 const isJQ = global.config.domain === 'jq.estate';
 
@@ -51,7 +53,7 @@ class Property extends Component {
   }
 
   load({ actions, params }) {
-    actions.loadProperty(params.id).then((data) => {
+    actions.loadProperty(params.id).then(data => {
       track(analyticsEvents.propertyOpened(data));
     });
   }
@@ -94,19 +96,21 @@ class Property extends Component {
 
             <Info data={data} dealType={dealType} />
             <Description data={data} />
-            <ComplexBuilding complexBuildingDetails={data.complexBuildingDetails} />
+            <ComplexBuilding
+              complexBuildingDetails={data.complexBuildingDetails}
+            />
 
-            {isPositionAvailable &&
+            {isPositionAvailable && (
               <Row className={s.settlementMap}>
                 <MapComponent
                   center={[markerPosition.lng, markerPosition.lat]}
                   markers={[markerPosition]}
                   container={<div className={sUtils.mapContainer} />}
                 />
-              </Row>}
+              </Row>
+            )}
 
             <Similar id={data.id} dealType={dealType} />
-
           </Container>
 
           <section className={cn(s.container, sUtils.resetBorder)}>
@@ -132,7 +136,7 @@ const pickState = ({ cityProperties }) => ({
   state: { cityProperties },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadProperty,
     setSharedRetargetingKey,
@@ -143,4 +147,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Property);
+export default connect(
+  pickState,
+  pickActions,
+)(Property);

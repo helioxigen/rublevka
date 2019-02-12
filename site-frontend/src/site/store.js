@@ -26,7 +26,10 @@ import selections from 'core/selections/reducers';
 import stats from 'core/stats/reducers';
 import subLocalities from 'core/subLocalities/reducers';
 
-import { routerReducer as routing, routerMiddleware as createRouter } from 'react-router-redux';
+import {
+  routerReducer as routing,
+  routerMiddleware as createRouter,
+} from 'react-router-redux';
 
 // fuck redux-form
 import { reducer as formReducer } from 'redux-form';

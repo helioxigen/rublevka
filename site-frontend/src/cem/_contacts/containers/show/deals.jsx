@@ -30,7 +30,8 @@ import isEqual from 'lodash/isEqual';
 
 // UI
 const {
-  Loading, Heading,
+  Loading,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -58,7 +59,7 @@ class List extends Component {
       updateFilter: PropTypes.func.isRequired,
       resetFilter: PropTypes.func.isRequired,
     }),
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -72,7 +73,10 @@ class List extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const isGroupUpdated = !isEqual(this.props.data.state, nextProps.data.state);
+    const isGroupUpdated = !isEqual(
+      this.props.data.state,
+      nextProps.data.state,
+    );
 
     if (isGroupUpdated) {
       this.group = groupsByState[nextProps.data.state];
@@ -102,7 +106,8 @@ class List extends Component {
 
   render() {
     const { state } = this.props;
-    const { ids = [], isFetching, errors = [] } = state._deals[this.group] || {};
+    const { ids = [], isFetching, errors = [] } =
+      state._deals[this.group] || {};
     const pagination = state.pagination[this.resource] || {};
 
     const hasErrors = !isFetching && !!errors.length;
@@ -135,23 +140,16 @@ class List extends Component {
               </div>
             </Container> */}
 
-            {isFetching && (
-              <Loading />
-            )}
+            {isFetching && <Loading />}
 
-            {hasErrors && (
-              <ListErrorMessage errors={errors} />
-            )}
+            {hasErrors && <ListErrorMessage errors={errors} />}
 
             {!isFetching && !ids.length && (
               <Heading notFound>Сделки не найдены</Heading>
             )}
 
-            {hasItems && (
-              ids.map(id => (
-                <Card key={id} id={id} isContactHidden />
-              ))
-            )}
+            {hasItems &&
+              ids.map(id => <Card key={id} id={id} isContactHidden />)}
 
             {hasItems && (
               <Container fluid>
@@ -175,7 +173,7 @@ class List extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { _deals, filters, pagination, order } = state;
 
   return {
@@ -188,7 +186,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     ..._DealsActions,
     ...FilterActions,
@@ -200,4 +198,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(List);
+export default connect(
+  pickState,
+  pickActions,
+)(List);

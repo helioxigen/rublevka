@@ -21,7 +21,10 @@ const Wrapper = styled.div`
   `};
 `;
 
-const { Modal, Grid: { Row, Col } } = UI;
+const {
+  Modal,
+  Grid: { Row, Col },
+} = UI;
 
 class SellPropertyModal extends Component {
   static propTypes = {

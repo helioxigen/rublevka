@@ -15,7 +15,9 @@ class Menu extends Component {
   constructor(props) {
     super(props);
 
-    const currentlyOpen = menuOrder.find(item => props.router.isActive(menu[item].url));
+    const currentlyOpen = menuOrder.find(item =>
+      props.router.isActive(menu[item].url),
+    );
 
     this.state = {
       [currentlyOpen]: true,
@@ -34,13 +36,25 @@ class Menu extends Component {
     const departmentId = state.auth.details.departmentId;
     const divisionId = state.auth.details.divisionId;
 
-    if (itemPermissions.length && item.showPolicy !== HAS_ANY_CHILD_PERMISSION) {
+    if (
+      itemPermissions.length &&
+      item.showPolicy !== HAS_ANY_CHILD_PERMISSION
+    ) {
       return hasAnyRight(itemPermissions, userId, departmentId, divisionId);
     } else if (item.showPolicy === HAS_ANY_CHILD_PERMISSION) {
       const children = item.children || [];
-      const childrenPermissions = children.reduce((result, childItem) => [...result, ...(childItem.requiredPermissions || [])], []);
+      const childrenPermissions = children.reduce(
+        (result, childItem) => [
+          ...result,
+          ...(childItem.requiredPermissions || []),
+        ],
+        [],
+      );
 
-      return !childrenPermissions.length || hasAnyRight(childrenPermissions, userId, departmentId, divisionId);
+      return (
+        !childrenPermissions.length ||
+        hasAnyRight(childrenPermissions, userId, departmentId, divisionId)
+      );
     } else {
       return true;
     }
@@ -63,12 +77,27 @@ class Menu extends Component {
           const divisionId = state.auth.details.divisionId;
 
           if (children.length && isItemShown) {
-            return <Item {...item} key={key} reference={key} toggle={::this.toggle} isOpen={this.state[key]} hasAnyRight={(permissions) => hasAnyRight(permissions, userId, departmentId, divisionId)} />;
+            return (
+              <Item
+                {...item}
+                key={key}
+                reference={key}
+                toggle={::this.toggle}
+                isOpen={this.state[key]}
+                hasAnyRight={permissions =>
+                  hasAnyRight(permissions, userId, departmentId, divisionId)
+                }
+              />
+            );
           } else if (isItemShown) {
             return <SimpleItem key={key} {...item} />;
           }
         })}
-        <a className={cn(s.listLink, sUtils.fontRegular)} href={`https://jqestate.typeform.com/to/jKbmle?email=${userEmail}`} target="_blank">
+        <a
+          className={cn(s.listLink, sUtils.fontRegular)}
+          href={`https://jqestate.typeform.com/to/jKbmle?email=${userEmail}`}
+          target="_blank"
+        >
           Предложить идею
         </a>
       </section>

@@ -12,10 +12,11 @@ const loadPropertyRemovalRequestsStarted = key => ({
   key,
 });
 
-const loadPropertyRemovalRequestsSucceeded = (key, isResultAppended, { items, pagination }) => (
-  dispatch,
-  getState,
-) => {
+const loadPropertyRemovalRequestsSucceeded = (
+  key,
+  isResultAppended,
+  { items, pagination },
+) => (dispatch, getState) => {
   const creatorUserIds = items
     .filter(item => !getState().users[item.createdByUserId])
     .map(item => item.createdByUserId);
@@ -28,7 +29,11 @@ const loadPropertyRemovalRequestsSucceeded = (key, isResultAppended, { items, pa
     .map(item => item.responsibleUserId);
 
   if (creatorUserIds.length || responsibleUserIds.length) {
-    dispatch(UsersActions.loadList({ filter: { id: [...creatorUserIds, ...responsibleUserIds] } }));
+    dispatch(
+      UsersActions.loadList({
+        filter: { id: [...creatorUserIds, ...responsibleUserIds] },
+      }),
+    );
   }
 
   dispatch(updatePagination(`removalRequests.${key}`, pagination));
@@ -47,13 +52,23 @@ const loadPropertyRemovalRequestsFailed = (key, { errors }) => ({
   errors,
 });
 
-export default (key, queryParams = { filter: {} }, isResultAppended = false) => (dispatch) => {
+export default (
+  key,
+  queryParams = { filter: {} },
+  isResultAppended = false,
+) => dispatch => {
   dispatch(loadPropertyRemovalRequestsStarted(key));
 
   return API.get('/v1/properties/orders/removal', {
     ...queryParams,
     filter: mapFilter(key, queryParams.filter),
   })
-    .then(({ body }) => dispatch(loadPropertyRemovalRequestsSucceeded(key, isResultAppended, body)))
-    .catch(({ body }) => dispatch(loadPropertyRemovalRequestsFailed(key, body)));
+    .then(({ body }) =>
+      dispatch(
+        loadPropertyRemovalRequestsSucceeded(key, isResultAppended, body),
+      ),
+    )
+    .catch(({ body }) =>
+      dispatch(loadPropertyRemovalRequestsFailed(key, body)),
+    );
 };

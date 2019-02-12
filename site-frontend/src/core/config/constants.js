@@ -53,7 +53,10 @@ export const filters = {
     ],
   },
 
-  dealType: [{ value: 'sale', label: 'Купить' }, { value: 'rent', label: 'Снять' }],
+  dealType: [
+    { value: 'sale', label: 'Купить' },
+    { value: 'rent', label: 'Снять' },
+  ],
 };
 
 export const filter = {
@@ -171,7 +174,10 @@ export const filter = {
     { value: '185', label: 'Дмитровское ш.' },
   ],
 
-  dealType: [{ value: 'sale', label: 'Купить' }, { value: 'rent', label: 'Снять' }],
+  dealType: [
+    { value: 'sale', label: 'Купить' },
+    { value: 'rent', label: 'Снять' },
+  ],
 };
 
 export const dictionary = {
@@ -437,13 +443,21 @@ export const layouts = {
     declensions: ['Столовая', 'столовые', 'столовых'],
   },
   technical_room: {
-    declensions: ['Техническое помещение', 'технических помещения', 'технических помещений'],
+    declensions: [
+      'Техническое помещение',
+      'технических помещения',
+      'технических помещений',
+    ],
   },
   gym: {
     declensions: ['Тренажёрный зал', 'тренажёрных зала', 'тренажёрных залов'],
   },
   utility_room: {
-    declensions: ['Хозяйственное помещение', 'хозяйственных помещения', 'хозяйственных помещений'],
+    declensions: [
+      'Хозяйственное помещение',
+      'хозяйственных помещения',
+      'хозяйственных помещений',
+    ],
   },
   loft: {
     declensions: ['Мансарда', 'мансарды', 'мансард'],

@@ -7,8 +7,8 @@ const { Image, Media } = UI;
 
 import s from 'cem/styles/id/content';
 
-const ResponsibleUserImage = ({ src }) =>
-  (<Image
+const ResponsibleUserImage = ({ src }) => (
+  <Image
     src={
       src
         ? `${src}-64`
@@ -17,11 +17,13 @@ const ResponsibleUserImage = ({ src }) =>
     kind="circle"
     width="64"
     height="64"
-  />);
+  />
+);
 
-const ResponsibleUserDescription = props =>
-  (<div>
-    <h4 className={s.mediaTitleLg}>{`${props.firstName || ''} ${props.lastName || ''}`}</h4>
+const ResponsibleUserDescription = props => (
+  <div>
+    <h4 className={s.mediaTitleLg}>{`${props.firstName ||
+      ''} ${props.lastName || ''}`}</h4>
     <div>
       <a className={s.mediaText} href={`tel:${props.workPhoneNumber}`}>
         {props.workPhoneNumber}
@@ -32,7 +34,8 @@ const ResponsibleUserDescription = props =>
         {props.email}
       </a>
     </div>
-  </div>);
+  </div>
+);
 
 class ResponsibleUser extends Component {
   render() {
@@ -41,7 +44,9 @@ class ResponsibleUser extends Component {
     return (
       <section>
         <Media
-          left={<ResponsibleUserImage src={itemData.photo && itemData.photo.url} />}
+          left={
+            <ResponsibleUserImage src={itemData.photo && itemData.photo.url} />
+          }
           body={<ResponsibleUserDescription {...itemData} />}
         />
       </section>

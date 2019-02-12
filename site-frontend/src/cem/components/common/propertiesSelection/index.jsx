@@ -4,7 +4,13 @@ import Property from 'cem/components/common/property/listItem';
 import ModalAddProperty from './addPropertyModal';
 
 import UI from 'cem/components/ui';
-const { Button, Icon, Heading, Grid: { Row, Col }, Form: { Group, Helper } } = UI;
+const {
+  Button,
+  Icon,
+  Heading,
+  Grid: { Row, Col },
+  Form: { Group, Helper },
+} = UI;
 
 import cn from 'classnames';
 import s from 'cem/styles/id/content';
@@ -55,29 +61,30 @@ class PropertiesSelectionList extends Component {
             <Heading size="md">
               {title}
               {formKey === 'create' ||
-                (!isStatic &&
-                  !isLimitReached && (
-                    <ModalAddProperty
-                      field={idsFieldValue.map(id => ({ propertyId: id }))}
-                      onAdd={this.handlePropertiesAddition}
-                      initialValues={{ properties: [] }}
-                      isNumberLimited={isNumberLimited}
-                      currentLimit={cardsLimit}
-                      totalLimit={limit}
+                (!isStatic && !isLimitReached && (
+                  <ModalAddProperty
+                    field={idsFieldValue.map(id => ({ propertyId: id }))}
+                    onAdd={this.handlePropertiesAddition}
+                    initialValues={{ properties: [] }}
+                    isNumberLimited={isNumberLimited}
+                    currentLimit={cardsLimit}
+                    totalLimit={limit}
+                  >
+                    <Button
+                      type="button"
+                      className={sButton.btnRoundPlus}
+                      block
+                      size="lg"
+                      onClick={() => this.toggle()}
                     >
-                      <Button
-                        type="button"
-                        className={sButton.btnRoundPlus}
-                        block
-                        size="lg"
-                        onClick={() => this.toggle()}
-                      >
-                        <Icon className={s.icon} icon="modal" />
-                      </Button>
-                    </ModalAddProperty>
-                  ))}
+                      <Icon className={s.icon} icon="modal" />
+                    </Button>
+                  </ModalAddProperty>
+                ))}
               <Group kind={idsField.touched && !!idsField.error && 'error'}>
-                {idsField.touched && idsField.error && <Helper>{idsField.error}</Helper>}
+                {idsField.touched && idsField.error && (
+                  <Helper>{idsField.error}</Helper>
+                )}
               </Group>
             </Heading>
           </Col>
@@ -95,7 +102,10 @@ class PropertiesSelectionList extends Component {
               />
             ))}
             {!idsFieldValue.length && (
-              <Heading notFound className={cn(sUtils.pushedBottom3, sUtils.pushedTop3)}>
+              <Heading
+                notFound
+                className={cn(sUtils.pushedBottom3, sUtils.pushedTop3)}
+              >
                 Нет объектов
               </Heading>
             )}

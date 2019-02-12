@@ -7,7 +7,9 @@ import ListErrorMessage from 'cem/components/common/listErrorMessage';
 
 import UI from 'cem/components/ui';
 const {
-  Loading, Button, Heading,
+  Loading,
+  Button,
+  Heading,
   Grid: { Row, Col },
 } = UI;
 
@@ -32,7 +34,11 @@ class DealsList extends Component {
 
     const pagination = state.pagination[`deals.${kind}`] || {};
 
-    actions.loadDeals(kind, { pagination: { offset, limit: pagination.limit } }, true);
+    actions.loadDeals(
+      kind,
+      { pagination: { offset, limit: pagination.limit } },
+      true,
+    );
   }
 
   render() {
@@ -47,28 +53,43 @@ class DealsList extends Component {
         <Col xs="20">
           <Heading size="sm" className={sUtils.fontSizeMd}>
             <span className={sUtils.alignMiddle}>
-              <CountIndicator count={pagination.total} declensionForms={declensionForms} />
+              <CountIndicator
+                count={pagination.total}
+                declensionForms={declensionForms}
+              />
             </span>
           </Heading>
         </Col>
         <Col xs="20">
-          {!isFetching && !!errors.length && <ListErrorMessage errors={errors} />}
-          {!isFetching && !errors.length && !ids.length && <Heading notFound className={sUtils.resetIndent}>Сделок нет</Heading>}
-
-          {ids.map(id =>
-            <DealCard key={id} data={state.deals[id].data} state={state} />,
+          {!isFetching && !!errors.length && (
+            <ListErrorMessage errors={errors} />
           )}
+          {!isFetching && !errors.length && !ids.length && (
+            <Heading notFound className={sUtils.resetIndent}>
+              Сделок нет
+            </Heading>
+          )}
+
+          {ids.map(id => (
+            <DealCard key={id} data={state.deals[id].data} state={state} />
+          ))}
           {isFetching && <Loading />}
-          {!isFetching
-            && pagination
-            && pagination.total > pagination.limit
-            && pagination.total > ids.length
-            && (
-              <Button size="md" className={sCard.button} onClick={() => this.handlePaginationUpdate(pagination.offset + pagination.limit)}>
+          {!isFetching &&
+            pagination &&
+            pagination.total > pagination.limit &&
+            pagination.total > ids.length && (
+              <Button
+                size="md"
+                className={sCard.button}
+                onClick={() =>
+                  this.handlePaginationUpdate(
+                    pagination.offset + pagination.limit,
+                  )
+                }
+              >
                 Загрузить ещё
               </Button>
-            )
-          }
+            )}
         </Col>
       </Row>
     );
@@ -83,4 +104,7 @@ const pickActions = dispatch => ({
   actions: bindActionCreators({ ...DealsActions }, dispatch),
 });
 
-export default connect(pickState, pickActions)(DealsList);
+export default connect(
+  pickState,
+  pickActions,
+)(DealsList);

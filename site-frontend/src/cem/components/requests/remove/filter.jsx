@@ -4,7 +4,10 @@ import filterHelper from 'core/decorators/filter';
 
 import UI from 'cem/components/ui';
 const {
-  Button, Daypicker, Select, AsyncSelect,
+  Button,
+  Daypicker,
+  Select,
+  AsyncSelect,
   Grid: { Row, Col },
   Form: { Input, Label, Group },
 } = UI;
@@ -36,16 +39,29 @@ class Filter extends Component {
               <Col sm="5" md="5" lg="4">
                 <Group>
                   <Label>Тип заявки</Label>
-                  <Select options={Object.keys(kinds).map(key => ({ value: key, label: kinds[key] }))} {...fields.kind} />
+                  <Select
+                    options={Object.keys(kinds).map(key => ({
+                      value: key,
+                      label: kinds[key],
+                    }))}
+                    {...fields.kind}
+                  />
                 </Group>
               </Col>
               <Col sm="5" md="5" lg="4">
                 <Group>
                   <Label block>Дата от</Label>
                   <Daypicker
-                    className={cn(sDaypicker.daypicker, sUtils.fullWidth)} kind="from"
-                    control={<Input block type="text" {...fields.dateFrom} required />}
-                    button={<Button className={sDaypicker.btn}><UI.Icon className={sDaypicker.icon} icon="calendar" /></Button>}
+                    className={cn(sDaypicker.daypicker, sUtils.fullWidth)}
+                    kind="from"
+                    control={
+                      <Input block type="text" {...fields.dateFrom} required />
+                    }
+                    button={
+                      <Button className={sDaypicker.btn}>
+                        <UI.Icon className={sDaypicker.icon} icon="calendar" />
+                      </Button>
+                    }
                     onDayClick={day => fields.dateFrom.onChange(day)}
                   />
                 </Group>
@@ -54,9 +70,16 @@ class Filter extends Component {
                 <Group>
                   <Label block>Дата до</Label>
                   <Daypicker
-                    className={cn(sDaypicker.daypicker, sUtils.fullWidth)} kind="to"
-                    control={<Input block type="text" {...fields.dateTo} required />}
-                    button={<Button className={sDaypicker.btn}><UI.Icon className={sDaypicker.icon} icon="calendar" /></Button>}
+                    className={cn(sDaypicker.daypicker, sUtils.fullWidth)}
+                    kind="to"
+                    control={
+                      <Input block type="text" {...fields.dateTo} required />
+                    }
+                    button={
+                      <Button className={sDaypicker.btn}>
+                        <UI.Icon className={sDaypicker.icon} icon="calendar" />
+                      </Button>
+                    }
                     onDayClick={day => fields.dateTo.onChange(day)}
                   />
                 </Group>
@@ -64,7 +87,14 @@ class Filter extends Component {
               <Col sm="10" md="5" lg="4">
                 <Group>
                   <Label>Заказчик</Label>
-                  <AsyncSelect asyncOptions={fetchResource('/v1/users/staff', 'lastName,firstName', ['firstName', 'lastName'])} {...fields.createdByUserId} />
+                  <AsyncSelect
+                    asyncOptions={fetchResource(
+                      '/v1/users/staff',
+                      'lastName,firstName',
+                      ['firstName', 'lastName'],
+                    )}
+                    {...fields.createdByUserId}
+                  />
                 </Group>
               </Col>
             </Row>
@@ -73,7 +103,14 @@ class Filter extends Component {
         <Row>
           <Col xs="20">
             <div className={s.btnGroup}>
-              <Button size="xs" type="button" onClick={resetFilter} disabled={!filterCount}>Сбросить</Button>
+              <Button
+                size="xs"
+                type="button"
+                onClick={resetFilter}
+                disabled={!filterCount}
+              >
+                Сбросить
+              </Button>
               {!!count && <p className={s.textFind}>Найдено: {count}</p>}
             </div>
           </Col>
@@ -83,12 +120,6 @@ class Filter extends Component {
   }
 }
 
-const fields = [
-  'id',
-  'kind',
-  'dateFrom',
-  'dateTo',
-  'createdByUserId',
-];
+const fields = ['id', 'kind', 'dateFrom', 'dateTo', 'createdByUserId'];
 
 export default filterHelper('removalRequests', fields)(Filter);

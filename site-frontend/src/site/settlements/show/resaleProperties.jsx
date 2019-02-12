@@ -13,7 +13,11 @@ import * as OrderActions from 'core/actions/order';
 import { resourceName } from 'core/countryProperties/constants/defaults';
 
 import UI from 'site/ui';
-const { Loading, Grid: { Container, Row, Col }, LoadMore } = UI;
+const {
+  Loading,
+  Grid: { Container, Row, Col },
+  LoadMore,
+} = UI;
 
 // components
 import Card from 'site/countryProperties/card';
@@ -105,11 +109,13 @@ class List extends Component {
 
   render() {
     const { dealType, settlementId, kind } = this.props;
-    const { ids = [], isFetching } = this.props.state.countryProperties[this.group] || {};
+    const { ids = [], isFetching } =
+      this.props.state.countryProperties[this.group] || {};
 
     const pagination = this.props.state.pagination[this.resource] || {};
 
-    const { saleProperties = {}, rentProperties = {} } = this.props.statistics || {};
+    const { saleProperties = {}, rentProperties = {} } =
+      this.props.statistics || {};
     const resaleTotal = saleProperties.resale;
     const rentTotal = rentProperties.total;
 
@@ -122,7 +128,9 @@ class List extends Component {
         <Container fluid>
           <Row xs="center" className={s.mainContainer}>
             <Col xs="10">
-              <h2 className={s.title}>Недвижимость от собственников ({pagination.total})</h2>
+              <h2 className={s.title}>
+                Недвижимость от собственников ({pagination.total})
+              </h2>
             </Col>
 
             <Filter
@@ -138,10 +146,11 @@ class List extends Component {
 
           <Row className={sUtils.bgWhite}>
             <Col xs="12">
-              {hasItems &&
-              !isFetching && (
+              {hasItems && !isFetching && (
                 <Row>
-                  {ids.map(id => <Card dealType={dealTypesTranslit[dealType]} id={id} />)}
+                  {ids.map(id => (
+                    <Card dealType={dealTypesTranslit[dealType]} id={id} />
+                  ))}
                   <ResultForm propertyCategory="country" type="common" />
                 </Row>
               )}
@@ -182,7 +191,7 @@ class List extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { countryProperties, filters, pagination, order } = state;
 
   return {
@@ -195,7 +204,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadProperties,
     ...FilterActions,
@@ -208,4 +217,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(List);
+export default connect(
+  pickState,
+  pickActions,
+)(List);

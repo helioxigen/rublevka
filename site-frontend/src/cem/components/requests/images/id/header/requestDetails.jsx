@@ -12,22 +12,37 @@ const {
 import cn from 'classnames';
 import s from 'cem/styles/id/header';
 
-export default ({ formKey, data, values, location: { query: { objectKlass, kind } } }) => (
+export default ({
+  formKey,
+  data,
+  values,
+  location: {
+    query: { objectKlass, kind },
+  },
+}) => (
   <section>
     <Row xs="center">
       <Col sm="5">
         <Group>
           <Label block>Тип заявки</Label>
-          <Static className={s.input}>{dicts.kinds[values.kind || kind]}</Static>
+          <Static className={s.input}>
+            {dicts.kinds[values.kind || kind]}
+          </Static>
         </Group>
       </Col>
       <Col sm="5">
         <Group>
           <Label block>Категория</Label>
-          <Static className={s.input}>{dicts.categories[values.objectKlass || objectKlass || 'city_property'].label}</Static>
+          <Static className={s.input}>
+            {
+              dicts.categories[
+                values.objectKlass || objectKlass || 'city_property'
+              ].label
+            }
+          </Static>
         </Group>
       </Col>
-      {formKey !== 'create' &&
+      {formKey !== 'create' && (
         <Col sm="5">
           <Group>
             <Label block>Дата поступления</Label>
@@ -36,15 +51,22 @@ export default ({ formKey, data, values, location: { query: { objectKlass, kind 
             </Static>
           </Group>
         </Col>
-      }
-      {formKey !== 'create' &&
+      )}
+      {formKey !== 'create' && (
         <Col sm="5">
           <Group>
             <Label block>Стадия</Label>
-            <Static className={cn(s.input, s[dicts.states[data.state] && dicts.states[data.state].style])}>{dicts.states[data.state] && dicts.states[data.state].title}</Static>
+            <Static
+              className={cn(
+                s.input,
+                s[dicts.states[data.state] && dicts.states[data.state].style],
+              )}
+            >
+              {dicts.states[data.state] && dicts.states[data.state].title}
+            </Static>
           </Group>
         </Col>
-      }
+      )}
     </Row>
   </section>
 );

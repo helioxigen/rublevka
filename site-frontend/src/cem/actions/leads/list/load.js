@@ -7,7 +7,7 @@ const loadLeadsStarted = () => ({
   type: types.LOAD_LEADS,
 });
 
-const loadLeadsSucceeded = (group, { items, pagination }) => (dispatch) => {
+const loadLeadsSucceeded = (group, { items, pagination }) => dispatch => {
   dispatch(updatePagination(`leads.${group}`, pagination));
 
   return dispatch({
@@ -21,7 +21,7 @@ const loadLeadsFailed = ({ errors }) => ({
   errors,
 });
 
-export default (group, params = {}) => (dispatch) => {
+export default (group, params = {}) => dispatch => {
   dispatch(loadLeadsStarted());
 
   const query = {

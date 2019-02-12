@@ -8,7 +8,10 @@ export const mapFilter = (key, { dateFrom, dateTo, ...filter }) => ({
   kind: filter.kind,
 
   objectId: filter.objectId,
-  createdAt: makeDateRange(formatFilterDate(dateFrom), formatFilterDate(dateTo)),
+  createdAt: makeDateRange(
+    formatFilterDate(dateFrom),
+    formatFilterDate(dateTo),
+  ),
 
   createdByUserId: filter.createdByUserId,
   responsibleUserId: filter.responsibleUserId,

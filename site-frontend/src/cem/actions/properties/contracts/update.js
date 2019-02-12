@@ -19,8 +19,8 @@ const updateContractFailed = (id, propertyId, errors) => ({
   errors,
 });
 
-export default function (propertyId, id, data, category = 'city') {
-  return (dispatch) => {
+export default function(propertyId, id, data, category = 'city') {
+  return dispatch => {
     dispatch(updateContractStarted());
 
     return API.put(

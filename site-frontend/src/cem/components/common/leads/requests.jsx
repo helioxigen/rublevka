@@ -66,7 +66,8 @@ class Requests extends Component {
       property: 'leadsByPropertyId',
       contact: 'leadsByContactId',
     };
-    const id = type === 'contact' ? data.details.phoneNumber || data.id : params.id;
+    const id =
+      type === 'contact' ? data.details.phoneNumber || data.id : params.id;
     const { isFetching, items = [] } = state[stateKeys[type]][id] || {};
 
     if (isFetching) return <Loading />;

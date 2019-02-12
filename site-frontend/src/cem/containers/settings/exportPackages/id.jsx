@@ -25,7 +25,10 @@ import tabs from 'cem/constants/settings/exportPackages/tabs';
 
 class IdContainer extends Component {
   componentWillMount() {
-    const { actions, params: { id } } = this.props;
+    const {
+      actions,
+      params: { id },
+    } = this.props;
 
     if (id !== 'create') {
       actions.loadPackage(id);
@@ -33,7 +36,10 @@ class IdContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { actions, params: { id } } = this.props;
+    const {
+      actions,
+      params: { id },
+    } = this.props;
 
     if (id !== nextProps.params.id) {
       actions.loadPackage(nextProps.params.id);
@@ -41,8 +47,19 @@ class IdContainer extends Component {
   }
 
   render() {
-    const { state, actions, params: { id, tab }, hasRight } = this.props;
-    const { data = { filter: {} }, data: { createdByUserId } = {}, errors = [], isFetching, errorLogs = {} } = state.exportPackages[id] || {};
+    const {
+      state,
+      actions,
+      params: { id, tab },
+      hasRight,
+    } = this.props;
+    const {
+      data = { filter: {} },
+      data: { createdByUserId } = {},
+      errors = [],
+      isFetching,
+      errorLogs = {},
+    } = state.exportPackages[id] || {};
 
     if (!isFetching && !!errors.length) {
       return errors[0].message;
@@ -66,20 +83,42 @@ class IdContainer extends Component {
         <Header {...commonProps} />
         <Tabs options={tabs(id)} />
         <Container fluid>
-          {tab === 'about' && <About {...commonProps} isFetching={isFetching} state={state} />}
-          {tab === 'logs' && <ErrorLogs id={id} category={data.filter['filter[category]']} actions={actions} data={errorLogs} state={state} />}
+          {tab === 'about' && (
+            <About {...commonProps} isFetching={isFetching} state={state} />
+          )}
+          {tab === 'logs' && (
+            <ErrorLogs
+              id={id}
+              category={data.filter['filter[category]']}
+              actions={actions}
+              data={errorLogs}
+              state={state}
+            />
+          )}
         </Container>
       </section>
     );
   }
 }
 
-const pickState = ({ auth, exportPackages, _properties, pagination, filters }) => ({
+const pickState = ({
+  auth,
+  exportPackages,
+  _properties,
+  pagination,
+  filters,
+}) => ({
   state: { auth, exportPackages, _properties, pagination, filters },
 });
 
 const pickActions = dispatch => ({
-  actions: bindActionCreators({ ...ExportPackagesActions, pop, pushPath, ...PropertiesActions }, dispatch),
+  actions: bindActionCreators(
+    { ...ExportPackagesActions, pop, pushPath, ...PropertiesActions },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, pickActions)(IdContainer);
+export default connect(
+  pickState,
+  pickActions,
+)(IdContainer);

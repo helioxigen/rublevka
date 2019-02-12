@@ -18,9 +18,7 @@ const Input = styled.input`
   }
 `;
 
-const Form = ({
-  onChange, value, onSubmit, disabled,
-}) => (
+const Form = ({ onChange, value, onSubmit, disabled }) => (
   <FormSt onSubmit={onSubmit}>
     <Input
       disabled={disabled}

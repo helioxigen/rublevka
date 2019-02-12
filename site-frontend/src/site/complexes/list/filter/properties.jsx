@@ -57,44 +57,58 @@ class Properties extends Component {
                 </Row>
 
                 <Row>
-                  <Col md="4" className={cn(sUtils.positionRelative, sUtils.pushedBottomXs3_5, s.extraPadding)}>
+                  <Col
+                    md="4"
+                    className={cn(
+                      sUtils.positionRelative,
+                      sUtils.pushedBottomXs3_5,
+                      s.extraPadding,
+                    )}
+                  >
                     <Group>
                       <label className={s.label}>Стоимость</label>
 
                       <Slider2
                         reference="sale"
-
                         // className={st.slider.filter}
                         // barClassName={st.slider.filterBar}
-                        handleClassName={cn(sSlider.settlementsHandle, sSlider.settlements)}
+                        handleClassName={cn(
+                          sSlider.settlementsHandle,
+                          sSlider.settlements,
+                        )}
                         handleTitleClassName={sSlider.settlementsHandleTitle}
-
                         handleChange={::this.onUpdate}
                         min={dictionaries[`sale`].min}
                         max={dictionaries[`sale`].max}
                         step={dictionaries[`sale`].step}
                         labelFormat={dictionaries[`sale`].labelFormat}
-
                         value={selected[`sale`]}
                       />
                     </Group>
                   </Col>
-                  <Col md="4" className={cn(sUtils.positionRelative, sUtils.pushedBottomXs3_5, s.extraPadding)}>
+                  <Col
+                    md="4"
+                    className={cn(
+                      sUtils.positionRelative,
+                      sUtils.pushedBottomXs3_5,
+                      s.extraPadding,
+                    )}
+                  >
                     <Group>
                       <label className={s.label}>Площадь</label>
 
                       <Slider2
                         reference="area"
-
-                        handleClassName={cn(sSlider.settlementsHandle, sSlider.settlements)}
+                        handleClassName={cn(
+                          sSlider.settlementsHandle,
+                          sSlider.settlements,
+                        )}
                         handleTitleClassName={sSlider.settlementsHandleTitle}
-
                         handleChange={::this.onUpdate}
                         min={dictionaries[`area`].min}
                         max={dictionaries[`area`].max}
                         step={dictionaries[`area`].step}
                         labelFormat={dictionaries[`area`].labelFormat}
-
                         value={selected[`area`]}
                       />
                     </Group>

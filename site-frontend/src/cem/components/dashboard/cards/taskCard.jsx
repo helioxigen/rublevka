@@ -3,7 +3,11 @@ import { Link } from 'react-router';
 
 import cn from 'classnames';
 import UI from 'cem/components/ui';
-const { Image, Icon, Grid: { Container, Row, Col } } = UI;
+const {
+  Image,
+  Icon,
+  Grid: { Container, Row, Col },
+} = UI;
 
 import { FormattedDate } from 'react-formatted';
 
@@ -12,8 +16,8 @@ import sUtils from 'cem/styles/utils';
 
 import * as tasksDict from 'cem/constants/tasks/dictionaries';
 
-const Contact = ({ photo = {}, details = {} }) =>
-  (<div className={s.mediaContainer}>
+const Contact = ({ photo = {}, details = {} }) => (
+  <div className={s.mediaContainer}>
     <Image
       src={
         photo.url
@@ -28,11 +32,10 @@ const Contact = ({ photo = {}, details = {} }) =>
       <p className={s.mediaText}>
         {details.firstName} {details.lastName || ''}
       </p>
-      <p className={s.mediaText}>
-        {details.phoneNumber}
-      </p>
+      <p className={s.mediaText}>{details.phoneNumber}</p>
     </div>
-  </div>);
+  </div>
+);
 
 class Card extends Component {
   render() {
@@ -52,7 +55,8 @@ class Card extends Component {
       previewDetails.contactId ||
       freeDetails.contactId ||
       negotiationDetails.contactId;
-    const clientLeadId = contactDetails.clientLeadId || freeDetails.clientLeadId;
+    const clientLeadId =
+      contactDetails.clientLeadId || freeDetails.clientLeadId;
 
     const contactData = state.contacts[contactId] || {};
     const { data: clientLeadData = {} } = state.leads[clientLeadId] || {};
@@ -74,9 +78,7 @@ class Card extends Component {
               />
             </Col>
             <Col sm="5" className={cn(sUtils.textRight, sUtils.pushedTopXs2)}>
-              <span className={s.textMd}>
-                ID: {data.id}
-              </span>
+              <span className={s.textMd}>ID: {data.id}</span>
               <Icon className={s.icon} icon="chevron-down" />
             </Col>
           </Row>

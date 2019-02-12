@@ -8,7 +8,7 @@ import {
 import * as types from 'cem/_users/constants/actions';
 import { resourceName } from 'cem/_users/constants/defaults';
 
-const create = data => (dispatch) => {
+const create = data => dispatch => {
   dispatch(createElementStarted(types.CREATE, data));
 
   return createElement(resourceName, data).then(
@@ -17,7 +17,7 @@ const create = data => (dispatch) => {
 
       return { id };
     },
-    (errors) => {
+    errors => {
       dispatch(createElementFailed(types.CREATE_FAILED, errors));
       return { errors };
     },

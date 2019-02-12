@@ -17,11 +17,11 @@ class ByPropertyModal extends Component {
     propertyCategory: PropTypes.string.isRequired,
     propertyId: PropTypes.number.isRequired,
     dealType: PropTypes.string.isRequired,
-  }
+  };
 
   state = {
     isOpened: false,
-  }
+  };
 
   toggle() {
     this.setState({

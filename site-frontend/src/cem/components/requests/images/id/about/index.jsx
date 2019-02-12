@@ -12,7 +12,8 @@ import User from 'cem/containers/common/user';
 
 import UI from 'cem/components/ui';
 const {
-  Form, Heading,
+  Form,
+  Heading,
   Grid: { Row, Col },
   Form: { Textarea },
 } = UI;
@@ -29,9 +30,16 @@ import sUtils from 'cem/styles/utils';
 class About extends Component {
   render() {
     const {
-      fields, values, formKey,
-      data, location,
-      isUpdateAllowed, isImageUploadAllowed, isCommentingAllowed, isAnswersPreviewAllowed, isCurrentUserResponsible,
+      fields,
+      values,
+      formKey,
+      data,
+      location,
+      isUpdateAllowed,
+      isImageUploadAllowed,
+      isCommentingAllowed,
+      isAnswersPreviewAllowed,
+      isCurrentUserResponsible,
     } = this.props;
     const {
       objectId = location.query.objectId,
@@ -39,7 +47,10 @@ class About extends Component {
     } = values;
 
     const propertyCategory = categories[objectKlass || 'city_property'].value;
-    const isDescriptionFieldStatic = formKey !== 'create' && (['finished', 'rejected', 'done', 'approved'].indexOf(data.state) > -1 || !isUpdateAllowed);
+    const isDescriptionFieldStatic =
+      formKey !== 'create' &&
+      (['finished', 'rejected', 'done', 'approved'].indexOf(data.state) > -1 ||
+        !isUpdateAllowed);
 
     return (
       <Row>
@@ -47,47 +58,73 @@ class About extends Component {
           <Form.Container>
             <Row className={sUtils.pushedBottom4}>
               <Col lg="18">
-                {objectId && <Property id={objectId} showAddress resourcePath={`/v1/properties/${propertyCategory}`} isPreview />}
+                {objectId && (
+                  <Property
+                    id={objectId}
+                    showAddress
+                    resourcePath={`/v1/properties/${propertyCategory}`}
+                    isPreview
+                  />
+                )}
               </Col>
             </Row>
             <Row className={sUtils.pushedBottom3}>
               <Col lg="18">
                 <Heading size="md">Примечание</Heading>
-                <FormField field={fields.description} static={isDescriptionFieldStatic}>
-                  <Textarea className={cn(!isDescriptionFieldStatic && s.textarea)} rows="9" block kind="primary" />
+                <FormField
+                  field={fields.description}
+                  static={isDescriptionFieldStatic}
+                >
+                  <Textarea
+                    className={cn(!isDescriptionFieldStatic && s.textarea)}
+                    rows="9"
+                    block
+                    kind="primary"
+                  />
                 </FormField>
               </Col>
             </Row>
-            {formKey !== 'create' && data.state !== 'new' &&
+            {formKey !== 'create' && data.state !== 'new' && (
               <Row>
-                <Images {...this.props} isImageUploadAllowed={isImageUploadAllowed && data.state === 'in_progress' && isCurrentUserResponsible} />
+                <Images
+                  {...this.props}
+                  isImageUploadAllowed={
+                    isImageUploadAllowed &&
+                    data.state === 'in_progress' &&
+                    isCurrentUserResponsible
+                  }
+                />
               </Row>
-            }
+            )}
           </Form.Container>
-          {data.state === 'finished' && isAnswersPreviewAllowed &&
-          <Answers requestId={formKey} />
-            }
-          {formKey !== 'create' && isCommentingAllowed &&
-          <Row className={sUtils.pushedBottom6}>
-            <Col lg="18">
-              <Comments entity={{ key: 'imagesRequests', id: formKey }} />
-            </Col>
-          </Row>
-            }
-          {formKey !== 'create' &&
-          <Row>
-            <Col sm="18">
-              <Row>
-                <Col sm="10">
-                  {data.createdByUserId && <User id={data.createdByUserId} title="Заказчик" />}
-                </Col>
-                <Col className={sUtils.pushedTopXs4} sm="10">
-                  {data.responsibleUserId && <User id={data.responsibleUserId} title="Ответственный" />}
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-            }
+          {data.state === 'finished' && isAnswersPreviewAllowed && (
+            <Answers requestId={formKey} />
+          )}
+          {formKey !== 'create' && isCommentingAllowed && (
+            <Row className={sUtils.pushedBottom6}>
+              <Col lg="18">
+                <Comments entity={{ key: 'imagesRequests', id: formKey }} />
+              </Col>
+            </Row>
+          )}
+          {formKey !== 'create' && (
+            <Row>
+              <Col sm="18">
+                <Row>
+                  <Col sm="10">
+                    {data.createdByUserId && (
+                      <User id={data.createdByUserId} title="Заказчик" />
+                    )}
+                  </Col>
+                  <Col className={sUtils.pushedTopXs4} sm="10">
+                    {data.responsibleUserId && (
+                      <User id={data.responsibleUserId} title="Ответственный" />
+                    )}
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          )}
         </section>
       </Row>
     );

@@ -51,7 +51,9 @@ const Title = styled.h1`
   `};
 `;
 
-const MobileTitle = styled.div`font-size: 2.2rem;`;
+const MobileTitle = styled.div`
+  font-size: 2.2rem;
+`;
 
 const ListWrapper = styled.div`
   max-width: 1600px;
@@ -68,7 +70,10 @@ import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from 'core/helpers
 // constants
 import { resourceName } from 'core/settlements/constants/defaults';
 
-const { CountIndicator, Grid: { Container, Row, Col } } = UI;
+const {
+  CountIndicator,
+  Grid: { Container, Row, Col },
+} = UI;
 
 const group = 'forProperties';
 const resource = `${resourceName}.${group}`;
@@ -150,11 +155,18 @@ class SettlementsContainer extends Component {
 
         <ListWrapper>
           <Container fluid>
-            <Row>{ids.map(id => <Card key={id} id={id} />)}</Row>
+            <Row>
+              {ids.map(id => (
+                <Card key={id} id={id} />
+              ))}
+            </Row>
 
             <Row>
               {hasItems && (
-                <Container fluid className={cn(sUtils.pushedBottom3, sUtils.pushedTop3)}>
+                <Container
+                  fluid
+                  className={cn(sUtils.pushedBottom3, sUtils.pushedTop3)}
+                >
                   <Row sm="center">
                     <Col xs="12">
                       <Pagination
@@ -172,17 +184,20 @@ class SettlementsContainer extends Component {
                 </Container>
               )}
 
-              {!isFetching &&
-                !hasItems && (
-                  <Container fluid>
-                    <Row xs="center" className={s.pushed18_5_0_8}>
-                      <Col xs="11">
-                        <h1 className={s.titleNotFound}>К сожалению, ничего не найдено</h1>
-                        <p className={s.textNotFound}>Попробуйте другие параметры поиска</p>
-                      </Col>
-                    </Row>
-                  </Container>
-                )}
+              {!isFetching && !hasItems && (
+                <Container fluid>
+                  <Row xs="center" className={s.pushed18_5_0_8}>
+                    <Col xs="11">
+                      <h1 className={s.titleNotFound}>
+                        К сожалению, ничего не найдено
+                      </h1>
+                      <p className={s.textNotFound}>
+                        Попробуйте другие параметры поиска
+                      </p>
+                    </Col>
+                  </Row>
+                </Container>
+              )}
             </Row>
           </Container>
         </ListWrapper>
@@ -210,4 +225,7 @@ const mapDispatch = dispatch => ({
   dispatch,
 });
 
-export default connect(mapState, mapDispatch)(SettlementsContainer);
+export default connect(
+  mapState,
+  mapDispatch,
+)(SettlementsContainer);

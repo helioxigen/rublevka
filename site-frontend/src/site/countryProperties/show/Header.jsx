@@ -5,7 +5,9 @@ import { FormattedNumber } from 'react-formatted';
 import { offerKinds } from 'cem/constants/properties/dictionaries'; // TODO: fix
 import UI from 'site/ui';
 
-const { Grid: { Container } } = UI;
+const {
+  Grid: { Container },
+} = UI;
 
 const Header = styled.div`
   background-color: #fff;
@@ -42,15 +44,18 @@ export default ({ data, dealType }) => {
     <Header>
       <Container>
         <Title>
-          {offerKinds[dealType]} {pluralizedKinds[kind]} в посёлке {location.settlementName},{' '}
+          {offerKinds[dealType]} {pluralizedKinds[kind]} в посёлке{' '}
+          {location.settlementName},{' '}
           {isLand && (
             <span>
-              <FormattedNumber value={Math.floor(landDetails.area)} />&nbsp;сот
+              <FormattedNumber value={Math.floor(landDetails.area)} />
+              &nbsp;сот
             </span>
           )}
           {!isLand && (
             <span>
-              <FormattedNumber value={Math.floor(specification.area)} />&nbsp;м²
+              <FormattedNumber value={Math.floor(specification.area)} />
+              &nbsp;м²
             </span>
           )}
         </Title>

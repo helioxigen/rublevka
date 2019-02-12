@@ -23,7 +23,8 @@ export default class extends Component {
       currentRequestDetails = { properties: [] },
     } = this.props;
     const canToSpam = state === 'new' && !stateToApprove;
-    const canMoveToInProgress = state === 'new' && !!requestKind && !stateToApprove;
+    const canMoveToInProgress =
+      state === 'new' && !!requestKind && !stateToApprove;
     const canToProcessed = state === 'in_progress' && !stateToApprove;
     const canToRejected = state === 'in_progress' && !stateToApprove;
 
@@ -38,13 +39,24 @@ export default class extends Component {
           {canToSpam && (
             <ModalReject
               submitBtn={
-                <Button className={sButton.btnWide} kind="danger" size="lg" block type="button">
+                <Button
+                  className={sButton.btnWide}
+                  kind="danger"
+                  size="lg"
+                  block
+                  type="button"
+                >
                   Отметить как спам
                 </Button>
               }
               onClick={reason => process('spam', { reason })}
             >
-              <Button type="button" kind="danger" size="xs" className={sUtils.pushedRight2}>
+              <Button
+                type="button"
+                kind="danger"
+                size="xs"
+                className={sUtils.pushedRight2}
+              >
                 спам
               </Button>
             </ModalReject>
@@ -64,13 +76,24 @@ export default class extends Component {
           {canToRejected && (
             <ModalReject
               submitBtn={
-                <Button className={sButton.btnWide} kind="danger" size="lg" block type="button">
+                <Button
+                  className={sButton.btnWide}
+                  kind="danger"
+                  size="lg"
+                  block
+                  type="button"
+                >
                   Отклонить лид
                 </Button>
               }
               onClick={reason => process('reject', { reason })}
             >
-              <Button type="button" kind="danger" size="xs" className={sUtils.pushedRight2}>
+              <Button
+                type="button"
+                kind="danger"
+                size="xs"
+                className={sUtils.pushedRight2}
+              >
                 отклонить
               </Button>
             </ModalReject>
@@ -79,7 +102,12 @@ export default class extends Component {
           {canToProcessed && isThenDeal && (
             <ModalToProcess
               submitBtn={
-                <Button className={sButton.btnWide} kind="success" size="lg" block>
+                <Button
+                  className={sButton.btnWide}
+                  kind="success"
+                  size="lg"
+                  block
+                >
                   Конвертировать лид
                 </Button>
               }
@@ -92,7 +120,12 @@ export default class extends Component {
                 position="top"
                 hidden={!processingDisabled}
               >
-                <Button type="button" kind="success" size="xs" disabled={processingDisabled}>
+                <Button
+                  type="button"
+                  kind="success"
+                  size="xs"
+                  disabled={processingDisabled}
+                >
                   обработать
                 </Button>
               </Tooltip>

@@ -1,4 +1,9 @@
-import { loadList, loadListStarted, loadListFailed, loadListSucceeded } from './list/load';
+import {
+  loadList,
+  loadListStarted,
+  loadListFailed,
+  loadListSucceeded,
+} from './list/load';
 
 import {
   loadElement,

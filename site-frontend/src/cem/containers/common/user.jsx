@@ -17,11 +17,9 @@ import { loadUser } from 'cem/actions/users/id/load';
 const UserPhoto = ({ id }) => (
   <Image
     src={
-      id ? (
-        `${cloudfront}/${id}-128`
-      ) : (
-        'https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder-photo.svg'
-      )
+      id
+        ? `${cloudfront}/${id}-128`
+        : 'https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder-photo.svg'
     }
     kind="circle"
     width="94"
@@ -38,7 +36,9 @@ const UserDescription = props => (
     </h4>
     {props.workPhoneNumber && (
       <p className={s.mediaText}>
-        <StaticMask pattern="+1 (111) 111-11-11">{props.workPhoneNumber}</StaticMask>
+        <StaticMask pattern="+1 (111) 111-11-11">
+          {props.workPhoneNumber}
+        </StaticMask>
       </p>
     )}
     <p className={s.mediaText}>{props.email}</p>
@@ -68,15 +68,13 @@ class User extends Component {
       <section>
         {!simple && <Heading size="md">{title}</Heading>}
         {!data && isFetching && <Loading />}
-        {data &&
-        !simple && (
+        {data && !simple && (
           <Media
             left={<UserPhoto id={data.photo && data.photo.id} />}
             body={<UserDescription {...data} />}
           />
         )}
-        {data &&
-        simple && (
+        {data && simple && (
           <span>
             {data.firstName}&nbsp;{data.lastName}
           </span>
@@ -94,4 +92,7 @@ const mapDispatch = dispatch => ({
   actions: bindActionCreators({ loadUser }, dispatch),
 });
 
-export default connect(pickState, mapDispatch)(User);
+export default connect(
+  pickState,
+  mapDispatch,
+)(User);

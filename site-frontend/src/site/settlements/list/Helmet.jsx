@@ -8,6 +8,10 @@ export default ({ pagination = {}, location = {} }) => {
   const queryPage = Number(location.query.page || 1);
 
   return (
-    <Helmet title={seo.title(queryPage)} meta={seo.meta()} link={seo.link(queryPage, totalPages)} />
+    <Helmet
+      title={seo.title(queryPage)}
+      meta={seo.meta()}
+      link={seo.link(queryPage, totalPages)}
+    />
   );
 };

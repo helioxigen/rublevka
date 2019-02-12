@@ -61,11 +61,15 @@ export function uploadFile(id, file, type = 'documents') {
 
 export const mapFilters = ({ name, ...filters }) => ({
   ...filters,
-  'details.firstName,details.middleName,details.lastName': name ? `*${name}*` : undefined,
+  'details.firstName,details.middleName,details.lastName': name
+    ? `*${name}*`
+    : undefined,
   'details.phoneNumber': filters['details.phoneNumber']
     ? `*${filters['details.phoneNumber']}*`
     : undefined,
-  'details.email': filters['details.email'] ? `*${filters['details.email']}*` : undefined,
+  'details.email': filters['details.email']
+    ? `*${filters['details.email']}*`
+    : undefined,
 });
 
 export const normalizePhoneNumber = value =>

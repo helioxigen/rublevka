@@ -11,7 +11,7 @@ export default (styles = {}, ui = {}) => {
       limit: PropTypes.number.isRequired,
       total: PropTypes.number.isRequired,
       isScrollToTop: PropTypes.bool,
-    }
+    };
 
     handlePageChanged() {
       const offset = this.props.offset + this.props.limit;
@@ -28,9 +28,14 @@ export default (styles = {}, ui = {}) => {
     render() {
       const { offset, limit, total } = this.props;
 
-      if ((offset + limit) < total) {
+      if (offset + limit < total) {
         return (
-          <Button kind={this.props.kind} size={this.props.size} onClick={::this.handlePageChanged} className={this.props.className}>
+          <Button
+            kind={this.props.kind}
+            size={this.props.size}
+            onClick={::this.handlePageChanged}
+            className={this.props.className}
+          >
             {this.props.children}
           </Button>
         );

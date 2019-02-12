@@ -47,13 +47,31 @@ class Renovate extends Component {
         <Container fluid styleName="contentContainer">
           <Row md="middle">
             <Col styleName="kindContainer">
-              <Button className={cn(theme.hollowBtn, items.indexOf('full_construction') > -1 && theme.active)} onClick={() => this.onUpdate('full_construction')}>
+              <Button
+                className={cn(
+                  theme.hollowBtn,
+                  items.indexOf('full_construction') > -1 && theme.active,
+                )}
+                onClick={() => this.onUpdate('full_construction')}
+              >
                 Под ключ
               </Button>
-              <Button className={cn(theme.hollowBtn, items.indexOf('partly_turnkey') > -1 && theme.active)} onClick={() => this.onUpdate('partly_turnkey')}>
+              <Button
+                className={cn(
+                  theme.hollowBtn,
+                  items.indexOf('partly_turnkey') > -1 && theme.active,
+                )}
+                onClick={() => this.onUpdate('partly_turnkey')}
+              >
                 Частично под ключ
               </Button>
-              <Button className={cn(theme.hollowBtn, items.indexOf('rough_finish') > -1 && theme.active)} onClick={() => this.onUpdate('rough_finish')}>
+              <Button
+                className={cn(
+                  theme.hollowBtn,
+                  items.indexOf('rough_finish') > -1 && theme.active,
+                )}
+                onClick={() => this.onUpdate('rough_finish')}
+              >
                 Черновая отделка
               </Button>
             </Col>

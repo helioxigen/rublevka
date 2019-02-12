@@ -24,12 +24,18 @@ const Component = ({ id, state, isContactHidden, isPhoneNumberHidden }) => {
   const { data, isFetching } = state._clientLeads[id];
 
   if (data && !isFetching) {
-    const { requestDetails = {}, phoneCallDetails = {}, contactDetails = {} } = data;
+    const {
+      requestDetails = {},
+      phoneCallDetails = {},
+      contactDetails = {},
+    } = data;
 
     // load from dictionary
     const leadKind = dict.leadKinds[data.kind].title || '—';
     const requestKind =
-      (requestDetails.requestKind && dict.requestKinds[requestDetails.requestKind].title) || '—';
+      (requestDetails.requestKind &&
+        dict.requestKinds[requestDetails.requestKind].title) ||
+      '—';
     const callStatus = dict.callStatuses[phoneCallDetails.status];
 
     const isToApprove = !!data.stateDetails.toApprove;
@@ -61,11 +67,19 @@ const Component = ({ id, state, isContactHidden, isPhoneNumberHidden }) => {
                     </Col>
                     <Col className={sUtils.pushedTopXs2} sm="7" md="6" lg="4">
                       <ParamList label="Дата поступления" big>
-                        <FormattedDate mask="dd.mm.yyyy HH:MM" value={data.createdAt} />
+                        <FormattedDate
+                          mask="dd.mm.yyyy HH:MM"
+                          value={data.createdAt}
+                        />
                       </ParamList>
                     </Col>
                     {data.kind === 'phone_call' && callStatus && (
-                      <Col sm="5" md="5" lg="4" className={sUtils.pushedTopXs2Md2}>
+                      <Col
+                        sm="5"
+                        md="5"
+                        lg="4"
+                        className={sUtils.pushedTopXs2Md2}
+                      >
                         <ParamList
                           label="Статус звонка"
                           big
@@ -83,21 +97,28 @@ const Component = ({ id, state, isContactHidden, isPhoneNumberHidden }) => {
                     {!isContactHidden && (
                       <Col className={sUtils.pushedTopXs2} sm="9" md="7" lg="5">
                         <ParamList label="Клиент">
-                          {contactDetails.firstName || '—'} {contactDetails.lastName}
+                          {contactDetails.firstName || '—'}{' '}
+                          {contactDetails.lastName}
                         </ParamList>
                       </Col>
                     )}
                     {!isPhoneNumberHidden && (
                       <Col className={sUtils.pushedTopXs2} sm="5" md="4">
-                        <ParamList label="Телефон">{contactDetails.phoneNumber}</ParamList>
+                        <ParamList label="Телефон">
+                          {contactDetails.phoneNumber}
+                        </ParamList>
                       </Col>
                     )}
                     {(!isActive || !isArchive) && data.tasks && (
                       <Col className={sUtils.pushedTopXs2} sm="3" md="5">
                         <ParamList label="Объём задач">
-                          <span className={s.textPrimary}>{data.tasks.toDo}</span>
+                          <span className={s.textPrimary}>
+                            {data.tasks.toDo}
+                          </span>
                           &nbsp;/&nbsp;
-                          <span className={s.textSuccess}>{data.tasks.done}</span>
+                          <span className={s.textSuccess}>
+                            {data.tasks.done}
+                          </span>
                         </ParamList>
                       </Col>
                     )}
@@ -144,7 +165,7 @@ const Component = ({ id, state, isContactHidden, isPhoneNumberHidden }) => {
 };
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { _clientLeads } = state;
 
   return {

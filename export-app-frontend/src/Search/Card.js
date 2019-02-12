@@ -62,15 +62,15 @@ class Card extends Component {
     }));
   };
 
-  togglePremium = (dealType) => {
+  togglePremium = dealType => {
     this.toggleOption(dealType, 'premium');
   };
 
-  toggleTop3 = (dealType) => {
+  toggleTop3 = dealType => {
     this.toggleOption(dealType, 'top3');
   };
 
-  handleChangeOfferKind = (e) => {
+  handleChangeOfferKind = e => {
     this.setState({ offerKind: e.target.value, error: false });
   };
 
@@ -111,12 +111,14 @@ class Card extends Component {
 
     const publicImages = images.filter(({ isPublic }) => !!isPublic);
 
-    const areaSize = item.kind === 'land'
-      ? `${landDetails.area} сот`
-      : `${specification.area} м²`;
+    const areaSize =
+      item.kind === 'land'
+        ? `${landDetails.area} сот`
+        : `${specification.area} м²`;
 
-    const canAdd = Object.keys(saleOptions).length > 0
-      || Object.keys(rentOptions).length > 0;
+    const canAdd =
+      Object.keys(saleOptions).length > 0 ||
+      Object.keys(rentOptions).length > 0;
 
     return (
       <CardSt isLoading={loading}>

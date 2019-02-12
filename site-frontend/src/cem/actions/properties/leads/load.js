@@ -9,7 +9,7 @@ const loadLeadsStarted = propertyId => ({
   propertyId,
 });
 
-const loadLeadsSucceeded = (propertyId, { items, pagination }) => (dispatch) => {
+const loadLeadsSucceeded = (propertyId, { items, pagination }) => dispatch => {
   dispatch(updatePagination('leadsByPropertyId', pagination));
 
   return dispatch({
@@ -25,10 +25,12 @@ const loadLeadsFailed = (propertyId, { errors }) => ({
   errors,
 });
 
-export default propertyId => (dispatch) => {
+export default propertyId => dispatch => {
   dispatch(loadLeadsStarted(propertyId));
 
-  const queryParams = { filter: { 'requestDetails.properties.propertyId': propertyId } };
+  const queryParams = {
+    filter: { 'requestDetails.properties.propertyId': propertyId },
+  };
 
   return API.get('/v1/client_leads', queryParams).then(
     ({ body }) => dispatch(loadLeadsSucceeded(propertyId, body)),

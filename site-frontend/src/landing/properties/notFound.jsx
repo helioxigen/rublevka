@@ -16,7 +16,9 @@ class NotFound extends Component {
           <div>
             <p>По вашему запросу ничего не найдено.</p>
 
-            <Button className={s.notFoundBtn} onClick={this.props.resetFilter}>Сбросить фильтр</Button>
+            <Button className={s.notFoundBtn} onClick={this.props.resetFilter}>
+              Сбросить фильтр
+            </Button>
           </div>
         </Col>
       </Row>

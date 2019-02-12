@@ -4,8 +4,12 @@ import global from 'window-or-global';
 export default {
   list: {
     h1: 'Район',
-    title: `Найти недвижимость в Московской области по району – ${global.config.domain}`,
-    description: `Список районов для поиска недвижимости в Помосковье на ${global.config.domain}`,
+    title: `Найти недвижимость в Московской области по району – ${
+      global.config.domain
+    }`,
+    description: `Список районов для поиска недвижимости в Помосковье на ${
+      global.config.domain
+    }`,
     keywords: `районы, загородная недвижимость, список, перечень, Московская область, Подмосковье, ${
       global.config.domain
     }`,
@@ -41,7 +45,9 @@ export default {
       if (!kind) {
         return `${dictionary[dealType].title} недвижимости – ${name} район`;
       }
-      return `${dictionary[dealType].title} ${dictionary[dealType].kind[kind]} – ${name} район`;
+      return `${dictionary[dealType].title} ${
+        dictionary[dealType].kind[kind]
+      } – ${name} район`;
     },
     title: ({ name }, dealType, kind, queryPage) => {
       if (!name) {
@@ -73,9 +79,9 @@ export default {
       if (!kind) {
         return `${
           dictionary[dealType].title
-        } загородной недвижимости – ${name}, Московская область | ${global.config.domain} ${
-          queryPage ? `— страница ${queryPage}` : ''
-        }`;
+        } загородной недвижимости – ${name}, Московская область | ${
+          global.config.domain
+        } ${queryPage ? `— страница ${queryPage}` : ''}`;
       }
       return `${dictionary[dealType].titleWithCategory} ${
         dictionary[dealType][kind]
@@ -113,7 +119,9 @@ export default {
       if (!kind) {
         return `${
           dictionary[dealType].title
-        } недвижимость - ${name}, Подмосковье. Лучшие предложения на ${global.config.domain}!`;
+        } недвижимость - ${name}, Подмосковье. Лучшие предложения на ${
+          global.config.domain
+        }!`;
       }
       return `${dictionary[dealType].titleWithCategory} ${
         dictionary[dealType][kind]
@@ -143,9 +151,11 @@ export default {
           global.config.domain
         }, цена, стоимость, отзывы, квартира, таунхаус, участок, дом`;
       }
-      return `${dictionary.dealType[dealType][0]} ${dictionary.kind[kind][0]}, ${
-        dictionary.dealType[dealType][1]
-      } ${dictionary.kind[kind][1]}, коттеджный поселок, ${name}, ${
+      return `${dictionary.dealType[dealType][0]} ${
+        dictionary.kind[kind][0]
+      }, ${dictionary.dealType[dealType][1]} ${
+        dictionary.kind[kind][1]
+      }, коттеджный поселок, ${name}, ${
         global.config.domain
       }, цена, стоимость, отзывы`;
     },

@@ -45,16 +45,20 @@ class LinkedContactsContainer extends Component {
           <Col xs="20">
             <Heading size="md">
               Контакты
-              {isUpdateAllowed && <ContactCreationModal companyId={companyId} actions={actions} />}
+              {isUpdateAllowed && (
+                <ContactCreationModal companyId={companyId} actions={actions} />
+              )}
             </Heading>
 
-            {!!itemsArray.length &&
+            {!!itemsArray.length && (
               <div className={sUtils.scrollX}>
                 <LinkedContactsTable {...this.props} items={itemsArray} />
               </div>
-            }
+            )}
 
-            {!itemsArray.length && <Heading notFound>Нет связанных контактов</Heading>}
+            {!itemsArray.length && (
+              <Heading notFound>Нет связанных контактов</Heading>
+            )}
           </Col>
         </Row>
       </section>
@@ -70,4 +74,7 @@ const pickActions = dispatch => ({
   actions: bindActionCreators({ ...LinkedContactsActions, pop }, dispatch),
 });
 
-export default connect(pickState, pickActions)(LinkedContactsContainer);
+export default connect(
+  pickState,
+  pickActions,
+)(LinkedContactsContainer);

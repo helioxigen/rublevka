@@ -1,4 +1,4 @@
-const validate = (values) => {
+const validate = values => {
   const isPublic = values.state === 'public';
 
   const errors = {
@@ -12,7 +12,8 @@ const validate = (values) => {
   if (isPublic) {
     if (!values.location.latitude) errors.location.latitude = 'Обязательно';
     if (!values.location.longitude) errors.location.longitude = 'Обязательно';
-    if (!values.commissioningQuarter) errors.commissioningQuarter = 'Обязательно';
+    if (!values.commissioningQuarter)
+      errors.commissioningQuarter = 'Обязательно';
     if (!values.commissioningYear) errors.commissioningYear = 'Обязательно';
     if (values.commissioningYear < 1800) {
       errors.commissioningYear = 'Год не должен быть раньше 1800';

@@ -19,7 +19,12 @@ import s from 'site/styles/modal/subscribe';
 import st from 'site/styles/themes';
 import sUtils from 'site/styles/utils';
 
-const { Grid, Grid: { Row, Col }, Form: { Container, Input }, Button } = UI;
+const {
+  Grid,
+  Grid: { Row, Col },
+  Form: { Container, Input },
+  Button,
+} = UI;
 
 const isJQ = global.config.domain === 'jq.estate';
 
@@ -78,14 +83,17 @@ class Subscribe extends Component {
             <Container onSubmit={this.submit}>
               {isJQ && (
                 <p className={s.description}>
-                  Расскажем о скидках, поселках и лучших предложениях по аренде.<br />
-                  Раз в две недели — бонус: честный рассказ об одном из элитных жилых комплексов.
+                  Расскажем о скидках, поселках и лучших предложениях по аренде.
+                  <br />
+                  Раз в две недели — бонус: честный рассказ об одном из элитных
+                  жилых комплексов.
                 </p>
               )}
 
               {!isJQ && (
                 <p className={s.description}>
-                  Узнавайте первыми о новых предложениях рынка загородной недвижимости.
+                  Узнавайте первыми о новых предложениях рынка загородной
+                  недвижимости.
                 </p>
               )}
 
@@ -131,7 +139,11 @@ class Subscribe extends Component {
                 {this.state.result === 'success' && (
                   <Col sm="2">
                     <Button
-                      className={cn(sUtils.width80XsFullSm, st.forms.button, s.btnDisabled)}
+                      className={cn(
+                        sUtils.width80XsFullSm,
+                        st.forms.button,
+                        s.btnDisabled,
+                      )}
                       type="submit"
                       size="sm"
                       kind="primary"
@@ -150,7 +162,7 @@ class Subscribe extends Component {
   }
 }
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     ...EmailActions,
     setSharedRetargetingKey,
@@ -161,4 +173,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(null, pickActions)(Subscribe);
+export default connect(
+  null,
+  pickActions,
+)(Subscribe);

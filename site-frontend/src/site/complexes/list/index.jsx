@@ -36,7 +36,11 @@ import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from 'core/helpers
 import s from 'site/styles/complexes/list';
 import sUtils from 'site/styles/utils';
 
-const { Visibility, CountIndicator, Grid: { Container, Row, Col } } = UI;
+const {
+  Visibility,
+  CountIndicator,
+  Grid: { Container, Row, Col },
+} = UI;
 
 const group = 'list';
 
@@ -125,7 +129,8 @@ class Complexes extends Component {
 
   render() {
     const { state, location } = this.props;
-    const { ids = [], isFetching /* , errors = [] */ } = state.complexes[group] || {};
+    const { ids = [], isFetching /* , errors = [] */ } =
+      state.complexes[group] || {};
     const pagination = state.pagination[this.resource] || {};
 
     // const hasErrors = !isFetching && !!errors.length;
@@ -149,7 +154,11 @@ class Complexes extends Component {
                   <h2 className={s.subTitle}>
                     <CountIndicator
                       count={pagination.total}
-                      declensionForms={['жилой комплекс', 'жилых комплекса', 'жилых комплексов']}
+                      declensionForms={[
+                        'жилой комплекс',
+                        'жилых комплекса',
+                        'жилых комплексов',
+                      ]}
                     />{' '}
                     Москвы
                   </h2>
@@ -165,7 +174,7 @@ class Complexes extends Component {
             />
           </Container>
 
-          {this.state.isOpened &&
+          {this.state.isOpened && (
             <Filter
               resource={this.resource}
               group={this.group}
@@ -174,7 +183,8 @@ class Complexes extends Component {
               isOpened={this.state.isOpened}
               isFetching={isFetching}
               toggle={() => this.setState({ isOpened: !this.state.isOpened })}
-            />}
+            />
+          )}
         </div>
 
         <Selected
@@ -186,22 +196,28 @@ class Complexes extends Component {
 
         <Container className={sUtils.pushedTopSm4}>
           <Row>
-            {ids.map(id => <Card key={id} id={id} />)}
+            {ids.map(id => (
+              <Card key={id} id={id} />
+            ))}
           </Row>
         </Container>
 
-        {!isFetching &&
-          !hasItems &&
+        {!isFetching && !hasItems && (
           <Container className={s.pushed13_0}>
             <Row xs="center">
               <Col xs="11">
-                <h1 className={s.titleNotFound}>К сожалению, ничего не найдено</h1>
-                <p className={s.textNotFound}>Попробуйте другие параметры поиска</p>
+                <h1 className={s.titleNotFound}>
+                  К сожалению, ничего не найдено
+                </h1>
+                <p className={s.textNotFound}>
+                  Попробуйте другие параметры поиска
+                </p>
               </Col>
             </Row>
-          </Container>}
+          </Container>
+        )}
 
-        {hasItems &&
+        {hasItems && (
           <Container>
             <Row sm="center">
               <Col sm="6" className={s.paginationWrapper}>
@@ -218,7 +234,8 @@ class Complexes extends Component {
                 </section>
               </Col>
             </Row>
-          </Container>}
+          </Container>
+        )}
       </section>
     );
   }
@@ -235,8 +252,15 @@ class Complexes extends Component {
 // export default connect(mapState, mapDispatch)(Complexes);
 
 // redux connectors
-const pickState = (state) => {
-  const { complexes, filters, pagination, order, complexesSearch, subLocalitiesSearch } = state;
+const pickState = state => {
+  const {
+    complexes,
+    filters,
+    pagination,
+    order,
+    complexesSearch,
+    subLocalitiesSearch,
+  } = state;
 
   return {
     state: {
@@ -250,7 +274,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadComplexes,
     ...FilterActions,
@@ -266,4 +290,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Complexes);
+export default connect(
+  pickState,
+  pickActions,
+)(Complexes);

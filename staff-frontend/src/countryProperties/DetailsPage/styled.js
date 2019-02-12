@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Col, Row } from 'react-flexbox-grid';
 import { Body, BodyBig, Input, Label, theme, Title, Title2 } from '../../UI';
 
@@ -88,24 +88,14 @@ export const PointIcon = styled.img`
   margin-right: 10px;
 `;
 
-export const TitleAddress = styled(Col)`
+export const TitleAddress = styled.h5`
   margin-bottom: 30px;
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: start;
-  align-items: center;
-`;
+  font-weight: normal;
 
-export const PhotoExampleContainer = styled(Col)`
-  margin-bottom: 25px;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-start;
-`;
-
-export const PhotoExampleWrapper = styled.div`
-  position: relative;
-  max-width: 33.333333%;
+  p {
+    line-height: 22px;
+  }
 `;
 
 export const PhotoCloseButton = styled.div`
@@ -148,9 +138,24 @@ export const PlotLocationInput = styled(Input)`
 export const PlotLocationInfo = styled(BodyBig)`
   margin-bottom: 35px;
 `;
-export const PhotoExample = styled.img`
-  width: 100%;
-  height: auto;
+
+export const Photos = styled.div`
+  max-width: 100%;
+  margin-bottom: 25px;
+  display: flex;
+  ${({ isViewAll }) =>
+    !isViewAll
+      ? css`
+          flex-wrap: no-wrap;
+          overflow-x: scroll;
+        `
+      : css`
+          flex-wrap: wrap;
+        `};
+`;
+
+export const Photo = styled.img`
+  max-height: 256px;
   display: block;
 `;
 
@@ -158,7 +163,7 @@ export const EditButton = styled(BodyBigBlue)`
   margin-bottom: 35px;
   cursor: pointer;
 `;
-export const PhotoEditTools = styled(Col)`
+export const PhotoEditTools = styled.div`
   margin-bottom: 60px;
   display: flex;
   flex-flow: row nowrap;
@@ -185,7 +190,7 @@ export const AddPhotoIcon = styled.img`
   margin-left: 9px;
 `;
 
-export const MapWrapper = styled(Col)`
+export const MapWrapper = styled.section`
   margin-bottom: 25px;
 `;
 

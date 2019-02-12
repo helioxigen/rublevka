@@ -8,7 +8,7 @@ const {
   Rating,
   Grid: { Row, Col },
   Form: { Label, Group },
- } = UI;
+} = UI;
 
 import sUtils from 'cem/styles/utils';
 
@@ -22,7 +22,9 @@ export default class extends Component {
           <Row key={index} className={sUtils.pushedBottom1}>
             <Col sm="20">
               <Group>
-                <Label className={sUtils.pushedBottom1_2}>{question.text.value}</Label>
+                <Label className={sUtils.pushedBottom1_2}>
+                  {question.text.value}
+                </Label>
                 <Rating {...question.rate} captions={captions} />
               </Group>
             </Col>

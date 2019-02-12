@@ -29,8 +29,9 @@ export const CheckboxLabel = styled.label`
     margin-right: 0;
   }
 
-  ${p => p.isActive
-    && css`
+  ${p =>
+    p.isActive &&
+    css`
       background-color: #3174f6;
       color: #fff;
     `}

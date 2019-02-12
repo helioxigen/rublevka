@@ -30,10 +30,15 @@ export const loadList = (
 ) => {
   if (!resourceName) throwFormattedError('required', resourceName);
   if (!group) throwFormattedError('required', group);
-  if (!defaultQueryParamsByGroup) throwFormattedError('required', defaultQueryParamsByGroup);
-  if (!apiPaths[resourceName]) throwFormattedError('apiPathEmpty', resourceName);
+  if (!defaultQueryParamsByGroup)
+    throwFormattedError('required', defaultQueryParamsByGroup);
+  if (!apiPaths[resourceName])
+    throwFormattedError('apiPathEmpty', resourceName);
 
-  const requestParams = mapListQueryParams(defaultQueryParamsByGroup[group], queryParams);
+  const requestParams = mapListQueryParams(
+    defaultQueryParamsByGroup[group],
+    queryParams,
+  );
 
   return API.get(`${apiPaths[resourceName]}${postfix}`, requestParams).then(
     ({ body: { items, pagination } }) => Promise.resolve({ items, pagination }),

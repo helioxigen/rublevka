@@ -6,20 +6,28 @@ const validate = (settlement, { formKey }) => {
 
   return {
     name: !settlement.name ? 'Обязательно' : undefined,
-    state: !settlement.state && formKey !== 'create' ? 'Обязательно' : undefined,
+    state:
+      !settlement.state && formKey !== 'create' ? 'Обязательно' : undefined,
     // slug: (!settlement.slug && isPublic) ? 'Обязательно' : undefined,
     location: {
       linkedLocalityIds:
-        !settlement.location.linkedLocalityIds && isPublic ? 'Обязательно' : undefined,
+        !settlement.location.linkedLocalityIds && isPublic
+          ? 'Обязательно'
+          : undefined,
       localityId: !settlement.location.localityId ? 'Обязательно' : undefined,
-      mkadDistance: !settlement.location.mkadDistance && isPublic ? 'Обязательно' : undefined,
-      latitude: !settlement.location.latitude && isPublic ? 'Обязательно' : undefined,
-      longitude: !settlement.location.longitude && isPublic ? 'Обязательно' : undefined,
+      mkadDistance:
+        !settlement.location.mkadDistance && isPublic
+          ? 'Обязательно'
+          : undefined,
+      latitude:
+        !settlement.location.latitude && isPublic ? 'Обязательно' : undefined,
+      longitude:
+        !settlement.location.longitude && isPublic ? 'Обязательно' : undefined,
     },
   };
 };
 
-const validateCommonFields = (values) => {
+const validateCommonFields = values => {
   const errors = {
     saleOffer: {
       agentFixedPrice: {},
@@ -52,7 +60,7 @@ const validateCommonFields = (values) => {
   return errors;
 };
 
-const validatePropertiesTableFields = (values) => {
+const validatePropertiesTableFields = values => {
   const errors = {
     saleOffer: {
       agentFixedPrice: {},

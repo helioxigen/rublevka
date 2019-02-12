@@ -1,4 +1,9 @@
-import { loadList, loadListStarted, loadListFailed, loadListSucceeded } from 'core/fetcher/actions';
+import {
+  loadList,
+  loadListStarted,
+  loadListFailed,
+  loadListSucceeded,
+} from 'core/fetcher/actions';
 
 import * as types from 'cem/constants/_users/actions';
 import { defaultQueryParamsByGroup } from 'cem/constants/_users/defaults';
@@ -11,7 +16,7 @@ const mapFilters = (filter = {}) => ({
 
 const resource = 'users';
 
-const loadUsers = (queryParams, group) => (dispatch) => {
+const loadUsers = (queryParams, group) => dispatch => {
   dispatch(loadListStarted(types.LOAD_USERS, group));
 
   return loadList(
@@ -26,7 +31,7 @@ const loadUsers = (queryParams, group) => (dispatch) => {
 
       return Promise.resolve(items);
     },
-    (errors) => {
+    errors => {
       dispatch(loadListFailed(types.LOAD_USERS_FAILED, group, errors));
 
       return Promise.reject(errors);

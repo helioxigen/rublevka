@@ -1,4 +1,9 @@
-export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNot = {} }) => {
+export const mapParams = ({
+  pagination = {},
+  orderBy = {},
+  filter = {},
+  filterNot = {},
+}) => {
   const { limit, offset } = pagination;
   const { subLocalityId, subLocalities = [] } = filter;
 
@@ -14,7 +19,8 @@ export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNo
       id: filter.id,
       name: filter.name ? `*${filter.name.trim()}*` : null,
       state: filter.state,
-      'location.subLocalityId': subLocalityId || subLocalities.map(subLocality => subLocality.id),
+      'location.subLocalityId':
+        subLocalityId || subLocalities.map(subLocality => subLocality.id),
     },
     filterNot: {
       ...filterNot,

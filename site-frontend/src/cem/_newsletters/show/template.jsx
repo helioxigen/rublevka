@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { FormattedCurrency } from 'react-formatted';
-import { offerKindsToRu, propertyCategoryToRu } from 'cem/_newsletters/constants/dictionaries';
+import {
+  offerKindsToRu,
+  propertyCategoryToRu,
+} from 'cem/_newsletters/constants/dictionaries';
 
 const logosBySite = {
   'jq.estate':
@@ -40,7 +43,13 @@ const Property = ({ values, property, price }) => (
         </tr>
         <tr>
           <td style={{ textAlign: 'center', verticalAlign: 'top' }}>
-            <table width="600px" cellPadding={0} cellSpacing={0} border={0} className="container">
+            <table
+              width="600px"
+              cellPadding={0}
+              cellSpacing={0}
+              border={0}
+              className="container"
+            >
               <tbody>
                 <tr>
                   <td
@@ -49,14 +58,16 @@ const Property = ({ values, property, price }) => (
                     style={{ textAlign: 'center', verticalAlign: 'top' }}
                   >
                     <a
-                      href={`https://${values.site}/${propertyCategoryToRu[
-                        property.category
-                      ]}/${offerKindsToRu[values.offerKind]}/dom/${property.id}`}
+                      href={`https://${values.site}/${
+                        propertyCategoryToRu[property.category]
+                      }/${offerKindsToRu[values.offerKind]}/dom/${property.id}`}
                       target="_blank"
                       className="mailImage"
                     >
                       <img
-                        src={`https://images.${values.site}/${property.images[0].id}-thumbnail-512`}
+                        src={`https://images.${values.site}/${
+                          property.images[0].id
+                        }-thumbnail-512`}
                         border={0}
                         alt="Home Image"
                         style={{
@@ -77,15 +88,18 @@ const Property = ({ values, property, price }) => (
                   >
                     <div className="mailBody">
                       <a
-                        href={`https://${values.site}/${propertyCategoryToRu[
-                          property.category
-                        ]}/${offerKindsToRu[values.offerKind]}/dom/${property.id}`}
+                        href={`https://${values.site}/${
+                          propertyCategoryToRu[property.category]
+                        }/${offerKindsToRu[values.offerKind]}/dom/${
+                          property.id
+                        }`}
                         style={{
                           display: 'block',
                           color: '#000',
                           textDecoration: 'none',
                           backgroundColor: 'transparent',
-                          fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+                          fontFamily:
+                            '"Helvetica Neue", Helvetica, Arial, sans-serif',
                           fontWeight: 700,
                           fontSize: '28px',
                           textAlign: 'left',
@@ -95,7 +109,10 @@ const Property = ({ values, property, price }) => (
                         target="_blank"
                         className="noMobPAdding"
                       >
-                        <FormattedCurrency value={price} symbol={values._currency} />
+                        <FormattedCurrency
+                          value={price}
+                          symbol={values._currency}
+                        />
                       </a>
                       <p
                         style={{
@@ -104,14 +121,18 @@ const Property = ({ values, property, price }) => (
                           fontSize: '15px',
                           marginTop: '10px',
                           color: '#4A4A4A',
-                          fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+                          fontFamily:
+                            '"Helvetica Neue", Helvetica, Arial, sans-serif',
                         }}
                         className="noMobPAdding"
                       >
-                        {property.location.settlementName}
-                        , {property.location.mkadDistance} км
+                        {property.location.settlementName},{' '}
+                        {property.location.mkadDistance} км
                       </p>
-                      <table style={{ marginLeft: '20px' }} className="noMobPAdding">
+                      <table
+                        style={{ marginLeft: '20px' }}
+                        className="noMobPAdding"
+                      >
                         <tbody>
                           <tr>
                             <td>
@@ -121,7 +142,8 @@ const Property = ({ values, property, price }) => (
                                   padding: '0 20px 0 0',
                                   fontSize: '15px',
                                   color: '#4A4A4A',
-                                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+                                  fontFamily:
+                                    '"Helvetica Neue", Helvetica, Arial, sans-serif',
                                 }}
                               >
                                 <img
@@ -144,7 +166,8 @@ const Property = ({ values, property, price }) => (
                                   padding: '0 0 0 0',
                                   fontSize: '15px',
                                   color: '#4A4A4A',
-                                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+                                  fontFamily:
+                                    '"Helvetica Neue", Helvetica, Arial, sans-serif',
                                 }}
                               >
                                 <img
@@ -164,9 +187,11 @@ const Property = ({ values, property, price }) => (
                         </tbody>
                       </table>
                       <a
-                        href={`https://${values.site}/${propertyCategoryToRu[
-                          property.category
-                        ]}/${offerKindsToRu[values.offerKind]}/dom/${property.id}`}
+                        href={`https://${values.site}/${
+                          propertyCategoryToRu[property.category]
+                        }/${offerKindsToRu[values.offerKind]}/dom/${
+                          property.id
+                        }`}
                         style={{
                           display: 'block',
                           backgroundColor: '#00C853',
@@ -197,7 +222,13 @@ const Property = ({ values, property, price }) => (
         </tr>
       </tbody>
     </table>
-    <table width="640px" cellPadding={0} cellSpacing={0} border="0px" className="wrapper">
+    <table
+      width="640px"
+      cellPadding={0}
+      cellSpacing={0}
+      border="0px"
+      className="wrapper"
+    >
       <tbody>
         <tr>
           <td height="20px" />
@@ -232,7 +263,13 @@ const Header = ({ values }) => (
       )}
       <tr>
         <td style={{ textAlign: 'center', verticalAlign: 'top' }}>
-          <table width="600px" cellPadding={0} cellSpacing={0} border={0} className="container">
+          <table
+            width="600px"
+            cellPadding={0}
+            cellSpacing={0}
+            border={0}
+            className="container"
+          >
             <tbody>
               <tr>
                 <td style={{ textAlign: 'center', verticalAlign: 'top' }}>
@@ -246,8 +283,12 @@ const Header = ({ values }) => (
                       src={logosBySite[values.site]}
                       style={{
                         display: 'block',
-                        margin: `${values.site === 'jq.estate' ? '30px' : '50px'} auto`,
-                        width: `${values.site === 'jq.estate' ? '100px' : '250px'}`,
+                        margin: `${
+                          values.site === 'jq.estate' ? '30px' : '50px'
+                        } auto`,
+                        width: `${
+                          values.site === 'jq.estate' ? '100px' : '250px'
+                        }`,
                       }}
                       alt="cf52c1bb-41e8-48ae-995d-b47b71ded749.png"
                     />
@@ -273,14 +314,26 @@ const Header = ({ values }) => (
 );
 
 const Headline = ({ values }) => (
-  <table width="640px" cellPadding={0} cellSpacing={0} border={0} className="wrapper">
+  <table
+    width="640px"
+    cellPadding={0}
+    cellSpacing={0}
+    border={0}
+    className="wrapper"
+  >
     <tbody>
       <tr>
         <td height="10px" style={{ fontSize: '10px', lineHeight: '10px' }} />
       </tr>
       <tr>
         <td style={{ textAlign: 'center', verticalAlign: 'top' }}>
-          <table width="600px" cellPadding={0} cellSpacing={0} border={0} className="container">
+          <table
+            width="600px"
+            cellPadding={0}
+            cellSpacing={0}
+            border={0}
+            className="container"
+          >
             <tbody>
               <tr>
                 <td
@@ -295,7 +348,13 @@ const Headline = ({ values }) => (
                     verticalAlign: 'top',
                   }}
                 >
-                  <h1 style={{ color: '#232323', fontSize: '26px', margin: '25px 0 12px' }}>
+                  <h1
+                    style={{
+                      color: '#232323',
+                      fontSize: '26px',
+                      margin: '25px 0 12px',
+                    }}
+                  >
                     {values.name || '...'}
                   </h1>
                   <p style={{ margin: '18px 15px 25px', lineHeight: '24px' }}>
@@ -331,7 +390,13 @@ const Footer = ({ values }) => (
   >
     <tbody>
       <tr>
-        <td style={{ verticalAlign: 'top', borderCollapse: 'collapse', padding: '0 20px' }}>
+        <td
+          style={{
+            verticalAlign: 'top',
+            borderCollapse: 'collapse',
+            padding: '0 20px',
+          }}
+        >
           <a
             target="_blank"
             href={`https://${values.site}`}
@@ -361,12 +426,22 @@ const Footer = ({ values }) => (
           </p>
           <ul
             className="social"
-            style={{ margin: '0 0 16px', padding: 0, listStyle: 'none', display: 'block' }}
+            style={{
+              margin: '0 0 16px',
+              padding: 0,
+              listStyle: 'none',
+              display: 'block',
+            }}
           >
             <li style={{ display: 'inline-block', margin: '0 6px' }}>
               <a
                 href="https://www.instagram.com/jqestate/"
-                style={{ color: '#232323', fontSize: '15px', textDecoration: 'none', margin: 0 }}
+                style={{
+                  color: '#232323',
+                  fontSize: '15px',
+                  textDecoration: 'none',
+                  margin: 0,
+                }}
               >
                 <img
                   src="https://gallery.mailchimp.com/7a0a55f350c9a29b3db4984fa/images/f0bb1d12-4949-4fe5-ab31-06ac0eedaadc.png"
@@ -378,7 +453,12 @@ const Footer = ({ values }) => (
             <li style={{ display: 'inline-block', margin: '0 6px' }}>
               <a
                 href={`https://www.facebook.com/${values.site}/`}
-                style={{ color: '#232323', fontSize: '15px', textDecoration: 'none', margin: 0 }}
+                style={{
+                  color: '#232323',
+                  fontSize: '15px',
+                  textDecoration: 'none',
+                  margin: 0,
+                }}
               >
                 <img
                   src="https://gallery.mailchimp.com/7a0a55f350c9a29b3db4984fa/images/c015d00d-6463-4e59-b605-9891945cb80d.png"
@@ -402,7 +482,12 @@ const Footer = ({ values }) => (
 const Template = ({ values, properties = [] }) => (
   <div>
     <span
-      style={{ display: 'block', width: '640px !important', maxWidth: '640px', height: '1px' }}
+      style={{
+        display: 'block',
+        width: '640px !important',
+        maxWidth: '640px',
+        height: '1px',
+      }}
       className="mobileOff"
     />
     <center>
@@ -418,11 +503,12 @@ const Template = ({ values, properties = [] }) => (
             <td style={{ textAlign: 'center', verticalAlign: 'top' }}>
               <Header values={values} />
               <Headline values={values} />
-              {properties.map((property) => {
+              {properties.map(property => {
                 const offerKind = property[`${values.offerKind}Offer`] || {
                   multiCurrencyPrice: { usd: 0, eur: 0, rub: 0 },
                 };
-                const price = offerKind.multiCurrencyPrice[values._currency.toLowerCase()];
+                const price =
+                  offerKind.multiCurrencyPrice[values._currency.toLowerCase()];
                 return (
                   <Property
                     id={property.id}
@@ -444,7 +530,9 @@ const Template = ({ values, properties = [] }) => (
 );
 
 const pickState = ({ fetcher }) => ({
-  properties: Object.keys(fetcher.properties || {}).map(key => fetcher.properties[key]),
+  properties: Object.keys(fetcher.properties || {}).map(
+    key => fetcher.properties[key],
+  ),
 });
 
 export default connect(pickState)(Template);

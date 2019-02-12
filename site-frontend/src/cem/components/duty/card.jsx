@@ -3,7 +3,15 @@ import { FormattedDate } from 'react-formatted';
 
 import ModalDutyForm from './modalDutyForm';
 import UI from 'cem/components/ui';
-const { Media, Image, ParamList, Button, Icon, Modal, Grid: { Container, Row, Col } } = UI;
+const {
+  Media,
+  Image,
+  ParamList,
+  Button,
+  Icon,
+  Modal,
+  Grid: { Container, Row, Col },
+} = UI;
 
 import s from 'cem/styles/ui/card';
 import sUtils from 'cem/styles/utils';
@@ -12,8 +20,8 @@ import { prepareInitialValues } from 'cem/helpers/duty';
 
 import moment from 'moment';
 
-const UserImage = ({ url }) =>
-  (<Image
+const UserImage = ({ url }) => (
+  <Image
     src={
       url
         ? `${url}-64`
@@ -23,18 +31,17 @@ const UserImage = ({ url }) =>
     kind="circle"
     width="64"
     height="64"
-  />);
+  />
+);
 
-const UserDescription = props =>
-  (<div>
-    <h2 className={s.mediaTitle}>{`${props.firstName || ''} ${props.lastName || ''}`}</h2>
-    <p className={s.mediaText}>
-      {props.workPhoneNumber}
-    </p>
-    <p className={s.mediaText}>
-      {props.email}
-    </p>
-  </div>);
+const UserDescription = props => (
+  <div>
+    <h2 className={s.mediaTitle}>{`${props.firstName || ''} ${props.lastName ||
+      ''}`}</h2>
+    <p className={s.mediaText}>{props.workPhoneNumber}</p>
+    <p className={s.mediaText}>{props.email}</p>
+  </div>
+);
 
 export default class extends Component {
   constructor(props) {
@@ -52,7 +59,14 @@ export default class extends Component {
   }
 
   render() {
-    const { departmentId, startAt, finishAt, state, actions, isUpdateAllowed } = this.props;
+    const {
+      departmentId,
+      startAt,
+      finishAt,
+      state,
+      actions,
+      isUpdateAllowed,
+    } = this.props;
     const { data: userData = {} } = state.users[this.props.staffUserId] || {};
     const isEditable = isUpdateAllowed && !moment(finishAt).isBefore(moment());
 
@@ -63,7 +77,9 @@ export default class extends Component {
             <Row>
               <Col sm="10" lg="8">
                 <ParamList label="Департамент" big>
-                  {departmentId && userData.details && userData.details.departmentName}
+                  {departmentId &&
+                    userData.details &&
+                    userData.details.departmentName}
                   {!departmentId && '—'}
                 </ParamList>
               </Col>
@@ -81,16 +97,22 @@ export default class extends Component {
             <Row>
               <Col className={sUtils.pushedTopXs2} sm="20">
                 <Media
-                  left={<UserImage url={userData.photo && userData.photo.url} />}
+                  left={
+                    <UserImage url={userData.photo && userData.photo.url} />
+                  }
                   body={<UserDescription {...userData} />}
                 />
               </Col>
             </Row>
 
-            {isEditable &&
-              <Button className={s.btnEdit} onClick={() => this.toggleModal(true)}>
+            {isEditable && (
+              <Button
+                className={s.btnEdit}
+                onClick={() => this.toggleModal(true)}
+              >
                 <Icon className={s.iconEdit} icon="edit" />
-              </Button>}
+              </Button>
+            )}
             <Modal
               size="sm"
               closeOnEsc

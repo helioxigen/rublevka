@@ -11,7 +11,7 @@ const {
   Heading,
   Grid: { Row, Col },
   Form: { Container },
- } = UI;
+} = UI;
 
 import s from 'cem/styles/modal/list';
 import sUtils from 'cem/styles/utils';
@@ -38,7 +38,9 @@ class Questions extends Component {
         </Row>
         <List initialValues={initialValues} submit={this.props.submit} />
       </Container>
-    ) : <div />;
+    ) : (
+      <div />
+    );
   }
 }
 
@@ -50,4 +52,7 @@ const mapDispatch = dispatch => ({
   actions: bindActionCreators({ ...CSIActions }, dispatch),
 });
 
-export default connect(pickState, mapDispatch)(Questions);
+export default connect(
+  pickState,
+  mapDispatch,
+)(Questions);

@@ -54,7 +54,8 @@ class DtHttpFaker {
       return Promise.reject({ body: '' });
     }
     return new Promise((resolve, reject) => {
-      const responseCode = expectedCode || fakeData[path][method].defaultResponseCode;
+      const responseCode =
+        expectedCode || fakeData[path][method].defaultResponseCode;
       const responseBody =
         !!expectedCode && !!expectedResponseBody
           ? expectedResponseBody

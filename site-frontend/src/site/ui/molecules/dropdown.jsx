@@ -20,8 +20,12 @@ export default (s = {}, { Button, Icon }) => {
     }
 
     componentDidUpdate(prevProps, prevStates) {
-      const isOpen = this.props.controllable ? this.props.isOpen : this.state.isOpen;
-      const prevIsOpen = this.props.controllable ? prevProps.isOpen : prevStates.isOpen;
+      const isOpen = this.props.controllable
+        ? this.props.isOpen
+        : this.state.isOpen;
+      const prevIsOpen = this.props.controllable
+        ? prevProps.isOpen
+        : prevStates.isOpen;
       if (isOpen === prevIsOpen) {
         return;
       }
@@ -39,7 +43,9 @@ export default (s = {}, { Button, Icon }) => {
     }
 
     open(event) {
-      const toggle = this.props.controllable ? this.props.toggle : ::this.toggle;
+      const toggle = this.props.controllable
+        ? this.props.toggle
+        : ::this.toggle;
 
       if (!this.refs.resetButton.contains(event.target)) toggle(true);
     }
@@ -51,11 +57,15 @@ export default (s = {}, { Button, Icon }) => {
     }
 
     getChildren() {
-      return Array.isArray(this.props.children) ? this.props.children : [this.props.children];
+      return Array.isArray(this.props.children)
+        ? this.props.children
+        : [this.props.children];
     }
 
     clickOutside(event) {
-      const toggle = this.props.controllable ? this.props.toggle : ::this.toggle;
+      const toggle = this.props.controllable
+        ? this.props.toggle
+        : ::this.toggle;
       if (this.refs.dropdown && !this.refs.dropdown.contains(event.target)) {
         toggle(false);
       }
@@ -80,13 +90,24 @@ export default (s = {}, { Button, Icon }) => {
         [this.props.iconClassName]: !!this.props.iconClassName,
       };
 
-      const isOpen = this.props.controllable ? this.props.isOpen : this.state.isOpen;
+      const isOpen = this.props.controllable
+        ? this.props.isOpen
+        : this.state.isOpen;
       const children = this.getChildren();
 
       return (
         <div {...this.props} className={cn(s.dropdown, this.props.className)}>
-          <div className={cn(s.placeholder, textHide, placeholderClassName, { [s.active]: isOpen })} onClick={::this.open}>
-            <span className={cn({ [s.activePlaceholder]: !!value || alwaysActive })}>{this.props.placeholder}</span>
+          <div
+            className={cn(s.placeholder, textHide, placeholderClassName, {
+              [s.active]: isOpen,
+            })}
+            onClick={::this.open}
+          >
+            <span
+              className={cn({ [s.activePlaceholder]: !!value || alwaysActive })}
+            >
+              {this.props.placeholder}
+            </span>
 
             <span ref="resetButton">
               {reset && value && (
@@ -96,17 +117,30 @@ export default (s = {}, { Button, Icon }) => {
               )}
             </span>
 
-            {this.props.filterIcon && (this.props.isFilterIconAlwaysShown || !value) && (
-              <Icon className={cn(s.icon, iconClassName, s.iconBig)} icon={this.props.filterIcon} />
-            )}
+            {this.props.filterIcon &&
+              (this.props.isFilterIconAlwaysShown || !value) && (
+                <Icon
+                  className={cn(s.icon, iconClassName, s.iconBig)}
+                  icon={this.props.filterIcon}
+                />
+              )}
           </div>
 
-          <div ref="dropdown" className={cn(s.container, containerClassName, { [s.active]: isOpen })}>
+          <div
+            ref="dropdown"
+            className={cn(s.container, containerClassName, {
+              [s.active]: isOpen,
+            })}
+          >
             {children.map((child, index) =>
-              React.cloneElement(child, { ...child.props, key: index, onClick: (event) => {
-                if (child.props.onClick) child.props.onClick(event);
-                if (closeOnClick) this.toggle(false);
-              } })
+              React.cloneElement(child, {
+                ...child.props,
+                key: index,
+                onClick: event => {
+                  if (child.props.onClick) child.props.onClick(event);
+                  if (closeOnClick) this.toggle(false);
+                },
+              }),
             )}
           </div>
         </div>

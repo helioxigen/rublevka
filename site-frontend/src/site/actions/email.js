@@ -22,10 +22,14 @@ const subscribeFailed = (name, email, { errors }) => ({
 });
 
 export function subscribe(name, email) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(subscribeStarted);
 
-    return API.post('/v1/mail/subscribe', { name, email, source: global.config.domain })
+    return API.post('/v1/mail/subscribe', {
+      name,
+      email,
+      source: global.config.domain,
+    })
       .then(() => dispatch(subscribeSucceeded(name, email)))
       .catch(({ body }) => dispatch(subscribeFailed(name, email, body)));
   };
@@ -49,7 +53,7 @@ const notifyFailed = (email, { errors }) => ({
 });
 
 export function notify(title, body, email) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(notifyStarted(title, body));
 
     return API.post('/v1/mail/notify', { title, body })

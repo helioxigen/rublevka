@@ -40,8 +40,11 @@ export default ({ disabled } = {}) => ChildComponent =>
           : [entityOwnerDivisionIds],
       };
       const scope = permissions[permission];
-      const userHasPermission = Object.keys(permissions).indexOf(permission) > -1;
-      return userHasPermission && this.isEntityInPermissionScope(scope, ownerData);
+      const userHasPermission =
+        Object.keys(permissions).indexOf(permission) > -1;
+      return (
+        userHasPermission && this.isEntityInPermissionScope(scope, ownerData)
+      );
     }
 
     render() {

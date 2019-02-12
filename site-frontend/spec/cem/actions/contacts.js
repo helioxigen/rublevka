@@ -16,7 +16,7 @@ export default () => {
         nock.cleanAll();
       });
 
-      it(`should create LOAD_LIST and LOAD_LIST_SUCCESS actions if GET succeeded`, (done) => {
+      it(`should create LOAD_LIST and LOAD_LIST_SUCCESS actions if GET succeeded`, done => {
         // const queryParams = { filter: {} };
         // const responseBody = {
         //   items: [
@@ -81,7 +81,7 @@ export default () => {
         // mockStore({}, expectedActions, done).dispatch(actions.loadContacts(queryParams));
       });
 
-      it(`should create LOAD_LIST and LOAD_LIST_FAIL if server responded with error`, (done) => {
+      it(`should create LOAD_LIST and LOAD_LIST_FAIL if server responded with error`, done => {
         // const queryParams = { filter: {} };
         // const expectedActions = [
         //   { type: types.LOAD_LIST, queryParams },

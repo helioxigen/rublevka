@@ -8,7 +8,9 @@ import UI from 'site/ui';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col },
+} = UI;
 
 const Wrapper = styled.div`
   padding-right: 0;
@@ -68,7 +70,11 @@ class Distance extends Component {
           <Row md="middle">
             <Col md="10">
               <SelectWrapper>
-                <SelectGroup options={distances} selected={mkadDistance} onUpdate={this.onUpdate} />
+                <SelectGroup
+                  options={distances}
+                  selected={mkadDistance}
+                  onUpdate={this.onUpdate}
+                />
                 <Unit>км</Unit>
               </SelectWrapper>
             </Col>

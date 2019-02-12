@@ -1,4 +1,9 @@
-import { loadList, loadListStarted, loadListFailed, loadListSucceeded } from 'core/fetcher/actions';
+import {
+  loadList,
+  loadListStarted,
+  loadListFailed,
+  loadListSucceeded,
+} from 'core/fetcher/actions';
 
 import * as types from 'cem/constants/settings/exportPackages/actions';
 import {
@@ -7,7 +12,7 @@ import {
 } from 'cem/constants/settings/exportPackages/defaults';
 import { updatePagination } from 'core/actions/pagination';
 
-const loadPackages = (queryParams, group) => (dispatch) => {
+const loadPackages = (queryParams, group) => dispatch => {
   dispatch(loadListStarted(types.LOAD_PACKAGES, group));
 
   return loadList(
@@ -22,7 +27,7 @@ const loadPackages = (queryParams, group) => (dispatch) => {
 
       return items;
     },
-    (errors) => {
+    errors => {
       dispatch(loadListFailed(types.LOAD_PACKAGES_FAILED, group, errors));
 
       return errors;

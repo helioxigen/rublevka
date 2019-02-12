@@ -4,7 +4,8 @@ import { captions } from 'cem/constants/requests/images/dictionaries';
 
 import UI from 'cem/components/ui';
 const {
-  Rating, Heading,
+  Rating,
+  Heading,
   Grid: { Row, Col },
 } = UI;
 
@@ -49,7 +50,9 @@ class Answers extends Component {
           <Heading size="md">Ответы на вопросы</Heading>
         </Col>
         <Col xs="20">
-          {items.map(item => <Answer {...item} />)}
+          {items.map(item => (
+            <Answer {...item} />
+          ))}
         </Col>
       </Row>
     ) : null;
@@ -64,4 +67,7 @@ const mapDispatch = dispatch => ({
   actions: bindActionCreators({ loadAnswers }, dispatch),
 });
 
-export default connect(pickState, mapDispatch)(Answers);
+export default connect(
+  pickState,
+  mapDispatch,
+)(Answers);

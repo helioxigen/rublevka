@@ -49,7 +49,10 @@ export default handleActions(
       },
     }),
 
-    [types.SET_ACTIVE_COMMENT]: (state, { entityKey, entityId, commentId }) => ({
+    [types.SET_ACTIVE_COMMENT]: (
+      state,
+      { entityKey, entityId, commentId },
+    ) => ({
       ...state,
       [entityKey]: {
         ...state[entityKey],
@@ -92,7 +95,10 @@ export default handleActions(
       },
     }),
 
-    [types.GET_SUBSCRIPTION_STATUS_SUCCESS]: (state, { entityKey, entityId, data }) => ({
+    [types.GET_SUBSCRIPTION_STATUS_SUCCESS]: (
+      state,
+      { entityKey, entityId, data },
+    ) => ({
       ...state,
       [entityKey]: {
         ...state[entityKey],
@@ -105,7 +111,10 @@ export default handleActions(
       },
     }),
 
-    [types.GET_SUBSCRIPTION_STATUS_FAIL]: (state, { entityKey, entityId, errors }) => ({
+    [types.GET_SUBSCRIPTION_STATUS_FAIL]: (
+      state,
+      { entityKey, entityId, errors },
+    ) => ({
       ...state,
       [entityKey]: {
         ...state[entityKey],

@@ -2,7 +2,12 @@ import Filter from '../../filter';
 
 import filterHelper from 'core/decorators/filter';
 
-const fields = ['id', 'contactDetails.id', 'contactDetails.phoneNumber', 'contactDetails.email'];
+const fields = [
+  'id',
+  'contactDetails.id',
+  'contactDetails.phoneNumber',
+  'contactDetails.email',
+];
 
 const extendedFields = [
   'responsibleUser.departmentId',
@@ -10,4 +15,6 @@ const extendedFields = [
   'responsibleUser.id',
 ];
 
-export default filterHelper('unsuccessfulDeals', fields, extendedFields)(Filter);
+export default filterHelper('unsuccessfulDeals', fields, extendedFields)(
+  Filter,
+);

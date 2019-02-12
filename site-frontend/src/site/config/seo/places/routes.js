@@ -10,13 +10,17 @@ function generateLink(routeSlugName, ruDealType, ruKind) {
       global.config.domain
     }/zagorodnaya/shosse/${routeSlugName}/${ruDealType}/${ruKind}`;
   }
-  return `https://${global.config.domain}/zagorodnaya/shosse/${routeSlugName}/${ruDealType}`;
+  return `https://${
+    global.config.domain
+  }/zagorodnaya/shosse/${routeSlugName}/${ruDealType}`;
 }
 
 export default {
   list: {
     h1: 'Шоссе',
-    title: `Найти недвижимость в Московской области по шоссе – ${global.config.domain}`,
+    title: `Найти недвижимость в Московской области по шоссе – ${
+      global.config.domain
+    }`,
     description: `Список основных направлений для поиска недвижимости в Подмосковье на ${
       global.config.domain
     }`,
@@ -34,7 +38,11 @@ export default {
           },
           {
             rel: 'prev',
-            href: `${generateLink(routeSlugName, ruDealType, ruKind)}?page=${queryPage - 1}`,
+            href: `${generateLink(
+              routeSlugName,
+              ruDealType,
+              ruKind,
+            )}?page=${queryPage - 1}`,
           },
         ];
       } else if (queryPage === 2) {
@@ -45,7 +53,11 @@ export default {
           },
           {
             rel: 'next',
-            href: `${generateLink(routeSlugName, ruDealType, ruKind)}?page=${queryPage + 1}`,
+            href: `${generateLink(
+              routeSlugName,
+              ruDealType,
+              ruKind,
+            )}?page=${queryPage + 1}`,
           },
           {
             rel: 'prev',
@@ -60,11 +72,19 @@ export default {
           },
           {
             rel: 'next',
-            href: `${generateLink(routeSlugName, ruDealType, ruKind)}?page=${queryPage + 1}`,
+            href: `${generateLink(
+              routeSlugName,
+              ruDealType,
+              ruKind,
+            )}?page=${queryPage + 1}`,
           },
           {
             rel: 'prev',
-            href: `${generateLink(routeSlugName, ruDealType, ruKind)}?page=${queryPage - 1}`,
+            href: `${generateLink(
+              routeSlugName,
+              ruDealType,
+              ruKind,
+            )}?page=${queryPage - 1}`,
           },
         ];
       }
@@ -103,11 +123,15 @@ export default {
       };
 
       if (dealType === 'sale') {
-        return `${kind ? dictionary[dealType][kind] : 'Недвижимость'} на ${route} шоссе`;
+        return `${
+          kind ? dictionary[dealType][kind] : 'Недвижимость'
+        } на ${route} шоссе`;
       }
 
       if (dealType === 'rent') {
-        return `Аренда ${kind ? dictionary[dealType][kind] : 'недвижимости'} на ${route} шоссе`;
+        return `Аренда ${
+          kind ? dictionary[dealType][kind] : 'недвижимости'
+        } на ${route} шоссе`;
       }
     },
     title: ({ name, id }, dealType, kind, queryPage) => {
@@ -124,14 +148,17 @@ export default {
           house: {
             sale:
               'Дома на Рублевке - продажа домов на Рублево - Успенском шоссе в Москве: фото и цены',
-            rent: 'Снять дом на Рублево-успенском шоссе - аренда домов на Рублевке в Москве',
+            rent:
+              'Снять дом на Рублево-успенском шоссе - аренда домов на Рублевке в Москве',
           },
           flat: {
-            sale: 'Квартиры на Рублево-Успенском шоссе - купить квартиру на Рублевке',
+            sale:
+              'Квартиры на Рублево-Успенском шоссе - купить квартиру на Рублевке',
             rent: 'Аренда квартиры на Рублевке',
           },
           townhouse: {
-            sale: 'Таунхаусы на Рублево-Успенском шоссе - купить таунхаус на Рублевке',
+            sale:
+              'Таунхаусы на Рублево-Успенском шоссе - купить таунхаус на Рублевке',
             rent: 'Аренда таунхауса на Рублевке',
           },
           land: {
@@ -142,22 +169,29 @@ export default {
         1186: {
           sale:
             'Купить дом, таунхаус или участок на Новой Риге — недвижимость на Новорижском шоссе',
-          rent: 'Аренда дома или таунхауса на Новой Риге — снять недвижимость на Новорижском шоссе',
+          rent:
+            'Аренда дома или таунхауса на Новой Риге — снять недвижимость на Новорижском шоссе',
 
           house: {
-            sale: 'Купить дом на Новой Риге - продажа домов на Новорижском шоссе',
+            sale:
+              'Купить дом на Новой Риге - продажа домов на Новорижском шоссе',
             rent: 'Аренда дома на Новорижском шоссе - снять дом на Новой Риге',
           },
           flat: {
-            sale: 'Купить квартиру на Новой Риге - продажа квартир на Новорижском шоссе',
-            rent: 'Снять квартиру на Новорижском шоссе - снять квартиру на Новой Риге',
+            sale:
+              'Купить квартиру на Новой Риге - продажа квартир на Новорижском шоссе',
+            rent:
+              'Снять квартиру на Новорижском шоссе - снять квартиру на Новой Риге',
           },
           townhouse: {
-            sale: 'Таунхаусы на Новой Риге - Купить таунхаус по Новорижскому шоссе в подмосковье',
-            rent: 'Снять таунхаус на Новой Риге - аренда таунхаусов по Новорижскому шоссе',
+            sale:
+              'Таунхаусы на Новой Риге - Купить таунхаус по Новорижскому шоссе в подмосковье',
+            rent:
+              'Снять таунхаус на Новой Риге - аренда таунхаусов по Новорижскому шоссе',
           },
           land: {
-            sale: 'Участки на Новой Риге - купить замельные участки по Новорижскому шоссе',
+            sale:
+              'Участки на Новой Риге - купить замельные участки по Новорижскому шоссе',
           },
         },
         1179: {
@@ -264,13 +298,13 @@ export default {
       };
 
       if (kind) {
-        return `${dictionary[id][kind][dealType]} | ${isJQ ? 'JQ Estate' : global.config.domain} ${
-          queryPage ? `— страница ${queryPage}` : ''
-        }`;
+        return `${dictionary[id][kind][dealType]} | ${
+          isJQ ? 'JQ Estate' : global.config.domain
+        } ${queryPage ? `— страница ${queryPage}` : ''}`;
       }
-      return `${dictionary[id][dealType]} | ${isJQ ? 'JQ Estate' : global.config.domain} ${
-        queryPage ? `— страница ${queryPage}` : ''
-      }`;
+      return `${dictionary[id][dealType]} | ${
+        isJQ ? 'JQ Estate' : global.config.domain
+      } ${queryPage ? `— страница ${queryPage}` : ''}`;
     },
     description: (name, dealType, kind) => {
       if (!name || !dealType) {
@@ -302,7 +336,9 @@ export default {
       if (!kind) {
         return `${
           dictionary[dealType].title
-        } недвижимость - ${name}, Подмосковье. Лучшие предложения на ${global.config.domain}!`;
+        } недвижимость - ${name}, Подмосковье. Лучшие предложения на ${
+          global.config.domain
+        }!`;
       }
       return `${dictionary[dealType].titleWithCategory} ${
         dictionary[dealType][kind]
@@ -332,9 +368,11 @@ export default {
           global.config.domain
         }, цена, стоимость, отзывы, квартира, таунхаус, участок, дом`;
       }
-      return `${dictionary.dealType[dealType][0]} ${dictionary.kind[kind][0]}, ${
-        dictionary.dealType[dealType][1]
-      } ${dictionary.kind[kind][1]}, коттеджный поселок, ${name}, ${
+      return `${dictionary.dealType[dealType][0]} ${
+        dictionary.kind[kind][0]
+      }, ${dictionary.dealType[dealType][1]} ${
+        dictionary.kind[kind][1]
+      }, коттеджный поселок, ${name}, ${
         global.config.domain
       }, цена, стоимость, отзывы`;
     },

@@ -19,11 +19,13 @@ const loadContactsFailed = (propertyId, errors) => ({
   propertyId,
 });
 
-export default function (propertyId, category = 'city') {
-  return (dispatch) => {
+export default function(propertyId, category = 'city') {
+  return dispatch => {
     dispatch(loadContactsStarted(propertyId));
 
-    return API.get(`/v1/properties/${category}/${propertyId}/linked_contacts`).then(
+    return API.get(
+      `/v1/properties/${category}/${propertyId}/linked_contacts`,
+    ).then(
       ({ body }) => dispatch(loadContactsSucceeded(propertyId, body)),
       ({ body }) => dispatch(loadContactsFailed(propertyId, body)),
     );

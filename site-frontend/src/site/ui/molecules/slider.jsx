@@ -20,7 +20,8 @@ export default (s = {}) => {
       const { value } = nextProps;
       const { max, min } = nextProps.value;
 
-      if (max === `max` || max > nextProps.max) nextProps.value.max = nextProps.max;
+      if (max === `max` || max > nextProps.max)
+        nextProps.value.max = nextProps.max;
       if (max < nextProps.min) nextProps.value.max = nextProps.min;
       if (min < nextProps.min) nextProps.value.min = nextProps.min;
 
@@ -49,7 +50,12 @@ export default (s = {}) => {
       const min = transform ? transform(value.min) : value.min;
 
       // FIXME
-      const max = (value.max === this.state.max) ? `max` : transform ? transform(value.max) : value.max;
+      const max =
+        value.max === this.state.max
+          ? `max`
+          : transform
+          ? transform(value.max)
+          : value.max;
 
       if (min === this.state.min && max === `max`) {
         return this.props.handleChange(this.props.reference, null);
@@ -64,19 +70,33 @@ export default (s = {}) => {
 
       return (
         <div>
-          <div className={cn(s.handleTitle, this.props.handleTitleClassName)} key="min">
+          <div
+            className={cn(s.handleTitle, this.props.handleTitleClassName)}
+            key="min"
+          >
             {minPrefix}&nbsp;
             {valueFormat.prefix}
             {value.min}&nbsp;
             {valueFormat.postfix}
           </div>
-          <ReactSlider className={cn(s.slider, this.props.className)}
-            barClassName={cn(s.bar, this.props.barClassName)} handleClassName={cn(s.handle, this.props.handleClassName)}
-            step={step} value={[value.min, value.max]} min={min} max={max}
+          <ReactSlider
+            className={cn(s.slider, this.props.className)}
+            barClassName={cn(s.bar, this.props.barClassName)}
+            handleClassName={cn(s.handle, this.props.handleClassName)}
+            step={step}
+            value={[value.min, value.max]}
+            min={min}
+            max={max}
             onChange={::this.handleChange}
             onBeforeChange={::this.handleBeforeChange}
-            onAfterChange={::this.handleAfterChange} pearling withBars />
-          <div className={cn(s.handleTitle, this.props.handleTitleClassName)} key="max">
+            onAfterChange={::this.handleAfterChange}
+            pearling
+            withBars
+          />
+          <div
+            className={cn(s.handleTitle, this.props.handleTitleClassName)}
+            key="max"
+          >
             {maxPrefix}&nbsp;
             {valueFormat.prefix}
             {value.max === max ? valueFormat.max : value.max}&nbsp;

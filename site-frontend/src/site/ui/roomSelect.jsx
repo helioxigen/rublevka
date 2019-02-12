@@ -15,7 +15,10 @@ class RoomSelect extends Component {
       if (value.indexOf(roomNumber) > -1) {
         event.target.blur();
 
-        onChange(this.props.reference, value.filter(room => room !== roomNumber));
+        onChange(
+          this.props.reference,
+          value.filter(room => room !== roomNumber),
+        );
       } else {
         onChange(this.props.reference, [roomNumber, ...value]);
       }
@@ -24,16 +27,33 @@ class RoomSelect extends Component {
 
   render() {
     const {
-      children, value = [],
-      className, buttonClassName, buttonActiveClassName, lastButtonClassName, showTitle,
+      children,
+      value = [],
+      className,
+      buttonClassName,
+      buttonActiveClassName,
+      lastButtonClassName,
+      showTitle,
     } = this.props;
 
     return (
       <BtnGroup className={className}>
         {!!showTitle && React.cloneElement(children, { ...children.props })}
-        {rooms.map((room, index) =>
-          <Button key={index} size="lg" type="button" className={cn(buttonClassName, { [buttonActiveClassName]: value.indexOf(index + 1) > -1 }, index === rooms.length - 1 && lastButtonClassName)} onClick={event => this.handleClick(index + 1, event)}>{room}</Button>,
-        )}
+        {rooms.map((room, index) => (
+          <Button
+            key={index}
+            size="lg"
+            type="button"
+            className={cn(
+              buttonClassName,
+              { [buttonActiveClassName]: value.indexOf(index + 1) > -1 },
+              index === rooms.length - 1 && lastButtonClassName,
+            )}
+            onClick={event => this.handleClick(index + 1, event)}
+          >
+            {room}
+          </Button>
+        ))}
       </BtnGroup>
     );
   }

@@ -3,9 +3,7 @@ import cn from 'classnames';
 import { dictionary } from 'core/config/constants';
 
 import UI from 'site/ui';
-const {
-  Dropdown, Button,
-} = UI;
+const { Dropdown, Button } = UI;
 
 // components
 import CurrencyToggle from 'site/components/common/currencyToggle';
@@ -44,7 +42,13 @@ class OrderBy extends Component {
     const isActive = state.field === field;
 
     return (
-      <Button block size="md" className={cn(sBtn.btnInner, { [sBtn.active]: isActive })} key={field} onClick={this.update.bind(this, field)}>
+      <Button
+        block
+        size="md"
+        className={cn(sBtn.btnInner, { [sBtn.active]: isActive })}
+        key={field}
+        onClick={this.update.bind(this, field)}
+      >
         {dictionary.orderBy[field]}
       </Button>
     );
@@ -52,13 +56,21 @@ class OrderBy extends Component {
 
   render() {
     const { state = {} } = this.props;
-    const placeholder = !!state.field ? `Сортировать ${dictionary.orderBy[state.field]}` : `Сортировать`;
+    const placeholder = !!state.field
+      ? `Сортировать ${dictionary.orderBy[state.field]}`
+      : `Сортировать`;
 
     return (
       <div className={sUtils.flex}>
         <CurrencyToggle />
 
-        <Dropdown className={sUtils.btnWideXs} alwaysActive placeholder={placeholder} reset={::this.reset} value={state.field}>
+        <Dropdown
+          className={sUtils.btnWideXs}
+          alwaysActive
+          placeholder={placeholder}
+          reset={::this.reset}
+          value={state.field}
+        >
           {this.props.fields.map(::this.renderButton)}
         </Dropdown>
       </div>

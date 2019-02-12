@@ -36,7 +36,7 @@ class Price extends Component {
     onBeforeChange: PropTypes.func.isRequired,
     onAfterChange: PropTypes.func.isRequired,
     dealType: PropTypes.string.isRequired,
-  }
+  };
 
   onUpdate(ref, value) {
     this.props.updateFilter(ref, value);
@@ -54,21 +54,17 @@ class Price extends Component {
       <div className={s.sliderContainer}>
         <Slider2
           reference={key}
-
           className={sSlider.landing}
           barClassName={sSlider.landingBar}
           handleClassName={sSlider.landingHandle}
           handleTitleClassName={sSlider.landingHandleTitle}
-
           handleChange={::this.onUpdate}
           onBeforeChange={onBeforeChange}
           onAfterChange={onAfterChange}
-
           min={min}
           max={max}
           step={step}
           labelFormat={labelFormat}
-
           value={value}
         />
       </div>

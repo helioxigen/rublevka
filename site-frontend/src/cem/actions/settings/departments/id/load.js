@@ -19,7 +19,9 @@ const loadDepartmentSucceeded = (id, data) => dispatch =>
 export default function loadDepartment(id) {
   return dispatch =>
     API.get(`/v1/departments/${id}`).then(
-      ({ body }) => Promise.resolve(dispatch(loadDepartmentSucceeded(id, body))),
-      ({ body: { errors } }) => Promise.resolve(dispatch(loadDepartmentFailed(id, errors))),
+      ({ body }) =>
+        Promise.resolve(dispatch(loadDepartmentSucceeded(id, body))),
+      ({ body: { errors } }) =>
+        Promise.resolve(dispatch(loadDepartmentFailed(id, errors))),
     );
 }

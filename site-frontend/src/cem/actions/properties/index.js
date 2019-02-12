@@ -3,7 +3,9 @@ import { resetFilter, updateFilter } from './list/filter';
 import createProperty from './list/create';
 import loadProperty from './id/load';
 import updateProperty from './id/update';
-import changeResidentialComplex, { changeResidentialComplexComplete } from './id/changeResidential';
+import changeResidentialComplex, {
+  changeResidentialComplexComplete,
+} from './id/changeResidential';
 import changeLocation from './id/changeLocation';
 import { uploadPhoto, uploadLayout } from './photos';
 import {

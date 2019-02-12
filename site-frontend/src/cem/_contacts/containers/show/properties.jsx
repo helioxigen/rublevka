@@ -9,8 +9,7 @@ import s from 'cem/styles/id/content';
 
 const {
   Grid: { Container, Row },
-  } = UI;
-
+} = UI;
 
 class Properties extends Component {
   render() {

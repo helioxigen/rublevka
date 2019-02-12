@@ -26,7 +26,10 @@ const webpackDevOptions = {
   historyApiFallback: true,
 };
 
-const devMiddleware = require('webpack-dev-middleware')(compiler, webpackDevOptions);
+const devMiddleware = require('webpack-dev-middleware')(
+  compiler,
+  webpackDevOptions,
+);
 const hotMiddleware = require('webpack-hot-middleware')(compiler);
 
 const proxy = httpProxy(proxyOptions);
@@ -36,11 +39,13 @@ app.use(hotMiddleware);
 app.use('/api-dev/*', proxy);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'src', MODULE, 'index.development.html'));
+  res.sendFile(
+    path.join(__dirname, '..', 'src', MODULE, 'index.development.html'),
+  );
 });
 
 const { PORT = 3000 } = process.env;
-app.listen(PORT, 'localhost', (err) => {
+app.listen(PORT, 'localhost', err => {
   if (err) {
     console.log(err); // eslint-disable-line no-console
     return;

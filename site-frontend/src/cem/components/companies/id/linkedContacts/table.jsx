@@ -24,7 +24,15 @@ class LinkedContactsTable extends Component {
           <Heading width="10%">Действия</Heading>
         </Row>
         {items.map((item, index) => (
-          <TableRowForm key={index} companyId={companyId} actions={actions} formKey={item.id.toString()} initialValues={item} data={item} isUpdateAllowed={isUpdateAllowed} />
+          <TableRowForm
+            key={index}
+            companyId={companyId}
+            actions={actions}
+            formKey={item.id.toString()}
+            initialValues={item}
+            data={item}
+            isUpdateAllowed={isUpdateAllowed}
+          />
         ))}
       </Container>
     );

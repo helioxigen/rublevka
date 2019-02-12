@@ -13,7 +13,11 @@ import * as OrderActions from 'core/actions/order';
 import { resourceName } from 'core/countryProperties/constants/defaults';
 
 import UI from 'site/ui';
-const { Loading, Grid: { Container, Row, Col }, LoadMore } = UI;
+const {
+  Loading,
+  Grid: { Container, Row, Col },
+  LoadMore,
+} = UI;
 
 import Card from 'site/countryProperties/primaryCard';
 import Filter from 'site/settlements/show/filter';
@@ -88,7 +92,8 @@ class List extends Component {
   }
 
   render() {
-    const { ids = [], isFetching } = this.props.state.countryProperties[this.group] || {};
+    const { ids = [], isFetching } =
+      this.props.state.countryProperties[this.group] || {};
     const pagination = this.props.state.pagination[this.resource] || {};
 
     const state = this.props.state.filters[this.resource];
@@ -99,7 +104,9 @@ class List extends Component {
       <Container fluid className={sUtils.bgWhite}>
         <Row xs="center" id="scroll" className={s.mainContainer}>
           <Col xs="12" sm="10">
-            <h2 className={s.title}>Недвижимость от застройщика ({pagination.total})</h2>
+            <h2 className={s.title}>
+              Недвижимость от застройщика ({pagination.total})
+            </h2>
           </Col>
 
           <Filter
@@ -110,11 +117,12 @@ class List extends Component {
           />
         </Row>
 
-        {hasItems &&
-        !isFetching && (
+        {hasItems && !isFetching && (
           <Row xs="center" className={s.cardsContainer}>
             <Col xs="12" sm="10">
-              {ids.map(id => <Card dealType="sale" key={id} id={id} />)}
+              {ids.map(id => (
+                <Card dealType="sale" key={id} id={id} />
+              ))}
             </Col>
           </Row>
         )}
@@ -129,7 +137,9 @@ class List extends Component {
           </Row>
         )}
 
-        {!hasItems && !isFetching && <NotFound resetFilter={::this.resetFilter} />}
+        {!hasItems && !isFetching && (
+          <NotFound resetFilter={::this.resetFilter} />
+        )}
 
         <Row xs="center" className={sUtils.bgWhite}>
           <Col xs="12">
@@ -152,7 +162,7 @@ class List extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { countryProperties, filters, pagination, order } = state;
 
   return {
@@ -165,7 +175,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadProperties,
     ...FilterActions,
@@ -178,4 +188,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(List);
+export default connect(
+  pickState,
+  pickActions,
+)(List);

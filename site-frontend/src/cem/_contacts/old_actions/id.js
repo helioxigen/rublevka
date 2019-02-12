@@ -23,7 +23,7 @@ const loadContactFailed = (id, errors) => ({
 });
 
 function loadContact(id) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadContactStarted(id));
 
     return API.get(`/v1/contacts/${id}`).then(
@@ -39,8 +39,10 @@ const createIdStarted = () => ({
   type: types.CREATE_ID,
 });
 
-const createIdSucceeded = (id, photo) => (dispatch) => {
-  uploadPhoto(id, photo).then(() => dispatch({ type: types.CREATE_ID_SUCCESS }));
+const createIdSucceeded = (id, photo) => dispatch => {
+  uploadPhoto(id, photo).then(() =>
+    dispatch({ type: types.CREATE_ID_SUCCESS }),
+  );
 };
 
 const createIdFailed = errors => ({
@@ -49,7 +51,7 @@ const createIdFailed = errors => ({
 });
 
 function createId({ photo, ...contact }) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(createIdStarted());
 
     return API.post('/v1/contacts', transform(contact)).then(
@@ -68,7 +70,7 @@ function createId({ photo, ...contact }) {
 // Create ID End
 
 // Update ID
-const updateIdSucceeded = (contact, photo) => (dispatch) => {
+const updateIdSucceeded = (contact, photo) => dispatch => {
   uploadPhoto(contact.id, photo).then(() => {
     dispatch(pop('success', 'Изменения сохранены'));
     return dispatch(loadContact(contact.id));
@@ -103,7 +105,7 @@ const loadDocumentsFailed = ({ errors }) => ({
 });
 
 function loadDocuments(contactId) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadDocumentsStarted());
 
     return API.get(`/v1/contacts/${contactId}/documents`).then(
@@ -125,10 +127,13 @@ const updateDocumentFailed = errors => ({
 });
 
 function updateDocument(contactId, documentId, document) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(updateDocumentStarted());
 
-    return API.put(`/v1/contacts/${contactId}/documents/${documentId}`, document).then(
+    return API.put(
+      `/v1/contacts/${contactId}/documents/${documentId}`,
+      document,
+    ).then(
       () => dispatch(loadDocuments(contactId)),
       ({ body }) => {
         dispatch(updateDocumentFailed(body));
@@ -149,7 +154,7 @@ const deleteDocumentFailed = () => ({
 });
 
 function deleteDocument(contactId, id) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(deleteDocumentStarted());
 
     API.del(`/v1/contacts/${contactId}/documents/${id}`).then(
@@ -174,7 +179,7 @@ const createDocumentFailed = errors => ({
 });
 
 function createDocument(contactId, { file, ...document }) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(createDocumentStarted());
 
     return uploadFile(contactId, file).then(
@@ -205,7 +210,7 @@ const loadLinkedContactsFailed = ({ errors }) => ({
 });
 
 function loadLinkedContacts(contactId) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadLinkedContactsStarted());
 
     return API.get(`/v1/contacts/${contactId}/linked_contacts`).then(
@@ -218,13 +223,19 @@ function loadLinkedContacts(contactId) {
 
 // Add Linked Contact
 const addLinkedContactStarted = () => ({ type: types.ADD_LINKED_CONTACT });
-const addLinkedContactFailed = ({ errors }) => ({ type: types.ADD_LINKED_CONTACT_FAIL, ...errors });
+const addLinkedContactFailed = ({ errors }) => ({
+  type: types.ADD_LINKED_CONTACT_FAIL,
+  ...errors,
+});
 
 function addLinkedContact(contactId, linkedContact) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(addLinkedContactStarted());
 
-    return API.post(`/v1/contacts/${contactId}/linked_contacts`, linkedContact).then(
+    return API.post(
+      `/v1/contacts/${contactId}/linked_contacts`,
+      linkedContact,
+    ).then(
       () => dispatch(loadLinkedContacts(contactId)),
       ({ body }) => {
         dispatch(addLinkedContactFailed(body));
@@ -236,18 +247,22 @@ function addLinkedContact(contactId, linkedContact) {
 // Add Linked Contact End
 
 // Update Linked Contact
-const updateLinkedContactStarted = () => ({ type: types.UPDATE_LINKED_CONTACT });
+const updateLinkedContactStarted = () => ({
+  type: types.UPDATE_LINKED_CONTACT,
+});
 const updateLinkedContactFailed = ({ errors }) => ({
   type: types.UPDATE_LINKED_CONTACT_FAIL,
   ...errors,
 });
 
 function updateLinkedContact(contactId, linkedContact) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(updateLinkedContactStarted());
 
     return API.put(
-      `/v1/contacts/${contactId}/linked_contacts/${linkedContact.linkedContactId}`,
+      `/v1/contacts/${contactId}/linked_contacts/${
+        linkedContact.linkedContactId
+      }`,
       linkedContact,
     ).then(
       () => dispatch(loadLinkedContacts(contactId)),
@@ -261,17 +276,21 @@ function updateLinkedContact(contactId, linkedContact) {
 // Update Linked Contact End
 
 // Delete Linked Contact
-const deleteLinkedContactStarted = () => ({ type: types.DELETE_LINKED_CONTACT });
+const deleteLinkedContactStarted = () => ({
+  type: types.DELETE_LINKED_CONTACT,
+});
 const deleteLinkedContactFailed = ({ errors }) => ({
   type: types.DELETE_LINKED_CONTACT_FAIL,
   ...errors,
 });
 
 function deleteLinkedContact(contactId, linkedContactId) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(deleteLinkedContactStarted());
 
-    return API.del(`/v1/contacts/${contactId}/linked_contacts/${linkedContactId}`).then(
+    return API.del(
+      `/v1/contacts/${contactId}/linked_contacts/${linkedContactId}`,
+    ).then(
       () => dispatch(loadLinkedContacts(contactId)),
       ({ body }) => {
         dispatch(deleteLinkedContactFailed(body));

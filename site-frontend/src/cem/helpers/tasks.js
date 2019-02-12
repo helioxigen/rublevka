@@ -1,8 +1,13 @@
 import moment from 'moment';
 
-import { dateAndTimeToIso8601, formatFilterDate, makeDateRange } from 'core/helpers';
+import {
+  dateAndTimeToIso8601,
+  formatFilterDate,
+  makeDateRange,
+} from 'core/helpers';
 
-const roundMomentTime = momentTime => momentTime.add((10 - momentTime.minute()) % 10, 'minutes');
+const roundMomentTime = momentTime =>
+  momentTime.add((10 - momentTime.minute()) % 10, 'minutes');
 
 const getContactDetailsParams = ({
   propertyId,
@@ -49,7 +54,10 @@ const getNegotiationDetailsParams = ({ propertyId, dealId, contactId }) => ({
   contactId: contactId && parseInt(contactId, 10),
 });
 
-export const prepareInitialValues = (id, { data, currentUserId, queryParams }) => {
+export const prepareInitialValues = (
+  id,
+  { data, currentUserId, queryParams },
+) => {
   if (id === 'create') {
     const commonValues = {
       responsibleUser: {
@@ -90,14 +98,19 @@ export const prepareFormValuesForSubmit = ({
   ...otherValues,
   freeDetails: otherValues.kind === 'free' ? freeDetails : undefined,
   previewDetails: otherValues.kind === 'preview' ? previewDetails : undefined,
-  negotiationDetails: otherValues.kind === 'negotiation' ? negotiationDetails : undefined,
+  negotiationDetails:
+    otherValues.kind === 'negotiation' ? negotiationDetails : undefined,
   contactDetails:
     otherValues.kind !== 'free' &&
     otherValues.kind !== 'preview' &&
     otherValues.kind !== 'negotiation'
       ? contactDetails
       : undefined,
-  deadline: dateAndTimeToIso8601(deadline.date, deadline.time, deadline.utcOffset),
+  deadline: dateAndTimeToIso8601(
+    deadline.date,
+    deadline.time,
+    deadline.utcOffset,
+  ),
 });
 
 export const filterTransform = (filter = {}) => {
@@ -105,7 +118,10 @@ export const filterTransform = (filter = {}) => {
 
   return {
     ...params,
-    deadline: makeDateRange(formatFilterDate(deadlineFrom), formatFilterDate(deadlineTo)),
+    deadline: makeDateRange(
+      formatFilterDate(deadlineFrom),
+      formatFilterDate(deadlineTo),
+    ),
   };
 };
 

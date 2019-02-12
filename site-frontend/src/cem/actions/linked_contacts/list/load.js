@@ -8,10 +8,20 @@ import {
 import * as types from 'cem/constants/linked_contacts/actions';
 import { listName } from 'cem/constants/linked_contacts/fetcher';
 
-export default function loadLinkedContacts(resource, resourceId, resetState = true) {
-  return (dispatch) => {
+export default function loadLinkedContacts(
+  resource,
+  resourceId,
+  resetState = true,
+) {
+  return dispatch => {
     dispatch(
-      loadLinkedListStarted(types.LOAD_LINKED_LIST, resource, resourceId, listName, resetState),
+      loadLinkedListStarted(
+        types.LOAD_LINKED_LIST,
+        resource,
+        resourceId,
+        listName,
+        resetState,
+      ),
     );
 
     return loadLinkedList(resource, resourceId, listName).then(
@@ -27,7 +37,13 @@ export default function loadLinkedContacts(resource, resourceId, resetState = tr
         ),
       ({ errors }) =>
         dispatch(
-          loadLinkedListFailed(types.LOAD_LINKED_LIST_FAIL, resource, resourceId, listName, errors),
+          loadLinkedListFailed(
+            types.LOAD_LINKED_LIST_FAIL,
+            resource,
+            resourceId,
+            listName,
+            errors,
+          ),
         ),
     );
   };

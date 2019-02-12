@@ -13,7 +13,10 @@ import popularSettlements from 'site/settlements/constants/popularSettlements';
 import { nameToSlug } from 'core/helpers/nameToSlug';
 
 import { resourceName } from 'core/settlements/constants/defaults';
-import { dealTypesTranslit, kindsTranslit } from 'site/constants/properties/dictionaries';
+import {
+  dealTypesTranslit,
+  kindsTranslit,
+} from 'site/constants/properties/dictionaries';
 import { kinds } from 'site/constants/places';
 
 // styles
@@ -40,16 +43,23 @@ function renderSearchResult(data) {
 
   if (data.objectKlass === 'settlement') {
     return (
-      <DropdownLink to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${data.id}`}>
+      <DropdownLink
+        to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${
+          data.id
+        }`}
+      >
         {data.name}
       </DropdownLink>
     );
   }
   return (
     <DropdownLink
-      to={`/zagorodnaya/${dealTypesTranslit[dealType]}/${kindsTranslit[data.kind]}/${data.id}`}
+      to={`/zagorodnaya/${dealTypesTranslit[dealType]}/${
+        kindsTranslit[data.kind]
+      }/${data.id}`}
     >
-      ID {data.id}, {kinds[data.kind].toLowerCase()} в посёлке «{data.settlementName}»
+      ID {data.id}, {kinds[data.kind].toLowerCase()} в посёлке «
+      {data.settlementName}»
     </DropdownLink>
   );
 }
@@ -116,8 +126,7 @@ class Search extends Component {
             />
             <SearchButton>Найти</SearchButton>
 
-            {this.state.isOpened &&
-            !this.state.name && (
+            {this.state.isOpened && !this.state.name && (
               <Dropdown>
                 <DropdownTitle>Популярные посёлки:</DropdownTitle>
                 <div>
@@ -135,8 +144,7 @@ class Search extends Component {
               </Dropdown>
             )}
 
-            {this.state.isOpened &&
-            this.state.name && (
+            {this.state.isOpened && this.state.name && (
               <Dropdown>
                 <DropdownTitle>Возможно, вы ищете:</DropdownTitle>
                 {this.state.searchResults.map(data => renderSearchResult(data))}

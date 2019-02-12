@@ -6,7 +6,8 @@ import SelectGroup from 'core/components/ui/select/selectGroup';
 
 import UI from 'site/ui';
 const {
-  Button, Visibility,
+  Button,
+  Visibility,
   Grid: { Col },
 } = UI;
 
@@ -65,7 +66,8 @@ class SettlementFilter extends Component {
 
     const dealPrices = prices[dealType] || [];
 
-    const isSelected = items.length !== 0 || !!price.min || !!price.max || isPrimary;
+    const isSelected =
+      items.length !== 0 || !!price.min || !!price.max || isPrimary;
 
     return (
       <Col xs="12" sm="10" className={s.filterContainer}>
@@ -78,10 +80,16 @@ class SettlementFilter extends Component {
             />
           </div>
 
-          <Button className={cn(s.hollowBtn, items.indexOf(`house`) > -1 && s.active)} onClick={() => this.onUpdate(`house`)}>
+          <Button
+            className={cn(s.hollowBtn, items.indexOf(`house`) > -1 && s.active)}
+            onClick={() => this.onUpdate(`house`)}
+          >
             Дом
           </Button>
-          <Button className={cn(s.hollowBtn, items.indexOf(`land`) > -1 && s.active)} onClick={() => this.onUpdate(`land`)}>
+          <Button
+            className={cn(s.hollowBtn, items.indexOf(`land`) > -1 && s.active)}
+            onClick={() => this.onUpdate(`land`)}
+          >
             Участок
           </Button>
           {/* {isResaleProperty &&
@@ -89,7 +97,10 @@ class SettlementFilter extends Component {
               Таунхаус
             </Button>
           } */}
-          <Button className={cn(s.hollowBtn, isPrimary && s.active)} onClick={() => this.onUpdateGroup()}>
+          <Button
+            className={cn(s.hollowBtn, isPrimary && s.active)}
+            onClick={() => this.onUpdateGroup()}
+          >
             Первичные предложения
           </Button>
           {isSelected && (
@@ -109,23 +120,47 @@ class SettlementFilter extends Component {
           </div>
 
           <div className={s.hollowBtnContainer}>
-            <Button className={cn(s.hollowBtn, items.indexOf(`house`) > -1 && s.active)} onClick={() => this.onUpdate(`house`)}>
+            <Button
+              className={cn(
+                s.hollowBtn,
+                items.indexOf(`house`) > -1 && s.active,
+              )}
+              onClick={() => this.onUpdate(`house`)}
+            >
               Дом
             </Button>
-            <Button className={cn(s.hollowBtn, items.indexOf(`land`) > -1 && s.active)} onClick={() => this.onUpdate(`land`)}>
+            <Button
+              className={cn(
+                s.hollowBtn,
+                items.indexOf(`land`) > -1 && s.active,
+              )}
+              onClick={() => this.onUpdate(`land`)}
+            >
               Участок
             </Button>
-            {isResaleProperty &&
-              <Button className={cn(s.hollowBtn, items.indexOf(`townhouse`) > -1 && s.active)} onClick={() => this.onUpdate(`townhouse`)}>
+            {isResaleProperty && (
+              <Button
+                className={cn(
+                  s.hollowBtn,
+                  items.indexOf(`townhouse`) > -1 && s.active,
+                )}
+                onClick={() => this.onUpdate(`townhouse`)}
+              >
                 Таунхаус
               </Button>
-            }
-            <Button className={cn(s.hollowBtn, isPrimary && s.active)} onClick={() => this.onUpdateGroup()}>
+            )}
+            <Button
+              className={cn(s.hollowBtn, isPrimary && s.active)}
+              onClick={() => this.onUpdateGroup()}
+            >
               Первичные предложения
             </Button>
 
             {isSelected && (
-              <Button className={s.btnClearAll} onClick={this.props.resetFilter}>
+              <Button
+                className={s.btnClearAll}
+                onClick={this.props.resetFilter}
+              >
                 Сбросить
               </Button>
             )}
@@ -137,7 +172,7 @@ class SettlementFilter extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { settlements } = state;
 
   return {

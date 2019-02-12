@@ -10,7 +10,7 @@ const createSearchRequestStarted = data => ({
   data,
 });
 
-const createSearchRequestSucceeded = (id, { propertyCategory }) => (dispatch) => {
+const createSearchRequestSucceeded = (id, { propertyCategory }) => dispatch => {
   const eventName = REQUESTS_SEARCH_BY_CATEGORY_SUBMITTED(propertyCategory);
 
   dispatch(
@@ -31,7 +31,7 @@ const createSearchRequestFailed = ({ errors }) => ({
   errors,
 });
 
-export default data => (dispatch) => {
+export default data => dispatch => {
   dispatch(createSearchRequestStarted(data));
 
   return API.post('/v1/properties/orders/search', data)

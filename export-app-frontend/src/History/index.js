@@ -5,19 +5,21 @@ import format from 'date-fns/format';
 import { diff } from 'json-diff';
 
 function reduceToDiff(log) {
-  return Object.keys(log).map(id => log[id].reduce(
-    (prev, curr, currIdx) => [
-      ...prev,
-      {
-        ...log[id][currIdx],
-        diff: diff(log[id][currIdx - 1], log[id][currIdx]),
-      },
-    ],
-    [],
-  ));
+  return Object.keys(log).map(id =>
+    log[id].reduce(
+      (prev, curr, currIdx) => [
+        ...prev,
+        {
+          ...log[id][currIdx],
+          diff: diff(log[id][currIdx - 1], log[id][currIdx]),
+        },
+      ],
+      [],
+    ),
+  );
 }
 
-export default function ({ history = {} }) {
+export default function({ history = {} }) {
   const reduced = orderBy(
     flatten(reduceToDiff(history)),
     el => el.updatedAt.seconds,
@@ -30,14 +32,9 @@ export default function ({ history = {} }) {
         <pre
           style={{ padding: '24px', background: '#fff', marginBottom: '20px' }}
         >
-          {item.id}
-          {' '}
-          {item.updatedBy}
-          {' '}
-          {format(item.updatedAt.seconds * 1000, 'Do MMM HH:mm:ss')}
-          {' '}
-          {item.kind === 'remove' && `removed this ${item.id}`}
-          {' '}
+          {item.id} {item.updatedBy}{' '}
+          {format(item.updatedAt.seconds * 1000, 'Do MMM HH:mm:ss')}{' '}
+          {item.kind === 'remove' && `removed this ${item.id}`}{' '}
           {item.diff.__new && `added this ${item.id}`}
           {item.diff.premium && (
             <>

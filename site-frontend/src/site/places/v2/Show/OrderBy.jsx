@@ -164,7 +164,12 @@ class OrderBy extends Component {
         <CurrencyWrapper>
           <CurrencyToggle />
         </CurrencyWrapper>
-        <StDropdown alwaysActive placeholder={placeholder} reset={this.reset} value={state.field}>
+        <StDropdown
+          alwaysActive
+          placeholder={placeholder}
+          reset={this.reset}
+          value={state.field}
+        >
           {this.props.fields.map(this.renderButton)}
         </StDropdown>
 

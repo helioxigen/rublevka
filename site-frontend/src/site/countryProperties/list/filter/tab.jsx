@@ -18,7 +18,17 @@ class Tab extends Component {
     const { layout, title, icon, onChange, active = false } = this.props;
 
     return (
-      <Button block className={cn(st.filterSatellites.tab, !!active && st.filterSatellites.activeTab)} kind="primary" size="lg" type="button" onClick={() => onChange(layout)}>
+      <Button
+        block
+        className={cn(
+          st.filterSatellites.tab,
+          !!active && st.filterSatellites.activeTab,
+        )}
+        kind="primary"
+        size="lg"
+        type="button"
+        onClick={() => onChange(layout)}
+      >
         <span styleName="iconContainer">
           <Icon styleName={`${icon}`} icon={icon} />
         </span>

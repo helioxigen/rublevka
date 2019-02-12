@@ -12,7 +12,11 @@ const loadLeadsStarted = (kind, appendResult) => ({
   appendResult,
 });
 
-const loadLeadsSucceeded = (kind, { items, pagination }, appendResult) => (dispatch) => {
+const loadLeadsSucceeded = (
+  kind,
+  { items, pagination },
+  appendResult,
+) => dispatch => {
   dispatch(updatePagination(`leads.${kind}`, pagination));
 
   return dispatch({
@@ -29,13 +33,22 @@ const loadLeadsFailed = (kind, { errors }) => ({
   errors,
 });
 
-const loadLeads = (kind, queryParams = {}, appendResult = false) => (dispatch) => {
+const loadLeads = (
+  kind,
+  queryParams = {},
+  appendResult = false,
+) => dispatch => {
   dispatch(loadLeadsStarted(kind, queryParams, appendResult));
 
   const { filter, filterNot } = mapListFilter(queryParams.filter, kind);
   const orderBy = { createdAt: 'desc' };
 
-  return API.get('/v1/client_leads', { ...queryParams, filter, filterNot, orderBy }).then(
+  return API.get('/v1/client_leads', {
+    ...queryParams,
+    filter,
+    filterNot,
+    orderBy,
+  }).then(
     ({ body }) => dispatch(loadLeadsSucceeded(kind, body, appendResult)),
     ({ body }) => dispatch(loadLeadsFailed(kind, body)),
   );

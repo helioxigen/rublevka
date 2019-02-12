@@ -62,19 +62,23 @@ const CopiedText = styled.p`
   margin-right: 6px;
 `;
 
-const urlToFeed = 'https://firebasestorage.googleapis.com/v0/b/rublevka-export-384da.appspot.com/o/cian-feed.xml?alt=media';
+const urlToFeed =
+  'https://firebasestorage.googleapis.com/v0/b/rublevka-export-384da.appspot.com/o/cian-feed.xml?alt=media';
 
-export default function ({ currentUser }) {
+export default function({ currentUser }) {
   const [copied, toggleCopy] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      toggleCopy(false);
-      clearTimeout(timer);
-    }, 3000);
+  useEffect(
+    () => {
+      const timer = setTimeout(() => {
+        toggleCopy(false);
+        clearTimeout(timer);
+      }, 3000);
 
-    return () => clearTimeout(timer);
-  }, [copied]);
+      return () => clearTimeout(timer);
+    },
+    [copied],
+  );
 
   return (
     <Footer>

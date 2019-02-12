@@ -15,7 +15,7 @@ const archiveConfirmationFailed = (taskId, { errors }) => ({
 });
 
 export default function archiveConfirmation(taskId) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(archiveConfirmationStarted(taskId));
 
     return API.post(`/v1/tasks/${taskId}/document/archive`)

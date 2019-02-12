@@ -5,7 +5,11 @@ import global from 'window-or-global';
 const isJQ = global.config.domain === 'jq.estate';
 
 import UI from 'site/ui';
-const { Visibility, Button, Grid: { Container, Row, Col } } = UI;
+const {
+  Visibility,
+  Button,
+  Grid: { Container, Row, Col },
+} = UI;
 
 import List from 'site/components/footer/list';
 

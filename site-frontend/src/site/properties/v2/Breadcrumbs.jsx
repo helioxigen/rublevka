@@ -14,7 +14,9 @@ import media from 'site/styles/media';
 
 const { Icon, Visibility } = UI;
 
-const Wrapper = styled.nav`margin-bottom: 0.4rem;`;
+const Wrapper = styled.nav`
+  margin-bottom: 0.4rem;
+`;
 
 const Ol = styled.ol`
   display: none;
@@ -68,7 +70,11 @@ class PropertyBreadcrumbs extends Component {
       <Visibility xs="hidden" sm="hidden">
         <Wrapper>
           <Ol itemScope itemType="http://schema.org/BreadcrumbList">
-            <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+            <Li
+              itemProp="itemListElement"
+              itemScope
+              itemType="http://schema.org/ListItem"
+            >
               <StLink to="/" itemProp="item">
                 <span itemProp="name">Элитная загородная недвижимость</span>
                 <meta itemProp="position" content="1" />
@@ -77,15 +83,26 @@ class PropertyBreadcrumbs extends Component {
             </Li>
 
             {!kind ? (
-              <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+              <Li
+                itemProp="itemListElement"
+                itemScope
+                itemType="http://schema.org/ListItem"
+              >
                 <ActiveBreadcrumb itemProp="item">
                   <span itemProp="name">{dealTypesTranslate[dealType]}</span>
                   <meta itemProp="position" content="1" />
                 </ActiveBreadcrumb>
               </Li>
             ) : (
-              <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-                <StLink to={`/zagorodnaya/${dealTypesTranslit[dealType]}`} itemProp="item">
+              <Li
+                itemProp="itemListElement"
+                itemScope
+                itemType="http://schema.org/ListItem"
+              >
+                <StLink
+                  to={`/zagorodnaya/${dealTypesTranslit[dealType]}`}
+                  itemProp="item"
+                >
                   <span itemProp="name">{dealTypesTranslate[dealType]}</span>
                   <meta itemProp="position" content="1" />
                   <StIcon icon="arrow-down" />
@@ -93,7 +110,11 @@ class PropertyBreadcrumbs extends Component {
               </Li>
             )}
             {kind && (
-              <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+              <Li
+                itemProp="itemListElement"
+                itemScope
+                itemType="http://schema.org/ListItem"
+              >
                 <ActiveBreadcrumb itemProp="item">
                   <span itemProp="name">{kindsTranslatePlural[kind]}</span>
                   <meta itemProp="position" content="1" />

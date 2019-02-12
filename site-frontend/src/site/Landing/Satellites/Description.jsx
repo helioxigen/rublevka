@@ -17,7 +17,11 @@ class LandingDescription extends Component {
   render() {
     const { totalProperties } = this.props;
 
-    const word = declOfNum(totalProperties, ['предложение', 'предложения', 'предложений']);
+    const word = declOfNum(totalProperties, [
+      'предложение',
+      'предложения',
+      'предложений',
+    ]);
 
     return (
       <Container fluid>
@@ -29,11 +33,16 @@ class LandingDescription extends Component {
                   <div className={s.flex}>
                     <div>
                       <p className={st.landing.text}>
-                        <span className={s.boldXs}>{global.config.banner.title}</span>
+                        <span className={s.boldXs}>
+                          {global.config.banner.title}
+                        </span>
                         {global.config.banner.subTitle}
                       </p>
                     </div>
-                    <img className={s.image} src="https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/landing-man.png" />
+                    <img
+                      className={s.image}
+                      src="https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/landing-man.png"
+                    />
                   </div>
                 </Col>
               </Row>

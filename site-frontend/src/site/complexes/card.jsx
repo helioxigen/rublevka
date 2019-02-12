@@ -23,12 +23,24 @@ class Card extends Component {
     const { data = {} } = complexes[id] || {};
     const { location = {} } = data;
 
-    const publicLayoutImages = (data.images && data.images.filter(image => !!image.isPublic)) || [];
+    const publicLayoutImages =
+      (data.images && data.images.filter(image => !!image.isPublic)) || [];
 
     return (
       <div className={s.imageContainer}>
-        {!!publicLayoutImages.length && <div className={s.images} style={{ backgroundImage: `url(${global.config.cloudfront || cloudfront}/${data.images[0].id}-${global.config.postfix}-1024)` }} />}
-        {!publicLayoutImages.length && <Icon className={s.placeholder} icon="placeholder" />}
+        {!!publicLayoutImages.length && (
+          <div
+            className={s.images}
+            style={{
+              backgroundImage: `url(${global.config.cloudfront || cloudfront}/${
+                data.images[0].id
+              }-${global.config.postfix}-1024)`,
+            }}
+          />
+        )}
+        {!publicLayoutImages.length && (
+          <Icon className={s.placeholder} icon="placeholder" />
+        )}
       </div>
     );
   }
@@ -42,7 +54,10 @@ class Card extends Component {
 
     return (
       <Grid.Col xs="12" className={s.pushedBottom}>
-        <Link className={cn(s.card, this.props.className)} to={`/gorodskaya/zhilye-kompleksy/${nameToSlug(data.name)}_${id}`}>
+        <Link
+          className={cn(s.card, this.props.className)}
+          to={`/gorodskaya/zhilye-kompleksy/${nameToSlug(data.name)}_${id}`}
+        >
           {this.renderPhoto()}
           <ul className={s.list}>
             <li className={s.listItem}>
@@ -56,21 +71,36 @@ class Card extends Component {
               </p>
             </li>
 
-            {!!data.statistics &&
+            {!!data.statistics && (
               <li className={s.listItem}>
                 <span className={s.textSm}>
-                  {data.statistics.primaryPropertiesCount ? <CountIndicator count={data.statistics.primaryPropertiesCount} declensionForms={['предложение', 'предложения', 'предложений']} /> : ''}
+                  {data.statistics.primaryPropertiesCount ? (
+                    <CountIndicator
+                      count={data.statistics.primaryPropertiesCount}
+                      declensionForms={[
+                        'предложение',
+                        'предложения',
+                        'предложений',
+                      ]}
+                    />
+                  ) : (
+                    ''
+                  )}
                 </span>
               </li>
-            }
+            )}
 
-            {!!data.statistics && !!data.statistics.primaryPrice.from.usd &&
+            {!!data.statistics && !!data.statistics.primaryPrice.from.usd && (
               <li className={cn(s.listItem, sUtils.pushedTop_5)}>
                 <span className={s.textMd}>
-                  от <FormattedCurrency symbol="USD" value={data.statistics.primaryPrice.from.usd} />
+                  от{' '}
+                  <FormattedCurrency
+                    symbol="USD"
+                    value={data.statistics.primaryPrice.from.usd}
+                  />
                 </span>
               </li>
-            }
+            )}
           </ul>
         </Link>
       </Grid.Col>
@@ -79,7 +109,7 @@ class Card extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { complexes } = state;
 
   return {

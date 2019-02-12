@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
-import { states as statesDict, stateStyles } from 'cem/constants/companies/dictionaries';
+import {
+  states as statesDict,
+  stateStyles,
+} from 'cem/constants/companies/dictionaries';
 
 import formSettings from 'cem/constants/companies/form';
 import { validatorShortcut } from 'core/decorators/submitValidator';
@@ -11,8 +14,14 @@ import TransferUserModal from 'cem/containers/common/modal/transferUser';
 import FormField from 'cem/helpers/formField';
 import UI from 'cem/components/ui';
 const {
-  Grid, Form, Button, Icon, Heading,
-  Back, Select, Dropdown,
+  Grid,
+  Form,
+  Button,
+  Icon,
+  Heading,
+  Back,
+  Select,
+  Dropdown,
   Form: { Input, Static },
   Grid: { Row, Col },
 } = UI;
@@ -28,17 +37,32 @@ const Description = ({ fields, isUpdateAllowed }) => {
     <section className={s.media}>
       <Row>
         <Col sm="8">
-          <FormField field={fields.name} label="Наименование" static={!isUpdateAllowed}>
+          <FormField
+            field={fields.name}
+            label="Наименование"
+            static={!isUpdateAllowed}
+          >
             <Input className={sUtils.fontSizeMd} block type="text" />
           </FormField>
         </Col>
         <Col sm="3">
           <FormField label="Дата регистрации">
-            <Static className={sUtils.fontSizeMd}><FormattedDate mask="dd.mm.yyyy" value={fields.registeredAt.value} /></Static>
+            <Static className={sUtils.fontSizeMd}>
+              <FormattedDate
+                mask="dd.mm.yyyy"
+                value={fields.registeredAt.value}
+              />
+            </Static>
           </FormField>
         </Col>
         <Col sm="3">
-          <FormField className={s[stateStyles[fields.state.value]]} field={fields.state} label="Статус" static options={statesDict}>
+          <FormField
+            className={s[stateStyles[fields.state.value]]}
+            field={fields.state}
+            label="Статус"
+            static
+            options={statesDict}
+          >
             <Select className={sUtils.fontSizeMd} />
           </FormField>
         </Col>
@@ -50,7 +74,11 @@ const Description = ({ fields, isUpdateAllowed }) => {
 class Header extends Component {
   onSubmitSuccess() {
     this.props.actions.loadCompany(this.props.formKey);
-    this.props.actions.pop(`success`, `Компания (ID: ${this.props.formKey})`, `Успешно обновлена`);
+    this.props.actions.pop(
+      `success`,
+      `Компания (ID: ${this.props.formKey})`,
+      `Успешно обновлена`,
+    );
   }
 
   update() {
@@ -65,28 +93,57 @@ class Header extends Component {
   }
 
   render() {
-    const { formKey, pristine, error, submitting, handleSubmit, isUpdateAllowed, data = {} } = this.props;
+    const {
+      formKey,
+      pristine,
+      error,
+      submitting,
+      handleSubmit,
+      isUpdateAllowed,
+      data = {},
+    } = this.props;
 
     return (
-      <Form.Container className={s.header} onSubmit={handleSubmit(::this.update, ::this.onSubmitSuccess)}>
+      <Form.Container
+        className={s.header}
+        onSubmit={handleSubmit(::this.update, ::this.onSubmitSuccess)}
+      >
         <Grid.Container fluid>
           <Row>
             <Col xs="20" className={sUtils.positionRelative}>
               <Heading size="lg">
-                <Back button={
-                  <Button type="button" className={sButton.btnBack}>
-                    <Icon className={s.iconBack} icon="arrow-right" />
-                  </Button>}
+                <Back
+                  button={
+                    <Button type="button" className={sButton.btnBack}>
+                      <Icon className={s.iconBack} icon="arrow-right" />
+                    </Button>
+                  }
                 />
                 {formKey === `create` && `Создать новyю компанию`}
                 {formKey !== `create` && `Компания (ID: ${formKey})`}
               </Heading>
-              <Dropdown className={sDropdown.header} button={<Button type="button" className={sButton.btnDropdown}><Icon className={s.iconSubmenu} icon="submenu" /></Button>}>
-                {isUpdateAllowed &&
-                  <TransferUserModal responsibleUser={{ id: data.responsibleUserId }} className={sUtils.displayBlock} destinationKind="users" objectId={formKey} transferAction={::this.transfer} reloadAction={this.props.actions.loadCompany}>
-                    <Button type="button" className={sButton.btnDropdownInner}>Передать другому сотруднику</Button>
-                  </TransferUserModal>
+              <Dropdown
+                className={sDropdown.header}
+                button={
+                  <Button type="button" className={sButton.btnDropdown}>
+                    <Icon className={s.iconSubmenu} icon="submenu" />
+                  </Button>
                 }
+              >
+                {isUpdateAllowed && (
+                  <TransferUserModal
+                    responsibleUser={{ id: data.responsibleUserId }}
+                    className={sUtils.displayBlock}
+                    destinationKind="users"
+                    objectId={formKey}
+                    transferAction={::this.transfer}
+                    reloadAction={this.props.actions.loadCompany}
+                  >
+                    <Button type="button" className={sButton.btnDropdownInner}>
+                      Передать другому сотруднику
+                    </Button>
+                  </TransferUserModal>
+                )}
               </Dropdown>
             </Col>
           </Row>
@@ -96,7 +153,17 @@ class Header extends Component {
             </Col>
           </Row>
         </Grid.Container>
-        {formKey !== `create` && isUpdateAllowed && <Button className={cn(sButton.btnFixedBottom, pristine && sUtils.hidden)} disabled={error || submitting} kind="warning" size="md" block>Сохранить</Button>}
+        {formKey !== `create` && isUpdateAllowed && (
+          <Button
+            className={cn(sButton.btnFixedBottom, pristine && sUtils.hidden)}
+            disabled={error || submitting}
+            kind="warning"
+            size="md"
+            block
+          >
+            Сохранить
+          </Button>
+        )}
       </Form.Container>
     );
   }

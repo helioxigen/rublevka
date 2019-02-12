@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import LeadSourcesActions from 'cem/actions/settings/leadSources';
@@ -8,7 +7,8 @@ import PaginationActions from 'core/actions/pagination';
 
 import UI from 'cem/components/ui';
 const {
-  Loading, Heading,
+  Loading,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -29,7 +29,10 @@ class ListContainer extends Component {
     const pagination = state.pagination[`leadSources`] || {};
     const nextPagination = nextProps.state.pagination[`leadSources`] || {};
 
-    if (pagination.offset !== undefined && pagination.offset !== nextPagination.offset) {
+    if (
+      pagination.offset !== undefined &&
+      pagination.offset !== nextPagination.offset
+    ) {
       const { offset, limit } = nextPagination;
 
       actions.loadLeadSources({ pagination: { offset, limit } });
@@ -63,19 +66,28 @@ class ListContainer extends Component {
           <Row>
             <Col xs="20">
               {isFetching && <Loading />}
-              {!isFetching && <LeadSourcesList items={items} actions={this.props.actions} {...permissionsProps} />}
+              {!isFetching && (
+                <LeadSourcesList
+                  items={items}
+                  actions={this.props.actions}
+                  {...permissionsProps}
+                />
+              )}
             </Col>
           </Row>
         </Container>
-        {!isFetching && !!items.length &&
+        {!isFetching && !!items.length && (
           <Container fluid>
             <Row xs="center">
               <Col sm="10" className={sUtils.pushed6_0}>
-                <Pagination {...pagination} onUpdate={::this.handlePaginationUpdate} />
+                <Pagination
+                  {...pagination}
+                  onUpdate={::this.handlePaginationUpdate}
+                />
               </Col>
             </Row>
           </Container>
-        }
+        )}
       </section>
     );
   }
@@ -85,8 +97,14 @@ const pickState = ({ leadSources, pagination }) => ({
   state: { leadSources, pagination },
 });
 
-const pickActions = (dispatch) => ({
-  actions: bindActionCreators({ ...LeadSourcesActions, ...PaginationActions }, dispatch),
+const pickActions = dispatch => ({
+  actions: bindActionCreators(
+    { ...LeadSourcesActions, ...PaginationActions },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, pickActions)(ListContainer);
+export default connect(
+  pickState,
+  pickActions,
+)(ListContainer);

@@ -39,10 +39,28 @@ export const kinds = {
 };
 
 export const parentFields = {
-  countryId: { label: 'Страна', fetch: fetchResource('/v1/places/countries', 'name') },
-  regionId: { label: 'Регион', fetch: fetchResource('/v1/places/regions', 'name') },
-  routeId: { label: 'Шоссе', fetch: fetchResource('/v1/places/routes', 'name') },
-  localityId: { label: 'Населенный пункт', fetch: fetchResource('/v1/places/localities', 'name') },
-  districtId: { label: 'Округ', fetch: fetchResource('/v1/places/districts', 'name') },
-  subLocalityId: { label: 'Район', fetch: fetchResource('/v1/places/sub_localities', 'name') },
+  countryId: {
+    label: 'Страна',
+    fetch: fetchResource('/v1/places/countries', 'name'),
+  },
+  regionId: {
+    label: 'Регион',
+    fetch: fetchResource('/v1/places/regions', 'name'),
+  },
+  routeId: {
+    label: 'Шоссе',
+    fetch: fetchResource('/v1/places/routes', 'name'),
+  },
+  localityId: {
+    label: 'Населенный пункт',
+    fetch: fetchResource('/v1/places/localities', 'name'),
+  },
+  districtId: {
+    label: 'Округ',
+    fetch: fetchResource('/v1/places/districts', 'name'),
+  },
+  subLocalityId: {
+    label: 'Район',
+    fetch: fetchResource('/v1/places/sub_localities', 'name'),
+  },
 };

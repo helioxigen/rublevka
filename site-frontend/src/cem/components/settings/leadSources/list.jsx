@@ -16,7 +16,9 @@ const formSettings = {
   validate,
 };
 
-const LeadSourceWordForm = reduxForm(formSettings)(submitValidator()(TwoWordForm));
+const LeadSourceWordForm = reduxForm(formSettings)(
+  submitValidator()(TwoWordForm),
+);
 
 class LeadSourcesList extends Component {
   render() {
@@ -34,10 +36,24 @@ class LeadSourcesList extends Component {
           <Heading width="45%">Название</Heading>
           <Heading width="10%">Действия</Heading>
         </Row>
-        {isCreationAllowed && <LeadSourceWordForm {...this.props} formKey="create" actions={actions} isUpdateAllowed />}
-        {items.map(item =>
-          <LeadSourceWordForm {...this.props} key={item.id} formKey={item.id.toString()} initialValues={item} actions={actions} isUpdateAllowed={isUpdateAllowed} />,
+        {isCreationAllowed && (
+          <LeadSourceWordForm
+            {...this.props}
+            formKey="create"
+            actions={actions}
+            isUpdateAllowed
+          />
         )}
+        {items.map(item => (
+          <LeadSourceWordForm
+            {...this.props}
+            key={item.id}
+            formKey={item.id.toString()}
+            initialValues={item}
+            actions={actions}
+            isUpdateAllowed={isUpdateAllowed}
+          />
+        ))}
       </Container>
     );
   }

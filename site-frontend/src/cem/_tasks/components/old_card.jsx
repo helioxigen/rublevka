@@ -11,8 +11,11 @@ import * as tasksDict from 'cem/constants/tasks/dictionaries';
 
 import UI from 'cem/components/ui';
 const {
-  Media, Label,
-  Loading, Text, ParamList,
+  Media,
+  Label,
+  Loading,
+  Text,
+  ParamList,
   Grid: { Container, Row, Col },
 } = UI;
 import { FormattedDate, FormattedCurrency } from 'react-formatted';
@@ -25,12 +28,20 @@ import sTypography from 'cem/styles/typography';
 
 // contact
 const Image = ({ src }) => (
-  <UI.Image src={src ? `${src}-64` : require('url-loader!cem/assets/placeholder-photo')} className={s.placeholder} kind="circle" width="42" height="42" />
+  <UI.Image
+    src={src ? `${src}-64` : require('url-loader!cem/assets/placeholder-photo')}
+    className={s.placeholder}
+    kind="circle"
+    width="42"
+    height="42"
+  />
 );
 
 const ContactDescription = ({ details = {} }) => (
   <div>
-    <p className={s.mediaText}>{details.firstName || ''} {details.lastName || ''}</p>
+    <p className={s.mediaText}>
+      {details.firstName || ''} {details.lastName || ''}
+    </p>
     <p className={s.mediaText}>{details.phoneNumber}</p>
   </div>
 );
@@ -40,20 +51,27 @@ const Contact = ({ contact = {} }) => {
 
   return (
     <dl className={sUtils.resetIndent}>
-      <dt className={cn(s.textGrey, sUtils.pushedBottom1)}>
-        Клиент
-      </dt>
+      <dt className={cn(s.textGrey, sUtils.pushedBottom1)}>Клиент</dt>
       <dd className={s.mediaText}>
-        <Media left={<Image src={data.photo && data.photo.url} />} body={<ContactDescription details={data.details} />} />
+        <Media
+          left={<Image src={data.photo && data.photo.url} />}
+          body={<ContactDescription details={data.details} />}
+        />
       </dd>
     </dl>
   );
 };
 
 // responsibleUser
-const ResponsibleUserDescription = ({ firstName, lastName, workPhoneNumber }) => (
+const ResponsibleUserDescription = ({
+  firstName,
+  lastName,
+  workPhoneNumber,
+}) => (
   <div>
-    <p className={s.mediaText}>{firstName || ''} {lastName || ''}</p>
+    <p className={s.mediaText}>
+      {firstName || ''} {lastName || ''}
+    </p>
     <p className={s.mediaText}>{workPhoneNumber}</p>
   </div>
 );
@@ -63,11 +81,12 @@ const ResponsibleUser = ({ responsibleUser = {} }) => {
 
   return (
     <dl className={sUtils.resetIndent}>
-      <dt className={cn(s.textGrey, sUtils.pushedBottom1)}>
-        Ответственный
-      </dt>
+      <dt className={cn(s.textGrey, sUtils.pushedBottom1)}>Ответственный</dt>
       <dd className={s.mediaText}>
-        <Media left={<Image src={data.photo && data.photo.url} />} body={<ResponsibleUserDescription {...data} />} />
+        <Media
+          left={<Image src={data.photo && data.photo.url} />}
+          body={<ResponsibleUserDescription {...data} />}
+        />
       </dd>
     </dl>
   );
@@ -76,21 +95,21 @@ const ResponsibleUser = ({ responsibleUser = {} }) => {
 // property
 const Property = ({ property }) => (
   <div>{JSON.stringify(property)}</div>
-    // <dl className={sUtils.resetIndent}>
-    //   <dt className={cn(s.textGrey, sUtils.pushedBottom1)}>Объект (ID: {id})</dt>
-    //    <dd className={cn(s.mediaText, sProperty[state && propertiesDict.states[state].style])}>{state && propertiesDict.states[state].title}</dd>
-    //     {!!saleOffer &&
-    //       <dd className={s.mediaText}>
-    //       {propertiesDict.offerKinds.purchase} (<FormattedCurrency symbol={saleOffer.currency} value={saleOffer.price}/>)
-    //       </dd>
-    //     }
-    //     {!!rentOffer &&
-    //       <dd className={s.mediaText}>
-    //         {propertiesDict.offerKinds.rent} (<FormattedCurrency symbol={rentOffer.currency} value={rentOffer.price}/>)
-    //       </dd>
-    //     }
-    // </dl>
-  );
+  // <dl className={sUtils.resetIndent}>
+  //   <dt className={cn(s.textGrey, sUtils.pushedBottom1)}>Объект (ID: {id})</dt>
+  //    <dd className={cn(s.mediaText, sProperty[state && propertiesDict.states[state].style])}>{state && propertiesDict.states[state].title}</dd>
+  //     {!!saleOffer &&
+  //       <dd className={s.mediaText}>
+  //       {propertiesDict.offerKinds.purchase} (<FormattedCurrency symbol={saleOffer.currency} value={saleOffer.price}/>)
+  //       </dd>
+  //     }
+  //     {!!rentOffer &&
+  //       <dd className={s.mediaText}>
+  //         {propertiesDict.offerKinds.rent} (<FormattedCurrency symbol={rentOffer.currency} value={rentOffer.price}/>)
+  //       </dd>
+  //     }
+  // </dl>
+);
 
 // deal
 const Deal = ({ deal = {} }) => {
@@ -103,9 +122,16 @@ const Deal = ({ deal = {} }) => {
 
     return (
       <dl className={sUtils.resetIndent}>
-        <dt className={cn(s.textGrey, sUtils.pushedBottom1)}>Сделка (ID: {id})</dt>
-        <dd className={cn(s.mediaText, sTypography[state.style])}>{state.title}</dd>
-        <dd className={s.mediaText}>{propertiesDict.offerKinds[offerKind]} (<FormattedCurrency symbol={currency} value={budget} />)</dd>
+        <dt className={cn(s.textGrey, sUtils.pushedBottom1)}>
+          Сделка (ID: {id})
+        </dt>
+        <dd className={cn(s.mediaText, sTypography[state.style])}>
+          {state.title}
+        </dd>
+        <dd className={s.mediaText}>
+          {propertiesDict.offerKinds[offerKind]} (
+          <FormattedCurrency symbol={currency} value={budget} />)
+        </dd>
       </dl>
     );
   }
@@ -124,7 +150,9 @@ const ClientLead = ({ clientLead = {} }) => {
     return (
       <dl className={sUtils.resetIndent}>
         <dt className={cn(s.textGrey, sUtils.pushedBottom1)}>Лид (ID: {id})</dt>
-        <dd className={cn(s.mediaText, sTypography[state.style])}>{state ? state.title : '—'}</dd>
+        <dd className={cn(s.mediaText, sTypography[state.style])}>
+          {state ? state.title : '—'}
+        </dd>
         <dd className={s.mediaText}>{requestKind ? requestKind.title : '—'}</dd>
       </dl>
     );
@@ -132,17 +160,28 @@ const ClientLead = ({ clientLead = {} }) => {
   return <Loading />;
 };
 
-const Card = (props) => {
+const Card = props => {
   const { task = {}, state } = props;
-  const details = task.previewDetails || task.negotiationDetails || task.contactDetails || task.freeDetails || {};
+  const details =
+    task.previewDetails ||
+    task.negotiationDetails ||
+    task.contactDetails ||
+    task.freeDetails ||
+    {};
 
   const isPreview = task.kind === 'preview';
-  const taskLinkKind = details && details.linkKind ? tasksDict.linkKinds[details.linkKind].title : 'По сделке';
+  const taskLinkKind =
+    details && details.linkKind
+      ? tasksDict.linkKinds[details.linkKind].title
+      : 'По сделке';
 
   const { _users, _clientLeads, _contacts, _deals } = state;
 
   return (
-    <Link to={`/tasks/${task.id}`} className={cn(s.card, s[tasksDict.states[task.state].style])}>
+    <Link
+      to={`/tasks/${task.id}`}
+      className={cn(s.card, s[tasksDict.states[task.state].style])}
+    >
       <div className={s.cardWrapper}>
         <Container fluid className={s.flex}>
           <Row>
@@ -152,11 +191,15 @@ const Card = (props) => {
               </ParamList>
             </Col>
             <Col className={sUtils.pushedTopXs2} sm="5" lg="4">
-              <ParamList label="Задача" big>{tasksDict.kinds[task.kind].title}</ParamList>
+              <ParamList label="Задача" big>
+                {tasksDict.kinds[task.kind].title}
+              </ParamList>
             </Col>
             {!!taskLinkKind && (
               <Col className={sUtils.pushedTopXs2} sm="4" lg="3">
-                <ParamList label="Тип" big>{taskLinkKind}</ParamList>
+                <ParamList label="Тип" big>
+                  {taskLinkKind}
+                </ParamList>
               </Col>
             )}
             <Col sm="6" lg="9">
@@ -165,25 +208,33 @@ const Card = (props) => {
                   <div className={sUtils.pushedBottom1}>
                     <Label kind="warning">ОЖИДАЕТ ПОДТВЕРЖДЕНИЯ</Label>
                   </div>
-
                 )}
-                {isPreview && !!details.archivedDocumentId && task.state === 'done' && (
-                  <div>
-                    <Label kind="success">ПРОСМОТРОВЫЙ АКТ АРХИВИРОВАН</Label>
-                  </div>
-                )}
-                {isPreview && details.isDocumentAttached && !details.archivedDocumentId && task.state === 'done' && (
-                  <div className={sUtils.pushedBottom1}>
+                {isPreview &&
+                  !!details.archivedDocumentId &&
+                  task.state === 'done' && (
                     <div>
-                      <Label kind="warning">ПРОСМОТРОВЫЙ АКТ НЕ АРХИВИРОВАН</Label>
+                      <Label kind="success">ПРОСМОТРОВЫЙ АКТ АРХИВИРОВАН</Label>
                     </div>
-                  </div>
-                )}
-                {isPreview && !details.isDocumentAttached && task.state === 'done' && (
-                  <div>
-                    <Label kind="danger">ПРОСМОТРОВЫЙ АКТ НЕ ЗАГРУЖЕН</Label>
-                  </div>
-                )}
+                  )}
+                {isPreview &&
+                  details.isDocumentAttached &&
+                  !details.archivedDocumentId &&
+                  task.state === 'done' && (
+                    <div className={sUtils.pushedBottom1}>
+                      <div>
+                        <Label kind="warning">
+                          ПРОСМОТРОВЫЙ АКТ НЕ АРХИВИРОВАН
+                        </Label>
+                      </div>
+                    </div>
+                  )}
+                {isPreview &&
+                  !details.isDocumentAttached &&
+                  task.state === 'done' && (
+                    <div>
+                      <Label kind="danger">ПРОСМОТРОВЫЙ АКТ НЕ ЗАГРУЖЕН</Label>
+                    </div>
+                  )}
               </div>
             </Col>
           </Row>
@@ -198,23 +249,29 @@ const Card = (props) => {
                     <Property property={{}} />
                   )}
                   {details.linkKind === 'client_lead' && (
-                    <ClientLead clientLead={_clientLeads[details.clientLeadId]} />
+                    <ClientLead
+                      clientLead={_clientLeads[details.clientLeadId]}
+                    />
                   )}
                 </Col>
                 <Col className={sUtils.pushedTopXs2} sm="5" lg="4">
-                  <ResponsibleUser responsibleUser={_users[task.responsibleUser.id]} />
+                  <ResponsibleUser
+                    responsibleUser={_users[task.responsibleUser.id]}
+                  />
                 </Col>
                 <Col className={sUtils.pushedTopXs2} sm="5" lg="4">
-                  {!!details.contactId &&
+                  {!!details.contactId && (
                     <Contact contact={_contacts[details.contactId]} />
-                  }
+                  )}
                 </Col>
                 <Col className={sUtils.pushedTopXs2} sm="5" lg="8">
-                  {details.goal &&
+                  {details.goal && (
                     <ParamList label="Цель">
-                      <Text truncate={105} ellipsis>{details.goal}</Text>
+                      <Text truncate={105} ellipsis>
+                        {details.goal}
+                      </Text>
                     </ParamList>
-                  }
+                  )}
                 </Col>
               </Row>
             </Col>
@@ -226,7 +283,7 @@ const Card = (props) => {
 };
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { _tasks, _clientLeads, _contacts, _deals, _users } = state;
 
   return {

@@ -33,7 +33,7 @@ class Card extends Component {
       // state,
       task = {},
       // task: {
-        // contactDetails = {}, previewDetails = {}, freeDetails = {}, negotiationDetails = {},
+      // contactDetails = {}, previewDetails = {}, freeDetails = {}, negotiationDetails = {},
       // } = {},
     } = this.props;
 
@@ -59,7 +59,14 @@ class Card extends Component {
             <Col sm="8" md="10" className={sUtils.pushedTopXs2}>
               {/* <Contact photo={contactData.photo || {}} details={contactData.details || clientLeadData.contactDetails} /> */}
             </Col>
-            <Col sm="5" className={cn(sUtils.textRight, sUtils.pushedTopXs2, sTypo[style])}>
+            <Col
+              sm="5"
+              className={cn(
+                sUtils.textRight,
+                sUtils.pushedTopXs2,
+                sTypo[style],
+              )}
+            >
               <span className={s.textMd}>ID: {task.id}</span>
               <Icon className={s.icon} icon="chevron-down" />
             </Col>

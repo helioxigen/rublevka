@@ -4,13 +4,22 @@ import { connect } from 'react-redux';
 
 // constants
 import { routeKinds } from 'core/places/constants/dictionaries';
-import { kinds, renovateKinds } from 'core/countryProperties/constants/dictionaries';
+import {
+  kinds,
+  renovateKinds,
+} from 'core/countryProperties/constants/dictionaries';
 
 // helpers
 import { formatByDictionary, formatByMinMax } from 'site/helpers';
 
 // styles
-import { FilterItem, FilterItemBtn, FilterItemIcon, ResetFilter, HeaderResetBtn } from './styled';
+import {
+  FilterItem,
+  FilterItemBtn,
+  FilterItemIcon,
+  ResetFilter,
+  HeaderResetBtn,
+} from './styled';
 
 // components
 const ArrayButton = ({ dictionary, children, reference, onChange }) => (
@@ -61,10 +70,13 @@ class Selected extends Component {
     const isRentShown = rent && (!!rent.min || !!rent.max);
     const isAreaShown = area && (!!area.min || !!area.max);
     const isLandAreaShown = landArea && (!!landArea.min || !!landArea.max);
-    const isMkadDistanceShown = mkadDistance && (!!mkadDistance.min || !!mkadDistance.max);
+    const isMkadDistanceShown =
+      mkadDistance && (!!mkadDistance.min || !!mkadDistance.max);
 
-    const currencyPriceSale = sale && (sale.currencyPrice || 'saleOffer.multiCurrencyPrice.usd');
-    const currencyPriceRent = rent && (rent.currencyPrice || 'saleOffer.multiCurrencyPrice.usd');
+    const currencyPriceSale =
+      sale && (sale.currencyPrice || 'saleOffer.multiCurrencyPrice.usd');
+    const currencyPriceRent =
+      rent && (rent.currencyPrice || 'saleOffer.multiCurrencyPrice.usd');
 
     return (
       <span>
@@ -80,55 +92,65 @@ class Selected extends Component {
         ))}
 
         {kind.map(value => (
-          <ArrayButton dictionary={kinds} reference="kind" onChange={this.onChange} key={value}>
+          <ArrayButton
+            dictionary={kinds}
+            reference="kind"
+            onChange={this.onChange}
+            key={value}
+          >
             {value}
           </ArrayButton>
         ))}
 
         {isSaleShown &&
-        currencyPriceSale === 'saleOffer.multiCurrencyPrice.usd' && (
-          <MinMaxButton
-            reference="sale"
-            onChange={this.onChange}
-            prefix="$"
-            postfix=" млн"
-            value={sale}
-          />
-        )}
+          currencyPriceSale === 'saleOffer.multiCurrencyPrice.usd' && (
+            <MinMaxButton
+              reference="sale"
+              onChange={this.onChange}
+              prefix="$"
+              postfix=" млн"
+              value={sale}
+            />
+          )}
 
         {isSaleShown &&
-        currencyPriceSale === 'saleOffer.multiCurrencyPrice.rub' && (
-          <MinMaxButton
-            reference="sale"
-            onChange={this.onChange}
-            postfix=" млн руб."
-            value={sale}
-          />
-        )}
+          currencyPriceSale === 'saleOffer.multiCurrencyPrice.rub' && (
+            <MinMaxButton
+              reference="sale"
+              onChange={this.onChange}
+              postfix=" млн руб."
+              value={sale}
+            />
+          )}
 
         {isRentShown &&
-        currencyPriceRent === 'rentOffer.multiCurrencyPrice.usd' && (
-          <MinMaxButton
-            reference="rent"
-            onChange={this.onChange}
-            prefix="$"
-            postfix=" тыс"
-            value={rent}
-          />
-        )}
+          currencyPriceRent === 'rentOffer.multiCurrencyPrice.usd' && (
+            <MinMaxButton
+              reference="rent"
+              onChange={this.onChange}
+              prefix="$"
+              postfix=" тыс"
+              value={rent}
+            />
+          )}
 
         {isRentShown &&
-        currencyPriceRent === 'rentOffer.multiCurrencyPrice.rub' && (
-          <MinMaxButton
-            reference="rent"
-            onChange={this.onChange}
-            postfix=" тыс руб."
-            value={rent}
-          />
-        )}
+          currencyPriceRent === 'rentOffer.multiCurrencyPrice.rub' && (
+            <MinMaxButton
+              reference="rent"
+              onChange={this.onChange}
+              postfix=" тыс руб."
+              value={rent}
+            />
+          )}
 
         {isAreaShown && (
-          <MinMaxButton reference="area" onChange={this.onChange} postfix=" м²" value={area} />
+          <MinMaxButton
+            reference="area"
+            onChange={this.onChange}
+            postfix=" м²"
+            value={area}
+          />
         )}
 
         {isLandAreaShown && (
@@ -161,7 +183,9 @@ class Selected extends Component {
         )}
 
         <ResetFilter>
-          {!!filterCount && <HeaderResetBtn onClick={resetFilter}>Сбросить всё</HeaderResetBtn>}
+          {!!filterCount && (
+            <HeaderResetBtn onClick={resetFilter}>Сбросить всё</HeaderResetBtn>
+          )}
         </ResetFilter>
       </span>
     );

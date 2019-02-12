@@ -34,21 +34,32 @@ import * as options from 'core/constants/selections/options';
 
 import { formSettings } from 'cem/constants/selections/form';
 
-const Description = ({ fields, isUpdateAllowed }) =>
-  (<section>
+const Description = ({ fields, isUpdateAllowed }) => (
+  <section>
     <Row>
       <Col sm="6" lg="5">
-        <FormField field={fields.name} label="Название подборки" float static={!isUpdateAllowed}>
+        <FormField
+          field={fields.name}
+          label="Название подборки"
+          float
+          static={!isUpdateAllowed}
+        >
           <Input className={s.input} block type="text" />
         </FormField>
       </Col>
       <Col sm="6" lg="5">
-        <FormField field={fields.state} label="Статус" static={!isUpdateAllowed} float>
+        <FormField
+          field={fields.state}
+          label="Статус"
+          static={!isUpdateAllowed}
+          float
+        >
           <Select className={sUtils.fontSizeMd} options={options.state} />
         </FormField>
       </Col>
     </Row>
-  </section>);
+  </section>
+);
 
 class Header extends Component {
   constructor(props) {
@@ -104,7 +115,9 @@ class Header extends Component {
 
     return (
       <header className={s.header}>
-        <Form.Container onSubmit={handleSubmit(this.createOrUpdate, this.onSubmitSuccess)}>
+        <Form.Container
+          onSubmit={handleSubmit(this.createOrUpdate, this.onSubmitSuccess)}
+        >
           <Container fluid>
             <Row>
               <Col xs="20" className={sUtils.positionRelative}>
@@ -119,8 +132,7 @@ class Header extends Component {
                   {formKey !== 'create' && `Подборка (ID: ${formKey})`}
                   {formKey === 'create' && 'Создать подборку'}
                 </Heading>
-                {isUpdateAllowed &&
-                  formKey !== 'create' &&
+                {isUpdateAllowed && formKey !== 'create' && (
                   <Dropdown
                     className={sDropdown.header}
                     button={
@@ -130,11 +142,15 @@ class Header extends Component {
                     }
                   >
                     <TransferUserModal action={this.changeResponsible}>
-                      <Button type="button" className={sButton.btnDropdownInner}>
+                      <Button
+                        type="button"
+                        className={sButton.btnDropdownInner}
+                      >
                         Передать другому сотруднику
                       </Button>
                     </TransferUserModal>
-                  </Dropdown>}
+                  </Dropdown>
+                )}
               </Col>
             </Row>
             <Row>
@@ -142,8 +158,8 @@ class Header extends Component {
                 <Media
                   className={s.media}
                   left={
-                    formKey !== 'create'
-                      ? <SelectionAvatar
+                    formKey !== 'create' ? (
+                      <SelectionAvatar
                         id={data.photo && data.photo.id}
                         resourceId={data.id}
                         uploadAction={actions.uploadSelectionPhoto}
@@ -151,14 +167,19 @@ class Header extends Component {
                         isUploadAllowed={isUpdateAllowed}
                         isUploading={isPhotoUploading}
                       />
-                      : null
+                    ) : null
                   }
-                  body={<Description fields={fields} isUpdateAllowed={isUpdateAllowed} />}
+                  body={
+                    <Description
+                      fields={fields}
+                      isUpdateAllowed={isUpdateAllowed}
+                    />
+                  }
                 />
               </Col>
             </Row>
           </Container>
-          {formKey === 'create' &&
+          {formKey === 'create' && (
             <Button
               className={cn(sButton.btnFixedBottom, pristine && sUtils.hidden)}
               disabled={error || submitting}
@@ -167,8 +188,9 @@ class Header extends Component {
               block
             >
               Добавить
-            </Button>}
-          {formKey !== 'create' &&
+            </Button>
+          )}
+          {formKey !== 'create' && (
             <Button
               className={cn(sButton.btnFixedBottom, pristine && sUtils.hidden)}
               disabled={error || submitting}
@@ -177,7 +199,8 @@ class Header extends Component {
               block
             >
               Сохранить
-            </Button>}
+            </Button>
+          )}
         </Form.Container>
       </header>
     );

@@ -37,7 +37,12 @@ import validate from 'cem/validators/complexes';
 
 const Image = ({ id }) =>
   id ? (
-    <UI.Image src={`${cloudfront}/${id}-thumbnail-256`} kind="circle" width="102" height="102" />
+    <UI.Image
+      src={`${cloudfront}/${id}-thumbnail-256`}
+      kind="circle"
+      width="102"
+      height="102"
+    />
   ) : (
     <UI.Image
       src={require('url-loader!cem/assets/placeholder')}
@@ -70,7 +75,8 @@ const Description = ({ fields, isUpdateAllowed, formKey }) => (
           <Select
             className={cn(
               sUtils.fontSizeMd,
-              dict.states[fields.state.value] && s[dict.states[fields.state.value].style],
+              dict.states[fields.state.value] &&
+                s[dict.states[fields.state.value].style],
             )}
             options={options.states}
           />
@@ -95,7 +101,8 @@ class Header extends Component {
   createOrUpdate() {
     const { formKey, values, actions } = this.props;
 
-    if (formKey === 'create') return actions.createComplex({ ...values, state: 'draft' });
+    if (formKey === 'create')
+      return actions.createComplex({ ...values, state: 'draft' });
     if (formKey !== 'create') return actions.updateComplex(formKey, values);
   }
 
@@ -113,7 +120,9 @@ class Header extends Component {
 
     return (
       <header className={s.header}>
-        <Form.Container onSubmit={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}>
+        <Form.Container
+          onSubmit={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}
+        >
           <Grid.Container fluid>
             <Row>
               <Col xs="20" className={sUtils.positionRelative}>
@@ -128,8 +137,7 @@ class Header extends Component {
                   {formKey !== 'create' && `Жилые комплексы (ID: ${formKey})`}
                   {formKey === 'create' && 'Создать жилой комплекс'}
                 </Heading>
-                {isUpdateAllowed &&
-                formKey !== 'create' && (
+                {isUpdateAllowed && formKey !== 'create' && (
                   <Dropdown
                     className={sDropdown.header}
                     button={
@@ -139,7 +147,10 @@ class Header extends Component {
                     }
                   >
                     <TransferUserModal action={::this.changeResponsible}>
-                      <Button type="button" className={sButton.btnDropdownInner}>
+                      <Button
+                        type="button"
+                        className={sButton.btnDropdownInner}
+                      >
                         Передать другому сотруднику
                       </Button>
                     </TransferUserModal>
@@ -186,4 +197,6 @@ class Header extends Component {
   }
 }
 
-export default reduxForm({ ...formSettings, validate })(submitValidator()(Header));
+export default reduxForm({ ...formSettings, validate })(
+  submitValidator()(Header),
+);

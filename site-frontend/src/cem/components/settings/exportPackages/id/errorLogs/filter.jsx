@@ -29,8 +29,6 @@ class Filter extends Component {
   }
 }
 
-const fields = [
-  'propertyIds',
-];
+const fields = ['propertyIds'];
 
 export default filterHelper('exportPackages.errorLogs', fields)(Filter);

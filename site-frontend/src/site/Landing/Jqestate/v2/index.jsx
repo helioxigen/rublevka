@@ -137,7 +137,7 @@ class Landing extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { countryProperties, filters, pagination, order } = state;
 
   return {
@@ -150,7 +150,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadCountryProperties,
     loadCityProperties,
@@ -165,4 +165,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Landing);
+export default connect(
+  pickState,
+  pickActions,
+)(Landing);

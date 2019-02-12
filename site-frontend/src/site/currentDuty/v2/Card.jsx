@@ -100,7 +100,9 @@ class Card extends Component {
     const { propertyCategory, state } = this.props;
     const data = state.currentDuty[propertyCategory] || {};
 
-    const phoneNumberElId = this.props.dontReplacePhoneNumber ? undefined : 'comagicDTPhoneNumber';
+    const phoneNumberElId = this.props.dontReplacePhoneNumber
+      ? undefined
+      : 'comagicDTPhoneNumber';
 
     return (
       <Wrapper className={this.props.className}>
@@ -114,8 +116,7 @@ class Card extends Component {
               size={128}
             />
           )}
-          {!data.photo &&
-          global.location && (
+          {!data.photo && global.location && (
             <Image
               src="https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder-photo.svg"
               kind="circle"
@@ -129,7 +130,10 @@ class Card extends Component {
           <Title>
             {data.firstName} {data.lastName}
           </Title>
-          <Phone href={`tel:+${global.config.phones[propertyCategory]}`} id={phoneNumberElId}>
+          <Phone
+            href={`tel:+${global.config.phones[propertyCategory]}`}
+            id={phoneNumberElId}
+          >
             <StaticMask pattern="+1 (111) 111-11-11">
               {global.config.phones[propertyCategory]}
             </StaticMask>
@@ -144,7 +148,7 @@ const pickState = ({ currentDuty }) => ({
   state: { currentDuty },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadDuties,
   };
@@ -154,4 +158,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Card);
+export default connect(
+  pickState,
+  pickActions,
+)(Card);

@@ -8,14 +8,18 @@ import load from 'cem/_newsletters/actions/load';
 import { loadUser } from 'cem/actions/users/id/load';
 
 import UI from 'cem/components/ui';
-const { Grid: { Container } } = UI;
+const {
+  Grid: { Container },
+} = UI;
 
 import Header from './header';
 import About from './about';
 
 class Id extends Component {
   componentWillMount() {
-    const { params: { id } } = this.props;
+    const {
+      params: { id },
+    } = this.props;
 
     if (id !== 'create') {
       this.props.dispatch(load(id));
@@ -23,7 +27,9 @@ class Id extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { params: { id } } = this.props;
+    const {
+      params: { id },
+    } = this.props;
     const nextId = nextProps.params.id;
 
     if (!!nextId && id !== nextId && nextId !== 'create') {
@@ -32,7 +38,12 @@ class Id extends Component {
   }
 
   render() {
-    const { actions, state, params: { id }, hasRight } = this.props;
+    const {
+      actions,
+      state,
+      params: { id },
+      hasRight,
+    } = this.props;
     const { data = {}, isPhotoUploading } = state.newsletters[id] || {};
 
     const permissionsProps = {
@@ -76,4 +87,7 @@ const pickActions = dispatch => ({
   dispatch,
 });
 
-export default connect(pickState, pickActions)(Id);
+export default connect(
+  pickState,
+  pickActions,
+)(Id);

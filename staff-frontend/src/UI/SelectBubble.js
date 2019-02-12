@@ -73,7 +73,7 @@ export default class extends React.PureComponent {
               </SelectBubbleTitle>
               <CloseIcon
                 src={closeIcon}
-                unselectable={unselectable}
+                unselectable={unselectable ? 1 : 0}
                 selected={isSelected}
                 onClick={onCloseClick}
               />

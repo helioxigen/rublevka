@@ -4,7 +4,10 @@ import UI from 'site/ui';
 
 import styled from 'styled-components';
 
-const { Button, Grid: { Row, Col } } = UI;
+const {
+  Button,
+  Grid: { Row, Col },
+} = UI;
 
 const Wrapper = styled.div`
   background: ${p => p.theme.bodyBg};

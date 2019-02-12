@@ -15,7 +15,10 @@ import { nameToSlug } from 'core/helpers/nameToSlug';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const { Button, Grid: { Row } } = UI;
+const {
+  Button,
+  Grid: { Row },
+} = UI;
 
 const Card = styled.div`
   color: ${p => p.theme.brandWhite};
@@ -96,7 +99,9 @@ const StButton = styled(Button)`
 
 function getImgUrl(publicImages) {
   if (publicImages.length) {
-    return `url(${global.config.cloudfront || cloudfront}/${publicImages[0].id}-1024)`;
+    return `url(${global.config.cloudfront || cloudfront}/${
+      publicImages[0].id
+    }-1024)`;
   } else if (typeof window !== 'undefined') {
     return 'url(https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder.jpg)';
   }
@@ -140,12 +145,17 @@ class Settlement extends Component {
             <Content>
               <Title>{data.name}</Title>
               <Location>
-                {location.routeName && <span>{location.routeName} шоссе,&nbsp;</span>}
-                {location.mkadDistance && <span>{location.mkadDistance} км</span>}
+                {location.routeName && (
+                  <span>{location.routeName} шоссе,&nbsp;</span>
+                )}
+                {location.mkadDistance && (
+                  <span>{location.mkadDistance} км</span>
+                )}
               </Location>
               <StButton
-                to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${this.props
-                  .settlementId}`}
+                to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
+                  data.name,
+                )}_${this.props.settlementId}`}
               >
                 Информация о поселке
               </StButton>
@@ -157,7 +167,7 @@ class Settlement extends Component {
   }
 }
 
-const pickState = (state) => {
+const pickState = state => {
   const { settlements } = state;
 
   return {
@@ -167,7 +177,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadSettlement,
   };
@@ -177,4 +187,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Settlement);
+export default connect(
+  pickState,
+  pickActions,
+)(Settlement);

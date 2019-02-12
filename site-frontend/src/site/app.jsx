@@ -23,8 +23,8 @@ const store = createStore(
     autoRehydrate(),
     applyMiddleware(thunk, logger, router, tracker),
     typeof window === 'object' &&
-    typeof window.devToolsExtension !== 'undefined' &&
-    process.env.APP_ENV === 'development'
+      typeof window.devToolsExtension !== 'undefined' &&
+      process.env.APP_ENV === 'development'
       ? window.devToolsExtension()
       : fn => fn,
   ),
@@ -32,7 +32,10 @@ const store = createStore(
 
 const history = syncHistoryWithStore(browserHistory, store);
 const routerRender = applyRouterMiddleware(
-  useScroll((prevRouterProps, { routes }) => !routes.some(route => route.ignoreScrollBehavior)),
+  useScroll(
+    (prevRouterProps, { routes }) =>
+      !routes.some(route => route.ignoreScrollBehavior),
+  ),
 );
 
 export default class extends Component {

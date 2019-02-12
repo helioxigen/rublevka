@@ -11,11 +11,10 @@ Body.propTypes = {
   className: PropTypes.string.isRequired,
 };
 
-
 function reducePropsToState(propsList) {
   let className = '';
 
-  propsList.forEach((props) => {
+  propsList.forEach(props => {
     className = !!props.className && props.className;
   });
 
@@ -25,11 +24,10 @@ function reducePropsToState(propsList) {
 }
 
 function handleStateChangeOnClient(className) {
-  const bodyClassName = document.body.className = className || '';
+  const bodyClassName = (document.body.className = className || '');
   return bodyClassName;
 }
 
-export default withSideEffect(
-  reducePropsToState,
-  handleStateChangeOnClient,
-)(Body);
+export default withSideEffect(reducePropsToState, handleStateChangeOnClient)(
+  Body,
+);

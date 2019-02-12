@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import UI from 'cem/components/ui';
 const {
-  MapBox, Heading,
+  MapBox,
+  Heading,
   Grid: { Row },
 } = UI;
 
@@ -14,9 +15,13 @@ import { coordinates } from 'core/constants/maps';
 
 class Infrastructure extends Component {
   render() {
-    const { field: { value = [] } } = this.props;
+    const {
+      field: { value = [] },
+    } = this.props;
 
-    const center = value.length ? [value[0].lng, value[0].lat] : coordinates.moscow;
+    const center = value.length
+      ? [value[0].lng, value[0].lat]
+      : coordinates.moscow;
 
     // const tmpMarkers = [
     //   {
@@ -49,7 +54,14 @@ class Infrastructure extends Component {
       <section>
         <Heading size="sm">Инфраструктура</Heading>
         <Row className={cn(sMap.mapContainer, sUtils.pushedBottom6)}>
-          <MapBox center={center} markers={value.map(({ lon, ...restData }) => ({ ...restData, lng: lon }))} container={<div className={sMap.map} />} />
+          <MapBox
+            center={center}
+            markers={value.map(({ lon, ...restData }) => ({
+              ...restData,
+              lng: lon,
+            }))}
+            container={<div className={sMap.map} />}
+          />
         </Row>
       </section>
     );

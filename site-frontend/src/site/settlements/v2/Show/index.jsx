@@ -33,7 +33,9 @@ import Helmet from './Helmet';
 import { translitKinds } from 'site/constants/properties/dictionaries';
 
 const isJQ = global.config.domain === 'jq.estate';
-const { Grid: { Container, Row } } = UI;
+const {
+  Grid: { Container, Row },
+} = UI;
 
 class SettlementContainer extends Component {
   constructor(props) {
@@ -61,7 +63,11 @@ class SettlementContainer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { actions, state, params: { settlement } } = this.props;
+    const {
+      actions,
+      state,
+      params: { settlement },
+    } = this.props;
 
     const parsedSettlement = settlement.split('_');
     const [settlementName, settlementId] = parsedSettlement;
@@ -80,7 +86,10 @@ class SettlementContainer extends Component {
       });
     }
 
-    if (prevProps.params.settlementId !== settlementId && !state.settlements[settlementId]) {
+    if (
+      prevProps.params.settlementId !== settlementId &&
+      !state.settlements[settlementId]
+    ) {
       this.load(this.props);
     }
   }
@@ -107,7 +116,9 @@ class SettlementContainer extends Component {
 
     return Promise.all([
       dispatch(loadSettlement(settlementId)),
-      dispatch(loadProperties({}, 'forSettlementOnlyPrimary', { settlementId })),
+      dispatch(
+        loadProperties({}, 'forSettlementOnlyPrimary', { settlementId }),
+      ),
       dispatch(
         loadProperties({}, 'forSettlementSale', {
           settlementId,
@@ -141,7 +152,8 @@ class SettlementContainer extends Component {
     const resaleTotal = saleProperties.resale;
     const rentTotal = rentProperties.total;
 
-    const noResaleProperty = saleProperties.resale === 0 && rentProperties.total === 0;
+    const noResaleProperty =
+      saleProperties.resale === 0 && rentProperties.total === 0;
 
     const isPositionAvailable = location.latitude && location.longitude;
     const marker = {
@@ -162,35 +174,38 @@ class SettlementContainer extends Component {
           kind={kind}
         />
 
-        <Header isFetching={isFetching} data={data} dealType={this.state.dealType} kind={kind} />
+        <Header
+          isFetching={isFetching}
+          data={data}
+          dealType={this.state.dealType}
+          kind={kind}
+        />
 
-        {propertyType === 'primary' &&
-          primaryTotal > 0 && (
-            <PrimaryProperties
-              toggleProperty={this.togglePropertyType}
-              settlementId={settlementId}
-              statistics={statistics}
-              primaryTotal={primaryTotal}
-              propertyType={propertyType}
-              location={this.props.location}
-              kind={kind}
-            />
-          )}
+        {propertyType === 'primary' && primaryTotal > 0 && (
+          <PrimaryProperties
+            toggleProperty={this.togglePropertyType}
+            settlementId={settlementId}
+            statistics={statistics}
+            primaryTotal={primaryTotal}
+            propertyType={propertyType}
+            location={this.props.location}
+            kind={kind}
+          />
+        )}
 
-        {propertyType === 'resale' &&
-          (resaleTotal > 0 || rentTotal > 0) && (
-            <ResaleProperties
-              settlementId={settlementId}
-              dealType={this.state.dealType}
-              statistics={statistics}
-              toggleDealType={this.toggleDealType}
-              toggleProperty={this.togglePropertyType}
-              primaryTotal={primaryTotal}
-              propertyType={propertyType}
-              location={this.props.location}
-              kind={kind}
-            />
-          )}
+        {propertyType === 'resale' && (resaleTotal > 0 || rentTotal > 0) && (
+          <ResaleProperties
+            settlementId={settlementId}
+            dealType={this.state.dealType}
+            statistics={statistics}
+            toggleDealType={this.toggleDealType}
+            toggleProperty={this.togglePropertyType}
+            primaryTotal={primaryTotal}
+            propertyType={propertyType}
+            location={this.props.location}
+            kind={kind}
+          />
+        )}
 
         {noResaleProperty && (
           <PrimaryProperties
@@ -243,4 +258,7 @@ const pickActions = dispatch => ({
   dispatch,
 });
 
-export default connect(pickState, pickActions)(SettlementContainer);
+export default connect(
+  pickState,
+  pickActions,
+)(SettlementContainer);

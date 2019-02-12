@@ -17,9 +17,17 @@ import { idResourcer } from 'core/decorators/fetcher';
 
 const DealDescription = ({ data: { details = {}, state } }) => (
   <div>
-    <h4 className={cn(s.heading, s[states[state] && states[state].style])}>{states[state] && states[state].title}</h4>
-    <div><a className={s.mediaText}>{offerKinds[details.offerKind]}</a></div>
-    <div><a className={s.mediaText}><FormattedDate mask="dd.mm.yyyy" value={details.expectedFinishDateAt} /></a></div>
+    <h4 className={cn(s.heading, s[states[state] && states[state].style])}>
+      {states[state] && states[state].title}
+    </h4>
+    <div>
+      <a className={s.mediaText}>{offerKinds[details.offerKind]}</a>
+    </div>
+    <div>
+      <a className={s.mediaText}>
+        <FormattedDate mask="dd.mm.yyyy" value={details.expectedFinishDateAt} />
+      </a>
+    </div>
   </div>
 );
 
@@ -31,7 +39,9 @@ class Deal extends Component {
       <section className={sUtils.pushedTopXs4}>
         <Heading size="md">
           Сделка
-          <Link className={s.linkIcon} to={`/deals/${id}`}><Icon className={s.icon} icon="arrow" /></Link>
+          <Link className={s.linkIcon} to={`/deals/${id}`}>
+            <Icon className={s.icon} icon="arrow" />
+          </Link>
         </Heading>
         <Grid.Row>
           <Grid.Col xs="20">

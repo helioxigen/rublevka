@@ -7,9 +7,15 @@ import { nameToSlug } from 'core/helpers/nameToSlug';
 
 import styled from 'styled-components';
 
-const { Icon, Visibility, Grid: { Row, Col } } = UI;
+const {
+  Icon,
+  Visibility,
+  Grid: { Row, Col },
+} = UI;
 
-const Wrapper = styled.nav`margin-bottom: 2rem;`;
+const Wrapper = styled.nav`
+  margin-bottom: 2rem;
+`;
 
 const Ol = styled.ol`
   list-style: none;
@@ -35,9 +41,9 @@ const StLink = styled(Link)`
 `;
 
 const StIcon = styled(Icon)`
-  width: .9rem;
-  height: .7rem;
-  margin: 0 1rem 0 .8rem;
+  width: 0.9rem;
+  height: 0.7rem;
+  margin: 0 1rem 0 0.8rem;
   vertical-align: baseline;
   fill: ${p => p.theme.greyDark};
   transform: rotate(-90deg);
@@ -56,23 +62,30 @@ class PropertyBreadcrumbs extends Component {
       <Visibility xs="hidden" sm="hidden">
         <Wrapper>
           <Ol itemScope itemType="http://schema.org/BreadcrumbList">
-            {location.routeId &&
-              <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+            {location.routeId && (
+              <Li
+                itemProp="itemListElement"
+                itemScope
+                itemType="http://schema.org/ListItem"
+              >
                 <StLink
-                  to={`/zagorodnaya/shosse/${nameToSlug(
-                    location.routeName,
-                  )}_${location.routeId}/prodaja`}
+                  to={`/zagorodnaya/shosse/${nameToSlug(location.routeName)}_${
+                    location.routeId
+                  }/prodaja`}
                   itemProp="item"
                 >
-                  <span itemProp="name">
-                    {location.routeName}&nbsp;ш.
-                  </span>
+                  <span itemProp="name">{location.routeName}&nbsp;ш.</span>
                   <meta itemProp="position" content="1" />
                   <StIcon icon="arrow-down" />
                 </StLink>
-              </Li>}
-            {location.districtId &&
-              <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+              </Li>
+            )}
+            {location.districtId && (
+              <Li
+                itemProp="itemListElement"
+                itemScope
+                itemType="http://schema.org/ListItem"
+              >
                 <StLink
                   to={`/zagorodnaya/rayon/${nameToSlug(
                     location.districtName,
@@ -85,36 +98,43 @@ class PropertyBreadcrumbs extends Component {
                   <meta itemProp="position" content="2" />
                   <StIcon icon="arrow-down" />
                 </StLink>
-              </Li>}
-            {location.localityId &&
-              <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+              </Li>
+            )}
+            {location.localityId && (
+              <Li
+                itemProp="itemListElement"
+                itemScope
+                itemType="http://schema.org/ListItem"
+              >
                 <StLink
                   to={`/zagorodnaya/nas-punkt/${nameToSlug(
                     location.localityName,
                   )}_${location.localityId}/prodaja`}
                   itemProp="item"
                 >
-                  <span itemProp="name">
-                    {location.localityName}&nbsp;
-                  </span>
+                  <span itemProp="name">{location.localityName}&nbsp;</span>
                   <meta itemProp="position" content="3" />
                   <StIcon icon="arrow-down" />
                 </StLink>
-              </Li>}
-            {location.settlementId &&
-              <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+              </Li>
+            )}
+            {location.settlementId && (
+              <Li
+                itemProp="itemListElement"
+                itemScope
+                itemType="http://schema.org/ListItem"
+              >
                 <StLink
                   to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
                     location.settlementName,
                   )}_${location.settlementId}`}
                   itemProp="item"
                 >
-                  <span itemProp="name">
-                    {location.settlementName}&nbsp;
-                  </span>
+                  <span itemProp="name">{location.settlementName}&nbsp;</span>
                   <meta itemProp="position" content="4" />
                 </StLink>
-              </Li>}
+              </Li>
+            )}
           </Ol>
         </Wrapper>
       </Visibility>

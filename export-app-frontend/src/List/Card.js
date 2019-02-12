@@ -43,10 +43,8 @@ export default class extends Component {
     }
   }
 
-  toggleOption = (option) => {
-    const {
-      docID, id, offerKind, onSave,
-    } = this.props;
+  toggleOption = option => {
+    const { docID, id, offerKind, onSave } = this.props;
 
     this.setState(
       prevState => ({ [option]: !prevState[option], loading: true }),
@@ -77,13 +75,9 @@ export default class extends Component {
 
   /* eslint-disable jsx-a11y/label-has-for, jsx-a11y/label-has-associated-control */
   render() {
-    const {
-      docID, id, offerKind, onDelete, data = {},
-    } = this.props;
+    const { docID, id, offerKind, onDelete, data = {} } = this.props;
 
-    const {
-      top3, premium, loading, confirmDelete,
-    } = this.state;
+    const { top3, premium, loading, confirmDelete } = this.state;
 
     const {
       location = {},
@@ -92,9 +86,10 @@ export default class extends Component {
       images = [],
     } = data;
 
-    const areaSize = data.kind === 'land'
-      ? `${landDetails.area} сот`
-      : `${specification.area} м²`;
+    const areaSize =
+      data.kind === 'land'
+        ? `${landDetails.area} сот`
+        : `${specification.area} м²`;
 
     const { price, currency } = data[`${offerKind}Offer`] || {};
 
@@ -139,8 +134,8 @@ export default class extends Component {
 
           <Actions>
             {loading && <CardLoading />}
-            {!loading
-              && (confirmDelete ? (
+            {!loading &&
+              (confirmDelete ? (
                 <>
                   <ActionButton
                     onClick={() => onDelete(docID, { id, offerKind })}

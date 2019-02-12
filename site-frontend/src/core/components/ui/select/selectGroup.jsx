@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 
 import UI from 'site/ui';
-const {
-  Select,
-  Visibility,
-} = UI;
+const { Select, Visibility } = UI;
 
 import s from 'site/styles/ui/selectGroup';
 import sSelect from 'site/styles/ui/select';
@@ -15,13 +12,13 @@ class SelectGroup extends Component {
 
     const optionsReverse = [...options].reverse();
 
-    const optionsDecrease = options.filter(item => (
-      item.value >= (selected.min || 0)
-    ));
+    const optionsDecrease = options.filter(
+      item => item.value >= (selected.min || 0),
+    );
 
-    const optionsIncrease = options.filter(item => (
-      item.value <= (selected.max || optionsReverse[0].value)
-    ));
+    const optionsIncrease = options.filter(
+      item => item.value <= (selected.max || optionsReverse[0].value),
+    );
 
     const minValue = options[0].label || 0;
     const maxValue = optionsReverse[0].label || 0;
@@ -29,7 +26,11 @@ class SelectGroup extends Component {
     return (
       <div className={s.selectContainer}>
         <Visibility lg="hidden">
-          <select className={s.select} value={selected.min || options[0].value} onChange={e => this.props.onUpdate('min', e.target.value)}>
+          <select
+            className={s.select}
+            value={selected.min || options[0].value}
+            onChange={e => this.props.onUpdate('min', e.target.value)}
+          >
             {optionsIncrease.map(option => (
               <option value={option.value}>{option.label}</option>
             ))}
@@ -37,7 +38,11 @@ class SelectGroup extends Component {
 
           <span className={s.dash}> &mdash; </span>
 
-          <select className={s.select} value={selected.max || optionsReverse[0].value} onChange={e => this.props.onUpdate('max', e.target.value)}>
+          <select
+            className={s.select}
+            value={selected.max || optionsReverse[0].value}
+            onChange={e => this.props.onUpdate('max', e.target.value)}
+          >
             {optionsDecrease.map(option => (
               <option value={option.value}>{option.label}</option>
             ))}

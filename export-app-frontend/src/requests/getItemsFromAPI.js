@@ -17,7 +17,7 @@ export default function getItemsFromAPI(searchValue) {
 
   return fetch(`https://api.jqestate.ru/v1/properties/country?${params}`, {
     method: 'GET',
-  }).then((res) => {
+  }).then(res => {
     if (res.ok) {
       return res.json();
     }

@@ -9,7 +9,9 @@ import SearchRequestsActions from 'cem/actions/requests/search';
 
 import UI from 'cem/components/ui';
 const {
-  Button, Icon, Heading,
+  Button,
+  Icon,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 import LaneHeader from 'cem/components/requests/search/list/laneHeader';
@@ -34,8 +36,14 @@ class ListContainer extends Component {
           <div className={s.header}>
             <Row>
               <Col xs="20">
-                <Heading size="lg">Активные заявки на поиск объектов недвижимости</Heading>
-                <Button className={sButton.btnTo} size="xs" to="/requests/properties/search/archive">
+                <Heading size="lg">
+                  Активные заявки на поиск объектов недвижимости
+                </Heading>
+                <Button
+                  className={sButton.btnTo}
+                  size="xs"
+                  to="/requests/properties/search/archive"
+                >
                   <Icon className={s.iconArchive} icon="archive" />
                 </Button>
               </Col>
@@ -86,7 +94,13 @@ const pickState = ({ auth, pagination, filters, users, searchRequests }) => ({
 });
 
 const pickActions = dispatch => ({
-  actions: bindActionCreators({ ...SearchRequestsActions, ...PaginationActions, ...FilterActions }, dispatch),
+  actions: bindActionCreators(
+    { ...SearchRequestsActions, ...PaginationActions, ...FilterActions },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, pickActions)(ListContainer);
+export default connect(
+  pickState,
+  pickActions,
+)(ListContainer);

@@ -9,7 +9,9 @@ import FormField from 'cem/helpers/formField';
 
 import UI from 'cem/components/ui';
 const {
-  AsyncSelect, Icon, Heading,
+  AsyncSelect,
+  Icon,
+  Heading,
   Grid: { Row, Col },
 } = UI;
 
@@ -24,40 +26,50 @@ import { taskFormSettings } from 'cem/constants/tasks/form';
 
 class About extends Component {
   render() {
-    const {
-      fields, values, formKey,
-      data,
-    } = this.props;
+    const { fields, values, formKey, data } = this.props;
 
-    const isTaskCreatorShown = formKey !== 'create' && values.responsibleUser.id !== data.reportedByUserId;
+    const isTaskCreatorShown =
+      formKey !== 'create' &&
+      values.responsibleUser.id !== data.reportedByUserId;
 
     return (
       <Row>
-        {isTaskCreatorShown &&
+        {isTaskCreatorShown && (
           <Col sm="10">
             <Heading size="md">
               Поставил
-              <Link className={s.linkIcon} to={`/staff/${data.reportedByUserId}`}>
+              <Link
+                className={s.linkIcon}
+                to={`/staff/${data.reportedByUserId}`}
+              >
                 <Icon className={s.icon} icon="arrow" />
               </Link>
             </Heading>
             <ResponsibleUser id={data.reportedByUserId} />
           </Col>
-        }
+        )}
         <Col className={sUtils.pushedTopXs4} sm="10">
           <Heading size="md">
             Ответственный
-            {values.responsibleUser.id &&
-              <Link className={s.linkIcon} to={`/staff/${values.responsibleUser.id}`}>
+            {values.responsibleUser.id && (
+              <Link
+                className={s.linkIcon}
+                to={`/staff/${values.responsibleUser.id}`}
+              >
                 <Icon className={s.icon} icon="arrow" />
               </Link>
-            }
+            )}
           </Heading>
-          {formKey === 'create' &&
+          {formKey === 'create' && (
             <FormField field={fields.responsibleUser.id}>
-              <AsyncSelect asyncOptions={fetchResource('/v1/users/staff', 'lastName', ['firstName', 'lastName'])} />
+              <AsyncSelect
+                asyncOptions={fetchResource('/v1/users/staff', 'lastName', [
+                  'firstName',
+                  'lastName',
+                ])}
+              />
             </FormField>
-          }
+          )}
           <ResponsibleUser id={values.responsibleUser.id} />
         </Col>
       </Row>

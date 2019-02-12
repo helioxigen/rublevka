@@ -16,7 +16,12 @@ class NotFound extends Component {
         <Col xs="12">
           <div>
             <span>По вашему запросу ничего не найдено.</span>
-            <Button className={st.settlement.notFoundBtn} onClick={this.props.resetFilter}>Сбросить фильтр</Button>
+            <Button
+              className={st.settlement.notFoundBtn}
+              onClick={this.props.resetFilter}
+            >
+              Сбросить фильтр
+            </Button>
           </div>
         </Col>
       </Row>

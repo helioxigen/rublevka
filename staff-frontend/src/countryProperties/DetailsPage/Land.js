@@ -8,9 +8,9 @@ import {
   PropertyTitle,
   PropertyValue,
   SubTitle,
-} from './style';
+} from './styled';
 import { Body } from '../../UI';
-import { landscapeKinds } from '../dictionaries';
+import { landscapeKinds } from '../constants/dictionaries';
 import SelectBubble from '../../UI/SelectBubble';
 import { selectPlotData, selectReliefData, selectTreesData } from './schema';
 
@@ -36,7 +36,7 @@ const PlotSection = ({ enableEditMode, isEditMode, property }) => {
               {property.landDetails.landscapeKind &&
                 property.landDetails.landscapeKind.map(
                   (landscapeKindIte, index) => (
-                    <Body>
+                    <Body key={property.landDetails.landscapeKind[index]}>
                       {index > 0 && ','}
                       {
                         landscapeKinds[
@@ -64,7 +64,10 @@ const PlotSection = ({ enableEditMode, isEditMode, property }) => {
       </Col>
       <Col xsOffset={1} xs={2}>
         <PropertyTitle>Площадь</PropertyTitle>
-        <EditPropertyInput placeholder="Площадь, сот." />
+        <EditPropertyInput
+          defaultValue={property.landDetails.area}
+          placeholder="Площадь, сот."
+        />
       </Col>
       <Col xsOffset={1} xs={6}>
         <PropertyTitle>Участок</PropertyTitle>

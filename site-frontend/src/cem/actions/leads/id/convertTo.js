@@ -1,7 +1,7 @@
 import updateId from './update';
 
-export default function (id, data, requestKind) {
-  return (dispatch) => {
+export default function(id, data, requestKind) {
+  return dispatch => {
     const lead = {
       ...data,
       requestDetails: {

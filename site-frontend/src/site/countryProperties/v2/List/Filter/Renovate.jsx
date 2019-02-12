@@ -5,7 +5,9 @@ import UI from 'site/ui';
 
 import { FilterWrapper, StCheckbox } from './styled';
 
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col },
+} = UI;
 
 const key = 'renovate';
 

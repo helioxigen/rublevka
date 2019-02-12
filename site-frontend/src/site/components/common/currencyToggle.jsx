@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // actions
-import { updateDisplayOption, resetDisplayOption } from 'site/displayOptions/actions';
+import {
+  updateDisplayOption,
+  resetDisplayOption,
+} from 'site/displayOptions/actions';
 
 // ui
 import UI from 'site/ui';
@@ -35,13 +38,19 @@ class CurrencyToggle extends Component {
       <Visibility xs="hidden" sm="hidden">
         <BtnGroup className={sUtils.pushedRight2}>
           <Button
-            className={cn(sBtn.btnCurrency, selected === 'rub' && sBtn.btnCurrencyActive)}
+            className={cn(
+              sBtn.btnCurrency,
+              selected === 'rub' && sBtn.btnCurrencyActive,
+            )}
             onClick={() => this.handleCurrencyButtonClick('rub')}
           >
             <Icon className={sBtn.iconCurrency} icon="rub" />
           </Button>
           <Button
-            className={cn(sBtn.btnCurrency, selected === 'usd' && sBtn.btnCurrencyActive)}
+            className={cn(
+              sBtn.btnCurrency,
+              selected === 'usd' && sBtn.btnCurrencyActive,
+            )}
             onClick={() => this.handleCurrencyButtonClick('usd')}
           >
             <Icon className={sBtn.iconCurrency} icon="usd" />
@@ -59,7 +68,7 @@ const pickState = ({ displayOptions }) => ({
   state: { displayOptions },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     updateDisplayOption,
     resetDisplayOption,
@@ -70,4 +79,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(CurrencyToggle);
+export default connect(
+  pickState,
+  pickActions,
+)(CurrencyToggle);

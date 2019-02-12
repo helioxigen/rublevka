@@ -6,7 +6,10 @@ const isJQ = global.config.domain === 'jq.estate';
 import SelectGroup from 'core/components/ui/select/selectGroup';
 
 import UI from 'site/ui';
-const { Button, Grid: { Col } } = UI;
+const {
+  Button,
+  Grid: { Col },
+} = UI;
 
 import cn from 'classnames';
 import s from 'site/styles/settlements/filter';
@@ -49,7 +52,8 @@ class Routes extends Component {
     const { mkadDistance = {} } = selected;
     const values = selected[keyRoute] || [];
 
-    const isSelected = values.length !== 0 || !!mkadDistance.min || !!mkadDistance.max;
+    const isSelected =
+      values.length !== 0 || !!mkadDistance.min || !!mkadDistance.max;
 
     return (
       <Col xs="12" className={sUtils.resetPadding}>
@@ -65,14 +69,21 @@ class Routes extends Component {
 
         <div className={s.hollowBtnContainer}>
           {isJQ &&
-            global.config.routes.map((route) => {
+            global.config.routes.map(route => {
               const { id, name } = route;
               const index = values.indexOf(id);
               const isActive = index > -1;
-              const className = cn(st.settlement.hollowBtn, isActive && st.settlement.active);
+              const className = cn(
+                st.settlement.hollowBtn,
+                isActive && st.settlement.active,
+              );
 
               return (
-                <Button key={id} className={className} onClick={() => this.onUpdate(id)}>
+                <Button
+                  key={id}
+                  className={className}
+                  onClick={() => this.onUpdate(id)}
+                >
                   {name}
                 </Button>
               );
@@ -80,7 +91,10 @@ class Routes extends Component {
 
           {isSelected && (
             <Button
-              className={cn(st.filterSatellites.btnClearAllSettlements, sUtils.textPrimary)}
+              className={cn(
+                st.filterSatellites.btnClearAllSettlements,
+                sUtils.textPrimary,
+              )}
               onClick={this.props.resetFilter}
             >
               Сбросить

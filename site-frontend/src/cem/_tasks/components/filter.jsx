@@ -5,8 +5,12 @@ import { FormattedNumber } from 'react-formatted';
 
 import UI from 'cem/components/ui';
 const {
-  Button, Daypicker, Icon,
-  Select, AsyncSelect, Heading,
+  Button,
+  Daypicker,
+  Icon,
+  Select,
+  AsyncSelect,
+  Heading,
   Grid: { Row, Col },
   Form: { Group, Label, Input },
 } = UI;
@@ -34,19 +38,34 @@ const FilterExtended = ({ fields }) => (
           <Col sm="6">
             <Group>
               <Label>Департамент</Label>
-              <AsyncSelect asyncOptions={fetchResource(`/v1/departments`, `name`, [`name`])} {...fields.ruDepartmentId} />
+              <AsyncSelect
+                asyncOptions={fetchResource(`/v1/departments`, `name`, [
+                  `name`,
+                ])}
+                {...fields.ruDepartmentId}
+              />
             </Group>
           </Col>
           <Col sm="6" smOffset="1">
             <Group>
               <Label>Отдел</Label>
-              <AsyncSelect asyncOptions={fetchResource(`/v1/divisions`, `name`, [`name`])} {...fields.ruDivisionId} />
+              <AsyncSelect
+                asyncOptions={fetchResource(`/v1/divisions`, `name`, [`name`])}
+                {...fields.ruDivisionId}
+              />
             </Group>
           </Col>
           <Col sm="6" smOffset="1">
             <Group>
               <Label>Ответственный</Label>
-              <AsyncSelect asyncOptions={fetchResource(`/v1/users/staff`, `lastName,firstName`, [`firstName`, `lastName`])} {...fields.ruId} />
+              <AsyncSelect
+                asyncOptions={fetchResource(
+                  `/v1/users/staff`,
+                  `lastName,firstName`,
+                  [`firstName`, `lastName`],
+                )}
+                {...fields.ruId}
+              />
             </Group>
           </Col>
         </Row>
@@ -62,7 +81,8 @@ const FilterExtended = ({ fields }) => (
         <Row className={sUtils.pushedTop3}>
           <Col sm="6">
             <Label className={s.checkboxLabel}>
-              <Input type="checkbox" {...fields.toApprove} /> ожидает подтверждения
+              <Input type="checkbox" {...fields.toApprove} /> ожидает
+              подтверждения
             </Label>
           </Col>
         </Row>
@@ -81,7 +101,13 @@ class Filter extends Component {
   }
 
   render() {
-    const { fields, count, resetFilter, filterCount, extendedFilterCount } = this.props;
+    const {
+      fields,
+      count,
+      resetFilter,
+      filterCount,
+      extendedFilterCount,
+    } = this.props;
 
     return (
       <Col xs="20" className={sUtils.pushedTop5}>
@@ -102,17 +128,31 @@ class Filter extends Component {
               </Group>
               <Group className={cn(sUtils.pushedRight2, sUtils.flexItem)}>
                 <Label block>Дата от</Label>
-                <Daypicker className={cn(sDaypicker.daypicker, sUtils.fullWidth)} kind="from"
+                <Daypicker
+                  className={cn(sDaypicker.daypicker, sUtils.fullWidth)}
+                  kind="from"
                   onDayClick={day => fields.deadlineFrom.onChange(day)}
                   control={<Input block type="text" {...fields.deadlineFrom} />}
-                  button={<Button className={sDaypicker.btn}><Icon className={sDaypicker.icon} icon="calendar" /></Button>} />
+                  button={
+                    <Button className={sDaypicker.btn}>
+                      <Icon className={sDaypicker.icon} icon="calendar" />
+                    </Button>
+                  }
+                />
               </Group>
               <Group className={cn(sUtils.pushedRight2, sUtils.flexItem)}>
                 <Label block>Дата до</Label>
-                <Daypicker className={cn(sDaypicker.daypicker, sUtils.fullWidth)} kind="to"
+                <Daypicker
+                  className={cn(sDaypicker.daypicker, sUtils.fullWidth)}
+                  kind="to"
                   onDayClick={day => fields.deadlineTo.onChange(day)}
                   control={<Input block type="text" {...fields.deadlineTo} />}
-                  button={<Button className={sDaypicker.btn}><Icon className={sDaypicker.icon} icon="calendar" /></Button>} />
+                  button={
+                    <Button className={sDaypicker.btn}>
+                      <Icon className={sDaypicker.icon} icon="calendar" />
+                    </Button>
+                  }
+                />
               </Group>
               <Group className={sUtils.flexItem}>
                 <Label>Статус</Label>
@@ -130,11 +170,30 @@ class Filter extends Component {
               {/* <p className={s.stats}>
                 Объём: <span className={s.primary}><FormattedNumber value={weight.toDo || 0} /></span> / <span className={s.success}><FormattedNumber value={weight.done || 0} /></span>
               </p> */}
-              <Button size="xs" kind="primary" className={sUtils.pushedRight1} type="button" onClick={::this.toggleExtended}>
-                {this.state.extended ? `Скрыть` : `Показать` } расширенный фильтр {!!extendedFilterCount && `(${extendedFilterCount})`}
+              <Button
+                size="xs"
+                kind="primary"
+                className={sUtils.pushedRight1}
+                type="button"
+                onClick={::this.toggleExtended}
+              >
+                {this.state.extended ? `Скрыть` : `Показать`} расширенный фильтр{' '}
+                {!!extendedFilterCount && `(${extendedFilterCount})`}
               </Button>
-              <Button className={sUtils.pushedTopXs2} size="xs" type="button" onClick={resetFilter} disabled={!filterCount}>Сбросить</Button>
-              {!!count && <p className={s.textFind}>Найдено: <FormattedNumber value={count} /></p>}
+              <Button
+                className={sUtils.pushedTopXs2}
+                size="xs"
+                type="button"
+                onClick={resetFilter}
+                disabled={!filterCount}
+              >
+                Сбросить
+              </Button>
+              {!!count && (
+                <p className={s.textFind}>
+                  Найдено: <FormattedNumber value={count} />
+                </p>
+              )}
             </div>
           </Col>
         </Row>
@@ -152,11 +211,6 @@ const fields = [
   `linkKind`,
 ];
 
-const extendedFields = [
-  `ruDepartmentId`,
-  `ruDivisionId`,
-  `ruId`,
-  `toApprove`,
-];
+const extendedFields = [`ruDepartmentId`, `ruDivisionId`, `ruId`, `toApprove`];
 
 export default filterHelper(null, fields, extendedFields)(Filter);

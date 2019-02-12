@@ -30,7 +30,11 @@ import {
   MenuBtn,
 } from './styled';
 
-const { Grid, Visibility, Navbar: { Menu } } = UI;
+const {
+  Grid,
+  Visibility,
+  Navbar: { Menu },
+} = UI;
 
 class Header extends Component {
   constructor(props) {
@@ -98,7 +102,10 @@ class Header extends Component {
 
                 <HideSm>
                   <MenuItem>
-                    <Link activeClassName="active" to="/zagorodnaya/kottedzhnye-poselki">
+                    <Link
+                      activeClassName="active"
+                      to="/zagorodnaya/kottedzhnye-poselki"
+                    >
                       Посёлки
                     </Link>
                   </MenuItem>
@@ -113,7 +120,10 @@ class Header extends Component {
               <StMenu right>
                 <Visibility xs="hidden" sm="hidden">
                   <MenuItem>
-                    <Phone href={`tel:+${global.config.phones.country}`} id="comagicDTPhoneNumber">
+                    <Phone
+                      href={`tel:+${global.config.phones.country}`}
+                      id="comagicDTPhoneNumber"
+                    >
                       <StaticMask pattern="+1 (111) 111-11-11">
                         {global.config.phones.country}
                       </StaticMask>
@@ -122,7 +132,9 @@ class Header extends Component {
 
                   <MenuItem>
                     <CallbackModal
-                      propertyCategory={this.props.params && this.props.params.category}
+                      propertyCategory={
+                        this.props.params && this.props.params.category
+                      }
                     >
                       <CallbackBtn kind="success" size="sm">
                         Обратный звонок
@@ -152,7 +164,7 @@ class Header extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { stats } = state;
 
   return {
@@ -162,7 +174,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadStatistics,
   };
@@ -172,4 +184,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Header);
+export default connect(
+  pickState,
+  pickActions,
+)(Header);

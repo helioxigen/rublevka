@@ -31,7 +31,9 @@ import Description from './description';
 import Helmet from './Helmet';
 
 const isJQ = global.config.domain === 'jq.estate';
-const { Grid: { Container, Row } } = UI;
+const {
+  Grid: { Container, Row },
+} = UI;
 
 class SettlementContainer extends Component {
   constructor(props) {
@@ -57,7 +59,11 @@ class SettlementContainer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { actions, state, params: { settlement } } = this.props;
+    const {
+      actions,
+      state,
+      params: { settlement },
+    } = this.props;
 
     const parsedSettlement = settlement.split('_');
     const [settlementName, settlementId] = parsedSettlement;
@@ -76,7 +82,10 @@ class SettlementContainer extends Component {
       });
     }
 
-    if (prevProps.params.settlementId !== settlementId && !state.settlements[settlementId]) {
+    if (
+      prevProps.params.settlementId !== settlementId &&
+      !state.settlements[settlementId]
+    ) {
       this.load(this.props);
     }
   }
@@ -91,7 +100,9 @@ class SettlementContainer extends Component {
 
     return Promise.all([
       dispatch(loadSettlement(settlementId)),
-      dispatch(loadProperties({}, 'forSettlementOnlyPrimary', { settlementId })),
+      dispatch(
+        loadProperties({}, 'forSettlementOnlyPrimary', { settlementId }),
+      ),
       dispatch(
         loadProperties({}, 'forSettlementSale', {
           settlementId,
@@ -144,18 +155,28 @@ class SettlementContainer extends Component {
             kind={kind}
           />
 
-          <About isFetching={isFetching} data={data} dealType={this.state.dealType} kind={kind} />
+          <About
+            isFetching={isFetching}
+            data={data}
+            dealType={this.state.dealType}
+            kind={kind}
+          />
         </Container>
 
-        {primaryTotal > 0 &&
-          <PrimaryProperties settlementId={settlementId} statistics={statistics} />}
-        {(resaleTotal > 0 || rentTotal > 0) &&
+        {primaryTotal > 0 && (
+          <PrimaryProperties
+            settlementId={settlementId}
+            statistics={statistics}
+          />
+        )}
+        {(resaleTotal > 0 || rentTotal > 0) && (
           <ResaleProperties
             settlementId={settlementId}
             dealType={this.state.dealType}
             statistics={statistics}
             toggleDealType={this.toggleDealType}
-          />}
+          />
+        )}
 
         <Scroll.Element name="scrollTo">
           <Information isFetching={isFetching} data={data} kind={kind} />
@@ -169,14 +190,15 @@ class SettlementContainer extends Component {
             kind={kind}
           />
 
-          {isPositionAvailable &&
+          {isPositionAvailable && (
             <Row className={sUtils.positionRelative}>
               <MapComponent
                 center={[marker.lng, marker.lat]}
                 markers={[marker]}
                 container={<div className={sUtils.mapContainer} />}
               />
-            </Row>}
+            </Row>
+          )}
         </Container>
 
         <Subscribe />
@@ -194,4 +216,7 @@ const pickActions = dispatch => ({
   dispatch,
 });
 
-export default connect(pickState, pickActions)(SettlementContainer);
+export default connect(
+  pickState,
+  pickActions,
+)(SettlementContainer);

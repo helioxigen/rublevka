@@ -1,7 +1,8 @@
 import { dateAndTimeToIso8601 } from 'core/helpers';
 
 const transformDetails = (kind, details) => {
-  const isKindContact = kind === 'sms' || kind === 'email' || kind === 'call' || kind === 'meeting';
+  const isKindContact =
+    kind === 'sms' || kind === 'email' || kind === 'call' || kind === 'meeting';
   const isKindFree = kind === 'free';
   const isKindPreview = kind === 'preview';
   // const isKindNegotiation = kind === `negotiation`;
@@ -51,7 +52,7 @@ const transformDetails = (kind, details) => {
   // }
 };
 
-export const transformOutputValues = (values) => {
+export const transformOutputValues = values => {
   const { responsibleUser = {} } = values;
   const details = transformDetails(values.kind, values._details);
 

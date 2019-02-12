@@ -3,13 +3,17 @@ import React from 'react';
 import moment from 'moment';
 
 import UI from 'cem/components/ui';
-const { Daypicker, Icon, Form: { Group, Label, Input, Helper, Static } } = UI;
+const {
+  Daypicker,
+  Icon,
+  Form: { Group, Label, Input, Helper, Static },
+} = UI;
 
 import cn from 'classnames';
 import sUtils from 'cem/styles/utils';
 import sDaypicker from 'cem/styles/ui/daypicker';
 
-export default (props) => {
+export default props => {
   const { field = {}, label, isStatic } = props;
 
   const hasError = field.touched && !!field.error;
@@ -43,10 +47,7 @@ export default (props) => {
           }
           onDayClick={day => onChange(day)}
         />
-        {hasError &&
-          <Helper>
-            {field.error}
-          </Helper>}
+        {hasError && <Helper>{field.error}</Helper>}
       </Group>
     );
   }

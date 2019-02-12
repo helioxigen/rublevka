@@ -38,8 +38,8 @@ class Landing extends Component {
         <Helmet
           title={seo.title}
           meta={[
-              { name: 'description', content: seo.description },
-              { name: 'keywords', content: seo.keywords },
+            { name: 'description', content: seo.description },
+            { name: 'keywords', content: seo.keywords },
           ]}
         />
 
@@ -68,10 +68,8 @@ class Landing extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
-  const {
-    settlements,
-  } = state;
+const pickState = state => {
+  const { settlements } = state;
 
   return {
     state: {
@@ -80,7 +78,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadSettlement,
   };
@@ -90,4 +88,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Landing);
+export default connect(
+  pickState,
+  pickActions,
+)(Landing);

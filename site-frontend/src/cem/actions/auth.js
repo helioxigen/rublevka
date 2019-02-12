@@ -26,7 +26,7 @@ const loginFailed = ({ errors }) => ({
 });
 
 function login(user) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loginStarted());
 
     return API.post('/v1/sessions', user).then(
@@ -55,7 +55,7 @@ const loginAsUserSucceeded = data => ({
   data,
 });
 
-const loginAsUser = data => (dispatch) => {
+const loginAsUser = data => dispatch => {
   API.setHeader('X-Sign-As-User-Id', data.id);
 
   return Promise.resolve(dispatch(loginAsUserSucceeded(data)));
@@ -65,7 +65,7 @@ const logoutAsUserSucceeded = () => ({
   type: types.LOGOUT_AS_USER_SUCCESS,
 });
 
-const logoutAsUser = () => (dispatch) => {
+const logoutAsUser = () => dispatch => {
   API.deleteHeader('X-Sign-As-User-Id');
 
   return Promise.resolve(dispatch(logoutAsUserSucceeded()));

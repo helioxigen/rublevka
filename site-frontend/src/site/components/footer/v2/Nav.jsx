@@ -4,9 +4,19 @@ import UI from 'site/ui';
 
 import List from './List';
 
-import { Title, SubTitle, Navigation, NavColumn, TitleLink, StLink, Divider } from './styled';
+import {
+  Title,
+  SubTitle,
+  Navigation,
+  NavColumn,
+  TitleLink,
+  StLink,
+  Divider,
+} from './styled';
 
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col },
+} = UI;
 
 class Nav extends Component {
   constructor(props) {
@@ -34,7 +44,9 @@ class Nav extends Component {
               <Title>JQ Estate</Title>
               <Divider />
               <Navigation>
-                <StLink to="/podborky/spetspredlozhenyia_10">Спецпредложения</StLink>
+                <StLink to="/podborky/spetspredlozhenyia_10">
+                  Спецпредложения
+                </StLink>
                 <StLink to="/about">О компании</StLink>
                 <StLink to="/agents">Агенты</StLink>
                 <StLink to="/contacts">Контакты</StLink>
@@ -52,7 +64,9 @@ class Nav extends Component {
                   <StLink to="/zagorodnaya/prodaja/dom">Дома</StLink>
                   <StLink to="/zagorodnaya/prodaja/taunhaus">Таунхаусы</StLink>
                   <StLink to="/zagorodnaya/prodaja/kvartira">Квартиры</StLink>
-                  <StLink to="/zagorodnaya/prodaja/uchastok">Земельные участки</StLink>
+                  <StLink to="/zagorodnaya/prodaja/uchastok">
+                    Земельные участки
+                  </StLink>
                 </Col>
 
                 <Col xs="12" sm="6" lg="6">
@@ -78,7 +92,9 @@ class Nav extends Component {
 
             <Col sm="6" md="4" lg="3">
               <NavColumn>
-                <TitleLink to="/zagorodnaya/shosse/novorijskoe_1186/prodaja">Новорижское</TitleLink>
+                <TitleLink to="/zagorodnaya/shosse/novorijskoe_1186/prodaja">
+                  Новорижское
+                </TitleLink>
                 <Divider />
                 <List group="riga" />
               </NavColumn>
@@ -86,7 +102,9 @@ class Nav extends Component {
 
             <Col sm="6" md="4" lg="3">
               <NavColumn>
-                <TitleLink to="/zagorodnaya/shosse/kyevskoe_1177/prodaja">Киевское</TitleLink>
+                <TitleLink to="/zagorodnaya/shosse/kyevskoe_1177/prodaja">
+                  Киевское
+                </TitleLink>
                 <Divider />
                 <List group="kievka" />
               </NavColumn>
@@ -94,7 +112,9 @@ class Nav extends Component {
 
             <Col sm="6" md="4" lg="3">
               <NavColumn>
-                <TitleLink to="/zagorodnaya/shosse/mynskoe_1179/prodaja">Минское</TitleLink>
+                <TitleLink to="/zagorodnaya/shosse/mynskoe_1179/prodaja">
+                  Минское
+                </TitleLink>
                 <Divider />
                 <List group="minka" />
               </NavColumn>

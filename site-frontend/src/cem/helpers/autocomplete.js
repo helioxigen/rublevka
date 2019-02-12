@@ -15,7 +15,8 @@ const getPath = (object, objectPath) => {
   return traverseObject(object, keys);
 };
 
-const getKeys = (object, keys) => keys.map(key => getPath(object, key)).filter(item => item);
+const getKeys = (object, keys) =>
+  keys.map(key => getPath(object, key)).filter(item => item);
 
 export const fetchDictionary = (kind, parentId = null) => (
   value,
@@ -41,16 +42,20 @@ export const fetchDictionary = (kind, parentId = null) => (
 export const findCompanies = (query, options, callback) => {
   if (options.length) callback(options);
   if (!options.length) {
-    return DADATA.post('/suggest/party', { count: 10, query }).then(({ body: { suggestions } }) => {
-      const newOptions = suggestions.map(item => ({
-        label: `Добавить ${item.value} (ОГРН: ${item.data.ogrn})\n${item.data.address.value}?`,
-        ...item.data,
-      }));
-      if (callback) {
-        callback(newOptions);
-      }
-      return Promise.resolve(newOptions);
-    });
+    return DADATA.post('/suggest/party', { count: 10, query }).then(
+      ({ body: { suggestions } }) => {
+        const newOptions = suggestions.map(item => ({
+          label: `Добавить ${item.value} (ОГРН: ${item.data.ogrn})\n${
+            item.data.address.value
+          }?`,
+          ...item.data,
+        }));
+        if (callback) {
+          callback(newOptions);
+        }
+        return Promise.resolve(newOptions);
+      },
+    );
   }
 };
 
@@ -64,7 +69,9 @@ export const fetchResource = (
 ) => (value, valueKey = 'id', id, callback, exclude = [], linkedTo = {}) => {
   const labelKeys = labels || [filterBy];
   const linkedFilter = {};
-  Object.keys(linkedTo).map(key => (linkedFilter[`filter[${key}]`] = linkedTo[key]));
+  Object.keys(linkedTo).map(
+    key => (linkedFilter[`filter[${key}]`] = linkedTo[key]),
+  );
 
   // TODO: Extract custom filter reducing logic
   const options = {
@@ -90,11 +97,15 @@ export const fetchResource = (
     },
   };
 
-  if (filterBy) options[`filter[${filterBy}]`] = value ? `*${value}*` : undefined;
+  if (filterBy)
+    options[`filter[${filterBy}]`] = value ? `*${value}*` : undefined;
 
   API.get(resource, options).then(({ body: { items } }) => {
-    const selectOptions = items.map((item) => {
-      const label = labels instanceof Function ? labels(item) : getKeys(item, labelKeys).join(' ');
+    const selectOptions = items.map(item => {
+      const label =
+        labels instanceof Function
+          ? labels(item)
+          : getKeys(item, labelKeys).join(' ');
       return { value: item.id, label, ...item };
     });
     if (!postProcess) callback(selectOptions);
@@ -102,7 +113,12 @@ export const fetchResource = (
   });
 };
 
-export const fetchAddress = (count, locations = []) => (query, valueKey, value, callback) => {
+export const fetchAddress = (count, locations = []) => (
+  query,
+  valueKey,
+  value,
+  callback,
+) => {
   if (query) {
     return DADATA.post('/suggest/address', { count, query, locations }).then(
       ({ body: { suggestions } }) => {
@@ -126,20 +142,29 @@ export const findAddress = (query, options, callback) => {
   }
 };
 
-export const fetchCompanies = (count, postProcess) => (query, valueKey, value, callback) => {
+export const fetchCompanies = (count, postProcess) => (
+  query,
+  valueKey,
+  value,
+  callback,
+) => {
   if (query) {
-    return DADATA.post('/suggest/party', { count, query }).then(({ body: { suggestions } }) => {
-      const options = suggestions.map(item => ({
-        value: false,
-        label: `${item.value} (ОГРН: ${item.data.ogrn})\n${item.data.address.value}`,
-        data: item.data,
-      }));
-      if (callback) {
-        if (postProcess) postProcess(options, callback);
-        if (!postProcess) callback(options);
-      }
-      return Promise.resolve(options);
-    });
+    return DADATA.post('/suggest/party', { count, query }).then(
+      ({ body: { suggestions } }) => {
+        const options = suggestions.map(item => ({
+          value: false,
+          label: `${item.value} (ОГРН: ${item.data.ogrn})\n${
+            item.data.address.value
+          }`,
+          data: item.data,
+        }));
+        if (callback) {
+          if (postProcess) postProcess(options, callback);
+          if (!postProcess) callback(options);
+        }
+        return Promise.resolve(options);
+      },
+    );
   }
   if (value) {
     API.get(`/v1/companies/${value}`).then(({ body }) =>

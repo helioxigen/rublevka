@@ -8,7 +8,8 @@ export const stateFilter = {
 export const defaultFilter = offerKind => ({
   state: stateFilter[offerKind],
   [`${offerKind}Offer.multiCurrencyPrice.usd`]: '0..',
-  'location.routeId': global.config.routes && global.config.routes.map(route => route.id),
+  'location.routeId':
+    global.config.routes && global.config.routes.map(route => route.id),
 });
 
 export const defaultFilterNot = {

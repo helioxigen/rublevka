@@ -16,7 +16,8 @@ import { dealTypes } from 'site/constants/properties/dictionaries';
 
 const {
   Visibility,
-  Button, BtnGroup,
+  Button,
+  BtnGroup,
   Icon,
   CountIndicator,
   Grid: { Container, Row, Col },
@@ -74,7 +75,7 @@ class Filter extends Component {
     }
 
     this.setState({ currentLayout: null, isSubViewOpen: false }, () => {
-      animate(duration, easingX, (viewPosition) => {
+      animate(duration, easingX, viewPosition => {
         this.setState({ viewPosition });
       });
     });
@@ -103,7 +104,7 @@ class Filter extends Component {
       }
     };
 
-    const onUpdate = (subViewPosition) => {
+    const onUpdate = subViewPosition => {
       this.setState({ subViewPosition });
     };
 
@@ -128,7 +129,11 @@ class Filter extends Component {
   removeFilter(key, value) {
     if (key === `areas`) {
       this.props.actions.removeFilter(this.props.resourceName, `area`, value);
-      this.props.actions.removeFilter(this.props.resourceName, `landArea`, value);
+      this.props.actions.removeFilter(
+        this.props.resourceName,
+        `landArea`,
+        value,
+      );
     } else {
       this.props.actions.removeFilter(this.props.resourceName, key, value);
     }
@@ -140,20 +145,51 @@ class Filter extends Component {
     return (
       <div>
         <div className={theme.desktopTitle}>Тип</div>
-        <Kind selected={state} updateFilter={::this.updateFilter} removeFilter={::this.removeFilter} toggle={() => this.toggleSubview(null)} dealType={dealType} />
+        <Kind
+          selected={state}
+          updateFilter={::this.updateFilter}
+          removeFilter={::this.removeFilter}
+          toggle={() => this.toggleSubview(null)}
+          dealType={dealType}
+        />
 
         <div className={theme.desktopTitle}>Расположение</div>
-        <Complexes selected={state} updateFilter={::this.updateFilter} removeFilter={::this.removeFilter} toggle={() => this.toggleSubview(null)} />
+        <Complexes
+          selected={state}
+          updateFilter={::this.updateFilter}
+          removeFilter={::this.removeFilter}
+          toggle={() => this.toggleSubview(null)}
+        />
 
         <div className={theme.desktopTitle}>Стоимость</div>
-        <Price selected={state} updateFilter={::this.updateFilter} removeFilter={::this.removeFilter} toggle={() => this.toggleSubview(null)} dealType={dealType} />
+        <Price
+          selected={state}
+          updateFilter={::this.updateFilter}
+          removeFilter={::this.removeFilter}
+          toggle={() => this.toggleSubview(null)}
+          dealType={dealType}
+        />
 
-        <Parameters selected={state} updateFilter={::this.updateFilter} removeFilter={::this.removeFilter} toggle={() => this.toggleSubview(null)} />
+        <Parameters
+          selected={state}
+          updateFilter={::this.updateFilter}
+          removeFilter={::this.removeFilter}
+          toggle={() => this.toggleSubview(null)}
+        />
 
         <div className={theme.desktopTitle}>Ремонт</div>
-        <Renovate selected={state} updateFilter={::this.updateFilter} removeFilter={::this.removeFilter} toggle={() => this.toggleSubview(null)} />
+        <Renovate
+          selected={state}
+          updateFilter={::this.updateFilter}
+          removeFilter={::this.removeFilter}
+          toggle={() => this.toggleSubview(null)}
+        />
 
-        <OnlyNew selected={state} updateFilter={::this.updateFilter} removeFilter={::this.removeFilter} />
+        <OnlyNew
+          selected={state}
+          updateFilter={::this.updateFilter}
+          removeFilter={::this.removeFilter}
+        />
       </div>
     );
   }
@@ -173,11 +209,17 @@ class Filter extends Component {
               <Container>
                 <Row>
                   <Col xs="12">
-                    <Button className={cn(theme.btnRound, isViewOpen && theme.activeBtnRound)} kind="primary" size="lg" onClick={::this.toggle}>
+                    <Button
+                      className={cn(
+                        theme.btnRound,
+                        isViewOpen && theme.activeBtnRound,
+                      )}
+                      kind="primary"
+                      size="lg"
+                      onClick={::this.toggle}
+                    >
                       <Icon className={theme.iconFilter} icon="filter" />
-                      <span styleName="textSm">
-                        Открыть фильтр
-                      </span>
+                      <span styleName="textSm">Открыть фильтр</span>
                     </Button>
 
                     <Selected
@@ -186,7 +228,10 @@ class Filter extends Component {
                     />
 
                     {!!filterCount && (
-                      <Button className={cn(theme.btnClearAllMd, sUtils.textPrimary)} onClick={resetFilter}>
+                      <Button
+                        className={cn(theme.btnClearAllMd, sUtils.textPrimary)}
+                        onClick={resetFilter}
+                      >
                         Сбросить всё
                       </Button>
                     )}
@@ -195,23 +240,64 @@ class Filter extends Component {
               </Container>
             </header>
 
-            <div ref="overlay" className={cn(s.overlay, isViewOpen && s.overlayActive)} onClick={this.props.toggle}></div>
+            <div
+              ref="overlay"
+              className={cn(s.overlay, isViewOpen && s.overlayActive)}
+              onClick={this.props.toggle}
+            />
 
-            <BtnGroup className={cn(theme.btnContainer, isViewOpen && theme.btnContainerActive)}>
-              <Button className={cn(theme.btnClearAll, filterCount && sUtils.textPrimary)} size="md" block disabled={!filterCount} onClick={resetFilter}>
+            <BtnGroup
+              className={cn(
+                theme.btnContainer,
+                isViewOpen && theme.btnContainerActive,
+              )}
+            >
+              <Button
+                className={cn(
+                  theme.btnClearAll,
+                  filterCount && sUtils.textPrimary,
+                )}
+                size="md"
+                block
+                disabled={!filterCount}
+                onClick={resetFilter}
+              >
                 Сбросить фильтр
               </Button>
 
-              <Button styleName="btnTimes" size="md" block kind="primary" onClick={this.props.toggle}>
+              <Button
+                styleName="btnTimes"
+                size="md"
+                block
+                kind="primary"
+                onClick={this.props.toggle}
+              >
                 <Icon className={theme.iconTimes} icon="times" />
               </Button>
             </BtnGroup>
 
-            <div className={cn(s.desktopContainer, isViewOpen && s.desktopContainerActive)}>
+            <div
+              className={cn(
+                s.desktopContainer,
+                isViewOpen && s.desktopContainerActive,
+              )}
+            >
               {this.renderFilters()}
 
-              <Button className={cn(s.floatBtn, isViewOpen && s.floatBtnActive)} kind="primary" block size="lg" onClick={this.props.toggle} disabled={!count}>
-                {count ? `Показать` : `Нет`} <FormattedNumber value={count} /> <CountIndicator count={count} declensionForms={[`объект`, `объекта`, `объектов`]} numberHidden />
+              <Button
+                className={cn(s.floatBtn, isViewOpen && s.floatBtnActive)}
+                kind="primary"
+                block
+                size="lg"
+                onClick={this.props.toggle}
+                disabled={!count}
+              >
+                {count ? `Показать` : `Нет`} <FormattedNumber value={count} />{' '}
+                <CountIndicator
+                  count={count}
+                  declensionForms={[`объект`, `объекта`, `объектов`]}
+                  numberHidden
+                />
               </Button>
             </div>
           </Visibility>
@@ -224,7 +310,13 @@ class Filter extends Component {
                 <Container>
                   <Row>
                     <Col xs="12">
-                      <Button className={theme.btnRound} kind="primary" size="lg" block onClick={::this.toggle}>
+                      <Button
+                        className={theme.btnRound}
+                        kind="primary"
+                        size="lg"
+                        block
+                        onClick={::this.toggle}
+                      >
                         <Icon className={theme.iconFilter} icon="filter" />
                         Открыть фильтр&nbsp;
                         {!!filterCount && (
@@ -240,76 +332,125 @@ class Filter extends Component {
             {/* main view */}
             <div style={{ display: isViewOpen ? `block` : `none` }}>
               <BtnGroup className={theme.btnContainer}>
-                <Button className={cn(theme.btnClearAll, filterCount && sUtils.textPrimary)} size="md" block disabled={!filterCount} onClick={resetFilter}>
+                <Button
+                  className={cn(
+                    theme.btnClearAll,
+                    filterCount && sUtils.textPrimary,
+                  )}
+                  size="md"
+                  block
+                  disabled={!filterCount}
+                  onClick={resetFilter}
+                >
                   Сбросить всё
                 </Button>
 
-                <Button styleName="btnTimes" size="md" block kind="primary" onClick={::this.toggle}>
+                <Button
+                  styleName="btnTimes"
+                  size="md"
+                  block
+                  kind="primary"
+                  onClick={::this.toggle}
+                >
                   <Icon className={theme.iconTimes} icon="times" />
                 </Button>
               </BtnGroup>
             </div>
 
-            <div className={theme.filterContainer} style={{ display: isViewOpen ? `block` : `none` }}>
+            <div
+              className={theme.filterContainer}
+              style={{ display: isViewOpen ? `block` : `none` }}
+            >
               <div className={theme.btnGroupContainer}>
-              <Container>
-                <Row>
-                  {isJQ && (
-                    <Col xs="12" sm="5" smOffset="1">
+                <Container>
+                  <Row>
+                    {isJQ && (
+                      <Col xs="12" sm="5" smOffset="1">
+                        <BtnGroup className={theme.btnGroup}>
+                          <Button
+                            className={cn(
+                              theme.btnInGroup,
+                              resource === `country` && theme.btnActive,
+                            )}
+                            size="lg"
+                            block
+                            onClick={() =>
+                              this.toggleResourceName(`resource`, `country`)
+                            }
+                          >
+                            Загородная
+                          </Button>
+
+                          <Button
+                            className={cn(
+                              theme.btnInGroup,
+                              resource === `city` && theme.btnActive,
+                            )}
+                            size="lg"
+                            block
+                            onClick={() =>
+                              this.toggleResourceName(`resource`, `city`)
+                            }
+                          >
+                            Городская
+                          </Button>
+                        </BtnGroup>
+                      </Col>
+                    )}
+
+                    <Col xs="12" sm="5">
                       <BtnGroup className={theme.btnGroup}>
                         <Button
-                          className={cn(theme.btnInGroup, resource === `country` && theme.btnActive)}
+                          className={cn(
+                            theme.btnInGroup,
+                            dealType === `sale` && theme.btnActive,
+                          )}
                           size="lg"
                           block
-                          onClick={() => this.toggleResourceName(`resource`, `country`)}
+                          onClick={() =>
+                            this.toggleResourceName(`dealType`, `prodaja`)
+                          }
                         >
-                          Загородная
+                          Купить
                         </Button>
 
                         <Button
-                          className={cn(theme.btnInGroup, resource === `city` && theme.btnActive)}
+                          className={cn(
+                            theme.btnInGroup,
+                            dealType === `rent` && theme.btnActive,
+                          )}
                           size="lg"
                           block
-                          onClick={() => this.toggleResourceName(`resource`, `city`)}
+                          onClick={() =>
+                            this.toggleResourceName(`dealType`, `arenda`)
+                          }
                         >
-                          Городская
+                          Снять
                         </Button>
                       </BtnGroup>
                     </Col>
-                  )}
-
-                  <Col xs="12" sm="5">
-                    <BtnGroup className={theme.btnGroup}>
-                      <Button
-                        className={cn(theme.btnInGroup, dealType === `sale` && theme.btnActive)}
-                        size="lg"
-                        block
-                        onClick={() => this.toggleResourceName(`dealType`, `prodaja`)}
-                      >
-                        Купить
-                      </Button>
-
-                      <Button
-                        className={cn(theme.btnInGroup, dealType === `rent` && theme.btnActive)}
-                        size="lg"
-                        block
-                        onClick={() => this.toggleResourceName(`dealType`, `arenda`)}
-                      >
-                        Снять
-                      </Button>
-                    </BtnGroup>
-                  </Col>
-                </Row>
-              </Container>
+                  </Row>
+                </Container>
               </div>
 
-              <div styleName="tabContainer">
-                {this.renderFilters()}
-              </div>
+              <div styleName="tabContainer">{this.renderFilters()}</div>
             </div>
 
-            <Button to={`/gorodskaya/${this.props.dealType}`} styleName="floatBtn" kind="primary" block size="lg" onClick={::this.toggle} style={{ display: isViewOpen ? `block` : `none` }}>
-              {count ? `Показать` : `Нет`} <FormattedNumber value={count} /> <CountIndicator count={count} declensionForms={[`объект`, `объекта`, `объектов`]} numberHidden />
+            <Button
+              to={`/gorodskaya/${this.props.dealType}`}
+              styleName="floatBtn"
+              kind="primary"
+              block
+              size="lg"
+              onClick={::this.toggle}
+              style={{ display: isViewOpen ? `block` : `none` }}
+            >
+              {count ? `Показать` : `Нет`} <FormattedNumber value={count} />{' '}
+              <CountIndicator
+                count={count}
+                declensionForms={[`объект`, `объекта`, `объектов`]}
+                numberHidden
+              />
             </Button>
           </Visibility>
         </section>
@@ -329,4 +470,6 @@ const fields = [
   `settlements`,
 ];
 
-export default FilterHelper(null, fields)(CSSModules(Filter, styles, cssOptions));
+export default FilterHelper(null, fields)(
+  CSSModules(Filter, styles, cssOptions),
+);

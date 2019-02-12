@@ -14,7 +14,10 @@ export default ({ laneKey, count }) => {
     <section>
       <h3 className={cn(s.title, lane.style && s[lane.style])}>{lane.title}</h3>
       <p className={s.description}>
-        <CountIndicator count={count} declensionForms={['заявка', 'заявки', 'заявок']} />
+        <CountIndicator
+          count={count}
+          declensionForms={['заявка', 'заявки', 'заявок']}
+        />
       </p>
     </section>
   );

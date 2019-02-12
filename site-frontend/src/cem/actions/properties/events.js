@@ -16,7 +16,11 @@ const loadPropertyEventsFailed = (id, eventKind, { errors }) => ({
   errors,
 });
 
-const loadPropertyEventsSucceeded = (id, eventKind, { items, pagination }) => (dispatch) => {
+const loadPropertyEventsSucceeded = (
+  id,
+  eventKind,
+  { items, pagination },
+) => dispatch => {
   dispatch(updatePagination('propertiesEvents', pagination));
 
   return dispatch({
@@ -33,7 +37,7 @@ export default (
   id,
   eventKind = 'property_pdf_export',
   queryParams = { filter: {}, pagination: {} },
-) => (dispatch) => {
+) => dispatch => {
   dispatch(loadPropertyEventsStarted(id, eventKind));
   const query = {
     ...queryParams,

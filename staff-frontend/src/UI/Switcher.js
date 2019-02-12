@@ -47,11 +47,11 @@ export default ({ selected = '' }) => (
   <Switcher>
     {currencies.map(SwitcherDataItem => (
       <SwitcherItem
-        selected={selected.toString() === SwitcherDataItem.value.toString()}
+        selected={selected.toString() === SwitcherDataItem.symbol.toString()}
         key={SwitcherDataItem.symbol}
       >
         <Currency
-          selected={selected.toString() === SwitcherDataItem.value.toString()}
+          selected={selected.toString() === SwitcherDataItem.symbol.toString()}
           isRuble={SwitcherDataItem.symbol === '₽'}
         >
           {SwitcherDataItem.symbol}

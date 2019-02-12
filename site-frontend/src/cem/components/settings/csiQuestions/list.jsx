@@ -5,7 +5,8 @@ import FormField from 'cem/helpers/formField';
 
 import UI from 'cem/components/ui';
 const {
-  Button, Icon,
+  Button,
+  Icon,
   Select,
   Form: { Input },
   Table: { Container, Row, Heading, Cell },
@@ -39,39 +40,70 @@ const Form = reduxForm(formSettings)(
           resetForm();
         });
       } else {
-        actions.updateQuestion(formKey, values).then(() => actions.loadQuestions(`all`));
+        actions
+          .updateQuestion(formKey, values)
+          .then(() => actions.loadQuestions(`all`));
       }
     }
 
     render() {
       const {
-        formKey, fields, handleSubmit, pristine, error, submitting,
+        formKey,
+        fields,
+        handleSubmit,
+        pristine,
+        error,
+        submitting,
         isUpdateAllowed,
       } = this.props;
       return (
         <Row>
+          <Cell>{formKey !== `create` && formKey}</Cell>
           <Cell>
-            {formKey !== `create` && formKey}
-          </Cell>
-          <Cell>
-            <FormField className={sUtils.resetIndentation} field={fields.text} sideHelper static={!isUpdateAllowed}>
-              <Input className={s.tableInput} type="text" placeholder="Введите текст" />
+            <FormField
+              className={sUtils.resetIndentation}
+              field={fields.text}
+              sideHelper
+              static={!isUpdateAllowed}
+            >
+              <Input
+                className={s.tableInput}
+                type="text"
+                placeholder="Введите текст"
+              />
             </FormField>
           </Cell>
           <Cell>
-            <FormField className={sUtils.resetIndentation} field={fields.kind} options={dict.kinds} sideHelper static={!isUpdateAllowed}>
-              <Select className={cn(sUtils.resetIndent, sUtils.resetBorder)} type="text" placeholder="Выберите тип" options={options.kinds} />
+            <FormField
+              className={sUtils.resetIndentation}
+              field={fields.kind}
+              options={dict.kinds}
+              sideHelper
+              static={!isUpdateAllowed}
+            >
+              <Select
+                className={cn(sUtils.resetIndent, sUtils.resetBorder)}
+                type="text"
+                placeholder="Выберите тип"
+                options={options.kinds}
+              />
             </FormField>
           </Cell>
           <Cell>
-            <Button type="button" className={sButton.btnTableAction} size="xs" onClick={handleSubmit(::this.createOrUpdate)} disabled={!isUpdateAllowed || pristine || error || submitting}>
+            <Button
+              type="button"
+              className={sButton.btnTableAction}
+              size="xs"
+              onClick={handleSubmit(::this.createOrUpdate)}
+              disabled={!isUpdateAllowed || pristine || error || submitting}
+            >
               <Icon className={s.btnIcon} icon="checkmark" />
             </Button>
           </Cell>
         </Row>
       );
     }
-  }
+  },
 );
 
 class Table extends Component {
@@ -86,8 +118,17 @@ class Table extends Component {
           <Heading width="20%">Тип</Heading>
           <Heading width="15%">Действия</Heading>
         </Row>
-        {isCreateAllowed && <Form {...this.props} formKey="create" isUpdateAllowed />}
-        {items.map(item => <Form {...this.props} formKey={item.id} initialValues={item} isUpdateAllowed={isUpdateAllowed} />)}
+        {isCreateAllowed && (
+          <Form {...this.props} formKey="create" isUpdateAllowed />
+        )}
+        {items.map(item => (
+          <Form
+            {...this.props}
+            formKey={item.id}
+            initialValues={item}
+            isUpdateAllowed={isUpdateAllowed}
+          />
+        ))}
       </Container>
     );
   }

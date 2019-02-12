@@ -16,7 +16,7 @@ const changeStateFailed = (id, state, { errors }) => ({
   errors,
 });
 
-export default (id, state, data) => (dispatch) => {
+export default (id, state, data) => dispatch => {
   dispatch(changeStateStarted(id, state, data));
 
   return API.post(`/v1/properties/orders/search/${id}/${state}`, data)

@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // actions
-import { updateDisplayOption, resetDisplayOption } from 'site/displayOptions/actions';
+import {
+  updateDisplayOption,
+  resetDisplayOption,
+} from 'site/displayOptions/actions';
 
 import { FormattedCurrency } from 'react-formatted';
 
@@ -35,7 +38,9 @@ const Button = styled.button`
   `};
 `;
 
-const Wrapper = styled.div`display: flex;`;
+const Wrapper = styled.div`
+  display: flex;
+`;
 
 const ToggleWrapper = styled.div`
   margin-left: auto;
@@ -63,7 +68,8 @@ class PropertyPrice extends Component {
     const { state, deal = {}, dealType } = this.props;
     const currentCurrency = state.displayOptions.currency;
 
-    const dealPrice = deal.multiCurrencyPrice[currentCurrency] || deal.multiCurrencyPrice.usd;
+    const dealPrice =
+      deal.multiCurrencyPrice[currentCurrency] || deal.multiCurrencyPrice.usd;
 
     return (
       <span>
@@ -94,7 +100,10 @@ class PropertyPrice extends Component {
 
         <ShowXsSm>
           <Wrapper>
-            <FormattedCurrency value={dealPrice} symbol={currentCurrency.toUpperCase()} />{' '}
+            <FormattedCurrency
+              value={dealPrice}
+              symbol={currentCurrency.toUpperCase()}
+            />{' '}
             {dealType === 'rent' ? '/ месяц' : ''}
             <ToggleWrapper>
               <CurrencyToggle />
@@ -110,7 +119,7 @@ const pickState = ({ displayOptions }) => ({
   state: { displayOptions },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     updateDisplayOption,
     resetDisplayOption,
@@ -121,4 +130,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(PropertyPrice);
+export default connect(
+  pickState,
+  pickActions,
+)(PropertyPrice);

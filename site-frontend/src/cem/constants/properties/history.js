@@ -22,23 +22,28 @@ const translateValue = (value, id) => {
   return value;
 };
 
-const getFloor = (kind, number) => `${dict.floors[kind]}${number ? ` ${number}` : ''}`;
+const getFloor = (kind, number) =>
+  `${dict.floors[kind]}${number ? ` ${number}` : ''}`;
 
 export const changeMessages = {
   object: {
     added: ({ value, id }) => (
       <span>
-        Добавлено: <span className={sUtils.success}>{translateValue(value, id)}</span>
+        Добавлено:{' '}
+        <span className={sUtils.success}>{translateValue(value, id)}</span>
       </span>
     ),
     deleted: ({ value, id }) => (
       <span>
-        Удалено: <span className={sUtils.danger}>{translateValue(value, id)}</span>
+        Удалено:{' '}
+        <span className={sUtils.danger}>{translateValue(value, id)}</span>
       </span>
     ),
     changed: ({ oldValue, value, id }) => (
       <span>
-        Изменено: <span className={sUtils.danger}>{translateValue(oldValue, id)}</span>&nbsp;
+        Изменено:{' '}
+        <span className={sUtils.danger}>{translateValue(oldValue, id)}</span>
+        &nbsp;
         <span className={sUtils.success}>{translateValue(value, id)}</span>
       </span>
     ),
@@ -46,22 +51,27 @@ export const changeMessages = {
   array: {
     added: ({ value, id }) => (
       <span>
-        Добавлено: <span className={sUtils.success}>{translateValue(value, id)}</span>
+        Добавлено:{' '}
+        <span className={sUtils.success}>{translateValue(value, id)}</span>
       </span>
     ),
     deleted: ({ value, id }) => (
       <span>
-        Удалено: <span className={sUtils.danger}>{translateValue(value, id)}</span>
+        Удалено:{' '}
+        <span className={sUtils.danger}>{translateValue(value, id)}</span>
       </span>
     ),
     changed: ({ oldValue, value, id }) => (
       <span>
-        Изменено: <span className={sUtils.danger}>{translateValue(oldValue, id)}</span>&nbsp;
+        Изменено:{' '}
+        <span className={sUtils.danger}>{translateValue(oldValue, id)}</span>
+        &nbsp;
         <span className={sUtils.success}>{translateValue(value, id)}</span>
       </span>
     ),
     moved: ({ value, index, newIndex, id }) =>
-      `Изменен порядок: (${translateValue(value, id)}) c ${index + 1} на ${newIndex + 1}`,
+      `Изменен порядок: (${translateValue(value, id)}) c ${index +
+        1} на ${newIndex + 1}`,
   },
   image: {
     added: ({ value }) => (

@@ -10,7 +10,9 @@ import UI from 'site/ui';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col },
+} = UI;
 
 const ReservationWrapper = styled.div`
   background: ${p => p.theme.bodyBg};
@@ -81,8 +83,8 @@ export default class extends Component {
                   <ReserveWrapper>
                     <ReserveTitle>Хотите посмотреть дом?</ReserveTitle>
                     <ReserveText>
-                      Позвоните агенту или заполните форму и мы обязательно свяжемся с вами в
-                      течении 10 минут
+                      Позвоните агенту или заполните форму и мы обязательно
+                      свяжемся с вами в течении 10 минут
                     </ReserveText>
                   </ReserveWrapper>
                 </Col>
@@ -93,15 +95,19 @@ export default class extends Component {
                 </DutyWrapper>
               </Col>
               <Col xs="12" sm="6" md="4">
-                <ReserveForm propertyCategory="country" propertyId={data.id} dealType={dealType} />
+                <ReserveForm
+                  propertyCategory="country"
+                  propertyId={data.id}
+                  dealType={dealType}
+                />
               </Col>
               <HideXsSmMd>
                 <Col xs="12" md="4">
                   <ReserveWrapper>
                     <ReserveTitle>Хотите посмотреть дом?</ReserveTitle>
                     <ReserveText>
-                      Позвоните агенту или заполните форму и мы обязательно свяжемся с вами в
-                      течении 10 минут
+                      Позвоните агенту или заполните форму и мы обязательно
+                      свяжемся с вами в течении 10 минут
                     </ReserveText>
                   </ReserveWrapper>
                 </Col>

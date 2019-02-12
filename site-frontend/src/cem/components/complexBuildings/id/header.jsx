@@ -35,7 +35,12 @@ import * as dict from 'cem/constants/complexBuildings/dictionaries';
 
 const Image = ({ id }) =>
   id ? (
-    <UI.Image src={`${cloudfront}/${id}-thumbnail-256`} kind="circle" width="102" height="102" />
+    <UI.Image
+      src={`${cloudfront}/${id}-thumbnail-256`}
+      kind="circle"
+      width="102"
+      height="102"
+    />
   ) : (
     <UI.Image
       src={require('url-loader!cem/assets/placeholder')}
@@ -45,7 +50,7 @@ const Image = ({ id }) =>
     />
   );
 
-const Description = (props) => {
+const Description = props => {
   const { fields, formKey, isUpdateAllowed } = props;
 
   return (
@@ -81,7 +86,8 @@ const Description = (props) => {
             <Select
               className={cn(
                 sUtils.fontSizeMd,
-                dict.states[fields.state.value] && s[dict.states[fields.state.value].style],
+                dict.states[fields.state.value] &&
+                  s[dict.states[fields.state.value].style],
               )}
               options={options.states}
               labelKey="title"
@@ -108,7 +114,10 @@ class Header extends Component {
   changeResponsible(id) {
     const { formKey, data, actions } = this.props;
     this.props.handleSubmit(() => {
-      actions.updateComplexBuilding(formKey, { ...data, responsibleUser: { id } });
+      actions.updateComplexBuilding(formKey, {
+        ...data,
+        responsibleUser: { id },
+      });
     })();
   }
 
@@ -122,7 +131,8 @@ class Header extends Component {
         complexId: Number(complexId),
       });
     }
-    if (formKey !== 'create') return actions.updateComplexBuilding(formKey, values);
+    if (formKey !== 'create')
+      return actions.updateComplexBuilding(formKey, values);
   }
 
   render() {
@@ -139,7 +149,9 @@ class Header extends Component {
 
     return (
       <header className={s.header}>
-        <Form.Container onSubmit={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}>
+        <Form.Container
+          onSubmit={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}
+        >
           <Grid.Container fluid>
             <Row>
               <Col xs="20" className={sUtils.positionRelative}>
@@ -154,8 +166,7 @@ class Header extends Component {
                   {formKey !== 'create' && `Корпусы (ID: ${formKey})`}
                   {formKey === 'create' && 'Создать корпус'}
                 </Heading>
-                {isUpdateAllowed &&
-                formKey !== 'create' && (
+                {isUpdateAllowed && formKey !== 'create' && (
                   <Dropdown
                     className={sDropdown.header}
                     button={
@@ -165,7 +176,10 @@ class Header extends Component {
                     }
                   >
                     <TransferUserModal action={::this.changeResponsible}>
-                      <Button type="button" className={sButton.btnDropdownInner}>
+                      <Button
+                        type="button"
+                        className={sButton.btnDropdownInner}
+                      >
                         Передать другому сотруднику
                       </Button>
                     </TransferUserModal>

@@ -26,31 +26,41 @@ const sendResponse = (res, content) => {
 };
 
 export default (req, res) => {
-  API.get(`/v1/properties/${req.params.category}/${req.params.id}`).then(({ body: property }) => {
-    API.get(`/v1/users/me?token=${req.params.token}`).then(({ body: { id } }) => {
-      API.get(`/v1/users/staff/${id}?token=${req.params.token}`).then(({ body: broker }) => {
-        const showLogo = req.params.showLogo === 'logo';
-        if (property.residentialComplexId) {
-          API.get(
-            `/v1/residential_complexes/${property.residentialComplexId}`,
-          ).then(({ body: residentialComplex }) => {
-            const content = renderToString(
-              <Presentation
-                data={property}
-                broker={broker}
-                showLogo={showLogo}
-                residentialComplex={residentialComplex}
-              />,
-            );
-            sendResponse(res, content);
-          });
-        } else {
-          const content = renderToString(
-            <Presentation data={property} broker={broker} showLogo={showLogo} />,
+  API.get(`/v1/properties/${req.params.category}/${req.params.id}`).then(
+    ({ body: property }) => {
+      API.get(`/v1/users/me?token=${req.params.token}`).then(
+        ({ body: { id } }) => {
+          API.get(`/v1/users/staff/${id}?token=${req.params.token}`).then(
+            ({ body: broker }) => {
+              const showLogo = req.params.showLogo === 'logo';
+              if (property.residentialComplexId) {
+                API.get(
+                  `/v1/residential_complexes/${property.residentialComplexId}`,
+                ).then(({ body: residentialComplex }) => {
+                  const content = renderToString(
+                    <Presentation
+                      data={property}
+                      broker={broker}
+                      showLogo={showLogo}
+                      residentialComplex={residentialComplex}
+                    />,
+                  );
+                  sendResponse(res, content);
+                });
+              } else {
+                const content = renderToString(
+                  <Presentation
+                    data={property}
+                    broker={broker}
+                    showLogo={showLogo}
+                  />,
+                );
+                sendResponse(res, content);
+              }
+            },
           );
-          sendResponse(res, content);
-        }
-      });
-    });
-  });
+        },
+      );
+    },
+  );
 };

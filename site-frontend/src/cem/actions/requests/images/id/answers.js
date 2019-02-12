@@ -19,7 +19,7 @@ const loadAnswersFailed = (requestId, { errors }) => ({
 });
 
 export default function loadAnswers(requestId) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadAnswersStarted(requestId));
 
     return API.get(`/v1/orders/images/${requestId}/answers`)

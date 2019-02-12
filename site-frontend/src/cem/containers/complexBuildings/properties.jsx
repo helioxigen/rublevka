@@ -17,7 +17,13 @@ import s from 'cem/styles/id/content';
 
 class Properties extends Component {
   render() {
-    const { actions, formKey, state, params: { buildingId: id }, isUpdateAllowed } = this.props;
+    const {
+      actions,
+      formKey,
+      state,
+      params: { buildingId: id },
+      isUpdateAllowed,
+    } = this.props;
 
     const { items = [], isFetching } = state.primaryProperties[id] || {};
     const { data = {} } = state.complexBuildings[id] || {};
@@ -25,19 +31,39 @@ class Properties extends Component {
     return (
       <Row>
         <Col className={s.section}>
-          <PrimaryPropertiesForm isUpdateAllowed={isUpdateAllowed} actions={actions} id={id} formKey={formKey} complexBuildingData={data} initialValues={data.propertyDefaults || {}} items={items} isFetching={isFetching} />
+          <PrimaryPropertiesForm
+            isUpdateAllowed={isUpdateAllowed}
+            actions={actions}
+            id={id}
+            formKey={formKey}
+            complexBuildingData={data}
+            initialValues={data.propertyDefaults || {}}
+            items={items}
+            isFetching={isFetching}
+          />
         </Col>
       </Row>
     );
   }
 }
 
-const pickState = ({ auth, propertiesByComplexBuildingId, complexBuildings }) => ({
-  state: { auth, primaryProperties: propertiesByComplexBuildingId.primary, complexBuildings },
+const pickState = ({
+  auth,
+  propertiesByComplexBuildingId,
+  complexBuildings,
+}) => ({
+  state: {
+    auth,
+    primaryProperties: propertiesByComplexBuildingId.primary,
+    complexBuildings,
+  },
 });
 
 const pickActions = dispatch => ({
   actions: bindActionCreators({ ...ComplexBuildingsActions, pop }, dispatch),
 });
 
-export default connect(pickState, pickActions)(Properties);
+export default connect(
+  pickState,
+  pickActions,
+)(Properties);

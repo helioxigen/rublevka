@@ -8,10 +8,7 @@ import MapComponent from 'site/ui/map';
 import { push } from 'react-router-redux';
 
 import UI from 'site/ui';
-const {
-  Visibility,
-  Button,
-} = UI;
+const { Visibility, Button } = UI;
 
 import s from 'landing/styles/landing/map';
 
@@ -38,16 +35,30 @@ class Map extends Component {
             isFullScreenDisabled
           />
 
-          <h1 className={s.title}>{location.routeName} шоссе, {location.mkadDistance} км</h1>
+          <h1 className={s.title}>
+            {location.routeName} шоссе, {location.mkadDistance} км
+          </h1>
 
           <Visibility xs="hidden" sm="hidden">
-            <a href="https://s3.eu-central-1.amazonaws.com/dt-marketing/renessans-park-1.pdf" target="_blank" className={s.link}>Показать план поселка</a>
+            <a
+              href="https://s3.eu-central-1.amazonaws.com/dt-marketing/renessans-park-1.pdf"
+              target="_blank"
+              className={s.link}
+            >
+              Показать план поселка
+            </a>
           </Visibility>
         </div>
 
         <Visibility md="hidden" lg="hidden">
           <div className={s.linkContainer}>
-            <a href="https://s3.eu-central-1.amazonaws.com/dt-marketing/renessans-park-1.pdf" target="_blank" className={s.link}>Показать план поселка</a>
+            <a
+              href="https://s3.eu-central-1.amazonaws.com/dt-marketing/renessans-park-1.pdf"
+              target="_blank"
+              className={s.link}
+            >
+              Показать план поселка
+            </a>
           </div>
         </Visibility>
       </div>
@@ -55,7 +66,7 @@ class Map extends Component {
   }
 }
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     push,
   };
@@ -65,4 +76,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(null, pickActions)(Map);
+export default connect(
+  null,
+  pickActions,
+)(Map);

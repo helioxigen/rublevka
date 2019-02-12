@@ -18,7 +18,13 @@ import { resourceName } from 'core/settlements/constants/defaults';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const { Grid: { Container, Row }, Button, CountIndicator, BtnGroup, Icon } = UI;
+const {
+  Grid: { Container, Row },
+  Button,
+  CountIndicator,
+  BtnGroup,
+  Icon,
+} = UI;
 
 const Wrapper = styled.section`
   min-height: 100%;
@@ -275,7 +281,11 @@ class Filter extends Component {
             />
           </Row>
         </Container>
-        <Overlay ref="overlay" isViewOpen={isViewOpen} onClick={this.toggleView} />
+        <Overlay
+          ref="overlay"
+          isViewOpen={isViewOpen}
+          onClick={this.toggleView}
+        />
 
         <StBtnGroup isViewOpen={isViewOpen}>
           <ResetBtn

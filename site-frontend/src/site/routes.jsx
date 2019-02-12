@@ -36,9 +36,18 @@ export default (
     <Redirect from="/zagorodnaya/shosse" to="/" />
     <Redirect from="/zagorodnaya/rayon" to="/" />
     <Redirect from="/zagorodnaya/nas-punkt" to="/" />
-    <Redirect from="/zagorodnaya/shosse/:place" to="/zagorodnaya/shosse/:place/prodaja" />
-    <Redirect from="/zagorodnaya/rayon/:place" to="/zagorodnaya/rayon/:place/prodaja" />
-    <Redirect from="/zagorodnaya/nas-punkt/:place" to="/zagorodnaya/nas-punkt/:place/prodaja" />
+    <Redirect
+      from="/zagorodnaya/shosse/:place"
+      to="/zagorodnaya/shosse/:place/prodaja"
+    />
+    <Redirect
+      from="/zagorodnaya/rayon/:place"
+      to="/zagorodnaya/rayon/:place/prodaja"
+    />
+    <Redirect
+      from="/zagorodnaya/nas-punkt/:place"
+      to="/zagorodnaya/nas-punkt/:place/prodaja"
+    />
     <Redirect
       from="/zagorodnaya/kottedzhnye-poselki/:settlement/prodaja"
       to="/zagorodnaya/kottedzhnye-poselki/:settlement"
@@ -55,13 +64,19 @@ export default (
       <Route path="/contacts" component={Feedback} />
       {isJQ && <Route path="/about" component={About} />}
       {isJQ && <Route path="/agents" component={Agents} />}
-      {isJQ && <Route path="/podborky/:selection" component={Selections.List} />}
+      {isJQ && (
+        <Route path="/podborky/:selection" component={Selections.List} />
+      )}
 
       {isJQ && (
         <Route path="/zagorodnaya/kottedzhnye-poselki">
           <IndexRoute component={Settlements.List} />
 
-          <Route path=":settlement(/:kind)" component={Settlements.Show} ignoreScrollBehavior />
+          <Route
+            path=":settlement(/:kind)"
+            component={Settlements.Show}
+            ignoreScrollBehavior
+          />
         </Route>
       )}
 
@@ -85,22 +100,53 @@ export default (
         </Route>
       )}
 
-      {isJQ && <Route path="/:category/:dealType(/:kind)" component={PropertiesList} />}
-      {!isJQ && <Route path="/:category/:dealType(/:kind)" component={PropertiesListSat} />}
-
-      {isJQ && <Route path="/zagorodnaya/prodaja/:kind/:id" component={CountryProperties.Sale} />}
-      {!isJQ && (
-        <Route path="/zagorodnaya/prodaja/:kind/:id" component={CountryPropertiesSat.Sale} />
+      {isJQ && (
+        <Route path="/:category/:dealType(/:kind)" component={PropertiesList} />
       )}
-      {isJQ && <Route path="/zagorodnaya/arenda/:kind/:id" component={CountryProperties.Rent} />}
       {!isJQ && (
-        <Route path="/zagorodnaya/arenda/:kind/:id" component={CountryPropertiesSat.Rent} />
+        <Route
+          path="/:category/:dealType(/:kind)"
+          component={PropertiesListSat}
+        />
       )}
-
-      {isJQ && <Route path="/gorodskaya/:dealType/:kind/:id" component={CityProperties.Show} />}
 
       {isJQ && (
-        <Route path="/zagorodnaya/:placeKind/:place/:dealType(/:kind)" component={Places.Show} />
+        <Route
+          path="/zagorodnaya/prodaja/:kind/:id"
+          component={CountryProperties.Sale}
+        />
+      )}
+      {!isJQ && (
+        <Route
+          path="/zagorodnaya/prodaja/:kind/:id"
+          component={CountryPropertiesSat.Sale}
+        />
+      )}
+      {isJQ && (
+        <Route
+          path="/zagorodnaya/arenda/:kind/:id"
+          component={CountryProperties.Rent}
+        />
+      )}
+      {!isJQ && (
+        <Route
+          path="/zagorodnaya/arenda/:kind/:id"
+          component={CountryPropertiesSat.Rent}
+        />
+      )}
+
+      {isJQ && (
+        <Route
+          path="/gorodskaya/:dealType/:kind/:id"
+          component={CityProperties.Show}
+        />
+      )}
+
+      {isJQ && (
+        <Route
+          path="/zagorodnaya/:placeKind/:place/:dealType(/:kind)"
+          component={Places.Show}
+        />
       )}
       {!isJQ && (
         <Route

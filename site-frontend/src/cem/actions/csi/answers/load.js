@@ -23,7 +23,7 @@ const loadAnswersFailed = (kind, requestId, { errors }) => ({
 });
 
 export default function loadAnswers(kind, requestId) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadAnswersStarted(kind, requestId));
     const url = paths[kind](requestId);
 

@@ -10,7 +10,7 @@ export default function getItems() {
     .orderBy('top3', 'desc')
     .get()
     .then(snapshot => snapshot.docs.map(mapDocs))
-    .then((docs) => {
+    .then(docs => {
       const ids = docs.map(doc => doc.id);
       const idsParts = splitEvery(API_PAGE_SIZE, ids);
 
@@ -19,17 +19,21 @@ export default function getItems() {
       return Promise.all(promises)
         .then(data => data.map(response => response.items))
         .then(items => flatten(items))
-        .then(items => items.reduce(
-          (acc, item) => ({
-            ...acc,
-            [item.id]: item,
-          }),
-          {},
-        ))
+        .then(items =>
+          items.reduce(
+            (acc, item) => ({
+              ...acc,
+              [item.id]: item,
+            }),
+            {},
+          ),
+        )
         .then(items => docs.map(doc => ({ ...doc, data: items[doc.id] })));
     })
-    .then(docs => docs.reduce(reduceDocs, {
-      itemsOnSale: [],
-      itemsOnRent: [],
-    }));
+    .then(docs =>
+      docs.reduce(reduceDocs, {
+        itemsOnSale: [],
+        itemsOnRent: [],
+      }),
+    );
 }

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import properties from './properties/reducer';
+import countryProperties from './countryProperties/reducer';
 
 export default combineReducers({
-  properties,
+  countryProperties,
 });

@@ -17,11 +17,16 @@ export default (s = {}) => ({
       </span>
     );
   } else if (numberHidden) {
-    return <span className={s.countIndicator}>{declOfNum(count, declensionForms)}</span>;
+    return (
+      <span className={s.countIndicator}>
+        {declOfNum(count, declensionForms)}
+      </span>
+    );
   }
   return (
     <span className={s.countIndicator}>
-      <span className={className}>{count}</span> {declOfNum(count, declensionForms)}
+      <span className={className}>{count}</span>{' '}
+      {declOfNum(count, declensionForms)}
     </span>
   );
 };

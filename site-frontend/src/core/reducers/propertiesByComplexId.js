@@ -24,7 +24,10 @@ export default handleActions(
       };
     },
 
-    [types.LOAD_PROPERTIES_SUCCESS]: (state, { saleType, id, items, append }) => {
+    [types.LOAD_PROPERTIES_SUCCESS]: (
+      state,
+      { saleType, id, items, append },
+    ) => {
       const oldItems = (state[saleType][id] && state[saleType][id].items) || [];
 
       return {

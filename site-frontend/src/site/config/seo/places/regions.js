@@ -6,7 +6,9 @@ export default {
     h1: 'Регионы',
     title: `Найти недвижимость по региону – ${global.config.domain}`,
     description: `Список регионов для поиска на ${global.config.domain}`,
-    keywords: `регионы, загородная недвижимость, список, перечень, ${global.config.domain}`,
+    keywords: `регионы, загородная недвижимость, список, перечень, ${
+      global.config.domain
+    }`,
   },
   show: {
     h1: ({ name }, dealType, kind) => {
@@ -39,7 +41,9 @@ export default {
       if (!kind) {
         return `${dictionary[dealType].title} недвижимости – ${name}`;
       }
-      return `${dictionary[dealType].title} ${dictionary[dealType].kind[kind]} – ${name}`;
+      return `${dictionary[dealType].title} ${
+        dictionary[dealType].kind[kind]
+      } – ${name}`;
     },
     title: ({ name }, dealType, kind) => {
       if (!name) {
@@ -69,13 +73,13 @@ export default {
       };
 
       if (!kind) {
-        return `${dictionary[dealType].title} загородной недвижимости – ${name} – ${
-          global.config.domain
-        }`;
+        return `${
+          dictionary[dealType].title
+        } загородной недвижимости – ${name} – ${global.config.domain}`;
       }
-      return `${dictionary[dealType].titleWithCategory} ${dictionary[dealType][kind]} – ${name} – ${
-        global.config.domain
-      }`;
+      return `${dictionary[dealType].titleWithCategory} ${
+        dictionary[dealType][kind]
+      } – ${name} – ${global.config.domain}`;
     },
     description: (name, dealType, kind) => {
       if (!name) {
@@ -105,7 +109,9 @@ export default {
       };
 
       if (!kind) {
-        return `${dictionary[dealType].title} недвижимость - ${name}. Лучшие предложения на ${
+        return `${
+          dictionary[dealType].title
+        } недвижимость - ${name}. Лучшие предложения на ${
           global.config.domain
         }!`;
       }
@@ -137,9 +143,11 @@ export default {
           global.config.domain
         }, цена, стоимость, отзывы, квартира, таунхаус, участок, дом`;
       }
-      return `${dictionary.dealType[dealType][0]} ${dictionary.kind[kind][0]}, ${
-        dictionary.dealType[dealType][1]
-      } ${dictionary.kind[kind][1]}, коттеджный поселок, ${name}, ${
+      return `${dictionary.dealType[dealType][0]} ${
+        dictionary.kind[kind][0]
+      }, ${dictionary.dealType[dealType][1]} ${
+        dictionary.kind[kind][1]
+      }, коттеджный поселок, ${name}, ${
         global.config.domain
       }, цена, стоимость, отзывы`;
     },

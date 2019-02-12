@@ -1,7 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
 
-export default (styles = {}) => (props) => {
+export default (styles = {}) => props => {
   const { xs, sm, md, lg } = props;
 
   const className = {
@@ -11,9 +11,5 @@ export default (styles = {}) => (props) => {
     [styles[`lg-${lg}`]]: !!lg,
   };
 
-  return (
-    <div className={cn(className, props.className)}>
-      {props.children}
-    </div>
-  );
+  return <div className={cn(className, props.className)}>{props.children}</div>;
 };

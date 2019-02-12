@@ -3,7 +3,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // actions
-import { updateDisplayOption, resetDisplayOption } from 'site/displayOptions/actions';
+import {
+  updateDisplayOption,
+  resetDisplayOption,
+} from 'site/displayOptions/actions';
 
 import styled from 'styled-components';
 import media from 'site/styles/media';

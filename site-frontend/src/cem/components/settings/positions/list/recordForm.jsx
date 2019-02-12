@@ -7,7 +7,8 @@ import validate from 'cem/validators/positions';
 
 import UI from 'cem/components/ui';
 const {
-  Button, Icon,
+  Button,
+  Icon,
   Table: { Row, Cell },
   Form: { Group, Input },
 } = UI;
@@ -32,33 +33,58 @@ class RoleRecordForm extends Component {
   }
 
   render() {
-    const { formKey, fields, handleSubmit, pristine, error, submitting } = this.props;
+    const {
+      formKey,
+      fields,
+      handleSubmit,
+      pristine,
+      error,
+      submitting,
+    } = this.props;
 
     return (
       <Row>
         <Cell>
-          <FormField className={sUtils.resetIndentation} field={fields.name} helperClassName={s.formHelper} static={formKey !== `create`}>
-            <Input className={s.tableInput} type="text" placeholder="Введите название должности" />
+          <FormField
+            className={sUtils.resetIndentation}
+            field={fields.name}
+            helperClassName={s.formHelper}
+            static={formKey !== `create`}
+          >
+            <Input
+              className={s.tableInput}
+              type="text"
+              placeholder="Введите название должности"
+            />
           </FormField>
         </Cell>
-        {formKey !== `create` &&
+        {formKey !== `create` && (
           <Cell>
             <Group className={sUtils.resetIndentation}>
-              <Button className={sButton.btnTableAction} to={`/settings/positions/${fields.id.value}`} size="xs">
+              <Button
+                className={sButton.btnTableAction}
+                to={`/settings/positions/${fields.id.value}`}
+                size="xs"
+              >
                 <Icon className={s.btnIcon} icon="arrow-left" />
               </Button>
             </Group>
           </Cell>
-        }
-        {formKey === `create` &&
+        )}
+        {formKey === `create` && (
           <Cell>
             <Group className={sUtils.resetIndentation}>
-              <Button className={sButton.btnTableAction} size="xs" onClick={handleSubmit(::this.create, ::this.onSubmitSuccess)} disabled={pristine || error || submitting}>
+              <Button
+                className={sButton.btnTableAction}
+                size="xs"
+                onClick={handleSubmit(::this.create, ::this.onSubmitSuccess)}
+                disabled={pristine || error || submitting}
+              >
                 <Icon className={s.btnIcon} icon="checkmark" />
               </Button>
             </Group>
           </Cell>
-        }
+        )}
       </Row>
     );
   }

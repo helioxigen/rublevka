@@ -20,7 +20,9 @@ function getImgUrl(data) {
   const publicImages = images.filter(({ isPublic }) => !!isPublic);
 
   if (publicImages.length) {
-    return `url(${global.config.cloudfront || cloudfront}/${publicImages[0].id}-thumbnail-512)`;
+    return `url(${global.config.cloudfront || cloudfront}/${
+      publicImages[0].id
+    }-thumbnail-512)`;
   } else if (typeof window !== 'undefined') {
     return 'url(https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder.jpg)';
   }
@@ -37,7 +39,9 @@ class Card extends Component {
     return (
       <Grid.Col xs="12" sm="6" md="4">
         <Link
-          to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${data.id}`}
+          to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${
+            data.id
+          }`}
           className={s.settlementCard}
         >
           <div className={sUtils.pushedBottom2}>
@@ -47,7 +51,11 @@ class Card extends Component {
                 <p className={s.overlayText}>
                   <CountIndicator
                     count={statistics.totalProperties}
-                    declensionForms={['предложение', 'предложения', 'предложений']}
+                    declensionForms={[
+                      'предложение',
+                      'предложения',
+                      'предложений',
+                    ]}
                     numberHidden
                   />
                 </p>
@@ -69,8 +77,12 @@ class Card extends Component {
             <div>
               <h1 className={s.titleSettlement}>{data.name}</h1>
               <div className={s.locationSettlement}>
-                <span className={s.subLocalitySettlement}>{location.routeName} ш.,&nbsp;</span>
-                <span className={s.subLocalitySettlement}>{location.mkadDistance} км</span>
+                <span className={s.subLocalitySettlement}>
+                  {location.routeName} ш.,&nbsp;
+                </span>
+                <span className={s.subLocalitySettlement}>
+                  {location.mkadDistance} км
+                </span>
               </div>
             </div>
           </div>

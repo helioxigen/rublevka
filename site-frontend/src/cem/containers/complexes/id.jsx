@@ -17,7 +17,9 @@ import Tabs from 'cem/components/complexes/id/tabs';
 
 class Id extends Component {
   componentWillMount() {
-    const { params: { id } } = this.props;
+    const {
+      params: { id },
+    } = this.props;
 
     if (id !== `create`) ::this.load(id);
   }
@@ -26,7 +28,7 @@ class Id extends Component {
     const id = this.props.params.id;
     const nextId = nextProps.params.id;
 
-    if (!!nextId && (id !== nextId) && (nextId !== `create`)) ::this.load(nextId);
+    if (!!nextId && id !== nextId && nextId !== `create`) ::this.load(nextId);
   }
 
   load(id) {
@@ -34,21 +36,52 @@ class Id extends Component {
   }
 
   render() {
-    const { state, params: { id }, hasRight } = this.props;
+    const {
+      state,
+      params: { id },
+      hasRight,
+    } = this.props;
     const { data = {} } = state.complexes[id] || {};
 
     const permissionsProps = {
-      isUpdateAllowed: hasRight(`complex_update`, data.responsibleUser && data.responsibleUser.id, data.responsibleUser && data.responsibleUser.departmentId, data.responsibleUser && data.responsibleUser.divisionId),
-      isBuildingCreationAllowed: hasRight(`complex_building_create`, data.responsibleUser && data.responsibleUser.id, data.responsibleUser && data.responsibleUser.departmentId, data.responsibleUser && data.responsibleUser.divisionId),
-      isImageUploadAllowed: hasRight(`complex_image_upload`, data.responsibleUser && data.responsibleUser.id, data.responsibleUser && data.responsibleUser.departmentId, data.responsibleUser && data.responsibleUser.divisionId),
+      isUpdateAllowed: hasRight(
+        `complex_update`,
+        data.responsibleUser && data.responsibleUser.id,
+        data.responsibleUser && data.responsibleUser.departmentId,
+        data.responsibleUser && data.responsibleUser.divisionId,
+      ),
+      isBuildingCreationAllowed: hasRight(
+        `complex_building_create`,
+        data.responsibleUser && data.responsibleUser.id,
+        data.responsibleUser && data.responsibleUser.departmentId,
+        data.responsibleUser && data.responsibleUser.divisionId,
+      ),
+      isImageUploadAllowed: hasRight(
+        `complex_image_upload`,
+        data.responsibleUser && data.responsibleUser.id,
+        data.responsibleUser && data.responsibleUser.departmentId,
+        data.responsibleUser && data.responsibleUser.divisionId,
+      ),
     };
 
     return (
       <section>
-        <Header {...this.props} formKey={id} initialValues={data} data={data} {...permissionsProps} />
+        <Header
+          {...this.props}
+          formKey={id}
+          initialValues={data}
+          data={data}
+          {...permissionsProps}
+        />
         <Tabs id={id} />
         <Container fluid>
-          {React.cloneElement(this.props.children, { ...this.props, formKey: id.toString(), initialValues: data, data, ...permissionsProps })}
+          {React.cloneElement(this.props.children, {
+            ...this.props,
+            formKey: id.toString(),
+            initialValues: data,
+            data,
+            ...permissionsProps,
+          })}
         </Container>
       </section>
     );
@@ -59,8 +92,11 @@ const pickState = ({ auth, complexes, users }) => ({
   state: { auth, complexes, users },
 });
 
-const pickActions = (dispatch) => ({
+const pickActions = dispatch => ({
   actions: bindActionCreators({ ...ComplexesActions, loadUser, pop }, dispatch),
 });
 
-export default connect(pickState, pickActions)(Id);
+export default connect(
+  pickState,
+  pickActions,
+)(Id);

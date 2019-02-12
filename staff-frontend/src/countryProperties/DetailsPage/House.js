@@ -8,7 +8,7 @@ import {
   PropertyTitle,
   PropertyValue,
   SubTitle,
-} from './style';
+} from './styled';
 import { Body } from '../../UI';
 import Select from '../../UI/Select';
 import { selectBinaryExistData, selectFixedValueData } from './schema';
@@ -89,27 +89,53 @@ const HouseSection = ({ enableHouseEditMode, isEditMode, property }) => {
       </Col>
       <Col xsOffset={1} xs={2}>
         <PropertyTitle>Площадь дома</PropertyTitle>
-        <EditPropertyInput placeholder="Площадь, м" />
+        <EditPropertyInput
+          defaultValue={property.specification.area}
+          placeholder="Площадь, м"
+        />
         <PropertyTitle>Высота потолков</PropertyTitle>
-        <EditPropertyInput placeholder="Высота, м" />
+        <EditPropertyInput
+          defaultValue={property.specification.ceilingHeight}
+          placeholder="Высота, м"
+        />
         <PropertyTitle>Комнат</PropertyTitle>
-        <EditPropertyInput placeholder="Комнат, шт." />
+        <EditPropertyInput
+          defaultValue={property.specification.rooms}
+          placeholder="Комнат, шт."
+        />
         <PropertyTitle>Спален</PropertyTitle>
-        <EditPropertyInput placeholder="Спален, шт." />
+        <EditPropertyInput
+          defaultValue={property.specification.bedrooms}
+          placeholder="Спален, шт."
+        />
       </Col>
       <Col xsOffset={1} xs={3}>
         <PropertyTitle>Лоджий</PropertyTitle>
-        <Select selectData={selectFixedValueData} selected={0} filled />
+        <Select
+          selectData={selectFixedValueData}
+          selected={property.specification.loggias}
+          filled
+        />
         <PropertyTitle>Балконов</PropertyTitle>
-        <Select selectData={selectFixedValueData} selected={0} filled />
-        <PropertyTitle>Ванных</PropertyTitle>
-        <Select selectData={selectFixedValueData} selected={0} filled />
+        <Select
+          selectData={selectFixedValueData}
+          selected={property.specification.balconies}
+          filled
+        />
         <PropertyTitle>Санузлов</PropertyTitle>
-        <Select selectData={selectFixedValueData} selected={0} filled />
+        <Select
+          selectData={selectFixedValueData}
+          selected={property.specification.wcs}
+          filled
+        />
       </Col>
       <Col xs={3}>
         <PropertyTitle>Лифт</PropertyTitle>
-        <Select selectData={selectBinaryExistData} selected={1} filled />
+        <Select
+          selectData={selectBinaryExistData}
+          selected={property.specification.elevators}
+          filled
+        />
       </Col>
     </EditPropertyRow>
   );

@@ -17,7 +17,11 @@ import sUtils from 'site/styles/utils';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const { Button, Icon, Grid: { Container, Row, Col } } = UI;
+const {
+  Button,
+  Icon,
+  Grid: { Container, Row, Col },
+} = UI;
 
 const Wrapper = styled.div`
   position: absolute;
@@ -107,7 +111,11 @@ class SettlementMap extends Component {
       this.refs.mapgl.getMap().scrollZoom.enable();
       this.refs.mapgl.getMap().dragPan.enable();
     } else {
-      this.refs.container.removeEventListener('wheel', cancelScrollEvent, false);
+      this.refs.container.removeEventListener(
+        'wheel',
+        cancelScrollEvent,
+        false,
+      );
       this.refs.mapgl.getMap().scrollZoom.disable();
       this.refs.mapgl.getMap().dragPan.disable();
     }
@@ -135,7 +143,10 @@ class SettlementMap extends Component {
     const { fullscreen } = this.state;
     const generatedMarkers = markers.map(genMarker);
     const zoomLevel = this.state.zoom;
-    const className = cn({ [sUtils.fullscreen]: fullscreen }, container.props.className);
+    const className = cn(
+      { [sUtils.fullscreen]: fullscreen },
+      container.props.className,
+    );
 
     if (typeof window !== 'undefined' && !window.mapboxgl) return null;
 
@@ -151,12 +162,14 @@ class SettlementMap extends Component {
           />
         </MapContainer>
 
-        {!fullscreen &&
-          !this.props.noFullScreen && (
-            <MapBtn type="button" onClick={() => this.toggleFullscreen(!fullscreen)}>
-              Показать на карте
-            </MapBtn>
-          )}
+        {!fullscreen && !this.props.noFullScreen && (
+          <MapBtn
+            type="button"
+            onClick={() => this.toggleFullscreen(!fullscreen)}
+          >
+            Показать на карте
+          </MapBtn>
+        )}
 
         {fullscreen && (
           <UI.Button
@@ -193,7 +206,7 @@ class SettlementMap extends Component {
   }
 }
 
-const pickState = (state) => {
+const pickState = state => {
   const { settlements } = state;
 
   return {
@@ -203,7 +216,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadSettlement,
   };
@@ -213,4 +226,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(SettlementMap);
+export default connect(
+  pickState,
+  pickActions,
+)(SettlementMap);

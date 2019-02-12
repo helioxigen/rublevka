@@ -6,7 +6,11 @@ import {
 } from 'core/fetcher2/actions/list/load';
 
 import * as types from 'cem/_deals/constants/actions';
-import { getDefaultsByGroup, resourceName, apiPathByGroup } from 'cem/_deals/constants/defaults';
+import {
+  getDefaultsByGroup,
+  resourceName,
+  apiPathByGroup,
+} from 'cem/_deals/constants/defaults';
 import { updatePagination } from 'core/actions/pagination';
 import loadContacts from 'cem/_contacts/actions/list/load';
 
@@ -17,12 +21,17 @@ import { mergeParams } from 'core/fetcher2/helpers';
 
 const groupForLinkedResources = 'forDeals';
 
-const loadDeals = (queryParams, group, options = {}) => (dispatch, getState) => {
+const loadDeals = (queryParams, group, options = {}) => (
+  dispatch,
+  getState,
+) => {
   dispatch(loadListStarted(types.LOAD_LIST, group));
 
   const apiPath = apiPathByGroup[group] || apiPathByGroup.default;
   const defaultQueryParams = getDefaultsByGroup(group, options);
-  const params = mapParams(recursiveCleanUp(mergeParams(defaultQueryParams, queryParams)));
+  const params = mapParams(
+    recursiveCleanUp(mergeParams(defaultQueryParams, queryParams)),
+  );
 
   return loadList(apiPath, group, params).then(
     ({ items, pagination }) => {
@@ -36,12 +45,17 @@ const loadDeals = (queryParams, group, options = {}) => (dispatch, getState) => 
         .filter(id => !!id); // is existed
 
       if (linkedContactsIds.length) {
-        dispatch(loadContacts({ filter: { id: linkedContactsIds } }, groupForLinkedResources));
+        dispatch(
+          loadContacts(
+            { filter: { id: linkedContactsIds } },
+            groupForLinkedResources,
+          ),
+        );
       }
 
       return Promise.resolve(items);
     },
-    (errors) => {
+    errors => {
       dispatch(loadListFailed(types.LOAD_LIST_FAILED, group, errors));
 
       return Promise.reject(errors);

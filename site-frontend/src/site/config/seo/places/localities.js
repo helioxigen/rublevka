@@ -43,7 +43,9 @@ export default {
       };
 
       if (!kind) {
-        return `${dictionary[dealType].title} недвижимости – нас. пункт ${name}`;
+        return `${
+          dictionary[dealType].title
+        } недвижимости – нас. пункт ${name}`;
       }
       return `${dictionary[dealType].title} ${
         dictionary[dealType].kind[kind]
@@ -79,7 +81,9 @@ export default {
       if (!kind) {
         return `${
           dictionary[dealType].title
-        } загородной недвижимости – ${name}, Московская область – ${global.config.domain}`;
+        } загородной недвижимости – ${name}, Московская область – ${
+          global.config.domain
+        }`;
       }
       return `${dictionary[dealType].titleWithCategory} ${
         dictionary[dealType][kind]
@@ -115,7 +119,9 @@ export default {
       if (!kind) {
         return `${
           dictionary[dealType].title
-        } недвижимость - ${name}, Подмосковье. Лучшие предложения на ${global.config.domain}!`;
+        } недвижимость - ${name}, Подмосковье. Лучшие предложения на ${
+          global.config.domain
+        }!`;
       }
       return `${dictionary[dealType].titleWithCategory} ${
         dictionary[dealType][kind]
@@ -145,9 +151,11 @@ export default {
           global.config.domain
         }, цена, стоимость, отзывы, квартира, таунхаус, участок, дом`;
       }
-      return `${dictionary.dealType[dealType][0]} ${dictionary.kind[kind][0]}, ${
-        dictionary.dealType[dealType][1]
-      } ${dictionary.kind[kind][1]}, коттеджный поселок, ${name}, ${
+      return `${dictionary.dealType[dealType][0]} ${
+        dictionary.kind[kind][0]
+      }, ${dictionary.dealType[dealType][1]} ${
+        dictionary.kind[kind][1]
+      }, коттеджный поселок, ${name}, ${
         global.config.domain
       }, цена, стоимость, отзывы`;
     },

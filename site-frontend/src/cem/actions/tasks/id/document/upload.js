@@ -15,7 +15,7 @@ const uploadConfirmationFailed = (taskId, { errors }) => ({
 });
 
 export default function uploadConfirmation(taskId, file) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(uploadConfirmationStarted(taskId));
 
     return uploadFile(taskId, file)

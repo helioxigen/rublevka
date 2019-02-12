@@ -49,7 +49,9 @@ export default ({ contact = {} }) => {
           {!isArchived && (
             <Col sm={5}>
               <span className={s.textMd}>
-                <StaticMask pattern="+1 (111) 111-11-11">{details.phoneNumber}</StaticMask>
+                <StaticMask pattern="+1 (111) 111-11-11">
+                  {details.phoneNumber}
+                </StaticMask>
               </span>
             </Col>
           )}
@@ -61,7 +63,11 @@ export default ({ contact = {} }) => {
                     <CountIndicator
                       className={s.success}
                       count={successfulDealsCount}
-                      declensionForms={['успешная сделка', 'успешных сделки', 'успешных сделок']}
+                      declensionForms={[
+                        'успешная сделка',
+                        'успешных сделки',
+                        'успешных сделок',
+                      ]}
                     />
                   </div>
                 )}
@@ -89,7 +95,11 @@ export default ({ contact = {} }) => {
                 Последняя задача:
                 <br />
                 <span className={cn(sUtils.textGrey, sUtils.pushedTopXs2)}>
-                  {taskKindTitle} <FormattedDate mask="dd.mm.yyyy HH:MM" value={lastTaskDeadline} />
+                  {taskKindTitle}{' '}
+                  <FormattedDate
+                    mask="dd.mm.yyyy HH:MM"
+                    value={lastTaskDeadline}
+                  />
                 </span>
               </span>
             )}

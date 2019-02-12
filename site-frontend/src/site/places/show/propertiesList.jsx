@@ -35,7 +35,11 @@ import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from 'core/helpers
 import { dealTypes } from 'site/constants/properties/dictionaries';
 
 // UI
-const { Loading, Visibility, Grid: { Container, Row, Col } } = UI;
+const {
+  Loading,
+  Visibility,
+  Grid: { Container, Row, Col },
+} = UI;
 
 // component
 class PropertiesList extends Component {
@@ -121,7 +125,9 @@ class PropertiesList extends Component {
       orderBy: { ...state.order[this.resource], ...params.orderBy },
     };
 
-    dispatch(loadProperties(options, this.group, { placeId, placeKind, dealType }));
+    dispatch(
+      loadProperties(options, this.group, { placeId, placeKind, dealType }),
+    );
   }
 
   // static loadServer(dispatch, params) {
@@ -143,10 +149,10 @@ class PropertiesList extends Component {
     const { ids = [] } = state.countryProperties[this.group] || {};
     const pagination = state.pagination[this.resource] || {};
 
-    const formOffset = pagination.offset / pagination.limit % 4;
-    const isPageEven = pagination.offset / pagination.limit % 2 === 0;
+    const formOffset = (pagination.offset / pagination.limit) % 4;
+    const isPageEven = (pagination.offset / pagination.limit) % 2 === 0;
 
-    return ids.map((id) => {
+    return ids.map(id => {
       if (ids.indexOf(id) === 7 + formOffset) {
         return [
           <ResultForm propertyCategory="country" type="private" />,
@@ -191,12 +197,13 @@ class PropertiesList extends Component {
           dealType={dealType} // TODO: check it's ok?
         /> */}
 
-        {isFetching &&
+        {isFetching && (
           <div className={s.pushed10_0}>
             <Loading />
-          </div>}
+          </div>
+        )}
 
-        {hasItems &&
+        {hasItems && (
           <Container>
             <Row className={sList.orderByContainer}>
               <Col sm="4">
@@ -207,17 +214,18 @@ class PropertiesList extends Component {
                 </Visibility>
               </Col>
             </Row>
-          </Container>}
+          </Container>
+        )}
 
         <Container fluid>
-          <Row>
-            {this.renderCards()}
-          </Row>
+          <Row>{this.renderCards()}</Row>
         </Container>
 
-        {!isFetching && !ids.length && <NotFound resetFilter={this.resetFilter} />}
+        {!isFetching && !ids.length && (
+          <NotFound resetFilter={this.resetFilter} />
+        )}
 
-        {hasItems &&
+        {hasItems && (
           <Container fluid>
             <Row sm="center">
               <Col sm="6" className={s.paginationWrapper}>
@@ -234,14 +242,15 @@ class PropertiesList extends Component {
                 </section>
               </Col>
             </Row>
-          </Container>}
+          </Container>
+        )}
       </section>
     );
   }
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { countryProperties, filters, pagination, order } = state;
 
   return {
@@ -254,7 +263,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadProperties,
     ...FilterActions,
@@ -268,4 +277,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(PropertiesList);
+export default connect(
+  pickState,
+  pickActions,
+)(PropertiesList);

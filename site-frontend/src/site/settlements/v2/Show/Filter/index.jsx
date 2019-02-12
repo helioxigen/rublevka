@@ -29,7 +29,10 @@ import {
   StCheckbox,
 } from './styled';
 
-const { Grid: { Row, Col }, CountIndicator } = UI;
+const {
+  Grid: { Row, Col },
+  CountIndicator,
+} = UI;
 
 const keyKind = 'kind';
 
@@ -79,8 +82,20 @@ class SettlementFilter extends Component {
   }
 
   render() {
-    const { toggleProperty, primaryTotal, propertyType, noResaleProperty } = this.props;
-    const { selected = {}, id, state, isResaleProperty, dealType, count } = this.props;
+    const {
+      toggleProperty,
+      primaryTotal,
+      propertyType,
+      noResaleProperty,
+    } = this.props;
+    const {
+      selected = {},
+      id,
+      state,
+      isResaleProperty,
+      dealType,
+      count,
+    } = this.props;
     const { isViewOpen } = this.state;
     const { settlements = {} } = state;
     const settlement = settlements[id] || {};
@@ -100,30 +115,32 @@ class SettlementFilter extends Component {
         <HideXsSmMd>
           <Row xs="center">
             <Col xs="12">
-              {isResaleProperty &&
-                isRentProperties && (
-                  <DealTypeBtnGroup>
-                    <DealTypeBtn
-                      isActive={dealType === 'sale'}
-                      onClick={() => this.props.toggleDealType('sale')}
-                    >
-                      Продажа
-                    </DealTypeBtn>
-                    <DealTypeBtn
-                      isActive={dealType === 'rent'}
-                      onClick={() => this.props.toggleDealType('rent')}
-                    >
-                      Аренда
-                    </DealTypeBtn>
-                  </DealTypeBtnGroup>
-                )}
+              {isResaleProperty && isRentProperties && (
+                <DealTypeBtnGroup>
+                  <DealTypeBtn
+                    isActive={dealType === 'sale'}
+                    onClick={() => this.props.toggleDealType('sale')}
+                  >
+                    Продажа
+                  </DealTypeBtn>
+                  <DealTypeBtn
+                    isActive={dealType === 'rent'}
+                    onClick={() => this.props.toggleDealType('rent')}
+                  >
+                    Аренда
+                  </DealTypeBtn>
+                </DealTypeBtnGroup>
+              )}
               <StButton
                 isActive={items.indexOf('house') > -1}
                 onClick={() => this.onUpdate('house')}
               >
                 Дом
               </StButton>
-              <StButton isActive={items.indexOf('land') > -1} onClick={() => this.onUpdate('land')}>
+              <StButton
+                isActive={items.indexOf('land') > -1}
+                onClick={() => this.onUpdate('land')}
+              >
                 Участок
               </StButton>
               {isResaleProperty && (
@@ -142,14 +159,18 @@ class SettlementFilter extends Component {
                   Квартира
                 </StButton>
               )}
-              {isSelected && <ResetBtn onClick={this.props.resetFilter}>Сбросить</ResetBtn>}
+              {isSelected && (
+                <ResetBtn onClick={this.props.resetFilter}>Сбросить</ResetBtn>
+              )}
 
-              {primaryTotal > 0 &&
-                !noResaleProperty && (
-                  <StButton isActive={propertyType === 'primary'} onClick={toggleProperty}>
-                    От застройщика
-                  </StButton>
-                )}
+              {primaryTotal > 0 && !noResaleProperty && (
+                <StButton
+                  isActive={propertyType === 'primary'}
+                  onClick={toggleProperty}
+                >
+                  От застройщика
+                </StButton>
+              )}
             </Col>
           </Row>
         </HideXsSmMd>
@@ -163,7 +184,11 @@ class SettlementFilter extends Component {
             </Row>
           </Row>
 
-          <Overlay ref="overlay" isViewOpen={isViewOpen} onClick={this.toggleView} />
+          <Overlay
+            ref="overlay"
+            isViewOpen={isViewOpen}
+            onClick={this.toggleView}
+          />
 
           <StBtnGroup isViewOpen={isViewOpen}>
             <ResetBtnMobile
@@ -183,23 +208,22 @@ class SettlementFilter extends Component {
 
           <FiltersWrapper isViewOpen={isViewOpen}>
             <Col xs="12">
-              {isResaleProperty &&
-                isRentProperties && (
-                  <DealTypeBtnGroup>
-                    <DealTypeBtnMobile
-                      isActive={dealType === 'sale'}
-                      onClick={() => this.props.toggleDealType('sale')}
-                    >
-                      Продажа
-                    </DealTypeBtnMobile>
-                    <DealTypeBtnMobile
-                      isActive={dealType === 'rent'}
-                      onClick={() => this.props.toggleDealType('rent')}
-                    >
-                      Аренда
-                    </DealTypeBtnMobile>
-                  </DealTypeBtnGroup>
-                )}
+              {isResaleProperty && isRentProperties && (
+                <DealTypeBtnGroup>
+                  <DealTypeBtnMobile
+                    isActive={dealType === 'sale'}
+                    onClick={() => this.props.toggleDealType('sale')}
+                  >
+                    Продажа
+                  </DealTypeBtnMobile>
+                  <DealTypeBtnMobile
+                    isActive={dealType === 'rent'}
+                    onClick={() => this.props.toggleDealType('rent')}
+                  >
+                    Аренда
+                  </DealTypeBtnMobile>
+                </DealTypeBtnGroup>
+              )}
 
               <Title>Тип объекта</Title>
               <WrapperKind>
@@ -234,7 +258,10 @@ class SettlementFilter extends Component {
               </WrapperKind>
 
               {primaryTotal > 0 && (
-                <StButtonMobile isActive={propertyType === 'primary'} onClick={toggleProperty}>
+                <StButtonMobile
+                  isActive={propertyType === 'primary'}
+                  onClick={toggleProperty}
+                >
                   От застройщика
                 </StButtonMobile>
               )}
@@ -263,7 +290,7 @@ class SettlementFilter extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { settlements } = state;
 
   return {

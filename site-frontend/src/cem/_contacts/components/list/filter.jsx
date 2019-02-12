@@ -14,7 +14,12 @@ import sUtils from 'cem/styles/utils';
 
 class Filter extends Component {
   render() {
-    const { fields, count, resetFilter, filterCount: selectedFiltersCount } = this.props;
+    const {
+      fields,
+      count,
+      resetFilter,
+      filterCount: selectedFiltersCount,
+    } = this.props;
     const { id, name } = fields;
     const phoneNumber = fields['details.phoneNumber'];
     const email = fields['details.email'];

@@ -43,19 +43,28 @@ export default () => {
 
         const nextState = reducer(currentState, action);
 
-        expect(nextState.notifications[0]).to.have.property(`title`, expectedMessage);
+        expect(nextState.notifications[0]).to.have.property(
+          `title`,
+          expectedMessage,
+        );
       });
 
       it(`should handle multiple messages`, () => {
         const actions = [
           { type: types.POP, kind: `danger`, title: `Be cautious!` },
-          { type: types.POP, kind: `danger`, title: `Be cautious one more time!` },
+          {
+            type: types.POP,
+            kind: `danger`,
+            title: `Be cautious one more time!`,
+          },
         ];
 
         const nextState = actions.reduce(reducer, currentState);
 
         expect(nextState.notifications[0].title).to.equal(`Be cautious!`);
-        expect(nextState.notifications[1].title).to.equal(`Be cautious one more time!`);
+        expect(nextState.notifications[1].title).to.equal(
+          `Be cautious one more time!`,
+        );
       });
     });
   });

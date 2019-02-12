@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 
 import UI from 'site/ui';
 const {
-  Button, Icon,
+  Button,
+  Icon,
   Grid: { Row, Col },
 } = UI;
 
@@ -34,24 +35,31 @@ class FilterBtn extends Component {
 
     const hasItems = !!count;
     const state = this.props.state.filters[resource] || {};
-    const filterCount = Object.keys(state).filter(key => excludeFields.indexOf(key) === -1).length;
+    const filterCount = Object.keys(state).filter(
+      key => excludeFields.indexOf(key) === -1,
+    ).length;
 
     return (
       <Row sm="center" className={cn(sUtils.pushedTopSm5Md4_7, className)}>
         <Col xs="12">
-          <Button className={s.btn} kind="primary" size="lg" disabled={!hasItems || isFetching} onClick={::this.handleClick}>
+          <Button
+            className={s.btn}
+            kind="primary"
+            size="lg"
+            disabled={!hasItems || isFetching}
+            onClick={::this.handleClick}
+          >
             {!isOpened ? `Открыть` : `Скрыть`} фильтр
-
             <Icon className={s.iconFilter} icon="filter" />
-
             {!!filterCount && (
               <span className={s.filterXsLabel}>
-                <span className={s.value}>
-                  {filterCount}
-                </span>
+                <span className={s.value}>{filterCount}</span>
               </span>
             )}
-            <Icon className={cn(s.iconArrow, !isOpened ? s.down : s.up)} icon="arrow-down" />
+            <Icon
+              className={cn(s.iconArrow, !isOpened ? s.down : s.up)}
+              icon="arrow-down"
+            />
           </Button>
         </Col>
       </Row>

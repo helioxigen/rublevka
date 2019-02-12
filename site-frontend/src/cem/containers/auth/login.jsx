@@ -10,7 +10,10 @@ class LoginContainer extends Component {
   componentWillReceiveProps(nextProps) {
     const { state, actions } = this.props;
 
-    if (nextProps.state.auth.token && state.auth.token !== nextProps.state.auth.token) {
+    if (
+      nextProps.state.auth.token &&
+      state.auth.token !== nextProps.state.auth.token
+    ) {
       actions.pushPath('/');
     }
   }
@@ -18,9 +21,7 @@ class LoginContainer extends Component {
   render() {
     const { state, actions } = this.props;
 
-    return (
-      <Login state={state} actions={actions} />
-    );
+    return <Login state={state} actions={actions} />;
   }
 }
 
@@ -32,4 +33,7 @@ const pickActions = dispatch => ({
   actions: bindActionCreators({ ...AuthActions, pushPath }, dispatch),
 });
 
-export default connect(pickState, pickActions)(LoginContainer);
+export default connect(
+  pickState,
+  pickActions,
+)(LoginContainer);

@@ -17,14 +17,16 @@ const linkContractFailed = (propertyId, errors) => ({
   errors,
 });
 
-export default function (propertyId, { file, ...data }, category = 'city') {
-  return (dispatch) => {
+export default function(propertyId, { file, ...data }, category = 'city') {
+  return dispatch => {
     dispatch(linkContractStarted(propertyId));
     dispatch(pop('success', 'Загрузка контракта начата'));
 
     return uploadFile(propertyId, file, category, 'contracts').then(
       location =>
-        API.get(location).then(({ body }) => dispatch(updateContract(propertyId, body.id, data))),
+        API.get(location).then(({ body }) =>
+          dispatch(updateContract(propertyId, body.id, data)),
+        ),
       ({ body }) => {
         dispatch(linkContractFailed(propertyId, body));
         return body;

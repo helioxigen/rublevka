@@ -8,9 +8,9 @@ import cn from 'classnames';
 import update from 'react/lib/update';
 import isEqual from 'lodash/isEqual';
 
-const valueExists = (value) => Array.isArray(value) ? !!value.length : !!value;
+const valueExists = value => (Array.isArray(value) ? !!value.length : !!value);
 
-export default (s = {}, { Icon }) => (
+export default (s = {}, { Icon }) =>
   class extends Component {
     constructor(props) {
       super(props);
@@ -37,11 +37,13 @@ export default (s = {}, { Icon }) => (
     }
 
     componentWillMount() {
-      if (typeof window !== `undefined`) window.addEventListener(`click`, this.onClickOutside);
+      if (typeof window !== `undefined`)
+        window.addEventListener(`click`, this.onClickOutside);
     }
 
     componentWillUnmount() {
-      if (typeof window !== `undefined`) window.removeEventListener(`click`, this.onClickOutside);
+      if (typeof window !== `undefined`)
+        window.removeEventListener(`click`, this.onClickOutside);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -65,7 +67,12 @@ export default (s = {}, { Icon }) => (
       const { value } = event.target;
       const { labelKey = `label`, multi, allowCreate } = this.props;
 
-      const found = value ? this.state.options.filter(option => option[labelKey].toLowerCase().indexOf(value.toLowerCase()) > -1) : undefined;
+      const found = value
+        ? this.state.options.filter(
+            option =>
+              option[labelKey].toLowerCase().indexOf(value.toLowerCase()) > -1,
+          )
+        : undefined;
       if (multi && allowCreate) {
         this.setState({ found: [value, ...found], value, selected: undefined });
       } else {
@@ -76,27 +83,41 @@ export default (s = {}, { Icon }) => (
     getLabel(value) {
       const { labelKey = `label`, valueKey = `value` } = this.props;
 
-      return this.state.options ? (this.state.options.find(option => option[valueKey] === value || value === option) || {})[labelKey] : undefined;
+      return this.state.options
+        ? (this.state.options.find(
+            option => option[valueKey] === value || value === option,
+          ) || {})[labelKey]
+        : undefined;
     }
 
     getValue(value) {
       const { valueKey = `value` } = this.props;
 
-      return this.state.options ? (this.state.options.find(option => option[valueKey] === value || value === option) || { [valueKey]: value })[valueKey] : value;
+      return this.state.options
+        ? (this.state.options.find(
+            option => option[valueKey] === value || value === option,
+          ) || { [valueKey]: value })[valueKey]
+        : value;
     }
 
     addTag(tag) {
       const { value = [] } = this.props;
-      if (!value.filter(item => this.getValue(item) === this.getValue(tag)).length && tag) {
+      if (
+        !value.filter(item => this.getValue(item) === this.getValue(tag))
+          .length &&
+        tag
+      ) {
         this.props.onChange([...value, this.getValue(tag)], tag);
         this.setState({ value: undefined });
       }
     }
 
     removeTag(index) {
-      this.props.onChange(update(this.props.value, {
-        $splice: [[index, 1]],
-      }));
+      this.props.onChange(
+        update(this.props.value, {
+          $splice: [[index, 1]],
+        }),
+      );
     }
 
     selectUp() {
@@ -167,18 +188,30 @@ export default (s = {}, { Icon }) => (
         case 9: // TAB
           this.unfocus();
           break;
-        default: return;
+        default:
+          return;
       }
     }
 
     render() {
-      const { multi, value, allowCreate, disableReset, disabled = false } = this.props;
+      const {
+        multi,
+        value,
+        allowCreate,
+        disableReset,
+        disabled = false,
+      } = this.props;
 
       const { selected, focus, found } = this.state;
 
       const label = focus ? this.state.value : this.getLabel(value);
       const options = this.state.value && found ? found : this.state.options;
-      const handleSelect = multi ? (option) => { ::this.unfocus(); ::this.addTag(option); } : ::this.select;
+      const handleSelect = multi
+        ? option => {
+            ::this.unfocus();
+            ::this.addTag(option);
+          }
+        : ::this.select;
 
       const className = {
         [s[this.props.valueClassName]]: label || valueExists(value),
@@ -186,61 +219,109 @@ export default (s = {}, { Icon }) => (
       };
 
       return (
-        <div className={cn(s.container, this.props.className, className)} ref="select" onKeyDown={::this.handleKeyDown}>
+        <div
+          className={cn(s.container, this.props.className, className)}
+          ref="select"
+          onKeyDown={::this.handleKeyDown}
+        >
           <ul className={s.list}>
-            {multi && value && value.length > 0 && value.map((item, index) =>
-              <li key={index} className={s.option}>
-                {this.getLabel(item) || item}
-                <span className={s.nowrap} onClick={() => ::this.removeTag(index)}><Icon className={cn(s.iconDelete, s.changeBottom)} icon="delete" /></span>
-              </li>
-            )}
+            {multi &&
+              value &&
+              value.length > 0 &&
+              value.map((item, index) => (
+                <li key={index} className={s.option}>
+                  {this.getLabel(item) || item}
+                  <span
+                    className={s.nowrap}
+                    onClick={() => ::this.removeTag(index)}
+                  >
+                    <Icon
+                      className={cn(s.iconDelete, s.changeBottom)}
+                      icon="delete"
+                    />
+                  </span>
+                </li>
+              ))}
             <li className={cn(s.option, { [s.resetPadding]: !focus })}>
-              <AutosizeInput ref="input" onChange={::this.handleSearch} placeholder={(focus && !valueExists(value) && this.props.placeholder) || undefined} onFocus={::this.handleFocus} value={focus ? label : undefined} className={cn(s.autosizeInput, s.hidden)} disabled={disabled} />
+              <AutosizeInput
+                ref="input"
+                onChange={::this.handleSearch}
+                placeholder={
+                  (focus && !valueExists(value) && this.props.placeholder) ||
+                  undefined
+                }
+                onFocus={::this.handleFocus}
+                value={focus ? label : undefined}
+                className={cn(s.autosizeInput, s.hidden)}
+                disabled={disabled}
+              />
             </li>
           </ul>
-          {!focus && !valueExists(value) && !label && (<span className={s.placeholder}>{this.props.placeholder}</span>)}
-          {!focus && !!label && <span className={this.props.labelClassName}>{label}</span>}
-          {!disabled && <div className={s.control} onClick={::this.handleFocus} />}
-          {!disabled &&
+          {!focus && !valueExists(value) && !label && (
+            <span className={s.placeholder}>{this.props.placeholder}</span>
+          )}
+          {!focus && !!label && (
+            <span className={this.props.labelClassName}>{label}</span>
+          )}
+          {!disabled && (
+            <div className={s.control} onClick={::this.handleFocus} />
+          )}
+          {!disabled && (
             <span>
               {!valueExists(value) &&
-                (this.state.focus
-                  ? <Icon className={cn(s.iconChevron, s.up)} icon="arrow-down" />
-                  : <Icon className={cn(s.iconChevron)} icon="arrow-down" />)}
+                (this.state.focus ? (
+                  <Icon className={cn(s.iconChevron, s.up)} icon="arrow-down" />
+                ) : (
+                  <Icon className={cn(s.iconChevron)} icon="arrow-down" />
+                ))}
               {valueExists(value) &&
-                (this.state.focus
-                  ? <Icon className={cn(s.iconChevron, s.up)} icon="arrow-down" />
-                  : <span>
-                      {!disableReset && (
-                        <span onClick={() => ::this.select(undefined)}>
-                          <Icon className={cn(s.iconDelete, s.extraRight)} icon="delete" />
-                        </span>
-                      )}
-                      <Icon className={cn(s.iconChevron)} icon="arrow-down" />
-                    </span>
-                )
-              }
+                (this.state.focus ? (
+                  <Icon className={cn(s.iconChevron, s.up)} icon="arrow-down" />
+                ) : (
+                  <span>
+                    {!disableReset && (
+                      <span onClick={() => ::this.select(undefined)}>
+                        <Icon
+                          className={cn(s.iconDelete, s.extraRight)}
+                          icon="delete"
+                        />
+                      </span>
+                    )}
+                    <Icon className={cn(s.iconChevron)} icon="arrow-down" />
+                  </span>
+                ))}
             </span>
-          }
-          {focus && options && !!options.length &&
+          )}
+          {focus && options && !!options.length && (
             <ul className={s.listInner}>
-              {options && !!options.length && options.map((option, index) =>
-                <li className={cn(s.optionInner, index === selected && s.selected)} key={index} type="button" onClick={() => handleSelect(option)}>
-                  {!allowCreate && `${this.getLabel(option) || option}`}
-                  {allowCreate && (index === 0 || index !== 0) && `Добавить: "${this.getLabel(option) || option}"?`}
-                </li>
-              )}
+              {options &&
+                !!options.length &&
+                options.map((option, index) => (
+                  <li
+                    className={cn(
+                      s.optionInner,
+                      index === selected && s.selected,
+                    )}
+                    key={index}
+                    type="button"
+                    onClick={() => handleSelect(option)}
+                  >
+                    {!allowCreate && `${this.getLabel(option) || option}`}
+                    {allowCreate &&
+                      (index === 0 || index !== 0) &&
+                      `Добавить: "${this.getLabel(option) || option}"?`}
+                  </li>
+                ))}
             </ul>
-          }
-          {focus && !valueExists(options) &&
+          )}
+          {focus && !valueExists(options) && (
             <ul className={s.listInner}>
               <li className={cn(s.optionInner, s.placeholder)}>
                 {label ? `Ничего не найдено` : `Введите текст…`}
               </li>
             </ul>
-          }
+          )}
         </div>
       );
     }
-  }
-);
+  };

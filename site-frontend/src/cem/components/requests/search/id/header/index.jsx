@@ -6,8 +6,12 @@ import { settings as timelineSettings } from 'cem/constants/requests/search/time
 
 import UI from 'cem/components/ui';
 const {
-  Button, Back, Icon,
-  Form, Grid, Heading,
+  Button,
+  Back,
+  Icon,
+  Form,
+  Grid,
+  Heading,
   Grid: { Row, Col },
 } = UI;
 
@@ -26,35 +30,43 @@ class Header extends Component {
     const { formKey, values, actions } = this.props;
 
     if (formKey === `create`) {
-      return actions.createSearchRequest(values)
-        .then(({ id }) => {
-          actions.pop(`success`, `Заявка (ID: ${id})`, `Успешно создана`);
-          actions.loadSearchRequest(id);
-          actions.pushPath(`/requests/properties/search/${id}`);
-        });
+      return actions.createSearchRequest(values).then(({ id }) => {
+        actions.pop(`success`, `Заявка (ID: ${id})`, `Успешно создана`);
+        actions.loadSearchRequest(id);
+        actions.pushPath(`/requests/properties/search/${id}`);
+      });
     }
     if (formKey !== `create`) {
-      return actions.updateSearchRequest(formKey, values)
-        .then(() => {
-          actions.pop(`success`, `Заявка (ID: ${formKey})`, `Успешно обновлена`);
-          this.props.fields.toggle.onChange(undefined);
-          actions.loadSearchRequest(formKey);
-        });
+      return actions.updateSearchRequest(formKey, values).then(() => {
+        actions.pop(`success`, `Заявка (ID: ${formKey})`, `Успешно обновлена`);
+        this.props.fields.toggle.onChange(undefined);
+        actions.loadSearchRequest(formKey);
+      });
     }
   }
 
   changeState(state, val) {
     const { formKey, actions, handleSubmit } = this.props;
-    const submitFn = handleSubmit(() => actions.changeState(formKey, state, val));
+    const submitFn = handleSubmit(() =>
+      actions.changeState(formKey, state, val),
+    );
 
     submitFn();
   }
 
   render() {
     const {
-      handleSubmit, formKey, values, pristine, error, submitting,
+      handleSubmit,
+      formKey,
+      values,
+      pristine,
+      error,
+      submitting,
       data,
-      isUpdateAllowed, isCurrentUserSupervisor, isCurrentUserCreator, isCurrentUserResponsible,
+      isUpdateAllowed,
+      isCurrentUserSupervisor,
+      isCurrentUserCreator,
+      isCurrentUserResponsible,
     } = this.props;
 
     return (
@@ -64,12 +76,16 @@ class Header extends Component {
             <Row>
               <Col xs="20" className={sUtils.positionRelative}>
                 <Heading size="lg">
-                  <Back button={
-                    <Button type="button" className={sButton.btnBack}>
-                      <Icon className={s.iconBack} icon="arrow-right" />
-                    </Button>}
+                  <Back
+                    button={
+                      <Button type="button" className={sButton.btnBack}>
+                        <Icon className={s.iconBack} icon="arrow-right" />
+                      </Button>
+                    }
                   />
-                  {formKey !== `create` ? `Заявка (ID: ${formKey})` : `Заказать поиск объекта`}
+                  {formKey !== `create`
+                    ? `Заявка (ID: ${formKey})`
+                    : `Заказать поиск объекта`}
                 </Heading>
               </Col>
             </Row>
@@ -79,16 +95,42 @@ class Header extends Component {
                   <RequestDetails {...this.props} />
                 </Col>
               </Row>
-              {isUpdateAllowed && data && <StateControls state={data.state} values={values} changeState={::this.changeState} isCurrentUserSupervisor={isCurrentUserSupervisor} isCurrentUserCreator={isCurrentUserCreator} isCurrentUserResponsible={isCurrentUserResponsible} />}
+              {isUpdateAllowed && data && (
+                <StateControls
+                  state={data.state}
+                  values={values}
+                  changeState={::this.changeState}
+                  isCurrentUserSupervisor={isCurrentUserSupervisor}
+                  isCurrentUserCreator={isCurrentUserCreator}
+                  isCurrentUserResponsible={isCurrentUserResponsible}
+                />
+              )}
               <div className={sUtils.scrollXMd}>
                 <div className={sUtils.width122}>
-                  {data && formKey !== `create` && <Timeline settings={timelineSettings} state={data.state} stateDetails={data.stateDetails} createdAt={data.createdAt} />}
+                  {data && formKey !== `create` && (
+                    <Timeline
+                      settings={timelineSettings}
+                      state={data.state}
+                      stateDetails={data.stateDetails}
+                      createdAt={data.createdAt}
+                    />
+                  )}
                 </div>
               </div>
               {data && formKey !== `create` && <ManagerControls data={data} />}
             </div>
           </Grid.Container>
-          <Button className={cn(sButton.btnFixedBottom, formKey !== `create` && pristine && sUtils.hidden)} kind={formKey === `create` ? `success` : `warning`} size="md" block disabled={error || submitting || pristine} type="submit">
+          <Button
+            className={cn(
+              sButton.btnFixedBottom,
+              formKey !== `create` && pristine && sUtils.hidden,
+            )}
+            kind={formKey === `create` ? `success` : `warning`}
+            size="md"
+            block
+            disabled={error || submitting || pristine}
+            type="submit"
+          >
             {formKey === `create` ? `Создать` : `Сохранить`}
           </Button>
         </Form.Container>

@@ -13,7 +13,10 @@ import { distances } from 'site/constants/leads/options';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const { Grid: { Row, Col }, Select } = UI;
+const {
+  Grid: { Row, Col },
+  Select,
+} = UI;
 
 const SearchWrapper = styled.div`
   flex-basis: 78%;
@@ -30,7 +33,9 @@ const SearchWrapper = styled.div`
   `};
 `;
 
-const FilterWrapper = styled.div`display: flex;`;
+const FilterWrapper = styled.div`
+  display: flex;
+`;
 
 const SearchDescWrapper = styled.div`
   min-width: 30rem;
@@ -112,7 +117,12 @@ class Routes extends Component {
           <Row xs="center">
             <FilterWrapper>
               <SearchDescWrapper>
-                <Search withoutButton fluidWidth mobileRound placeholder="Введите название" />
+                <Search
+                  withoutButton
+                  fluidWidth
+                  mobileRound
+                  placeholder="Введите название"
+                />
               </SearchDescWrapper>
 
               <StSelect
@@ -135,7 +145,12 @@ class Routes extends Component {
         <ShowXsSmMd>
           <Row>
             <SearchWrapper>
-              <Search withoutButton fluidWidth mobileRound placeholder="Введите поселок" />
+              <Search
+                withoutButton
+                fluidWidth
+                mobileRound
+                placeholder="Введите поселок"
+              />
             </SearchWrapper>
             <BtnWrapper>
               <FilterBtn toggle={this.toggle} withoutText />

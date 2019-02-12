@@ -44,29 +44,36 @@ export const selectStatusData = [
   },
 ];
 
+export const conditions = {
+  great: 'Отличное',
+  good: 'Хорошее',
+  normal: 'Нормальное',
+  bad: 'Плохое',
+};
+
 export const selectBinaryData = [
   {
     name: 'Да',
-    value: '1',
+    value: true,
   },
   {
     name: 'Нет',
-    value: '0',
+    value: false,
   },
 ];
 
 export const selectFurnitureData = [
   {
     name: 'Нет',
-    value: '0',
+    value: 'absent',
   },
   {
     name: 'Частично',
-    value: '1',
+    value: 'partial',
   },
   {
     name: 'Полностью',
-    value: '2',
+    value: 'full',
   },
 ];
 
@@ -84,11 +91,11 @@ export const selectFinishData = [
 export const selectBinaryExistData = [
   {
     name: 'Есть',
-    value: '1',
+    value: true,
   },
   {
     name: 'Нет',
-    value: '0',
+    value: false,
   },
 ];
 
@@ -163,26 +170,26 @@ export const selectRentTimeData = [
 export const selectSewageData = [
   {
     name: 'Центральная',
-    value: '1',
+    value: 'central',
   },
   {
     name: 'Септик',
-    value: '2',
+    value: 'septic',
   },
 ];
 
 export const selectSewageWaterSupply = [
   {
     name: 'Центральное',
-    value: '1',
+    value: 'central',
   },
   {
     name: 'Система водоочистки',
-    value: '2',
+    value: 'purification',
   },
   {
     name: 'Скважина',
-    value: '3',
+    value: 'well',
   },
 ];
 
@@ -250,77 +257,81 @@ export const selectTreesData = [
 export const selectWallData = [
   {
     name: 'Блюмакс',
-    value: '1',
+    value: 'blue_max',
+  },
+  {
+    name: 'Дерево',
+    value: 'wood',
+  },
+  {
+    name: 'Кирпич',
+    value: 'brick',
   },
   {
     name: 'Блоки',
-    value: '2',
+    value: 'block',
   },
   {
-    name: 'Блоки',
-    value: '3',
+    name: 'Монолит',
+    value: 'monolith',
   },
   {
-    name: 'Блоки',
-    value: '4',
-  },
-  {
-    name: 'Блоки',
-    value: '5',
-  },
-  {
-    name: 'Блоки',
-    value: '5',
+    name: 'Канадская технология',
+    value: 'canadian_sip',
   },
 ];
 
 export const selectGasData = [
   {
     name: 'Газгольдер',
-    value: '1',
+    value: 'gas_holder',
   },
   {
     name: 'Дизель',
-    value: '2',
+    value: 'diesel',
   },
   {
-    name: 'Дизель',
-    value: '3',
+    name: 'Магистральный газ',
+    value: 'mains',
   },
   {
-    name: 'Дизель',
-    value: '4',
+    name: 'Без газа',
+    value: 'without_gas',
+  },
+  {
+    name: 'На границе',
+    value: 'near_border',
   },
 ];
 
-export const selectRoogData = [
+export const selectRoofData = [
   {
     name: 'Медь',
-    value: '1',
+    value: 'copper',
   },
   {
     name: 'Сланец',
-    value: '2',
+    value: 'slate',
   },
   {
-    name: 'Сланец',
-    value: '3',
+    name: 'Кровельная сталь',
+    value: 'steel',
   },
   {
-    name: 'Сланец',
-    value: '4',
+    name: 'Мягкая черепица',
+    value: 'soft_tile',
   },
   {
-    name: 'Сланец',
-    value: '5',
+    name: 'Металлочерепица',
+    value: 'metal_tile',
   },
   {
-    name: 'Сланец',
-    value: '5',
+    name: 'Черепица',
+    value: 'tile',
   },
   {
-    name: 'Сланец',
-    value: '5',
+    name: 'Эксплуатируемая кровля',
+    value: 'rooftop',
   },
 ];
 

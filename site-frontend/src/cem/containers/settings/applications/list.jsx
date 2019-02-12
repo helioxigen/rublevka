@@ -4,7 +4,8 @@ import { listResourcer } from 'core/decorators/fetcher';
 
 import UI from 'cem/components/ui';
 const {
-  Table, Heading,
+  Table,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -34,14 +35,29 @@ class Applications extends Component {
                 <Table.Row>
                   <Table.Heading width="25%">Название</Table.Heading>
                   <Table.Heading width="25%">Роль</Table.Heading>
-                  <Table.Heading width="23%">Ответственный пользователь</Table.Heading>
+                  <Table.Heading width="23%">
+                    Ответственный пользователь
+                  </Table.Heading>
                   <Table.Heading width="17%">Состояние</Table.Heading>
                   <Table.Heading width="10%">Действия</Table.Heading>
                 </Table.Row>
-                {isCreationAllowed && <ApplicationRecordForm actions={actions} formKey="create" initialValues={{ state: 'disabled' }} isUpdateAllowed />}
-                {items.map(item =>
-                  <ApplicationRecordForm actions={actions} key={item.id} formKey={item.id.toString()} initialValues={item} isUpdateAllowed={isUpdateAllowed} />,
+                {isCreationAllowed && (
+                  <ApplicationRecordForm
+                    actions={actions}
+                    formKey="create"
+                    initialValues={{ state: 'disabled' }}
+                    isUpdateAllowed
+                  />
                 )}
+                {items.map(item => (
+                  <ApplicationRecordForm
+                    actions={actions}
+                    key={item.id}
+                    formKey={item.id.toString()}
+                    initialValues={item}
+                    isUpdateAllowed={isUpdateAllowed}
+                  />
+                ))}
               </Table.Container>
             </Col>
           </Row>

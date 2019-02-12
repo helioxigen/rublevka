@@ -39,8 +39,15 @@ export class TimeProgressBar extends Component {
   render() {
     return (
       <div className={s.container}>
-        <Circle percent={this.props.percent || this.state.percent} strokeWidth={2} strokeColor="#03A9F4" trailColor="#E0E0E0" />
-        <span className={s.percent}>{this.props.percent || this.state.percent}%</span>
+        <Circle
+          percent={this.props.percent || this.state.percent}
+          strokeWidth={2}
+          strokeColor="#03A9F4"
+          trailColor="#E0E0E0"
+        />
+        <span className={s.percent}>
+          {this.props.percent || this.state.percent}%
+        </span>
       </div>
     );
   }

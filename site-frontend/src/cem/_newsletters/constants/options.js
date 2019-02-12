@@ -18,7 +18,10 @@ export const states = [
   { value: 'draft', label: 'Черновик' },
 ];
 
-export const offerKinds = [{ value: 'sale', label: 'Продажа' }, { value: 'rent', label: 'Аренда' }];
+export const offerKinds = [
+  { value: 'sale', label: 'Продажа' },
+  { value: 'rent', label: 'Аренда' },
+];
 
 export const currencies = [
   { value: 'USD', label: '$' },

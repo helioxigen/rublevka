@@ -98,7 +98,11 @@ const informationFields = [
 
 const imagesFields = ['images[].id', 'images[].url', 'images[].isPublic'];
 
-const layoutFields = ['layoutImages[].id', 'layoutImages[].url', 'layoutImages[].isPublic'];
+const layoutFields = [
+  'layoutImages[].id',
+  'layoutImages[].url',
+  'layoutImages[].isPublic',
+];
 
 const locationFields = {
   city: [

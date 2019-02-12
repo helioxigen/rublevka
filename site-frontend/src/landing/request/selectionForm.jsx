@@ -29,12 +29,12 @@ import * as analyticsEvents from 'core/analytics/constants';
 class SelectionForm extends Component {
   static propTypes = {
     propertyCategory: PropTypes.string.isRequired,
-  }
+  };
 
   state = {
     isOpened: false,
     requestSent: false,
-  }
+  };
 
   componentDidMount() {
     this.props.actions.sendAnalytics(analyticsEvents.searchRequestOpened());
@@ -78,7 +78,9 @@ class SelectionForm extends Component {
       this.setState({ requestSent: true }, () => {
         this.props.actions.setSharedRetargetingKey(`vk`);
 
-        this.props.actions.sendAnalytics(analyticsEvents.searchRequestSubmitted(data));
+        this.props.actions.sendAnalytics(
+          analyticsEvents.searchRequestSubmitted(data),
+        );
       });
     });
   }
@@ -91,9 +93,7 @@ class SelectionForm extends Component {
             <Row>
               <Col xs="12">
                 <div className={sUtils.pushedBottom4_5}>
-                  <h3 className={s.title}>
-                    Заказать обратный звонок
-                  </h3>
+                  <h3 className={s.title}>Заказать обратный звонок</h3>
                 </div>
 
                 <Group>
@@ -102,7 +102,7 @@ class SelectionForm extends Component {
                     type="text"
                     placeholder="Имя"
                     value={this.state.firstName}
-                    onChange={(e) => this.onChange(`firstName`, e.target.value) }
+                    onChange={e => this.onChange(`firstName`, e.target.value)}
                     className={s.input}
                   />
                   <Input
@@ -112,7 +112,7 @@ class SelectionForm extends Component {
                     placeholder="+7 (___) ___-__-__"
                     value={this.state.phoneNumber}
                     required
-                    onChange={(e) => this.onChange(`phoneNumber`, e.target.value) }
+                    onChange={e => this.onChange(`phoneNumber`, e.target.value)}
                     className={s.input}
                   />
                 </Group>
@@ -127,12 +127,8 @@ class SelectionForm extends Component {
 
         {!!this.state.requestSent && (
           <div>
-            <h2 className={cn(s.title)}>
-              Заявка отправлена!
-            </h2>
-            <p>
-              Через 10 минут наш агент свяжется с вами
-            </p>
+            <h2 className={cn(s.title)}>Заявка отправлена!</h2>
+            <p>Через 10 минут наш агент свяжется с вами</p>
           </div>
         )}
       </Form.Container>
@@ -147,7 +143,7 @@ const pickState = () => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadDuties,
     createClientLead,
@@ -160,4 +156,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(SelectionForm);
+export default connect(
+  pickState,
+  pickActions,
+)(SelectionForm);

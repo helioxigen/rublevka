@@ -50,7 +50,13 @@ export const updateLinkedResourceRecordSucceeded = (
   data,
 });
 
-export const updateLinkedResourceRecord = (resource, resourceId, listName, id, data) => {
+export const updateLinkedResourceRecord = (
+  resource,
+  resourceId,
+  listName,
+  id,
+  data,
+) => {
   const rootPath = apiPaths[`${resource}.${listName}`](resourceId);
   const path = `${rootPath}/${id}`;
 

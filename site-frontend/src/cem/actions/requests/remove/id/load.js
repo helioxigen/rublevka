@@ -19,7 +19,7 @@ const loadRemovalRequestFailed = (id, { errors }) => ({
 });
 
 export default function loadRemovalRequest(id) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadRemovalRequestStarted(id));
 
     return API.get(`/v1/properties/orders/removal/${id}`)

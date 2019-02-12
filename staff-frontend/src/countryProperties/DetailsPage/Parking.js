@@ -7,7 +7,7 @@ import {
   PropertyBigValue,
   PropertyTitle,
   PropertyValue,
-} from './style';
+} from './styled';
 import { Body } from '../../UI';
 import Select from '../../UI/Select';
 import { selectFixedValueData } from './schema';
@@ -52,9 +52,17 @@ const ParkingSection = ({ enableEditMode, isEditMode, property }) => {
       </Col>
       <Col xsOffset={1} xs={9}>
         <PropertyTitle>Машиномест в гараже</PropertyTitle>
-        <Select selectData={selectFixedValueData} selected={0} filled />
+        <Select
+          selectData={selectFixedValueData}
+          selected={property.additionalDetails.garageArea}
+          filled
+        />
         <PropertyTitle>Машиномест на парковке</PropertyTitle>
-        <Select selectData={selectFixedValueData} selected={0} filled />
+        <Select
+          selectData={selectFixedValueData}
+          selected={property.additionalDetails.parkingArea}
+          filled
+        />
       </Col>
     </EditPropertyRow>
   );

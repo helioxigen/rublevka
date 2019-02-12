@@ -12,7 +12,10 @@ import { prepareInitialValues } from 'cem/helpers/duty';
 
 class DutyContainer extends Component {
   componentWillMount() {
-    const { actions, params: { id } } = this.props;
+    const {
+      actions,
+      params: { id },
+    } = this.props;
 
     if (id !== 'create') {
       actions.loadTask(id);
@@ -20,7 +23,11 @@ class DutyContainer extends Component {
   }
 
   render() {
-    const { actions, state, params: { id } } = this.props;
+    const {
+      actions,
+      state,
+      params: { id },
+    } = this.props;
     const data = state.duty[id] || {};
 
     if (id === 'create' || data) {
@@ -49,7 +56,13 @@ const pickState = ({ duty, users, dictionary_items }) => ({
 });
 
 const mapDispatch = dispatch => ({
-  actions: bindActionCreators({ ...UserActions, ...DictionaryActions }, dispatch),
+  actions: bindActionCreators(
+    { ...UserActions, ...DictionaryActions },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, mapDispatch)(DutyContainer);
+export default connect(
+  pickState,
+  mapDispatch,
+)(DutyContainer);

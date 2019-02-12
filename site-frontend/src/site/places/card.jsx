@@ -26,7 +26,14 @@ class Card extends Component {
     const publicImages = images.filter(({ isPublic }) => !!isPublic);
 
     if (publicImages.length) {
-      return <JQImage id={`${publicImages[0].id}`} className={s.image} alt={id} height="350" />;
+      return (
+        <JQImage
+          id={`${publicImages[0].id}`}
+          className={s.image}
+          alt={id}
+          height="350"
+        />
+      );
     } else if (typeof window !== 'undefined') {
       return <Icon icon="placeholder" className={s.imagePlaceholder} />;
     }
@@ -37,11 +44,18 @@ class Card extends Component {
     const { data = {}, isFetching } = state.places[id];
 
     if (!isFetching) {
-      const placeName = this.generatePlaceName(data.name, placeKind, data.kindName);
+      const placeName = this.generatePlaceName(
+        data.name,
+        placeKind,
+        data.kindName,
+      );
 
       return (
         <Col xs={12}>
-          <Link className={s.card} to={`/zagorodnaya/${placeKind}/${data.id}/prodaja`}>
+          <Link
+            className={s.card}
+            to={`/zagorodnaya/${placeKind}/${data.id}/prodaja`}
+          >
             <Media
               left={this.renderPhoto(data)}
               body={

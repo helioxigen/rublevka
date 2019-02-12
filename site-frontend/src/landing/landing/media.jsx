@@ -3,7 +3,12 @@ import React, { Component } from 'react';
 import { cloudfront } from 'core/config/resources';
 
 import UI from 'site/ui';
-const { Image, Modal, Carousel, Grid: { Container, Row, Col } } = UI;
+const {
+  Image,
+  Modal,
+  Carousel,
+  Grid: { Container, Row, Col },
+} = UI;
 
 import s from 'landing/styles/landing/media';
 
@@ -27,10 +32,14 @@ class Media extends Component {
     const { data = {} } = this.props;
     const { images = [] } = data;
 
-    const publicImages = images.filter(({ isPublic }) => !!isPublic).map(({ id }) => ({
-      id,
-      src: `${global.config.cloudfront || cloudfront}/${id}-${global.config.postfix}`,
-    }));
+    const publicImages = images
+      .filter(({ isPublic }) => !!isPublic)
+      .map(({ id }) => ({
+        id,
+        src: `${global.config.cloudfront || cloudfront}/${id}-${
+          global.config.postfix
+        }`,
+      }));
 
     const idsForShow = publicImages.map(({ id }) => id);
 
@@ -46,7 +55,9 @@ class Media extends Component {
             >
               <Image
                 className={s.image}
-                src={`${global.config.cloudfront || cloudfront}/${idsForShow[0]}-thumbnail-512`}
+                src={`${global.config.cloudfront || cloudfront}/${
+                  idsForShow[0]
+                }-thumbnail-512`}
               />
             </Col>
             <Col
@@ -57,7 +68,9 @@ class Media extends Component {
             >
               <Image
                 className={s.image}
-                src={`${global.config.cloudfront || cloudfront}/${idsForShow[1]}-thumbnail-512`}
+                src={`${global.config.cloudfront || cloudfront}/${
+                  idsForShow[1]
+                }-thumbnail-512`}
               />
             </Col>
             <Col
@@ -68,7 +81,9 @@ class Media extends Component {
             >
               <Image
                 className={s.image}
-                src={`${global.config.cloudfront || cloudfront}/${idsForShow[2]}-thumbnail-512`}
+                src={`${global.config.cloudfront || cloudfront}/${
+                  idsForShow[2]
+                }-thumbnail-512`}
               />
               <div className={s.overlay}>
                 <div>

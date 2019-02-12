@@ -34,12 +34,24 @@ const submitValidator = (settings = { fieldsRemapping: {} }) => FormComponent =>
        *
        * @returns {Function} The result of a call to original 'handleSubmit' from 'redux-form'.
        */
-      handleSubmitWithValidation(apiAction, onSuccess, onFail, doPreValidate = true) {
-        return (event) => {
-          if (event && typeof preventDefault === 'function') event.preventDefault();
-          if (Object.keys(recursiveCleanUp(this.props.errors)).length && doPreValidate) {
+      handleSubmitWithValidation(
+        apiAction,
+        onSuccess,
+        onFail,
+        doPreValidate = true,
+      ) {
+        return event => {
+          if (event && typeof preventDefault === 'function')
+            event.preventDefault();
+          if (
+            Object.keys(recursiveCleanUp(this.props.errors)).length &&
+            doPreValidate
+          ) {
             console.log(this.props.errors); // eslint-disable-line no-console
-            this.props.validatorActions.pop('error', 'Проверьте обязательные поля');
+            this.props.validatorActions.pop(
+              'error',
+              'Проверьте обязательные поля',
+            );
           }
           const handleResponse = (values, dispatch) =>
             new Promise((resolve, reject) => {
@@ -51,9 +63,11 @@ const submitValidator = (settings = { fieldsRemapping: {} }) => FormComponent =>
                 } else {
                   const errors = {};
 
-                  response.errors.every((error) => {
-                    const errorParam = settings.fieldsRemapping[error.param] || error.param;
-                    const isValidationError = validationErrorCodes.indexOf(error.code) > -1;
+                  response.errors.every(error => {
+                    const errorParam =
+                      settings.fieldsRemapping[error.param] || error.param;
+                    const isValidationError =
+                      validationErrorCodes.indexOf(error.code) > -1;
 
                     const errorMessage = composeErrorMessage(error);
 
@@ -76,7 +90,10 @@ const submitValidator = (settings = { fieldsRemapping: {} }) => FormComponent =>
 
                   // TODO Avoid showing this message (as it duplicates the message from client validation)
                   if (Object.keys(errors).length) {
-                    this.props.validatorActions.pop('error', 'Проверьте обязательные поля');
+                    this.props.validatorActions.pop(
+                      'error',
+                      'Проверьте обязательные поля',
+                    );
                   }
 
                   if (typeof onFail === 'function') onFail(response);
@@ -91,12 +108,20 @@ const submitValidator = (settings = { fieldsRemapping: {} }) => FormComponent =>
 
       render() {
         const { handleSubmit, validatorActions, ...restProps } = this.props; // eslint-disable-line no-unused-vars
-        return <FormComponent handleSubmit={::this.handleSubmitWithValidation} {...restProps} />;
+        return (
+          <FormComponent
+            handleSubmit={::this.handleSubmitWithValidation}
+            {...restProps}
+          />
+        );
       }
     },
   );
 
-export const validatorShortcut = (reduxFormSettings, validatorSettings) => component =>
+export const validatorShortcut = (
+  reduxFormSettings,
+  validatorSettings,
+) => component =>
   reduxForm(reduxFormSettings)(submitValidator(validatorSettings)(component));
 
 export default submitValidator;

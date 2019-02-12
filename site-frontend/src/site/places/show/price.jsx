@@ -16,7 +16,9 @@ class PropertyPrice extends Component {
     const dealPrice = isCurrencyFilterActive
       ? deal.multiCurrencyPrice && deal.multiCurrencyPrice[selectedCurrency]
       : deal.price;
-    const dealCurrency = isCurrencyFilterActive ? selectedCurrency : deal.currency;
+    const dealCurrency = isCurrencyFilterActive
+      ? selectedCurrency
+      : deal.currency;
 
     return (
       <span>

@@ -1,4 +1,7 @@
-import { validateCommonFields, validatePropertiesTableFields } from 'cem/validators/settlements';
+import {
+  validateCommonFields,
+  validatePropertiesTableFields,
+} from 'cem/validators/settlements';
 import { metaKeys } from 'cem/components/seo/meta';
 
 const imagesFields = ['images[].id', 'images[].url', 'images[].isPublic'];

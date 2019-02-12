@@ -20,6 +20,7 @@ export default function loadDivision(id) {
   return dispatch =>
     API.get(`/v1/divisions/${id}`).then(
       ({ body }) => Promise.resolve(dispatch(loadDivisionSucceeded(id, body))),
-      ({ body: { errors } }) => Promise.resolve(dispatch(loadDivisionFailed(id, errors))),
+      ({ body: { errors } }) =>
+        Promise.resolve(dispatch(loadDivisionFailed(id, errors))),
     );
 }

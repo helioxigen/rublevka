@@ -1,4 +1,9 @@
-export { loadList, loadListStarted, loadListFailed, loadListSucceeded } from './list/load';
+export {
+  loadList,
+  loadListStarted,
+  loadListFailed,
+  loadListSucceeded,
+} from './list/load';
 
 export {
   loadElement,

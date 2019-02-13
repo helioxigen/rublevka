@@ -28,18 +28,6 @@ pipeline:
       branch: [develop]
       event: [push]
 
-  build-staff-frontend-dev:
-    image: node:8.15.0
-    commands:
-      - yarn config set cache-folder $(pwd)/.yarn-cache
-      - cd staff-frontend
-      - yarn --ignore-engines
-      - yarn build
-    secrets: [react_app_env, react_app_staff_sentry_dsn]
-    when:
-      branch: [develop]
-      event: [push]
-
   build-rublevka-frontend-dev:
     image: node:8.15.0
     commands:
@@ -54,6 +42,18 @@ pipeline:
     secrets:
       - source: drone_build_number
         target: build_id
+    when:
+      branch: [develop]
+      event: [push]
+
+  build-staff-frontend-dev:
+    image: node:8.15.0
+    commands:
+      - yarn config set cache-folder $(pwd)/.yarn-cache
+      - cd staff-frontend
+      - yarn --ignore-engines
+      - yarn build
+    secrets: [react_app_env, react_app_staff_sentry_dsn]
     when:
       branch: [develop]
       event: [push]

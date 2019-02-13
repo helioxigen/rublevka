@@ -31,8 +31,9 @@ pipeline:
     commands:
       - yarn --version
       - yarn config set cache-folder $(pwd)/.yarn-cache
+      - yarn cache list
       - yarn add firebase-tools
-      - yarn cache dir
+      - yarn cache list
       - cd export-app-firebase
       - yarn --ignore-engines
     when:

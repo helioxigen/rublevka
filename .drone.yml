@@ -30,7 +30,6 @@ pipeline:
     image: node:8.15.0
     commands:
       - yarn --version
-      - pwd
       - yarn config set cache-folder $(pwd)/.yarn-cache
       - yarn add firebase-tools
       - yarn cache dir
@@ -43,6 +42,7 @@ pipeline:
   install_staff_frontend:
     image: node:8.15.0
     commands:
+      - yarn config set cache-folder $(pwd)/.yarn-cache
       - yarn cache dir
       - yarn cache list
       # - cd staff-frontend
@@ -56,6 +56,7 @@ pipeline:
   install_export_app_frontend:
     image: node:8.15.0
     commands:
+      - yarn config set cache-folder $(pwd)/.yarn-cache
       - yarn cache dir
       - yarn cache list
       # - cd export-app-frontend

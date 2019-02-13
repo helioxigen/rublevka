@@ -30,7 +30,7 @@ pipeline:
     image: node:8.15.0
     commands:
       - yarn --version
-      - yarn config set cache-folder .yarn-cache
+      - yarn config set cache-folder ./.yarn-cache
       - yarn add firebase-tools
       - yarn cache dir
       - cd export-app-firebase

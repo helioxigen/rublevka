@@ -32,8 +32,10 @@ pipeline:
       - yarn --version
       - yarn config set cache-folder .yarn-cache
       - yarn add firebase-tools
+      - yarn cache dir
       - cd export-app-firebase
       - yarn --ignore-engines
+      - yarn cache dir
     when:
       branch: [develop]
       event: [push]
@@ -47,9 +49,10 @@ pipeline:
   install_staff_frontend:
     image: node:8.15.0
     commands:
-      - cd staff-frontend
-      - yarn --ignore-engines
-      - yarn build
+      - yarn cache dir
+      # - cd staff-frontend
+      # - yarn --ignore-engines
+      # - yarn build
     secrets: [react_app_env, react_app_staff_sentry_dsn]
     when:
       branch: [develop]
@@ -64,9 +67,10 @@ pipeline:
   install_export_app_frontend:
     image: node:8.15.0
     commands:
-      - cd export-app-frontend
-      - yarn --ignore-engines
-      - yarn build
+      - yarn cache dir
+      # - cd export-app-frontend
+      # - yarn --ignore-engines
+      # - yarn build
     secrets:
       [
         react_app_firebase_api_key,
@@ -77,18 +81,20 @@ pipeline:
       branch: [develop]
       event: [push]
 
-  deploy_to_firebase:
-    image: node:8.15.0
-    commands:
-      - yarn firebase deploy --token "$FIREBASE_TOKEN"
-    secrets: [firebase_token]
-    when:
-      branch: [develop]
-      event: [push]
+  # deploy_to_firebase:
+  #   image: node:8.15.0
+  #   commands:
+  #     - yarn firebase deploy --token "$FIREBASE_TOKEN"
+  #   secrets: [firebase_token]
+  #   when:
+  #     branch: [develop]
+  #     event: [push]
 
   rebuild-cache-3:
     image: drillster/drone-volume-cache
     rebuild: true
+    commands:
+      - yarn cache dir
     mount:
       - ./.yarn-cache
       - ./staff-frontend/node_modules

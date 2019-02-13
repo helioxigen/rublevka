@@ -9,7 +9,7 @@
     "start": "NODE_PATH=./src babel-node server.jsx",
     "build:sitemaps": "APP_ENV=production babel-node server/sitemap.js",
     "build:stats": "NODE_ENV=production APP_ENV=production BUILD_ID=1 babel-node $(npm bin)/webpack --config ./scripts/webpack.config.prod.js --profile --json > stats.json",
-    "build": "webpack --config ./scripts/webpack.config.prod.js && cp -r ./build/site ./build/dev.rublevka.ru && cp -r ./src/site/static/development/rublevka ./build/dev.rublevka.ru && cp ./src/site/static/development/robots.txt ./build/dev.rublevka.ru"
+    "build": "$(npm bin)/webpack --config ./scripts/webpack.config.prod.js && cp -r ./build/site ./build/dev.rublevka.ru && cp -r ./src/site/static/development/rublevka ./build/dev.rublevka.ru && cp ./src/site/static/development/robots.txt ./build/dev.rublevka.ru"
   },
   "license": "CC-BY-NC-SA-4.0",
   "dependencies": {

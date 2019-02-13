@@ -12,7 +12,7 @@
     "start:dev": "cross-env APP_ENV=local NODE_ENV=development BABEL_DISABLE_CACHE=1 babel-node ./scripts/devServer.js",
     "start": "NODE_PATH=./src babel-node server.jsx",
     "build:sitemaps": "APP_ENV=production babel-node server/sitemap.js",
-    "build:gulp": "gulp",
+    "build:gulp": "$(npm bin)/gulp",
     "build:stats": "NODE_ENV=production APP_ENV=production BUILD_ID=1 babel-node $(npm bin)/webpack --config ./scripts/webpack.config.prod.js --profile --json > stats.json",
     "build": "BABEL_DISABLE_CACHE=1 yarn build:gulp",
     "prepush": "npm test"

@@ -4,10 +4,7 @@ const envs = {
   },
   development: {
     apiPath:
-      process.env.REACT_APP_API_ENDPOINT ||
-      `https://us-central1-rublevka-export-384da.cloudfunctions.net/cors?url=${encodeURI(
-        'https://dev.rublevka.ru/api',
-      )}`,
+      process.env.REACT_APP_API_ENDPOINT || 'https://dev.rublevka.ru/api',
   },
   local: {
     apiPath: process.env.REACT_APP_API_ENDPOINT || '',

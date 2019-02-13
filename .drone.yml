@@ -42,7 +42,7 @@ pipeline:
       - APP_ENV=development
       - APP=jqestate
     secrets:
-      - source: drone_build_number
+      - source: DRONE_BUILD_NUMBER
         target: build_id
     when:
       branch: [develop]

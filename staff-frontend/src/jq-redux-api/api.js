@@ -1,17 +1,17 @@
 const envs = {
   production: {
-    apiPath: process.env.REACT_APP_API_ENDPOINT || 'https://api.rublevka.ru',
+    apiPath: process.env.REACT_APP_API_ENDPOINT || 'https://api.jqestate.ru',
   },
   development: {
     apiPath:
-      process.env.REACT_APP_API_ENDPOINT || 'https://dev.rublevka.ru/api',
+      process.env.REACT_APP_API_ENDPOINT || 'https://api-dev.jqestate.ru',
   },
   local: {
     apiPath: process.env.REACT_APP_API_ENDPOINT || '',
   },
 };
 
-const { apiPath } = envs[process.env.REACT_APP_ENV || 'development'];
+const { apiPath } = envs[process.env.REACT_APP_ENV || 'local'];
 
 // TODO FIXME use queryparams
 export const get = (resource, qp) =>

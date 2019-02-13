@@ -40,6 +40,24 @@ pipeline:
       branch: [develop]
       event: [push]
 
+  build-rublevka-frontend-dev:
+    image: node:8.15.0
+    commands:
+      - yarn config set cache-folder $(pwd)/.yarn-cache
+      - cd site-frontend
+      - yarn --ignore-engines
+      - yarn build
+    environment: # FIXME
+      - APP_ENV=development
+      - NODE_ENV=production
+      - APP=jqestate
+    secrets:
+      - source: drone_build_number
+        target: build_id
+    when:
+      branch: [develop]
+      event: [push]
+
   build-export-app-frontend-dev:
     image: node:8.15.0
     commands:

@@ -31,7 +31,7 @@ pipeline:
   build-rublevka-frontend-dev:
     image: node:8.15.0
     commands:
-      # - yarn config set cache-folder $(pwd)/.yarn-cache
+      - yarn config set cache-folder $(pwd)/.yarn-cache
       - cd site-frontend
       - pwd
       - yarn bin
@@ -40,7 +40,6 @@ pipeline:
       - yarn build
     environment: # FIXME
       - APP_ENV=development
-      - NODE_ENV=production
       - APP=jqestate
     secrets:
       - source: drone_build_number

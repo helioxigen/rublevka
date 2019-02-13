@@ -14,7 +14,7 @@
     "build:sitemaps": "APP_ENV=production babel-node server/sitemap.js",
     "build:gulp": "gulp",
     "build:stats": "NODE_ENV=production APP_ENV=production BUILD_ID=1 babel-node $(npm bin)/webpack --config ./scripts/webpack.config.prod.js --profile --json > stats.json",
-    "build": "BABEL_DISABLE_CACHE=1 npm run build:gulp",
+    "build": "BABEL_DISABLE_CACHE=1 yarn build:gulp",
     "prepush": "npm test"
   },
   "repository": {

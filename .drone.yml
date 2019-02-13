@@ -13,27 +13,27 @@ pipeline:
       - ./export-app-frontend/node_modules
     volumes:
       - /tmp/cache:/cache
+    when:
+      branch: [develop]
+      event: [push]
 
-  # deploy_staff_dev:
-  #   image: docker/compose:1.22.0
-  #   commands:
-  #     - cd backend
-  #     - docker-compose -f devops/docker-compose-dev.yml build
-  #     - docker-compose -f devops/docker-compose-dev.yml up -d
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #   when:
-  #     branch: [develop]
-  #     event: [push]
+  deploy_staff_dev:
+    image: docker/compose:1.22.0
+    commands:
+      - cd backend
+      - docker-compose -f devops/docker-compose-dev.yml build
+      - docker-compose -f devops/docker-compose-dev.yml up -d
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    when:
+      branch: [develop]
+      event: [push]
 
   install_firebase:
     image: node:8.15.0
     commands:
-      - yarn --version
       - yarn config set cache-folder $(pwd)/.yarn-cache
-      - yarn cache list
       - yarn add firebase-tools
-      - yarn cache list
       - cd export-app-firebase
       - yarn --ignore-engines
     when:
@@ -44,11 +44,9 @@ pipeline:
     image: node:8.15.0
     commands:
       - yarn config set cache-folder $(pwd)/.yarn-cache
-      - yarn cache dir
-      - yarn cache list
-      # - cd staff-frontend
-      # - yarn --ignore-engines
-      # - yarn build
+      - cd staff-frontend
+      - yarn --ignore-engines
+      - yarn build
     secrets: [react_app_env, react_app_staff_sentry_dsn]
     when:
       branch: [develop]
@@ -58,11 +56,9 @@ pipeline:
     image: node:8.15.0
     commands:
       - yarn config set cache-folder $(pwd)/.yarn-cache
-      - yarn cache dir
-      - yarn cache list
-      # - cd export-app-frontend
-      # - yarn --ignore-engines
-      # - yarn build
+      - cd export-app-frontend
+      - yarn --ignore-engines
+      - yarn build
     secrets:
       [
         react_app_firebase_api_key,
@@ -73,16 +69,16 @@ pipeline:
       branch: [develop]
       event: [push]
 
-  # deploy_to_firebase:
-  #   image: node:8.15.0
-  #   commands:
-  #     - yarn firebase deploy --token "$FIREBASE_TOKEN"
-  #   secrets: [firebase_token]
-  #   when:
-  #     branch: [develop]
-  #     event: [push]
+  deploy_to_firebase:
+    image: node:8.15.0
+    commands:
+      - yarn firebase deploy --token "$FIREBASE_TOKEN"
+    secrets: [firebase_token]
+    when:
+      branch: [develop]
+      event: [push]
 
-  rebuild-cache-3:
+  rebuild-cache:
     image: drillster/drone-volume-cache
     rebuild: true
     mount:
@@ -92,5 +88,8 @@ pipeline:
       - ./export-app-frontend/node_modules
     volumes:
       - /tmp/cache:/cache
+    when:
+      branch: [develop]
+      event: [push]
 
 branches: [master, develop]

@@ -93,8 +93,6 @@ pipeline:
   rebuild-cache-3:
     image: drillster/drone-volume-cache
     rebuild: true
-    commands:
-      - yarn cache dir
     mount:
       - ./.yarn-cache
       - ./staff-frontend/node_modules

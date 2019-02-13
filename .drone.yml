@@ -41,9 +41,10 @@ pipeline:
     environment: # FIXME
       - APP_ENV=development
       - APP=jqestate
-    secrets:
-      - source: DRONE_BUILD_NUMBER
-        target: build_id
+      - BUILD_ID=$DRONE_BUILD_NUMBER
+    # secrets:
+    #   - source: DRONE_BUILD_NUMBER
+    #     target: build_id
     when:
       branch: [develop]
       event: [push]

@@ -9,7 +9,7 @@
     "start": "NODE_PATH=./src babel-node server.jsx",
     "build:sitemaps": "APP_ENV=production babel-node server/sitemap.js",
     "build:stats": "NODE_ENV=production APP_ENV=production BUILD_ID=1 babel-node $(npm bin)/webpack --config ./scripts/webpack.config.prod.js --profile --json > stats.json",
-    "build": "BABEL_DISABLE_CACHE=1 $(npm bin)/gulp"
+    "build": "BABEL_DISABLE_CACHE=1 npx gulp"
   },
   "license": "CC-BY-NC-SA-4.0",
   "dependencies": {

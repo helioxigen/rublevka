@@ -57,7 +57,7 @@ pipeline:
     image: node:8.15.0
     commands:
       - yarn cache dir
-      - yarn cache --list
+      - yarn cache list
       # - cd export-app-frontend
       # - yarn --ignore-engines
       # - yarn build

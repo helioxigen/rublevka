@@ -5,15 +5,11 @@
   "scripts": {
     "lint": "eslint ./src",
     "lint:css": "stylelint src/**/*.css",
-    "mocha": "APP_ENV=development NODE_PATH=src mocha --compilers js:babel-core/register --reporter spec --recursive spec/*.js --plugins transform-inline-environment-variables --require spec/environment.js",
-    "mocha:watch": "npm run mocha -- --watch",
-    "test": "",
     "start:dev": "cross-env APP_ENV=local NODE_ENV=development BABEL_DISABLE_CACHE=1 babel-node ./scripts/devServer.js",
     "start": "NODE_PATH=./src babel-node server.jsx",
     "build:sitemaps": "APP_ENV=production babel-node server/sitemap.js",
     "build:stats": "NODE_ENV=production APP_ENV=production BUILD_ID=1 babel-node $(npm bin)/webpack --config ./scripts/webpack.config.prod.js --profile --json > stats.json",
-    "build": "BABEL_DISABLE_CACHE=1 yarn run gulp",
-    "prepush": "npm test"
+    "build": "BABEL_DISABLE_CACHE=1 $(npm bin)/gulp"
   },
   "license": "CC-BY-NC-SA-4.0",
   "dependencies": {
@@ -126,7 +122,6 @@
     "extract-text-webpack-plugin": "2.1.2",
     "file-loader": "0.11.2",
     "gulp": "^4.0.0",
-    "gulp-cli": "^2.0.1",
     "gulp-replace": "0.5.4",
     "gulp-run": "1.7.1",
     "happypack": "2.2.1",

@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@babel/register": "^7.0.0"
+  }
+}

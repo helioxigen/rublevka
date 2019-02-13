@@ -9,7 +9,7 @@
     "start": "NODE_PATH=./src babel-node server.jsx",
     "build:sitemaps": "APP_ENV=production babel-node server/sitemap.js",
     "build:stats": "NODE_ENV=production APP_ENV=production BUILD_ID=1 babel-node $(npm bin)/webpack --config ./scripts/webpack.config.prod.js --profile --json > stats.json",
-    "build": "BABEL_DISABLE_CACHE=1 npx gulp"
+    "build": "webpack --config ./scripts/webpack.config.prod.js && cp -r ./build/site ./build/dev.rublevka.ru && cp -r ./src/site/static/development/rublevka ./build/dev.rublevka.ru && cp ./src/site/static/development/robots.txt ./build/dev.rublevka.ru"
   },
   "license": "CC-BY-NC-SA-4.0",
   "dependencies": {
@@ -121,10 +121,6 @@
     "eslint-plugin-react": "7.0.1",
     "extract-text-webpack-plugin": "2.1.2",
     "file-loader": "0.11.2",
-    "gulp": "^4.0.0",
-    "gulp-replace": "0.5.4",
-    "gulp-run": "1.7.1",
-    "happypack": "2.2.1",
     "html-webpack-plugin": "2.28.0",
     "http-proxy": "1.16.2",
     "http-proxy-middleware": "0.17.4",

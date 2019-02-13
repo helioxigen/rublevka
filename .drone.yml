@@ -7,29 +7,30 @@ pipeline:
     image: drillster/drone-volume-cache
     restore: true
     mount:
-      - ./.yarn-cache
+      - .yarn-cache
       - ./staff-frontend/node_modules
       - ./export-app-firebase/node_modules
       - ./export-app-frontend/node_modules
     volumes:
       - /tmp/cache:/cache
 
-  deploy_staff_dev:
-    image: docker/compose:1.22.0
-    commands:
-      - cd backend
-      - docker-compose -f devops/docker-compose-dev.yml build
-      - docker-compose -f devops/docker-compose-dev.yml up -d
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    when:
-      branch: [develop]
-      event: [push]
+  # deploy_staff_dev:
+  #   image: docker/compose:1.22.0
+  #   commands:
+  #     - cd backend
+  #     - docker-compose -f devops/docker-compose-dev.yml build
+  #     - docker-compose -f devops/docker-compose-dev.yml up -d
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   when:
+  #     branch: [develop]
+  #     event: [push]
 
   install_firebase:
     image: node:8.15.0
     commands:
       - yarn --version
+      - pwd
       - yarn config set cache-folder ./.yarn-cache
       - yarn add firebase-tools
       - yarn cache dir
@@ -94,7 +95,7 @@ pipeline:
     image: drillster/drone-volume-cache
     rebuild: true
     mount:
-      - ./.yarn-cache
+      - .yarn-cache
       - ./staff-frontend/node_modules
       - ./export-app-firebase/node_modules
       - ./export-app-frontend/node_modules

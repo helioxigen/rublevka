@@ -17,19 +17,7 @@ pipeline:
       branch: [develop]
       event: [push]
 
-  deploy_staff_dev:
-    image: docker/compose:1.22.0
-    commands:
-      - cd backend
-      - docker-compose -f devops/docker-compose-dev.yml build
-      - docker-compose -f devops/docker-compose-dev.yml up -d
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    when:
-      branch: [develop]
-      event: [push]
-
-  install_firebase:
+  build-firebase-dev:
     image: node:8.15.0
     commands:
       - yarn config set cache-folder $(pwd)/.yarn-cache
@@ -40,7 +28,7 @@ pipeline:
       branch: [develop]
       event: [push]
 
-  install_staff_frontend:
+  build-staff-frontend-dev:
     image: node:8.15.0
     commands:
       - yarn config set cache-folder $(pwd)/.yarn-cache
@@ -52,7 +40,7 @@ pipeline:
       branch: [develop]
       event: [push]
 
-  install_export_app_frontend:
+  build-export-app-frontend-dev:
     image: node:8.15.0
     commands:
       - yarn config set cache-folder $(pwd)/.yarn-cache
@@ -69,7 +57,19 @@ pipeline:
       branch: [develop]
       event: [push]
 
-  deploy_to_firebase:
+  deploy-backend-dev:
+    image: docker/compose:1.22.0
+    commands:
+      - cd backend
+      - docker-compose -f devops/docker-compose-dev.yml build
+      - docker-compose -f devops/docker-compose-dev.yml up -d
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    when:
+      branch: [develop]
+      event: [push]
+
+  deploy-firebase-dev:
     image: node:8.15.0
     commands:
       - yarn firebase deploy --token "$FIREBASE_TOKEN"

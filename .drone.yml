@@ -31,7 +31,7 @@ pipeline:
     commands:
       - yarn --version
       - pwd
-      - yarn config set cache-folder ./.yarn-cache
+      - yarn config set cache-folder $(pwd)/.yarn-cache
       - yarn add firebase-tools
       - yarn cache dir
       - cd export-app-firebase

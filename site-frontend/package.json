@@ -12,14 +12,9 @@
     "start": "NODE_PATH=./src babel-node server.jsx",
     "build:sitemaps": "APP_ENV=production babel-node server/sitemap.js",
     "build:stats": "NODE_ENV=production APP_ENV=production BUILD_ID=1 babel-node $(npm bin)/webpack --config ./scripts/webpack.config.prod.js --profile --json > stats.json",
-    "build": "BABEL_DISABLE_CACHE=1 yarn gulp",
+    "build": "BABEL_DISABLE_CACHE=1 yarn run gulp",
     "prepush": "npm test"
   },
-  "repository": {
-    "type": "git",
-    "url": "ssh://git@bitbucket.org:jqestate/jqestate.git "
-  },
-  "author": "Eugene Rodionov <rodionov@dtrussia.com>",
   "license": "CC-BY-NC-SA-4.0",
   "dependencies": {
     "@dtrussia/utils.js": "1.0.1",
@@ -130,7 +125,7 @@
     "eslint-plugin-react": "7.0.1",
     "extract-text-webpack-plugin": "2.1.2",
     "file-loader": "0.11.2",
-    "gulp": "3.9.1",
+    "gulp": "^4.0.0",
     "gulp-replace": "0.5.4",
     "gulp-run": "1.7.1",
     "happypack": "2.2.1",

@@ -36,6 +36,7 @@ pipeline:
       - pwd
       - yarn bin
       - yarn --ignore-engines --force
+      - ls -al $(yarn bin)
       - yarn build
     environment: # FIXME
       - APP_ENV=development

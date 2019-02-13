@@ -37,7 +37,7 @@ pipeline:
       - yarn bin
       - yarn --ignore-engines --force
       - ls -al $(yarn bin)
-      # - yarn build
+      - yarn build
     environment: # FIXME
       - APP_ENV=development
       - NODE_ENV=production

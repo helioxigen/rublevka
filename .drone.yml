@@ -34,7 +34,6 @@ pipeline:
       - yarn config set cache-folder $(pwd)/.yarn-cache
       - cd site-frontend
       - yarn --ignore-engines
-      - yarn add --dev gulp
       - yarn build
     environment: # FIXME
       - APP_ENV=development

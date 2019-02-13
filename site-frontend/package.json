@@ -126,6 +126,7 @@
     "extract-text-webpack-plugin": "2.1.2",
     "file-loader": "0.11.2",
     "gulp": "^4.0.0",
+    "gulp-cli": "^2.0.1",
     "gulp-replace": "0.5.4",
     "gulp-run": "1.7.1",
     "happypack": "2.2.1",

@@ -36,21 +36,15 @@ pipeline:
       - yarn cache dir
       - cd export-app-firebase
       - yarn --ignore-engines
-      - yarn cache dir
     when:
       branch: [develop]
       event: [push]
-
-  rebuild-cache-1:
-    image: drillster/drone-volume-cache
-    rebuild: true
-    mount:
-      - ./.yarn-cache
 
   install_staff_frontend:
     image: node:8.15.0
     commands:
       - yarn cache dir
+      - yarn cache --list
       # - cd staff-frontend
       # - yarn --ignore-engines
       # - yarn build
@@ -59,16 +53,11 @@ pipeline:
       branch: [develop]
       event: [push]
 
-  rebuild-cache-2:
-    image: drillster/drone-volume-cache
-    rebuild: true
-    mount:
-      - ./.yarn-cache
-
   install_export_app_frontend:
     image: node:8.15.0
     commands:
       - yarn cache dir
+      - yarn cache --list
       # - cd export-app-frontend
       # - yarn --ignore-engines
       # - yarn build

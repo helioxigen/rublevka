@@ -33,9 +33,7 @@ pipeline:
     commands:
       - yarn config set cache-folder $(pwd)/.yarn-cache
       - cd site-frontend
-      - pwd
-      - yarn bin
-      - yarn --ignore-engines --force
+      - yarn --ignore-engines
       - ls -al $(yarn bin)
       - yarn build
     environment: # FIXME

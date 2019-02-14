@@ -14,7 +14,7 @@ pipeline:
     volumes:
       - /tmp/cache:/cache
     when:
-      branch: [develop]
+      branch: [develop, feat/new-rublevka]
       event: [push]
 
   build-firebase-dev:
@@ -25,7 +25,7 @@ pipeline:
       - cd export-app-firebase
       - yarn --ignore-engines
     when:
-      branch: [develop]
+      branch: [develop, feat/new-rublevka]
       event: [push]
 
   build-rublevka-frontend-dev:
@@ -93,7 +93,7 @@ pipeline:
       - yarn firebase deploy --token "$FIREBASE_TOKEN"
     secrets: [firebase_token]
     when:
-      branch: [develop]
+      branch: [develop, feat/new-rublevka]
       event: [push]
 
   rebuild-cache:
@@ -107,7 +107,7 @@ pipeline:
     volumes:
       - /tmp/cache:/cache
     when:
-      branch: [develop]
+      branch: [develop, feat/new-rublevka]
       event: [push]
 
-branches: [master, develop]
+branches: [master, develop, feat/new-rublevka]

@@ -23,16 +23,6 @@ const createPropertyRoute = id => ({
 });
 
 const testObjectsInfoList = [
-  {
-    name: 'Загородные обьекты',
-    path: '/country-objects',
-    count: 1233,
-  },
-  {
-    name: 'Посёлки',
-    path: '/places/settlements',
-    count: 3213,
-  },
   createPropertyRoute(16836),
   createPropertyRoute(16861),
   createPropertyRoute(16855),

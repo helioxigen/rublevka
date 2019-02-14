@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { theme, Logo } from './UI';
 
 const StNavigation = styled.div`
@@ -26,11 +26,16 @@ const Menu = styled.nav`
   flex-flow: row wrap;
 `;
 
-const MenuItem = styled(Link)`
+const MenuItem = styled(NavLink)`
   width: 100%;
   display: flex;
   justify-content: start;
-  margin-bottom: 20px;
+  padding: 10px 0;
+
+  &:hover,
+  &.active {
+    color: ${theme.blue};
+  }
 `;
 
 const Count = styled.div`

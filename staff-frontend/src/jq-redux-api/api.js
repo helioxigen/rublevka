@@ -7,7 +7,8 @@ const envs = {
       process.env.REACT_APP_API_ENDPOINT || 'https://api-dev.jqestate.ru',
   },
   local: {
-    apiPath: process.env.REACT_APP_API_ENDPOINT || '',
+    apiPath:
+      process.env.REACT_APP_API_ENDPOINT || 'https://api-dev.jqestate.ru',
   },
 };
 

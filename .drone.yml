@@ -43,7 +43,7 @@ pipeline:
     #   - source: DRONE_BUILD_NUMBER
     #     target: build_id
     when:
-      branch: [develop]
+      branch: [develop, feat/new-rublevka]
       event: [push]
 
   build-staff-frontend-dev:

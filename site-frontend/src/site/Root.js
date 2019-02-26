@@ -6,7 +6,7 @@ import ru from 'react-intl/locale-data/ru';
 import global from 'window-or-global';
 
 import HeaderJQ from './components/header/v2/HeaderJQ';
-import HeaderSatellites from './components/v2019/header/v2/HeaderSatellites';
+import HeaderSatellites from './components/header/v2/HeaderSatellites';
 import Body from './components/body';
 import Footer from './components/footer';
 

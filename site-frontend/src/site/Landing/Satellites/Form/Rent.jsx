@@ -95,8 +95,8 @@ export default class extends Component {
 
     return {
       rent: {
-        min: priceFrom.value,
-        max: priceTo.value,
+        min: (priceFrom || {}).value,
+        max: (priceTo || {}).value,
         currency: `rentOffer.multiCurrencyPrice.${currency}`,
       },
       specification: {

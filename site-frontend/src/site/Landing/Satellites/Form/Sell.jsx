@@ -100,8 +100,8 @@ export default class extends Component {
 
     return {
       sale: {
-        min: priceFrom.value,
-        max: priceTo.value,
+        min: (priceFrom || {}).value,
+        max: (priceTo || {}).value,
         currency: `saleOffer.multiCurrencyPrice.${currency}`,
       },
       specification: {

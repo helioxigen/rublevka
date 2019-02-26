@@ -52,7 +52,7 @@ class Header extends Component {
 
   componentWillMount() {
     this.props.actions.loadStatistics();
-    window.addEventListener('scroll', this.handleScroll);
+    if (typeof window !== 'undefined') window.addEventListener('scroll', this.handleScroll);
   }
 
   handleScroll() {

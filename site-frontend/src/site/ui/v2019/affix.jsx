@@ -12,21 +12,17 @@ export class AffixBottom extends Component {
   }
 
   componentWillMount() {
-    if (typeof window !== `undefined`)
-      window.addEventListener(`scroll`, this.handleScroll);
+    if (typeof window !== 'undefined') window.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
-    if (typeof window !== `undefined`)
-      window.removeEventListener(`scroll`, this.handleScroll);
+    if (typeof window !== 'undefined') window.removeEventListener('scroll', this.handleScroll);
   }
 
   handleScroll() {
     const rect = this.refs.parent.getBoundingClientRect();
-    const innerHeight =
-      (typeof window !== `undefined` && window.innerHeight) || 0;
-    const isInView =
-      rect.bottom <= (innerHeight || document.documentElement.clientHeight);
+    const innerHeight = (typeof window !== 'undefined' && window.innerHeight) || 0;
+    const isInView = rect.bottom <= (innerHeight || document.documentElement.clientHeight);
     if (!isInView) this.setState({ affix: false });
     if (isInView) this.setState({ affix: true });
   }
@@ -35,14 +31,11 @@ export class AffixBottom extends Component {
     const {
       children,
       height,
-      position = `bottom`,
+      position = 'bottom',
       className: parentClassName,
       ...props
     } = this.props; // eslint-disable-line no-unused-vars
-    const className = cn(
-      { [s.affixBottom]: this.state.affix },
-      children.props.className,
-    );
+    const className = cn({ [s.affixBottom]: this.state.affix }, children.props.className);
     const style = { height: `${height}px` };
 
     return (
@@ -50,7 +43,7 @@ export class AffixBottom extends Component {
         {React.cloneElement(children, {
           ...children.props,
           ...props,
-          className: className,
+          className,
         })}
       </div>
     );

@@ -52,7 +52,7 @@ class Header extends Component {
 
   componentWillMount() {
     this.props.actions.loadStatistics();
-    window.addEventListener('scroll', this.handleScroll);
+    if (typeof window !== 'undefined') window.addEventListener('scroll', this.handleScroll);
   }
 
   handleScroll() {
@@ -140,9 +140,7 @@ class Header extends Component {
                     </StaticMask>
                   </Phone>
 
-                  <CallbackModal
-                    propertyCategory={this.props.params && this.props.params.category}
-                  >
+                  <CallbackModal propertyCategory={this.props.params && this.props.params.category}>
                     <CallbackBtn kind="success" size="sm" inverted={inverted}>
                       Обратный звонок
                     </CallbackBtn>

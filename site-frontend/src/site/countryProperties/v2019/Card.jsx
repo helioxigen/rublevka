@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import styled from 'styled-components';
 
+import { FormattedNumber } from 'react-intl';
+
 import { cloudfront } from 'core/config/resources';
 
 import global from 'window-or-global';
@@ -66,7 +68,7 @@ const Id = styled.p`
 `;
 
 const TitleWrapper = styled.h3`
-  margin: 16px 10px 5px 10px;
+  margin: 14px 10px 5px 10px;
   line-height: 24px;
   font-size: 17px;
   color: #232323;

@@ -11,7 +11,7 @@ import loadStatistics from 'core/stats/actions/load';
 
 import StaticMask from 'core/components/ui/staticMask';
 
-import UI from 'site/ui';
+import UI from 'site/ui/v2019';
 
 import {
   HeaderBody,
@@ -100,7 +100,7 @@ class Header extends Component {
             </Container>
           </Visibility>
 
-          <Container fluid>
+          <Container>
             <Col xs="12">
               <Nav active={this.state.active} inverted={inverted}>
                 <Menu left>

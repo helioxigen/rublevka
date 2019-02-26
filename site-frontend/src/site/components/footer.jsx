@@ -250,9 +250,6 @@ export default ({ params }) => {
           <Footer.NavSatellites />
           <DividerSatellites />
           <LogoSatellites icon={global.config.brand} />
-          <CopySatellites>
-            Задизайнено в <Bold>NiceArt</Bold>, разработано в <Bold>Sputnik Production</Bold>
-          </CopySatellites>
         </Visibility>
 
         <Col xs="10" xsOffset="1">
@@ -260,9 +257,6 @@ export default ({ params }) => {
             <Footer.NavSatellites />
             <DividerSatellites />
             <LogoSatellites icon={global.config.brand} />
-            <CopySatellites>
-              Задизайнено в <Bold>NiceArt</Bold>, разработано в <Bold>Sputnik Production</Bold>
-            </CopySatellites>
           </Visibility>
         </Col>
       </Container>

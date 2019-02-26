@@ -1,14 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { FormattedCurrency } from 'react-formatted';
+import { FormattedNumber } from 'react-intl';
 
 const PropertyPrice = ({ deal = {}, dealType, selectedCurrency = 'usd' }) => (
   <span>
-    <FormattedCurrency
+    <FormattedNumber
+      style="currency"
+      maximumSignificantDigits={1}
+      currency={selectedCurrency}
       value={deal.multiCurrencyPrice[selectedCurrency]}
-      symbol={selectedCurrency.toUpperCase()}
-    />{' '}
+    />
     {dealType === 'rent' ? '/ месяц' : ''}
   </span>
 );

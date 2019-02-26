@@ -93,7 +93,7 @@ const SelectWrapper = styled.div`
 `;
 
 export default class extends Component {
-  state = { priceTo: null, priceFrom: null, currency: 'rub', bedrooms: '2', kind: kinds[0].value };
+  state = { priceTo: null, priceFrom: null, currency: 'usd', bedrooms: '2', kind: kinds[0].value };
 
   formateData = () => {
     const { priceTo = {}, priceFrom = {}, currency, bedrooms, kind = {} } = this.state;

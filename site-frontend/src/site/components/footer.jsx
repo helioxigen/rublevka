@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import global from 'window-or-global';
 
@@ -13,7 +13,9 @@ import styled from 'styled-components';
 import media from 'site/styles/media';
 
 const {
+  Icon,
   Grid: { Container, Row, Col },
+  Visibility,
   Button,
 } = UI;
 
@@ -23,8 +25,7 @@ const Wrapper = styled.footer`
   padding: 6rem 0;
   background-size: 130%;
   background: ${p =>
-      p.hasPattern &&
-      `url(${require('site/assets/images/black-pattern.svg')}) repeat`}
+      p.hasPattern && `url(${require('site/assets/images/black-pattern.svg')}) repeat`}
     #303030;
 
   ${media.sm`
@@ -37,6 +38,16 @@ const Wrapper = styled.footer`
   `};
 `;
 
+const WrapperSatellites = styled.footer`
+  position: relative;
+  padding-bottom: 64px;
+  background-color: ${p => p.theme.brandWhite};
+
+  ${media.xs`
+    border-top: 1px solid rgba(216, 216, 216, 0.5);
+  `}
+`;
+
 const Divider = styled.hr`
   margin: 4rem 0 4rem;
   border-color: #3e4549;
@@ -44,6 +55,12 @@ const Divider = styled.hr`
   ${media.sm`
     margin-top: 5.5rem;
   `};
+`;
+
+const DividerSatellites = styled.hr`
+  margin: 32px 0px;
+  background: #d8d8d8;
+  opacity: 0.5;
 `;
 
 const AboutContainer = styled.div`
@@ -160,19 +177,35 @@ const Break = styled.br`
   `};
 `;
 
+const LogoSatellites = styled(Icon)`
+  width: 131px;
+  height: 20px;
+  fill: #666666;
+`;
+
+const CopySatellites = styled.p`
+  margin: 0;
+  margin-top: 12;
+  line-height: 16px;
+  font-size: 12px;
+  color: #666666;
+`;
+
+const Bold = styled.span`
+  font-weight: bold;
+`;
+
 const DescriptionWhite = Description.extend`
   color: ${p => p.theme.brandWhite};
 `;
 
 const isJQ = global.config.domain === 'jq.estate';
 
-class FooterContainer extends Component {
-  render() {
+export default ({ params }) => {
+  if (isJQ) {
     return (
       <Wrapper hasPattern={isJQ}>
-        {isJQ && <Footer.Nav />}
-
-        {!isJQ && <Footer.NavSatellites />}
+        <Footer.Nav />
 
         <Container>
           <Divider />
@@ -180,47 +213,59 @@ class FooterContainer extends Component {
           <Row>
             <ColLeft sm="8" md="5">
               <AboutContainer>
-                {isJQ && <Title>JQ ESTATE</Title>}
-                {!isJQ && <Title>{global.config.domain}</Title>}
+                <Title>JQ ESTATE</Title>
                 <DescriptionWhite>
                   Агентство элитной недвижимости, работаем с 2006 года
                 </DescriptionWhite>
 
-                {isJQ && (
-                  <Description>
-                    <Brand>ОOО «Рублевка»</Brand>
-                    <Break /> ОГРН 5137746069687
-                  </Description>
-                )}
+                <Description>
+                  <Brand>ОOО «Рублевка»</Brand>
+                  <Break /> ОГРН 5137746069687
+                </Description>
               </AboutContainer>
             </ColLeft>
 
             <ColRight sm="4" md="7">
-              <Phone
-                href={`tel:+${global.config.phones.country}`}
-                id="comagicDTPhoneNumber"
-              >
-                <StaticMask pattern="+1 (111) 111-11-11">
-                  {global.config.phones.country}
-                </StaticMask>
+              <Phone href={`tel:+${global.config.phones.country}`} id="comagicDTPhoneNumber">
+                <StaticMask pattern="+1 (111) 111-11-11">{global.config.phones.country}</StaticMask>
               </Phone>
-              <CallbackModal
-                propertyCategory={
-                  this.props.params && this.props.params.category
-                }
-              >
+              <CallbackModal propertyCategory={params && params.category}>
                 <StButton size="sm" kind="primary">
                   Обратный звонок
                 </StButton>
               </CallbackModal>
 
-              {isJQ && <Footer.Social />}
+              <Footer.Social />
             </ColRight>
           </Row>
         </Container>
       </Wrapper>
     );
   }
-}
 
-export default FooterContainer;
+  return (
+    <WrapperSatellites>
+      <Container>
+        <Visibility xs="block" sm="block" md="block" lg="hidden">
+          <Footer.NavSatellites />
+          <DividerSatellites />
+          <LogoSatellites icon={global.config.brand} />
+          <CopySatellites>
+            Задизайнено в <Bold>NiceArt</Bold>, разработано в <Bold>Sputnik Production</Bold>
+          </CopySatellites>
+        </Visibility>
+
+        <Col xs="10" xsOffset="1">
+          <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
+            <Footer.NavSatellites />
+            <DividerSatellites />
+            <LogoSatellites icon={global.config.brand} />
+            <CopySatellites>
+              Задизайнено в <Bold>NiceArt</Bold>, разработано в <Bold>Sputnik Production</Bold>
+            </CopySatellites>
+          </Visibility>
+        </Col>
+      </Container>
+    </WrapperSatellites>
+  );
+};

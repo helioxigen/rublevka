@@ -22,6 +22,15 @@ export const dealTypesTranslate = {
   sale: 'Продажа',
   rent: 'Аренда',
 };
+export const dealTypesTranslateV2 = {
+  sale: 'Покупка',
+  rent: 'Аренда',
+};
+
+export const dealTypesTranslateOther = {
+  sale: 'Купить',
+  rent: 'Арендовать',
+};
 
 export const placeKinds = {
   shosse: 'routes',

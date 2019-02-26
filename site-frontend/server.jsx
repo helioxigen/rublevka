@@ -63,12 +63,9 @@ const envParams = {
   MAPBOX_TOKEN: !!MAPBOX_TOKEN,
 };
 
-const failedEnvParams = Object.keys(envParams).filter(
-  param => !envParams[param],
-);
+const failedEnvParams = Object.keys(envParams).filter(param => !envParams[param]);
 
-if (failedEnvParams.length > 0)
-  throw new Error(`Provide ${failedEnvParams.join(', ')}`);
+if (failedEnvParams.length > 0) throw new Error(`Provide ${failedEnvParams.join(', ')}`);
 
 // Define a global config to use with application
 const config = require(`./src/${MODULE}/config/satellites/index`).default; // eslint-disable-line import/no-dynamic-require
@@ -77,7 +74,7 @@ global.XMLHttpRequest = xhr;
 
 // required because of MODULE
 const manifest = require(`./build/${MODULE}/manifest`); // eslint-disable-line import/no-dynamic-require
-const routes = require(`./src/${MODULE}/routes`).default; // eslint-disable-line import/no-dynamic-require
+const routes = require(`./src/${MODULE}/Routes`).default; // eslint-disable-line import/no-dynamic-require
 
 // const logger = createLogger();
 
@@ -154,27 +151,17 @@ function renderFullPage(renderProps, store) {
           <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.16.0/mapbox-gl.js"></script>
           <script>
             mapboxgl.accessToken="${MAPBOX_TOKEN}";
-            window.__PRELOADED_STATE__ = ${JSON.stringify(
-              preloadedState,
-            ).replace(/</g, '\\u003c')}
-
-            ${COMAGIC_KEY &&
-              `
-              var __cs = __cs || [];
-              __cs.push(["setCsAccount", "${COMAGIC_KEY}"]);
-              __cs.push(["setCsHost", "//server.comagic.ru/comagic"]);
-              __cs.push(["setDynamicalReplacement", true]);
-            `}
+            window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
           </script>
 
-          ${COMAGIC_KEY &&
-            '<script src="//app.comagic.ru/static/cs.min.js"></script>'}
-          ${COMAGIC_KEY &&
-            `
-            <script>
-              (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter = new Ya.Metrika({ id: ${REACT_APP_METRIKA_CODE}, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/${REACT_APP_METRIKA_CODE}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-
-          `}
+          <script>
+            (function(w, d, s, h, id) {
+                w.roistatProjectId = id; w.roistatHost = h;
+                var p = d.location.protocol == "https:" ? "https://" : "http://";
+                var u = /^.*roistat_visit=[^;]+(.*)?$/.test(d.cookie) ? "/dist/module.js" : "/api/site/1.0/"+id+"/init";
+                var js = d.createElement(s); js.charset="UTF-8"; js.async = 1; js.src = p+h+u; var js2 = d.getElementsByTagName(s)[0]; js2.parentNode.insertBefore(js, js2);
+            })(window, document, 'script', 'cloud.roistat.com', 'eae5017254b3e856dfa7ab4274db5073');
+          </script>
           <script>
             window._txq = window._txq || [];
             var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//st.targetix.net/txsp.js';
@@ -198,13 +185,11 @@ function getStatusCode(meta, cb) {
   parseString(xml, (err, result) => {
     const status = (result.root.meta &&
       result.root.meta.find(item => item.$.name === 'status-code')) || {
-      $: { content: 200 },
-    };
+        $: { content: 200 },
+      };
 
     const headers =
-      (result.root.meta &&
-        result.root.meta.filter(item => item.$.name === 'header')) ||
-      [];
+      (result.root.meta && result.root.meta.filter(item => item.$.name === 'header')) || [];
 
     cb({ status, headers });
   });
@@ -219,7 +204,7 @@ function sendResponse(res, status, metaHeaders, body) {
       if (metaHeaders.length) {
         const headers = {};
 
-        metaHeaders.forEach(item => {
+        metaHeaders.forEach((item) => {
           headers[item.$.header] = item.$.content;
         });
 
@@ -233,59 +218,52 @@ function sendResponse(res, status, metaHeaders, body) {
 }
 
 function handleRender(req, res) {
-  match(
-    { routes, location: req.url },
-    (error, redirectLocation, renderProps) => {
-      if (error) {
-        res.status(500).send(error.message);
-      } else if (redirectLocation) {
-        res.redirect(301, redirectLocation.pathname + redirectLocation.search);
-      } else if (renderProps) {
-        const initialState = {};
+  match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
+    if (error) {
+      res.status(500).send(error.message);
+    } else if (redirectLocation) {
+      res.redirect(301, redirectLocation.pathname + redirectLocation.search);
+    } else if (renderProps) {
+      const initialState = {};
 
-        const store = createStore(
-          reducer,
-          initialState,
-          applyMiddleware(thunk),
-        );
+      const store = createStore(reducer, initialState, applyMiddleware(thunk));
 
-        // collect all data-loading promises
-        const promises = renderProps.components
-          .map(component => {
-            // component can be undefined, so we have to check
-            if (component && typeof component.loadServer === 'function') {
-              // TODO pass renderProps as second param
-              return component.loadServer(
-                store.dispatch,
-                renderProps.params,
-                renderProps,
-                store.getState(),
-              );
-            }
+      // collect all data-loading promises
+      const promises = renderProps.components
+        .map((component) => {
+          // component can be undefined, so we have to check
+          if (component && typeof component.loadServer === 'function') {
+            // TODO pass renderProps as second param
+            return component.loadServer(
+              store.dispatch,
+              renderProps.params,
+              renderProps,
+              store.getState(),
+            );
+          }
 
-            return null;
-          })
-          .filter(elem => elem instanceof Promise);
+          return null;
+        })
+        .filter(elem => elem instanceof Promise);
 
-        Promise.all(promises)
-          .then(() => {
-            const { body, meta } = renderFullPage(renderProps, store);
+      Promise.all(promises)
+        .then(() => {
+          const { body, meta } = renderFullPage(renderProps, store);
 
-            getStatusCode(meta, ({ status, headers }) => {
-              sendResponse(res, status, headers, body);
-            });
-          })
-          .catch(e => {
-            res.sendStatus(404);
-            console.log(e);
-
-            throw new Error('unhandled errors at promises');
+          getStatusCode(meta, ({ status, headers }) => {
+            sendResponse(res, status, headers, body);
           });
-      } else {
-        res.status(404).send('Not found');
-      }
-    },
-  );
+        })
+        .catch((e) => {
+          res.sendStatus(404);
+          console.log(e);
+
+          throw new Error('unhandled errors at promises');
+        });
+    } else {
+      res.status(404).send('Not found');
+    }
+  });
 }
 
 // express app
@@ -304,16 +282,12 @@ app.use('/pdf/properties/:category/:id/:token/:showLogo', genPresentation);
 
 // TODO move to sitemap.js
 app.use('/sitemap.xml', (req, res) => {
-  fs.readFile(
-    path.join(__dirname, 'build', HOST, 'sitemap.xml'),
-    'utf-8',
-    (err, content) => {
-      if (err && err.code === 'ENOENT') res.sendStatus(404);
+  fs.readFile(path.join(__dirname, 'build', HOST, 'sitemap.xml'), 'utf-8', (err, content) => {
+    if (err && err.code === 'ENOENT') res.sendStatus(404);
 
-      res.set('content-type', 'application/xml');
-      res.send(content);
-    },
-  );
+    res.set('content-type', 'application/xml');
+    res.send(content);
+  });
 });
 
 const interval = 1000 * 60 * 60;
@@ -326,16 +300,9 @@ app.use(metricsMiddleware);
 app.use(cacheMiddleware);
 
 // static .js and .css
-app.use(
-  '/static',
-  express.static(`./build/${MODULE}/static`, { maxAge: '1y' }),
-);
-app.use('/robots.txt', (req, res) =>
-  fs.createReadStream(`./build/${HOST}/robots.txt`).pipe(res),
-);
-app.use('/favicon.png', (req, res) =>
-  fs.createReadStream(`./build/${HOST}/favicon.png`).pipe(res),
-);
+app.use('/static', express.static(`./build/${MODULE}/static`, { maxAge: '1y' }));
+app.use('/robots.txt', (req, res) => fs.createReadStream(`./build/${HOST}/robots.txt`).pipe(res));
+app.use('/favicon.png', (req, res) => fs.createReadStream(`./build/${HOST}/favicon.png`).pipe(res));
 
 // Renderer
 app.use(handleRender);
@@ -347,8 +314,6 @@ app.use((err, req, res, next) => {
   res.status(500);
 });
 
-app.listen(port, '0.0.0.0', () =>
-  console.log(`started at http://localhost:${port}`),
-); // eslint-disable-line no-console
+app.listen(port, '0.0.0.0', () => console.log(`started at http://localhost:${port}`)); // eslint-disable-line no-console
 
 process.on('uncaughtException', err => Sentry.captureException(err));

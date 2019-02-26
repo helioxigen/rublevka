@@ -32,14 +32,7 @@ import Search from 'site/components/Search';
 
 const isJQ = global.config.domain === 'jq.estate';
 
-const {
-  Visibility,
-  Button,
-  BtnGroup,
-  Icon,
-  CountIndicator,
-  Grid: { Container, Row, Col },
-} = UI;
+const { Visibility, Button, BtnGroup, Icon, CountIndicator, Grid: { Container, Row, Col } } = UI;
 
 const styles = {
   ...sUtils,
@@ -87,7 +80,7 @@ class Filter extends Component {
     }
 
     this.setState({ currentLayout: null, isSubViewOpen: false }, () => {
-      animate(duration, easingX, viewPosition => {
+      animate(duration, easingX, (viewPosition) => {
         this.setState({ viewPosition });
       });
     });
@@ -116,7 +109,7 @@ class Filter extends Component {
       }
     };
 
-    const onUpdate = subViewPosition => {
+    const onUpdate = (subViewPosition) => {
       this.setState({ subViewPosition });
     };
 
@@ -141,11 +134,7 @@ class Filter extends Component {
   removeFilter(key, value) {
     if (key === 'areas') {
       this.props.actions.removeFilter(this.props.resourceName, 'area', value);
-      this.props.actions.removeFilter(
-        this.props.resourceName,
-        'landArea',
-        value,
-      );
+      this.props.actions.removeFilter(this.props.resourceName, 'landArea', value);
     } else {
       this.props.actions.removeFilter(this.props.resourceName, key, value);
     }
@@ -232,10 +221,7 @@ class Filter extends Component {
               <Row>
                 <Col xs="12">
                   <Button
-                    className={cn(
-                      theme.btnRound,
-                      isViewOpen && theme.activeBtnRound,
-                    )}
+                    className={cn(theme.btnRound, isViewOpen && theme.activeBtnRound)}
                     kind="primary"
                     size="lg"
                     onClick={this.toggle}
@@ -268,17 +254,9 @@ class Filter extends Component {
             onClick={this.props.toggle}
           />
 
-          <BtnGroup
-            className={cn(
-              theme.btnContainer,
-              isViewOpen && theme.btnContainerActive,
-            )}
-          >
+          <BtnGroup className={cn(theme.btnContainer, isViewOpen && theme.btnContainerActive)}>
             <Button
-              className={cn(
-                theme.btnClearAll,
-                filterCount && sUtils.textPrimary,
-              )}
+              className={cn(theme.btnClearAll, filterCount && sUtils.textPrimary)}
               size="md"
               block
               disabled={!filterCount}
@@ -287,23 +265,12 @@ class Filter extends Component {
               Сбросить фильтр
             </Button>
 
-            <Button
-              styleName="btnTimes"
-              size="md"
-              block
-              kind="primary"
-              onClick={this.props.toggle}
-            >
+            <Button styleName="btnTimes" size="md" block kind="primary" onClick={this.props.toggle}>
               <Icon className={theme.iconTimes} icon="times" />
             </Button>
           </BtnGroup>
 
-          <div
-            className={cn(
-              s.desktopContainer,
-              isViewOpen && s.desktopContainerActive,
-            )}
-          >
+          <div className={cn(s.desktopContainer, isViewOpen && s.desktopContainerActive)}>
             {this.renderFilters()}
 
             <Button
@@ -327,38 +294,34 @@ class Filter extends Component {
         {/* mobile */}
         <Visibility md="hidden" lg="hidden">
           {/* closed */}
-          {!this.props.isViewOpen && !!count && (
-            <div styleName="wrapper">
-              <Container>
-                <Row>
-                  <Col xs="12">
-                    <Button
-                      className={cn(theme.btnRound, theme.btnPadding)}
-                      kind="primary"
-                      size="lg"
-                      block
-                      onClick={this.toggle}
-                    >
-                      <Icon className={theme.iconFilter} icon="filter" />
-                      Открыть фильтр&nbsp;
-                      {!!filterCount && (
-                        <span styleName="counter">{filterCount}</span>
-                      )}
-                    </Button>
-                  </Col>
-                </Row>
-              </Container>
-            </div>
-          )}
+          {!this.props.isViewOpen &&
+            !!count && (
+              <div styleName="wrapper">
+                <Container>
+                  <Row>
+                    <Col xs="12">
+                      <Button
+                        className={cn(theme.btnRound, theme.btnPadding)}
+                        kind="primary"
+                        size="lg"
+                        block
+                        onClick={this.toggle}
+                      >
+                        <Icon className={theme.iconFilter} icon="filter" />
+                        Открыть фильтр&nbsp;
+                        {!!filterCount && <span styleName="counter">{filterCount}</span>}
+                      </Button>
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
+            )}
 
           {/* main view */}
           <div style={{ display: isViewOpen ? 'block' : 'none' }}>
             <BtnGroup className={theme.btnContainer}>
               <Button
-                className={cn(
-                  theme.btnClearAll,
-                  filterCount && sUtils.textPrimary,
-                )}
+                className={cn(theme.btnClearAll, filterCount && sUtils.textPrimary)}
                 size="md"
                 block
                 disabled={!filterCount}
@@ -367,22 +330,13 @@ class Filter extends Component {
                 Сбросить всё
               </Button>
 
-              <Button
-                styleName="btnTimes"
-                size="md"
-                block
-                kind="primary"
-                onClick={this.toggle}
-              >
+              <Button styleName="btnTimes" size="md" block kind="primary" onClick={this.toggle}>
                 <Icon className={theme.iconTimes} icon="times" />
               </Button>
             </BtnGroup>
           </div>
 
-          <div
-            className={theme.filterContainer}
-            style={{ display: isViewOpen ? 'block' : 'none' }}
-          >
+          <div className={theme.filterContainer} style={{ display: isViewOpen ? 'block' : 'none' }}>
             <div className={theme.btnGroupContainer}>
               <Container>
                 <Row>
@@ -393,19 +347,13 @@ class Filter extends Component {
                     <BtnGroup className={theme.btnGroup}>
                       <Link
                         to="/zagorodnaya/prodaja"
-                        className={cn(
-                          theme.btnInGroup,
-                          dealType === 'sale' && theme.btnActive,
-                        )}
+                        className={cn(theme.btnInGroup, dealType === 'sale' && theme.btnActive)}
                       >
                         Купить
                       </Link>
                       <Link
                         to="/zagorodnaya/arenda"
-                        className={cn(
-                          theme.btnInGroup,
-                          dealType === 'rent' && theme.btnActive,
-                        )}
+                        className={cn(theme.btnInGroup, dealType === 'rent' && theme.btnActive)}
                       >
                         Снять
                       </Link>
@@ -451,6 +399,4 @@ const fields = [
   'settlements',
 ];
 
-export default FilterHelper(null, fields)(
-  CSSModules(Filter, styles, cssOptions),
-);
+export default FilterHelper(null, fields)(CSSModules(Filter, styles, cssOptions));

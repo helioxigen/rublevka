@@ -13,3 +13,6 @@ export const CREATE_FAILED = '@@core/settlements.create.failed';
 export const UPDATE = '@@core/settlements.update.started';
 export const UPDATE_SUCCEEDED = '@@core/settlements.update.succeeded';
 export const UPDATE_FAILED = '@@core/settlements.update.failed';
+
+export const LOAD_LIST_BY_LETTER_SUCCEEDED = '@@core/settlements.loadListByLetter.succeeded';
+export const LOAD_LIST_BY_LETTER_FAILED = '@@core/settlements.loadListByLetter.failed';

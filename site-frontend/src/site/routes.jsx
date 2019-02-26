@@ -7,7 +7,7 @@ import Root from 'site/root';
 
 import LandingJQ from 'site/Landing/Jqestate/v2';
 import LandingSatellite from 'site/Landing/Satellites';
-import Feedback from 'site/feedback';
+import { FeedbackJQ, FeedbackSattelite } from 'site/feedback';
 import About from 'site/about';
 import Agents from 'site/agents';
 
@@ -16,13 +16,13 @@ import NotFound from 'site/NotFound';
 import * as Selections from 'site/selections';
 
 import * as CountryProperties from 'site/countryProperties/v2';
-import * as CountryPropertiesSat from 'site/countryProperties';
+import * as CountryPropertiesSat from 'site/countryProperties/v2019';
 import * as CityProperties from 'site/cityProperties';
 import PropertiesList from 'site/properties/v2/List';
 import PropertiesListSat from 'site/properties/list';
 
 import * as Settlements from 'site/settlements/v2';
-import * as SettlementsSatellite from 'site/settlements';
+import * as SettlementsSatellite from 'site/settlements/v2019';
 import * as Places from 'site/places';
 import * as PlacesSatellite from 'site/places/satellite';
 import * as Complexes from 'site/complexes';
@@ -61,7 +61,8 @@ export default (
       {isJQ && <Route path="/" component={LandingJQ} />}
       {!isJQ && <Route path="/" component={LandingSatellite} />}
 
-      <Route path="/contacts" component={Feedback} />
+      {isJQ && <Route path="/contacts" component={FeedbackJQ} />}
+      {!isJQ && <Route path="/contacts" component={FeedbackSattelite} />}
       {isJQ && <Route path="/about" component={About} />}
       {isJQ && <Route path="/agents" component={Agents} />}
       {isJQ && (

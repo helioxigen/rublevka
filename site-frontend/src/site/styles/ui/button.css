@@ -1,6 +1,7 @@
 @import '../variables';
 
 @mixin btn-variant($background, $border, $font-color, $background-hover, $border-hover, $font-color-hover, $background-focus, $border-focus, $font-color-focus) {
+
   &,
   &[disabled]:hover {
     color: $font-color;
@@ -127,13 +128,15 @@ $default-border-radius: 4px;
   @include btn-variant($brand-info, $brand-white);
 }
 
-.danger {
-  @include btn-variant($brand-danger, $brand-white);
-}
-
 .warning {
   @include btn-variant($brand-warning, $brand-white);
-}*/
+}
+
+*/
+
+.danger {
+  @include btn-variant($brand-danger, $brand-danger, $brand-white, $brand-danger);
+}
 
 .xs {
   @include btn-size($btn-xs-padding, $btn-xs-font-size);

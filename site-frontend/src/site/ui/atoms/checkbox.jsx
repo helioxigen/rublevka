@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import cn from 'classnames';
 
-export default (s = {}) => {
-  return class extends Component {
+export default (s = {}) => class extends Component {
     static propTypes = {
       reference: PropTypes.string.isRequired,
       children: PropTypes.node.isRequired,
@@ -44,4 +43,3 @@ export default (s = {}) => {
       );
     }
   };
-};

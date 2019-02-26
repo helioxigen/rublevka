@@ -194,7 +194,7 @@ export default (styles = {}) =>
     }
 
     renderPages([first, second]) {
-      return range(first, second).map(el => {
+      return range(first, second).map((el) => {
         const current = el - TITLE_SHIFT;
 
         const onClick = this.handlePageChanged.bind(this, current);

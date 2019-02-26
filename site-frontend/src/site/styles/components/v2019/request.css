@@ -1,0 +1,134 @@
+@import '../../responsive-utils';
+@import '../../variables';
+
+.mainContainer {
+  position: relative;
+  z-index: 1;
+
+  padding-top: 5.7rem;
+  padding-bottom: 6.5rem;
+
+  color: $brand-white;
+
+  background: rgba(93, 91, 120, .84) url(//s3.eu-central-1.amazonaws.com/dt-marketing/hero-images/satellites-background.jpg) center bottom no-repeat;
+  background-size: cover;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+
+    background: rgba(93, 91, 120, .84);
+  }
+
+  @include responsive(sm) {
+    padding-top: 7rem;
+    padding-bottom: 8.7rem;
+  }
+}
+
+.titleLg {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  font-size: 2.4rem;
+  font-weight: 300;
+
+  @include responsive(sm) {
+    font-size: 4rem;
+  }
+}
+
+.titleMd {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  display: inline-block;
+
+  color: $brand-white;
+  font-size: 2.4rem;
+  font-weight: 500;
+
+  @include responsive(sm) {
+    font-size: 3rem;
+  }
+}
+
+.textMd {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+.text {
+  composes: resetIndent from 'site/styles/utils.css';
+
+  margin-top: .8rem;
+
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.btn {
+  padding: 1.8rem 4.5rem;
+
+  font-size: 1.8rem;
+  font-weight: 400;
+
+  border-radius: 10rem;
+
+  @include responsive(sm) {
+    font-size: 2rem;
+  }
+}
+
+.btnRound {
+  padding: 1.8rem 4.5rem;
+
+  font-size: 1.8rem;
+
+  background: $brand-white;
+  border-color: $brand-white;
+  border-radius: 10rem;
+
+  &:hover,
+  &:focus {
+    background: $body-bg;
+    border-color: $body-bg;
+  }
+
+  @include responsive(sm) {
+    font-size: 2rem;
+    margin-left: 2rem;
+  }
+}
+
+.zIndex3 {
+  position: relative;
+  z-index: 3;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.light {
+  font-weight: 300;
+}
+
+.padding3_0 {
+  padding-top: 4rem;
+  padding-bottom: 5rem;
+
+  @include responsive(sm) {
+    padding-top: 8rem;
+    padding-bottom: 9rem;
+  }
+}
+
+.negativeMarginTop {
+  margin-top: -3rem;
+}

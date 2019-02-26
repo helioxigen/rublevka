@@ -93,7 +93,16 @@ pipeline:
       - yarn firebase deploy --token "$FIREBASE_TOKEN"
     secrets: [firebase_token]
     when:
-      branch: [develop, feat/new-rublevka]
+      branch: [develop]
+      event: [push]
+
+  deploy-rublevka-firebase-dev:
+    image: node:8.15.0
+    commands:
+      - yarn firebase deploy --token "$FIREBASE_TOKEN" --only hosting:rublevka-frontend-dev
+    secrets: [firebase_token]
+    when:
+      branch: [feat/new-rublevka]
       event: [push]
 
   rebuild-cache:

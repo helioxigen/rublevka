@@ -4,6 +4,7 @@ const URLSearchParams = require('@ungap/url-search-params');
 function getItemsFromAPI(searchValue) {
   const params = new URLSearchParams({
     'filter[id]': searchValue,
+    'filter[state]': 'public',
     'pagination[limit]': 256,
     cachereset: Math.random().toString().slice(2),
   });

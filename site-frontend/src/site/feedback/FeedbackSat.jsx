@@ -255,22 +255,17 @@ export default () => (
       <TextContainer>
         <Heading>Как нас найти</Heading>
         <Body>Наш офис находится по адресу:</Body>
-        {isRublevka && (
-          <BoldText>
-            Рублёво-Успенское шоссе, Жуковка, БЦ&nbsp;«Олимп»,&nbsp;1&nbsp;этаж
-          </BoldText>
-        )}
-        {isRiga && <BoldText>Рублёво-Успенское шоссе, Жуковка,&nbsp;71</BoldText>}
+        <BoldText>Рублёво-Успенское шоссе, Жуковка, 44А</BoldText>
       </TextContainer>
       <MapContainer>
         <YMaps>
           <YMap
             instanceRef={ref => ref && ref.behaviors.disable('scrollZoom')}
-            defaultState={{ center: [office.latitude, office.longitude], zoom: 15 }}
+            defaultState={{ center: [55.734871, 37.249479], zoom: 15 }}
             width="100%"
             height="100%"
           >
-            <Placemark geometry={[office.latitude, office.longitude]} />
+            <Placemark geometry={[55.734871, 37.249479]} />
           </YMap>
         </YMaps>
       </MapContainer>

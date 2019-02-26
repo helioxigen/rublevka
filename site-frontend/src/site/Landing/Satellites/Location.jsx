@@ -101,7 +101,7 @@ export default () => (
       <TextContainer>
         <Heading>Как нас найти</Heading>
         <Body>Наш офис находится по адресу:</Body>
-        <BoldText>Рублёво-Успенское шоссе, Жуковка, 48A, 3 этаж</BoldText>
+        <BoldText>Рублёво-Успенское шоссе, Жуковка, 44А</BoldText>
       </TextContainer>
       <MapContainer>
         <YMaps>

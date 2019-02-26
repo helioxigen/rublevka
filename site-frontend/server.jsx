@@ -33,7 +33,7 @@ const Sentry = require('@sentry/node'); // import is not working
 
 dotenv.config();
 // hook for svg assets
-require('asset-require-hook')({ extensions: ['jpg', 'svg'] });
+require('asset-require-hook')({ extensions: ['jpg', 'svg', 'png'] });
 
 // hook for css modules
 require('css-modules-require-hook')({

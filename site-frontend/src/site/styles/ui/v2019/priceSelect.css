@@ -1,0 +1,83 @@
+@import '../../variables';
+
+.input {
+  width: 50%;
+  margin: 0;
+  padding: 1.5rem 2rem;
+
+  color: $masala;
+  font-size: 1.4rem;
+
+  border: none;
+  border-bottom: 1px solid $alto;
+  outline: none;
+
+  &:first-child {
+    border-left: 1px solid $alto;
+  }
+
+  &:last-child {
+    margin-left: -1px;
+  }
+
+  &::-webkit-input-placeholder {
+    color: $grey-extra;
+  }
+
+  &::-moz-placeholder {
+    color: $grey-extra;
+  }
+
+  &:-moz-placeholder {
+    color: $grey-extra;
+  }
+
+  &:-ms-input-placeholder {
+    color: $grey-extra;
+  }
+}
+
+.inputContainer {
+  position: relative;
+
+  &:after {
+    content: '—';
+    position: absolute;
+    top: 50%;
+    right: 0;
+
+    color: $brand-black;
+
+    transform: translate(0, -50%);
+  }
+}
+
+.list {
+  max-height: 19.5rem;
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll;
+
+  list-style: none;
+}
+
+.item {
+  padding: 1.45rem 2rem;
+
+  color: $masala;
+  font-size: 1.4rem;
+
+  cursor: default;
+
+  &:hover {
+    background: $body-bg;
+  }
+}
+
+.alignLeft {
+  text-align: left;
+}
+
+.alignRight {
+  text-align: right;
+}

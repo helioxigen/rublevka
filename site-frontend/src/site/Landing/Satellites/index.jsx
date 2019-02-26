@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import styled from 'styled-components';
+
 // actions
 import loadProperties from 'core/countryProperties/actions/list/load';
 import * as FilterActions from 'core/actions/filters';
@@ -14,13 +16,17 @@ import { resourceName } from 'core/countryProperties/constants/defaults';
 
 // components
 import Helmet from 'react-helmet';
+import OldHeader from './OldHeader';
 import Header from './Header';
 import Filter from './Filter';
-import Description from './Description';
-import Settlements from './Settlements';
-import Subscribe from 'site/request/SubscribeTisa';
+import Form from './Form';
+import Call from './Call';
+import Find from './Find';
+import Location from './Location';
 
 import s from 'site/styles/landing/satellites/list';
+
+import media from 'site/styles/media';
 
 // helpers
 import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from 'core/helpers/shouldLoad';
@@ -35,6 +41,32 @@ const {
 
 const groupForTotal = 'total';
 const totalResource = `${resourceName}.${groupForTotal}`;
+
+const Wrapper = styled.section`
+  background-color: #fff;
+  
+  ${media.md`
+    margin-top: -64px;
+  `}
+`;
+
+const SearchSection = styled.section`
+  background: radial-gradient(247.49px at 51.29% 50%, #fafafa 0%, #f5f5f5 100%);
+  padding-top: 90px;
+
+  ${media.xs`
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: url('https://images.unsplash.com/photo-1533779283484-8ad4940aa3a8') no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+  `}
+
+   ${media.md`
+    padding-top: 0;
+  `}
+`;
 
 class Landing extends Component {
   constructor(props) {
@@ -93,14 +125,14 @@ class Landing extends Component {
   }
 
   render() {
-    const { actions, state, location } = this.props;
-    const { isFetching } = state.countryProperties[this.group] || {};
-    const pagination = state.pagination[this.resource] || {};
+    const { actions, history } = this.props;
+    // const { isFetching } = state.countryProperties[this.group] || {};
+    // const pagination = state.pagination[this.resource] || {};
 
-    const totalProperties = (state.pagination[totalResource] || {}).total;
+    // const totalProperties = (state.pagination[totalResource] || {}).total;
 
     return (
-      <section>
+      <Wrapper>
         <Helmet
           title={global.config.seo.title}
           meta={[
@@ -109,8 +141,8 @@ class Landing extends Component {
           ]}
         />
 
-        <Container fluid className={s.bannerContainer}>
-          <Header totalProperties={totalProperties} />
+        {/* <Container fluid className={s.bannerContainer}>
+          <OldHeader totalProperties={totalProperties} />
           <Filter
             resourceName={this.resource}
             resource={this.state.resource}
@@ -124,20 +156,27 @@ class Landing extends Component {
             toggleDealType={this.toggleDealType}
             toggleResourceName={this.toggleResourceName}
           />
-        </Container>
+        </Container> */}
 
-        <Description totalProperties={totalProperties} />
+        <SearchSection>
+          <Container>
+            <Header />
+            <Form actions={actions} history={history} />
+          </Container>
+        </SearchSection>
 
-        <Settlements location={location} />
+        <Call />
 
-        <Subscribe />
-      </section>
+        <Find />
+
+        <Location />
+      </Wrapper>
     );
   }
 }
 
 // redux connectors
-const pickState = state => {
+const pickState = (state) => {
   const { countryProperties, filters, pagination, order } = state;
 
   return {

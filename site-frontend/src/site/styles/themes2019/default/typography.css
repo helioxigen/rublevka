@@ -1,0 +1,8 @@
+@import '../../responsive-utils';
+@import './variables';
+
+.textPrimary {
+  @include responsive(sm) {
+    color: $brand-primary;
+  }
+}

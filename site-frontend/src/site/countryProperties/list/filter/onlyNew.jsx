@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import CSSModules from 'react-css-modules';
 
 import UI from 'site/ui';
-const { Checkbox } = UI;
+const {
+   Checkbox,
+ } = UI;
 
 import s from 'site/styles/components/satellites/filter.css';
 import sUtils from 'site/styles/utils';
@@ -37,11 +39,7 @@ class Kind extends Component {
 
     return (
       <div styleName="checkboxContainer">
-        <Checkbox
-          controlClassName={theme.checkboxControl}
-          checked={isChecked}
-          handleChange={() => this.onUpdate()}
-        >
+        <Checkbox controlClassName={theme.checkboxControl} checked={isChecked} handleChange={() => this.onUpdate()}>
           <span className={theme.checkboxLabel}>Только новые</span>
         </Checkbox>
       </div>

@@ -18,6 +18,15 @@ export const bathrooms = {
   separated: 'Раздельный',
 };
 
+export const pluralizedKinds = {
+  flat: 'квартиры',
+  apartment: 'апартаментов',
+  house: 'дома',
+  townhouse: 'таунхауса',
+  penthouse: 'пентхауса',
+  lan: 'участка',
+};
+
 export const kinds = {
   flat: 'Квартира',
   apartment: 'Апартаменты',

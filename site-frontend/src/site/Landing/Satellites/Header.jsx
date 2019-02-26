@@ -1,44 +1,36 @@
 import React from 'react';
 
-import global from 'window-or-global';
+import styled from 'styled-components';
 
-// UI
-import UI from 'site/ui';
+import media from 'site/styles/media';
 
-// styles
-import cn from 'classnames';
-import s from 'site/styles/landing/satellites/list';
-import sUtils from 'site/styles/utils';
+const Header = styled.p`
+  margin: 0;
+  margin-bottom: 30px;
+  line-height: 36px;
+  font-size: 26px;
+  color: #000000;
+  font-weight: bold;
 
-const isRublevka = global.config.domain === 'rublevka.ru';
-const isRiga = global.config.domain === 'riga.ru';
-const {
-  Icon,
-  Grid: { Row, Col },
-} = UI;
+  ${media.xs`
+    margin-bottom: 50px;
+    line-height: 48px;
+    font-size: 40px;
+    color: #fff;
+    text-shadow: 0px 0px 25px rgba(0, 0, 0, 0.35);
+  `}
+
+  ${media.md`
+    line-height: 58px;
+    font-size: 48px;
+    text-shadow: 0px 0px 35px rgba(0, 0, 0, 0.35);
+  `}
+`;
 
 export default () => (
-  <Row>
-    <Col xs="12" className={s.headerContainer}>
-      {/* {(!isRublevka && !isRiga) && (
-      <h2 className={s.titleXSm}>{global.config.banner.logo}</h2>
-        )}
-      {isRublevka && (
-      <Icon className={s.icon} icon="rublevka" />
-        )}
-      {isRiga && (
-      <Icon className={s.icon} icon="riga" />
-        )} */}
-
-      <p
-        className={cn(
-          s.textSm,
-          (!isRublevka || !isRiga) && sUtils.pushedTopXs1_9Sm1_3Md2,
-          (isRublevka || isRiga) && sUtils.pushedTopXs0Sm1_3Md2,
-        )}
-      >
-        Начните поиск среди самых лучших домов {global.config.banner.route}
-      </p>
-    </Col>
-  </Row>
+  <Header>
+    Начните поиск лучших
+    <br />
+    домов на Рублёвке
+  </Header>
 );

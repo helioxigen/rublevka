@@ -18,19 +18,17 @@ import { track } from 'core/analytics';
 import * as analyticsEvents from 'core/analytics/constants';
 
 // UI
-import UI from 'site/ui';
+import UI from 'site/ui/v2019';
 
-// components
+// component
 import Helmet from './Helmet';
 import { FormattedNumber } from 'react-formatted';
 
-import CardCountry from 'site/countryProperties/card';
-import CardCity from 'site/cityProperties/card';
-import ResultForm from 'site/request/PropertiesFormSatTisa';
-
-import Pagination from 'site/components/pagination';
-import FilterCountry from 'site/countryProperties/list/filter';
-import FilterCity from 'site/cityProperties/list/filter';
+import Breadcrumbs from './Breadcrumbs';
+import { Title, HeaderContainer, HeaderWrapper } from 'site/countryProperties/v2019/list/styled';
+import Card from 'site/countryProperties/v2019/Card';
+import Pagination from 'site/components/v2019/pagination';
+import Filter from 'site/countryProperties/v2019/list/filter';
 import OrderBy from 'site/properties/orderBy';
 import NotFound from 'site/properties/notFound';
 
@@ -44,6 +42,7 @@ import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from 'core/helpers
 import {
   categories,
   dealTypes,
+  dealTypesTranslateOther,
   kinds,
 } from 'site/constants/properties/dictionaries';
 
@@ -208,48 +207,66 @@ class List extends Component {
     this.props.actions.resetFilter(this.resource, null, null);
   }
 
+  renderOrderBy() {
+    const { actions, params, state } = this.props;
+    const dealType = dealTypes[params.dealType];
+
+    return (
+      <OrderBy
+        resourceName={this.resource}
+        group={this.group}
+        actions={actions}
+        state={state.order[this.resource]}
+        updatePagination={this.props.actions.updatePagination}
+        fields={[
+          `${dealType}Offer.multiCurrencyPrice.usd`,
+          'location.mkadDistance',
+        ]}
+      />
+    );
+  }
+
+  renderFilter() {
+    const { actions, state } = this.props;
+    const pagination = state.pagination[this.resource] || {};
+
+    return (
+      <Filter
+        resourceName={this.resource}
+        resource={this.state.resource}
+        group={this.group}
+        count={pagination.total}
+        updatePagination={this.props.actions.updatePagination}
+        actions={actions} // TODO: use FilterHelper instead of passing actions
+        state={state.filters[this.resource]} // TODO: refactor this because FilterHelper provides
+        dealType={this.state.dealType} // TODO: check it's ok?
+        toggleResourceName={this.toggleResourceName}
+        isViewOpen={this.state.isViewOpen}
+        toggle={this.toggleView}
+        onClose={this.onClose}
+      />
+    );
+  }
+
   renderCards() {
     const {
       state,
       params: { dealType },
     } = this.props;
     const { ids = [] } = state.countryProperties[this.group] || {};
-    const pagination = state.pagination[this.resource] || {};
 
-    const formOffset = (pagination.offset / pagination.limit) % 4;
-    const isPageEven = (pagination.offset / pagination.limit) % 2 === 0;
-
-    return ids.map(id => {
-      if (ids.indexOf(id) === 7 + formOffset) {
-        return [
-          <ResultForm propertyCategory="country" type="private" />,
-          <CardCountry dealType={dealType} key={id} id={id} showLocation />,
-        ];
-      }
-
-      if (ids.indexOf(id) === 20 + formOffset && isPageEven) {
-        return [
-          <ResultForm propertyCategory="country" type="help" />,
-          <CardCountry dealType={dealType} key={id} id={id} showLocation />,
-        ];
-      }
-
-      if (ids.indexOf(id) === 29 && !isPageEven) {
-        return [
-          <CardCountry dealType={dealType} key={id} id={id} showLocation />,
-          <ResultForm propertyCategory="country" type="common" />,
-        ];
-      }
-
-      return <CardCountry dealType={dealType} key={id} id={id} showLocation />;
-    });
+    return ids.map(id => (
+      <Col xs="12" sm="6" md="6" lg="4">
+        <Card dealType={dealType} key={id} id={id} showLocation />
+      </Col>
+      ));
   }
 
   render() {
     const { actions, state, params = {}, location } = this.props;
     const dealType = dealTypes[params.dealType];
     const properties = state[`${categories[params.category]}Properties`] || {};
-    const { ids = [], isFetching } = properties[this.group] || {};
+    const { ids = [], data = {}, isFetching } = properties[this.group] || {};
     const pagination = state.pagination[this.resource] || {};
 
     const { query } = location;
@@ -268,90 +285,51 @@ class List extends Component {
           />
         )}
 
-        <div>
-          {this.state.resource === 'country' && (
-            <FilterCountry
-              resourceName={this.resource}
-              resource={this.state.resource}
-              group={this.group}
-              count={pagination.total}
-              updatePagination={this.props.actions.updatePagination}
-              actions={actions} // TODO: use FilterHelper instead of passing actions
-              state={state.filters[this.resource]} // TODO: refactor this because FilterHelper provides
-              dealType={this.state.dealType} // TODO: check it's ok?
-              toggleResourceName={this.toggleResourceName}
-              isViewOpen={this.state.isViewOpen}
-              toggle={this.toggleView}
-              onClose={this.onClose}
-            />
-          )}
-
-          {this.state.resource === 'city' && (
-            <FilterCity
-              resourceName={this.resource}
-              resource={this.state.resource}
-              group={this.group}
-              count={pagination.total}
-              updatePagination={this.props.actions.updatePagination}
-              actions={actions} // TODO: use FilterHelper instead of passing actions
-              state={state.filters[this.resource]} // TODO: refactor this because FilterHelper provides
-              dealType={this.state.dealType} // TODO: check it's ok?
-              toggleResourceName={this.toggleResourceName}
-              isViewOpen={this.state.isViewOpen}
-              toggle={this.toggleView}
-              onClose={this.onClose}
-            />
-          )}
-        </div>
 
         {hasItems && (
           <Container>
-            <Row className={s.orderBySatellites}>
-              <Col sm="4">
-                <Visibility xs="hidden" sm="hidden">
-                  <h2 className={sTypography.heading}>
-                    Найдено <FormattedNumber value={pagination.total} />
-                  </h2>
+            <HeaderWrapper>
+              <Breadcrumbs data={data} dealType={dealType} />
+              <HeaderContainer>
+                <Title>{dealTypesTranslateOther[dealType]} недвижимость на Рублёвке</Title>
+                <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
+                  {this.renderOrderBy()}
                 </Visibility>
-              </Col>
-              <Col sm="8" className={sTypography.alignRight}>
-                <OrderBy
-                  resourceName={this.resource}
-                  group={this.group}
-                  actions={actions}
-                  state={state.order[this.resource]}
-                  updatePagination={this.props.actions.updatePagination}
-                  fields={[
-                    `${dealType}Offer.multiCurrencyPrice.usd`,
-                    'location.mkadDistance',
-                    'landDetails.area',
-                    'specification.area',
-                  ]}
-                />
-              </Col>
-            </Row>
+              </HeaderContainer>
+            </HeaderWrapper>
+            <Visibility xs="block" sm="block" md="block" lg="hidden">
+              <HeaderContainer>
+                {this.renderFilter()}
+                {this.renderOrderBy()}
+              </HeaderContainer>
+            </Visibility>
           </Container>
         )}
 
         {this.state.resource === 'country' && (
-          <Container fluid>
-            <Row>{this.renderCards()}</Row>
-          </Container>
-        )}
-
-        {this.state.resource === 'city' && (
-          <Container fluid>
-            <Row>
-              {ids.map(id => (
-                <CardCity
-                  dealType={params.dealType}
-                  key={id}
-                  id={id}
-                  showLocation
-                />
-              ))}
-            </Row>
-          </Container>
+          <div>
+            <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
+              <Container >
+                <Row>
+                  <Col md="4" lg="3">
+                    {this.renderFilter()}
+                  </Col>
+                  <Col md="8" lg="9">
+                    <Row>
+                      {this.renderCards()}
+                    </Row>
+                  </Col>
+                </Row>
+              </Container>
+            </Visibility>
+            <Visibility xs="block" sm="block" md="block" lg="hidden">
+              <Container>
+                <Row>
+                  {this.renderCards()}
+                </Row>
+              </Container>
+            </Visibility>
+          </div>
         )}
 
         {!isFetching && !ids.length && (
@@ -383,7 +361,7 @@ class List extends Component {
 }
 
 // redux connectors
-const pickState = state => {
+const pickState = (state) => {
   const {
     countryProperties,
     cityProperties,
@@ -403,7 +381,7 @@ const pickState = state => {
   };
 };
 
-const pickActions = dispatch => {
+const pickActions = (dispatch) => {
   const actions = {
     loadCountryProperties,
     loadCityProperties,

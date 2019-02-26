@@ -18,6 +18,7 @@ module.exports = {
     ecmaVersion: 2017,
   },
   rules: {
+    'react/jsx-filename-extension': 0,
     'global-require': 0,
     'react/no-multi-comp': 0,
     'id-length': [

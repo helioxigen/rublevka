@@ -8,10 +8,7 @@ import st from 'site/styles/themes';
 
 import UI from 'site/ui';
 
-const {
-  Button,
-  Grid: { Container, Row, Col },
-} = UI;
+const { Button, Grid: { Container, Row, Col } } = UI;
 
 const styles = {
   ...s,
@@ -49,39 +46,26 @@ class Kind extends Component {
           <Row md="middle">
             <Col styleName="kindContainer">
               <Button
-                className={cn(
-                  theme.hollowBtn,
-                  items.indexOf('house') > -1 && theme.active,
-                )}
+                className={cn(theme.hollowBtn, items.indexOf('house') > -1 && theme.active)}
                 onClick={() => this.onUpdate('house')}
               >
                 Дом
               </Button>
-              {dealType !== 'arenda' && (
+              {dealType !== 'arenda' &&
                 <Button
-                  className={cn(
-                    theme.hollowBtn,
-                    items.indexOf('land') > -1 && theme.active,
-                  )}
+                  className={cn(theme.hollowBtn, items.indexOf('land') > -1 && theme.active)}
                   onClick={() => this.onUpdate('land')}
                 >
                   Участок
-                </Button>
-              )}
+                </Button>}
               <Button
-                className={cn(
-                  theme.hollowBtn,
-                  items.indexOf('townhouse') > -1 && theme.active,
-                )}
+                className={cn(theme.hollowBtn, items.indexOf('townhouse') > -1 && theme.active)}
                 onClick={() => this.onUpdate('townhouse')}
               >
                 Таунхаус
               </Button>
               <Button
-                className={cn(
-                  theme.hollowBtn,
-                  items.indexOf('flat') > -1 && theme.active,
-                )}
+                className={cn(theme.hollowBtn, items.indexOf('flat') > -1 && theme.active)}
                 onClick={() => this.onUpdate('flat')}
               >
                 Квартира

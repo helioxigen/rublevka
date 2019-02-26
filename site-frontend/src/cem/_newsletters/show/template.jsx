@@ -496,7 +496,7 @@ const Template = ({ values, properties = [] }) => (
         border={0}
         cellPadding={0}
         cellSpacing={0}
-        style={{ backgroundColor: '#F2F2F2' }}
+        style={{ backgroundColor: '#FAFAFA' }}
       >
         <tbody>
           <tr>

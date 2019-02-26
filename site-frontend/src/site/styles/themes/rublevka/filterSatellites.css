@@ -1,5 +1,6 @@
 @import '../../responsive-utils';
 @import './variables';
+
 .fixed {
   position: fixed;
   top: 0;
@@ -18,9 +19,11 @@
   -webkit-overflow-scrolling: touch;
   text-align: left;
   background: $brand-white;
+
   @include responsive(sm) {
     padding-top: 8rem;
   }
+
   @include responsive(lg) {
     padding-bottom: 0;
     background: $brand-primary;
@@ -38,9 +41,11 @@
   color: $brand-black;
   font-weight: 500;
   line-height: 1;
+
   @include responsive(sm) {
     font-size: 1.8rem;
   }
+
   @include responsive(md) {
     font-size: 1.6rem;
     margin-top: 0;
@@ -51,6 +56,7 @@
   display: inline-block;
   margin-top: 1.5rem;
   color: $brand-primary;
+
   @include responsive(sm) {
     margin-top: 2rem;
   }
@@ -65,6 +71,7 @@
   overflow: hidden;
   color: $brand-primary;
   text-align: right;
+
   @include responsive(sm) {
     top: 1.8rem;
   }
@@ -81,29 +88,35 @@
   text-align: left;
   border: none;
   border-bottom: 1px solid #eeeeee;
+
   &:hover,
   &:focus {
     background: transparent;
     border-bottom: 1px solid #eeeeee;
   }
+
   &:last-child {
     border-bottom: none;
   }
+
   @include responsive(sm) {
     padding: 2rem 1.5rem;
     font-size: 1.8rem;
   }
+
   @include responsive(md) {
     display: block;
     padding: 3rem 3rem 3.8rem;
     font-size: 1.6rem;
     text-align: center;
     border-bottom: none;
+
     &:hover,
     &:focus {
       background: $brand-primary-hover;
       border-bottom: none;
     }
+
     &.activeTab {
       background: $brand-primary-hover;
     }
@@ -122,6 +135,7 @@
   border-radius: 10rem;
   cursor: default;
   transition: all 0.3s;
+
   &:hover {
     background-color: #e5e5e5;
     border-color: #e5e5e5;
@@ -141,6 +155,7 @@
   border: 1px solid #f5f5f5;
   border-radius: 10rem;
   cursor: default;
+
   &:hover,
   &:focus {
     background-color: #e5e5e5;
@@ -158,6 +173,7 @@
   width: 100%;
   background: $brand-white;
   border-bottom: 1px solid #eeeeee;
+
   @include responsive(sm) {
     left: -44rem;
     width: 42rem;
@@ -174,9 +190,11 @@
   width: 100%;
   padding: 3rem 1rem 0.5rem;
   border-bottom: 1px solid #eeeeee;
+
   @include responsive(md) {
     padding: 3rem;
   }
+
   @include responsive(md) {
     display: none;
   }
@@ -185,10 +203,12 @@
 .btnGroup {
   width: 100%;
   margin-bottom: 2.5rem;
+
   .btnInGroup:first-child {
     border-top-left-radius: 10rem;
     border-bottom-left-radius: 10rem;
   }
+
   .btnInGroup:last-child {
     border-top-right-radius: 10rem;
     border-bottom-right-radius: 10rem;
@@ -204,14 +224,17 @@
   color: $brand-primary;
   font-size: 1.6rem;
   display: inline-block;
+
   &:hover {
     background: $brand-white;
     color: $brand-primary;
   }
+
   &.btnActive {
     background: $brand-primary;
     color: $brand-white;
   }
+
   @include responsive(sm) {
     padding: 2rem 0;
   }
@@ -222,6 +245,7 @@
   padding: 1.9rem 3.3rem;
   font-size: 1.8rem;
   border-radius: 10rem;
+
   @include responsive(sm) {
     width: auto;
     margin-bottom: 2rem;
@@ -242,6 +266,7 @@
   text-align: center;
   background: rgba(255, 255, 255, 0.07);
   border-radius: 50%;
+
   @include responsive(md) {
     margin-right: 0;
     margin-bottom: 1.5rem;
@@ -256,6 +281,7 @@
   border-top-color: $body-bg;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+
   &:hover,
   &:focus {
     background: $body-bg;
@@ -269,6 +295,7 @@
   margin-bottom: 2rem;
   font-size: 1.8rem;
   border-radius: 10rem;
+
   @include responsive(sm) {
     display: inline-block;
     width: auto;
@@ -276,6 +303,7 @@
     padding: 1.7rem 3.6rem;
     padding-right: 4rem;
     font-size: 1.6rem;
+
     &.activeBtnRound {
       color: #ffffff;
       background: #53517d;
@@ -299,29 +327,35 @@
   border-radius: 10rem;
   border: none;
   background: #f5f5f5;
+
   &:last-child {
     margin-right: 0;
   }
+
   &:hover,
   &:focus {
     color: $brand-primary;
     background: rgba(0, 0, 0, 0.08);
   }
+
   &.active {
     color: $brand-white;
     background: $brand-primary;
   }
+
   @include responsive(sm) {
     margin-top: 0;
     margin-bottom: 2rem;
     padding: 1.9rem 2.8rem;
     font-size: 1.8rem;
   }
+
   @include responsive(md) {
     margin-bottom: 1rem;
     padding: 1rem 2rem;
     font-size: 1.6rem;
   }
+
   @include responsive(lg) {
     &:nth-child(6) {
       margin-top: 0;
@@ -336,6 +370,7 @@
   background: rgba(0, 0, 0, 0.07);
   border: none;
   border-radius: 50%;
+
   &:hover,
   &:focus {
     background: rgba(0, 0, 0, 0.08);
@@ -349,14 +384,17 @@
   font-size: 1.8rem;
   color: #c4c4c4;
   border: none;
+
   &:hover {
     background: transparent;
     color: #c4c4c4;
   }
+
   @include responsive(sm) {
     padding: 3rem;
     font-size: 2rem;
   }
+
   @include responsive(md) {
     padding: 2.6rem 2rem;
     font-size: 1.6rem;
@@ -368,11 +406,13 @@
   padding-right: 1.5rem;
   font-size: 1.4rem;
   text-align: right;
+
   &:hover,
   &:focus {
     background: $brand-primary;
     border-color: $brand-primary;
   }
+
   @include responsive(sm) {
     padding-right: 3rem;
     font-size: 1.8rem;
@@ -383,11 +423,13 @@
   composes: resetBorderRadius;
   padding-left: 1rem;
   text-align: left;
+
   &:hover,
   &:focus {
     background: $brand-primary;
     border-color: $brand-primary;
   }
+
   @include responsive(sm) {
     padding: 2.4rem 2.5rem;
     font-size: 1.8rem;
@@ -398,6 +440,7 @@
 
 .iconFill {
   fill: $brand-primary;
+
   @include responsive(md) {
     fill: $brand-white;
   }
@@ -435,6 +478,7 @@
   width: 2.5rem;
   height: 1.5rem;
   fill: $brand-primary;
+
   @include responsive(sm) {
     top: 2.5rem;
   }
@@ -468,6 +512,7 @@
   width: 2.5rem;
   height: 2.5rem;
   border-color: $brand-primary;
+
   &:checked {
     background-color: $brand-primary;
   }
@@ -483,11 +528,13 @@
     left: 0;
     box-shadow: inset -100px 0 20px -75px $brand-white;
   }
+
   @include responsive(sm) {
     &:after {
       box-shadow: inset -125px 0 20px -75px $brand-white;
     }
   }
+
   @include responsive(md) {
     &:after {
       display: none;

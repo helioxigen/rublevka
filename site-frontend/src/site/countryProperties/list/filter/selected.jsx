@@ -3,10 +3,7 @@ import CSSModules from 'react-css-modules';
 
 // constants
 import { routeKinds } from 'core/places/constants/dictionaries';
-import {
-  kinds,
-  renovateKinds,
-} from 'core/countryProperties/constants/dictionaries';
+import { kinds, renovateKinds } from 'core/countryProperties/constants/dictionaries';
 
 // helpers
 import { formatByDictionary, formatByMinMax } from 'site/helpers';
@@ -33,33 +30,17 @@ const cssOptions = {
 const theme = st.filterSatellites;
 
 // components
-const ArrayButton = ({
-  dictionary,
-  children,
-  reference,
-  onChange,
-  ...props
-}) => (
+const ArrayButton = ({ dictionary, children, reference, onChange, ...props }) => (
   <span className={theme.selected}>
     {formatByDictionary(children, dictionary)}
 
-    <UI.Button
-      className={props.styles.btnTimesSm}
-      onClick={() => onChange(reference, children)}
-    >
+    <UI.Button className={props.styles.btnTimesSm} onClick={() => onChange(reference, children)}>
       <Icon className={props.styles.iconTimesSm} icon="times" />
     </UI.Button>
   </span>
 );
 
-const MinMaxButton = ({
-  value,
-  reference,
-  onChange,
-  prefix,
-  postfix,
-  ...props
-}) => (
+const MinMaxButton = ({ value, reference, onChange, prefix, postfix, ...props }) => (
   <span className={theme.selected} onClick={() => onChange(reference)}>
     {formatByMinMax(value, postfix, prefix)}
 
@@ -98,8 +79,7 @@ class Selected extends Component {
     const isRentShown = rent && (!!rent.min || !!rent.max);
     const isAreaShown = area && (!!area.min || !!area.max);
     const isLandAreaShown = landArea && (!!landArea.min || !!landArea.max);
-    const isMkadDistanceShown =
-      mkadDistance && (!!mkadDistance.min || !!mkadDistance.max);
+    const isMkadDistanceShown = mkadDistance && (!!mkadDistance.min || !!mkadDistance.max);
 
     return (
       <span>
@@ -199,10 +179,7 @@ class Selected extends Component {
               declensionForms={['посёлок', 'посёлка', 'посёлков']}
             />
 
-            <UI.Button
-              className={styles.btnTimesSm}
-              onClick={() => this.onChange('settlements')}
-            >
+            <UI.Button className={styles.btnTimesSm} onClick={() => this.onChange('settlements')}>
               <Icon className={styles.iconTimesSm} icon="times" />
             </UI.Button>
           </span>

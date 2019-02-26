@@ -1,0 +1,22 @@
+@import '../../responsive-utils';
+@import './variables';
+
+.btn {
+  &:hover,
+  &:focus,
+  &.active {
+    color: $brand-primary !important;
+  }
+}
+
+.iconFilter {
+  position: absolute;
+  top: 1.5rem;
+  left: 0;
+
+  width: 1.8rem;
+  height: 1.7rem;
+  margin: 0;
+
+  fill: $brand-primary !important;
+}

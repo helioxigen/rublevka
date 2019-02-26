@@ -4,6 +4,7 @@ export const resourceName = 'settlements';
 export const apiPath = '/v1/places/settlements';
 export const apiPathByGroup = {
   all: '/v1/places/settlements',
+  byLetter: '/v1/places/settlements',
   forProperties: '/v1/places/settlements/items',
 };
 
@@ -21,6 +22,16 @@ const defaultParamsByGroup = {
       routes, // TODO check is it ok?
     },
   },
+  byLetter: {
+    filter: {
+      state: ['public'],
+      totalProperties: { min: 1 },
+      routes, // TODO check is it ok?
+    },
+    pagination: {
+      limit: 256,
+    },
+  },
 };
 
 export const makeDefaultQueryParamsByGroup = (group, options = {}) =>
@@ -36,8 +47,7 @@ export const makeDefaultQueryParamsByGroup = (group, options = {}) =>
   defaultParamsByGroup;
 // }
 
-export const getDefaultsByGroup = (group, options) =>
-  defaultParamsByGroup[group];
+export const getDefaultsByGroup = (group, options) => defaultParamsByGroup[group];
 
 export const cardsListOffset = 120;
 export const cardsListAnimationDuration = 300;

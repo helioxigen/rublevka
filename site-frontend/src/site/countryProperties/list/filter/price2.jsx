@@ -6,10 +6,7 @@ import { prices } from '../../v2/List/Filter/options';
 import { connect } from 'react-redux';
 
 // actions
-import {
-  updateDisplayOption,
-  resetDisplayOption,
-} from 'site/displayOptions/actions';
+import { updateDisplayOption, resetDisplayOption } from 'site/displayOptions/actions';
 
 import SelectGroup from 'core/components/ui/select/selectGroup';
 
@@ -17,9 +14,7 @@ import UI from 'site/ui';
 
 import { Wrapper, SelectWrapper } from '../../v2/List/Filter/styled';
 
-const {
-  Grid: { Container, Row, Col },
-} = UI;
+const { Grid: { Container, Row, Col } } = UI;
 
 class Price extends Component {
   constructor(props) {
@@ -87,11 +82,7 @@ class Price extends Component {
           <Row md="middle">
             <Col md="5">
               <SelectWrapper>
-                <SelectGroup
-                  options={dealPrices}
-                  selected={price}
-                  onUpdate={this.onUpdate}
-                />
+                <SelectGroup options={dealPrices} selected={price} onUpdate={this.onUpdate} />
               </SelectWrapper>
             </Col>
           </Row>

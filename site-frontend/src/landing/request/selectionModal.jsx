@@ -17,11 +17,11 @@ class SelectionModal extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     propertyCategory: PropTypes.string.isRequired,
-  }
+  };
 
   state = {
     isOpened: false,
-  }
+  };
 
   toggle() {
     this.setState({

@@ -1,6 +1,10 @@
 import isEqual from 'lodash/isEqual';
 
-export const isPaginationOrFiltersOrOrderByUpdated = (resource, props = {}, nextProps = {}) => {
+export const isPaginationOrFiltersOrOrderByUpdated = (
+  resource,
+  props = {},
+  nextProps = {},
+) => {
   if (resource === undefined) throw Error('Resource is undefined');
 
   const { state = {}, location = {} } = props;
@@ -12,9 +16,14 @@ export const isPaginationOrFiltersOrOrderByUpdated = (resource, props = {}, next
   const queryPagination = location.query || {};
   const nextQueryPagination = nextLocation.query || {};
 
-  const offset = (queryPagination.page - 1) * statePagination.limit || statePagination.offset || 0;
+  const offset =
+    (queryPagination.page - 1) * statePagination.limit ||
+    statePagination.offset ||
+    0;
   const nextOffset =
-    (nextQueryPagination.page - 1) * nextStatePagination.limit || nextStatePagination.offset || 0;
+    (nextQueryPagination.page - 1) * nextStatePagination.limit ||
+    nextStatePagination.offset ||
+    0;
 
   const filters = state.filters[resource] || {};
   const nextFilters = nextState.filters[resource] || {};

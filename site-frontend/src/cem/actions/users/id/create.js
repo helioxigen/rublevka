@@ -27,7 +27,7 @@ const createIdFailed = errors => ({
 });
 
 export default function createUser({ photo, ...data }) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(createIdStarted());
     notificationsList.map(item => set(data.details, item.key, item.default));
 

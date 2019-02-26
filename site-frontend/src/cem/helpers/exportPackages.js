@@ -8,7 +8,8 @@ const getInitialField = (fieldName, key, filter = {}) => {
   } else if (fieldName === 'location.settlementId') {
     return {
       location: {
-        settlementId: (filter[key] && filter[key].split(',').map(id => Number(id))) || [],
+        settlementId:
+          (filter[key] && filter[key].split(',').map(id => Number(id))) || [],
       },
     };
   }
@@ -55,11 +56,17 @@ const getRequestValueForFilterField = (key, filter = {}) => {
     };
   }
   return {
-    [`filter[${key}]`]: Array.isArray(filter[key]) ? filter[key].join(',') : filter[key],
+    [`filter[${key}]`]: Array.isArray(filter[key])
+      ? filter[key].join(',')
+      : filter[key],
   };
 };
 
-export const transformRequestValues = ({ filter = {}, filterNot = {}, ...values }) => ({
+export const transformRequestValues = ({
+  filter = {},
+  filterNot = {},
+  ...values
+}) => ({
   ...values,
   filter: {
     ...Object.keys(filter).reduce(
@@ -74,14 +81,15 @@ export const transformRequestValues = ({ filter = {}, filterNot = {}, ...values 
         ...result,
         ...(key === 'location'
           ? {
-            'filterNot[location.settlementId]':
-                filterNot[key].settlementId && filterNot[key].settlementId.join(','),
-          }
+              'filterNot[location.settlementId]':
+                filterNot[key].settlementId &&
+                filterNot[key].settlementId.join(','),
+            }
           : {
-            [`filterNot[${key}]`]: Array.isArray(filterNot[key])
+              [`filterNot[${key}]`]: Array.isArray(filterNot[key])
                 ? filterNot[key].join(',')
                 : filterNot[key],
-          }),
+            }),
       }),
       {},
     ),

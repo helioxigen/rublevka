@@ -11,7 +11,7 @@ const createWordStarted = key => ({
 });
 
 function createWordFailed(key, { errors }) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(pop('danger', 'Ошибка создания слова!'));
 
     return dispatch({
@@ -23,7 +23,7 @@ function createWordFailed(key, { errors }) {
 }
 
 export default function createWord(item) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(createWordStarted());
 
     return API.post('/v1/dictionary_items', item).then(

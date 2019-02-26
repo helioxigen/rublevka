@@ -40,7 +40,7 @@ class Avatar extends Component {
         settings={settings}
       >
         <div className={wrapperClassName}>
-          {!isUploading &&
+          {!isUploading && (
             <Image
               src={
                 id
@@ -50,7 +50,8 @@ class Avatar extends Component {
               kind="circle"
               width={previewImageWidth}
               height={previewImageHeight}
-            />}
+            />
+          )}
           {isUploading && <Loading style={{ paddingTop: `2.5rem` }} />}
         </div>
       </Uploadcare>
@@ -104,7 +105,9 @@ class SelectionAvatar extends Component {
       <Avatar
         {...this.props}
         wrapperClassName={
-          isUploading ? s.selectionAvatarImageWrapper : s.selectionAvatarImageWrapperInactive
+          isUploading
+            ? s.selectionAvatarImageWrapper
+            : s.selectionAvatarImageWrapperInactive
         }
         minImageHeight={1024}
         photoPlaceholder="placeholder"

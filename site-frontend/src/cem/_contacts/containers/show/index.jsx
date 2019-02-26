@@ -51,7 +51,7 @@ class Show extends Component {
     hasRight: PropTypes.func.isRequired,
     hasAllRights: PropTypes.func.isRequired,
     hasAnyRight: PropTypes.func.isRequired,
-  }
+  };
 
   componentWillMount() {
     if (this.props.params.id !== `create`) {
@@ -76,10 +76,30 @@ class Show extends Component {
     const { responsibleUsers = {} } = data || {};
 
     const permissionsProps = {
-      isUpdateAllowed: hasRight(`contact_update`, responsibleUsers.ids, responsibleUsers.departmentIds, responsibleUsers.divisionIds),
-      isSensitiveDataVisible: hasRight(`contact_sensitive_data`, responsibleUsers.ids, responsibleUsers.departmentIds, responsibleUsers.divisionIds),
-      isPhotoUploadAllowed: hasRight(`contact_photo_upload`, responsibleUsers.ids, responsibleUsers.departmentIds, responsibleUsers.divisionIds),
-      isLinkedContactsEditingAllowed: hasRight(`contact_links`, responsibleUsers.ids, responsibleUsers.departmentIds, responsibleUsers.divisionIds),
+      isUpdateAllowed: hasRight(
+        `contact_update`,
+        responsibleUsers.ids,
+        responsibleUsers.departmentIds,
+        responsibleUsers.divisionIds,
+      ),
+      isSensitiveDataVisible: hasRight(
+        `contact_sensitive_data`,
+        responsibleUsers.ids,
+        responsibleUsers.departmentIds,
+        responsibleUsers.divisionIds,
+      ),
+      isPhotoUploadAllowed: hasRight(
+        `contact_photo_upload`,
+        responsibleUsers.ids,
+        responsibleUsers.departmentIds,
+        responsibleUsers.divisionIds,
+      ),
+      isLinkedContactsEditingAllowed: hasRight(
+        `contact_links`,
+        responsibleUsers.ids,
+        responsibleUsers.departmentIds,
+        responsibleUsers.divisionIds,
+      ),
     };
 
     const hasErrors = !isFetching && !!errors.length;
@@ -122,7 +142,6 @@ class Show extends Component {
             isCreate={isCreate}
             isArchived={isArchived}
             isStatic={isStatic}
-
             {...permissionsProps}
             {...formProps}
           />
@@ -137,10 +156,10 @@ class Show extends Component {
     //   return (
     //     <section>
     //       <Header {...this.props} formKey={id} initialValues={data} data={data} {...permissionsProps} />
-          // <Container fluid>
-          //   {React.cloneElement(this.props.children, { ...this.props, id, initialValues: data, formKey: id.toString(), type: `contact`, data, ...permissionsProps })}
-          // </Container>
-        // </section>
+    // <Container fluid>
+    //   {React.cloneElement(this.props.children, { ...this.props, id, initialValues: data, formKey: id.toString(), type: `contact`, data, ...permissionsProps })}
+    // </Container>
+    // </section>
     //   );
     // }
 
@@ -153,7 +172,7 @@ class Show extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { _contacts } = state;
 
   return {
@@ -163,7 +182,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadContact,
   };
@@ -173,4 +192,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Show);
+export default connect(
+  pickState,
+  pickActions,
+)(Show);

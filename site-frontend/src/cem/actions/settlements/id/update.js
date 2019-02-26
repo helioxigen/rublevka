@@ -18,15 +18,24 @@ const updateSettlementFailed = (id, { errors }) => ({
 });
 
 export default function updateSettlement(id, settlement) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(updateSettlementStarted(id, settlement));
 
-    return API.put(`/v1/places/settlements/${id}`, transformSettlementOut(settlement)).then(
+    return API.put(
+      `/v1/places/settlements/${id}`,
+      transformSettlementOut(settlement),
+    ).then(
       () =>
         dispatch(pop('success', `Посёлок (ID: ${id})`, 'Успешно обновлён')) &&
         dispatch(loadSettlement(id)),
       ({ body }) => {
-        dispatch(pop('error', `Посёлок (ID: ${id})`, 'При обновлении посёлка что-то пошло не так'));
+        dispatch(
+          pop(
+            'error',
+            `Посёлок (ID: ${id})`,
+            'При обновлении посёлка что-то пошло не так',
+          ),
+        );
         dispatch(updateSettlementFailed(id, body));
         return body;
       },

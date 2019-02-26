@@ -20,8 +20,9 @@ export default {
           },
           {
             rel: 'prev',
-            href: `https://${global.config.domain}/gorodskaya/zhilye-kompleksy?page=${queryPage -
-              1}`,
+            href: `https://${
+              global.config.domain
+            }/gorodskaya/zhilye-kompleksy?page=${queryPage - 1}`,
           },
         ];
       } else if (queryPage === 2) {
@@ -32,8 +33,9 @@ export default {
           },
           {
             rel: 'next',
-            href: `https://${global.config.domain}/gorodskaya/zhilye-kompleksy?page=${queryPage +
-              1}`,
+            href: `https://${
+              global.config.domain
+            }/gorodskaya/zhilye-kompleksy?page=${queryPage + 1}`,
           },
           {
             rel: 'prev',
@@ -48,13 +50,15 @@ export default {
           },
           {
             rel: 'next',
-            href: `https://${global.config.domain}/gorodskaya/zhilye-kompleksy?page=${queryPage +
-              1}`,
+            href: `https://${
+              global.config.domain
+            }/gorodskaya/zhilye-kompleksy?page=${queryPage + 1}`,
           },
           {
             rel: 'prev',
-            href: `https://${global.config.domain}/gorodskaya/zhilye-kompleksy?page=${queryPage -
-              1}`,
+            href: `https://${
+              global.config.domain
+            }/gorodskaya/zhilye-kompleksy?page=${queryPage - 1}`,
           },
         ];
       }
@@ -65,13 +69,15 @@ export default {
         },
         {
           rel: 'next',
-          href: `https://${global.config.domain}/gorodskaya/zhilye-kompleksy?page=2`,
+          href: `https://${
+            global.config.domain
+          }/gorodskaya/zhilye-kompleksy?page=2`,
         },
       ];
     },
   },
   show: {
-    h1: (name) => {
+    h1: name => {
       if (!name) {
         return '';
       }
@@ -91,15 +97,17 @@ export default {
       }
       return `Купить или снять квартиру в ЖК ${name}, расположенного в Москве${
         street ? ` на ${street}` : ''
-      }. Лучшие предложения в элитных жилых комплексах Москвы | ${global.config.domain}`;
+      }. Лучшие предложения в элитных жилых комплексах Москвы | ${
+        global.config.domain
+      }`;
     },
     keywords: (name, street) => {
       if (!name) {
         return '';
       }
-      return `ЖК, ${name}${street ? `, ${street}` : ''}, Москва, аренда, продажа, купить, снять, ${
-        global.config.domain
-      }`;
+      return `ЖК, ${name}${
+        street ? `, ${street}` : ''
+      }, Москва, аренда, продажа, купить, снять, ${global.config.domain}`;
     },
   },
 };

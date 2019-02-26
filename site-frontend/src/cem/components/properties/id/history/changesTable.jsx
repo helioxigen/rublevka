@@ -9,7 +9,10 @@ import Pagination from 'core/components/pagination';
 
 import UI from 'cem/components/ui';
 const {
-  Grid, Loading, Table, Heading,
+  Grid,
+  Loading,
+  Table,
+  Heading,
   Grid: { Col },
 } = UI;
 
@@ -19,7 +22,8 @@ import { recursiveTraverseChanges } from 'core/helpers';
 
 const jsonDiffer = jsondiffpatch.create({
   includeValueOnMove: true,
-  objectHash: (object, index) => object.id || object.number || `$$index:${index}`,
+  objectHash: (object, index) =>
+    object.id || object.number || `$$index:${index}`,
   propertyFilter: name => ignoredFields.indexOf(name) === -1,
   textDiff: {
     minLength: 99999,
@@ -45,25 +49,32 @@ class ChangesCell extends Component {
     const messageKind = this.detectMessageKind(event);
 
     return (
-      <Table.Cell>
-        {changeMessages[messageKind][event.type](event)}
-      </Table.Cell>
+      <Table.Cell>{changeMessages[messageKind][event.type](event)}</Table.Cell>
     );
   }
 }
 
 class ChangesTable extends Component {
   componentWillMount() {
-    const { actions, params: { id, category } } = this.props;
+    const {
+      actions,
+      params: { id, category },
+    } = this.props;
 
     actions.loadPropertyEvents(category, id, `property_updated`);
   }
 
   handlePaginationUpdate(offset) {
-    const { state, actions, params: { id, category } } = this.props;
+    const {
+      state,
+      actions,
+      params: { id, category },
+    } = this.props;
     const pagination = state.pagination.propertiesEvents;
 
-    actions.loadPropertyEvents(category, id, `property_updated`, { pagination: { ...pagination, offset } });
+    actions.loadPropertyEvents(category, id, `property_updated`, {
+      pagination: { ...pagination, offset },
+    });
   }
 
   filterEvents(event) {
@@ -81,8 +92,12 @@ class ChangesTable extends Component {
   }
 
   render() {
-    const { state, params: { id } } = this.props;
-    const { isFetching, items = [] } = state.propertiesEvents.property_updated[id] || {};
+    const {
+      state,
+      params: { id },
+    } = this.props;
+    const { isFetching, items = [] } =
+      state.propertiesEvents.property_updated[id] || {};
     const pagination = state.pagination.propertiesEvents;
 
     if (isFetching) return <Loading />;
@@ -95,7 +110,7 @@ class ChangesTable extends Component {
             {!items.length && <Heading notFound>Нет истории изменений</Heading>}
           </Col>
         </Grid.Row>
-        {!!items.length &&
+        {!!items.length && (
           <Grid.Row>
             <Col xs="20" className={sUtils.scrollX}>
               <Table.Container width="100%" className={sUtils.width120}>
@@ -110,26 +125,52 @@ class ChangesTable extends Component {
                   const newModel = this.resetModel(item.details.changes);
                   const delta = jsonDiffer.diff(previousModel, newModel) || {};
 
-                  return recursiveTraverseChanges(delta, previousModel, newModel).filter(::this.filterEvents).map((event, index) =>
-                    <Table.Row key={`${item.id}.${index}`}>
-                      {!index ? <Table.Cell><FormattedDate mask="dd.mm.yyyy HH:MM" value={item.eventAt} /></Table.Cell> : <Table.Cell />}
-                      {!index ? <Table.Cell>{item.details && item.details.userTitle}</Table.Cell> : <Table.Cell />}
-                      <Table.Cell>{(fields[event.id] && fields[event.id].title) || `?`}</Table.Cell>
-                      <ChangesCell event={event} />
-                    </Table.Row>
-                  );
+                  return recursiveTraverseChanges(
+                    delta,
+                    previousModel,
+                    newModel,
+                  )
+                    .filter(::this.filterEvents)
+                    .map((event, index) => (
+                      <Table.Row key={`${item.id}.${index}`}>
+                        {!index ? (
+                          <Table.Cell>
+                            <FormattedDate
+                              mask="dd.mm.yyyy HH:MM"
+                              value={item.eventAt}
+                            />
+                          </Table.Cell>
+                        ) : (
+                          <Table.Cell />
+                        )}
+                        {!index ? (
+                          <Table.Cell>
+                            {item.details && item.details.userTitle}
+                          </Table.Cell>
+                        ) : (
+                          <Table.Cell />
+                        )}
+                        <Table.Cell>
+                          {(fields[event.id] && fields[event.id].title) || `?`}
+                        </Table.Cell>
+                        <ChangesCell event={event} />
+                      </Table.Row>
+                    ));
                 })}
               </Table.Container>
             </Col>
           </Grid.Row>
-        }
-        {!!items.length &&
+        )}
+        {!!items.length && (
           <Grid.Row xs="center">
             <Col xs="10" className={sUtils.pushed6_0}>
-              <Pagination {...pagination} onUpdate={::this.handlePaginationUpdate} />
+              <Pagination
+                {...pagination}
+                onUpdate={::this.handlePaginationUpdate}
+              />
             </Col>
           </Grid.Row>
-        }
+        )}
       </section>
     );
   }

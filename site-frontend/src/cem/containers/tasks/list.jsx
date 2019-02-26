@@ -35,7 +35,9 @@ class TasksListContainer extends Component {
   render() {
     return (
       <List
-        {...this.props} title="Задачи" notFoundCaption="Не найдено задач"
+        {...this.props}
+        title="Задачи"
+        notFoundCaption="Не найдено задач"
         card={<Card />}
         paginator={<Pagination />}
         filter={<Filter stats={this.props.state.tasks.stats} />}
@@ -52,27 +54,47 @@ const pickActions = dispatch => ({
   actions: bindActionCreators({ loadStats }, dispatch),
 });
 
-export default connect(pickState, pickActions)(listResourcer({
-  id: 'tasks',
-  linkedResourcesSchemes: [
-    {
-      typeId: 'contacts',
-      primaryKeyPath: ['contactDetails.contactId', 'previewDetails.contactId', 'freeDetails.contactId', 'negotiationDetails.contactId'],
-    },
-    {
-      typeId: 'leads',
-      primaryKeyPath: ['contactDetails.clientLeadId', 'previewDetails.clientLeadId', 'freeDetails.clientLeadId', 'negotiationDetails.clientLeadId'],
-      apiPath: '/v1/client_leads',
-    },
-    {
-      typeId: 'deals',
-      primaryKeyPath: ['contactDetails.dealId', 'previewDetails.dealId', 'freeDetails.dealId', 'negotiationDetails.dealId'],
-    },
-    {
-      typeId: 'users',
-      primaryKeyPath: 'responsibleUser.id',
-      apiPath: '/v1/users/staff',
-    },
-  ],
-  filterTransform,
-})(TasksListContainer));
+export default connect(
+  pickState,
+  pickActions,
+)(
+  listResourcer({
+    id: 'tasks',
+    linkedResourcesSchemes: [
+      {
+        typeId: 'contacts',
+        primaryKeyPath: [
+          'contactDetails.contactId',
+          'previewDetails.contactId',
+          'freeDetails.contactId',
+          'negotiationDetails.contactId',
+        ],
+      },
+      {
+        typeId: 'leads',
+        primaryKeyPath: [
+          'contactDetails.clientLeadId',
+          'previewDetails.clientLeadId',
+          'freeDetails.clientLeadId',
+          'negotiationDetails.clientLeadId',
+        ],
+        apiPath: '/v1/client_leads',
+      },
+      {
+        typeId: 'deals',
+        primaryKeyPath: [
+          'contactDetails.dealId',
+          'previewDetails.dealId',
+          'freeDetails.dealId',
+          'negotiationDetails.dealId',
+        ],
+      },
+      {
+        typeId: 'users',
+        primaryKeyPath: 'responsibleUser.id',
+        apiPath: '/v1/users/staff',
+      },
+    ],
+    filterTransform,
+  })(TasksListContainer),
+);

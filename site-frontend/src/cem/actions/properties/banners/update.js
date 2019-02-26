@@ -28,7 +28,7 @@ const updateBannerFailed = (propertyId, bannerId, { errors }) => ({
 });
 
 export default function updateBanner(propertyId, category, bannerId, data) {
-  return (dispatch) => {
+  return dispatch => {
     const { state } = data;
     dispatch(updateBannerStarted(propertyId, category, bannerId, data));
     dispatch(
@@ -50,8 +50,15 @@ export default function updateBanner(propertyId, category, bannerId, data) {
       );
     }
 
-    return API.put(`/v1/properties/${category}/${propertyId}/banners/${bannerId}`, data)
-      .then(({ body }) => dispatch(updateBannerSucceeded(propertyId, bannerId, body)))
-      .catch(({ body }) => dispatch(updateBannerFailed(propertyId, bannerId, body)));
+    return API.put(
+      `/v1/properties/${category}/${propertyId}/banners/${bannerId}`,
+      data,
+    )
+      .then(({ body }) =>
+        dispatch(updateBannerSucceeded(propertyId, bannerId, body)),
+      )
+      .catch(({ body }) =>
+        dispatch(updateBannerFailed(propertyId, bannerId, body)),
+      );
   };
 }

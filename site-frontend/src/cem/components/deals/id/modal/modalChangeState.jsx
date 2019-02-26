@@ -10,9 +10,11 @@ import submitValidator from 'core/decorators/submitValidator';
 import DealInfoForm from '../dealInfoForm';
 import UI from 'cem/components/ui';
 const {
-  Modal, Form, Heading,
+  Modal,
+  Form,
+  Heading,
   Grid: { Row, Col },
- } = UI;
+} = UI;
 
 import s from 'cem/styles/modal/list';
 import sUtils from 'cem/styles/utils';
@@ -58,15 +60,23 @@ export default reduxForm(formSettings)(
 
       update(values) {
         const { actions, nextState } = this.props;
-        const { expectedAgentFee, expectedAgentFixedPrice, ...otherDetails } = values.details;
-        return actions.update({
-          ...values,
-          details: {
-            ...otherDetails,
-            ...(values.isAgentFixed === `true` ? { expectedAgentFixedPrice } : { expectedAgentFee }),
-            isAgentFixed: undefined,
-          },
-        }).then(() => actions.changeState(nextState));
+        const {
+          expectedAgentFee,
+          expectedAgentFixedPrice,
+          ...otherDetails
+        } = values.details;
+        return actions
+          .update({
+            ...values,
+            details: {
+              ...otherDetails,
+              ...(values.isAgentFixed === `true`
+                ? { expectedAgentFixedPrice }
+                : { expectedAgentFee }),
+              isAgentFixed: undefined,
+            },
+          })
+          .then(() => actions.changeState(nextState));
       }
 
       render() {
@@ -82,32 +92,56 @@ export default reduxForm(formSettings)(
               </Row>
               <Row>
                 <Col xs="20">
-                  <p className={s.text}>Чтобы продолжить требуется проверить все поля внизу.</p>
+                  <p className={s.text}>
+                    Чтобы продолжить требуется проверить все поля внизу.
+                  </p>
                 </Col>
               </Row>
             </Col>
           </Row>
         );
 
-        const isDealFinalized = fields.state.value === `successful` || fields.state.value === `unsuccessful`;
+        const isDealFinalized =
+          fields.state.value === `successful` ||
+          fields.state.value === `unsuccessful`;
         const propertyIdStates = [`negotiation`, `deposit_paid`, `agreement`];
-        const isPropertySelectionAvailable = propertyIdStates.indexOf(fields.state.value) > - 1;
+        const isPropertySelectionAvailable =
+          propertyIdStates.indexOf(fields.state.value) > -1;
 
         return (
           <div className={s.modalContainer}>
-            {React.cloneElement(this.props.children, { onClick: ::this.toggle })}
+            {React.cloneElement(this.props.children, {
+              onClick: ::this.toggle,
+            })}
 
-            <Modal size="sm" closePortal={::this.close} isOpened={this.state.isOpened} onClose={::this.close} closeOnEsc closeOnOutsideClick>
-              <Form.Container onSubmit={handleSubmit(::this.update, ::this.onSubmitSuccess, ::this.onSubmitFail)}>
-                <DealInfoForm className={s.container} fields={fields}
-                  isDealFinalized={isDealFinalized} isPropertySelectionAvailable={isPropertySelectionAvailable}
-                  headerSection={header} />
+            <Modal
+              size="sm"
+              closePortal={::this.close}
+              isOpened={this.state.isOpened}
+              onClose={::this.close}
+              closeOnEsc
+              closeOnOutsideClick
+            >
+              <Form.Container
+                onSubmit={handleSubmit(
+                  ::this.update,
+                  ::this.onSubmitSuccess,
+                  ::this.onSubmitFail,
+                )}
+              >
+                <DealInfoForm
+                  className={s.container}
+                  fields={fields}
+                  isDealFinalized={isDealFinalized}
+                  isPropertySelectionAvailable={isPropertySelectionAvailable}
+                  headerSection={header}
+                />
                 {submitBtn}
               </Form.Container>
             </Modal>
           </div>
         );
       }
-    }
-  )
+    },
+  ),
 );

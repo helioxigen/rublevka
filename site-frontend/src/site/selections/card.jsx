@@ -30,7 +30,10 @@ class SelectionCard extends Component {
 
     return (
       <Link to={`/podborky/${nameToSlug(data.name)}_${id}`} className={s.card}>
-        <div className={cn(s.layout, this.props.className)} style={{ backgroundImage: imgUrl }} />
+        <div
+          className={cn(s.layout, this.props.className)}
+          style={{ backgroundImage: imgUrl }}
+        />
         <div className={s.content}>
           <p className={s.title}>{data.name}</p>
           <p className={s.text}>{data.title}</p>
@@ -41,7 +44,7 @@ class SelectionCard extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { selections, filters, pagination, order } = state;
 
   return {

@@ -26,47 +26,84 @@ class User extends Component {
         : 'https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder-photo.svg';
 
     return (
-      <li className={cn(s.item, s.user, this.state.isOpen && s.isOpen, isSignedAsUser && s.danger)}>
+      <li
+        className={cn(
+          s.item,
+          s.user,
+          this.state.isOpen && s.isOpen,
+          isSignedAsUser && s.danger,
+        )}
+      >
         <span className={s.block} onClick={() => this.toggle()}>
-          {imageUrl &&
+          {imageUrl && (
             <Image
               className={sUtils.pushedRight1}
               src={imageUrl}
               kind="circle"
               width="32"
               height="32"
-            />}
+            />
+          )}
           <Text truncate={12} ellipsis>{`${data.firstName &&
             data.firstName[0]}. ${data.lastName}`}</Text>
-          <Icon className={cn(s.iconChevron, s.iconPushedTop2_5Right2)} icon="chevron-down" />
+          <Icon
+            className={cn(s.iconChevron, s.iconPushedTop2_5Right2)}
+            icon="chevron-down"
+          />
         </span>
         <ul className={cn(s.list, s.innerList)}>
-          <li className={cn(s.item, sUtils.resetBorder, sUtils.resetPaddingBottom)}>
-            <Button className={cn(s.link, s.logoutBtn)} to={`/staff/${data.id}/notifications`}>
+          <li
+            className={cn(
+              s.item,
+              sUtils.resetBorder,
+              sUtils.resetPaddingBottom,
+            )}
+          >
+            <Button
+              className={cn(s.link, s.logoutBtn)}
+              to={`/staff/${data.id}/notifications`}
+            >
               Уведомления
             </Button>
           </li>
-          {!isSignedAsUser &&
-            <li className={cn(s.item, sUtils.resetBorder, sUtils.resetPaddingBottom)}>
+          {!isSignedAsUser && (
+            <li
+              className={cn(
+                s.item,
+                sUtils.resetBorder,
+                sUtils.resetPaddingBottom,
+              )}
+            >
               <Button className={cn(s.link, s.logoutBtn)} to="/logout">
                 Выйти
               </Button>
-            </li>}
-          {isSignedAsUser &&
+            </li>
+          )}
+          {isSignedAsUser && (
             <li
-              className={cn(s.item, sUtils.resetBorder, sUtils.resetPaddingBottom)}
+              className={cn(
+                s.item,
+                sUtils.resetBorder,
+                sUtils.resetPaddingBottom,
+              )}
               onClick={() =>
                 actions
                   .logoutAsUser()
                   .then(() =>
                     actions.pop(
                       'success',
-                      `Вы вышли из под пользователя ${data.firstName} ${data.lastName}`,
+                      `Вы вышли из под пользователя ${data.firstName} ${
+                        data.lastName
+                      }`,
                     ),
-                  )}
+                  )
+              }
             >
-              <Button className={cn(s.link, s.logoutBtn)}>Выйти из пользователя</Button>
-            </li>}
+              <Button className={cn(s.link, s.logoutBtn)}>
+                Выйти из пользователя
+              </Button>
+            </li>
+          )}
         </ul>
       </li>
     );

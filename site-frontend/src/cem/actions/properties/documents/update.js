@@ -19,11 +19,14 @@ const updateDocumentFailed = (id, propertyId, errors) => ({
   errors,
 });
 
-export default function (propertyId, id, data, category = 'city') {
-  return (dispatch) => {
+export default function(propertyId, id, data, category = 'city') {
+  return dispatch => {
     dispatch(updateDocumentStarted);
 
-    return API.put(`/v1/properties/${category}/${propertyId}/documents/${id}`, data).then(
+    return API.put(
+      `/v1/properties/${category}/${propertyId}/documents/${id}`,
+      data,
+    ).then(
       () => {
         dispatch(pop('success', 'Документы обновлены'));
         return dispatch(loadDocuments(propertyId));

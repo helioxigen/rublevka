@@ -1,7 +1,12 @@
 import { makeDateRange, formatFilterDate } from 'core/helpers';
 import recursiveCleanUp from 'cem/helpers/recursiveCleanUp';
 
-export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNot = {} }) => {
+export const mapParams = ({
+  pagination = {},
+  orderBy = {},
+  filter = {},
+  filterNot = {},
+}) => {
   const { limit, offset } = pagination;
   const tasksWeightZeroDeadline = filter['tasksWeight.zero.deadline'];
 
@@ -18,7 +23,9 @@ export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNo
       'contactDetails.phoneNumber': filter.contactPhoneNumber
         ? `*${filter.contactPhoneNumber}*`
         : undefined,
-      'contactDetails.email': filter.contactEmail ? `*${filter.contactEmail}*` : undefined,
+      'contactDetails.email': filter.contactEmail
+        ? `*${filter.contactEmail}*`
+        : undefined,
 
       state: filter.state,
 

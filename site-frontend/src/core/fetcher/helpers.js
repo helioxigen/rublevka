@@ -27,7 +27,10 @@ export const throwFormattedError = (kind, ...args) => {
     case 'required': {
       let argIndex = 0;
       throw new Error(
-        '[fetcher] Required field %s is empty'.replace(/%s/g, () => args[argIndex++]),
+        '[fetcher] Required field %s is empty'.replace(
+          /%s/g,
+          () => args[argIndex++],
+        ),
       );
     }
     case 'apiPathEmpty': {

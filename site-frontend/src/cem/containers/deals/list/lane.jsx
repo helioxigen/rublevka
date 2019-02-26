@@ -9,7 +9,8 @@ import Card from 'cem/components/deals/list/card';
 
 import UI from 'cem/components/ui';
 const {
-  Button, Loading,
+  Button,
+  Loading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -61,16 +62,31 @@ class Lane extends Component {
 
     return (
       <section>
-        {items && items.map((item, index) => {
-          const contact = state.contacts[item.contactDetails.id];
-          return <Card data={item} key={index} linkedContact={{ data: contact }} />;
-        })}
+        {items &&
+          items.map((item, index) => {
+            const contact = state.contacts[item.contactDetails.id];
+            return (
+              <Card data={item} key={index} linkedContact={{ data: contact }} />
+            );
+          })}
         <Container fluid>
           <Row xs="center">
             <Col className={sUtils.pushedTop2Bottom2}>
-              {pagination && pagination.total > pagination.limit && pagination.total > items.length &&
-                <Button size="xs" kind="accent" onClick={() => this.handlePaginationUpdate(pagination.offset + pagination.limit)}>Загрузить следующие</Button>
-              }
+              {pagination &&
+                pagination.total > pagination.limit &&
+                pagination.total > items.length && (
+                  <Button
+                    size="xs"
+                    kind="accent"
+                    onClick={() =>
+                      this.handlePaginationUpdate(
+                        pagination.offset + pagination.limit,
+                      )
+                    }
+                  >
+                    Загрузить следующие
+                  </Button>
+                )}
               {isFetching && <Loading />}
             </Col>
           </Row>
@@ -88,4 +104,7 @@ const pickActions = dispatch => ({
   actions: bindActionCreators({ loadLane: DealsActions.loadLane }, dispatch),
 });
 
-export default connect(pickState, pickActions)(Lane);
+export default connect(
+  pickState,
+  pickActions,
+)(Lane);

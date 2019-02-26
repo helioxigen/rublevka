@@ -1,4 +1,5 @@
 @import '../variables';
+
 .container {
   position: relative;
   display: inline-block;
@@ -17,15 +18,18 @@
   box-shadow: none;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   appearance: none;
+
   &:hover {
     border-color: $star-dust;
   }
+
   &:focus,
   &:active {
     z-index: 6;
     border-color: #e8e8e8;
     outline: none;
   }
+
   &.isFocused {
     z-index: 6;
     border-color: #e8e8e8;
@@ -55,6 +59,7 @@
     background: transparent;
     border: none;
     appearance: none;
+
     &:focus {
       outline: none;
     }
@@ -97,7 +102,8 @@
   background: $brand-white;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
   border-radius: 0.4rem;
-   ::-webkit-scrollbar {
+
+  ::-webkit-scrollbar {
     display: none;
   }
 }
@@ -109,9 +115,11 @@
   color: $brand-black;
   font-size: 1.5rem;
   cursor: pointer;
+
   &:hover {
     background: $body-bg;
   }
+
   &.selected {
     background: $body-bg;
   }
@@ -187,26 +195,32 @@
     vertical-align: top;
     border-color: $alto;
     border-left-color: $grey-darker;
+
     &:first-child {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
+
     &:nth-child(2) {
       z-index: 7;
       margin-left: -1px;
       border-radius: 0;
+
       &:hover {
         border-color: $alto;
       }
+
       &.isFocused {
         border-color: $alto;
       }
     }
+
     &:hover,
     &:focus,
     &:active {
       border-color: $alto;
     }
+
     &.isFocused {
       z-index: 6;
       border-color: $alto;
@@ -215,14 +229,17 @@
       outline: none;
     }
   }
+
   .listInner {
     top: 5.2rem;
     border-color: $grey-darker;
   }
+
   .icon {
     right: 2rem;
     bottom: 1.1rem;
   }
+
   .iconDelete {
     right: 3.5rem;
     bottom: 1.4rem;
@@ -246,28 +263,34 @@
     vertical-align: top;
     border-color: $grey-darker;
     border-radius: 0.4rem;
+
     @include responsive(sm) {
       min-width: 15rem;
     }
+
     &:hover,
     &:focus,
     &:active {
       border-color: $grey-darker;
     }
+
     &.isFocused {
       border-color: $grey-dark;
       outline: none;
     }
   }
+
   .listInner {
     top: 3.8rem;
     border-color: $grey-darker;
     border-radius: 0.4rem;
     box-shadow: 0 2px 7px rgba(0, 0, 0, 0.1);
   }
+
   .optionInner {
     padding: 0.8rem 2rem;
   }
+
   .icon {
     display: none;
   }

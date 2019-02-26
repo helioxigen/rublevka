@@ -36,12 +36,22 @@ const states = {
 
 const Image = ({ id }) =>
   id ? (
-    <UI.Image src={`${cloudfront}/${id}-thumbnail-256`} kind="circle" width="102" height="102" />
+    <UI.Image
+      src={`${cloudfront}/${id}-thumbnail-256`}
+      kind="circle"
+      width="102"
+      height="102"
+    />
   ) : (
-    <UI.Image src={require('cem/assets/placeholder')} kind="circle" width="102" height="102" />
+    <UI.Image
+      src={require('cem/assets/placeholder')}
+      kind="circle"
+      width="102"
+      height="102"
+    />
   );
 
-const Description = (props) => {
+const Description = props => {
   const { fields, values, formKey, hasRight } = props;
 
   return (
@@ -49,7 +59,10 @@ const Description = (props) => {
       <Row>
         <Col sm="10">
           {hasRight('settlement_update') && (
-            <Group kind={fields.name.touched && !!fields.name.error && 'error'} float>
+            <Group
+              kind={fields.name.touched && !!fields.name.error && 'error'}
+              float
+            >
               <Input
                 valueClassName="floatLabel"
                 className={s.input}
@@ -59,7 +72,9 @@ const Description = (props) => {
                 {...fields.name}
               />
               <Label>Поселок</Label>
-              {fields.name.touched && fields.name.error && <Helper>{fields.name.error}</Helper>}
+              {fields.name.touched && fields.name.error && (
+                <Helper>{fields.name.error}</Helper>
+              )}
             </Group>
           )}
           {!hasRight('settlement_update') && (
@@ -71,7 +86,9 @@ const Description = (props) => {
         </Col>
         {formKey !== 'create' && (
           <Col sm="10" lg="5">
-            <Group kind={fields.state.touched && !!fields.state.error && 'error'}>
+            <Group
+              kind={fields.state.touched && !!fields.state.error && 'error'}
+            >
               <Label className={s.label}>Статус</Label>
               <Select
                 className={cn(sUtils.fontSizeMd, s[states[values.state]])}
@@ -79,7 +96,9 @@ const Description = (props) => {
                 disabled={!hasRight('settlement_update')}
                 {...fields.state}
               />
-              {fields.state.touched && fields.state.error && <Helper>{fields.state.error}</Helper>}
+              {fields.state.touched && fields.state.error && (
+                <Helper>{fields.state.error}</Helper>
+              )}
             </Group>
           </Col>
         )}
@@ -99,17 +118,27 @@ class Header extends Component {
   createOrUpdate() {
     const { formKey, values, actions } = this.props;
 
-    if (formKey === 'create') return actions.createSettlement({ ...values, state: 'draft' });
+    if (formKey === 'create')
+      return actions.createSettlement({ ...values, state: 'draft' });
     if (formKey !== 'create') return actions.updateSettlement(formKey, values);
   }
 
   render() {
-    const { formKey, pristine, error, submitting, handleSubmit, values } = this.props;
+    const {
+      formKey,
+      pristine,
+      error,
+      submitting,
+      handleSubmit,
+      values,
+    } = this.props;
     const mainImage = values.images[0] || {};
 
     return (
       <header className={s.header}>
-        <Form.Container onSubmit={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}>
+        <Form.Container
+          onSubmit={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}
+        >
           <Grid.Container fluid>
             <Row>
               <Col xs="20">
@@ -165,4 +194,6 @@ class Header extends Component {
   }
 }
 
-export default reduxForm({ ...formSettings, validate })(submitValidator()(Header));
+export default reduxForm({ ...formSettings, validate })(
+  submitValidator()(Header),
+);

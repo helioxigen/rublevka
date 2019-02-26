@@ -21,7 +21,7 @@ const unlinkContactFailed = (companyId, id, errors) => ({
   errors,
 });
 
-export default (companyId, data) => (dispatch) => {
+export default (companyId, data) => dispatch => {
   dispatch(unlinkContactStarted(data.id));
 
   return API.put(`/v1/contacts/${data.id}`, {

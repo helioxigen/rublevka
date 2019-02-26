@@ -47,10 +47,12 @@ const mapFilter = ({ filter = {} }) => {
       state: 'public',
       ...makeTotalAreaFilter(totalAreaFrom, totalAreaTo),
       ...makePriceFilter('usd', priceFrom, priceTo),
-      ...makeRoomsFilterAndFilterNot(filter, 'properties.specification.rooms').filter,
+      ...makeRoomsFilterAndFilterNot(filter, 'properties.specification.rooms')
+        .filter,
     },
     filterNot: {
-      ...makeRoomsFilterAndFilterNot(filter, 'properties.specification.rooms').filterNot,
+      ...makeRoomsFilterAndFilterNot(filter, 'properties.specification.rooms')
+        .filterNot,
     },
   };
 };
@@ -67,10 +69,11 @@ const loadComplexesStarted = () => ({
   type: types.LOAD_COMPLEXES,
 });
 
-const loadComplexesSucceeded = ({ items, pagination }) => (dispatch) => {
+const loadComplexesSucceeded = ({ items, pagination }) => dispatch => {
   const complexesIds = items.map(item => item.id);
 
-  if (complexesIds.length) dispatch(loadComplexBuildings({ filter: { complexId: complexesIds } }));
+  if (complexesIds.length)
+    dispatch(loadComplexBuildings({ filter: { complexId: complexesIds } }));
 
   dispatch(updatePagination(pagination, 'complexes', ''));
 
@@ -85,7 +88,7 @@ const loadComplexesFailed = ({ errors }) => ({
   errors,
 });
 
-const loadComplexes = (queryParams = {}) => (dispatch) => {
+const loadComplexes = (queryParams = {}) => dispatch => {
   const query = {
     ...queryParams,
     ...mapFilter(queryParams),

@@ -1,6 +1,11 @@
 import { makeDateRange, formatDateToDay } from 'core/helpers';
 
-export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNot = {} }) => {
+export const mapParams = ({
+  pagination = {},
+  orderBy = {},
+  filter = {},
+  filterNot = {},
+}) => {
   const { limit, offset } = pagination;
 
   return {

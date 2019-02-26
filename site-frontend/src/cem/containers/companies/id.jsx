@@ -10,27 +10,51 @@ import Header from 'cem/components/companies/id/header';
 import About from 'cem/components/companies/id/about';
 
 import UI from 'cem/components/ui';
-const { Grid: { Container } } = UI;
+const {
+  Grid: { Container },
+} = UI;
 
 class List extends Component {
   componentWillMount() {
-    const { params: { id }, actions } = this.props;
+    const {
+      params: { id },
+      actions,
+    } = this.props;
     actions.loadCompany(id);
   }
 
   render() {
-    const { state, params: { id }, hasRight } = this.props;
+    const {
+      state,
+      params: { id },
+      hasRight,
+    } = this.props;
     const { data } = state.companies[id] || {};
 
     const permissionProps = {
-      isUpdateAllowed: hasRight('company_update', data && data.responsibleUserId),
+      isUpdateAllowed: hasRight(
+        'company_update',
+        data && data.responsibleUserId,
+      ),
     };
 
     return (
       <section>
-        <Header {...this.props} {...permissionProps} formKey={id} initialValues={data} data={data} />
+        <Header
+          {...this.props}
+          {...permissionProps}
+          formKey={id}
+          initialValues={data}
+          data={data}
+        />
         <Container fluid>
-          <About {...this.props} {...permissionProps} formKey={id} initialValues={data} data={data} />
+          <About
+            {...this.props}
+            {...permissionProps}
+            formKey={id}
+            initialValues={data}
+            data={data}
+          />
         </Container>
       </section>
     );
@@ -45,4 +69,7 @@ const mapDispatch = dispatch => ({
   actions: bindActionCreators(Actions, dispatch),
 });
 
-export default connect(pickState, mapDispatch)(List);
+export default connect(
+  pickState,
+  mapDispatch,
+)(List);

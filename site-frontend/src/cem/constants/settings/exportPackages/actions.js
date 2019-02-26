@@ -19,5 +19,7 @@ export const DELETE_PACKAGE_FAILED = 'packages.id.delete.failed';
 export const DELETE_PACKAGE_SUCCEEDED = 'packages.id.delete.succeeded';
 
 export const LOAD_PACKAGE_ERROR_LOGS = 'packages.id.error.logs.load.started';
-export const LOAD_PACKAGE_ERROR_LOGS_FAILED = 'packages.id.error.logs.load.failed';
-export const LOAD_PACKAGE_ERROR_LOGS_SUCCEEDED = 'packages.id.error.logs.load.succeeded';
+export const LOAD_PACKAGE_ERROR_LOGS_FAILED =
+  'packages.id.error.logs.load.failed';
+export const LOAD_PACKAGE_ERROR_LOGS_SUCCEEDED =
+  'packages.id.error.logs.load.succeeded';

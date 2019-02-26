@@ -8,7 +8,7 @@ const loadDepartmentsStarted = params => ({
   params,
 });
 
-const loadDepartmentsSucceeded = ({ items, pagination }) => (dispatch) => {
+const loadDepartmentsSucceeded = ({ items, pagination }) => dispatch => {
   dispatch(updatePagination('roles', pagination));
 
   dispatch({
@@ -23,7 +23,7 @@ const loadDepartmentsFailed = ({ errors }) => ({
 });
 
 export default function loadDepartments(queryParams = {}) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadDepartmentsStarted(queryParams));
 
     return API.get('/v1/departments', queryParams).then(

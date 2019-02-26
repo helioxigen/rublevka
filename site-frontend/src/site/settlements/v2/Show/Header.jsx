@@ -12,14 +12,17 @@ import UI from 'site/ui';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const { Grid: { Container } } = UI;
+const {
+  Grid: { Container },
+} = UI;
 
 const Section = styled.section`
   position: relative;
   z-index: 0;
   margin: 0;
   padding: 3rem 0;
-  background: url(${require('site/assets/images/black-pattern.svg')}) repeat #303030;
+  background: url(${require('site/assets/images/black-pattern.svg')}) repeat
+    #303030;
   background-size: cover;
   background-position: center;
   min-height: 13rem;
@@ -44,7 +47,9 @@ const Section = styled.section`
   `};
 `;
 
-const Wrapper = styled.div`text-align: center;`;
+const Wrapper = styled.div`
+  text-align: center;
+`;
 
 const Title = styled.h1`
   margin: 0;
@@ -106,20 +111,24 @@ const TitleWrapper = styled.div`
 
 function getImgUrl(publicImages) {
   if (publicImages.length) {
-    return `url(${global.config.cloudfront || cloudfront}/${publicImages[0].id}-1024)`;
+    return `url(${global.config.cloudfront || cloudfront}/${
+      publicImages[0].id
+    }-1024)`;
   } else if (typeof window !== 'undefined') {
     return 'url(https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder-settlement.jpg)';
   }
   return null;
 }
 
-export default (props) => {
+export default props => {
   const { data = {}, dealType, kind } = props;
   const { location = {} } = data;
 
-  const publicImages = (data.images && data.images.filter(image => !!image.isPublic)) || [];
+  const publicImages =
+    (data.images && data.images.filter(image => !!image.isPublic)) || [];
   const imgUrl = getImgUrl(publicImages);
-  const metaItem = data.meta && data.meta[(kind && `${dealType}_${kind}`) || dealType] || {};
+  const metaItem =
+    (data.meta && data.meta[(kind && `${dealType}_${kind}`) || dealType]) || {};
   const title = metaItem['h1'] || `Коттеджный посёлок ${data.name}`;
 
   return (
@@ -141,7 +150,14 @@ export default (props) => {
             </SubTitle>
           )}
           <InfoBtn>
-            <Scroll.Link activeClass="active" to="scrollTo" spy smooth offset={-80} duration={600}>
+            <Scroll.Link
+              activeClass="active"
+              to="scrollTo"
+              spy
+              smooth
+              offset={-80}
+              duration={600}
+            >
               Информация о поселке
             </Scroll.Link>
           </InfoBtn>

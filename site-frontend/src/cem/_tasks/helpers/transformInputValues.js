@@ -1,9 +1,10 @@
 import moment from 'moment';
 import { getDetails, getLinkKind } from 'cem/_tasks/helpers';
 
-const roundMomentTime = momentTime => momentTime.add((10 - momentTime.minute()) % 10, 'minutes');
+const roundMomentTime = momentTime =>
+  momentTime.add((10 - momentTime.minute()) % 10, 'minutes');
 
-export const transformInputValues = (values) => {
+export const transformInputValues = values => {
   const {
     goal,
     goalId,

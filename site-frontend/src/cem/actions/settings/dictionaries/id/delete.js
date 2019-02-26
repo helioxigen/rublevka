@@ -11,7 +11,7 @@ const deleteWordStarted = key => ({
 });
 
 function deleteWordFailed(key, { errors }) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(pop('danger', 'Ошибка удаления слова!'));
 
     return dispatch({
@@ -23,7 +23,7 @@ function deleteWordFailed(key, { errors }) {
 }
 
 export default function deleteWord({ id, kind }) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(deleteWordStarted());
 
     return API.del(`/v1/dictionary_items/${id}`).then(

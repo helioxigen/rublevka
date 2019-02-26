@@ -21,7 +21,10 @@ const Button = ({ onChange, reference, children, value, className }) => (
   <li className={className}>
     {children}
 
-    <UI.Button className={s.btnTimes} onClick={() => onChange(reference, value)}>
+    <UI.Button
+      className={s.btnTimes}
+      onClick={() => onChange(reference, value)}
+    >
       <Icon className={s.iconTimes} icon="times" />
     </UI.Button>
   </li>
@@ -37,7 +40,7 @@ class Selected extends Component {
   static propTypes = {
     removeFilter: PropTypes.func.isRequired,
     state: PropTypes.object.isRequired,
-  }
+  };
 
   onChange(reference, value) {
     this.props.removeFilter(reference, value);
@@ -67,43 +70,77 @@ class Selected extends Component {
           <Col xs="12">
             <ul className={s.list}>
               {isSaleShown && (
-                <Button onChange={::this.onChange} reference="sale" className={s.filterItem}>
+                <Button
+                  onChange={::this.onChange}
+                  reference="sale"
+                  className={s.filterItem}
+                >
                   {formatByMinMax(sale, ` млн`, `$`)}
                 </Button>
               )}
 
               {isAreaShown && (
-                <Button onChange={::this.onChange} reference="area" className={s.filterItem}>
+                <Button
+                  onChange={::this.onChange}
+                  reference="area"
+                  className={s.filterItem}
+                >
                   {formatByMinMax(area, ` м²`)}
                 </Button>
               )}
 
               {rooms.map(value => (
-                <Button onChange={::this.onChange} reference="rooms" value={value} className={s.filterItem} key={value}>
+                <Button
+                  onChange={::this.onChange}
+                  reference="rooms"
+                  value={value}
+                  className={s.filterItem}
+                  key={value}
+                >
                   {dict.rooms[value]}
                 </Button>
               ))}
 
               {constructionStage.map(value => (
-                <Button onChange={::this.onChange} reference="constructionStage" value={value} className={s.filterItem} key={value}>
+                <Button
+                  onChange={::this.onChange}
+                  reference="constructionStage"
+                  value={value}
+                  className={s.filterItem}
+                  key={value}
+                >
                   {dict.constructionStages[value]}
                 </Button>
               ))}
 
               {constructionKind.map(value => (
-                <Button onChange={::this.onChange} reference="constructionKind" value={value} className={s.filterItem} key={value}>
+                <Button
+                  onChange={::this.onChange}
+                  reference="constructionKind"
+                  value={value}
+                  className={s.filterItem}
+                  key={value}
+                >
                   {dict.constructionKinds[value]}
                 </Button>
               ))}
 
               {parkings && (
-                <Button onChange={::this.onChange} reference="parkings" className={s.filterItem}>
+                <Button
+                  onChange={::this.onChange}
+                  reference="parkings"
+                  className={s.filterItem}
+                >
                   с паркингом
                 </Button>
               )}
 
               {undergroundGarages && (
-                <Button onChange={::this.onChange} reference="undergroundGarages" className={s.filterItem}>
+                <Button
+                  onChange={::this.onChange}
+                  reference="undergroundGarages"
+                  className={s.filterItem}
+                >
                   с подземным гаражом
                 </Button>
               )}

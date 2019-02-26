@@ -30,8 +30,11 @@ const pickState = ({ pagination }) => ({
   state: { pagination },
 });
 
-const pickActions = (dispatch) => ({
+const pickActions = dispatch => ({
   actions: bindActionCreators(PaginationActions, dispatch),
 });
 
-export default connect(pickState, pickActions)(Pagination);
+export default connect(
+  pickState,
+  pickActions,
+)(Pagination);

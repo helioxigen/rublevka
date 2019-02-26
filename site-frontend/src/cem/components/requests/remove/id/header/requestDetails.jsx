@@ -19,13 +19,24 @@ import s from 'cem/styles/id/header';
 export default ({ formKey, data, fields }) => (
   <section>
     <Row>
-      <Col sm={formKey === 'create' ? '10' : '3'} smOffset={formKey === 'create' ? '5' : '1'} lg={formKey === 'create' ? '5' : '3'} lgOffset={formKey === 'create' ? '5' : '1'}>
-        <FormField field={fields.kind} label="Тип" static={formKey !== 'create'} options={dicts.kinds} float>
+      <Col
+        sm={formKey === 'create' ? '10' : '3'}
+        smOffset={formKey === 'create' ? '5' : '1'}
+        lg={formKey === 'create' ? '5' : '3'}
+        lgOffset={formKey === 'create' ? '5' : '1'}
+      >
+        <FormField
+          field={fields.kind}
+          label="Тип"
+          static={formKey !== 'create'}
+          options={dicts.kinds}
+          float
+        >
           <Select className={s.input} options={kinds} />
         </FormField>
       </Col>
 
-      {formKey !== 'create' &&
+      {formKey !== 'create' && (
         <Col sm="6" md="6" lg="5">
           <Group>
             <Label block>Дата поступления</Label>
@@ -34,16 +45,18 @@ export default ({ formKey, data, fields }) => (
             </Static>
           </Group>
         </Col>
-      }
+      )}
 
-      {formKey !== 'create' &&
+      {formKey !== 'create' && (
         <Col sm="10" md="10" lg="9">
           <Group>
             <Label block>Статус</Label>
-            <Static className={cn(s.input, s[dicts.states[data.state].style])}>{dicts.states[data.state].title}</Static>
+            <Static className={cn(s.input, s[dicts.states[data.state].style])}>
+              {dicts.states[data.state].title}
+            </Static>
           </Group>
         </Col>
-      }
+      )}
     </Row>
   </section>
 );

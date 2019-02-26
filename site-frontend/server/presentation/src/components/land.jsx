@@ -11,12 +11,15 @@ export default ({ landDetails }) => (
     </dl>
     <dl>
       <dt className="description-list-title">Ландшафтные работы:&nbsp;</dt>
-      <dd className="description-list-item">{landDetails.landscaping ? 'Да' : 'Нет'}</dd>
+      <dd className="description-list-item">
+        {landDetails.landscaping ? 'Да' : 'Нет'}
+      </dd>
     </dl>
     <dl>
       <dt className="description-list-title">Тип участка:&nbsp;</dt>
       <dd className="description-list-item">
-        {landDetails.landscapeKind && dict.landscapeKinds[landDetails.landscapeKind[0]]}
+        {landDetails.landscapeKind &&
+          dict.landscapeKinds[landDetails.landscapeKind[0]]}
       </dd>
     </dl>
   </section>

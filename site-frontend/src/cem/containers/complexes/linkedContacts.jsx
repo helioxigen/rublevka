@@ -24,7 +24,11 @@ class LinkedContactsContainer extends Component {
   componentWillMount() {
     const { complexData, actions } = this.props;
 
-    if (complexData.id && complexData.linkedContactIds && !!complexData.linkedContactIds.length) {
+    if (
+      complexData.id &&
+      complexData.linkedContactIds &&
+      !!complexData.linkedContactIds.length
+    ) {
       actions.loadLinkedContacts(complexData.id, complexData.linkedContactIds);
     }
   }
@@ -32,11 +36,19 @@ class LinkedContactsContainer extends Component {
   componentWillReceiveProps(nextProps) {
     const { complexData, actions } = this.props;
 
-    if (!isEqual(complexData.linkedContactIds, nextProps.complexData.linkedContactIds)) {
+    if (
+      !isEqual(
+        complexData.linkedContactIds,
+        nextProps.complexData.linkedContactIds,
+      )
+    ) {
       if (!nextProps.complexData.linkedContactIds.length) {
         actions.resetLinkedContacts(nextProps.complexData.id);
       } else {
-        actions.loadLinkedContacts(nextProps.complexData.id, nextProps.complexData.linkedContactIds);
+        actions.loadLinkedContacts(
+          nextProps.complexData.id,
+          nextProps.complexData.linkedContactIds,
+        );
       }
     }
   }
@@ -52,14 +64,18 @@ class LinkedContactsContainer extends Component {
           <Col xs="20">
             <Heading size="md">
               Контакты
-              {isUpdateAllowed && <ContactCreationModal {...{ complexData, actions }} />}
+              {isUpdateAllowed && (
+                <ContactCreationModal {...{ complexData, actions }} />
+              )}
             </Heading>
-            {!!itemsArray.length &&
+            {!!itemsArray.length && (
               <div className={sUtils.scrollX}>
                 <LinkedContactsTable {...this.props} items={itemsArray} />
               </div>
-            }
-            {!itemsArray.length && <Heading notFound>Нет связанных контактов</Heading>}
+            )}
+            {!itemsArray.length && (
+              <Heading notFound>Нет связанных контактов</Heading>
+            )}
           </Col>
         </Row>
       </section>
@@ -72,7 +88,13 @@ const pickState = ({ auth, contactsByComplexId }) => ({
 });
 
 const pickActions = dispatch => ({
-  actions: bindActionCreators({ ...LinkedContactsActions, pop, updateComplex }, dispatch),
+  actions: bindActionCreators(
+    { ...LinkedContactsActions, pop, updateComplex },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, pickActions)(LinkedContactsContainer);
+export default connect(
+  pickState,
+  pickActions,
+)(LinkedContactsContainer);

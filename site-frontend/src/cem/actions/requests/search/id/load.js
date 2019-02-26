@@ -18,7 +18,7 @@ const loadSearchRequestFailed = (id, { errors }) => ({
   errors,
 });
 
-export default id => (dispatch) => {
+export default id => dispatch => {
   dispatch(loadSearchRequestStarted(id));
 
   return API.get(`/v1/properties/orders/search/${id}`)

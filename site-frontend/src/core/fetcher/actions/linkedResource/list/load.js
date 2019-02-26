@@ -2,7 +2,13 @@ import { API } from 'core/config/sources';
 
 import apiPaths from 'core/fetcher/constants/apiPaths';
 
-export const loadLinkedListStarted = (type, resource, resourceId, listName, resetState = true) => ({
+export const loadLinkedListStarted = (
+  type,
+  resource,
+  resourceId,
+  listName,
+  resetState = true,
+) => ({
   type,
   resource,
   resourceId,
@@ -10,7 +16,13 @@ export const loadLinkedListStarted = (type, resource, resourceId, listName, rese
   resetState,
 });
 
-export const loadLinkedListFailed = (type, resource, resourceId, listName, errors) => ({
+export const loadLinkedListFailed = (
+  type,
+  resource,
+  resourceId,
+  listName,
+  errors,
+) => ({
   type,
   resource,
   resourceId,
@@ -18,7 +30,13 @@ export const loadLinkedListFailed = (type, resource, resourceId, listName, error
   errors,
 });
 
-export const loadLinkedListSucceeded = (type, resource, resourceId, listName, items) => ({
+export const loadLinkedListSucceeded = (
+  type,
+  resource,
+  resourceId,
+  listName,
+  items,
+) => ({
   type,
   resource,
   resourceId,
@@ -26,7 +44,12 @@ export const loadLinkedListSucceeded = (type, resource, resourceId, listName, it
   items,
 });
 
-export const loadLinkedList = (resource, resourceId, listName, queryParams = {}) =>
+export const loadLinkedList = (
+  resource,
+  resourceId,
+  listName,
+  queryParams = {},
+) =>
   API.get(apiPaths[`${resource}.${listName}`](resourceId), queryParams).then(
     ({ body: { items, pagination } }) => Promise.resolve({ items, pagination }),
     ({ body: { errors } }) => Promise.reject(errors),

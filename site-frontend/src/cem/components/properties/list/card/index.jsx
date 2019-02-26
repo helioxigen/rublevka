@@ -19,7 +19,9 @@ const Image = ({ image }) =>
   image ? (
     <div
       className={s.imageResponsive}
-      style={{ backgroundImage: `url(${cloudfront}/${image.id}-thumbnail-256)` }}
+      style={{
+        backgroundImage: `url(${cloudfront}/${image.id}-thumbnail-256)`,
+      }}
     />
   ) : (
     <UI.Image

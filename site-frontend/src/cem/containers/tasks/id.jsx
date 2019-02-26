@@ -21,7 +21,13 @@ import About from 'cem/components/tasks/id/about';
 
 class TaskContainer extends Component {
   componentWillMount() {
-    const { actions, params: { id }, location: { query: { propertyId, propertyCategory } } } = this.props;
+    const {
+      actions,
+      params: { id },
+      location: {
+        query: { propertyId, propertyCategory },
+      },
+    } = this.props;
     if (id !== 'create') {
       actions.loadTask(id);
     }
@@ -32,8 +38,15 @@ class TaskContainer extends Component {
   }
 
   render() {
-    const { actions, state, params: { id }, location, hasRight } = this.props;
-    const { data, data: { responsibleUser = {}, reportedByUserId } = {} } = state.tasks[id] || {};
+    const {
+      actions,
+      state,
+      params: { id },
+      location,
+      hasRight,
+    } = this.props;
+    const { data, data: { responsibleUser = {}, reportedByUserId } = {} } =
+      state.tasks[id] || {};
     const stateDetails = data && data.stateDetails;
 
     if (id === 'create' || data) {
@@ -53,15 +66,46 @@ class TaskContainer extends Component {
       };
 
       const permissionProps = {
-        isUpdateAllowed: hasRight('task_update', responsibleUser.id, responsibleUser.departmentId, responsibleUser.divisionId) || hasRight('task_update', reportedByUserId),
-        isDocumentsUploadAllowed: hasRight('task_documents', responsibleUser.id, responsibleUser.departmentId, responsibleUser.divisionId) || hasRight('task_update', reportedByUserId),
-        isCommentingAllowed: hasRight('task_comments', responsibleUser.id, responsibleUser.departmentId, responsibleUser.divisionId) || hasRight('task_update', reportedByUserId),
-        isUserTransferAllowed: hasRight('task_transfer', responsibleUser.id, responsibleUser.departmentId, responsibleUser.divisionId) || hasRight('task_update', reportedByUserId),
+        isUpdateAllowed:
+          hasRight(
+            'task_update',
+            responsibleUser.id,
+            responsibleUser.departmentId,
+            responsibleUser.divisionId,
+          ) || hasRight('task_update', reportedByUserId),
+        isDocumentsUploadAllowed:
+          hasRight(
+            'task_documents',
+            responsibleUser.id,
+            responsibleUser.departmentId,
+            responsibleUser.divisionId,
+          ) || hasRight('task_update', reportedByUserId),
+        isCommentingAllowed:
+          hasRight(
+            'task_comments',
+            responsibleUser.id,
+            responsibleUser.departmentId,
+            responsibleUser.divisionId,
+          ) || hasRight('task_update', reportedByUserId),
+        isUserTransferAllowed:
+          hasRight(
+            'task_transfer',
+            responsibleUser.id,
+            responsibleUser.departmentId,
+            responsibleUser.divisionId,
+          ) || hasRight('task_update', reportedByUserId),
       };
 
       return (
         <section>
-          <Header {...formProps} createdAt={data && data.createdAt} auth={state.auth} queryParams={location.query} stateDetails={stateDetails} {...permissionProps} />
+          <Header
+            {...formProps}
+            createdAt={data && data.createdAt}
+            auth={state.auth}
+            queryParams={location.query}
+            stateDetails={stateDetails}
+            {...permissionProps}
+          />
           <About {...formProps} {...permissionProps} />
         </section>
       );
@@ -71,12 +115,43 @@ class TaskContainer extends Component {
   }
 }
 
-const pickState = ({ auth, tasks, users, contacts, properties, contactsByPropertyId, leads }) => ({
-  state: { auth, tasks, users, contacts, properties, contactsByPropertyId, leads },
+const pickState = ({
+  auth,
+  tasks,
+  users,
+  contacts,
+  properties,
+  contactsByPropertyId,
+  leads,
+}) => ({
+  state: {
+    auth,
+    tasks,
+    users,
+    contacts,
+    properties,
+    contactsByPropertyId,
+    leads,
+  },
 });
 
 const pickActions = dispatch => ({
-  actions: bindActionCreators({ ...TaskActions, ...ContactActions, ...PropertiesActions, ...LeadsActions, loadContactsForProperty, pushPath, pop, transfer }, dispatch),
+  actions: bindActionCreators(
+    {
+      ...TaskActions,
+      ...ContactActions,
+      ...PropertiesActions,
+      ...LeadsActions,
+      loadContactsForProperty,
+      pushPath,
+      pop,
+      transfer,
+    },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, pickActions)(TaskContainer);
+export default connect(
+  pickState,
+  pickActions,
+)(TaskContainer);

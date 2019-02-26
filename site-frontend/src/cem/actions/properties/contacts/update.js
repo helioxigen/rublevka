@@ -18,11 +18,14 @@ const updateLinkedContactFailed = (propertyId, id, errors) => ({
   id,
 });
 
-export default function (propertyId, id, contact, category = 'city') {
-  return (dispatch) => {
+export default function(propertyId, id, contact, category = 'city') {
+  return dispatch => {
     dispatch(updateLinkedContactStarted(propertyId, id));
 
-    API.put(`/v1/properties/${category}/${propertyId}/linked_contacts/${id}`, contact).then(
+    API.put(
+      `/v1/properties/${category}/${propertyId}/linked_contacts/${id}`,
+      contact,
+    ).then(
       () => {
         dispatch(pop('success', 'Контакт обновлён'));
         return dispatch(loadLinkedContacts(propertyId));

@@ -3,7 +3,7 @@ import * as types from 'cem/constants/settings/departments/actions';
 
 import { pop } from 'cem/actions/toastr';
 
-const updateDepartmentSucceeded = id => (dispatch) => {
+const updateDepartmentSucceeded = id => dispatch => {
   dispatch(pop('success', 'Департамент обновлен!'));
 
   return dispatch({

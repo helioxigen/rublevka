@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import UI from 'cem/components/ui';
 const {
-  Button, Icon,
+  Button,
+  Icon,
   Table: { Row, Cell },
   Form: { Input, Group, Helper, Static },
 } = UI;
@@ -27,8 +28,14 @@ export default class extends Component {
   }
 
   delete() {
-    const { actions, kind, values, values: { title } } = this.props;
-    if (confirm(`Вы действительно хотите удалить слово "${title}"?`)) { // eslint-disable-line no-alert
+    const {
+      actions,
+      kind,
+      values,
+      values: { title },
+    } = this.props;
+    if (confirm(`Вы действительно хотите удалить слово "${title}"?`)) {
+      // eslint-disable-line no-alert
       return actions.delete({ ...values, kind });
     }
   }
@@ -49,13 +56,26 @@ export default class extends Component {
       <Row>
         <Cell>
           {!isStatic && (
-            <Group className={sUtils.resetIndentation} kind={fields.title.touched && fields.title.error && `error`}>
-              <Input className={s.tableInput} type="text" placeholder="Введите слово" {...fields.title} />
-              {fields.title.touched && fields.title.error && <Helper className={s.formHelper}>{fields.title.error}</Helper>}
+            <Group
+              className={sUtils.resetIndentation}
+              kind={fields.title.touched && fields.title.error && `error`}
+            >
+              <Input
+                className={s.tableInput}
+                type="text"
+                placeholder="Введите слово"
+                {...fields.title}
+              />
+              {fields.title.touched && fields.title.error && (
+                <Helper className={s.formHelper}>{fields.title.error}</Helper>
+              )}
             </Group>
           )}
           {isStatic && (
-            <Group className={sUtils.resetIndentation} kind={fields.title.touched && fields.title.error && `error`}>
+            <Group
+              className={sUtils.resetIndentation}
+              kind={fields.title.touched && fields.title.error && `error`}
+            >
               <Static>{fields.title.value}</Static>
             </Group>
           )}
@@ -63,23 +83,43 @@ export default class extends Component {
         {formKey !== `create` && (
           <Cell>
             <Group className={sUtils.resetIndentation}>
-              {hasRight(`dictionary_item_update`) &&
-                <Button className={sButton.btnTableAction} size="xs" onClick={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)} disabled={pristine || error || submitting}>
+              {hasRight(`dictionary_item_update`) && (
+                <Button
+                  className={sButton.btnTableAction}
+                  size="xs"
+                  onClick={handleSubmit(
+                    ::this.createOrUpdate,
+                    ::this.onSubmitSuccess,
+                  )}
+                  disabled={pristine || error || submitting}
+                >
                   <Icon className={s.btnIcon} icon="checkmark" />
                 </Button>
-              }
-              {hasRight(`dictionary_item_destroy`) &&
+              )}
+              {hasRight(`dictionary_item_destroy`) && (
                 <Button className={sButton.btnTableAction} size="xs">
-                  <Icon className={s.btnIcon} icon="delete" onClick={handleSubmit(::this.delete)} />
+                  <Icon
+                    className={s.btnIcon}
+                    icon="delete"
+                    onClick={handleSubmit(::this.delete)}
+                  />
                 </Button>
-              }
+              )}
             </Group>
           </Cell>
         )}
         {formKey === `create` && (
           <Cell>
             <Group className={sUtils.resetIndentation}>
-              <Button className={sButton.btnTableAction} size="xs" onClick={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)} disabled={pristine || error || submitting}>
+              <Button
+                className={sButton.btnTableAction}
+                size="xs"
+                onClick={handleSubmit(
+                  ::this.createOrUpdate,
+                  ::this.onSubmitSuccess,
+                )}
+                disabled={pristine || error || submitting}
+              >
                 <Icon className={s.btnIcon} icon="checkmark" />
               </Button>
             </Group>

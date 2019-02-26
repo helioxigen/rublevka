@@ -6,7 +6,11 @@ import {
 } from 'core/fetcher2/actions/list/load';
 
 import * as types from 'cem/_tasks/constants/actions';
-import { getDefaultsByGroup, resourceName, apiPathByGroup } from 'cem/_tasks/constants/defaults';
+import {
+  getDefaultsByGroup,
+  resourceName,
+  apiPathByGroup,
+} from 'cem/_tasks/constants/defaults';
 import { updatePagination } from 'core/actions/pagination';
 import loadUsers from 'cem/actions/_users/list/load';
 // import loadClientLeads from 'cem/_client_leads/actions/list/load';
@@ -27,7 +31,9 @@ const loadTasks = (queryParams, group, options) => (dispatch, getState) => {
 
   const apiPath = apiPathByGroup[group] || apiPathByGroup.default;
   const defaultQueryParams = getDefaultsByGroup(group, options);
-  const params = mapParams(recursiveCleanUp(mergeParams(defaultQueryParams, queryParams)));
+  const params = mapParams(
+    recursiveCleanUp(mergeParams(defaultQueryParams, queryParams)),
+  );
 
   return loadList(apiPath, group, params).then(
     ({ items, pagination }) => {
@@ -54,7 +60,7 @@ const loadTasks = (queryParams, group, options) => (dispatch, getState) => {
 
       return Promise.resolve(items);
     },
-    (errors) => {
+    errors => {
       dispatch(loadListFailed(types.LOAD_LIST_FAILED, group, errors));
 
       return Promise.reject(errors);

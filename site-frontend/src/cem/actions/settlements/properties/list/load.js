@@ -9,7 +9,11 @@ const loadPropertiesStarted = (saleType, id) => ({
   id,
 });
 
-const loadPropertiesSucceeded = (saleType, id, { items, pagination }) => (dispatch) => {
+const loadPropertiesSucceeded = (
+  saleType,
+  id,
+  { items, pagination },
+) => dispatch => {
   dispatch(updatePagination(`settlementProperties.${saleType}`, pagination));
   return dispatch({
     type: types.LOAD_PROPERTIES_SUCCESS,
@@ -26,7 +30,11 @@ const loadPropertiesFailed = (saleType, id, { errors }) => ({
   errors,
 });
 
-const loadProperties = (id, saleType = 'primary', queryParams = { filter: {} }) => (dispatch) => {
+const loadProperties = (
+  id,
+  saleType = 'primary',
+  queryParams = { filter: {} },
+) => dispatch => {
   dispatch(loadPropertiesStarted(saleType, id));
   const filter = {
     ...queryParams.filter,
@@ -40,7 +48,10 @@ const loadProperties = (id, saleType = 'primary', queryParams = { filter: {} }) 
   );
 };
 
-export const loadPrimaryProperties = (id, queryParams = { filter: {} }) => (dispatch) => {
+export const loadPrimaryProperties = (
+  id,
+  queryParams = { filter: {} },
+) => dispatch => {
   const primaryPropertiesFilter = {
     saleOffer: {
       isResale: false,

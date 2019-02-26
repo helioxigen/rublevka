@@ -11,7 +11,9 @@ import * as dicts from 'cem/constants/places/dictionaries';
 
 import UI from 'cem/components/ui';
 const {
-  Form, Select, AsyncSelect,
+  Form,
+  Select,
+  AsyncSelect,
   Heading,
   Grid: { Row, Col },
   // Form: { Label, Group, Static },
@@ -35,7 +37,12 @@ class About extends Component {
               <Col sm="10">
                 <Row>
                   <Col sm="14">
-                    <FormField field={fields.aliases} label="Синонимы" float static={!isUpdateAllowed}>
+                    <FormField
+                      field={fields.aliases}
+                      label="Синонимы"
+                      float
+                      static={!isUpdateAllowed}
+                    >
                       <Select multi allowCreate />
                     </FormField>
                   </Col>
@@ -46,8 +53,17 @@ class About extends Component {
                 {parents.map((item, index) => (
                   <Row key={index}>
                     <Col sm="14">
-                      <FormField field={fields.location[item]} label={dicts.parentFields[item].label} float asyncValue={dicts.parentFields[item].fetch} static={!isUpdateAllowed} labelKey="name">
-                        <AsyncSelect asyncOptions={dicts.parentFields[item].fetch} />
+                      <FormField
+                        field={fields.location[item]}
+                        label={dicts.parentFields[item].label}
+                        float
+                        asyncValue={dicts.parentFields[item].fetch}
+                        static={!isUpdateAllowed}
+                        labelKey="name"
+                      >
+                        <AsyncSelect
+                          asyncOptions={dicts.parentFields[item].fetch}
+                        />
                       </FormField>
                     </Col>
                   </Row>
@@ -82,7 +98,9 @@ class About extends Component {
                 </Col>
               }
             </Row> */}
-              { kind == "routes" && <SeoMeta className={sUtils.pushedBottom3} {...this.props} /> }
+            {kind == 'routes' && (
+              <SeoMeta className={sUtils.pushedBottom3} {...this.props} />
+            )}
           </Form.Container>
         </section>
       </Row>

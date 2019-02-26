@@ -34,7 +34,8 @@ const StSelect = styled(Select)`
 
 const StSelectRight = StSelect.extend`
   border-width: 1px;
-  border-color: ${p => p.theme.grey} ${p => p.theme.grey} ${p => p.theme.grey} transparent;
+  border-color: ${p => p.theme.grey} ${p => p.theme.grey} ${p => p.theme.grey}
+    transparent;
   border-radius: 0 0.4rem 0.4rem 0;
 `;
 
@@ -61,7 +62,8 @@ const StSelectMobile = styled.select`
 
 const StSelectMobileRight = StSelectMobile.extend`
   border-width: 1px;
-  border-color: ${p => p.theme.grey} ${p => p.theme.grey} ${p => p.theme.grey} transparent;
+  border-color: ${p => p.theme.grey} ${p => p.theme.grey} ${p => p.theme.grey}
+    transparent;
   border-radius: 0 0.4rem 0.4rem 0;
 `;
 
@@ -71,7 +73,9 @@ class SelectGroup extends Component {
 
     const optionsReverse = [...options].reverse();
 
-    const optionsDecrease = options.filter(item => item.value >= (selected.min || 0));
+    const optionsDecrease = options.filter(
+      item => item.value >= (selected.min || 0),
+    );
 
     const optionsIncrease = options.filter(
       item => item.value <= (selected.max || optionsReverse[0].value),
@@ -87,14 +91,18 @@ class SelectGroup extends Component {
             value={selected.min || options[0].value}
             onChange={e => this.props.onUpdate('min', e.target.value)}
           >
-            {optionsIncrease.map(option => <option value={option.value}>{option.label}</option>)}
+            {optionsIncrease.map(option => (
+              <option value={option.value}>{option.label}</option>
+            ))}
           </StSelectMobile>
 
           <StSelectMobileRight
             value={selected.max || optionsReverse[0].value}
             onChange={e => this.props.onUpdate('max', e.target.value)}
           >
-            {optionsDecrease.map(option => <option value={option.value}>{option.label}</option>)}
+            {optionsDecrease.map(option => (
+              <option value={option.value}>{option.label}</option>
+            ))}
           </StSelectMobileRight>
         </Visibility>
 

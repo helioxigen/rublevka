@@ -9,7 +9,6 @@ const {
 
 import FormField from 'cem/helpers/formField';
 
-
 import * as options from 'cem/constants/properties/options';
 
 const Rooms = ({ className, fields, isUpdateAllowed }) => (
@@ -23,7 +22,12 @@ const Rooms = ({ className, fields, isUpdateAllowed }) => (
       <Row>
         {layoutsRow.map((item, index) => (
           <Col sm="4" key={index}>
-            <FormField field={fields.specification.layouts[item.value]} label={item.label} float static={!isUpdateAllowed}>
+            <FormField
+              field={fields.specification.layouts[item.value]}
+              label={item.label}
+              float
+              static={!isUpdateAllowed}
+            >
               <Input block type="text" />
             </FormField>
           </Col>

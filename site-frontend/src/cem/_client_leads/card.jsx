@@ -28,7 +28,11 @@ const Component = ({ clientLead, _contacts, isPhoneNumberHidden }) => {
   const { data = {}, isFetching } = clientLead;
 
   if (data && !isFetching) {
-    const { requestDetails = {}, phoneCallDetails = {}, contactDetails = {} } = data;
+    const {
+      requestDetails = {},
+      phoneCallDetails = {},
+      contactDetails = {},
+    } = data;
     const { utms = {} } = data.marketing || {};
 
     const contact = _contacts[data.contactId] || {};
@@ -37,7 +41,9 @@ const Component = ({ clientLead, _contacts, isPhoneNumberHidden }) => {
     // load from dictionary
     const leadKind = dict.leadKinds[data.kind].title || '—';
     const requestKind =
-      (requestDetails.requestKind && dict.requestKinds[requestDetails.requestKind].title) || '—';
+      (requestDetails.requestKind &&
+        dict.requestKinds[requestDetails.requestKind].title) ||
+      '—';
     const callStatus = dict.callStatuses[phoneCallDetails.status];
 
     const hasStateToApprove = !!data.stateDetails.toApprove;
@@ -74,24 +80,43 @@ const Component = ({ clientLead, _contacts, isPhoneNumberHidden }) => {
                     </Col>
                     {data.kind === 'phone_call' && callStatus && (
                       <Col sm="5" md="4" lg="4" className={sUtils.pushedTopXs2}>
-                        <ParamList label="Звонок" big valueClassName={sHeader[callStatus.style]}>
+                        <ParamList
+                          label="Звонок"
+                          big
+                          valueClassName={sHeader[callStatus.style]}
+                        >
                           {callStatus.title}
                         </ParamList>
                       </Col>
                     )}
                   </Row>
                   <Row>
-                    <Col sm="4" md="5" lg="4" className={sUtils.pushedTopXs2Md2}>
+                    <Col
+                      sm="4"
+                      md="5"
+                      lg="4"
+                      className={sUtils.pushedTopXs2Md2}
+                    >
                       <ParamList label="ID">{data.id}</ParamList>
                     </Col>
-                    <Col sm="5" md="5" lg="4" className={sUtils.pushedTopXs2Md2}>
+                    <Col
+                      sm="5"
+                      md="5"
+                      lg="4"
+                      className={sUtils.pushedTopXs2Md2}
+                    >
                       <ParamList label="Клиент">
                         {(contactData.details || {}).firstName || '—'}{' '}
                         {(contactData.details || {}).lastName}
                       </ParamList>
                     </Col>
                     {!isPhoneNumberHidden && (
-                      <Col sm="6" md="6" lg="5" className={sUtils.pushedTopXs2Md2}>
+                      <Col
+                        sm="6"
+                        md="6"
+                        lg="5"
+                        className={sUtils.pushedTopXs2Md2}
+                      >
                         <ParamList label="Телефон">
                           <StaticMask pattern="+1 (111) 111-11-11">
                             {contactDetails.phoneNumber}
@@ -100,11 +125,20 @@ const Component = ({ clientLead, _contacts, isPhoneNumberHidden }) => {
                       </Col>
                     )}
                     {(isActive || isArchive) && data.tasks && (
-                      <Col sm="10" md="5" lg="3" className={sUtils.pushedTopXs2Md2}>
+                      <Col
+                        sm="10"
+                        md="5"
+                        lg="3"
+                        className={sUtils.pushedTopXs2Md2}
+                      >
                         <ParamList label="Объём задач">
-                          <span className={s.textPrimary}>{data.tasks.toDo}</span>
+                          <span className={s.textPrimary}>
+                            {data.tasks.toDo}
+                          </span>
                           &nbsp;/&nbsp;
-                          <span className={s.textSuccess}>{data.tasks.done}</span>
+                          <span className={s.textSuccess}>
+                            {data.tasks.done}
+                          </span>
                         </ParamList>
                       </Col>
                     )}

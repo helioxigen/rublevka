@@ -23,12 +23,18 @@ const loadBannersFailed = (propertyId, bannerState, { errors }) => ({
 });
 
 export default function loadBanners(propertyId, category, state) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadBannersStarted(propertyId, category, state));
     const filter = { state };
 
-    return API.get(`/v1/properties/${category}/${propertyId}/banners`, { filter })
-      .then(({ body }) => dispatch(loadBannersSucceeded(propertyId, state, body)))
-      .catch(({ body }) => dispatch(loadBannersFailed(propertyId, state, body)));
+    return API.get(`/v1/properties/${category}/${propertyId}/banners`, {
+      filter,
+    })
+      .then(({ body }) =>
+        dispatch(loadBannersSucceeded(propertyId, state, body)),
+      )
+      .catch(({ body }) =>
+        dispatch(loadBannersFailed(propertyId, state, body)),
+      );
   };
 }

@@ -40,8 +40,22 @@ class Words extends Component {
             <Heading width="15%">Действия</Heading>
           </Row>
 
-          {hasRight('dictionary_item_create') && <DictionaryWordForm {...this.props} formKey="create" actions={actions} />}
-          {items.map(item => <DictionaryWordForm {...this.props} key={item.id} formKey={item.id.toString()} initialValues={item} actions={actions} />)}
+          {hasRight('dictionary_item_create') && (
+            <DictionaryWordForm
+              {...this.props}
+              formKey="create"
+              actions={actions}
+            />
+          )}
+          {items.map(item => (
+            <DictionaryWordForm
+              {...this.props}
+              key={item.id}
+              formKey={item.id.toString()}
+              initialValues={item}
+              actions={actions}
+            />
+          ))}
         </Container>
       </section>
     );
@@ -56,4 +70,7 @@ const pickActions = dispatch => ({
   actions: bindActionCreators(DictionariesActions, dispatch),
 });
 
-export default connect(pickState, pickActions)(Words);
+export default connect(
+  pickState,
+  pickActions,
+)(Words);

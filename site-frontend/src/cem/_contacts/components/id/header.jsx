@@ -58,30 +58,48 @@ const Image = ({ photo }) => (
   </div>
 );
 
-const Description = (props) => {
+const Description = props => {
   const { fields, isStatic } = props;
 
   return (
     <section>
       <Row>
         <Col sm="6" lg="5">
-          <FormField label="Фамилия" field={fields.details.lastName} float static={isStatic}>
+          <FormField
+            label="Фамилия"
+            field={fields.details.lastName}
+            float
+            static={isStatic}
+          >
             <Input className={s.input} block type="text" />
           </FormField>
         </Col>
         <Col sm="6" lg="5">
-          <FormField label="Имя" field={fields.details.firstName} float static={isStatic}>
+          <FormField
+            label="Имя"
+            field={fields.details.firstName}
+            float
+            static={isStatic}
+          >
             <Input className={s.input} block type="text" />
           </FormField>
         </Col>
         <Col sm="6" lg="5">
-          <FormField label="Отчество" field={fields.details.middleName} float static={isStatic}>
+          <FormField
+            label="Отчество"
+            field={fields.details.middleName}
+            float
+            static={isStatic}
+          >
             <Input className={s.input} block type="text" />
           </FormField>
         </Col>
         <Col sm="6" lg="5">
           <FormField field={fields.kind} label="Тип" float>
-            <Select className={sUtils.fontSizeMd} options={options.contactKinds} />
+            <Select
+              className={sUtils.fontSizeMd}
+              options={options.contactKinds}
+            />
           </FormField>
         </Col>
       </Row>
@@ -176,7 +194,11 @@ class Header extends Component {
             <Col sm="18" lg="15">
               <Heading formKey={formKey} />
             </Col>
-            <Col sm="2" lg="5" className={cn(sUtils.textRight, sUtils.pushedTop_5)}>
+            <Col
+              sm="2"
+              lg="5"
+              className={cn(sUtils.textRight, sUtils.pushedTop_5)}
+            >
               <CallButton />
             </Col>
           </Row>
@@ -184,7 +206,12 @@ class Header extends Component {
             <Col xs="20">
               <Media
                 className={s.media}
-                left={<Image photo={formKey !== 'create' && data.details.photo} fields={fields} />}
+                left={
+                  <Image
+                    photo={formKey !== 'create' && data.details.photo}
+                    fields={fields}
+                  />
+                }
                 body={<Description fields={fields} isStatic={isStatic} />}
               />
             </Col>
@@ -220,7 +247,7 @@ class Header extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { leads } = state;
 
   return {
@@ -230,7 +257,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     pop,
     pushPath,
@@ -249,6 +276,8 @@ const connectedWithRedux = connect(
   pickActions,
 )(Header);
 const connectedWithSubmitValidator = submitValidator()(connectedWithRedux);
-const connectedWithReduxForm = reduxForm(formSettings)(connectedWithSubmitValidator);
+const connectedWithReduxForm = reduxForm(formSettings)(
+  connectedWithSubmitValidator,
+);
 
 export default connectedWithReduxForm;

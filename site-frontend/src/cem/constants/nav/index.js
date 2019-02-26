@@ -164,7 +164,12 @@ export const menu = {
       {
         text: 'Должности',
         url: '/settings/positions',
-        requiredPermissions: ['role_show', 'role_create', 'role_update', 'role_destroy'],
+        requiredPermissions: [
+          'role_show',
+          'role_create',
+          'role_update',
+          'role_destroy',
+        ],
       },
       {
         text: 'Приложения',
@@ -198,7 +203,11 @@ export const menu = {
       {
         text: 'Пакеты выгрузок',
         url: '/settings/export_packages',
-        requiredPermissions: ['export_create', 'export_update', 'export_destroy'],
+        requiredPermissions: [
+          'export_create',
+          'export_update',
+          'export_destroy',
+        ],
       },
       {
         text: 'CSI-вопросы',

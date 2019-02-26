@@ -22,9 +22,17 @@ class LinkedContactsTable extends Component {
           <Heading width="15%">E-mail</Heading>
           <Heading width="10%">Действия</Heading>
         </Row>
-        {items.map((item, index) =>
-          <TableRowForm key={index} complexData={complexData} actions={actions} formKey={item.id.toString()} initialValues={item} data={item} isUpdateAllowed={isUpdateAllowed} />,
-        )}
+        {items.map((item, index) => (
+          <TableRowForm
+            key={index}
+            complexData={complexData}
+            actions={actions}
+            formKey={item.id.toString()}
+            initialValues={item}
+            data={item}
+            isUpdateAllowed={isUpdateAllowed}
+          />
+        ))}
       </Container>
     );
   }

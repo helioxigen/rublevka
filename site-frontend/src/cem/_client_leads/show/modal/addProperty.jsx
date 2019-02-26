@@ -63,7 +63,9 @@ export default class extends Component {
                     block
                     kind="primary"
                     value={this.state.id || undefined}
-                    onChange={event => this.setState({ id: Number(event.target.value) })}
+                    onChange={event =>
+                      this.setState({ id: Number(event.target.value) })
+                    }
                   />
                 </Group>
               </Col>

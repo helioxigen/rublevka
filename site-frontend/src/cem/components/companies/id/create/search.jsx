@@ -16,16 +16,16 @@ class Search extends Component {
     const address = data.address.value;
     const registeredAt = new Date(data.state.registration_date);
     const changeSet = {
-      'name': data.name.short_with_opf,
-      'ogrn': data.ogrn,
-      'inn': data.inn,
-      'address': [address],
-      'state': companyStates[data.state.status],
-      'kpp': data.kpp || `Нет`,
-      'opf': (data.opf && data.opf.code) || `Нет`,
-      'registeredAt': registeredAt.toISOString().split(`T`)[0],
-      'ceoName': data.management && data.management.name,
-      'ceoPosition': data.management && data.management.post,
+      name: data.name.short_with_opf,
+      ogrn: data.ogrn,
+      inn: data.inn,
+      address: [address],
+      state: companyStates[data.state.status],
+      kpp: data.kpp || `Нет`,
+      opf: (data.opf && data.opf.code) || `Нет`,
+      registeredAt: registeredAt.toISOString().split(`T`)[0],
+      ceoName: data.management && data.management.name,
+      ceoPosition: data.management && data.management.post,
     };
 
     Object.keys(changeSet).map(key => fields[key].onChange(changeSet[key]));

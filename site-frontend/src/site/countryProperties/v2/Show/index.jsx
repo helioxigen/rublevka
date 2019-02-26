@@ -60,7 +60,9 @@ import {
 
 const isJQ = global.config.domain === 'jq.estate';
 
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col },
+} = UI;
 
 class Property extends Component {
   componentDidMount() {
@@ -76,7 +78,7 @@ class Property extends Component {
   }
 
   load({ actions, id }) {
-    actions.loadProperty(id).then((data) => {
+    actions.loadProperty(id).then(data => {
       this.props.dispatch(sendAnalytics(analyticsEvents.propertyOpened(data)));
     });
   }
@@ -91,7 +93,9 @@ class Property extends Component {
     const kind = state.countryProperties[newId].data.kind || 'dom';
 
     if (nextIndex !== -1 && nextIndex !== 32) {
-      this.props.dispatch(push(`/zagorodnaya/${dealType}/${kindsTranslit[kind]}/${newId}`));
+      this.props.dispatch(
+        push(`/zagorodnaya/${dealType}/${kindsTranslit[kind]}/${newId}`),
+      );
     }
   }
 
@@ -102,7 +106,12 @@ class Property extends Component {
 
     const property = state.countryProperties[id] || {};
     const { data = {}, errors } = property;
-    const { headline, location = {}, specification = {}, landDetails = {} } = data;
+    const {
+      headline,
+      location = {},
+      specification = {},
+      landDetails = {},
+    } = data;
 
     const area = Math.floor(specification.area);
     const landArea = Math.floor(landDetails.area);
@@ -140,8 +149,20 @@ class Property extends Component {
       const isImageView = imgArray.filter(counter => counter.isPublic);
       const imageCounter = isImageView.length;
 
-      const title = headline ? Array(headline) : Array(propertiesSeo.show.country.h1(kind, area, landArea, settlement), ' ', location.mkadDistance, ' км');
-      const titleH1 = `${propertiesSeo.show.country.h1(kind, area, landArea, settlement)} ${location.mkadDistance} км`;
+      const title = headline
+        ? Array(headline)
+        : Array(
+            propertiesSeo.show.country.h1(kind, area, landArea, settlement),
+            ' ',
+            location.mkadDistance,
+            ' км',
+          );
+      const titleH1 = `${propertiesSeo.show.country.h1(
+        kind,
+        area,
+        landArea,
+        settlement,
+      )} ${location.mkadDistance} км`;
 
       const offerKind = data[`${dealType}Offer`] || {
         multiCurrencyPrice: { usd: 0, eur: 0, rub: 0 },
@@ -185,7 +206,7 @@ class Property extends Component {
                 <HeaderWrapper>
                   <Col xs="12" md="8">
                     <Breadcrumbs data={data} dealType={this.props.dealType} />
-                    {settlement && (<Title>{title}</Title>)}
+                    {settlement && <Title>{title}</Title>}
                     {!settlement && <Title>—</Title>}
                   </Col>
                   <HideXsSmMd>
@@ -246,7 +267,11 @@ class Property extends Component {
                             <Map
                               center={[markerPosition.lng, markerPosition.lat]}
                               markers={[markerPosition]}
-                              container={<div className={sUtils.mapContainerForProperty} />}
+                              container={
+                                <div
+                                  className={sUtils.mapContainerForProperty}
+                                />
+                              }
                             />
                           </MapWrapper>
                         )}
@@ -305,7 +330,7 @@ class Property extends Component {
   }
 }
 
-const pickState = (state) => {
+const pickState = state => {
   const { countryProperties } = state;
 
   return {
@@ -315,7 +340,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadProperty,
   };
@@ -326,4 +351,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Property);
+export default connect(
+  pickState,
+  pickActions,
+)(Property);

@@ -9,7 +9,7 @@ const loadIdStarted = id => ({
   id,
 });
 
-export const loadIdSucceeded = (id, data) => (dispatch) => {
+export const loadIdSucceeded = (id, data) => dispatch => {
   dispatch({
     type: types.LOAD_ID_SUCCESS,
     id,
@@ -23,7 +23,7 @@ const loadIdFailed = (id, errors) => ({
   errors,
 });
 
-export const loadUser = id => (dispatch) => {
+export const loadUser = id => dispatch => {
   dispatch(loadIdStarted(id));
 
   return API.get(`/v1/users/staff/${id}`).then(
@@ -32,7 +32,13 @@ export const loadUser = id => (dispatch) => {
   );
 };
 
-const loadCurrentUserSucceeded = ({ id, email, state, photo = {}, ...data }) => ({
+const loadCurrentUserSucceeded = ({
+  id,
+  email,
+  state,
+  photo = {},
+  ...data
+}) => ({
   type: types.LOAD_CURRENT_USER_SUCCESS,
   meta: {
     analytics: {

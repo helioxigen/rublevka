@@ -59,7 +59,8 @@ export default class extends Component {
             <Row>
               <Col xs="20" className={sUtils.pushedTop3}>
                 <p className={s.text}>
-                  Опишите, почему вы хотите отклонить лид. Руководитель проверит и подтвердит.
+                  Опишите, почему вы хотите отклонить лид. Руководитель проверит
+                  и подтвердит.
                 </p>
               </Col>
             </Row>
@@ -72,7 +73,9 @@ export default class extends Component {
                     block
                     kind="primary"
                     value={this.state.reason}
-                    onChange={event => this.setState({ reason: event.target.value })}
+                    onChange={event =>
+                      this.setState({ reason: event.target.value })
+                    }
                   />
                 </Group>
               </Col>

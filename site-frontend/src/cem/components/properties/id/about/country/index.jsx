@@ -39,39 +39,75 @@ class AboutCountry extends Component {
   }
 
   createOrUpdate() {
-    const { formKey, values, actions, params: { category } } = this.props;
+    const {
+      formKey,
+      values,
+      actions,
+      params: { category },
+    } = this.props;
 
     if (formKey === `create`) return actions.createProperty(values, category);
-    if (formKey !== `create`) return actions.updateProperty(formKey, values, category);
+    if (formKey !== `create`)
+      return actions.updateProperty(formKey, values, category);
   }
 
   render() {
     const {
-      values, handleSubmit, formKey,
-      isContactLinkingAllowed, isSensitiveDataVisible,
+      values,
+      handleSubmit,
+      formKey,
+      isContactLinkingAllowed,
+      isSensitiveDataVisible,
     } = this.props;
 
     return (
       <Container className={s.section}>
-        <Form.Container onSubmit={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}>
-          <Offers {...this.props} options={options} dictionaries={dictionaries} />
+        <Form.Container
+          onSubmit={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}
+        >
+          <Offers
+            {...this.props}
+            options={options}
+            dictionaries={dictionaries}
+          />
           <BuildingDescription {...this.props} />
-          <Equipment className={sUtils.pushedBottom3} {...this.props} options={options} />
-          {values.kind !== `land` && <FloorsDescription className={sUtils.pushedBottom3} layouts={values.specification.legacyLayouts} />}
-          {values.kind !== `land` && <Rooms className={sUtils.pushedBottom3} {...this.props} />}
+          <Equipment
+            className={sUtils.pushedBottom3}
+            {...this.props}
+            options={options}
+          />
+          {values.kind !== `land` && (
+            <FloorsDescription
+              className={sUtils.pushedBottom3}
+              layouts={values.specification.legacyLayouts}
+            />
+          )}
+          {values.kind !== `land` && (
+            <Rooms className={sUtils.pushedBottom3} {...this.props} />
+          )}
           <LandDescription {...this.props} options={options} />
-          <Communication className={sUtils.pushedBottom3} {...this.props} options={options} />
+          <Communication
+            className={sUtils.pushedBottom3}
+            {...this.props}
+            options={options}
+          />
           <Address {...this.props} />
           <Note className={sUtils.pushedBottom3} {...this.props} />
-          {formKey !== `create` && (isContactLinkingAllowed || isSensitiveDataVisible) && <Contacts {...this.props} />}
+          {formKey !== `create` &&
+            (isContactLinkingAllowed || isSensitiveDataVisible) && (
+              <Contacts {...this.props} />
+            )}
         </Form.Container>
-        {formKey !== `create` &&
+        {formKey !== `create` && (
           <Row className={sUtils.pushedBottom6}>
             <Col md="18">
-              <Comments entity={{ key: `countryProperties`, id: formKey.toString() }} isSubscriptionAvailable />
+              <Comments
+                entity={{ key: `countryProperties`, id: formKey.toString() }}
+                isSubscriptionAvailable
+              />
             </Col>
           </Row>
-        }
+        )}
         <Status className={sUtils.pushedBottom3} {...this.props} />
       </Container>
     );

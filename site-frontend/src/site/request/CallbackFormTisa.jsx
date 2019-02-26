@@ -23,7 +23,13 @@ import media from 'site/styles/media';
 
 import Loader from 'site/components/Loader';
 
-const { Button, Icon, Form, Grid: { Container, Row, Col }, Form: { Group, Input } } = UI;
+const {
+  Button,
+  Icon,
+  Form,
+  Grid: { Container, Row, Col },
+  Form: { Group, Input },
+} = UI;
 
 const Wrapper = styled.div`
   position: relative;
@@ -116,7 +122,12 @@ class CallbackForm extends Component {
 
     this.submit = this.submit.bind(this);
 
-    this.state = { requestSent: false, requestSending: false, isActive: false, phoneErrors: [] };
+    this.state = {
+      requestSent: false,
+      requestSending: false,
+      isActive: false,
+      phoneErrors: [],
+    };
   }
 
   onChange(key, value) {
@@ -174,7 +185,9 @@ class CallbackForm extends Component {
             <Container fluid>
               <Row>
                 <Col xs="12">
-                  <Title>Заполните форму и мы свяжемся с вами в течении 10&nbsp;минут</Title>
+                  <Title>
+                    Заполните форму и мы свяжемся с вами в течении 10&nbsp;минут
+                  </Title>
                   <StGroup>
                     <StInput
                       block
@@ -192,11 +205,18 @@ class CallbackForm extends Component {
                       placeholder="+7 (___) ___-__-__"
                       value={this.state.phoneNumber}
                       required
-                      onChange={e => this.onChange('phoneNumber', e.target.value)}
+                      onChange={e =>
+                        this.onChange('phoneNumber', e.target.value)
+                      }
                     />
-                    {this.state.phoneErrors.map(error => <Error>{error}</Error>)}
+                    {this.state.phoneErrors.map(error => (
+                      <Error>{error}</Error>
+                    ))}
                   </StGroup>
-                  <StButton disabled={!!this.state.requestSending} kind="success">
+                  <StButton
+                    disabled={!!this.state.requestSending}
+                    kind="success"
+                  >
                     Отправить
                   </StButton>
                 </Col>
@@ -204,18 +224,19 @@ class CallbackForm extends Component {
             </Container>
           )}
 
-          {!!this.state.requestSending &&
-            !this.state.requestSent && (
-              <LoaderWrapper>
-                <Loader />
-              </LoaderWrapper>
-            )}
+          {!!this.state.requestSending && !this.state.requestSent && (
+            <LoaderWrapper>
+              <Loader />
+            </LoaderWrapper>
+          )}
 
           {!!this.state.requestSent && (
             <SuccessWrapper>
               <Logo icon="jqestate-logo" />
               <SuccessTitle>Заявка отправлена!</SuccessTitle>
-              <Message>Через 10 минут наш брокер обязательно свяжется с вами.</Message>
+              <Message>
+                Через 10 минут наш брокер обязательно свяжется с вами.
+              </Message>
             </SuccessWrapper>
           )}
         </Form.Container>
@@ -231,7 +252,7 @@ const pickState = ({ currentDuty }) => ({
   },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadDuties,
     createClientLead,
@@ -244,4 +265,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(CallbackForm);
+export default connect(
+  pickState,
+  pickActions,
+)(CallbackForm);

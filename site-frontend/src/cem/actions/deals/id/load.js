@@ -18,7 +18,7 @@ const loadDealFailed = (id, { errors }) => ({
   errors,
 });
 
-export default id => (dispatch) => {
+export default id => dispatch => {
   dispatch(loadDealStarted(id));
 
   return API.get(`/v1/deals/${id}`).then(

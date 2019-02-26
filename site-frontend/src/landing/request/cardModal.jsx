@@ -22,17 +22,19 @@ class CardModal extends Component {
     propertyCategory: PropTypes.string.isRequired,
     propertyId: PropTypes.number.isRequired,
     dealType: PropTypes.string.isRequired,
-  }
+  };
 
   state = {
     isOpened: false,
-  }
+  };
 
   toggle() {
     const { data = {} } = this.props;
 
     if (!this.state.isOpened) {
-      this.props.actions.sendAnalytics(analyticsEvents.PropertyCardOpened({ id: data.id }));
+      this.props.actions.sendAnalytics(
+        analyticsEvents.PropertyCardOpened({ id: data.id }),
+      );
     }
 
     this.setState({
@@ -86,7 +88,7 @@ const pickState = () => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     sendAnalytics,
   };
@@ -96,4 +98,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(CardModal);
+export default connect(
+  pickState,
+  pickActions,
+)(CardModal);

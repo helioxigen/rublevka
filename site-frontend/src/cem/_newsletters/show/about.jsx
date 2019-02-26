@@ -6,7 +6,12 @@ import { formSettings } from 'cem/_newsletters/constants/form';
 import PropertiesSelection from 'cem/components/common/propertiesSelection';
 
 import UI from 'cem/components/ui';
-const { Heading, Select, Form: { Input }, Grid: { Row, Col } } = UI;
+const {
+  Heading,
+  Select,
+  Form: { Input },
+  Grid: { Row, Col },
+} = UI;
 
 import Template from './template';
 
@@ -39,7 +44,9 @@ class About extends Component {
   handleRemoveProperty(id) {
     const { fields, values } = this.props;
 
-    fields.propertyIds.onChange(values.propertyIds.filter(propertyId => propertyId !== id));
+    fields.propertyIds.onChange(
+      values.propertyIds.filter(propertyId => propertyId !== id),
+    );
   }
 
   render() {
@@ -50,10 +57,15 @@ class About extends Component {
         <section className={s.section}>
           {formKey === 'create' && <Heading>Описание</Heading>}
 
-          {formKey === 'create' &&
+          {formKey === 'create' && (
             <Row className={sUtils.pushedBottom6}>
               <Col xs="20" lg="10">
-                <FormField field={fields.name} label="Заголовок" float static={!isUpdateAllowed}>
+                <FormField
+                  field={fields.name}
+                  label="Заголовок"
+                  float
+                  static={!isUpdateAllowed}
+                >
                   <Input className={sHeader.input} block type="text" />
                 </FormField>
                 <FormField
@@ -68,8 +80,16 @@ class About extends Component {
               <Col xs="20" lg="10">
                 <Row>
                   <Col xs="20" lg="10">
-                    <FormField label="Тип" field={fields.offerKind} static={!isUpdateAllowed} float>
-                      <Select className={sUtils.fontSizeMd} options={options.offerKinds} />
+                    <FormField
+                      label="Тип"
+                      field={fields.offerKind}
+                      static={!isUpdateAllowed}
+                      float
+                    >
+                      <Select
+                        className={sUtils.fontSizeMd}
+                        options={options.offerKinds}
+                      />
                     </FormField>
                   </Col>
                   <Col xs="20" lg="10">
@@ -80,7 +100,10 @@ class About extends Component {
                       static={!isUpdateAllowed}
                       float
                     >
-                      <Select className={sUtils.fontSizeMd} options={options.sites} />
+                      <Select
+                        className={sUtils.fontSizeMd}
+                        options={options.sites}
+                      />
                     </FormField>
                   </Col>
                   <Col xs="10">
@@ -99,27 +122,30 @@ class About extends Component {
                   </Col>
                 </Row>
               </Col>
-            </Row>}
+            </Row>
+          )}
           {formKey === 'create' &&
             values.offerKind &&
             values.site &&
-            values._currency &&
-            <Row>
-              <Col xs="20">
-                <PropertiesSelection
-                  title="Объекты"
-                  idsField={fields.propertyIds}
-                  isStatic={!isUpdateAllowed && formKey !== 'create'}
-                  onAdd={this.handleAddProperty}
-                  onRemove={this.handleRemoveProperty}
-                />
-              </Col>
-            </Row>}
+            values._currency && (
+              <Row>
+                <Col xs="20">
+                  <PropertiesSelection
+                    title="Объекты"
+                    idsField={fields.propertyIds}
+                    isStatic={!isUpdateAllowed && formKey !== 'create'}
+                    onAdd={this.handleAddProperty}
+                    onRemove={this.handleRemoveProperty}
+                  />
+                </Col>
+              </Row>
+            )}
           {formKey === 'create' && <Template values={values} />}
-          {formKey !== 'create' &&
+          {formKey !== 'create' && (
             // because we need preview
             // eslint-disable-next-line
-            <div dangerouslySetInnerHTML={{ __html: values.template }} />}
+            <div dangerouslySetInnerHTML={{ __html: values.template }} />
+          )}
         </section>
       </Row>
     );

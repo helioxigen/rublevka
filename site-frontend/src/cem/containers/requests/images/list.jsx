@@ -9,7 +9,9 @@ import ImagesRequestsActions from 'cem/actions/requests/images';
 
 import UI from 'cem/components/ui';
 const {
-  Button, Icon, Heading,
+  Button,
+  Icon,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 import LaneHeader from 'cem/components/requests/images/list/laneHeader';
@@ -32,8 +34,14 @@ class ListContainer extends Component {
           <div className={s.header}>
             <Row>
               <Col xs="20">
-                <Heading size="lg">Активные заявки на фото и планировки</Heading>
-                <Button className={sButton.btnTo} size="xs" to="/requests/properties/images/archive">
+                <Heading size="lg">
+                  Активные заявки на фото и планировки
+                </Heading>
+                <Button
+                  className={sButton.btnTo}
+                  size="xs"
+                  to="/requests/properties/images/archive"
+                >
                   <Icon className={s.iconArchive} icon="archive" />
                 </Button>
               </Col>
@@ -47,7 +55,8 @@ class ListContainer extends Component {
           <Container fluid className={s.width120}>
             <Row className={sDeals.row}>
               {Object.keys(lanes).map((key, index) => {
-                const { total = 0 } = state.pagination[`imagesRequests.${key}`] || {};
+                const { total = 0 } =
+                  state.pagination[`imagesRequests.${key}`] || {};
                 return (
                   <Col key={index} xs="5">
                     <LaneHeader laneKey={key} count={total} />
@@ -63,10 +72,18 @@ class ListContainer extends Component {
                 <Lane laneKey="inProgress" actions={actions} state={state} />
               </Col>
               <Col xs="5" className={sDeals.column}>
-                <Lane laneKey="managerApproval" actions={actions} state={state} />
+                <Lane
+                  laneKey="managerApproval"
+                  actions={actions}
+                  state={state}
+                />
               </Col>
               <Col xs="5" className={sDeals.column}>
-                <Lane laneKey="originatorApproval" actions={actions} state={state} />
+                <Lane
+                  laneKey="originatorApproval"
+                  actions={actions}
+                  state={state}
+                />
               </Col>
             </Row>
           </Container>
@@ -81,7 +98,13 @@ const pickState = ({ auth, pagination, filters, users, imagesRequests }) => ({
 });
 
 const pickActions = dispatch => ({
-  actions: bindActionCreators({ ...ImagesRequestsActions, ...PaginationActions, ...FilterActions }, dispatch),
+  actions: bindActionCreators(
+    { ...ImagesRequestsActions, ...PaginationActions, ...FilterActions },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, pickActions)(ListContainer);
+export default connect(
+  pickState,
+  pickActions,
+)(ListContainer);

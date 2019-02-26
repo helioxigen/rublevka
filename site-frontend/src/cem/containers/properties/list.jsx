@@ -1,19 +1,19 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import PropertiesActions from "cem/actions/properties";
-import FilterActions from "core/actions/filters";
-import PaginationActions from "core/actions/pagination";
-import OrderActions from "core/actions/order";
+import PropertiesActions from 'cem/actions/properties';
+import FilterActions from 'core/actions/filters';
+import PaginationActions from 'core/actions/pagination';
+import OrderActions from 'core/actions/order';
 
-import FilterCity from "cem/components/properties/list/filter/city";
-import FilterCountry from "cem/components/properties/list/filter/country";
-import Card from "cem/components/properties/list/card";
-import Pagination from "core/components/pagination";
+import FilterCity from 'cem/components/properties/list/filter/city';
+import FilterCountry from 'cem/components/properties/list/filter/country';
+import Card from 'cem/components/properties/list/card';
+import Pagination from 'core/components/pagination';
 
-import UI from "cem/components/ui";
+import UI from 'cem/components/ui';
 const {
   Loading,
   Dropdown,
@@ -23,17 +23,17 @@ const {
   Grid: { Container, Row, Col },
 } = UI;
 
-import s from "cem/styles/components/header";
-import sUtils from "cem/styles/utils";
-import sDropdown from "cem/styles/ui/dropdown";
-import sButton from "cem/styles/buttons";
+import s from 'cem/styles/components/header';
+import sUtils from 'cem/styles/utils';
+import sDropdown from 'cem/styles/ui/dropdown';
+import sButton from 'cem/styles/buttons';
 
-import isEqual from "lodash/isEqual";
+import isEqual from 'lodash/isEqual';
 
 import {
   defaultFilter,
   defaultFilterNot,
-} from "cem/constants/properties/filters";
+} from 'cem/constants/properties/filters';
 
 const sortFields = {
   country: [
@@ -57,7 +57,12 @@ const sortFields = {
 
 class List extends Component {
   componentWillMount() {
-    const { params: { category }, routes, actions, state } = this.props;
+    const {
+      params: { category },
+      routes,
+      actions,
+      state,
+    } = this.props;
 
     const group = routes[routes.length - 1].path;
 
@@ -78,7 +83,12 @@ class List extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { params: { category }, routes, actions, state } = this.props;
+    const {
+      params: { category },
+      routes,
+      actions,
+      state,
+    } = this.props;
 
     const group = routes[routes.length - 1].path;
     const nextGroup = nextProps.routes[nextProps.routes.length - 1].path;
@@ -120,7 +130,11 @@ class List extends Component {
   }
 
   handlePaginationUpdate(offset) {
-    const { params: { category }, routes, actions } = this.props;
+    const {
+      params: { category },
+      routes,
+      actions,
+    } = this.props;
 
     const group = routes[routes.length - 1].path;
 
@@ -130,15 +144,19 @@ class List extends Component {
   }
 
   render() {
-    const { params: { category }, routes, state } = this.props;
+    const {
+      params: { category },
+      routes,
+      state,
+    } = this.props;
 
     const group = routes[routes.length - 1].path;
 
     const filter = state.filters[`properties.${category}.${group}`] || {};
-    const pagination = state.pagination[`properties.${category}.${group}`] || {
-    };
-    const { items = [], isFetching } = state.properties[`${category}.${group}`]
-      .list || {};
+    const pagination =
+      state.pagination[`properties.${category}.${group}`] || {};
+    const { items = [], isFetching } =
+      state.properties[`${category}.${group}`].list || {};
 
     const canCreate = this.props.hasRight(`${category}_property_create`);
 
@@ -150,7 +168,7 @@ class List extends Component {
               <Col xs="20" className={sUtils.positionRelative}>
                 <Heading size="lg">
                   {category === `city` ? `Городские` : `Загородные`} объекты
-                  {canCreate &&
+                  {canCreate && (
                     <Button
                       size="xs"
                       kind="success"
@@ -158,7 +176,8 @@ class List extends Component {
                       className={sUtils.pushedLeftSm2}
                     >
                       добавить
-                    </Button>}
+                    </Button>
+                  )}
                 </Heading>
                 <Dropdown
                   className={sDropdown.header}
@@ -179,7 +198,7 @@ class List extends Component {
               </Col>
             </Row>
             <Row>
-              {category === `city` &&
+              {category === `city` && (
                 <FilterCity
                   {...this.props}
                   filters={filter}
@@ -188,8 +207,9 @@ class List extends Component {
                   listKind={`properties.${category}.${group}`}
                   sortKind={`properties.${category}.${group}`}
                   sortFields={sortFields[category]}
-                />}
-              {category === `country` &&
+                />
+              )}
+              {category === `country` && (
                 <FilterCountry
                   {...this.props}
                   filters={filter}
@@ -198,7 +218,8 @@ class List extends Component {
                   listKind={`properties.${category}.${group}`}
                   sortKind={`properties.${category}.${group}`}
                   sortFields={sortFields[category]}
-                />}
+                />
+              )}
             </Row>
           </div>
         </Container>
@@ -209,12 +230,11 @@ class List extends Component {
           items.map(item => (
             <Card category={category} key={item.id} {...item} />
           ))}
-        {!isFetching &&
-          !items.length &&
-          <Heading notFound>Не найдено объектов</Heading>}
+        {!isFetching && !items.length && (
+          <Heading notFound>Не найдено объектов</Heading>
+        )}
 
-        {!isFetching &&
-          !!items.length &&
+        {!isFetching && !!items.length && (
           <Container fluid>
             <Row xs="center">
               <Col sm="10" className={sUtils.pushed6_0}>
@@ -224,7 +244,8 @@ class List extends Component {
                 />
               </Col>
             </Row>
-          </Container>}
+          </Container>
+        )}
       </section>
     );
   }
@@ -246,4 +267,7 @@ const pickActions = dispatch => ({
   ),
 });
 
-export default connect(pickState, pickActions)(List);
+export default connect(
+  pickState,
+  pickActions,
+)(List);

@@ -4,7 +4,8 @@ import { mapToFloor } from 'cem/helpers/properties';
 
 import UI from 'cem/components/ui';
 const {
-  List, Heading,
+  List,
+  Heading,
   Grid: { Row, Col },
 } = UI;
 
@@ -22,16 +23,23 @@ class FloorsDescription extends Component {
           </Col>
         </Row>
         <Row>
-          {layouts.filter(layoutItem => !!layoutItem.items && layoutItem.items.length > 0).map((layoutItem, index) =>
-            (<Col key={index} sm="5" className={sUtils.pushedBottom3}>
-              <List items={layoutItem.items} title={mapToFloor(layoutItem.kind, layoutItem.number).title} />
-            </Col>),
-          )}
-          {!layouts.length &&
+          {layouts
+            .filter(
+              layoutItem => !!layoutItem.items && layoutItem.items.length > 0,
+            )
+            .map((layoutItem, index) => (
+              <Col key={index} sm="5" className={sUtils.pushedBottom3}>
+                <List
+                  items={layoutItem.items}
+                  title={mapToFloor(layoutItem.kind, layoutItem.number).title}
+                />
+              </Col>
+            ))}
+          {!layouts.length && (
             <Col sm="20" className={sUtils.pushedBottom3}>
               <Heading notFound>Не указано</Heading>
             </Col>
-          }
+          )}
         </Row>
       </section>
     );

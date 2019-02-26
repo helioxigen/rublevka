@@ -17,7 +17,9 @@ class Questions extends Component {
   render() {
     const { state, kind } = this.props;
     const { items = [] } = state.csi[kind].list;
-    const initialValues = { questions: items.map(({ id, text }) => ({ questionId: id, text })) };
+    const initialValues = {
+      questions: items.map(({ id, text }) => ({ questionId: id, text })),
+    };
     const props = { ...this.props, initialValues };
 
     return <Modal {...props} />;
@@ -32,4 +34,7 @@ const mapDispatch = dispatch => ({
   actions: bindActionCreators({ ...CSIActions, pop }, dispatch),
 });
 
-export default connect(pickState, mapDispatch)(Questions);
+export default connect(
+  pickState,
+  mapDispatch,
+)(Questions);

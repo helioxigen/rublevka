@@ -19,7 +19,7 @@ const loadImageRequestFailed = (id, { errors }) => ({
 });
 
 export default function loadImageRequest(id) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadImageRequestStarted(id));
 
     return API.get(`/v1/orders/images/${id}`)

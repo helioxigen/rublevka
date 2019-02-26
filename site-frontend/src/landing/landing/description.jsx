@@ -42,7 +42,9 @@ class Description extends Component {
                 </div>
               </div>
 
-              <Button onClick={::this.toggle} className={s.loadMoreBtn}>{this.state.isTextHidden ? `Читать полностью` : `Скрыть`}</Button>
+              <Button onClick={::this.toggle} className={s.loadMoreBtn}>
+                {this.state.isTextHidden ? `Читать полностью` : `Скрыть`}
+              </Button>
             </div>
           </Col>
         </Row>

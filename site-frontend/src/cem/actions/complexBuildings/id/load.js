@@ -21,11 +21,12 @@ const loadComplexBuildingFailed = (id, errors) => ({
   errors,
 });
 
-const loadComplexBuilding = id => (dispatch) => {
+const loadComplexBuilding = id => dispatch => {
   dispatch(loadComplexBuildingStarted(id));
 
   return API.get(`/v1/complex_buildings/${id}`).then(
-    ({ body }) => dispatch(loadComplexBuildingSucceeded(id, transformDataIn(body))),
+    ({ body }) =>
+      dispatch(loadComplexBuildingSucceeded(id, transformDataIn(body))),
     ({ body }) => dispatch(loadComplexBuildingFailed(id, body)),
   );
 };

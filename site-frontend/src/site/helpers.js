@@ -1,6 +1,8 @@
 export const makeFilterRange = (min, max, multiplier = 1) => {
-  const isMin = min === 'min' || typeof min === 'undefined' || typeof min === 'null';
-  const isMax = max === 'max' || typeof max === 'undefined' || typeof max === 'null';
+  const isMin =
+    min === 'min' || typeof min === 'undefined' || typeof min === 'null';
+  const isMax =
+    max === 'max' || typeof max === 'undefined' || typeof max === 'null';
 
   const from = !isMin ? min * multiplier : '';
   const to = !isMax ? max * multiplier : '';
@@ -11,11 +13,13 @@ export const makeFilterRange = (min, max, multiplier = 1) => {
 export const declOfNum = (number, titles) => {
   const cases = [2, 0, 1, 1, 1, 2];
   return titles[
-    number % 100 > 4 && number % 100 < 20 ? 2 : cases[number % 10 < 5 ? number % 10 : 5]
+    number % 100 > 4 && number % 100 < 20
+      ? 2
+      : cases[number % 10 < 5 ? number % 10 : 5]
   ];
 };
 
-const formatNumber = (number) => {
+const formatNumber = number => {
   if (number && typeof number !== 'undefined') {
     const orig = number.toString();
     let buf = '';

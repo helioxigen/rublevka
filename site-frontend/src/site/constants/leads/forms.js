@@ -20,7 +20,7 @@ export const requestSettings = {
     'note',
   ],
   destroyOnUnmount: false,
-  validate: (values) => {
+  validate: values => {
     const errors = {
       contactDetails: {},
     };
@@ -28,7 +28,9 @@ export const requestSettings = {
     // if (!values.contactDetails.phoneNumber) errors.contactDetails.phoneNumber = `Похоже, допущена ошибка при написании телефона, попробуйте еще раз`;
     if (
       values.contactDetails.phoneNumber &&
-      !values.contactDetails.phoneNumber.match(/^\+7\s*\(\d{3}\)\s*\d{3}\-\d{2}\-\d{2}$/g)
+      !values.contactDetails.phoneNumber.match(
+        /^\+7\s*\(\d{3}\)\s*\d{3}\-\d{2}\-\d{2}$/g,
+      )
     ) {
       errors.contactDetails.phoneNumber =
         'Похоже, допущена ошибка при написании телефона, попробуйте еще раз';
@@ -49,13 +51,14 @@ export const complexBuildingLeadRequestSettings = {
     'price.from',
     'price.to',
   ],
-  validate: (values) => {
+  validate: values => {
     const errors = {
       contactDetails: {},
     };
 
     // if (!values.contactDetails.firstName) errors.contactDetails.firstName = `Обязательно`;
-    if (!values.contactDetails.phoneNumber) errors.contactDetails.phoneNumber = 'Обязательно';
+    if (!values.contactDetails.phoneNumber)
+      errors.contactDetails.phoneNumber = 'Обязательно';
 
     return errors;
   },

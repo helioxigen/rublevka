@@ -9,7 +9,7 @@ import * as types from 'cem/constants/linked_contacts/actions';
 import { listName } from 'cem/constants/linked_contacts/fetcher';
 
 export default function createLinkedContact(resource, resourceId, data) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(
       createLinkedResourceRecordStarted(
         types.CREATE_LINK_RECORD,
@@ -20,7 +20,12 @@ export default function createLinkedContact(resource, resourceId, data) {
       ),
     );
 
-    return createLinkedResourceRecord(resource, resourceId, listName, data).then(
+    return createLinkedResourceRecord(
+      resource,
+      resourceId,
+      listName,
+      data,
+    ).then(
       ({ id }) =>
         dispatch(
           createLinkedResourceRecordSucceeded(

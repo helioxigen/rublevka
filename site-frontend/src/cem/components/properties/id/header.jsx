@@ -62,7 +62,7 @@ const Image = ({ id }) => (
   />
 );
 
-const Description = (props) => {
+const Description = props => {
   const { fields, data, isUpdateAllowed } = props;
 
   return (
@@ -87,7 +87,9 @@ const Description = (props) => {
             labelKey="title"
             valueKey="id"
           />
-          {fields.kind.touched && fields.kind.error && <Helper>{fields.kind.error}</Helper>}
+          {fields.kind.touched && fields.kind.error && (
+            <Helper>{fields.kind.error}</Helper>
+          )}
         </Group>
       </Col>
       <Col sm="8" md="8" lg="5">
@@ -106,10 +108,11 @@ const Description = (props) => {
             />
           )}
           {fields.state.value === 'deleted' && (
-            <Static className={cn(sUtils.fontSizeMd, s[states[fields.state.value]])}>
+            <Static
+              className={cn(sUtils.fontSizeMd, s[states[fields.state.value]])}
+            >
               Удалён
-              {data &&
-              data.removalOrderId && (
+              {data && data.removalOrderId && (
                 <Link
                   className={cn(s.linkIcon, sUtils.alignBaseline)}
                   to={`/requests/properties/to_remove/${data.removalOrderId}`}
@@ -119,24 +122,32 @@ const Description = (props) => {
               )}
             </Static>
           )}
-          {fields.state.touched && fields.state.error && <Helper>{fields.state.error}</Helper>}
+          {fields.state.touched && fields.state.error && (
+            <Helper>{fields.state.error}</Helper>
+          )}
         </Group>
       </Col>
       {fields.state.value === 'deleted' &&
-      data &&
-      data.stateDetails &&
-      data.stateDetails.reason && (
-        <Col sm="4" md="8" lg="5">
-          <Group kind={fields.state.touched && !!fields.state.error && 'error'}>
-            <Label block className={s.label}>
-              Причина
-            </Label>
-            <Static options={options.states}>{data.stateDetails.reason}</Static>
-          </Group>
-        </Col>
-      )}
+        data &&
+        data.stateDetails &&
+        data.stateDetails.reason && (
+          <Col sm="4" md="8" lg="5">
+            <Group
+              kind={fields.state.touched && !!fields.state.error && 'error'}
+            >
+              <Label block className={s.label}>
+                Причина
+              </Label>
+              <Static options={options.states}>
+                {data.stateDetails.reason}
+              </Static>
+            </Group>
+          </Col>
+        )}
       <Col sm="8" md="8" lg="6">
-        <Group kind={fields.badge.id.touched && !!fields.badge.id.error && 'error'}>
+        <Group
+          kind={fields.badge.id.touched && !!fields.badge.id.error && 'error'}
+        >
           <Label className={s.label}>Бэйдж</Label>
           <AsyncSelect
             className={cn(sUtils.minheight3_7, sUtils.fontSizeMd)}
@@ -151,7 +162,12 @@ const Description = (props) => {
 
 class Header extends Component {
   onSubmitSuccess({ id }) {
-    const { actions, formKey, resetForm, params: { category } } = this.props;
+    const {
+      actions,
+      formKey,
+      resetForm,
+      params: { category },
+    } = this.props;
 
     if (formKey === 'create') {
       actions.pop('success', `Объект (ID: ${id})`, 'Создан');
@@ -165,7 +181,12 @@ class Header extends Component {
   }
 
   createOrUpdate() {
-    const { formKey, actions, values, params: { category } } = this.props;
+    const {
+      formKey,
+      actions,
+      values,
+      params: { category },
+    } = this.props;
 
     if (formKey === 'create') {
       return actions.createProperty(values, category);
@@ -204,14 +225,22 @@ class Header extends Component {
     const removalRequestUrl = `/requests/properties/to_remove/create?${makeImageRequestParams(
       request,
     )}`;
-    const urlNoLogo = `${API}/v1/properties/${id}/export/pdf?url=${pdf.source}/properties/${category}/${id}/${state
-      .auth.token}/nologo&triggerEvent=true&token=${state.auth.token}`;
-    const urlLogo = `${API}/v1/properties/${id}/export/pdf?url=${pdf.source}/properties/${category}/${id}/${state
-      .auth.token}/logo&token=${state.auth.token}`;
+    const urlNoLogo = `${API}/v1/properties/${id}/export/pdf?url=${
+      pdf.source
+    }/properties/${category}/${id}/${
+      state.auth.token
+    }/nologo&triggerEvent=true&token=${state.auth.token}`;
+    const urlLogo = `${API}/v1/properties/${id}/export/pdf?url=${
+      pdf.source
+    }/properties/${category}/${id}/${state.auth.token}/logo&token=${
+      state.auth.token
+    }`;
 
     return (
       <header className={s.header}>
-        <Form.Container onSubmit={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}>
+        <Form.Container
+          onSubmit={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}
+        >
           <Grid.Container fluid>
             <Row>
               <Col xs="20" className={sUtils.positionRelative}>
@@ -244,7 +273,10 @@ class Header extends Component {
                       reloadAction={actions.loadProperty}
                       responsibleUser={responsibleUserData.data}
                     >
-                      <Button type="button" className={sButton.btnDropdownInner}>
+                      <Button
+                        type="button"
+                        className={sButton.btnDropdownInner}
+                      >
                         Передать другому сотруднику
                       </Button>
                     </TransferUserModal>
@@ -252,7 +284,10 @@ class Header extends Component {
                   <Link
                     to={urlLogo}
                     target="_blank"
-                    className={cn(sUtils.displayBlock, sButton.btnDropdownInner)}
+                    className={cn(
+                      sUtils.displayBlock,
+                      sButton.btnDropdownInner,
+                    )}
                   >
                     Скачать презентацию с логотипом
                   </Link>
@@ -260,7 +295,10 @@ class Header extends Component {
                     <Link
                       to={urlNoLogo}
                       target="_blank"
-                      className={cn(sUtils.displayBlock, sButton.btnDropdownInner)}
+                      className={cn(
+                        sUtils.displayBlock,
+                        sButton.btnDropdownInner,
+                      )}
                     >
                       Скачать презентацию без логотипа
                     </Link>
@@ -278,7 +316,10 @@ class Header extends Component {
                   {isPropertyRemovalOrderingAllowed && (
                     <Link
                       to={removalRequestUrl}
-                      className={cn(sUtils.displayBlock, sButton.btnDropdownInner)}
+                      className={cn(
+                        sUtils.displayBlock,
+                        sButton.btnDropdownInner,
+                      )}
                     >
                       Запросить удаление
                     </Link>

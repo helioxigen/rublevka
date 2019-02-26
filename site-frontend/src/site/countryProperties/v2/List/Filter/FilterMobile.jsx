@@ -43,7 +43,14 @@ import {
 
 const isJQ = global.config.domain === 'jq.estate';
 
-const { Visibility, Button, BtnGroup, Icon, CountIndicator, Grid: { Container, Row, Col } } = UI;
+const {
+  Visibility,
+  Button,
+  BtnGroup,
+  Icon,
+  CountIndicator,
+  Grid: { Container, Row, Col },
+} = UI;
 
 const styles = {
   ...sUtils,
@@ -91,7 +98,7 @@ class Filter extends Component {
     }
 
     this.setState({ currentLayout: null, isSubViewOpen: false }, () => {
-      animate(duration, easingX, (viewPosition) => {
+      animate(duration, easingX, viewPosition => {
         this.setState({ viewPosition });
       });
     });
@@ -120,7 +127,7 @@ class Filter extends Component {
       }
     };
 
-    const onUpdate = (subViewPosition) => {
+    const onUpdate = subViewPosition => {
       this.setState({ subViewPosition });
     };
 
@@ -145,7 +152,11 @@ class Filter extends Component {
   removeFilter(key, value) {
     if (key === 'areas') {
       this.props.actions.removeFilter(this.props.resourceName, 'area', value);
-      this.props.actions.removeFilter(this.props.resourceName, 'landArea', value);
+      this.props.actions.removeFilter(
+        this.props.resourceName,
+        'landArea',
+        value,
+      );
     } else {
       this.props.actions.removeFilter(this.props.resourceName, key, value);
     }
@@ -244,7 +255,11 @@ class Filter extends Component {
             </Header>
           )}
 
-          <Overlay ref="overlay" isViewOpen={isViewOpen} onClick={this.toggle} />
+          <Overlay
+            ref="overlay"
+            isViewOpen={isViewOpen}
+            onClick={this.toggle}
+          />
 
           <StBtnGroup isViewOpen={isViewOpen}>
             <ResetBtn
@@ -257,7 +272,13 @@ class Filter extends Component {
               Сбросить фильтр
             </ResetBtn>
 
-            <Button styleName="btnTimes" size="md" block kind="primary" onClick={this.toggle}>
+            <Button
+              styleName="btnTimes"
+              size="md"
+              block
+              kind="primary"
+              onClick={this.toggle}
+            >
               <Icon className={theme.iconTimes} icon="times" />
             </Button>
           </StBtnGroup>
@@ -287,16 +308,15 @@ class Filter extends Component {
         {/* mobile */}
         <Visibility md="hidden" lg="hidden">
           {/* closed */}
-          {!this.props.isViewOpen &&
-            !!count && viewSelected && (
-              <FilterMobile>
-                <Container>
-                  <Row>
-                    <FilterBtn toggle={this.toggle} filterCount={filterCount} />
-                  </Row>
-                </Container>
-              </FilterMobile>
-            )}
+          {!this.props.isViewOpen && !!count && viewSelected && (
+            <FilterMobile>
+              <Container>
+                <Row>
+                  <FilterBtn toggle={this.toggle} filterCount={filterCount} />
+                </Row>
+              </Container>
+            </FilterMobile>
+          )}
 
           {/* main view */}
           <MobileWrapper isViewOpen={isViewOpen}>
@@ -311,13 +331,22 @@ class Filter extends Component {
                 Сбросить всё
               </ResetBtn>
 
-              <Button styleName="btnTimes" size="md" block kind="primary" onClick={this.toggle}>
+              <Button
+                styleName="btnTimes"
+                size="md"
+                block
+                kind="primary"
+                onClick={this.toggle}
+              >
                 <Icon className={theme.iconTimes} icon="times" />
               </Button>
             </BtnGroup>
           </MobileWrapper>
 
-          <div className={theme.filterContainer} style={{ display: isViewOpen ? 'block' : 'none' }}>
+          <div
+            className={theme.filterContainer}
+            style={{ display: isViewOpen ? 'block' : 'none' }}
+          >
             <div className={theme.btnGroupContainer}>
               <Container>
                 <Row>
@@ -327,19 +356,29 @@ class Filter extends Component {
                   <Col xs="12" sm="5">
                     <BtnGroup className={theme.btnGroup}>
                       <Button
-                        className={cn(theme.btnInGroup, dealType === 'sale' && theme.btnActive)}
+                        className={cn(
+                          theme.btnInGroup,
+                          dealType === 'sale' && theme.btnActive,
+                        )}
                         size="lg"
                         block
-                        onClick={() => this.toggleResourceName('dealType', 'prodaja')}
+                        onClick={() =>
+                          this.toggleResourceName('dealType', 'prodaja')
+                        }
                       >
                         Купить
                       </Button>
 
                       <Button
-                        className={cn(theme.btnInGroup, dealType === 'rent' && theme.btnActive)}
+                        className={cn(
+                          theme.btnInGroup,
+                          dealType === 'rent' && theme.btnActive,
+                        )}
                         size="lg"
                         block
-                        onClick={() => this.toggleResourceName('dealType', 'arenda')}
+                        onClick={() =>
+                          this.toggleResourceName('dealType', 'arenda')
+                        }
                       >
                         Снять
                       </Button>
@@ -385,4 +424,6 @@ const fields = [
   'settlements',
 ];
 
-export default FilterHelper(null, fields)(CSSModules(Filter, styles, cssOptions));
+export default FilterHelper(null, fields)(
+  CSSModules(Filter, styles, cssOptions),
+);

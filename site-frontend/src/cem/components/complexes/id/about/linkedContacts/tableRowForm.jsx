@@ -6,7 +6,9 @@ import submitValidator from 'core/decorators/submitValidator';
 import FormField from 'cem/helpers/formField';
 import UI from 'cem/components/ui';
 const {
-  Table, Button, Icon,
+  Table,
+  Button,
+  Icon,
   AsyncSelect,
   Form: { Group, Static, Input },
   Table: { Row, Cell },
@@ -28,19 +30,33 @@ class LinkedContactsTableRow extends Component {
   update() {
     const { values, actions, data } = this.props;
 
-    return actions.updateLinkedContact({ ...data, ...values, details: { ...data.details, ...values.details } });
+    return actions.updateLinkedContact({
+      ...data,
+      ...values,
+      details: { ...data.details, ...values.details },
+    });
   }
 
   unlink() {
     const { complexData, values, actions } = this.props;
 
-    return actions.updateComplex(complexData.id, { ...complexData, linkedContactIds: complexData.linkedContactIds.filter(contactId => contactId !== values.id) });
+    return actions.updateComplex(complexData.id, {
+      ...complexData,
+      linkedContactIds: complexData.linkedContactIds.filter(
+        contactId => contactId !== values.id,
+      ),
+    });
   }
 
   render() {
     const {
       data,
-      fields, values, handleSubmit, pristine, error, submitting,
+      fields,
+      values,
+      handleSubmit,
+      pristine,
+      error,
+      submitting,
       isUpdateAllowed,
     } = this.props;
 
@@ -53,27 +69,58 @@ class LinkedContactsTableRow extends Component {
         </Cell>
         <Cell>
           <Group className={sUtils.resetIndentation}>
-            <AsyncSelect className={sUtils.resetBorder} asyncOptions={fetchResource(`/v1/contacts`, `id`, [`details.lastName`, `details.firstName`, `details.middleName`])} value={data.id} disabled />
+            <AsyncSelect
+              className={sUtils.resetBorder}
+              asyncOptions={fetchResource(`/v1/contacts`, `id`, [
+                `details.lastName`,
+                `details.firstName`,
+                `details.middleName`,
+              ])}
+              value={data.id}
+              disabled
+            />
           </Group>
         </Cell>
         <Cell>
-          <FormField className={sUtils.resetIndentation} field={fields.details.phoneNumber} static={!isUpdateAllowed}>
+          <FormField
+            className={sUtils.resetIndentation}
+            field={fields.details.phoneNumber}
+            static={!isUpdateAllowed}
+          >
             <Input className={sUtils.resetBorder} block type="text" />
           </FormField>
         </Cell>
         <Cell>
-          <FormField className={sUtils.resetIndentation} field={fields.details.email} static={!isUpdateAllowed}>
+          <FormField
+            className={sUtils.resetIndentation}
+            field={fields.details.email}
+            static={!isUpdateAllowed}
+          >
             <Input className={sUtils.resetBorder} block type="text" />
           </FormField>
         </Cell>
         <Cell>
-          <Button className={sButton.btnTableAction} size="xs" onClick={handleSubmit(::this.update, ::this.onUpdateSuccess)} disabled={!isUpdateAllowed || pristine || error || submitting}>
+          <Button
+            className={sButton.btnTableAction}
+            size="xs"
+            onClick={handleSubmit(::this.update, ::this.onUpdateSuccess)}
+            disabled={!isUpdateAllowed || pristine || error || submitting}
+          >
             <Icon className={s.btnIcon} icon="checkmark" />
           </Button>
-          <Button className={sButton.btnTableAction} size="xs" onClick={handleSubmit(::this.unlink)} disabled={!isUpdateAllowed || error || submitting}>
+          <Button
+            className={sButton.btnTableAction}
+            size="xs"
+            onClick={handleSubmit(::this.unlink)}
+            disabled={!isUpdateAllowed || error || submitting}
+          >
             <Icon className={s.btnIcon} icon="delete" />
           </Button>
-          <Button to={`/contacts/${values.id}`} className={sButton.btnTableAction} size="xs">
+          <Button
+            to={`/contacts/${values.id}`}
+            className={sButton.btnTableAction}
+            size="xs"
+          >
             <Icon className={s.btnIcon} icon="arrow-left" />
           </Button>
         </Cell>
@@ -82,7 +129,7 @@ class LinkedContactsTableRow extends Component {
   }
 }
 
-const validate = (values) => {
+const validate = values => {
   const errors = {
     details: {},
   };
@@ -94,12 +141,10 @@ const validate = (values) => {
 
 const formSettings = {
   form: `complexContact`,
-  fields: [
-    `id`,
-    `details.phoneNumber`,
-    `details.email`,
-  ],
+  fields: [`id`, `details.phoneNumber`, `details.email`],
   validate,
 };
 
-export default reduxForm(formSettings)(submitValidator()(LinkedContactsTableRow));
+export default reduxForm(formSettings)(
+  submitValidator()(LinkedContactsTableRow),
+);

@@ -16,7 +16,7 @@ const updateRemovalRequestSucceeded = id => ({
   id,
 });
 
-export default (id, data) => (dispatch) => {
+export default (id, data) => dispatch => {
   dispatch(updateRemovalRequestStarted(id));
 
   return API.put(`/v1/properties/orders/removal/${id}`, data)

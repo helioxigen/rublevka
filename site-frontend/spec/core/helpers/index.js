@@ -15,7 +15,11 @@ export default () => {
           },
         },
         stringArrayField: [`tv`, `camera`, `phone`],
-        anotherStringArrayField: [`donut`, `pie (must be removed)`, `marshmallow`],
+        anotherStringArrayField: [
+          `donut`,
+          `pie (must be removed)`,
+          `marshmallow`,
+        ],
         objectArrayField: [
           {
             id: 1,
@@ -115,53 +119,28 @@ export default () => {
       };
 
       const changes = {
-        simpleField: [
-          `Karl Marx`,
-          `Vladimir Lenin (changed)`,
-        ],
+        simpleField: [`Karl Marx`, `Vladimir Lenin (changed)`],
         topParent: {
           innerParent: {
-            simpleNestedValue: [
-              `Dusk`,
-              `Dawn (changed)`,
-            ],
-            simpleNestedValueToRemove: [
-              `Babel (must be removed)`,
-              0,
-              0,
-            ],
-            newSimpleNestedValue: [
-              `Newcomer (added)`,
-            ],
+            simpleNestedValue: [`Dusk`, `Dawn (changed)`],
+            simpleNestedValueToRemove: [`Babel (must be removed)`, 0, 0],
+            newSimpleNestedValue: [`Newcomer (added)`],
           },
         },
         stringArrayField: {
-          3: [
-            `keyboard (added)`,
-          ],
+          3: [`keyboard (added)`],
           _t: `a`,
         },
         anotherStringArrayField: {
           _t: `a`,
-          _1: [
-            `pie (must be removed)`,
-            0,
-            0,
-          ],
+          _1: [`pie (must be removed)`, 0, 0],
         },
         objectArrayField: {
           2: {
-            name: [
-              `Kirk Hinric`,
-              `Kirk Hinrich`,
-            ],
+            name: [`Kirk Hinric`, `Kirk Hinrich`],
           },
           _t: `a`,
-          _0: [
-            ``,
-            2,
-            3,
-          ],
+          _0: [``, 2, 3],
         },
         anotherObjectArrayField: {
           _t: `a`,
@@ -257,8 +236,10 @@ export default () => {
       });
 
       it(`should keep parent index for element of complex array field`, () =>
-        expect(changeEvents.filter(item => item.id === `objectArrayField.name`)[0].index).to.equal(2)
-      );
+        expect(
+          changeEvents.filter(item => item.id === `objectArrayField.name`)[0]
+            .index,
+        ).to.equal(2));
 
       it(`should detect update of an element in complex array field`, () => {
         expect(changeEvents).to.include({

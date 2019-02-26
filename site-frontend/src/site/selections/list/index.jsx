@@ -40,7 +40,10 @@ import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from 'core/helpers
 import { dealTypes } from 'site/constants/properties/dictionaries';
 
 // UI
-const { Visibility, Grid: { Container, Row, Col } } = UI;
+const {
+  Visibility,
+  Grid: { Container, Row, Col },
+} = UI;
 
 function getImgUrl(data) {
   const { photo = {} } = data;
@@ -137,27 +140,37 @@ class List extends Component {
     const { selections = {} } = state;
     const { data = {} } = selections[selectionId] || {};
 
-    const { forSelections = {} } = state[`${data.propertyCategory}Properties`] || {};
+    const { forSelections = {} } =
+      state[`${data.propertyCategory}Properties`] || {};
     const { ids = [], isFetching } = forSelections;
 
     const hasItems = !!ids.length;
-    const pagination = state.pagination[`${data.propertyCategory}Properties.${this.group}`] || {};
+    const pagination =
+      state.pagination[`${data.propertyCategory}Properties.${this.group}`] ||
+      {};
     const dealType = data.offerKind === 'rent' ? 'arenda' : 'prodaja';
 
     const imgUrl = getImgUrl(data);
 
     return (
       <section>
-        {seo &&
+        {seo && (
           <Helmet
             title={seo.title(dealTypes[dealType], params.kind)}
             meta={[
-              { name: 'description', content: seo.description(dealTypes[dealType], params.kind) },
-              { name: 'keywords', content: seo.keywords(dealTypes[dealType], params.kind) },
+              {
+                name: 'description',
+                content: seo.description(dealTypes[dealType], params.kind),
+              },
+              {
+                name: 'keywords',
+                content: seo.keywords(dealTypes[dealType], params.kind),
+              },
             ]}
-          />}
+          />
+        )}
 
-        {hasItems &&
+        {hasItems && (
           <Container className={sUtils.pushedTop3}>
             <Row className={s.orderBySatellites}>
               <Col sm="4">
@@ -169,10 +182,16 @@ class List extends Component {
               </Col>
               <Col sm="8" className={sTypography.alignRight}>
                 <OrderBy
-                  resourceName={`${data.propertyCategory}Properties.${this.group}`}
+                  resourceName={`${data.propertyCategory}Properties.${
+                    this.group
+                  }`}
                   group={this.group}
                   actions={actions}
-                  state={state.order[`${data.propertyCategory}Properties.${this.group}`]}
+                  state={
+                    state.order[
+                      `${data.propertyCategory}Properties.${this.group}`
+                    ]
+                  }
                   updatePagination={this.props.actions.updatePagination}
                   fields={[
                     `${dealTypes[dealType]}Offer.multiCurrencyPrice.usd`,
@@ -183,38 +202,50 @@ class List extends Component {
                 />
               </Col>
             </Row>
-          </Container>}
-        {hasItems &&
+          </Container>
+        )}
+        {hasItems && (
           <Container fluid>
             <Row>
               <Col xs="12" sm="6" md="4">
                 <div className={s.collectionCard}>
-                  <div className={s.background} style={{ backgroundImage: imgUrl }} />
+                  <div
+                    className={s.background}
+                    style={{ backgroundImage: imgUrl }}
+                  />
                   <div className={s.content}>
-                    <h2>
-                      {data.name}
-                    </h2>
-                    <p className={s.text}>
-                      {data.description}
-                    </p>
+                    <h2>{data.name}</h2>
+                    <p className={s.text}>{data.description}</p>
                   </div>
                 </div>
               </Col>
 
               {data.propertyCategory === 'country' &&
-                ids.map(item =>
-                  <CountryCard dealType={dealType} key={item} id={item} showLocation />,
-                )}
+                ids.map(item => (
+                  <CountryCard
+                    dealType={dealType}
+                    key={item}
+                    id={item}
+                    showLocation
+                  />
+                ))}
 
               {data.propertyCategory === 'city' &&
-                ids.map(item => <CityCard dealType={dealType} key={item} id={item} showLocation />)}
+                ids.map(item => (
+                  <CityCard
+                    dealType={dealType}
+                    key={item}
+                    id={item}
+                    showLocation
+                  />
+                ))}
             </Row>
-          </Container>}
+          </Container>
+        )}
 
         {!isFetching && !ids.length && <NotFound />}
 
-        {hasItems &&
-          pagination.total > 31 &&
+        {hasItems && pagination.total > 31 && (
           <Container fluid>
             <Row sm="center">
               <Col sm="6" className={s.paginationWrapper}>
@@ -223,22 +254,32 @@ class List extends Component {
                     total={pagination.total}
                     offset={pagination.offset}
                     limit={pagination.limit}
-                    resource={`${data.propertyCategory}Properties.${this.group}`}
+                    resource={`${data.propertyCategory}Properties.${
+                      this.group
+                    }`}
                     updatePagination={this.props.actions.updatePagination}
                     isScrollToTop
                   />
                 </section>
               </Col>
             </Row>
-          </Container>}
+          </Container>
+        )}
       </section>
     );
   }
 }
 
 // redux connectors
-const pickState = (state) => {
-  const { countryProperties, cityProperties, selections, filters, pagination, order } = state;
+const pickState = state => {
+  const {
+    countryProperties,
+    cityProperties,
+    selections,
+    filters,
+    pagination,
+    order,
+  } = state;
 
   return {
     state: {
@@ -252,7 +293,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadSelection,
     loadCountryProperties,
@@ -267,4 +308,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(List);
+export default connect(
+  pickState,
+  pickActions,
+)(List);

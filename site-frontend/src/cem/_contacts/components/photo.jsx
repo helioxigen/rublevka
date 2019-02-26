@@ -5,10 +5,24 @@ import { cloudfront } from 'core/config/resources';
 
 export default ({ photo = {}, size, kind, propertyPlaceholder }) => {
   if (photo.url) {
-    return <UI.Image src={`${photo.url}-64`} kind={kind} width={size} height={size} />;
+    return (
+      <UI.Image
+        src={`${photo.url}-64`}
+        kind={kind}
+        width={size}
+        height={size}
+      />
+    );
   }
   if (photo.id) {
-    return <UI.Image src={`${cloudfront}/${photo.id}-64`} kind={kind} width={size} height={size} />;
+    return (
+      <UI.Image
+        src={`${cloudfront}/${photo.id}-64`}
+        kind={kind}
+        width={size}
+        height={size}
+      />
+    );
   }
   return (
     <UI.Image

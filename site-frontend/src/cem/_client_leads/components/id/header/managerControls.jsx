@@ -34,7 +34,8 @@ export default ({
         <Row>
           <Col sm="12" smOffset="4">
             <Heading size="sm">
-              {`${dict.states[stateDetails.toApprove || state].title}`}, причина:
+              {`${dict.states[stateDetails.toApprove || state].title}`},
+              причина:
             </Heading>
             <p className={sUtils.pushedTop1_5}>{stateDetails.reason}</p>
           </Col>
@@ -53,7 +54,12 @@ export default ({
             >
               не одобрить
             </Button>
-            <Button type="button" kind="success" size="xs" onClick={() => process('approve')}>
+            <Button
+              type="button"
+              kind="success"
+              size="xs"
+              onClick={() => process('approve')}
+            >
               одобрить
             </Button>
           </Col>

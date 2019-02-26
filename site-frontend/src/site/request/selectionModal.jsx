@@ -5,7 +5,10 @@ import cn from 'classnames';
 import SelectionForm from './selectionForm';
 
 import UI from 'site/ui';
-const { Modal, Grid: { Row, Col } } = UI;
+const {
+  Modal,
+  Grid: { Row, Col },
+} = UI;
 
 import s from 'site/styles/modal/request';
 import sUtils from 'site/styles/utils';

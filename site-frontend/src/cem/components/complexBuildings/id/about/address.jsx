@@ -6,7 +6,8 @@ import { API } from 'core/config/sources';
 
 import UI from 'cem/components/ui';
 const {
-  Heading, AsyncSelect,
+  Heading,
+  AsyncSelect,
   Form: { Group, Label, Static },
   Grid: { Row, Col },
 } = UI;
@@ -26,10 +27,16 @@ const fetchSubways = fetchResource(`/v1/places/subways`, `name`);
 
 class Address extends Component {
   complete(option, value) {
-    fetchAddress(1, [{ kladr_id: value.data.kladr_id }])(`${value.label}`, null, null).then(options => {
+    fetchAddress(1, [{ kladr_id: value.data.kladr_id }])(
+      `${value.label}`,
+      null,
+      null,
+    ).then(options => {
       const { fields, destroyForm, initializeForm } = this.props;
       const { data } = options[0];
-      const house = data.block ? `${data.house} ${data.block_type} ${data.block}` : data.house;
+      const house = data.block
+        ? `${data.house} ${data.block_type} ${data.block}`
+        : data.house;
 
       const locationNames = {
         postalCode: data.postal_code,
@@ -70,13 +77,18 @@ class Address extends Component {
       const { data: { location = {} } = {} } = this.props;
 
       destroyForm();
-      initializeForm({ ...this.props.data, location: { ...location, ...locationNames } });
+      initializeForm({
+        ...this.props.data,
+        location: { ...location, ...locationNames },
+      });
     });
   }
 
   render() {
     const {
-      fields, formKey, values: { location = {} },
+      fields,
+      formKey,
+      values: { location = {} },
       isUpdateAllowed,
     } = this.props;
 
@@ -85,12 +97,15 @@ class Address extends Component {
         <Heading size="md">Адрес</Heading>
         <Row>
           <Col lg="20">
-            {(isUpdateAllowed || formKey === `create`) &&
+            {(isUpdateAllowed || formKey === `create`) && (
               <Group>
                 <Label>Поиск адреса</Label>
-                <Dadata.Location className={sUtils.fontSizeMd} onChange={::this.complete} />
+                <Dadata.Location
+                  className={sUtils.fontSizeMd}
+                  onChange={::this.complete}
+                />
               </Group>
-            }
+            )}
           </Col>
         </Row>
         <Row className={cn(sUtils.pushedBottom1, sUtils.pushedTop1)}>
@@ -105,12 +120,27 @@ class Address extends Component {
           <Col md="10" lg="5">
             <Group>
               <Label block>Район, улица, дом</Label>
-              <Static className={sUtils.fontSizeMd}>{location.subLocalityName || `—`}, {location.street || `—`}, {location.house || `—`}</Static>
+              <Static className={sUtils.fontSizeMd}>
+                {location.subLocalityName || `—`}, {location.street || `—`},{' '}
+                {location.house || `—`}
+              </Static>
             </Group>
           </Col>
           <Col xs="20" lg="12">
-            <FormField label="Метро" field={fields.location.subwayIds} asyncValue={fetchSubways} labelKey="name" static={!isUpdateAllowed && formKey !== `create`}>
-              <AsyncSelect className={sUtils.fontSizeMd} multi valueKey="id" asyncOptions={fetchSubways} {...fields.location.subwayIds} />
+            <FormField
+              label="Метро"
+              field={fields.location.subwayIds}
+              asyncValue={fetchSubways}
+              labelKey="name"
+              static={!isUpdateAllowed && formKey !== `create`}
+            >
+              <AsyncSelect
+                className={sUtils.fontSizeMd}
+                multi
+                valueKey="id"
+                asyncOptions={fetchSubways}
+                {...fields.location.subwayIds}
+              />
             </FormField>
           </Col>
         </Row>

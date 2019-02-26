@@ -23,8 +23,18 @@ const Note = ({ className, fields, isUpdateAllowed }) => (
     <Row>
       <Col xs="20">
         <Group kind={fields.note.touched && fields.note.error && 'error'}>
-          <Textarea className={s.textarea} disabled={!isUpdateAllowed} rows="9" block kind="primary" {...fields.note} value={fields.note.value || ''} />
-          {fields.note.touched && fields.note.error && <Helper>{fields.note.error}</Helper>}
+          <Textarea
+            className={s.textarea}
+            disabled={!isUpdateAllowed}
+            rows="9"
+            block
+            kind="primary"
+            {...fields.note}
+            value={fields.note.value || ''}
+          />
+          {fields.note.touched && fields.note.error && (
+            <Helper>{fields.note.error}</Helper>
+          )}
         </Group>
       </Col>
     </Row>

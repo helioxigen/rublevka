@@ -9,7 +9,10 @@ import UI from 'site/ui';
 import s from 'site/styles/modal/request';
 import sUtils from 'site/styles/utils';
 
-const { Modal, Grid: { Row, Col } } = UI;
+const {
+  Modal,
+  Grid: { Row, Col },
+} = UI;
 
 class ByPropertyModal extends Component {
   static propTypes = {

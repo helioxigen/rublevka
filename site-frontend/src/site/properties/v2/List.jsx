@@ -35,7 +35,11 @@ import NotFound from 'site/properties/notFound';
 // helpers
 import isEqual from 'lodash/isEqual';
 import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from 'core/helpers/shouldLoad';
-import { categories, dealTypes, kinds } from 'site/constants/properties/dictionaries';
+import {
+  categories,
+  dealTypes,
+  kinds,
+} from 'site/constants/properties/dictionaries';
 
 import {
   Wrapper,
@@ -50,7 +54,9 @@ import {
 } from './styled';
 
 // UI
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col },
+} = UI;
 
 // component
 class List extends Component {
@@ -112,9 +118,18 @@ class List extends Component {
   componentWillReceiveProps(nextProps) {
     const { params = {} } = this.props;
 
-    const isGroupUpdated = !isEqual(this.props.params.dealType, nextProps.params.dealType);
-    const isCategoryUpdated = !isEqual(this.props.params.category, nextProps.params.category);
-    const isKindUpdated = !isEqual(this.props.params.kind, nextProps.params.kind);
+    const isGroupUpdated = !isEqual(
+      this.props.params.dealType,
+      nextProps.params.dealType,
+    );
+    const isCategoryUpdated = !isEqual(
+      this.props.params.category,
+      nextProps.params.category,
+    );
+    const isKindUpdated = !isEqual(
+      this.props.params.kind,
+      nextProps.params.kind,
+    );
 
     if (isGroupUpdated || isCategoryUpdated) {
       this.group = dealTypes[nextProps.params.dealType];
@@ -122,7 +137,9 @@ class List extends Component {
         resource: categories[nextProps.params.category],
         dealType: nextProps.params.dealType,
       });
-      this.resource = `${categories[nextProps.params.category]}Properties.${this.group}`;
+      this.resource = `${categories[nextProps.params.category]}Properties.${
+        this.group
+      }`;
 
       track(
         analyticsEvents.propertiesListOpened({
@@ -137,7 +154,11 @@ class List extends Component {
       });
     }
 
-    if (isUpdated(this.resource, this.props, nextProps) || isGroupUpdated || isCategoryUpdated) {
+    if (
+      isUpdated(this.resource, this.props, nextProps) ||
+      isGroupUpdated ||
+      isCategoryUpdated
+    ) {
       const paginationParams = {
         pagination: {
           offset: 22 * (nextProps.location.query.page - 1),
@@ -190,14 +211,17 @@ class List extends Component {
   }
 
   renderCards() {
-    const { state, params: { dealType } } = this.props;
+    const {
+      state,
+      params: { dealType },
+    } = this.props;
     const { ids = [] } = state.countryProperties[this.group] || {};
     const pagination = state.pagination[this.resource] || {};
 
     const formOffset = (pagination.offset / pagination.limit) % 4;
     const isPageEven = (pagination.offset / pagination.limit) % 2 === 0;
 
-    return ids.map((id) => {
+    return ids.map(id => {
       if (ids.indexOf(id) === 7 + formOffset) {
         return [
           <ResultForm propertyCategory="country" type="private" />,
@@ -238,7 +262,14 @@ class List extends Component {
 
     return (
       <section>
-        {seo && <Helmet kind={kind} dealType={dealType} pagination={pagination} query={query} />}
+        {seo && (
+          <Helmet
+            kind={kind}
+            dealType={dealType}
+            pagination={pagination}
+            query={query}
+          />
+        )}
 
         <Wrapper>
           <ContainerRel>
@@ -250,7 +281,10 @@ class List extends Component {
                   actions={actions}
                   state={state.order[this.resource]}
                   updatePagination={this.props.actions.updatePagination}
-                  fields={[`${dealType}Offer.multiCurrencyPrice.usd`, 'location.mkadDistance']}
+                  fields={[
+                    `${dealType}Offer.multiCurrencyPrice.usd`,
+                    'location.mkadDistance',
+                  ]}
                 />
               </OrderWrapper>
             )}
@@ -309,32 +343,44 @@ class List extends Component {
           <Container fluid>
             <Row sm="center">
               <Col xs="12" sm="11" md="8" lg="6" xlg="2">
-                <SeoTitle>Мы всегда рады помочь Вам купить недвижимость в Подмосковье!</SeoTitle>
+                <SeoTitle>
+                  Мы всегда рады помочь Вам купить недвижимость в Подмосковье!
+                </SeoTitle>
                 <SeoText>
-                  Загородная недвижимость привлекает многих москвичей, ведь это возможность
-                  обеспечить себе жизнь в экологически чистом районе, не отказываясь при этом от
-                  всех благ городской цивилизации. Если вы в поисках подобного жилья в пределах
-                  Подмосковья, то обратите внимание на Истринский район, отличающийся особой
-                  живописностью и небольшой удаленностью от столицы. Здесь еще сохранилась
-                  первозданная природа, которая способствует душевному равновесию и внутренней
-                  гармонии. Если вы стремитесь к безмятежному отдыху, покою и проживанию с
-                  максимальным комфортом, то выезжайте на Новорижское шоссе. Оно приведет вас прямо
-                  к поселку Монтевиль.
+                  Загородная недвижимость привлекает многих москвичей, ведь это
+                  возможность обеспечить себе жизнь в экологически чистом
+                  районе, не отказываясь при этом от всех благ городской
+                  цивилизации. Если вы в поисках подобного жилья в пределах
+                  Подмосковья, то обратите внимание на Истринский район,
+                  отличающийся особой живописностью и небольшой удаленностью от
+                  столицы. Здесь еще сохранилась первозданная природа, которая
+                  способствует душевному равновесию и внутренней гармонии. Если
+                  вы стремитесь к безмятежному отдыху, покою и проживанию с
+                  максимальным комфортом, то выезжайте на Новорижское шоссе. Оно
+                  приведет вас прямо к поселку Монтевиль.
                 </SeoText>
               </Col>
             </Row>
           </Container>
         </DescWrapper>
 
-        {!isFetching && !ids.length && <NotFound resetFilter={this.resetFilter} />}
+        {!isFetching && !ids.length && (
+          <NotFound resetFilter={this.resetFilter} />
+        )}
       </section>
     );
   }
 }
 
 // redux connectors
-const pickState = (state) => {
-  const { countryProperties, cityProperties, filters, pagination, order } = state;
+const pickState = state => {
+  const {
+    countryProperties,
+    cityProperties,
+    filters,
+    pagination,
+    order,
+  } = state;
 
   return {
     state: {
@@ -347,7 +393,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadCountryProperties,
     loadCityProperties,
@@ -363,4 +409,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(List);
+export default connect(
+  pickState,
+  pickActions,
+)(List);

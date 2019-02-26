@@ -17,17 +17,21 @@ const updateLeadFailed = ({ errors }) => ({
 });
 
 export default function updateLead(id, lead) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(updateLeadStarted(id, lead));
 
     const requestKind = lead.requestDetails && lead.requestDetails.requestKind;
     const transformedLead =
-      (requestKind && (requestKind === 'selling' ? transformLeadOut(lead) : transformLead(lead))) ||
+      (requestKind &&
+        (requestKind === 'selling'
+          ? transformLeadOut(lead)
+          : transformLead(lead))) ||
       lead;
 
     return API.put(`/v1/client_leads/${id}`, transformedLead).then(
       () =>
-        dispatch(pop('success', `Лид (ID: ${id})`, 'Успешно обновлён')) && dispatch(loadLead(id)),
+        dispatch(pop('success', `Лид (ID: ${id})`, 'Успешно обновлён')) &&
+        dispatch(loadLead(id)),
       ({ body }) => {
         dispatch(updateLeadFailed(body));
         return body;

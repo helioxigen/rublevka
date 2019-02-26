@@ -16,7 +16,7 @@ const updateFailed = ({ errors }) => ({
 });
 
 export default function updateNotificationSettings(data) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(updateStarted(data));
 
     return API.put('/v1/users/me/settings/notifications', data)

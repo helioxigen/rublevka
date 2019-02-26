@@ -24,7 +24,8 @@ import UI from 'site/ui';
 const {
   Button,
   ModalComplexes: FilterModal,
-  CountIndicator, Visibility,
+  CountIndicator,
+  Visibility,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -35,7 +36,7 @@ class Filter extends Component {
     super(props);
   }
 
-  state = {}
+  state = {};
 
   componentWillMount() {
     this.setState({
@@ -66,8 +67,14 @@ class Filter extends Component {
   cancel() {
     this.resetFilter();
 
-    this.props.actions.updatePagination(this.props.resource, this.state.storedValues.pagination);
-    this.props.actions.updateFilter(this.props.resource, this.state.storedValues.filters);
+    this.props.actions.updatePagination(
+      this.props.resource,
+      this.state.storedValues.pagination,
+    );
+    this.props.actions.updateFilter(
+      this.props.resource,
+      this.state.storedValues.filters,
+    );
 
     this.props.toggle();
   }
@@ -114,8 +121,13 @@ class Filter extends Component {
                   <h2 className={s.subTitle}>
                     <CountIndicator
                       count={count}
-                      declensionForms={[`жилой комплекс`, `жилых комплекса`, `жилых комплексов`]}
-                    /> Москвы
+                      declensionForms={[
+                        `жилой комплекс`,
+                        `жилых комплекса`,
+                        `жилых комплексов`,
+                      ]}
+                    />{' '}
+                    Москвы
                   </h2>
                 </Visibility>
               </Col>
@@ -204,7 +216,7 @@ class Filter extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { filters, pagination } = state;
 
   return {
@@ -215,7 +227,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     ...FilterActions,
     ...PaginationActions,
@@ -226,4 +238,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Filter);
+export default connect(
+  pickState,
+  pickActions,
+)(Filter);

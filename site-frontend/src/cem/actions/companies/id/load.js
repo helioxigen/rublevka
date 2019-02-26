@@ -19,7 +19,7 @@ const loadCompanyFailed = (id, { errors }) => ({
 });
 
 export default function loadCompany(id) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadCompanyStarted(id));
 
     return API.get(`/v1/companies/${id}`)

@@ -1,5 +1,9 @@
 import { API } from 'core/config/sources';
-import { LOAD_PLACE, LOAD_PLACE_SUCCEEDED, LOAD_PLACE_FAILED } from '../../constants/places';
+import {
+  LOAD_PLACE,
+  LOAD_PLACE_SUCCEEDED,
+  LOAD_PLACE_FAILED,
+} from '../../constants/places';
 // import { loadSimilarPlaces } from './similar';
 
 function loadStarted(kind, id) {
@@ -32,7 +36,7 @@ function loadFailed(kind, id, error) {
 }
 
 export function loadPlace(kind, id) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadStarted(kind, id));
 
     return API.get(`/v1/places/${kind}/${id}`).then(

@@ -8,18 +8,18 @@ import {
 import * as types from 'core/places/constants/actions';
 import { apiPathByGroup } from 'core/places/constants/defaults';
 
-const load = (id, placeKind) => (dispatch) => {
+const load = (id, placeKind) => dispatch => {
   dispatch(loadElementStarted(types.LOAD, id));
 
   const apiPath = apiPathByGroup[placeKind];
 
   return loadElement(apiPath, id).then(
-    (data) => {
+    data => {
       dispatch(loadElementSucceeded(types.LOAD_SUCCEEDED, id, data));
 
       return data;
     },
-    (errors) => {
+    errors => {
       dispatch(loadElementFailed(types.LOAD_FAILED, id, errors));
 
       return errors;

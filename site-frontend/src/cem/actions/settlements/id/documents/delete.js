@@ -17,12 +17,13 @@ const deleteDocumentsFailed = (complexId, errors) => ({
 });
 
 export default function deleteDocument(complexId, id) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(deleteDocumentsStarted(complexId, id));
 
     return API.del(`/v1/places/settlements/${complexId}/documents/${id}`).then(
       () =>
-        dispatch(pop('success', 'Документ успешно удалён')) && dispatch(loadDocumetns(complexId)),
+        dispatch(pop('success', 'Документ успешно удалён')) &&
+        dispatch(loadDocumetns(complexId)),
       ({ body }) => {
         dispatch(deleteDocumentsFailed(complexId, body));
         return body;

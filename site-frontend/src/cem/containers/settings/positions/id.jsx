@@ -20,14 +20,22 @@ class Position extends Component {
   }
 
   render() {
-    const { state, params: { id }, hasRight } = this.props;
+    const {
+      state,
+      params: { id },
+      hasRight,
+    } = this.props;
     const { data, errors } = state.positions[id] || {};
 
     if (data && !errors) {
       return (
         <section className={s.section}>
           <Container fluid>
-            <PositionForm {...this.props} initialValues={data} isUpdateAllowed={hasRight('role_update')} />
+            <PositionForm
+              {...this.props}
+              initialValues={data}
+              isUpdateAllowed={hasRight('role_update')}
+            />
           </Container>
         </section>
       );
@@ -45,4 +53,7 @@ const pickActions = dispatch => ({
   actions: bindActionCreators({ ...PositionsActions }, dispatch),
 });
 
-export default connect(pickState, pickActions)(Position);
+export default connect(
+  pickState,
+  pickActions,
+)(Position);

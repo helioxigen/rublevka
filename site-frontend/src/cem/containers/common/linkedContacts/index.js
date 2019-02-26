@@ -20,10 +20,12 @@ class LinkedContacts extends Component {
   create(contact) {
     const { resource, resourceId } = this.props;
 
-    return this.props.actions.createLinkedContact(resource, resourceId, contact).then(() => {
-      this.props.actions.pop('success', null, 'Контакт успешно привязан');
-      return this.load(false);
-    });
+    return this.props.actions
+      .createLinkedContact(resource, resourceId, contact)
+      .then(() => {
+        this.props.actions.pop('success', null, 'Контакт успешно привязан');
+        return this.load(false);
+      });
   }
 
   update(contactId, contact) {
@@ -32,7 +34,11 @@ class LinkedContacts extends Component {
     return this.props.actions
       .updateLinkedContact(resource, resourceId, contactId, contact)
       .then(({ id }) => {
-        this.props.actions.pop('success', `Контакт: (ID: ${id})`, 'Успешно обновлён');
+        this.props.actions.pop(
+          'success',
+          `Контакт: (ID: ${id})`,
+          'Успешно обновлён',
+        );
         return this.load(false);
       });
   }
@@ -43,7 +49,11 @@ class LinkedContacts extends Component {
     return this.props.actions
       .deleteLinkedContact(resource, resourceId, contactId)
       .then(({ id }) => {
-        this.props.actions.pop('success', `Контакт: (ID: ${id})`, 'Успешно отвязан');
+        this.props.actions.pop(
+          'success',
+          `Контакт: (ID: ${id})`,
+          'Успешно отвязан',
+        );
         return this.load(false);
       });
   }
@@ -54,15 +64,30 @@ class LinkedContacts extends Component {
     const item = resourceCollection[resourceId] || {};
     const linkedContacts = item.linkedContacts || { ids: [] };
 
-    return (linkedContacts.ids && linkedContacts.ids.map(id => linkedContacts[id])) || [];
+    return (
+      (linkedContacts.ids &&
+        linkedContacts.ids.map(id => linkedContacts[id])) ||
+      []
+    );
   }
 
   render() {
     const { resource, resourceId } = this.props;
     const items = this.getItemsFromState();
-    const actions = { create: ::this.create, update: ::this.update, delete: ::this.delete };
+    const actions = {
+      create: ::this.create,
+      update: ::this.update,
+      delete: ::this.delete,
+    };
 
-    return <Table items={items} actions={actions} resource={resource} resourceId={resourceId} />;
+    return (
+      <Table
+        items={items}
+        actions={actions}
+        resource={resource}
+        resourceId={resourceId}
+      />
+    );
   }
 }
 

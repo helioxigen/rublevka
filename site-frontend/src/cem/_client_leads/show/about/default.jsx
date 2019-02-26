@@ -65,11 +65,18 @@ class About extends Component {
             )}
 
             {formKey !== 'create' && isSensitiveDataVisible && (
-              <ContactInlineCard id={data.contactId} className={sUtils.pushedBottom6} />
+              <ContactInlineCard
+                id={data.contactId}
+                className={sUtils.pushedBottom6}
+              />
             )}
 
             {formKey === 'create' && (
-              <ContactDetails fields={fields.contactDetails} isStatic={isStatic} data={data} />
+              <ContactDetails
+                fields={fields.contactDetails}
+                isStatic={isStatic}
+                data={data}
+              />
             )}
 
             {!!requestKind && (
@@ -85,7 +92,12 @@ class About extends Component {
               <Col sm="20">
                 <Heading size="md">Заметки</Heading>
 
-                <FormField float label="Заметки" field={fields.note} isStatic={isStatic}>
+                <FormField
+                  float
+                  label="Заметки"
+                  field={fields.note}
+                  isStatic={isStatic}
+                >
                   <Textarea rows="6" block />
                 </FormField>
               </Col>

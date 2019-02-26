@@ -1,0 +1,29 @@
+@import '../../responsive-utils';
+@import './variables';
+
+.background {
+  background: $brand-primary-focus;
+}
+
+.subscribeOverlay {
+  background-color: rgba(80, 78, 120, .7);
+}
+
+.button {
+  border-radius: 10rem;
+  background: $brand-success-hover;
+
+  &:hover,
+  &:focus {
+    background: $brand-success-focus;
+  }
+}
+
+.settlementForm {
+  margin-top: 6rem;
+  padding: 4rem 3rem;
+
+  background: $brand-primary;
+
+  width: 100%;
+}

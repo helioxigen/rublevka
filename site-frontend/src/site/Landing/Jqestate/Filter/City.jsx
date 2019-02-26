@@ -17,7 +17,10 @@ import RoomSelect from 'site/ui/roomSelect';
 
 import UI from 'site/ui';
 const {
-  Form, Button, Select, Visibility,
+  Form,
+  Button,
+  Select,
+  Visibility,
   Grid: { Col },
 } = UI;
 
@@ -46,18 +49,19 @@ class Filter extends Component {
 
     const { dealType, rooms, priceRange } = this.state;
 
-    const isPriceFilterEnabled = (
-      priceRange && (
-        priceRange.min ||
-        priceRange.max &&
-        priceRange.max >= 31
-      )
-    );
+    const isPriceFilterEnabled =
+      priceRange &&
+      (priceRange.min || (priceRange.max && priceRange.max >= 31));
 
-    const price = isPriceFilterEnabled ? {
-      min: priceRange.min !== 0 ? priceRange.min : undefined,
-      max: priceRange.max === 30.02 || priceRange.max === 100.02 ? undefined : priceRange.max,
-    } : undefined;
+    const price = isPriceFilterEnabled
+      ? {
+          min: priceRange.min !== 0 ? priceRange.min : undefined,
+          max:
+            priceRange.max === 30.02 || priceRange.max === 100.02
+              ? undefined
+              : priceRange.max,
+        }
+      : undefined;
 
     this.props.actions.updateFilter(`cityProperties.${dealTypes[dealType]}`, {
       [dealTypes[dealType]]: price,
@@ -87,7 +91,7 @@ class Filter extends Component {
               placeholder="Купить"
               options={options.dealType}
               value={this.state.dealType}
-              onChange={(value) => this.onChange(`dealType`, value)}
+              onChange={value => this.onChange(`dealType`, value)}
               disableReset
             />
 
@@ -99,20 +103,29 @@ class Filter extends Component {
               value={rooms}
               onChange={(ref, value) => this.onChange(`rooms`, value)}
               showTitle
-              >
+            >
               <span className={s.btnGroupTitle}>Комнат</span>
             </RoomSelect>
 
             <PriceSelect
               dealType={dealType}
               value={priceRange}
-              onChange={(value) => this.onChange(`priceRange`, value)}
+              onChange={value => this.onChange(`priceRange`, value)}
             />
 
-            <Button size="lg" kind="primary" className={cn(s.btnPrimary, s.resetLeftBorderRadius)} type="submit">Найти</Button>
+            <Button
+              size="lg"
+              kind="primary"
+              className={cn(s.btnPrimary, s.resetLeftBorderRadius)}
+              type="submit"
+            >
+              Найти
+            </Button>
           </Visibility>
           <Visibility md="hidden" lg="hidden">
-            <Button kind="primary" size="xlg" type="submit">Начать поиск</Button>
+            <Button kind="primary" size="xlg" type="submit">
+              Начать поиск
+            </Button>
           </Visibility>
         </Form.Container>
       </Col>
@@ -120,7 +133,7 @@ class Filter extends Component {
   }
 }
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     ...FilterActions,
     push,
@@ -131,4 +144,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(null, pickActions)(Filter);
+export default connect(
+  null,
+  pickActions,
+)(Filter);

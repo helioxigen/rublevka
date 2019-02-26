@@ -29,11 +29,17 @@ import { resultPropertiesOpened } from 'core/analytics/constants';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const { Button, CountIndicator, Grid: { Row, Col }, Form: { Container, Input } } = UI;
+const {
+  Button,
+  CountIndicator,
+  Grid: { Row, Col },
+  Form: { Container, Input },
+} = UI;
 
 const FormContainer = styled(Col)`
   position: relative;
-  background: url(${require('site/assets/images/white-pattern.svg')}) repeat #566872;
+  background: url(${require('site/assets/images/white-pattern.svg')}) repeat
+    #566872;
   background-size: 120%;
 
   ${media.xlg`
@@ -100,7 +106,9 @@ const StButton = styled(Button)`
   margin-top: 1rem;
 `;
 
-const SubTitle = styled.p`margin-bottom: 3rem;`;
+const SubTitle = styled.p`
+  margin-bottom: 3rem;
+`;
 
 const privatePropertiesCount = Math.floor(Math.random() * (30 - 11 + 1)) + 11;
 
@@ -186,8 +194,10 @@ class Form extends Component {
 
     const { step } = this.state;
 
-    const isPrivateFieldsFull = this.props.type === 'private' && inputData.name && inputData.phone;
-    const isNoPrivateFieldsFull = this.props.type !== 'private' && inputData.name;
+    const isPrivateFieldsFull =
+      this.props.type === 'private' && inputData.name && inputData.phone;
+    const isNoPrivateFieldsFull =
+      this.props.type !== 'private' && inputData.name;
 
     if (step === 'step1' && (!inputData.phone && !inputData.email)) {
       this.setState({ requiredFirstField: true });
@@ -200,10 +210,12 @@ class Form extends Component {
     if (step === 'step1' && inputData.email) {
       this.setState({ step: 'step2' });
 
-      return this.props.actions.subscribe(inputData.name, inputData.email).then(() => {
-        this.props.actions.setSharedRetargetingKey('vk');
-        track(analyticsEvents.subscribeSubmitted(inputData));
-      });
+      return this.props.actions
+        .subscribe(inputData.name, inputData.email)
+        .then(() => {
+          this.props.actions.setSharedRetargetingKey('vk');
+          track(analyticsEvents.subscribeSubmitted(inputData));
+        });
     }
 
     if (step === 'step2' && (!isNoPrivateFieldsFull && !isPrivateFieldsFull)) {
@@ -246,105 +258,104 @@ class Form extends Component {
             </h2>
             {!isPrivate && <SubTitle>{data.description[step]}</SubTitle>}
 
-            {isPrivate &&
-              isStep1 && (
-                <SubTitle>
-                  Мы нашли{' '}
-                  <CountIndicator
-                    count={privatePropertiesCount}
-                    declensionForms={[
-                      'закрытое предложение',
-                      'закрытых предложения',
-                      'закрытых предложений',
-                    ]}
-                  />{' '}
-                  по вашему запросу — отправим их на почту
-                </SubTitle>
-              )}
+            {isPrivate && isStep1 && (
+              <SubTitle>
+                Мы нашли{' '}
+                <CountIndicator
+                  count={privatePropertiesCount}
+                  declensionForms={[
+                    'закрытое предложение',
+                    'закрытых предложения',
+                    'закрытых предложений',
+                  ]}
+                />{' '}
+                по вашему запросу — отправим их на почту
+              </SubTitle>
+            )}
 
             <Container onSubmit={::this.submit}>
-              {isStep1 &&
-                !isPrivate && (
-                  <Row>
-                    <Col xs="10" xsOffset="1">
-                      <StInput
-                        type="tel"
-                        mask="+7 (111) 111-11-11"
-                        name="phone"
-                        size="lg"
-                        block
-                        placeholder={this.state.phonePlaceholder}
-                        onFocus={this.changePlaceholderOnFocus}
-                        onBlur={this.changePlaceholderOnBlur}
-                        onChange={e => this.onChange('phoneNumber', e.target.value)}
-                        required={this.state.requiredFirstField}
-                      />
-                    </Col>
-                  </Row>
-                )}
+              {isStep1 && !isPrivate && (
+                <Row>
+                  <Col xs="10" xsOffset="1">
+                    <StInput
+                      type="tel"
+                      mask="+7 (111) 111-11-11"
+                      name="phone"
+                      size="lg"
+                      block
+                      placeholder={this.state.phonePlaceholder}
+                      onFocus={this.changePlaceholderOnFocus}
+                      onBlur={this.changePlaceholderOnBlur}
+                      onChange={e =>
+                        this.onChange('phoneNumber', e.target.value)
+                      }
+                      required={this.state.requiredFirstField}
+                    />
+                  </Col>
+                </Row>
+              )}
 
-              {isStep1 &&
-                isPrivate && (
-                  <Row>
-                    <Col xs="10" xsOffset="1">
-                      <StInput
-                        type="email"
-                        name="email"
-                        size="lg"
-                        block
-                        placeholder="E-mail"
-                        onChange={e => this.onChange('email', e.target.value)}
-                        required={this.state.requiredFirstField}
-                      />
-                    </Col>
-                  </Row>
-                )}
+              {isStep1 && isPrivate && (
+                <Row>
+                  <Col xs="10" xsOffset="1">
+                    <StInput
+                      type="email"
+                      name="email"
+                      size="lg"
+                      block
+                      placeholder="E-mail"
+                      onChange={e => this.onChange('email', e.target.value)}
+                      required={this.state.requiredFirstField}
+                    />
+                  </Col>
+                </Row>
+              )}
 
-              {isStep2 &&
-                !isPrivate && (
-                  <Row>
-                    <Col xs="10" xsOffset="1">
-                      <StInput
-                        type="text"
-                        name="name"
-                        size="lg"
-                        blocks
-                        placeholder="Ваше имя"
-                        onChange={e => this.onChange('name', e.target.value)}
-                        required={this.state.requiredSecondField}
-                      />
-                    </Col>
-                  </Row>
-                )}
+              {isStep2 && !isPrivate && (
+                <Row>
+                  <Col xs="10" xsOffset="1">
+                    <StInput
+                      type="text"
+                      name="name"
+                      size="lg"
+                      blocks
+                      placeholder="Ваше имя"
+                      onChange={e => this.onChange('name', e.target.value)}
+                      required={this.state.requiredSecondField}
+                    />
+                  </Col>
+                </Row>
+              )}
 
-              {isStep2 &&
-                isPrivate && (
-                  <Row>
-                    <Col xs="10" xsOffset="1">
-                      <StInput
-                        type="text"
-                        name="name"
-                        size="lg"
-                        block
-                        placeholder="Ваше имя"
-                        onChange={e => this.onChange('name', e.target.value)}
-                        required={this.state.requiredSecondField}
-                      />
-                      <StInput
-                        type="tel"
-                        mask="+7 (111) 111-11-11"
-                        name="phone"
-                        size="lg"
-                        block
-                        placeholder={this.state.phonePlaceholder}
-                        onFocus={this.changePlaceholderOnFocus}
-                        onBlur={this.changePlaceholderOnBlur}
-                        onChange={e => this.onChange('phoneNumber', e.target.value)}
-                        required={this.state.requiredSecondField}
-                      />
-                    </Col>
-                  </Row>
-                )}
+              {isStep2 && isPrivate && (
+                <Row>
+                  <Col xs="10" xsOffset="1">
+                    <StInput
+                      type="text"
+                      name="name"
+                      size="lg"
+                      block
+                      placeholder="Ваше имя"
+                      onChange={e => this.onChange('name', e.target.value)}
+                      required={this.state.requiredSecondField}
+                    />
+                    <StInput
+                      type="tel"
+                      mask="+7 (111) 111-11-11"
+                      name="phone"
+                      size="lg"
+                      block
+                      placeholder={this.state.phonePlaceholder}
+                      onFocus={this.changePlaceholderOnFocus}
+                      onBlur={this.changePlaceholderOnBlur}
+                      onChange={e =>
+                        this.onChange('phoneNumber', e.target.value)
+                      }
+                      required={this.state.requiredSecondField}
+                    />
+                  </Col>
+                </Row>
+              )}
 
               {!isStep3 && (
                 <StButton type="submit" size="sm" kind="success">
@@ -366,7 +377,7 @@ const pickState = ({ currentDuty }) => ({
   },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     ...EmailActions,
     loadDuties,
@@ -379,4 +390,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Form);
+export default connect(
+  pickState,
+  pickActions,
+)(Form);

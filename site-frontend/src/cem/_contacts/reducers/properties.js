@@ -12,7 +12,10 @@ const reducer = handleActions(
       },
     }),
 
-    [types.LOAD_PROPERTIES_DONE]: (state, { propertyCategory, items, pagination }) => ({
+    [types.LOAD_PROPERTIES_DONE]: (
+      state,
+      { propertyCategory, items, pagination },
+    ) => ({
       ...state,
       [propertyCategory]: {
         isFetching: false,

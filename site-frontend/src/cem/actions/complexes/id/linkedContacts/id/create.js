@@ -22,7 +22,7 @@ const createContactFailed = errors => ({
   errors,
 });
 
-export default (complexData, data) => (dispatch) => {
+export default (complexData, data) => dispatch => {
   dispatch(createContactStarted());
 
   return API.post('/v1/contacts', {
@@ -45,25 +45,36 @@ export default (complexData, data) => (dispatch) => {
     ({ body: { errors } }) => {
       if (
         errors &&
-        errors.some(error => error.param === 'details.phoneNumber' || error.param === 'phoneNumber')
+        errors.some(
+          error =>
+            error.param === 'details.phoneNumber' ||
+            error.param === 'phoneNumber',
+        )
       ) {
         return API.get('/v1/contacts', {
-          filter: { 'details.phoneNumber': normalizePhoneNumber(data.details.phoneNumber) },
+          filter: {
+            'details.phoneNumber': normalizePhoneNumber(
+              data.details.phoneNumber,
+            ),
+          },
         }).then(
           ({ body }) => {
             const existingContactData = body.items[0];
             dispatch(
               pop(
                 'info',
-                `Под таким номером телефона записан ${existingContactData.details.firstName} ${
-                  existingContactData.details.lastName
-                }`,
+                `Под таким номером телефона записан ${
+                  existingContactData.details.firstName
+                } ${existingContactData.details.lastName}`,
               ),
             );
             dispatch(
               updateComplex(complexData.id, {
                 ...complexData,
-                linkedContactIds: [...complexData.linkedContactIds, existingContactData.id],
+                linkedContactIds: [
+                  ...complexData.linkedContactIds,
+                  existingContactData.id,
+                ],
               }),
             ).then(() => dispatch(createContactSucceeded(body)));
             return existingContactData;

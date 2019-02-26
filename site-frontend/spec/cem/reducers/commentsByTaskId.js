@@ -17,11 +17,22 @@ export default () => {
     const taskId = 50;
 
     it(`should not change state on LOAD_COMMENTS_FOR_TASK`, () => {
-      expect(reducer(defaultInitialState, { type: types.LOAD_COMMENTS_FOR_TASK, id: taskId })).to.deep.equal(defaultInitialState);
+      expect(
+        reducer(defaultInitialState, {
+          type: types.LOAD_COMMENTS_FOR_TASK,
+          id: taskId,
+        }),
+      ).to.deep.equal(defaultInitialState);
     });
 
     it(`should handle LOAD_COMMENTS_FOR_TASK_FAIL`, () => {
-      expect(reducer(defaultInitialState, { type: types.LOAD_COMMENTS_FOR_TASK_FAIL, id: taskId, errors: [] })).to.deep.equal({
+      expect(
+        reducer(defaultInitialState, {
+          type: types.LOAD_COMMENTS_FOR_TASK_FAIL,
+          id: taskId,
+          errors: [],
+        }),
+      ).to.deep.equal({
         ...defaultInitialState,
         [taskId]: {
           list: {
@@ -32,7 +43,13 @@ export default () => {
     });
 
     it(`should handle LOAD_COMMENTS_FOR_TASK_SUCCESS`, () => {
-      expect(reducer(defaultInitialState, { type: types.LOAD_COMMENTS_FOR_TASK_SUCCESS, id: taskId, items: [] })).to.deep.equal({
+      expect(
+        reducer(defaultInitialState, {
+          type: types.LOAD_COMMENTS_FOR_TASK_SUCCESS,
+          id: taskId,
+          items: [],
+        }),
+      ).to.deep.equal({
         ...defaultInitialState,
         [taskId]: {
           list: {
@@ -44,7 +61,13 @@ export default () => {
 
     it(`should handle SET_ACTIVE_COMMENT_FOR_TASK`, () => {
       const selectedCommentId = 50;
-      expect(reducer(defaultInitialState, { type: types.SET_ACTIVE_COMMENT_FOR_TASK, taskId, commentId: selectedCommentId })).to.deep.equal({
+      expect(
+        reducer(defaultInitialState, {
+          type: types.SET_ACTIVE_COMMENT_FOR_TASK,
+          taskId,
+          commentId: selectedCommentId,
+        }),
+      ).to.deep.equal({
         ...defaultInitialState,
         [taskId]: {
           ...defaultInitialState[taskId.toString()],

@@ -1,0 +1,45 @@
+version: "3"
+services:
+  jq_postgres_dev:
+    image: jq_postgres_dev
+    container_name: jq_postgres_dev
+    build:
+      context: ../
+      dockerfile: devops/db.Dockerfile
+    restart: always
+    env_file:
+      - common.env
+    ports:
+      - "5101:5432"
+    volumes:
+      - jq_pgdata_dev:/var/lib/postgresql/data
+    networks:
+      master_network:
+        aliases:
+          - jq_postgres_dev
+  jq_backend_dev:
+    image: jq_backend_dev
+    container_name: jq_backend_dev
+    build:
+      context: ../
+      dockerfile: devops/app.Dockerfile
+    depends_on:
+      - jq_postgres_dev
+    restart: always
+    env_file:
+      - common.env
+    environment:
+      - APP_CONFIG=development
+      - POSTGRES_HOST=jq_postgres_dev
+      - SECRET_KEY
+    ports:
+      - 5001:5000
+    networks:
+      master_network:
+        aliases:
+          - jq_backend_dev
+networks:
+  master_network:
+    external: true
+volumes:
+  jq_pgdata_dev:

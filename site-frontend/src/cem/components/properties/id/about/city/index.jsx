@@ -33,7 +33,8 @@ class AboutCity extends Component {
   componentWillMount() {
     const { actions, values } = this.props;
 
-    if (values.residentialComplexId) actions.loadResidential(values.residentialComplexId);
+    if (values.residentialComplexId)
+      actions.loadResidential(values.residentialComplexId);
   }
 
   onSubmitSuccess() {
@@ -43,16 +44,25 @@ class AboutCity extends Component {
   }
 
   createOrUpdate() {
-    const { formKey, values, actions, params: { category } } = this.props;
+    const {
+      formKey,
+      values,
+      actions,
+      params: { category },
+    } = this.props;
 
     if (formKey === `create`) return actions.createProperty(values, category);
-    if (formKey !== `create`) return actions.updateProperty(formKey, values, category);
+    if (formKey !== `create`)
+      return actions.updateProperty(formKey, values, category);
   }
 
   render() {
     const {
-      handleSubmit, formKey, values,
-      isContactLinkingAllowed, isSensitiveDataVisible,
+      handleSubmit,
+      formKey,
+      values,
+      isContactLinkingAllowed,
+      isSensitiveDataVisible,
     } = this.props;
 
     const buildingProps = {
@@ -62,22 +72,38 @@ class AboutCity extends Component {
 
     return (
       <Container className={s.section}>
-        <Form.Container onSubmit={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}>
-          <Offers {...this.props} options={options} dictionaries={dictionaries} />
+        <Form.Container
+          onSubmit={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}
+        >
+          <Offers
+            {...this.props}
+            options={options}
+            dictionaries={dictionaries}
+          />
           <Apartment {...this.props} />
-          <Equipment className={sUtils.pushedBottom3} {...this.props} options={options} />
+          <Equipment
+            className={sUtils.pushedBottom3}
+            {...this.props}
+            options={options}
+          />
           <Address className={sUtils.pushedBottom3} {...this.props} />
           {!values.complexBuildingId && <Building {...buildingProps} />}
           <Note className={sUtils.pushedBottom3} {...this.props} />
-          {formKey !== `create` && (isContactLinkingAllowed || isSensitiveDataVisible) && <Contacts {...this.props} />}
+          {formKey !== `create` &&
+            (isContactLinkingAllowed || isSensitiveDataVisible) && (
+              <Contacts {...this.props} />
+            )}
         </Form.Container>
-        {formKey !== `create` &&
+        {formKey !== `create` && (
           <Row className={sUtils.pushedBottom6}>
             <Col md="18">
-              <Comments entity={{ key: `cityProperties`, id: formKey.toString() }} isSubscriptionAvailable />
+              <Comments
+                entity={{ key: `cityProperties`, id: formKey.toString() }}
+                isSubscriptionAvailable
+              />
             </Col>
           </Row>
-        }
+        )}
         <Status className={sUtils.pushedBottom3} {...this.props} />
       </Container>
     );

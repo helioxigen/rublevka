@@ -11,12 +11,17 @@ import {
   RoutesWrapper,
 } from './styled';
 
-const { Grid, Grid: { Row, Col } } = UI;
+const {
+  Grid,
+  Grid: { Row, Col },
+} = UI;
 
 export default () => (
   <RoutesWrapper>
     <TitleMobile>Популярные направления</TitleMobile>
-    <SubTitleTablet>Хорошая экология, развитая инфраструктура, прекрасные ландшафты</SubTitleTablet>
+    <SubTitleTablet>
+      Хорошая экология, развитая инфраструктура, прекрасные ландшафты
+    </SubTitleTablet>
     <Grid.Container>
       <Row>
         <Col xs="12" sm="6">

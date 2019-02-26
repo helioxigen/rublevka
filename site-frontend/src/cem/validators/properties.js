@@ -1,7 +1,7 @@
 import { formHelpers, recursiveCleanUp } from 'cem/helpers';
 const { normalizeNumber } = formHelpers;
 
-const validate = (property) => {
+const validate = property => {
   const values = recursiveCleanUp(property);
   const errors = {
     rentOffer: {
@@ -36,7 +36,8 @@ const validate = (property) => {
       if (!values.rentOffer.price || values.rentOffer.price === '0') {
         errors.rentOffer.price = 'Укажите валюту';
       }
-      if (!values.rentOffer.currency) errors.rentOffer.currency = 'Укажите валюту';
+      if (!values.rentOffer.currency)
+        errors.rentOffer.currency = 'Укажите валюту';
       if (!values.rentOffer.period) errors.rentOffer.period = 'Укажите период';
       if (!values.rentOffer.deposit && values.rentOffer.deposit !== 0) {
         errors.rentOffer.deposit = 'Укажите размер депозита';
@@ -66,7 +67,8 @@ const validate = (property) => {
       if (!values.saleOffer.price || values.saleOffer.price === '0') {
         errors.saleOffer.price = 'Укажите валюту';
       }
-      if (!values.saleOffer.currency) errors.saleOffer.currency = 'Укажите валюту';
+      if (!values.saleOffer.currency)
+        errors.saleOffer.currency = 'Укажите валюту';
       if (!values.saleOffer.kind) errors.saleOffer.kind = 'Укажите тип сделки';
       if (!values.saleOffer.isAgentFixed) {
         errors.saleOffer.isAgentFixed = 'Укажите формат агентской комиссии';
@@ -100,21 +102,28 @@ const validate = (property) => {
           errors.specification.livingArea = 'Укажите жилую площадь';
         }
         // if (!values.specification.rooms) errors.specification.rooms = `Укажите количество комнат`;
-        if (!values.specification.wcs) errors.specification.wcs = 'Укажите количество сан. узлов';
-        if (!values.specification.floor) errors.specification.floor = 'Укажите этаж';
-        if (!values.specification.windows) errors.specification.windows = 'Укажите вид из окна';
+        if (!values.specification.wcs)
+          errors.specification.wcs = 'Укажите количество сан. узлов';
+        if (!values.specification.floor)
+          errors.specification.floor = 'Укажите этаж';
+        if (!values.specification.windows)
+          errors.specification.windows = 'Укажите вид из окна';
       } else {
         errors.specification.layout = 'Заполните этот блок';
       }
 
       if (values.information) {
-        if (!values.information.condition) errors.information.condition = 'Укажите состояние';
-        if (!values.information.renovate) errors.information.renovate = 'Укажите ремонт';
+        if (!values.information.condition)
+          errors.information.condition = 'Укажите состояние';
+        if (!values.information.renovate)
+          errors.information.renovate = 'Укажите ремонт';
         if (!values.information.conditioning) {
           errors.information.conditioning = 'Укажите кондиционирование';
         }
-        if (!values.information.ventilation) errors.information.ventilation = 'Укажите вентиляцию';
-        if (!values.information.furniture) errors.information.furniture = 'Укажите мебель';
+        if (!values.information.ventilation)
+          errors.information.ventilation = 'Укажите вентиляцию';
+        if (!values.information.furniture)
+          errors.information.furniture = 'Укажите мебель';
       } else {
         errors.information.condition = 'Заполните этот блок';
       }
@@ -126,7 +135,8 @@ const validate = (property) => {
 
     if (values.category === 'country' && values.kind !== 'land') {
       if (values.location) {
-        if (!values.location.house) errors.location.house = 'Укажите № дома/участка!';
+        if (!values.location.house)
+          errors.location.house = 'Укажите № дома/участка!';
       }
       if (values.kind !== 'land') {
         if (values.specification) {
@@ -139,7 +149,8 @@ const validate = (property) => {
           if (!values.specification.bedrooms) {
             errors.specification.bedrooms = 'Укажите общее количество спален!';
           }
-          if (!values.specification.area) errors.specification.area = 'Укажите площадь!';
+          if (!values.specification.area)
+            errors.specification.area = 'Укажите площадь!';
           if (!values.specification.builtYear) {
             errors.specification.builtYear = 'Укажите год строительства!';
           }
@@ -152,7 +163,8 @@ const validate = (property) => {
           if (!values.specification.condition) {
             errors.specification.condition = 'Укажите состояние!';
           }
-          if (!values.specification.furniture) errors.specification.furniture = 'Укажите мебель!';
+          if (!values.specification.furniture)
+            errors.specification.furniture = 'Укажите мебель!';
         } else {
           errors.specification.wallMaterial = 'Заполните этот блок';
         }
@@ -161,7 +173,8 @@ const validate = (property) => {
           if (!values.landDetails.landscapeKind) {
             errors.landDetails.landscapeKind = 'Укажите тип участка!';
           }
-          if (!values.landDetails.area) errors.landDetails.area = 'Укажите площадь участка!';
+          if (!values.landDetails.area)
+            errors.landDetails.area = 'Укажите площадь участка!';
         } else {
           errors.landDetails.landscapeKind = 'Заполните этот блок';
         }
@@ -196,14 +209,16 @@ const validate = (property) => {
         !!values.rentOffer.isAgentFixed
       ) {
         if (!values.rentOffer.price) errors.rentOffer.price = 'Укажите цену!';
-        if (!values.rentOffer.currency) errors.rentOffer.currency = 'Укажите валюту!';
+        if (!values.rentOffer.currency)
+          errors.rentOffer.currency = 'Укажите валюту!';
       }
     }
 
     if (values.saleOffer) {
       if (!!values.saleOffer.kind || !!values.saleOffer.isAgentFixed) {
         if (!values.saleOffer.price) errors.saleOffer.price = 'Укажите цену!';
-        if (!values.saleOffer.currency) errors.saleOffer.currency = 'Укажите валюту!';
+        if (!values.saleOffer.currency)
+          errors.saleOffer.currency = 'Укажите валюту!';
       }
     }
   }
@@ -217,9 +232,11 @@ const validate = (property) => {
     if (!values.complexBuildingDetails.builtYear) {
       errors.complexBuildingDetails.builtYear = 'Обязательно';
     }
-    if (!values.complexBuildingDetails.series) errors.complexBuildingDetails.series = 'Обязательно';
+    if (!values.complexBuildingDetails.series)
+      errors.complexBuildingDetails.series = 'Обязательно';
 
-    if (!values.complexBuildingDetails.floors) errors.complexBuildingDetails.floors = 'Обязательно';
+    if (!values.complexBuildingDetails.floors)
+      errors.complexBuildingDetails.floors = 'Обязательно';
     if (!values.complexBuildingDetails.constructionKind) {
       errors.complexBuildingDetails.constructionKind = 'Обязательно';
     }
@@ -232,7 +249,7 @@ const validate = (property) => {
   return errors;
 };
 
-const validateDocument = (values) => {
+const validateDocument = values => {
   const errors = {};
 
   if (!values.kindId) errors.kindId = 'Обязательно';
@@ -240,7 +257,7 @@ const validateDocument = (values) => {
   return errors;
 };
 
-const validateContact = (values) => {
+const validateContact = values => {
   const errors = {};
 
   if (!values.linkedContactId) errors.linkedContactId = 'Обязательно';

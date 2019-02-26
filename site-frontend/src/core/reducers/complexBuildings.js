@@ -20,7 +20,10 @@ export default handleActions(
       },
     }),
 
-    [types.LOAD_COMPLEX_BUILDINGS_BY_COMPLEX_ID_SUCCESS]: (state, { complexId, items }) => ({
+    [types.LOAD_COMPLEX_BUILDINGS_BY_COMPLEX_ID_SUCCESS]: (
+      state,
+      { complexId, items },
+    ) => ({
       ...state,
       byComplexId: {
         ...state.byComplexId,
@@ -33,7 +36,10 @@ export default handleActions(
       ...keyBy(items, 'id'),
     }),
 
-    [types.LOAD_COMPLEX_BUILDINGS_BY_COMPLEX_ID_FAIL]: (state, { complexId, errors }) => ({
+    [types.LOAD_COMPLEX_BUILDINGS_BY_COMPLEX_ID_FAIL]: (
+      state,
+      { complexId, errors },
+    ) => ({
       ...state,
       byComplexId: {
         ...state.byComplexId,

@@ -15,5 +15,7 @@ export const UPDATE_SELECTION_SUCCEEDED = 'selections.id.update.succeeded';
 export const UPDATE_SELECTION_FAILED = 'selections.id.update.failed';
 
 export const UPLOAD_SELECTION_PHOTO = 'selections.id.upload.photo.started';
-export const UPLOAD_SELECTION_PHOTO_SUCCEEDED = 'selections.id.upload.photo.succeeded';
-export const UPLOAD_SELECTION_PHOTO_FAILED = 'selections.id.upload.photo.failed';
+export const UPLOAD_SELECTION_PHOTO_SUCCEEDED =
+  'selections.id.upload.photo.succeeded';
+export const UPLOAD_SELECTION_PHOTO_FAILED =
+  'selections.id.upload.photo.failed';

@@ -7,7 +7,9 @@ import DepartmentsActions from 'cem/actions/settings/departments';
 
 import UI from 'cem/components/ui';
 const {
-  Loading, Table, Heading,
+  Loading,
+  Table,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -38,18 +40,30 @@ class Departments extends Component {
           </Row>
           <Row>
             <Col xs="20" className={sUtils.pushedBottom3}>
-              {!isFetching &&
+              {!isFetching && (
                 <Table.Container width="100%">
                   <Table.Row>
                     <Table.Heading width="85%">Название</Table.Heading>
                     <Table.Heading width="15%">Действия</Table.Heading>
                   </Table.Row>
-                  {isCreationAllowed && <DepartmentRecordForm actions={actions} formKey="create" isUpdateAllowed />}
-                  {items.map(item =>
-                    <DepartmentRecordForm actions={actions} key={item.id} formKey={item.id.toString()} initialValues={item} isUpdateAllowed={isUpdateAllowed} />,
+                  {isCreationAllowed && (
+                    <DepartmentRecordForm
+                      actions={actions}
+                      formKey="create"
+                      isUpdateAllowed
+                    />
                   )}
+                  {items.map(item => (
+                    <DepartmentRecordForm
+                      actions={actions}
+                      key={item.id}
+                      formKey={item.id.toString()}
+                      initialValues={item}
+                      isUpdateAllowed={isUpdateAllowed}
+                    />
+                  ))}
                 </Table.Container>
-              }
+              )}
               {isFetching && <Loading />}
             </Col>
           </Row>
@@ -67,4 +81,7 @@ const pickActions = dispatch => ({
   actions: bindActionCreators({ ...DepartmentsActions }, dispatch),
 });
 
-export default connect(pickState, pickActions)(Departments);
+export default connect(
+  pickState,
+  pickActions,
+)(Departments);

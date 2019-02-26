@@ -25,7 +25,7 @@ const transformComplexDetails = details => ({
   withWasteDisposalRoom: details.withWasteDisposalRoom === 'true',
 });
 
-const transformLocation = (location) => {
+const transformLocation = location => {
   if (location) {
     return {
       ...location,
@@ -34,13 +34,15 @@ const transformLocation = (location) => {
   }
 };
 
-export const transformDataOut = (data) => {
+export const transformDataOut = data => {
   const values = recursiveCleanUp(data);
 
   return {
     ...values,
     name: values.name !== '' ? values.name : undefined,
-    details: values.details ? transformComplexDetails(values.details) : undefined,
+    details: values.details
+      ? transformComplexDetails(values.details)
+      : undefined,
     location: transformLocation(values.location),
   };
 };
@@ -52,28 +54,40 @@ export const transformDataIn = data => ({
     withParkings: data.details.parkings ? 'true' : 'false',
     withUndergroundGarages: data.details.undergroundGarages ? 'true' : 'false',
     withRubbishChute: data.details.withRubbishChute ? 'true' : 'false',
-    withWasteDisposalRoom: data.details.withWasteDisposalRoom ? 'true' : 'false',
+    withWasteDisposalRoom: data.details.withWasteDisposalRoom
+      ? 'true'
+      : 'false',
   },
   ...(data.propertyDefaults
     ? {
-      propertyDefaults: {
-        ...data.propertyDefaults,
-        ...(data.propertyDefaults.saleOffer
+        propertyDefaults: {
+          ...data.propertyDefaults,
+          ...(data.propertyDefaults.saleOffer
             ? {
-              saleOffer: {
-                ...data.propertyDefaults.saleOffer,
-                isAgentFixed: String(
+                saleOffer: {
+                  ...data.propertyDefaults.saleOffer,
+                  isAgentFixed: String(
                     !!data.propertyDefaults.saleOffer.agentFixedPrice &&
-                      !!Object.keys(data.propertyDefaults.saleOffer.agentFixedPrice).length,
+                      !!Object.keys(
+                        data.propertyDefaults.saleOffer.agentFixedPrice,
+                      ).length,
                   ),
-                agentFee: normalizeNumber(data.propertyDefaults.saleOffer.agentFee),
-                isBargain: data.propertyDefaults.saleOffer.isBargain ? 'true' : 'false',
-                isInstallment: data.propertyDefaults.saleOffer.isInstallment ? 'true' : 'false',
-                isMortgage: data.propertyDefaults.saleOffer.isMortgage ? 'true' : 'false',
-              },
-            }
+                  agentFee: normalizeNumber(
+                    data.propertyDefaults.saleOffer.agentFee,
+                  ),
+                  isBargain: data.propertyDefaults.saleOffer.isBargain
+                    ? 'true'
+                    : 'false',
+                  isInstallment: data.propertyDefaults.saleOffer.isInstallment
+                    ? 'true'
+                    : 'false',
+                  isMortgage: data.propertyDefaults.saleOffer.isMortgage
+                    ? 'true'
+                    : 'false',
+                },
+              }
             : {}),
-      },
-    }
+        },
+      }
     : {}),
 });

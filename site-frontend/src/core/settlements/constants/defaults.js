@@ -4,6 +4,7 @@ export const resourceName = 'settlements';
 export const apiPath = '/v1/places/settlements';
 export const apiPathByGroup = {
   all: '/v1/places/settlements',
+  byLetter: '/v1/places/settlements',
   forProperties: '/v1/places/settlements/items',
 };
 
@@ -19,6 +20,16 @@ const defaultParamsByGroup = {
   forProperties: {
     filter: {
       routes, // TODO check is it ok?
+    },
+  },
+  byLetter: {
+    filter: {
+      state: ['public'],
+      totalProperties: { min: 1 },
+      routes, // TODO check is it ok?
+    },
+    pagination: {
+      limit: 256,
     },
   },
 };

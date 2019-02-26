@@ -18,7 +18,7 @@ const deleteQuestionFailed = (id, { errors }) => ({
 });
 
 export default function deleteQuestsions(id) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(deleteQuestionStarted(id));
 
     return API.del(`/v1/csi/questions/${id}`)

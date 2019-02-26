@@ -1,24 +1,113 @@
-kind: pipeline
-name: default
+clone:
+  git:
+    image: plugins/git
 
-steps:
-- name: deploy_rublevka
-  image: docker:18.09
-  commands:
-    - cd site-frontend
-    - docker build -t jqestate_site_frontend_builds .
-    - docker run -e APP=rublevka -e APP_ENV=production -e NODE_ENV=production -e BUILD_ID=1 -v /root/jqestate_site_frontend_builds:/app/build jqestate_site_frontend_builds yarn build
-    - docker run -e APP=riga -e APP_ENV=production -e NODE_ENV=production -e BUILD_ID=1 -v /root/jqestate_site_frontend_builds:/app/build jqestate_site_frontend_builds yarn build
-    - docker run -e APP=jqestate -e APP_ENV=production -e NODE_ENV=production -e BUILD_ID=1 -v /root/jqestate_site_frontend_builds:/app/build jqestate_site_frontend_builds yarn build
-    - docker run -e APP=cem -e APP_ENV=production -e NODE_ENV=production -e BUILD_ID=1 -v /root/jqestate_site_frontend_builds:/app/build jqestate_site_frontend_builds yarn build
-  volumes:
-  - name: docker
-    path: /var/run/docker.sock
-  when:
-    branch: [master]
-    event: [push]
+pipeline:
+  restore-cache:
+    image: drillster/drone-volume-cache
+    restore: true
+    mount:
+      - .yarn-cache
+      - ./staff-frontend/node_modules
+      - ./export-app-firebase/node_modules
+      - ./export-app-frontend/node_modules
+    volumes:
+      - /tmp/cache:/cache
+    when:
+      branch: [develop]
+      event: [push]
 
-volumes:
-- name: docker
-  host:
-    path: /var/run/docker.sock
+  build-firebase-dev:
+    image: node:8.15.0
+    commands:
+      - yarn config set cache-folder $(pwd)/.yarn-cache
+      - yarn add firebase-tools
+      - cd export-app-firebase
+      - yarn --ignore-engines
+    when:
+      branch: [develop]
+      event: [push]
+
+  build-rublevka-frontend-dev:
+    image: node:8.15.0
+    commands:
+      - yarn config set cache-folder $(pwd)/.yarn-cache
+      - cd site-frontend
+      - yarn --ignore-engines
+      - yarn build
+    environment: # FIXME
+      - APP_ENV=development
+      - APP=jqestate
+      - BUILD_ID=$DRONE_BUILD_NUMBER
+    # secrets:
+    #   - source: DRONE_BUILD_NUMBER
+    #     target: build_id
+    when:
+      branch: [develop]
+      event: [push]
+
+  build-staff-frontend-dev:
+    image: node:8.15.0
+    commands:
+      - yarn config set cache-folder $(pwd)/.yarn-cache
+      - cd staff-frontend
+      - yarn --ignore-engines
+      - yarn build
+    secrets: [react_app_env, react_app_staff_sentry_dsn]
+    when:
+      branch: [develop]
+      event: [push]
+
+  build-export-app-frontend-dev:
+    image: node:8.15.0
+    commands:
+      - yarn config set cache-folder $(pwd)/.yarn-cache
+      - cd export-app-frontend
+      - yarn --ignore-engines
+      - yarn build
+    secrets:
+      [
+        react_app_firebase_api_key,
+        react_app_firebase_auth_domain,
+        react_app_firebase_project_id,
+      ]
+    when:
+      branch: [develop]
+      event: [push]
+
+  deploy-backend-dev:
+    image: docker/compose:1.22.0
+    commands:
+      - cd backend
+      - docker-compose -f devops/docker-compose-dev.yml build
+      - docker-compose -f devops/docker-compose-dev.yml up -d
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    when:
+      branch: [develop]
+      event: [push]
+
+  deploy-firebase-dev:
+    image: node:8.15.0
+    commands:
+      - yarn firebase deploy --token "$FIREBASE_TOKEN"
+    secrets: [firebase_token]
+    when:
+      branch: [develop]
+      event: [push]
+
+  rebuild-cache:
+    image: drillster/drone-volume-cache
+    rebuild: true
+    mount:
+      - .yarn-cache
+      - ./staff-frontend/node_modules
+      - ./export-app-firebase/node_modules
+      - ./export-app-frontend/node_modules
+    volumes:
+      - /tmp/cache:/cache
+    when:
+      branch: [develop]
+      event: [push]
+
+branches: [master, develop]

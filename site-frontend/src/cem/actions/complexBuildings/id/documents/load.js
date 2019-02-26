@@ -19,7 +19,7 @@ const loadDocumentsFailed = (complexBuildingId, errors) => ({
   errors,
 });
 
-const loadDocuments = complexBuildingId => (dispatch) => {
+const loadDocuments = complexBuildingId => dispatch => {
   dispatch(loadDocumentsStarted(complexBuildingId));
 
   return API.get(`/v1/complex_buildings/${complexBuildingId}/documents`).then(

@@ -40,7 +40,8 @@ class About extends Component {
       ['spam', 'processed', 'rejected'].indexOf(state) > -1 ||
       (state === 'new' && data.kind !== 'phone_call') ||
       (state === 'new' && data.kind === 'phone_call' && !requestKind);
-    const isPhoneStatic = isStatic || !(data.kind === 'recommendation' || formKey === 'create');
+    const isPhoneStatic =
+      isStatic || !(data.kind === 'recommendation' || formKey === 'create');
 
     return (
       <Container fluid>
@@ -69,7 +70,11 @@ class About extends Component {
               )}
 
               {!!requestKind && (
-                <RequestDetails {...this.props} leadState={state} isStatic={isStatic} />
+                <RequestDetails
+                  {...this.props}
+                  leadState={state}
+                  isStatic={isStatic}
+                />
               )}
 
               <Row className={sUtils.pushedBottom3}>
@@ -91,7 +96,11 @@ class About extends Component {
               {formKey !== 'create' && (
                 <Row>
                   <Col xs="20">
-                    <Status data={data} state={this.props.state} actions={this.props.actions} />
+                    <Status
+                      data={data}
+                      state={this.props.state}
+                      actions={this.props.actions}
+                    />
                   </Col>
                 </Row>
               )}

@@ -32,10 +32,12 @@ class NotFound extends Component {
             <h2 className={cn(s.titleMd, s.light)}>
               На сайте нет таких объектов
             </h2>
-            <p className={s.textMd}>
-              Подберем из закрытых предложений?
-            </p>
-            <a className={cn(s.titleMd, sUtils.pushedTopXs3Sm1_5)} href={`tel:+${global.config.phones.country}`} id="comagicDTPhoneNumber">
+            <p className={s.textMd}>Подберем из закрытых предложений?</p>
+            <a
+              className={cn(s.titleMd, sUtils.pushedTopXs3Sm1_5)}
+              href={`tel:+${global.config.phones.country}`}
+              id="comagicDTPhoneNumber"
+            >
               <StaticMask pattern="+1 (111) 111-11-11">
                 {global.config.phones.country}
               </StaticMask>
@@ -43,9 +45,20 @@ class NotFound extends Component {
 
             <div>
               <RequestModal category="country">
-                <Button className={cn(s.btn, sUtils.pushedTopXs2Sm5)} kind="success" size="lg">Заказать звонок</Button>
+                <Button
+                  className={cn(s.btn, sUtils.pushedTopXs2Sm5)}
+                  kind="success"
+                  size="lg"
+                >
+                  Заказать звонок
+                </Button>
               </RequestModal>
-              <Button className={cn(s.btnRound, sUtils.pushedTopXs2Sm5)} onClick={this.props.resetFilter}>Сбросить фильтр</Button>
+              <Button
+                className={cn(s.btnRound, sUtils.pushedTopXs2Sm5)}
+                onClick={this.props.resetFilter}
+              >
+                Сбросить фильтр
+              </Button>
             </div>
           </Col>
         </Row>

@@ -8,7 +8,11 @@ import { FormattedCurrency } from 'react-formatted';
 import CountIndicator from 'cem/components/common/countIndicator';
 
 import UI from 'cem/components/ui';
-const { ParamList, Media, Grid: { Row, Col, Container } } = UI;
+const {
+  ParamList,
+  Media,
+  Grid: { Row, Col, Container },
+} = UI;
 
 import cn from 'classnames';
 import s from 'cem/styles/ui/card';
@@ -47,8 +51,7 @@ const Description = ({ data }) => (
             {data.location.house && `, д. ${data.location.house}`}
           </ParamList>
         </Col>
-        {!!data.statistics &&
-        !!data.statistics.propertiesCount && (
+        {!!data.statistics && !!data.statistics.propertiesCount && (
           <Col className={sUtils.pushedTopXs2Sm2} sm="10" md="6">
             <p className={s.title}>
               <CountIndicator
@@ -57,12 +60,20 @@ const Description = ({ data }) => (
               />
             </p>
             <h2 className={s.fullName}>
-              {data.statistics.price.from.usd < data.statistics.price.to.usd && (
-                <FormattedCurrency symbol="USD" value={data.statistics.price.from.usd} />
+              {data.statistics.price.from.usd <
+                data.statistics.price.to.usd && (
+                <FormattedCurrency
+                  symbol="USD"
+                  value={data.statistics.price.from.usd}
+                />
               )}
-              {data.statistics.price.from.usd < data.statistics.price.to.usd && ' — '}
+              {data.statistics.price.from.usd < data.statistics.price.to.usd &&
+                ' — '}
               {!!data.statistics.price.to.usd && (
-                <FormattedCurrency symbol="USD" value={data.statistics.price.to.usd} />
+                <FormattedCurrency
+                  symbol="USD"
+                  value={data.statistics.price.to.usd}
+                />
               )}
               {!data.statistics.price.to.usd && 'Цена не указана'}
             </h2>

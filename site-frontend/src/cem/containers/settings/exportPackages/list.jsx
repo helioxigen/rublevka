@@ -12,7 +12,8 @@ import * as ExportPackagesActions from 'cem/actions/settings/exportPackages';
 import UI from 'cem/components/ui';
 const {
   Loading,
-  Button, Heading,
+  Button,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -36,7 +37,9 @@ class ExportPackages extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (isPaginationOrFiltersOrOrderByUpdated(resource, this.props, nextProps)) {
+    if (
+      isPaginationOrFiltersOrOrderByUpdated(resource, this.props, nextProps)
+    ) {
       this.load(nextProps);
     }
   }
@@ -58,7 +61,8 @@ class ExportPackages extends Component {
 
   render() {
     const { state, hasRight } = this.props;
-    const { ids = [], isFetching, errors = [] } = state.exportPackages[group] || {};
+    const { ids = [], isFetching, errors = [] } =
+      state.exportPackages[group] || {};
 
     const isCreateAllowed = hasRight(`export_create`);
 
@@ -77,7 +81,12 @@ class ExportPackages extends Component {
                 <Heading size="lg">
                   Пакеты выгрузок
                   {isCreateAllowed && (
-                    <Button className={sUtils.pushedLeftSm2} kind="success" size="xs" to={`/settings/export_packages/create`}>
+                    <Button
+                      className={sUtils.pushedLeftSm2}
+                      kind="success"
+                      size="xs"
+                      to={`/settings/export_packages/create`}
+                    >
                       добавить
                     </Button>
                   )}
@@ -89,17 +98,26 @@ class ExportPackages extends Component {
 
         {isErrorsPresented && <ListErrorMessage errors={errors} />}
         {isNotFound && <Heading notFound>Пакеты не найдены</Heading>}
-        {!isFetching && ids.map(id => <Card key={id} data={state.exportPackages[id] && state.exportPackages[id].data} />)}
+        {!isFetching &&
+          ids.map(id => (
+            <Card
+              key={id}
+              data={state.exportPackages[id] && state.exportPackages[id].data}
+            />
+          ))}
         {isFetching && <Loading />}
-        {isNotEmpty &&
+        {isNotEmpty && (
           <Container fluid>
             <Row xs="center">
               <Col sm="10" className={sUtils.pushed6_0}>
-                <Pagination {...pagination} onUpdate={::this.handlePaginationUpdate} />
+                <Pagination
+                  {...pagination}
+                  onUpdate={::this.handlePaginationUpdate}
+                />
               </Col>
             </Row>
           </Container>
-        }
+        )}
       </section>
     );
   }
@@ -109,8 +127,14 @@ const pickState = ({ exportPackages, filters, pagination, order }) => ({
   state: { exportPackages, filters, pagination, order },
 });
 
-const pickActions = (dispatch) => ({
-  actions: bindActionCreators({ ...ExportPackagesActions, ...FilterActions, ...PaginationActions }, dispatch),
+const pickActions = dispatch => ({
+  actions: bindActionCreators(
+    { ...ExportPackagesActions, ...FilterActions, ...PaginationActions },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, pickActions)(ExportPackages);
+export default connect(
+  pickState,
+  pickActions,
+)(ExportPackages);

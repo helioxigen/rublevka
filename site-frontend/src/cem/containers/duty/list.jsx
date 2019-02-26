@@ -17,7 +17,10 @@ import ListErrorMessage from 'cem/components/common/listErrorMessage';
 
 import UI from 'cem/components/ui';
 const {
-  Modal, Button, Loading, Heading,
+  Modal,
+  Button,
+  Loading,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -74,7 +77,13 @@ class DutyListContainer extends Component {
 
   render() {
     const {
-      actions, state, state: { duty: { list: { items = [], isFetching, errors = [] } } },
+      actions,
+      state,
+      state: {
+        duty: {
+          list: { items = [], isFetching, errors = [] },
+        },
+      },
       hasRight,
     } = this.props;
     const pagination = state.pagination.duty || {};
@@ -89,23 +98,62 @@ class DutyListContainer extends Component {
             <Row>
               <Col xs="20">
                 <Heading size="lg">
-                  График дежурства {isCreationAllowed && <Button className={sUtils.pushedLeftSm2} kind="accent" size="xs" onClick={() => this.toggleModal(true)}>добавить</Button>}
+                  График дежурства{' '}
+                  {isCreationAllowed && (
+                    <Button
+                      className={sUtils.pushedLeftSm2}
+                      kind="accent"
+                      size="xs"
+                      onClick={() => this.toggleModal(true)}
+                    >
+                      добавить
+                    </Button>
+                  )}
                 </Heading>
-                <Modal size="sm" closeOnEsc closeOnOutsideClick onClose={() => this.toggleModal(false)} isOpened={this.state.isOpen} closePortal={() => this.toggleModal(false)}>
-                  <ModalDutyForm formKey="create" initialValues={prepareInitialValues()} actions={this.props.actions} closeModal={() => this.toggleModal(false)} />
+                <Modal
+                  size="sm"
+                  closeOnEsc
+                  closeOnOutsideClick
+                  onClose={() => this.toggleModal(false)}
+                  isOpened={this.state.isOpen}
+                  closePortal={() => this.toggleModal(false)}
+                >
+                  <ModalDutyForm
+                    formKey="create"
+                    initialValues={prepareInitialValues()}
+                    actions={this.props.actions}
+                    closeModal={() => this.toggleModal(false)}
+                  />
                 </Modal>
               </Col>
             </Row>
           </div>
         </Container>
         {!isFetching && !!errors.length && <ListErrorMessage errors={errors} />}
-        {!isFetching && !errors.length && !items.length && <Heading notFound>Не найдено дежурных</Heading>}
+        {!isFetching && !errors.length && !items.length && (
+          <Heading notFound>Не найдено дежурных</Heading>
+        )}
         {isFetching && <Loading />}
-        {items && !!items.length && items.map((item) => <Card key={item.id} {...item} state={state} actions={actions} isUpdateAllowed={isUpdateAllowed} />)}
+        {items &&
+          !!items.length &&
+          items.map(item => (
+            <Card
+              key={item.id}
+              {...item}
+              state={state}
+              actions={actions}
+              isUpdateAllowed={isUpdateAllowed}
+            />
+          ))}
         <Container fluid>
           <Row xs="center">
             <Col sm="10" className={sUtils.pushed6_0}>
-              {!isFetching && items && !!items.length && <Pagination {...pagination} onUpdate={::this.handlePaginationUpdate} />}
+              {!isFetching && items && !!items.length && (
+                <Pagination
+                  {...pagination}
+                  onUpdate={::this.handlePaginationUpdate}
+                />
+              )}
             </Col>
           </Row>
         </Container>
@@ -118,8 +166,21 @@ const pickState = ({ duty, users, departments, pagination }) => ({
   state: { duty, users, departments, pagination },
 });
 
-const mapDispatch = (dispatch) => ({
-  actions: bindActionCreators({ ...DutyActions, loadUsers: UserActions.loadList, ...PaginationActions, ...DepartmentActions, pushPath, pop }, dispatch),
+const mapDispatch = dispatch => ({
+  actions: bindActionCreators(
+    {
+      ...DutyActions,
+      loadUsers: UserActions.loadList,
+      ...PaginationActions,
+      ...DepartmentActions,
+      pushPath,
+      pop,
+    },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, mapDispatch)(DutyListContainer);
+export default connect(
+  pickState,
+  mapDispatch,
+)(DutyListContainer);

@@ -10,7 +10,7 @@ import * as types from 'cem/_contacts/constants/actions';
 // TODO Move dependencies to another place
 import { transform, uploadPhoto } from 'cem/_contacts/old_actions/helpers';
 
-const create = ({ photo, ...restContactData }) => (dispatch) => {
+const create = ({ photo, ...restContactData }) => dispatch => {
   dispatch(createElementStarted(types.CREATE));
 
   return createElement('contacts', transform(restContactData)).then(
@@ -25,7 +25,7 @@ const create = ({ photo, ...restContactData }) => (dispatch) => {
 
       return { id };
     },
-    (errors) => {
+    errors => {
       dispatch(createElementFailed(types.CREATE_FAILED, errors));
       return { errors };
     },

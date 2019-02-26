@@ -26,20 +26,17 @@ const Image = ({ id }) => {
   return <UI.Image src={src} kind="circle" width="64" height="64" />;
 };
 
-const Description = ({ firstName, lastName, workPhoneNumber, email }) =>
-  (<div>
+const Description = ({ firstName, lastName, workPhoneNumber, email }) => (
+  <div>
     <h4 className={s.mediaTitleLg}>
       {lastName || ''} {firstName || ''}
     </h4>
     <p className={s.mediaText}>
-      <StaticMask pattern="+1 (111) 111-11-11">
-        {workPhoneNumber}
-      </StaticMask>
+      <StaticMask pattern="+1 (111) 111-11-11">{workPhoneNumber}</StaticMask>
     </p>
-    <p className={s.mediaText}>
-      {email}
-    </p>
-  </div>);
+    <p className={s.mediaText}>{email}</p>
+  </div>
+);
 
 class UserInlineCard extends Component {
   componentWillMount() {
@@ -68,19 +65,21 @@ class UserInlineCard extends Component {
         <Heading size={headingSize}>
           {title}
 
-          {data.id &&
+          {data.id && (
             <Link className={s.linkIcon} to={`/staff/${data.id}`}>
               <Icon className={s.icon} icon="arrow" />
-            </Link>}
+            </Link>
+          )}
         </Heading>
 
         {!data.id && isFetching && <Loading />}
 
-        {data.id &&
+        {data.id && (
           <Media
             left={<Image id={photo && photo.id} />}
             body={<Description id={data.id} {...data} />}
-          />}
+          />
+        )}
       </div>
     );
   }

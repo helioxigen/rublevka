@@ -5,7 +5,10 @@ import Helmet from 'react-helmet';
 import { helmet } from 'site/config/seo';
 
 import { nameToSlug } from 'core/helpers/nameToSlug';
-import { dealTypesTranslit, kindsTranslit } from 'site/constants/properties/dictionaries';
+import {
+  dealTypesTranslit,
+  kindsTranslit,
+} from 'site/constants/properties/dictionaries';
 
 import { enToTranslit } from '../../helpers/translate';
 
@@ -16,7 +19,15 @@ const makeMetaElement = (element, name, dealType, placeKind, meta) => ({
   content: meta || helmet.places[placeKind].show[element](name, dealType),
 });
 
-export default ({ placeKind, placeName, data, dealType, kind, pagination, query }) => {
+export default ({
+  placeKind,
+  placeName,
+  data,
+  dealType,
+  kind,
+  pagination,
+  query,
+}) => {
   const meta = [];
 
   const totalPages = Math.ceil(pagination.total / pagination.limit);
@@ -29,11 +40,13 @@ export default ({ placeKind, placeName, data, dealType, kind, pagination, query 
     const isRouteFromConfig = routeIds.includes(data.id);
     const isPlaceOnRoute = routeIds.includes(data.location.routeId);
 
-    const kindPostfix = placeKind && `/${placeKind}` || '';
-    const pagePostfix = queryPage > 1 && `?page=${queryPage}` || '';
-    const canonical = `https://${global.config.domain}/zagorodnaya/${enToTranslit[
-      placeKind
-    ]}/${nameToSlug(data.name)}_${data.id}/${dealTypesTranslit[dealType]}${kindPostfix}${pagePostfix}`;
+    const kindPostfix = (placeKind && `/${placeKind}`) || '';
+    const pagePostfix = (queryPage > 1 && `?page=${queryPage}`) || '';
+    const canonical = `https://${global.config.domain}/zagorodnaya/${
+      enToTranslit[placeKind]
+    }/${nameToSlug(data.name)}_${data.id}/${
+      dealTypesTranslit[dealType]
+    }${kindPostfix}${pagePostfix}`;
 
     const routeSlugName = `${nameToSlug(data.name)}_${data.id}`;
 
@@ -58,15 +71,35 @@ export default ({ placeKind, placeName, data, dealType, kind, pagination, query 
 
     // otherwise send correct meta
 
-    const metaItem = data.meta && data.meta[(kind && `${dealType}_${kind}`) || dealType] || {};
-    const getMeta = (key) => {
+    const metaItem =
+      (data.meta && data.meta[(kind && `${dealType}_${kind}`) || dealType]) ||
+      {};
+    const getMeta = key => {
       if (metaItem[key]) return `${metaItem[key]} — страница ${queryPage}`;
     };
 
-    const title = getMeta('title') || helmet.places[placeKind].show.title(data, dealType, kind, queryPage);
+    const title =
+      getMeta('title') ||
+      helmet.places[placeKind].show.title(data, dealType, kind, queryPage);
 
-    meta.push(makeMetaElement('description', data.name, dealType, placeKind, getMeta('description')));
-    meta.push(makeMetaElement('keywords', data.name, dealType, placeKind, getMeta('description')));
+    meta.push(
+      makeMetaElement(
+        'description',
+        data.name,
+        dealType,
+        placeKind,
+        getMeta('description'),
+      ),
+    );
+    meta.push(
+      makeMetaElement(
+        'keywords',
+        data.name,
+        dealType,
+        placeKind,
+        getMeta('description'),
+      ),
+    );
 
     if (placeKind === 'routes') {
       const link = helmet.places[placeKind].show.link(

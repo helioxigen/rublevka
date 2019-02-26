@@ -5,7 +5,11 @@ import { cloudfront } from 'core/config/resources';
 import { Link } from 'react-router';
 
 import UI from 'cem/components/ui';
-const { Media, ParamList, Grid: { Row, Col, Container } } = UI;
+const {
+  Media,
+  ParamList,
+  Grid: { Row, Col, Container },
+} = UI;
 
 import cn from 'classnames';
 import s from 'cem/styles/ui/card';
@@ -29,7 +33,7 @@ const Image = ({ id }) =>
     />
   );
 
-const Description = (props) => {
+const Description = props => {
   const { data } = props;
 
   return (

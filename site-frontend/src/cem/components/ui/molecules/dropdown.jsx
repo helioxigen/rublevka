@@ -14,8 +14,12 @@ export default (s = {}) => {
     }
 
     componentDidUpdate(prevProps, prevStates) {
-      const isOpen = this.props.controllable ? this.props.isOpen : this.state.isOpen;
-      const prevIsOpen = this.props.controllable ? prevProps.isOpen : prevStates.isOpen;
+      const isOpen = this.props.controllable
+        ? this.props.isOpen
+        : this.state.isOpen;
+      const prevIsOpen = this.props.controllable
+        ? prevProps.isOpen
+        : prevStates.isOpen;
       if (isOpen === prevIsOpen) {
         return;
       }
@@ -36,14 +40,20 @@ export default (s = {}) => {
     }
 
     open() {
-      const toggle = this.props.controllable ? this.props.toggle : ::this.toggle;
+      const toggle = this.props.controllable
+        ? this.props.toggle
+        : ::this.toggle;
 
       toggle(true);
     }
 
     clickOutside(event) {
       if (this.refs.dropdown) {
-        if (this.state.isOpen && this.refs.dropdown && !this.refs.dropdown.contains(event.target)) {
+        if (
+          this.state.isOpen &&
+          this.refs.dropdown &&
+          !this.refs.dropdown.contains(event.target)
+        ) {
           this.setState({
             isOpen: false,
           });
@@ -52,13 +62,23 @@ export default (s = {}) => {
     }
 
     render() {
-      const isOpen = this.props.controllable ? this.props.isOpen : this.state.isOpen;
+      const isOpen = this.props.controllable
+        ? this.props.isOpen
+        : this.state.isOpen;
 
       return (
         <div {...this.props} className={cn(s.dropdown, this.props.className)}>
-          {React.cloneElement(this.props.button, { className: cn(this.props.button.props.className, { [s.active]: isOpen }), onClick: ::this.open })}
+          {React.cloneElement(this.props.button, {
+            className: cn(this.props.button.props.className, {
+              [s.active]: isOpen,
+            }),
+            onClick: ::this.open,
+          })}
 
-          <div ref="dropdown" className={cn(s.container, { [s.active]: isOpen })}>
+          <div
+            ref="dropdown"
+            className={cn(s.container, { [s.active]: isOpen })}
+          >
             {this.props.children}
           </div>
         </div>

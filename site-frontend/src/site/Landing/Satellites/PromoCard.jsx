@@ -10,11 +10,7 @@ import sUtils from 'site/styles/utils';
 
 import { nameToSlug } from 'core/helpers/nameToSlug';
 
-const {
-  Button,
-  CountIndicator,
-  Grid,
-} = UI;
+const { Button, CountIndicator, Grid } = UI;
 
 class PromoCard extends Component {
   render() {
@@ -25,10 +21,24 @@ class PromoCard extends Component {
         <div className={s.card}>
           <div className={s.content}>
             <h2>
-              У нас есть еще <CountIndicator count={count} declensionForms={['отличное предложение', 'отличных предложения', 'отличных предложений']} />
+              У нас есть еще{' '}
+              <CountIndicator
+                count={count}
+                declensionForms={[
+                  'отличное предложение',
+                  'отличных предложения',
+                  'отличных предложений',
+                ]}
+              />
             </h2>
 
-            <Button to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(name)}_${id}`} className={cn(sUtils.borderRadius10, sUtils.pushedTop1)} type="submit" size="sm" kind="primary">
+            <Button
+              to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(name)}_${id}`}
+              className={cn(sUtils.borderRadius10, sUtils.pushedTop1)}
+              type="submit"
+              size="sm"
+              kind="primary"
+            >
               Показать
             </Button>
           </div>

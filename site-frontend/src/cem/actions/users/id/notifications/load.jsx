@@ -16,7 +16,7 @@ const loadFailed = ({ errors }) => ({
 });
 
 export default function loadNotificationSettings() {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadStarted());
 
     return API.get('/v1/users/me/settings/notifications')

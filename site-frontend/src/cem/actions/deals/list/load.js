@@ -15,7 +15,10 @@ const loadDealsStarted = (kind, appendResult) => ({
   appendResult,
 });
 
-const loadDealsSucceeded = (kind, { items, pagination }, appendResult) => (dispatch, getState) => {
+const loadDealsSucceeded = (kind, { items, pagination }, appendResult) => (
+  dispatch,
+  getState,
+) => {
   const contactIds = uniq(
     items
       .map(({ contactDetails = {} }) =>
@@ -46,13 +49,22 @@ const loadDealsFailed = (kind, { errors }) => ({
   errors,
 });
 
-const loadDeals = (kind, queryParams = {}, appendResult = false) => (dispatch) => {
+const loadDeals = (
+  kind,
+  queryParams = {},
+  appendResult = false,
+) => dispatch => {
   dispatch(loadDealsStarted(kind, queryParams, appendResult));
 
   const { filter, filterNot } = mapListFilter(queryParams.filter, kind);
   const orderBy = { 'details.multiCurrencyAgentFee.usd': 'desc' };
 
-  return API.get('/v1/deals', { ...queryParams, filter, filterNot, orderBy }).then(
+  return API.get('/v1/deals', {
+    ...queryParams,
+    filter,
+    filterNot,
+    orderBy,
+  }).then(
     ({ body }) => dispatch(loadDealsSucceeded(kind, body, appendResult)),
     ({ body }) => dispatch(loadDealsFailed(kind, body)),
   );

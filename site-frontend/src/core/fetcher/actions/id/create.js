@@ -19,7 +19,8 @@ export const createElementFailed = (type, errors) => ({
 
 export const createElement = (resourceName, data) => {
   if (!resourceName) throwFormattedError('required', resourceName);
-  if (!apiPaths[resourceName]) throwFormattedError('apiPathEmpty', resourceName);
+  if (!apiPaths[resourceName])
+    throwFormattedError('apiPathEmpty', resourceName);
 
   return API.post(apiPaths[resourceName], data).then(
     ({ headers }) => {

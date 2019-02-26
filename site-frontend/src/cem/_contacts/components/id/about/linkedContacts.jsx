@@ -25,7 +25,7 @@ import s from 'cem/styles/id/content';
 import sUtils from 'cem/styles/utils';
 import sButton from 'cem/styles/buttons';
 
-const validate = (values) => {
+const validate = values => {
   const errors = {};
 
   if (!values.linkedContactId) errors.linkedContactId = 'Укажите контакт';
@@ -69,7 +69,9 @@ class LinkedContactFormRaw extends Component {
                   <Group
                     className={sUtils.resetIndentation}
                     kind={
-                      fields.linkedContactId.touched && !!fields.linkedContactId.error && 'error'
+                      fields.linkedContactId.touched &&
+                      !!fields.linkedContactId.error &&
+                      'error'
                     }
                   >
                     <AsyncSelect
@@ -80,9 +82,10 @@ class LinkedContactFormRaw extends Component {
                         'details.lastName',
                       ])}
                     />
-                    {fields.linkedContactId.touched && fields.linkedContactId.error && (
-                      <Helper>{fields.linkedContactId.error}</Helper>
-                    )}
+                    {fields.linkedContactId.touched &&
+                      fields.linkedContactId.error && (
+                        <Helper>{fields.linkedContactId.error}</Helper>
+                      )}
                   </Group>
                 )}
                 {formKey !== 'add' && <span>{values.contactTitle}</span>}
@@ -92,7 +95,11 @@ class LinkedContactFormRaw extends Component {
                   <Col xs="16">
                     <Group
                       className={sUtils.resetIndentation}
-                      kind={fields.kindId.touched && !!fields.kindId.error && 'error'}
+                      kind={
+                        fields.kindId.touched &&
+                        !!fields.kindId.error &&
+                        'error'
+                      }
                     >
                       <AsyncSelect
                         className={sUtils.resetBorder}
@@ -128,9 +135,10 @@ class LinkedContactFormRaw extends Component {
                         valueKey="id"
                         onBlur={() => {}}
                       />
-                      {fields.relationshipToKindId.touched && fields.relationshipToKindId.error && (
-                        <Helper>{fields.relationshipToKindId.error}</Helper>
-                      )}
+                      {fields.relationshipToKindId.touched &&
+                        fields.relationshipToKindId.error && (
+                          <Helper>{fields.relationshipToKindId.error}</Helper>
+                        )}
                     </Group>
                   </Col>
                 </Grid.Row>
@@ -141,7 +149,10 @@ class LinkedContactFormRaw extends Component {
                     <Button
                       className={sButton.btnTableAction}
                       size="xs"
-                      onClick={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}
+                      onClick={handleSubmit(
+                        ::this.createOrUpdate,
+                        ::this.onSubmitSuccess,
+                      )}
                       disabled={pristine}
                     >
                       <Icon className={s.btnIcon} icon="checkmark" />
@@ -163,7 +174,10 @@ class LinkedContactFormRaw extends Component {
                     <Button
                       className={sButton.btnTableAction}
                       size="xs"
-                      onClick={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}
+                      onClick={handleSubmit(
+                        ::this.createOrUpdate,
+                        ::this.onSubmitSuccess,
+                      )}
                       disabled={pristine}
                     >
                       <Icon className={s.btnIcon} icon="checkmark" />
@@ -193,7 +207,9 @@ const formSettings = {
   validate,
 };
 
-const LinkedContactForm = reduxForm(formSettings)(submitValidator()(LinkedContactFormRaw));
+const LinkedContactForm = reduxForm(formSettings)(
+  submitValidator()(LinkedContactFormRaw),
+);
 
 class LinkedContacts extends Component {
   componentWillMount() {

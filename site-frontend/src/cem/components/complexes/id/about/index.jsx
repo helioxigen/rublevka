@@ -29,25 +29,28 @@ class About extends Component {
       <Row>
         <section className={s.section}>
           <Address className={sUtils.pushedBottom6} {...this.props} />
-          {formKey !== 'create' &&
+          {formKey !== 'create' && (
             <Row className={sUtils.pushedBottom6}>
               <Col sm="20">
                 <Buildings {...this.props} />
               </Col>
             </Row>
-          }
+          )}
           <Row className={sUtils.pushedBottom6}>
             <Col xs="20">
               <Description {...this.props} />
             </Col>
           </Row>
-          {formKey !== 'create' &&
+          {formKey !== 'create' && (
             <Row className={sUtils.pushedBottom6}>
               <Col xs="20">
-                <LinkedContacts complexData={data} isUpdateAllowed={isUpdateAllowed} />
+                <LinkedContacts
+                  complexData={data}
+                  isUpdateAllowed={isUpdateAllowed}
+                />
               </Col>
             </Row>
-          }
+          )}
           {/* <Row className={sUtils.pushedBottom6}>
             <Col xs="20">
               <Heading size="md">Примечание</Heading>
@@ -57,13 +60,16 @@ class About extends Component {
               </Group>
             </Col>
           </Row> */}
-          {formKey !== 'create' &&
+          {formKey !== 'create' && (
             <Row className={sUtils.pushedBottom6}>
               <Col sm="20">
-                <Comments entity={{ key: 'complexes', id: formKey.toString() }} isSubscriptionAvailable />
+                <Comments
+                  entity={{ key: 'complexes', id: formKey.toString() }}
+                  isSubscriptionAvailable
+                />
               </Col>
             </Row>
-          }
+          )}
           <Status {...this.props} />
         </section>
       </Row>

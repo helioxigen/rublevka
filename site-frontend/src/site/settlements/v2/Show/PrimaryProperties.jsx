@@ -22,9 +22,18 @@ import NotFound from './Filter/NotFound';
 // helpers
 import isEqual from 'lodash/isEqual';
 
-import { Wrapper, Relative, CardWrapper, StLoading, StLoadMore, ListWrapper } from './styled';
+import {
+  Wrapper,
+  Relative,
+  CardWrapper,
+  StLoading,
+  StLoadMore,
+  ListWrapper,
+} from './styled';
 
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col },
+} = UI;
 
 class List extends Component {
   constructor(props) {
@@ -35,7 +44,9 @@ class List extends Component {
 
     this.updateFilter = this.updateFilter.bind(this);
     this.resetFilter = this.resetFilter.bind(this);
-    this.props.actions.updatePagination = this.props.actions.updatePagination.bind(this);
+    this.props.actions.updatePagination = this.props.actions.updatePagination.bind(
+      this,
+    );
   }
 
   componentWillMount() {
@@ -91,8 +102,14 @@ class List extends Component {
   }
 
   render() {
-    const { toggleProperty, primaryTotal, propertyType, noResaleProperty } = this.props;
-    const { ids = [], isFetching } = this.props.state.countryProperties[this.group] || {};
+    const {
+      toggleProperty,
+      primaryTotal,
+      propertyType,
+      noResaleProperty,
+    } = this.props;
+    const { ids = [], isFetching } =
+      this.props.state.countryProperties[this.group] || {};
     const pagination = this.props.state.pagination[this.resource] || {};
 
     const state = this.props.state.filters[this.resource];
@@ -119,16 +136,17 @@ class List extends Component {
           </Relative>
 
           <ListWrapper>
-            {hasItems &&
-              !isFetching && (
-                <CardWrapper>
-                  <Row xs="center">
-                    <Col xs="12" sm="10">
-                      {ids.map(id => <Card dealType="sale" key={id} id={id} />)}
-                    </Col>
-                  </Row>
-                </CardWrapper>
-              )}
+            {hasItems && !isFetching && (
+              <CardWrapper>
+                <Row xs="center">
+                  <Col xs="12" sm="10">
+                    {ids.map(id => (
+                      <Card dealType="sale" key={id} id={id} />
+                    ))}
+                  </Col>
+                </Row>
+              </CardWrapper>
+            )}
 
             {isFetching && (
               <CardWrapper>
@@ -140,7 +158,9 @@ class List extends Component {
               </CardWrapper>
             )}
 
-            {!hasItems && !isFetching && <NotFound resetFilter={this.resetFilter} />}
+            {!hasItems && !isFetching && (
+              <NotFound resetFilter={this.resetFilter} />
+            )}
 
             <Row xs="center">
               <Col xs="12">
@@ -164,7 +184,7 @@ class List extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { countryProperties, filters, pagination, order } = state;
 
   return {
@@ -177,7 +197,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadProperties,
     ...FilterActions,
@@ -191,4 +211,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(List);
+export default connect(
+  pickState,
+  pickActions,
+)(List);

@@ -25,13 +25,27 @@ class SiteDescription extends Component {
           <Col xs="10">
             <Group>
               <Heading size="sm">Продажа</Heading>
-              <Textarea {...fields.description.main.sale} className={s.textarea} rows="9" block kind="primary" disabled={!hasRight('settlement_update')} />
+              <Textarea
+                {...fields.description.main.sale}
+                className={s.textarea}
+                rows="9"
+                block
+                kind="primary"
+                disabled={!hasRight('settlement_update')}
+              />
             </Group>
           </Col>
           <Col xs="10">
             <Group>
               <Heading size="sm">Аренда</Heading>
-              <Textarea {...fields.description.main.rent} className={s.textarea} rows="9" block kind="primary" disabled={!hasRight('settlement_update')} />
+              <Textarea
+                {...fields.description.main.rent}
+                className={s.textarea}
+                rows="9"
+                block
+                kind="primary"
+                disabled={!hasRight('settlement_update')}
+              />
             </Group>
           </Col>
         </Row>
@@ -41,17 +55,30 @@ class SiteDescription extends Component {
           <Col xs="10">
             <Group>
               <Heading size="sm">Продажа</Heading>
-              <Textarea {...fields.description.satellite.sale} className={s.textarea} rows="9" block kind="primary" disabled={!hasRight('settlement_update')} />
+              <Textarea
+                {...fields.description.satellite.sale}
+                className={s.textarea}
+                rows="9"
+                block
+                kind="primary"
+                disabled={!hasRight('settlement_update')}
+              />
             </Group>
           </Col>
           <Col xs="10">
             <Group>
               <Heading size="sm">Аренда</Heading>
-              <Textarea {...fields.description.satellite.rent} className={s.textarea} rows="9" block kind="primary" disabled={!hasRight('settlement_update')} />
+              <Textarea
+                {...fields.description.satellite.rent}
+                className={s.textarea}
+                rows="9"
+                block
+                kind="primary"
+                disabled={!hasRight('settlement_update')}
+              />
             </Group>
           </Col>
         </Row>
-
       </section>
     );
   }

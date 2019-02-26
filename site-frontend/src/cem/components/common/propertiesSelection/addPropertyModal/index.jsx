@@ -12,7 +12,12 @@ import s from 'cem/styles/modal/list';
 import sUtils from 'cem/styles/utils';
 import sButton from 'cem/styles/buttons';
 
-const { Modal, Button, Heading, Grid: { Row, Col } } = UI;
+const {
+  Modal,
+  Button,
+  Heading,
+  Grid: { Row, Col },
+} = UI;
 
 const formSettings = {
   form: 'addPropertyModal',
@@ -37,7 +42,8 @@ class ModalAddProperty extends Component {
   add() {
     const { field, values, initializeForm, onAdd } = this.props;
     const properties = values.properties.filter(
-      item => !field.find(fieldItem => fieldItem.propertyId === item.propertyId),
+      item =>
+        !field.find(fieldItem => fieldItem.propertyId === item.propertyId),
     );
 
     this.close();
@@ -46,9 +52,18 @@ class ModalAddProperty extends Component {
   }
 
   render() {
-    const { fields, values, children, isNumberLimited, currentLimit, totalLimit } = this.props;
+    const {
+      fields,
+      values,
+      children,
+      isNumberLimited,
+      currentLimit,
+      totalLimit,
+    } = this.props;
 
-    const currentPropertiesCount = values.properties ? values.properties.length : 0;
+    const currentPropertiesCount = values.properties
+      ? values.properties.length
+      : 0;
 
     return (
       <div className={s.modalContainer}>
@@ -70,7 +85,8 @@ class ModalAddProperty extends Component {
               {isNumberLimited && (
                 <Col xs="4">
                   <Heading size="md" className={sUtils.textRight}>
-                    {totalLimit - currentLimit + currentPropertiesCount}/{totalLimit}
+                    {totalLimit - currentLimit + currentPropertiesCount}/
+                    {totalLimit}
                   </Heading>
                 </Col>
               )}

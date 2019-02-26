@@ -4,8 +4,11 @@ import FormField from 'cem/helpers/formField';
 
 import UI from 'cem/components/ui';
 const {
-  Table, Tooltip, Button,
-  Icon, Heading,
+  Table,
+  Tooltip,
+  Button,
+  Icon,
+  Heading,
   Grid: { Row, Col },
   Form: { Input },
 } = UI;
@@ -24,7 +27,13 @@ const formSettings = {
 const Form = reduxForm(formSettings)(
   class extends Component {
     createOrUpdate() {
-      const { formKey, values, addAddress, modifyAddress, destroyForm } = this.props;
+      const {
+        formKey,
+        values,
+        addAddress,
+        modifyAddress,
+        destroyForm,
+      } = this.props;
 
       if (formKey === `create`) {
         addAddress(values.name);
@@ -39,43 +48,71 @@ const Form = reduxForm(formSettings)(
       return (
         <Table.Row>
           <Table.Cell>
-            <FormField className={sUtils.resetIndentation} field={fields.name} static={isStatic} sideHelper>
+            <FormField
+              className={sUtils.resetIndentation}
+              field={fields.name}
+              static={isStatic}
+              sideHelper
+            >
               <Input className={s.tableInput} type="text" placeholder="Адрес" />
             </FormField>
           </Table.Cell>
           <Table.Cell>
-            {formKey === `create` &&
-              <Tooltip className={sUtils.pushedRight1} title="Добавить" position="top">
-                <Button className={sButton.btnTableAction} type="button" onClick={handleSubmit(::this.createOrUpdate)} disabled={isStatic}>
+            {formKey === `create` && (
+              <Tooltip
+                className={sUtils.pushedRight1}
+                title="Добавить"
+                position="top"
+              >
+                <Button
+                  className={sButton.btnTableAction}
+                  type="button"
+                  onClick={handleSubmit(::this.createOrUpdate)}
+                  disabled={isStatic}
+                >
                   <Icon className={s.btnIcon} icon="checkmark" />
                 </Button>
               </Tooltip>
-            }
-            {formKey !== `create` &&
-              <Tooltip className={sUtils.pushedRight1} title="Редактировать" position="top">
-                <Button className={sButton.btnTableAction} type="button" onClick={handleSubmit(::this.createOrUpdate)} disabled={isStatic}>
+            )}
+            {formKey !== `create` && (
+              <Tooltip
+                className={sUtils.pushedRight1}
+                title="Редактировать"
+                position="top"
+              >
+                <Button
+                  className={sButton.btnTableAction}
+                  type="button"
+                  onClick={handleSubmit(::this.createOrUpdate)}
+                  disabled={isStatic}
+                >
                   <Icon className={s.btnIcon} icon="checkmark" />
                 </Button>
               </Tooltip>
-            }
-            {formKey !== `create` &&
+            )}
+            {formKey !== `create` && (
               <Tooltip title="Удалить" position="top">
-                <Button className={sButton.btnTableAction} type="button" onClick={() => this.props.removeAddress(Number(formKey))} disabled={isStatic}>
+                <Button
+                  className={sButton.btnTableAction}
+                  type="button"
+                  onClick={() => this.props.removeAddress(Number(formKey))}
+                  disabled={isStatic}
+                >
                   <Icon className={s.btnIcon} icon="delete" />
                 </Button>
               </Tooltip>
-            }
+            )}
           </Table.Cell>
         </Table.Row>
       );
     }
-  }
+  },
 );
 
 export default class Addresses extends Component {
   addAddress(address) {
     const { field, actions } = this.props;
-    const value = [...field.value || [], address];
+    const value = [...(field.value || []), address];
     actions.pop(`success`, `Адрес добавлен`);
     field.onChange(value);
     setTimeout(this.props.onChange, 10);
@@ -83,7 +120,9 @@ export default class Addresses extends Component {
 
   modifyAddress(modIndex, address) {
     const { field, actions } = this.props;
-    const value = field.value.map((item, index) => index === modIndex ? address : item);
+    const value = field.value.map((item, index) =>
+      index === modIndex ? address : item,
+    );
     actions.pop(`success`, `Адрес изменён`);
     field.onChange(value);
     setTimeout(this.props.onChange, 10);
@@ -103,7 +142,9 @@ export default class Addresses extends Component {
     return (
       <section>
         <Heading size="md">Адреса</Heading>
-        {field.error && field.touched && <span className={s.textError}>{field.error}</span>}
+        {field.error && field.touched && (
+          <span className={s.textError}>{field.error}</span>
+        )}
         <Row className={sUtils.pushedBottom6}>
           <Col xs="20">
             <Table.Container width="100%">
@@ -111,10 +152,22 @@ export default class Addresses extends Component {
                 <Table.Heading width="90%">Название</Table.Heading>
                 <Table.Heading width="10%">Действия</Table.Heading>
               </Table.Row>
-              <Form formKey="create" addAddress={::this.addAddress} isStatic={isStatic} />
-              {field.value && field.value.map(
-                (item, index) => <Form formKey={`${index}`} initialValues={{ name: item }} key={index} modifyAddress={::this.modifyAddress} removeAddress={::this.removeAddress} isStatic={isStatic} />
-              )}
+              <Form
+                formKey="create"
+                addAddress={::this.addAddress}
+                isStatic={isStatic}
+              />
+              {field.value &&
+                field.value.map((item, index) => (
+                  <Form
+                    formKey={`${index}`}
+                    initialValues={{ name: item }}
+                    key={index}
+                    modifyAddress={::this.modifyAddress}
+                    removeAddress={::this.removeAddress}
+                    isStatic={isStatic}
+                  />
+                ))}
             </Table.Container>
           </Col>
         </Row>

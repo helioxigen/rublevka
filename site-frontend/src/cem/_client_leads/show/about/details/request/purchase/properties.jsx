@@ -10,8 +10,12 @@ import * as dict from 'cem/constants/properties/dictionaries';
 import cn from 'classnames';
 import UI from 'cem/components/ui';
 const {
-  Heading, Grid, Icon, Media,
-  Button, ParamList,
+  Heading,
+  Grid,
+  Icon,
+  Media,
+  Button,
+  ParamList,
   Grid: { Row, Col },
   Form: { Group },
 } = UI;
@@ -21,7 +25,9 @@ import sUtils from 'cem/styles/utils';
 import sButton from 'cem/styles/buttons';
 
 const PropertyImage = ({ id }) => {
-  const src = id ? `${cloudfront}/${id}-thumbnail-256` : require(`url-loader!cem/assets/placeholder`);
+  const src = id
+    ? `${cloudfront}/${id}-thumbnail-256`
+    : require(`url-loader!cem/assets/placeholder`);
 
   return <UI.Image src={src} kind="circle" width="114" height="114" />;
 };
@@ -35,10 +41,14 @@ const PropertyDescription = ({ data = {}, remove, isStatic }) => (
         </ParamList>
       </Col>
       <Col sm="5">
-        <ParamList label="Категория" big>{dict.categories[data.category]}</ParamList>
+        <ParamList label="Категория" big>
+          {dict.categories[data.category]}
+        </ParamList>
       </Col>
       <Col sm="5">
-        <ParamList label="Тип" big>{dict.kinds[data.kind]}</ParamList>
+        <ParamList label="Тип" big>
+          {dict.kinds[data.kind]}
+        </ParamList>
       </Col>
       {!isStatic && (
         <Col sm="7">
@@ -51,19 +61,31 @@ const PropertyDescription = ({ data = {}, remove, isStatic }) => (
 
     <Row>
       <Col sm="3">
-        <ParamList label="Статус" big valueClassName={s[dict.states[data.state].style]}>{dict.states[data.state].title}</ParamList>
+        <ParamList
+          label="Статус"
+          big
+          valueClassName={s[dict.states[data.state].style]}
+        >
+          {dict.states[data.state].title}
+        </ParamList>
       </Col>
       {data.saleOffer && (
         <Col sm="5">
           <ParamList label="Продажа" big>
-            <FormattedCurrency symbol={data.saleOffer.currency} value={data.saleOffer.price} />
+            <FormattedCurrency
+              symbol={data.saleOffer.currency}
+              value={data.saleOffer.price}
+            />
           </ParamList>
         </Col>
       )}
       {data.rentOffer && (
         <Col sm="5">
           <ParamList label="Аренда" big>
-            <FormattedCurrency symbol={data.rentOffer.currency} value={data.rentOffer.price} />
+            <FormattedCurrency
+              symbol={data.rentOffer.currency}
+              value={data.rentOffer.price}
+            />
           </ParamList>
         </Col>
       )}
@@ -86,7 +108,10 @@ class About extends Component {
     this.props.actions.loadProperty(id).then(response => {
       const { category } = response.data;
 
-      this.props.fields.requestDetails.objects.addField({ id, klass: `${category}_property` });
+      this.props.fields.requestDetails.objects.addField({
+        id,
+        klass: `${category}_property`,
+      });
       this.props.fields.toggle.onChange(Math.random());
     });
   }
@@ -100,13 +125,19 @@ class About extends Component {
     const property = this.props.state.properties[id] || undefined;
 
     if (property) {
-      const image = property.data.images && property.data.images[0] || {};
+      const image = (property.data.images && property.data.images[0]) || {};
 
       return (
         <Col xs="20" key={index} className={cn(sUtils.pushedBottom3)}>
           <Media
             left={<PropertyImage id={image.id} />}
-            body={<PropertyDescription data={property.data} remove={() => ::this.removeProperty(index)} isStatic={isStatic} />}
+            body={
+              <PropertyDescription
+                data={property.data}
+                remove={() => ::this.removeProperty(index)}
+                isStatic={isStatic}
+              />
+            }
           />
         </Col>
       );
@@ -118,16 +149,33 @@ class About extends Component {
   render() {
     const { formKey, leadState, isUpdateAllowed, className } = this.props;
 
-    const isStatic = (formKey !== `create` && !isUpdateAllowed) || [`spam`, `rejected`, `processed`].indexOf(leadState) > -1;
+    const isStatic =
+      (formKey !== `create` && !isUpdateAllowed) ||
+      [`spam`, `rejected`, `processed`].indexOf(leadState) > -1;
     const isStateInProgress = leadState === `in_progress`;
 
     return (
       <div className={className}>
-        <Group kind={!this.props.values.requestDetails.objects.length && `error`}>
+        <Group
+          kind={!this.props.values.requestDetails.objects.length && `error`}
+        >
           <Heading size="md">
             Объекты
             {!isStatic && (
-              <ModalProperty submitBtn={<Button className={sButton.btnWide} type="button" kind="primary" size="lg" block>Добавить объект</Button>} onClick={::this.addProperty}>
+              <ModalProperty
+                submitBtn={
+                  <Button
+                    className={sButton.btnWide}
+                    type="button"
+                    kind="primary"
+                    size="lg"
+                    block
+                  >
+                    Добавить объект
+                  </Button>
+                }
+                onClick={::this.addProperty}
+              >
                 <Button className={s.linkIcon} type="button">
                   <Icon className={s.icon} icon="modal" />
                 </Button>
@@ -135,10 +183,15 @@ class About extends Component {
             )}
           </Heading>
 
-          {isStateInProgress && !this.props.values.requestDetails.objects.length && <Heading notFound>Объекты не выбраны</Heading>}
+          {isStateInProgress &&
+            !this.props.values.requestDetails.objects.length && (
+              <Heading notFound>Объекты не выбраны</Heading>
+            )}
         </Group>
         <Row>
-          {this.props.values.requestDetails.objects.map(({ id }, index) => ::this.renderProperty(id, index, isStatic))}
+          {this.props.values.requestDetails.objects.map(({ id }, index) =>
+            ::this.renderProperty(id, index, isStatic),
+          )}
         </Row>
       </div>
     );

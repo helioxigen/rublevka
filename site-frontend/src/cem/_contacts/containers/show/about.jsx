@@ -106,7 +106,8 @@ class About extends Component {
 
     const { clientLeadId } = data;
 
-    const clientLead = state.leads[clientLeadId] && state.leads[clientLeadId].data;
+    const clientLead =
+      state.leads[clientLeadId] && state.leads[clientLeadId].data;
 
     return (
       <Container fluid>
@@ -141,7 +142,12 @@ class About extends Component {
                             float
                             static={isStatic}
                           >
-                            <Input className={s.input} block type="text" autoComplete="off" />
+                            <Input
+                              className={s.input}
+                              block
+                              type="text"
+                              autoComplete="off"
+                            />
                           </FormField>
                         </Col>
                       </Row>
@@ -151,7 +157,9 @@ class About extends Component {
                         <Col lg="16">
                           <FormField
                             label="Дополнительный телефон"
-                            field={fields.additionalDetails.additionalPhoneNumber}
+                            field={
+                              fields.additionalDetails.additionalPhoneNumber
+                            }
                             float
                             static={isStatic}
                           >
@@ -248,7 +256,9 @@ class About extends Component {
                                   'auto_model',
                                   fields.additionalDetails.autoBrandId.value,
                                 )}
-                                parent={fields.additionalDetails.autoBrandId.value}
+                                parent={
+                                  fields.additionalDetails.autoBrandId.value
+                                }
                               />
                             </FormField>
                           </Col>
@@ -316,7 +326,12 @@ class About extends Component {
                 <Heading size="md">Примечание</Heading>
                 <Row className={sUtils.pushedBottom3}>
                   <Col xs="20">
-                    <FormField label="Примечание" field={fields.note} float static={isStatic}>
+                    <FormField
+                      label="Примечание"
+                      field={fields.note}
+                      float
+                      static={isStatic}
+                    >
                       <Input block type="text" />
                     </FormField>
                   </Col>
@@ -324,9 +339,11 @@ class About extends Component {
               </div>
             </Form.Container>
 
-            {formKey !== 'create' && !isStatic && isLinkedContactsEditingAllowed && (
-              <LinkedContacts contactId={formKey} {...this.props} />
-            )}
+            {formKey !== 'create' &&
+              !isStatic &&
+              isLinkedContactsEditingAllowed && (
+                <LinkedContacts contactId={formKey} {...this.props} />
+              )}
 
             {formKey !== 'create' && !isStatic && isSensitiveDataVisible && (
               <Documents contactId={formKey} {...this.props} />
@@ -349,7 +366,7 @@ class About extends Component {
 // });
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { leads } = state;
 
   return {
@@ -359,7 +376,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     // TODO: make LeadSource as container and move this actions
     loadLead,
@@ -387,6 +404,8 @@ const connectedWithRedux = connect(
   pickActions,
 )(About);
 const connectedWithSubmitValidator = submitValidator()(connectedWithRedux);
-const connectedWithReduxForm = reduxForm(formSettings)(connectedWithSubmitValidator);
+const connectedWithReduxForm = reduxForm(formSettings)(
+  connectedWithSubmitValidator,
+);
 
 export default connectedWithReduxForm;

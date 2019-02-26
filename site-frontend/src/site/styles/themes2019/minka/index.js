@@ -1,0 +1,17 @@
+export default {
+  visibility: {},
+  navbar: {},
+  pager: {},
+  button: {},
+  form: {},
+  list: {},
+  checkbox: {},
+  dropdown: {},
+  slider: {},
+  loading: {},
+  media: {},
+  grid: {},
+  modal: {},
+  carousel: {},
+  header: {},
+};

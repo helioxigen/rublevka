@@ -26,11 +26,23 @@ import OrderBy from './OrderBy';
 import capitalize from 'lodash/capitalize';
 import isEqual from 'lodash/isEqual';
 
-import { kinds, dealTypesTranslit } from 'site/constants/properties/dictionaries';
+import {
+  kinds,
+  dealTypesTranslit,
+} from 'site/constants/properties/dictionaries';
 
-import { Wrapper, StLoading, StLoadMore, OrderWrapper, Relative, ListWrapper } from './styled';
+import {
+  Wrapper,
+  StLoading,
+  StLoadMore,
+  OrderWrapper,
+  Relative,
+  ListWrapper,
+} from './styled';
 
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col },
+} = UI;
 
 class List extends Component {
   constructor(props) {
@@ -125,11 +137,13 @@ class List extends Component {
       state,
       kind,
     } = this.props;
-    const { ids = [], isFetching } = this.props.state.countryProperties[this.group] || {};
+    const { ids = [], isFetching } =
+      this.props.state.countryProperties[this.group] || {};
 
     const pagination = this.props.state.pagination[this.resource] || {};
 
-    const { saleProperties = {}, rentProperties = {} } = this.props.statistics || {};
+    const { saleProperties = {}, rentProperties = {} } =
+      this.props.statistics || {};
     const resaleTotal = saleProperties.resale;
     const rentTotal = rentProperties.total;
 
@@ -164,7 +178,10 @@ class List extends Component {
                   actions={this.props.actions}
                   state={state.order[this.resource]}
                   updatePagination={this.props.actions.updatePagination}
-                  fields={[`${dealType}Offer.multiCurrencyPrice.usd`, 'location.mkadDistance']}
+                  fields={[
+                    `${dealType}Offer.multiCurrencyPrice.usd`,
+                    'location.mkadDistance',
+                  ]}
                 />
               </OrderWrapper>
             </Relative>
@@ -172,15 +189,20 @@ class List extends Component {
             <ListWrapper>
               <Row>
                 <Col xs="12">
-                  {hasItems &&
-                    !isFetching && (
-                      <Row>
-                        {ids.map(id => (
-                          <Card dealType={dealTypesTranslit[dealType]} id={id} showLocation />
-                        ))}
-                        {ids.length > 19 && <ResultForm propertyCategory="country" type="common" />}
-                      </Row>
-                    )}
+                  {hasItems && !isFetching && (
+                    <Row>
+                      {ids.map(id => (
+                        <Card
+                          dealType={dealTypesTranslit[dealType]}
+                          id={id}
+                          showLocation
+                        />
+                      ))}
+                      {ids.length > 19 && (
+                        <ResultForm propertyCategory="country" type="common" />
+                      )}
+                    </Row>
+                  )}
 
                   {isFetching && <StLoading />}
 
@@ -215,7 +237,7 @@ class List extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { countryProperties, filters, pagination, order } = state;
 
   return {
@@ -228,7 +250,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadProperties,
     ...FilterActions,
@@ -242,4 +264,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(List);
+export default connect(
+  pickState,
+  pickActions,
+)(List);

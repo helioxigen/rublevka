@@ -21,7 +21,7 @@ const loadDocumentsFailed = (id, { errors }) => ({
 });
 
 export function loadDocuments(id) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadDocumentsStarted(id));
 
     return API.get(`/v1/users/staff/${id}/documents`).then(
@@ -78,7 +78,7 @@ const deleteDocumentFailed = () => ({
 });
 
 export function deleteDocument(id, documentId) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(deleteDocumentStarted());
 
     API.del(`/v1/users/staff/${id}/documents/${documentId}`).then(

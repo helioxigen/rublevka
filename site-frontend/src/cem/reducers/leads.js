@@ -47,7 +47,10 @@ export default handleActions(
             : items.map(item => item.id),
         },
       },
-      ...items.reduce((result, item) => ({ ...result, [item.id]: { data: item } }), {}),
+      ...items.reduce(
+        (result, item) => ({ ...result, [item.id]: { data: item } }),
+        {},
+      ),
     }),
 
     [types.LOAD_LEADS]: state => ({
@@ -62,7 +65,10 @@ export default handleActions(
       list: {
         items,
       },
-      ...items.reduce((result, item) => ({ ...result, [item.id]: { data: item } }), {}),
+      ...items.reduce(
+        (result, item) => ({ ...result, [item.id]: { data: item } }),
+        {},
+      ),
     }),
 
     [types.LOAD_LEADS_FAIL]: (state, { errors }) => ({

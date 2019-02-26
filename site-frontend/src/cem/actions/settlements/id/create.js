@@ -11,7 +11,7 @@ const createSettlementStarted = settlement => ({
   settlement,
 });
 
-const createSettlementSucceeded = (id, data) => (dispatch) => {
+const createSettlementSucceeded = (id, data) => dispatch => {
   dispatch({
     type: types.CREATE_SETTLEMENT_SUCCESS,
     id,
@@ -28,7 +28,7 @@ const createSettlementFailed = ({ errors }) => ({
 });
 
 export default function createSettlement(settlement) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(createSettlementStarted(settlement));
 
     return API.post(
@@ -37,7 +37,9 @@ export default function createSettlement(settlement) {
     ).then(
       ({ headers }) =>
         API.get(headers.location).then(({ body }) =>
-          dispatch(createSettlementSucceeded(body.id, transformSettlementIn(body))),
+          dispatch(
+            createSettlementSucceeded(body.id, transformSettlementIn(body)),
+          ),
         ),
       ({ body }) => {
         dispatch(createSettlementFailed(body));

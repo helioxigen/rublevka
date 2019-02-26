@@ -152,7 +152,10 @@ export default handleActions(
       },
     }),
 
-    [types.CHANGE_RESIDENTIAL_SUCCESS]: (state, { id, residentialComplexId, location }) => ({
+    [types.CHANGE_RESIDENTIAL_SUCCESS]: (
+      state,
+      { id, residentialComplexId, location },
+    ) => ({
       ...state,
       [id]: {
         data: {

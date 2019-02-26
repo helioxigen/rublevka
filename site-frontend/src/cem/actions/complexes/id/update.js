@@ -18,12 +18,14 @@ const updateComplexFailed = (id, errors) => ({
   errors,
 });
 
-const updateComplex = (id, data) => (dispatch) => {
+const updateComplex = (id, data) => dispatch => {
   dispatch(updateComplexStarted(id, data));
 
   return API.put(`/v1/complexes/${id}`, transformDataOut(data)).then(
     () => {
-      dispatch(pop('success', `Жилой комплекс (ID: ${id})`, 'Успешно обновлён'));
+      dispatch(
+        pop('success', `Жилой комплекс (ID: ${id})`, 'Успешно обновлён'),
+      );
       dispatch(loadComplex(id));
     },
     ({ body }) => {

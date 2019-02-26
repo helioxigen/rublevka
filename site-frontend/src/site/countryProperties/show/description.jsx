@@ -5,7 +5,13 @@ import { cloudfront } from 'core/config/resources';
 import PopupCarousel from 'site/components/common/popupCarousel';
 
 import UI from 'site/ui';
-const { CountIndicator, DL, Button, Image, Grid: { Container, Row, Col } } = UI;
+const {
+  CountIndicator,
+  DL,
+  Button,
+  Image,
+  Grid: { Container, Row, Col },
+} = UI;
 
 import s from 'site/styles/property/description';
 
@@ -22,9 +28,21 @@ class Description extends Component {
                 <p className={s.title}>Участок</p>
                 <Row>
                   <Col xs="12">
-                    <DL name="landSize" type="dimension" value={landDetails.area} />
-                    <DL name="landType" type="dictionary" value={landDetails.landscapeKind[0]} />
-                    <DL name="landscaping" type="boolean" value={!!landDetails.landscaping} />
+                    <DL
+                      name="landSize"
+                      type="dimension"
+                      value={landDetails.area}
+                    />
+                    <DL
+                      name="landType"
+                      type="dictionary"
+                      value={landDetails.landscapeKind[0]}
+                    />
+                    <DL
+                      name="landscaping"
+                      type="boolean"
+                      value={!!landDetails.landscaping}
+                    />
                   </Col>
                 </Row>
               </Col>
@@ -34,10 +52,18 @@ class Description extends Component {
                   <Row className={s.pushedBottomXs2_5Sm3}>
                     <Col xs="12">
                       {communication.gasSupply && (
-                        <DL name="gasSupply" type="dictionary" value={communication.gasSupply} />
+                        <DL
+                          name="gasSupply"
+                          type="dictionary"
+                          value={communication.gasSupply}
+                        />
                       )}
                       {communication.powerSupply && (
-                        <DL name="powerSupply" type="dimension" value={communication.powerSupply} />
+                        <DL
+                          name="powerSupply"
+                          type="dimension"
+                          value={communication.powerSupply}
+                        />
                       )}
                       {communication.waterSupply && (
                         <DL
@@ -47,7 +73,11 @@ class Description extends Component {
                         />
                       )}
                       {communication.sewerageSupply && (
-                        <DL name="sewers" type="dictionary" value={communication.sewerageSupply} />
+                        <DL
+                          name="sewers"
+                          type="dictionary"
+                          value={communication.sewerageSupply}
+                        />
                       )}
                     </Col>
                   </Row>
@@ -101,10 +131,15 @@ class Description extends Component {
                 </Col>
                 {publicLayoutImages.map((item, i) => (
                   <Col sm="6" md="3" className={s.pushedBottom3}>
-                    <PopupCarousel propertyId={data.id} images={publicLayoutImages}>
+                    <PopupCarousel
+                      propertyId={data.id}
+                      images={publicLayoutImages}
+                    >
                       <Button className={s.btn} size="md" block key={i}>
                         <Image
-                          src={`${global.config.cloudfront || cloudfront}/${item.id}-thumbnail-512`}
+                          src={`${global.config.cloudfront || cloudfront}/${
+                            item.id
+                          }-thumbnail-512`}
                           key={i}
                           alt="Планировка"
                           responsive

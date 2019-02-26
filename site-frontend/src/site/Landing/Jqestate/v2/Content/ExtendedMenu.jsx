@@ -21,7 +21,10 @@ import {
   TotalCounter,
 } from './styled';
 
-const { Grid: { Col }, CountIndicator } = UI;
+const {
+  Grid: { Col },
+  CountIndicator,
+} = UI;
 
 class ExtendedMenu extends Component {
   render() {
@@ -46,7 +49,11 @@ class ExtendedMenu extends Component {
                       countrySale.townhouse +
                       countrySale.flat
                     }
-                    declensionForms={['предложение', 'предложения', 'предложений']}
+                    declensionForms={[
+                      'предложение',
+                      'предложения',
+                      'предложений',
+                    ]}
                   />
                 </TotalCounter>
               </ShowXsSmMd>
@@ -76,8 +83,16 @@ class ExtendedMenu extends Component {
                 <TitleBgMobile>Аренда</TitleBgMobile>
                 <TotalCounter>
                   <CountIndicator
-                    count={countryRent.house + countryRent.townhouse + countryRent.flat}
-                    declensionForms={['предложение', 'предложения', 'предложений']}
+                    count={
+                      countryRent.house +
+                      countryRent.townhouse +
+                      countryRent.flat
+                    }
+                    declensionForms={[
+                      'предложение',
+                      'предложения',
+                      'предложений',
+                    ]}
                   />
                 </TotalCounter>
               </ShowXsSmMd>

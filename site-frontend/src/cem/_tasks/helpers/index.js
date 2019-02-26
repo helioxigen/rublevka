@@ -1,7 +1,12 @@
 import uniq from 'lodash/uniq';
 import { makeDateRange, formatFilterDate } from 'core/helpers';
 
-export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNot = {} }) => {
+export const mapParams = ({
+  pagination = {},
+  orderBy = {},
+  filter = {},
+  filterNot = {},
+}) => {
   const { limit, offset } = pagination;
   const {
     id,
@@ -26,7 +31,10 @@ export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNo
       id,
       kind,
       state,
-      deadline: makeDateRange(formatFilterDate(deadlineFrom), formatFilterDate(deadlineTo)),
+      deadline: makeDateRange(
+        formatFilterDate(deadlineFrom),
+        formatFilterDate(deadlineTo),
+      ),
       'details.linkKind': linkKind,
       'details.contactId': filter.contactId,
       'details.clientLeadId': filter.clientLeadId,
@@ -43,9 +51,12 @@ export const mapParams = ({ pagination = {}, orderBy = {}, filter = {}, filterNo
 
 export const getKeysFromDetails = (key, tasks) => {
   const items = tasks
-    .map((task) => {
+    .map(task => {
       const details =
-        task.previewDetails || task.negotiationDetails || task.contactDetails || task.freeDetails;
+        task.previewDetails ||
+        task.negotiationDetails ||
+        task.contactDetails ||
+        task.freeDetails;
 
       if (details[key]) return details[key];
     })
@@ -62,11 +73,12 @@ export const getDetails = task =>
   task.negotiationDetails ||
   {};
 
-export const getLinkKind = (task) => {
+export const getLinkKind = task => {
   const linkKind = getDetails(task).linkKind; // NOTE negotiation doesn't have linkKind, because it can be only with deal
 
   const isPreviewByDeal = task.kind === 'preview' && getDetails(task).dealId;
-  const isPreviewByClientLead = task.kind === 'preview' && getDetails(task).clientLeadId;
+  const isPreviewByClientLead =
+    task.kind === 'preview' && getDetails(task).clientLeadId;
 
   if (isPreviewByDeal) return 'deal';
   if (isPreviewByClientLead) return 'client_lead';

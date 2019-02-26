@@ -51,4 +51,7 @@ const pickActions = dispatch => ({
   actions: bindActionCreators({ pushPath, logoutAsUser, pop }, dispatch),
 });
 
-export default connect(pickState, pickActions)(permissionResolver()(RootContainer));
+export default connect(
+  pickState,
+  pickActions,
+)(permissionResolver()(RootContainer));

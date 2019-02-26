@@ -24,7 +24,8 @@ import s from 'landing/styles/properties/list';
 
 import UI from 'site/ui';
 const {
-  Button, BtnGroup,
+  Button,
+  BtnGroup,
   LoadMore,
   Visibility,
   Grid: { Container, Row, Col },
@@ -147,7 +148,7 @@ class List extends Component {
               isResaleProperty
               isPrimary={this.state.isPrimary}
               id={data.id}
-             />
+            />
           </Row>
 
           {hasItems && (
@@ -158,11 +159,7 @@ class List extends Component {
             </Row>
           )}
 
-          {!hasItems && (
-            <NotFound
-              resetFilter={::this.resetFilter}
-            />
-          )}
+          {!hasItems && <NotFound resetFilter={::this.resetFilter} />}
 
           <Row xs="center">
             <Col>
@@ -186,13 +183,8 @@ class List extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
-  const {
-    countryProperties,
-    filters,
-    pagination,
-    order,
-  } = state;
+const pickState = state => {
+  const { countryProperties, filters, pagination, order } = state;
 
   return {
     state: {
@@ -204,7 +196,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadProperties,
     ...FilterActions,
@@ -217,4 +209,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(List);
+export default connect(
+  pickState,
+  pickActions,
+)(List);

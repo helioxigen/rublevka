@@ -8,7 +8,15 @@ import * as propertiesDict from 'cem/constants/properties/dictionaries';
 import * as tasksDict from 'cem/constants/tasks/dictionaries';
 
 import UI from 'cem/components/ui';
-const { Media, Image, Label, Loading, Text, ParamList, Grid: { Container, Row, Col } } = UI;
+const {
+  Media,
+  Image,
+  Label,
+  Loading,
+  Text,
+  ParamList,
+  Grid: { Container, Row, Col },
+} = UI;
 import { FormattedDate, FormattedCurrency } from 'react-formatted';
 
 import cn from 'classnames';
@@ -19,8 +27,8 @@ import sTypography from 'cem/styles/typography';
 
 import { idResourcer } from 'core/decorators/fetcher';
 
-const ContactImage = ({ src }) =>
-  (<Image
+const ContactImage = ({ src }) => (
+  <Image
     src={
       src
         ? `${src}-64`
@@ -30,26 +38,23 @@ const ContactImage = ({ src }) =>
     kind="circle"
     width="42"
     height="42"
-  />);
+  />
+);
 
-const ContactDescription = ({ details = {} }) =>
-  (<div>
+const ContactDescription = ({ details = {} }) => (
+  <div>
     <p className={s.mediaText}>
       {details.firstName || ''} {details.lastName || ''}
     </p>
-    <p className={s.mediaText}>
-      {details.phoneNumber}
-    </p>
-  </div>);
+    <p className={s.mediaText}>{details.phoneNumber}</p>
+  </div>
+);
 
-const Contact = ({ id, data = {} }) =>
-  (<dl className={sUtils.resetIndent}>
+const Contact = ({ id, data = {} }) => (
+  <dl className={sUtils.resetIndent}>
     <dt className={cn(s.textGrey, sUtils.pushedBottom1)}>
       Клиент&nbsp;
-      {!!id &&
-        <span>
-          (ID: {id})
-        </span>}
+      {!!id && <span>(ID: {id})</span>}
       {!id && <span>(лид)</span>}
     </dt>
     <dd className={s.mediaText}>
@@ -58,18 +63,20 @@ const Contact = ({ id, data = {} }) =>
         body={<ContactDescription details={data.details} />}
       />
     </dd>
-  </dl>);
+  </dl>
+);
 
-const ResponsibleUserDescription = props =>
-  (<div>
+const ResponsibleUserDescription = props => (
+  <div>
     <p className={s.mediaText}>
       {props.firstName || ''} {props.lastName || ''}
     </p>
     {/* <p className={s.mediaText}>{props.workPhoneNumber}</p> */}
-  </div>);
+  </div>
+);
 
-const ResponsibleUser = ({ data = {} }) =>
-  (<dl className={sUtils.resetIndent}>
+const ResponsibleUser = ({ data = {} }) => (
+  <dl className={sUtils.resetIndent}>
     <dt className={cn(s.textGrey, sUtils.pushedBottom1)}>Ответственный</dt>
     <dd className={s.mediaText}>
       <Media
@@ -77,33 +84,45 @@ const ResponsibleUser = ({ data = {} }) =>
         body={<ResponsibleUserDescription {...data} />}
       />
     </dd>
-  </dl>);
+  </dl>
+);
 
 const Property = idResourcer({
   id: 'properties',
   linkedResourcesSchemes: [],
-})(({ itemData: { id, state, saleOffer, rentOffer } }) =>
-  (<dl className={sUtils.resetIndent}>
-    <dt className={cn(s.textGrey, sUtils.pushedBottom1)}>
-      Объект (ID: {id})
-    </dt>
-    <dd className={cn(s.mediaText, sProperty[state && propertiesDict.states[state].style])}>
+})(({ itemData: { id, state, saleOffer, rentOffer } }) => (
+  <dl className={sUtils.resetIndent}>
+    <dt className={cn(s.textGrey, sUtils.pushedBottom1)}>Объект (ID: {id})</dt>
+    <dd
+      className={cn(
+        s.mediaText,
+        sProperty[state && propertiesDict.states[state].style],
+      )}
+    >
       {state && propertiesDict.states[state].title}
     </dd>
-    {!!saleOffer &&
+    {!!saleOffer && (
       <dd className={s.mediaText}>
         {propertiesDict.offerKinds.purchase} (
-        <FormattedCurrency symbol={saleOffer.currency} value={saleOffer.price} />
+        <FormattedCurrency
+          symbol={saleOffer.currency}
+          value={saleOffer.price}
+        />
         )
-      </dd>}
-    {!!rentOffer &&
+      </dd>
+    )}
+    {!!rentOffer && (
       <dd className={s.mediaText}>
         {propertiesDict.offerKinds.rent} (
-        <FormattedCurrency symbol={rentOffer.currency} value={rentOffer.price} />
+        <FormattedCurrency
+          symbol={rentOffer.currency}
+          value={rentOffer.price}
+        />
         )
-      </dd>}
-  </dl>),
-);
+      </dd>
+    )}
+  </dl>
+));
 
 const Deal = ({ id, data = {} }) => {
   const { state, details = {} } = data;
@@ -115,13 +134,17 @@ const Deal = ({ id, data = {} }) => {
         <dt className={cn(s.textGrey, sUtils.pushedBottom1)}>
           Сделка (ID: {id})
         </dt>
-        <dd className={cn(s.mediaText, sTypography[dealsDict.states[state].style])}>
+        <dd
+          className={cn(
+            s.mediaText,
+            sTypography[dealsDict.states[state].style],
+          )}
+        >
           {dealsDict.states[state].title}
         </dd>
         <dd className={s.mediaText}>
           {propertiesDict.offerKinds[offerKind]} (
-          <FormattedCurrency symbol={currency} value={budget} />
-          )
+          <FormattedCurrency symbol={currency} value={budget} />)
         </dd>
       </dl>
     );
@@ -136,10 +159,13 @@ const Lead = ({ id, data = {} }) => {
   if (state) {
     return (
       <dl className={sUtils.resetIndent}>
-        <dt className={cn(s.textGrey, sUtils.pushedBottom1)}>
-          Лид (ID: {id})
-        </dt>
-        <dd className={cn(s.mediaText, sTypography[leadsDict.states[state].style])}>
+        <dt className={cn(s.textGrey, sUtils.pushedBottom1)}>Лид (ID: {id})</dt>
+        <dd
+          className={cn(
+            s.mediaText,
+            sTypography[leadsDict.states[state].style],
+          )}
+        >
           {state ? leadsDict.states[state].title : '—'}
         </dd>
         <dd className={s.mediaText}>
@@ -164,7 +190,9 @@ export default ({ data = {}, contacts, leads, deals, users }) => {
   const details = isFree ? freeDetails : contactDetails;
 
   const taskLinkKind =
-    details && details.linkKind ? tasksDict.linkKinds[details.linkKind].title : 'По сделке';
+    details && details.linkKind
+      ? tasksDict.linkKinds[details.linkKind].title
+      : 'По сделке';
 
   const previewAndNegotiationDetails = {
     preview: previewDetails,
@@ -172,7 +200,9 @@ export default ({ data = {}, contacts, leads, deals, users }) => {
   };
 
   const dealId =
-    isPreview || isNegotiation ? previewAndNegotiationDetails[data.kind].dealId : details.dealId;
+    isPreview || isNegotiation
+      ? previewAndNegotiationDetails[data.kind].dealId
+      : details.dealId;
   const propertyId =
     isPreview || isNegotiation
       ? previewAndNegotiationDetails[data.kind].propertyId
@@ -193,14 +223,18 @@ export default ({ data = {}, contacts, leads, deals, users }) => {
   const clientLeadContactData =
     clientLeadData.data && clientLeadData.data.contactDetails
       ? {
-        ...clientLeadData.data,
-        details: { ...clientLeadData.data.contactDetails },
-      }
+          ...clientLeadData.data,
+          details: { ...clientLeadData.data.contactDetails },
+        }
       : {};
-  const responsibleUserData = users[data.responsibleUser && data.responsibleUser.id] || {};
+  const responsibleUserData =
+    users[data.responsibleUser && data.responsibleUser.id] || {};
 
   return (
-    <Link to={`/tasks/${data.id}`} className={cn(s.card, s[tasksDict.states[data.state].style])}>
+    <Link
+      to={`/tasks/${data.id}`}
+      className={cn(s.card, s[tasksDict.states[data.state].style])}
+    >
       <div className={s.cardWrapper}>
         <Container fluid className={s.flex}>
           <Row>
@@ -214,12 +248,13 @@ export default ({ data = {}, contacts, leads, deals, users }) => {
                 {tasksDict.kinds[data.kind].title}
               </ParamList>
             </Col>
-            {!!taskLinkKind &&
+            {!!taskLinkKind && (
               <Col className={sUtils.pushedTopXs2} sm="4" lg="3">
                 <ParamList label="Тип" big>
                   {taskLinkKind}
                 </ParamList>
-              </Col>}
+              </Col>
+            )}
             {/* isPreview && !previewDetails.archivedDocumentId &&
               <Col sm={isFree ? `4` : `9`} md={isFree ? `6` : `11`}>
                 <Label kind="warning">АКТ НЕ АРХИВИРОВАН</Label>
@@ -227,31 +262,37 @@ export default ({ data = {}, contacts, leads, deals, users }) => {
             */}
             <Col sm="6" lg="9">
               <div className={sUtils.textRight}>
-                {!!data.stateDetails.toApprove &&
+                {!!data.stateDetails.toApprove && (
                   <div className={sUtils.pushedBottom1}>
                     <Label kind="warning">ОЖИДАЕТ ПОДТВЕРЖДЕНИЯ</Label>
-                  </div>}
+                  </div>
+                )}
                 {isPreview &&
                   !!data.previewDetails.archivedDocumentId &&
-                  data.state === 'done' &&
-                  <div>
-                    <Label kind="success">ПРОСМОТРОВЫЙ АКТ АРХИВИРОВАН</Label>
-                  </div>}
+                  data.state === 'done' && (
+                    <div>
+                      <Label kind="success">ПРОСМОТРОВЫЙ АКТ АРХИВИРОВАН</Label>
+                    </div>
+                  )}
                 {isPreview &&
                   data.previewDetails.isDocumentAttached &&
                   !data.previewDetails.archivedDocumentId &&
-                  data.state === 'done' &&
-                  <div className={sUtils.pushedBottom1}>
-                    <div>
-                      <Label kind="warning">ПРОСМОТРОВЫЙ АКТ НЕ АРХИВИРОВАН</Label>
+                  data.state === 'done' && (
+                    <div className={sUtils.pushedBottom1}>
+                      <div>
+                        <Label kind="warning">
+                          ПРОСМОТРОВЫЙ АКТ НЕ АРХИВИРОВАН
+                        </Label>
+                      </div>
                     </div>
-                  </div>}
+                  )}
                 {isPreview &&
                   !data.previewDetails.isDocumentAttached &&
-                  data.state === 'done' &&
-                  <div>
-                    <Label kind="danger">ПРОСМОТРОВЫЙ АКТ НЕ ЗАГРУЖЕН</Label>
-                  </div>}
+                  data.state === 'done' && (
+                    <div>
+                      <Label kind="danger">ПРОСМОТРОВЫЙ АКТ НЕ ЗАГРУЖЕН</Label>
+                    </div>
+                  )}
               </div>
             </Col>
           </Row>
@@ -261,38 +302,49 @@ export default ({ data = {}, contacts, leads, deals, users }) => {
                 <Col sm="5" lg="4">
                   {((isPreview && previewDetails.dealId) ||
                     (isNegotiation && negotiationDetails.dealId) ||
-                    details.linkKind === 'deal') &&
-                    <Deal id={dealId} data={dealData.data} />}
+                    details.linkKind === 'deal') && (
+                    <Deal id={dealId} data={dealData.data} />
+                  )}
                   {!isPreview &&
                     !isNegotiation &&
-                    details.linkKind === 'property' &&
-                    <Property
-                      id={propertyId}
-                      resourcePath={`/v1/properties/${propertyCategory}`}
-                    />}
+                    details.linkKind === 'property' && (
+                      <Property
+                        id={propertyId}
+                        resourcePath={`/v1/properties/${propertyCategory}`}
+                      />
+                    )}
                   {!isPreview &&
                     !isNegotiation &&
-                    details.linkKind === 'client_lead' &&
-                    <Lead id={clientLeadId} data={clientLeadData.data} />}
+                    details.linkKind === 'client_lead' && (
+                      <Lead id={clientLeadId} data={clientLeadData.data} />
+                    )}
                 </Col>
                 <Col className={sUtils.pushedTopXs2} sm="5" lg="4">
                   <ResponsibleUser data={responsibleUserData.data} />
                 </Col>
                 <Col className={sUtils.pushedTopXs2} sm="5" lg="4">
-                  {(isPreview || isNegotiation || details.linkKind !== 'client_lead') &&
-                    <Contact id={contactId} data={contactData.data} />}
+                  {(isPreview ||
+                    isNegotiation ||
+                    details.linkKind !== 'client_lead') && (
+                    <Contact id={contactId} data={contactData.data} />
+                  )}
                   {!isPreview &&
                     !isNegotiation &&
-                    details.linkKind === 'client_lead' &&
-                    <Contact id={clientLeadContactData.contactId} data={clientLeadContactData} />}
+                    details.linkKind === 'client_lead' && (
+                      <Contact
+                        id={clientLeadContactData.contactId}
+                        data={clientLeadContactData}
+                      />
+                    )}
                 </Col>
                 <Col className={sUtils.pushedTopXs2} sm="5" lg="8">
-                  {details.goal &&
+                  {details.goal && (
                     <ParamList label="Цель">
                       <Text truncate={108} ellipsis>
                         {details.goal}
                       </Text>
-                    </ParamList>}
+                    </ParamList>
+                  )}
                 </Col>
               </Row>
             </Col>

@@ -25,7 +25,9 @@ class About extends Component {
   changeKind(requestKind) {
     const { data } = this.props;
 
-    this.props.actions.pushPath(`/client_leads/${data.kind}/${data.id}?requestKind=${requestKind}`);
+    this.props.actions.pushPath(
+      `/client_leads/${data.kind}/${data.id}?requestKind=${requestKind}`,
+    );
   }
 
   update() {
@@ -45,7 +47,8 @@ class About extends Component {
       isUpdateAllowed,
       isSensitiveDataVisible,
     } = this.props;
-    const state = (data && data.stateDetails && data.stateDetails.toApprove) || data.state;
+    const state =
+      (data && data.stateDetails && data.stateDetails.toApprove) || data.state;
 
     const isStatic =
       (formKey !== 'create' && !isUpdateAllowed) ||
@@ -53,7 +56,10 @@ class About extends Component {
       ['spam', 'rejected', 'processed'].indexOf(state) > -1;
 
     return (
-      <Form.Container className={s.section} onSubmit={handleSubmit(::this.update)}>
+      <Form.Container
+        className={s.section}
+        onSubmit={handleSubmit(::this.update)}
+      >
         <CallDetails phoneCallDetails={data.phoneCallDetails} />
 
         {data.state === 'processed' && data.dealId && (
@@ -65,7 +71,11 @@ class About extends Component {
         )}
 
         {(formKey === 'create' || isSensitiveDataVisible) && (
-          <ContactDetails fields={this.props.fields.contactDetails} isStatic isPhoneStatic />
+          <ContactDetails
+            fields={this.props.fields.contactDetails}
+            isStatic
+            isPhoneStatic
+          />
         )}
 
         {!isStatic && <Heading size="md">Запрос</Heading>}
@@ -78,7 +88,8 @@ class About extends Component {
                     <Heading size="sm">Запрос по объектам</Heading>
                     <p className={sUtils.pushedTop2}>
                       Начните обработку лида здесь,
-                      <br className={sUtils.hiddenSm} /> если клиент обратился по
+                      <br className={sUtils.hiddenSm} /> если клиент обратился
+                      по
                       <br className={sUtils.hiddenSm} /> конкретному объекту или
                       <br className={sUtils.hiddenSm} /> объектам.
                     </p>
@@ -102,8 +113,10 @@ class About extends Component {
                     <Heading size="sm">Запрос в свободной форме</Heading>
                     <p className={sUtils.pushedTop2}>
                       Начните обработку лида здесь,
-                      <br className={sUtils.hiddenSm} /> если клиент оставил вам свой
-                      <br className={sUtils.hiddenSm} /> запрос в свободной форме, а не
+                      <br className={sUtils.hiddenSm} /> если клиент оставил вам
+                      свой
+                      <br className={sUtils.hiddenSm} /> запрос в свободной
+                      форме, а не
                       <br className={sUtils.hiddenSm} /> по конретному объекту.
                     </p>
                   </div>
@@ -126,8 +139,10 @@ class About extends Component {
                     <Heading size="sm">Запрос на продажу недвижмости</Heading>
                     <p className={sUtils.pushedTop2}>
                       Начните обработку лида здесь,
-                      <br className={sUtils.hiddenSm} /> если клиент хочет продать или
-                      <br className={sUtils.hiddenSm} /> сдать свою недвижимость.
+                      <br className={sUtils.hiddenSm} /> если клиент хочет
+                      продать или
+                      <br className={sUtils.hiddenSm} /> сдать свою
+                      недвижимость.
                     </p>
                   </div>
                   <div className={s.flexItem}>
@@ -164,7 +179,11 @@ class About extends Component {
         </Row>
         <Row>
           <Col xs="20">
-            <Status data={data} state={this.props.state} actions={this.props.actions} />
+            <Status
+              data={data}
+              state={this.props.state}
+              actions={this.props.actions}
+            />
           </Col>
         </Row>
         {formKey === 'create' && (

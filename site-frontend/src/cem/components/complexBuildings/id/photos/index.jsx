@@ -16,28 +16,47 @@ import Card from './card';
 
 import s from 'cem/styles/id/content';
 
-
 import { formSettings } from 'cem/constants/complexBuildings/form';
 
-export default DragDropContext(HTML5Backend)(reduxForm(formSettings)(
-  class Photos extends Component {
-    uploadPhoto(photos) {
-      const { formKey, actions } = this.props;
+export default DragDropContext(HTML5Backend)(
+  reduxForm(formSettings)(
+    class Photos extends Component {
+      uploadPhoto(photos) {
+        const { formKey, actions } = this.props;
 
-      return actions.uploadPhoto(formKey, photos).then(() => actions.loadComplexBuilding(formKey));
-    }
+        return actions
+          .uploadPhoto(formKey, photos)
+          .then(() => actions.loadComplexBuilding(formKey));
+      }
 
-    render() {
-      const { fields, values, isImageUploadAllowed, isUpdateAllowed } = this.props;
-      const { isImageUploading } = this.props.data || {};
+      render() {
+        const {
+          fields,
+          values,
+          isImageUploadAllowed,
+          isUpdateAllowed,
+        } = this.props;
+        const { isImageUploading } = this.props.data || {};
 
-      return (
-        <Row>
-          <section className={s.section}>
-            <PhotoList requestLink={{ kind: `image` }} Card={<Card disabled={!isUpdateAllowed} />} title="Фотографии" items={fields.images} value={values.images} isUploading={isImageUploading} upload={::this.uploadPhoto} toggle={fields._photosToggle} disabled={!isImageUploadAllowed} isPhotoSessionAllowed={false} />
-          </section>
-        </Row>
-      );
-    }
-  }
-));
+        return (
+          <Row>
+            <section className={s.section}>
+              <PhotoList
+                requestLink={{ kind: `image` }}
+                Card={<Card disabled={!isUpdateAllowed} />}
+                title="Фотографии"
+                items={fields.images}
+                value={values.images}
+                isUploading={isImageUploading}
+                upload={::this.uploadPhoto}
+                toggle={fields._photosToggle}
+                disabled={!isImageUploadAllowed}
+                isPhotoSessionAllowed={false}
+              />
+            </section>
+          </Row>
+        );
+      }
+    },
+  ),
+);

@@ -1,0 +1,20 @@
+{
+  "projects": {
+    "default": "rublevka-export-384da"
+  },
+  "targets": {
+    "rublevka-export-384da": {
+      "hosting": {
+        "export-app": [
+          "rublevka-export-384da"
+        ],
+        "staff-frontend": [
+          "rublevka-staff-dev"
+        ],
+        "rublevka-frontend-dev": [
+          "rublevka-dev"
+        ]
+      }
+    }
+  }
+}

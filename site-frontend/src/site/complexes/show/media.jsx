@@ -27,7 +27,9 @@ export default class extends Component {
   render() {
     const images = this.props.images.map(({ id }) => ({
       id,
-      src: `${global.config.cloudfront || cloudfront}/${id}-${global.config.postfix}`,
+      src: `${global.config.cloudfront || cloudfront}/${id}-${
+        global.config.postfix
+      }`,
     }));
 
     return (
@@ -41,7 +43,8 @@ export default class extends Component {
               key={index}
             >
               <RetinaImage
-                src={`${global.config.cloudfront || cloudfront}/${id}-thumbnail`}
+                src={`${global.config.cloudfront ||
+                  cloudfront}/${id}-thumbnail`}
                 size={256}
                 className={s.image}
                 alt={id}

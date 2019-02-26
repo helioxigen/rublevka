@@ -16,7 +16,10 @@ import cn from 'classnames';
 import s from 'site/styles/components/card';
 import sUtils from 'site/styles/utils';
 
-import { dealTypes, kindsTranslit } from 'site/constants/properties/dictionaries';
+import {
+  dealTypes,
+  kindsTranslit,
+} from 'site/constants/properties/dictionaries';
 import { kinds } from 'site/constants/places';
 
 import styled from 'styled-components';
@@ -24,7 +27,10 @@ import media from 'site/styles/media';
 
 const isJQ = global.config.domain === 'jq.estate';
 
-const { Grid: { Col }, Icon } = UI;
+const {
+  Grid: { Col },
+  Icon,
+} = UI;
 
 const CardContainer = styled(Col)`
   ${media.xlg`
@@ -300,8 +306,9 @@ class Card extends Component {
       return (
         <Image
           style={{
-            backgroundImage: `url(${global.config.cloudfront || cloudfront}/${publicImages[0]
-              .id}-thumbnail-512)`,
+            backgroundImage: `url(${global.config.cloudfront || cloudfront}/${
+              publicImages[0].id
+            }-thumbnail-512)`,
           }}
         />
       );
@@ -329,7 +336,8 @@ class Card extends Component {
           <SubLocality>
             <span title={isJQ && location.routeName}>
               {!!location.mkadDistance && `${location.mkadDistance} км`}
-            </span>,&nbsp;<span>ID&nbsp;{id}</span>
+            </span>
+            ,&nbsp;<span>ID&nbsp;{id}</span>
           </SubLocality>
         </Location>
       );
@@ -347,15 +355,21 @@ class Card extends Component {
         <CardContainer xs="12" sm="6" md="4">
           <Wrapper
             className={cn(this.props.className, s.paddingBottomSm2)}
-            to={`/zagorodnaya/${this.props.dealType}/${kindsTranslit[data.kind]}/${data.id}`}
+            to={`/zagorodnaya/${this.props.dealType}/${
+              kindsTranslit[data.kind]
+            }/${data.id}`}
           >
             <ImageWrapper>
               {this.renderPhoto(data)}
 
-              {!!badge && !!badge.title && <Badge style={{ background: badge.color }}>{badge.title}</Badge>}
+              {!!badge && !!badge.title && (
+                <Badge style={{ background: badge.color }}>{badge.title}</Badge>
+              )}
 
               {this.props.showLocation && (
-                <LocationWrapperMobile>{this.renderLocation(data)}</LocationWrapperMobile>
+                <LocationWrapperMobile>
+                  {this.renderLocation(data)}
+                </LocationWrapperMobile>
               )}
             </ImageWrapper>
 

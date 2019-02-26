@@ -6,7 +6,15 @@ import { TimeProgressBar } from 'cem/components/common/progressbar';
 import { cloudfront } from 'core/config/resources';
 
 import UI from 'cem/components/ui';
-const { Button, Loading, Heading, Icon, Modal, Carousel, Grid: { Row, Col } } = UI;
+const {
+  Button,
+  Loading,
+  Heading,
+  Icon,
+  Modal,
+  Carousel,
+  Grid: { Row, Col },
+} = UI;
 
 import s from 'cem/styles/id/content';
 import sUtils from 'cem/styles/utils';
@@ -62,7 +70,9 @@ class PhotoList extends Component {
     const { upload } = this.props;
     const photos = group.map(({ cdnUrl }) => cdnUrl);
     // Get total upload size in kb
-    const totalSize = Math.floor(group.reduce((total, next) => total + next.size, 0) / 1000);
+    const totalSize = Math.floor(
+      group.reduce((total, next) => total + next.size, 0) / 1000,
+    );
 
     this.setState({ totalSize, isUploading: true });
     upload(photos)
@@ -71,7 +81,13 @@ class PhotoList extends Component {
   }
 
   render() {
-    const { Card, items = [], disabled, isPhotoSessionAllowed = false, requestLink } = this.props;
+    const {
+      Card,
+      items = [],
+      disabled,
+      isPhotoSessionAllowed = false,
+      requestLink,
+    } = this.props;
     const { totalSize } = this.state;
     // Multiply total size in kb by the number of seconds it takes to process one kb (on average).
     const totalTime = totalSize * 9;
@@ -79,12 +95,16 @@ class PhotoList extends Component {
 
     const carouselImages = items.map(({ id }) => ({
       id: id.value,
-      src: `${(global.config && global.config.cloudfront) || cloudfront}/${id.value}-jqestate`,
+      src: `${(global.config && global.config.cloudfront) || cloudfront}/${
+        id.value
+      }-jqestate`,
     }));
 
     const thumbnails = items.map(({ id }) => ({
       id: id.value,
-      src: `${(global.config && global.config.cloudfront) || cloudfront}/${id.value}-thumbnail`,
+      src: `${(global.config && global.config.cloudfront) || cloudfront}/${
+        id.value
+      }-thumbnail`,
     }));
 
     const requestBtn = {
@@ -98,14 +118,15 @@ class PhotoList extends Component {
           <Col xs="20">
             <Heading size="md">
               {this.props.title}
-              {!!requestLink &&
-              isPhotoSessionAllowed && (
+              {!!requestLink && isPhotoSessionAllowed && (
                 <Button
                   className={s.positionTopRight}
                   type="button"
                   kind="accent"
                   size="xs"
-                  to={`/requests/properties/images/create?${makeImageRequestParams(requestLink)}`}
+                  to={`/requests/properties/images/create?${makeImageRequestParams(
+                    requestLink,
+                  )}`}
                 >
                   Заказать {requestBtn[requestLink.kind]}
                 </Button>
@@ -143,29 +164,30 @@ class PhotoList extends Component {
               })}
             </Col>
           ))}
-          {isUploading &&
-          !totalSize && (
+          {isUploading && !totalSize && (
             <Col sm="10" lg="5">
               <Loading className={s.loadingPhoto} />
             </Col>
           )}
-          {isUploading &&
-          !!totalSize && (
+          {isUploading && !!totalSize && (
             <Col sm="10" lg="5" className={sUtils.positionRelative}>
               <TimeProgressBar time={totalTime} ref="progressbar" />
             </Col>
           )}
           {!disabled && (
             <Col sm="10" lg="5">
-              <Uploadcare multiple onChange={::this.handleUpload} onBlur={() => {}}>
+              <Uploadcare
+                multiple
+                onChange={::this.handleUpload}
+                onBlur={() => {}}
+              >
                 <Button type="button" className={sButton.btnBigPlus} block>
                   <Icon className={s.iconAdd} icon="plus" />
                 </Button>
               </Uploadcare>
             </Col>
           )}
-          {disabled &&
-          !items.length && (
+          {disabled && !items.length && (
             <Col sm="20">
               <Heading notFound>Не найдено</Heading>
             </Col>

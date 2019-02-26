@@ -6,7 +6,11 @@ import {
   LOAD_PROPERTIES_FAILED,
 } from '../../constants/properties';
 
-import { makeFilter, makeFilterNot, makeRoomsFilterAndFilterNot } from 'core/utils/properties';
+import {
+  makeFilter,
+  makeFilterNot,
+  makeRoomsFilterAndFilterNot,
+} from 'core/utils/properties';
 
 import loadList from 'core/_countryProperties/actions/list/load';
 
@@ -33,8 +37,11 @@ function loadFailed(kind, error) {
   };
 }
 
-function loadProperties(kind, { pagination: paginationParams = {}, ...params } = {}) {
-  return (dispatch) => {
+function loadProperties(
+  kind,
+  { pagination: paginationParams = {}, ...params } = {},
+) {
+  return dispatch => {
     if (kind === 'country') {
       const options = {
         pagination: paginationParams,
@@ -48,11 +55,13 @@ function loadProperties(kind, { pagination: paginationParams = {}, ...params } =
       ...params,
       filter: {
         ...makeFilter(params.filter),
-        ...makeRoomsFilterAndFilterNot(params.filter['specification.rooms']).filter,
+        ...makeRoomsFilterAndFilterNot(params.filter['specification.rooms'])
+          .filter,
       },
       filterNot: {
         ...makeFilterNot(params.filterNot),
-        ...makeRoomsFilterAndFilterNot(params.filter['specification.rooms']).filterNot,
+        ...makeRoomsFilterAndFilterNot(params.filter['specification.rooms'])
+          .filterNot,
       },
       pagination: {
         offset: paginationParams.offset,

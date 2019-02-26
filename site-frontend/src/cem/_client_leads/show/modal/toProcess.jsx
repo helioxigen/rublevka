@@ -55,13 +55,14 @@ class ModalApproved extends Component {
 
     const dealDetails = {
       expectedFinishDateAt: normalizeDate(values.expectedFinishDate),
-      expectedAgentFee: isAgentFixed !== 'true' ? values.expectedAgentFee : undefined,
+      expectedAgentFee:
+        isAgentFixed !== 'true' ? values.expectedAgentFee : undefined,
       expectedAgentFixedPrice:
         isAgentFixed === 'true'
           ? {
-            price: values.expectedAgentFixedPrice.price,
-            currency: values.expectedAgentFixedPrice.currency,
-          }
+              price: values.expectedAgentFixedPrice.price,
+              currency: values.expectedAgentFixedPrice.currency,
+            }
           : undefined,
       budget: values.budget,
       currency: values.currency,
@@ -87,7 +88,9 @@ class ModalApproved extends Component {
       this.props.fields.expectedCommission.onChange(commission);
     } else {
       this.setState({ commission });
-      this.props.fields.expectedCommission.onChange(Math.floor((budget / 100) * commission));
+      this.props.fields.expectedCommission.onChange(
+        Math.floor((budget / 100) * commission),
+      );
     }
   }
 
@@ -127,7 +130,9 @@ class ModalApproved extends Component {
             </Row>
             <Row>
               <Col xs="20" className={sUtils.pushedTop3}>
-                <p className={s.text}>Чтобы продолжить требуется заполнить все поля внизу.</p>
+                <p className={s.text}>
+                  Чтобы продолжить требуется заполнить все поля внизу.
+                </p>
               </Col>
             </Row>
 
@@ -142,13 +147,22 @@ class ModalApproved extends Component {
               <Col xs="20">
                 <Row>
                   <Col sm="12">
-                    <FormField label="Бюджет сделки" field={budgetField} float price>
+                    <FormField
+                      label="Бюджет сделки"
+                      field={budgetField}
+                      float
+                      price
+                    >
                       <PriceInput block type="text" />
                     </FormField>
                   </Col>
                   <Col sm="8">
                     <FormField label="Валюта" field={fields.currency} float>
-                      <Select options={options.currencies} labelKey="title" valueKey="id" />
+                      <Select
+                        options={options.currencies}
+                        labelKey="title"
+                        valueKey="id"
+                      />
                     </FormField>
                   </Col>
                 </Row>
@@ -163,7 +177,9 @@ class ModalApproved extends Component {
                     className={cn(sUtils.fullWidth, sDaypicker.daypicker)}
                     restrict="past"
                     onDayClick={fields.expectedFinishDate.onChange}
-                    control={<Input block type="text" {...fields.expectedFinishDate} />}
+                    control={
+                      <Input block type="text" {...fields.expectedFinishDate} />
+                    }
                     button={
                       <Button className={sDaypicker.btn}>
                         <Icon className={sDaypicker.icon} icon="calendar" />
@@ -213,9 +229,11 @@ class ModalApproved extends Component {
                   <Group>
                     <Label block>Ожидаемая комиссия</Label>
                     <Static>
-                      {values.currency !== 'RUB' && dict.currencies[values.currency]}
+                      {values.currency !== 'RUB' &&
+                        dict.currencies[values.currency]}
                       {values.expectedCommission || 0}
-                      {values.currency === 'RUB' && ` ${dict.currencies[values.currency] || ''}`}
+                      {values.currency === 'RUB' &&
+                        ` ${dict.currencies[values.currency] || ''}`}
                     </Static>
                   </Group>
                 </Col>
@@ -235,8 +253,16 @@ class ModalApproved extends Component {
                   </FormField>
                 </Col>
                 <Col sm="10">
-                  <FormField label="Валюта" field={fields.expectedAgentFixedPrice.currency} float>
-                    <Select options={options.currencies} labelKey="title" valueKey="id" />
+                  <FormField
+                    label="Валюта"
+                    field={fields.expectedAgentFixedPrice.currency}
+                    float
+                  >
+                    <Select
+                      options={options.currencies}
+                      labelKey="title"
+                      valueKey="id"
+                    />
                   </FormField>
                 </Col>
               </Row>
@@ -244,7 +270,11 @@ class ModalApproved extends Component {
 
             <Row>
               <Col sm="20">
-                <FormField label="Кем является контакт" field={fields.contactKindId} float>
+                <FormField
+                  label="Кем является контакт"
+                  field={fields.contactKindId}
+                  float
+                >
                   <AsyncSelect
                     asyncOptions={fetchDictionary('deal_contact_type')}
                     labelKey="title"
@@ -254,7 +284,9 @@ class ModalApproved extends Component {
               </Col>
             </Row>
           </div>
-          {React.cloneElement(this.props.submitBtn, { onClick: handleSubmit(::this.handleSubmit) })}
+          {React.cloneElement(this.props.submitBtn, {
+            onClick: handleSubmit(::this.handleSubmit),
+          })}
         </Modal>
       </div>
     );

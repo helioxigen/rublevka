@@ -17,7 +17,7 @@ const createQuestionFailed = ({ errors }) => ({
 });
 
 export default function createQuestsion(data) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(createQuestionStarted(data));
 
     return API.post('/v1/csi/questions', data)

@@ -9,7 +9,7 @@ import * as types from 'cem/constants/linked_contacts/actions';
 import { listName } from 'cem/constants/linked_contacts/fetcher';
 
 export default function deleteLinkedContact(resource, resourceId, id) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(
       deleteLinkedResourceRecordStarted(
         types.DELETE_LINK_RECORD,

@@ -21,8 +21,8 @@ const loadPropertyFailed = (id, errors) => ({
   errors,
 });
 
-export default function (propertyId) {
-  return (dispatch) => {
+export default function(propertyId) {
+  return dispatch => {
     dispatch(loadPropertyStarted());
 
     return API.get(`/v1/properties/${propertyId}`).then(

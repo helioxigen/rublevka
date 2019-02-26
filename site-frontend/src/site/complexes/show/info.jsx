@@ -16,10 +16,13 @@ class Description extends Component {
   render() {
     const { data, complexBuildingsIds = [] } = this.props;
 
-    const publicLayoutImages = (data.images && data.images.filter(image => !!image.isPublic)) || [];
+    const publicLayoutImages =
+      (data.images && data.images.filter(image => !!image.isPublic)) || [];
 
-    const totalAreaFrom = data.statistics && parseInt(data.statistics.totalPrimaryArea.from, 10);
-    const totalAreaTo = data.statistics && parseInt(data.statistics.totalPrimaryArea.to, 10);
+    const totalAreaFrom =
+      data.statistics && parseInt(data.statistics.totalPrimaryArea.from, 10);
+    const totalAreaTo =
+      data.statistics && parseInt(data.statistics.totalPrimaryArea.to, 10);
 
     return (
       <Row className={s.container}>
@@ -27,11 +30,10 @@ class Description extends Component {
           <ul className={s.list}>
             <li className={s.listItem}>
               <h1 className={s.title}>
-                {data.commissioningQuarter} квартал {data.commissioningYear} года
+                {data.commissioningQuarter} квартал {data.commissioningYear}{' '}
+                года
               </h1>
-              <p className={s.text}>
-                Конец строительства
-              </p>
+              <p className={s.text}>Конец строительства</p>
             </li>
             <li className={s.listItem}>
               <h1 className={s.title}>
@@ -40,17 +42,31 @@ class Description extends Component {
               <p className={s.text}>Площадь квартир</p>
             </li>
             <li className={s.listItem}>
-              <h1 className={s.title}>
-                {complexBuildingsIds.length}
-              </h1>
+              <h1 className={s.title}>{complexBuildingsIds.length}</h1>
               <p className={s.text}>
-                <CountIndicator count={complexBuildingsIds.length} declensionForms={['корпус', 'корпуса', 'корпусов']} numberHidden />
+                <CountIndicator
+                  count={complexBuildingsIds.length}
+                  declensionForms={['корпус', 'корпуса', 'корпусов']}
+                  numberHidden
+                />
               </p>
             </li>
           </ul>
         </Col>
-        <Col xs="12" className={cn(publicLayoutImages.length ? sUtils.pushedBottom8 : sUtils.pushedBottom3, sUtils.pushedTop3)}>
-          <Media images={publicLayoutImages} className={sMedia.complex} placeholderClassName={sMedia.complexPlaceholder} />
+        <Col
+          xs="12"
+          className={cn(
+            publicLayoutImages.length
+              ? sUtils.pushedBottom8
+              : sUtils.pushedBottom3,
+            sUtils.pushedTop3,
+          )}
+        >
+          <Media
+            images={publicLayoutImages}
+            className={sMedia.complex}
+            placeholderClassName={sMedia.complexPlaceholder}
+          />
         </Col>
 
         {/* item && (

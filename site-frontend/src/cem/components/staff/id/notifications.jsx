@@ -9,7 +9,10 @@ import formSettings from 'cem/constants/users/notifications/form';
 
 import UI from 'cem/components/ui';
 const {
-  Grid, Table, Button, Heading,
+  Grid,
+  Table,
+  Button,
+  Heading,
   Form: { Input },
 } = UI;
 
@@ -22,11 +25,10 @@ class Notifications extends Component {
   update() {
     const { actions, values } = this.props;
 
-    return actions.updateNotificationSettings(values)
-      .then(() => {
-        actions.pop(`success`, `Настройки уведомлений сохранены`);
-        actions.loadNotificationSettings();
-      });
+    return actions.updateNotificationSettings(values).then(() => {
+      actions.pop(`success`, `Настройки уведомлений сохранены`);
+      actions.loadNotificationSettings();
+    });
   }
 
   render() {
@@ -35,7 +37,7 @@ class Notifications extends Component {
     return (
       <Grid.Row>
         <section className={s.section}>
-           <Grid.Row>
+          <Grid.Row>
             <Grid.Col xs="20" className={sUtils.pushedBottom3}>
               <Heading size="md">Объекты</Heading>
               <Table.Container width="100%">
@@ -67,7 +69,19 @@ class Notifications extends Component {
             </Grid.Col>
           </Grid.Row>
         </section>
-        {!pristine && <Button className={cn(sButton.btnFixedBottom)} type="button" disabled={error || submitting || pristine} kind="warning" size="md" block onClick={handleSubmit(::this.update)}>Сохранить</Button>}
+        {!pristine && (
+          <Button
+            className={cn(sButton.btnFixedBottom)}
+            type="button"
+            disabled={error || submitting || pristine}
+            kind="warning"
+            size="md"
+            block
+            onClick={handleSubmit(::this.update)}
+          >
+            Сохранить
+          </Button>
+        )}
       </Grid.Row>
     );
   }

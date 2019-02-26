@@ -71,7 +71,8 @@ class List extends Component {
 
   render() {
     const { state } = this.props;
-    const { ids = [], isFetching/* , errors = [] */ } = state.cityProperties[this.group] || {};
+    const { ids = [], isFetching /* , errors = [] */ } =
+      state.cityProperties[this.group] || {};
     const pagination = state.pagination[this.resource] || {};
 
     return (
@@ -80,7 +81,14 @@ class List extends Component {
           <Row sm="middle" className={sUtils.pushedBottomXs2Sm4}>
             <Col sm="4">
               <h1 className={s.title}>
-                <CountIndicator count={pagination.total} declensionForms={[`предложение`, `предложения`, `предложений`]}/>
+                <CountIndicator
+                  count={pagination.total}
+                  declensionForms={[
+                    `предложение`,
+                    `предложения`,
+                    `предложений`,
+                  ]}
+                />
               </h1>
             </Col>
             {/* <Col sm="8" className={cn(sUtils.textRight, sUtils.hideXs)}>
@@ -121,7 +129,10 @@ class List extends Component {
             </Col>
           </Row>
 
-          <Row sm="center" className={cn(sUtils.pushedTop2, sUtils.pushedBottom3)}>
+          <Row
+            sm="center"
+            className={cn(sUtils.pushedTop2, sUtils.pushedBottom3)}
+          >
             <Col xs="12">
               <LoadMore
                 size="lg"
@@ -142,7 +153,7 @@ class List extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { cityProperties, filters, pagination, order } = state;
 
   return {
@@ -155,7 +166,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadProperties,
     ...FilterActions,
@@ -168,4 +179,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(List);
+export default connect(
+  pickState,
+  pickActions,
+)(List);

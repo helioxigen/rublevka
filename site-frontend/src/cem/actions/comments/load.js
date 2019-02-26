@@ -11,10 +11,16 @@ const loadCommentsStarted = (entityKey, entityId) => ({
   entityId,
 });
 
-const loadCommentsSucceeded = (entityKey, entityId, { items }) => (dispatch, getState) => {
-  const userIds = items.filter(item => !getState().users[item.userId]).map(item => item.userId);
+const loadCommentsSucceeded = (entityKey, entityId, { items }) => (
+  dispatch,
+  getState,
+) => {
+  const userIds = items
+    .filter(item => !getState().users[item.userId])
+    .map(item => item.userId);
 
-  if (userIds.length) dispatch(UsersActions.loadList({ filter: { id: userIds } }));
+  if (userIds.length)
+    dispatch(UsersActions.loadList({ filter: { id: userIds } }));
 
   dispatch({
     type: types.LOAD_COMMENTS_SUCCESS,
@@ -31,7 +37,7 @@ const loadCommentsFailed = (entityKey, entityId, { errors }) => ({
   errors,
 });
 
-export default (entityKey, entityId) => (dispatch) => {
+export default (entityKey, entityId) => dispatch => {
   dispatch(loadCommentsStarted(entityKey, entityId));
 
   const apiPath = apiPaths(entityId)[entityKey];

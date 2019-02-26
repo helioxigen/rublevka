@@ -18,7 +18,10 @@ import Header from 'cem/components/selections/id/header';
 
 class Id extends Component {
   componentWillMount() {
-    const { actions, params: { id } } = this.props;
+    const {
+      actions,
+      params: { id },
+    } = this.props;
 
     if (id !== 'create') {
       actions.loadSelection(id);
@@ -26,16 +29,25 @@ class Id extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { actions, params: { id } } = this.props;
+    const {
+      actions,
+      params: { id },
+    } = this.props;
     const nextId = nextProps.params.id;
 
-    if (!!nextId && (id !== nextId) && (nextId !== 'create')) {
+    if (!!nextId && id !== nextId && nextId !== 'create') {
       actions.loadSelection(nextId);
     }
   }
 
   render() {
-    const { actions, state, children, params: { id }, hasRight } = this.props;
+    const {
+      actions,
+      state,
+      children,
+      params: { id },
+      hasRight,
+    } = this.props;
     const { data = {}, isPhotoUploading } = state.selections[id] || {};
 
     const permissionsProps = {
@@ -49,9 +61,24 @@ class Id extends Component {
 
     return (
       <section>
-        <Header {...this.props} formKey={id.toString()} initialValues={initialValues} isPhotoUploading={isPhotoUploading} data={data} {...permissionsProps} />
+        <Header
+          {...this.props}
+          formKey={id.toString()}
+          initialValues={initialValues}
+          isPhotoUploading={isPhotoUploading}
+          data={data}
+          {...permissionsProps}
+        />
         <Container fluid>
-          {React.cloneElement(children, { ...this.props, formKey: id.toString(), initialValues, data, state, actions, ...permissionsProps })}
+          {React.cloneElement(children, {
+            ...this.props,
+            formKey: id.toString(),
+            initialValues,
+            data,
+            state,
+            actions,
+            ...permissionsProps,
+          })}
         </Container>
       </section>
     );
@@ -63,7 +90,13 @@ const pickState = ({ auth, selections, users }) => ({
 });
 
 const pickActions = dispatch => ({
-  actions: bindActionCreators({ ...SelectionsActions, loadUser, pushPath, pop }, dispatch),
+  actions: bindActionCreators(
+    { ...SelectionsActions, loadUser, pushPath, pop },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, pickActions)(Id);
+export default connect(
+  pickState,
+  pickActions,
+)(Id);

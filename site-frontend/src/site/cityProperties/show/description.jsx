@@ -6,7 +6,11 @@ import * as dict from 'site/constants/properties/city/dictionary';
 import PopupCarousel from 'site/components/common/popupCarousel';
 
 import UI from 'site/ui';
-const { Button, Image, Grid: { Row, Col, Container } } = UI;
+const {
+  Button,
+  Image,
+  Grid: { Row, Col, Container },
+} = UI;
 
 import s from 'site/styles/property/description';
 
@@ -22,7 +26,9 @@ class Description extends Component {
       // complex: { details: complexDetails = {} },
     } = this.props;
 
-    const publicLayoutImages = data.layoutImages.filter(image => !!image.isPublic);
+    const publicLayoutImages = data.layoutImages.filter(
+      image => !!image.isPublic,
+    );
 
     if (data) {
       return (
@@ -37,46 +43,69 @@ class Description extends Component {
                       <Col sm="6">
                         {specification.totalArea && (
                           <dl className={s.list}>
-                            <dt className={s.listTitle}>Общая площадь:&nbsp;</dt>
-                            <dd className={s.listItem}>{specification.totalArea} м²</dd>
+                            <dt className={s.listTitle}>
+                              Общая площадь:&nbsp;
+                            </dt>
+                            <dd className={s.listItem}>
+                              {specification.totalArea} м²
+                            </dd>
                           </dl>
                         )}
                         {specification.livingArea && (
                           <dl className={s.list}>
-                            <dt className={s.listTitle}>Жилая площадь:&nbsp;</dt>
-                            <dd className={s.listItem}>{specification.livingArea} м²</dd>
+                            <dt className={s.listTitle}>
+                              Жилая площадь:&nbsp;
+                            </dt>
+                            <dd className={s.listItem}>
+                              {specification.livingArea} м²
+                            </dd>
                           </dl>
                         )}
                         {specification.floor && (
                           <dl className={s.list}>
                             <dt className={s.listTitle}>
-                              {data && data.kind === 'house' ? 'Этажей' : 'Этаж'}:&nbsp;
+                              {data && data.kind === 'house'
+                                ? 'Этажей'
+                                : 'Этаж'}
+                              :&nbsp;
                             </dt>
-                            <dd className={s.listItem}>{specification.floor}</dd>
+                            <dd className={s.listItem}>
+                              {specification.floor}
+                            </dd>
                           </dl>
                         )}
                         {specification.rooms && (
                           <dl className={s.list}>
                             <dt className={s.listTitle}>Комнат:&nbsp;</dt>
-                            <dd className={s.listItem}>{specification.rooms}</dd>
+                            <dd className={s.listItem}>
+                              {specification.rooms}
+                            </dd>
                           </dl>
                         )}
                         {specification.ceilHeight && (
                           <dl className={s.list}>
-                            <dt className={s.listTitle}>Высота потолков:&nbsp;</dt>
-                            <dd className={s.listItem}>{specification.ceilHeight} м</dd>
+                            <dt className={s.listTitle}>
+                              Высота потолков:&nbsp;
+                            </dt>
+                            <dd className={s.listItem}>
+                              {specification.ceilHeight} м
+                            </dd>
                           </dl>
                         )}
                         {information.renovate && (
                           <dl className={s.list}>
                             <dt className={s.listTitle}>Ремонт:&nbsp;</dt>
-                            <dd className={s.listItem}>{dict.renovate[information.renovate]}</dd>
+                            <dd className={s.listItem}>
+                              {dict.renovate[information.renovate]}
+                            </dd>
                           </dl>
                         )}
                         {information.condition && (
                           <dl className={s.list}>
                             <dt className={s.listTitle}>Состояние:&nbsp;</dt>
-                            <dd className={s.listItem}>{dict.condition[information.condition]}</dd>
+                            <dd className={s.listItem}>
+                              {dict.condition[information.condition]}
+                            </dd>
                           </dl>
                         )}
                       </Col>
@@ -91,7 +120,9 @@ class Description extends Component {
                         )}
                         {information.conditioning && (
                           <dl className={s.list}>
-                            <dt className={s.listTitle}>Кондиционирование:&nbsp;</dt>
+                            <dt className={s.listTitle}>
+                              Кондиционирование:&nbsp;
+                            </dt>
                             <dd className={s.listItem}>
                               {dict.conditioning[information.conditioning]}
                             </dd>
@@ -107,25 +138,33 @@ class Description extends Component {
                         {specification.balconies && (
                           <dl className={s.list}>
                             <dt className={s.listTitle}>Балкон:&nbsp;</dt>
-                            <dd className={s.listItem}>{specification.balconies}</dd>
+                            <dd className={s.listItem}>
+                              {specification.balconies}
+                            </dd>
                           </dl>
                         )}
                         {specification.loggias && (
                           <dl className={s.list}>
                             <dt className={s.listTitle}>Лоджия:&nbsp;</dt>
-                            <dd className={s.listItem}>{specification.loggias}</dd>
+                            <dd className={s.listItem}>
+                              {specification.loggias}
+                            </dd>
                           </dl>
                         )}
                         {information.furniture && (
                           <dl className={s.list}>
                             <dt className={s.listTitle}>Мебель:&nbsp;</dt>
-                            <dd className={s.listItem}>{dict.furniture[information.furniture]}</dd>
+                            <dd className={s.listItem}>
+                              {dict.furniture[information.furniture]}
+                            </dd>
                           </dl>
                         )}
                         {specification.layout && (
                           <dl className={s.list}>
                             <dt className={s.listTitle}>Планировка:&nbsp;</dt>
-                            <dd className={s.listItem}>{dict.layout[specification.layout]}</dd>
+                            <dd className={s.listItem}>
+                              {dict.layout[specification.layout]}
+                            </dd>
                           </dl>
                         )}
                       </Col>
@@ -136,11 +175,15 @@ class Description extends Component {
                       <h3 className={s.title}>Планировка</h3>
 
                       {publicLayoutImages.map((item, i) => (
-                        <PopupCarousel propertyId={data.id} images={publicLayoutImages}>
+                        <PopupCarousel
+                          propertyId={data.id}
+                          images={publicLayoutImages}
+                        >
                           <Button className={s.btn} size="md" block key={i}>
                             <Image
-                              src={`${global.config.cloudfront ||
-                                cloudfront}/${item.id}-thumbnail-512`}
+                              src={`${global.config.cloudfront || cloudfront}/${
+                                item.id
+                              }-thumbnail-512`}
                               key={i}
                               alt="Планировка"
                               responsive
@@ -152,8 +195,7 @@ class Description extends Component {
                   )}
                 </Row>
                 <Row className={s.pushedBottom6}>
-                  {!!equipment &&
-                  !!equipment.length && (
+                  {!!equipment && !!equipment.length && (
                     <Col sm="6" md="4">
                       <h3 className={s.title}>Оснащение</h3>
                       <Row>

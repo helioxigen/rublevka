@@ -1,4 +1,10 @@
-const contactFields = ['firstName', 'lastName', 'phoneNumber', 'email', 'kindId'];
+const contactFields = [
+  'firstName',
+  'lastName',
+  'phoneNumber',
+  'email',
+  'kindId',
+];
 
 const phoneCallFields = ['status', 'duration', 'callRecording'];
 

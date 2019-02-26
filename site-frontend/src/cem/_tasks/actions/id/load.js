@@ -8,16 +8,16 @@ import {
 import * as types from 'cem/_tasks/constants/actions';
 import { resourceName } from 'cem/_tasks/constants/defaults';
 
-const load = id => (dispatch) => {
+const load = id => dispatch => {
   dispatch(loadElementStarted(types.LOAD, id));
 
   return loadElement(resourceName, id).then(
-    (data) => {
+    data => {
       dispatch(loadElementSucceeded(types.LOAD_SUCCEEDED, id, data));
 
       return data;
     },
-    (errors) => {
+    errors => {
       dispatch(loadElementFailed(types.LOAD_FAILED, id, errors));
 
       return errors;

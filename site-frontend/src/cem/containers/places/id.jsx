@@ -13,12 +13,15 @@ import Header from 'cem/components/places/id/header';
 import About from 'cem/components/places/id/about';
 
 import UI from 'cem/components/ui';
-const { Grid: { Container } } = UI;
-
+const {
+  Grid: { Container },
+} = UI;
 
 class IdContainer extends Component {
   componentWillMount() {
-    const { params: { id, kind } } = this.props;
+    const {
+      params: { id, kind },
+    } = this.props;
 
     if (id !== 'create') this.load(kind, id);
   }
@@ -30,7 +33,11 @@ class IdContainer extends Component {
   }
 
   render() {
-    const { state, params: { id, kind }, hasRight } = this.props;
+    const {
+      state,
+      params: { id, kind },
+      hasRight,
+    } = this.props;
     const { data } = state.places[id] || {};
     const { permissionName } = kinds[kind];
 
@@ -40,9 +47,23 @@ class IdContainer extends Component {
 
     return (
       <section>
-        <Header {...this.props} formKey={id} initialValues={{ ...data, kind }} data={data} kind={kind} {...permissionsProps} />
+        <Header
+          {...this.props}
+          formKey={id}
+          initialValues={{ ...data, kind }}
+          data={data}
+          kind={kind}
+          {...permissionsProps}
+        />
         <Container fluid>
-          <About {...this.props} formKey={id} initialValues={{ ...data, kind }} data={data} kind={kind} {...permissionsProps} />
+          <About
+            {...this.props}
+            formKey={id}
+            initialValues={{ ...data, kind }}
+            data={data}
+            kind={kind}
+            {...permissionsProps}
+          />
         </Container>
       </section>
     );
@@ -57,5 +78,7 @@ const mapDispatch = dispatch => ({
   actions: bindActionCreators({ ...PlacesActions, pop, pushPath }, dispatch),
 });
 
-
-export default connect(pickState, mapDispatch)(IdContainer);
+export default connect(
+  pickState,
+  mapDispatch,
+)(IdContainer);

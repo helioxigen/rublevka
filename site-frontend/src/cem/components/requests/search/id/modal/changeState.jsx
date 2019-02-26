@@ -6,16 +6,16 @@ import submitValidator from 'core/decorators/submitValidator';
 
 import ResponsibleUser from '../responsible';
 import UI from 'cem/components/ui';
-const {
-  Modal,
-} = UI;
+const { Modal } = UI;
 
 import s from 'cem/styles/modal/list';
 
 const formSettings = {
   form: `imageReuqestChangeState`,
   fields: [`responsibleUserId`],
-  validate: ({ responsibleUserId }) => ({ responsibleUserId: !responsibleUserId && `Обязательно` }),
+  validate: ({ responsibleUserId }) => ({
+    responsibleUserId: !responsibleUserId && `Обязательно`,
+  }),
 };
 
 export default reduxForm(formSettings)(
@@ -61,14 +61,27 @@ export default reduxForm(formSettings)(
 
         return (
           <div className={s.modalContainer}>
-            {React.cloneElement(this.props.children, { onClick: ::this.toggle })}
-            <Modal size="sm" closePortal={::this.close} isOpened={this.state.isOpened} onClose={::this.close} closeOnEsc closeOnOutsideClick>
+            {React.cloneElement(this.props.children, {
+              onClick: ::this.toggle,
+            })}
+            <Modal
+              size="sm"
+              closePortal={::this.close}
+              isOpened={this.state.isOpened}
+              onClose={::this.close}
+              closeOnEsc
+              closeOnOutsideClick
+            >
               <ResponsibleUser field={fields.responsibleUserId} />
-              {React.cloneElement(submitBtn, { ...submitBtn.props, type: `button`, onClick: handleSubmit(::this.update) })}
+              {React.cloneElement(submitBtn, {
+                ...submitBtn.props,
+                type: `button`,
+                onClick: handleSubmit(::this.update),
+              })}
             </Modal>
           </div>
         );
       }
-    }
-  )
+    },
+  ),
 );

@@ -28,4 +28,7 @@ const mapDispatch = dispatch => ({
   actions: bindActionCreators({ ...notificationsActions, pop }, dispatch),
 });
 
-export default connect(pickState, mapDispatch)(NotificationsContainer);
+export default connect(
+  pickState,
+  mapDispatch,
+)(NotificationsContainer);

@@ -8,10 +8,12 @@ import loadDeal from 'cem/actions/deals/id/load';
 
 import UI from 'cem/components/ui';
 const {
-  Icon, Loading, Heading,
+  Icon,
+  Loading,
+  Heading,
   ParamList,
   Grid: { Row, Col },
- } = UI;
+} = UI;
 
 import { FormattedDate, FormattedCurrency } from 'react-formatted';
 
@@ -21,11 +23,23 @@ import sUtils from 'cem/styles/utils';
 
 import * as dict from 'cem/constants/deals/dictionaries';
 
-const AgentFee = ({ data: { budget, currency, expectedAgentFee, expectedAgentFixedPrice } }) => {
+const AgentFee = ({
+  data: { budget, currency, expectedAgentFee, expectedAgentFixedPrice },
+}) => {
   if (expectedAgentFee) {
-    return <FormattedCurrency symbol={currency} value={Math.floor((budget / 100) * expectedAgentFee)} />;
+    return (
+      <FormattedCurrency
+        symbol={currency}
+        value={Math.floor((budget / 100) * expectedAgentFee)}
+      />
+    );
   } else if (expectedAgentFixedPrice) {
-    return <FormattedCurrency symbol={expectedAgentFixedPrice.currency} value={expectedAgentFixedPrice.price} />;
+    return (
+      <FormattedCurrency
+        symbol={expectedAgentFixedPrice.currency}
+        value={expectedAgentFixedPrice.price}
+      />
+    );
   }
   return <span>&nbsp;</span>;
 };
@@ -45,7 +59,13 @@ const DealDescription = ({ data: { id, state, details = {}, createdAt } }) => (
       </Col>
       <Col sm="7" md="5" lg="4">
         <ParamList label="Стадия" big>
-          <span className={cn(state && s[dict.states[state] && dict.states[state].style])}>{state && dict.states[state] && dict.states[state].title}</span>
+          <span
+            className={cn(
+              state && s[dict.states[state] && dict.states[state].style],
+            )}
+          >
+            {state && dict.states[state] && dict.states[state].title}
+          </span>
         </ParamList>
       </Col>
     </Row>
@@ -57,7 +77,10 @@ const DealDescription = ({ data: { id, state, details = {}, createdAt } }) => (
       </Col>
       <Col sm="7" md="5" lg="4">
         <ParamList label="Дата завершения" big>
-          <FormattedDate value={details.expectedFinishDateAt} mask="dd.mm.yyyy" />
+          <FormattedDate
+            value={details.expectedFinishDateAt}
+            mask="dd.mm.yyyy"
+          />
         </ParamList>
       </Col>
       <Col sm="7" md="5" lg="4">
@@ -99,13 +122,13 @@ class Deal extends Component {
           </Link>
         </Heading>
         {!!isFetching && <Loading />}
-        {!isFetching &&
+        {!isFetching && (
           <Row>
             <Col xs="20">
               <DealDescription data={data} />
             </Col>
           </Row>
-        }
+        )}
       </section>
     );
   }
@@ -119,4 +142,7 @@ const pickActions = dispatch => ({
   actions: bindActionCreators({ loadDeal }, dispatch),
 });
 
-export default connect(pickState, pickActions)(Deal);
+export default connect(
+  pickState,
+  pickActions,
+)(Deal);

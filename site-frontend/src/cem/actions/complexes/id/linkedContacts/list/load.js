@@ -19,11 +19,13 @@ const loadLinkedContactsFailed = (complexId, errors) => ({
   errors,
 });
 
-const loadLinkedContacts = (complexId, contactIds = []) => (dispatch) => {
+const loadLinkedContacts = (complexId, contactIds = []) => dispatch => {
   dispatch(loadLinkedContactsStarted(complexId));
 
   if (contactIds.length) {
-    return API.get('/v1/contacts', { filter: { id: contactIds.join(',') } }).then(
+    return API.get('/v1/contacts', {
+      filter: { id: contactIds.join(',') },
+    }).then(
       ({ body }) => {
         dispatch(loadLinkedContactsSucceeded(complexId, body));
         return body;

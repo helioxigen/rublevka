@@ -1,18 +1,23 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import loadList from "cem/_newsletters/actions/loadList";
-import { updatePagination } from "core/actions/pagination";
-import Pagination from "core/components/pagination";
+import loadList from 'cem/_newsletters/actions/loadList';
+import { updatePagination } from 'core/actions/pagination';
+import Pagination from 'core/components/pagination';
 
-import UI from "cem/components/ui";
-const { Heading, Loading, Button, Grid: { Container, Row, Col } } = UI;
+import UI from 'cem/components/ui';
+const {
+  Heading,
+  Loading,
+  Button,
+  Grid: { Container, Row, Col },
+} = UI;
 
-import Card from "./card";
+import Card from './card';
 
-import s from "cem/styles/components/header";
-import sUtils from "cem/styles/utils";
+import s from 'cem/styles/components/header';
+import sUtils from 'cem/styles/utils';
 
 class List extends Component {
   componentWillMount() {
@@ -59,7 +64,7 @@ class List extends Component {
               <Col xs="20">
                 <Heading size="lg">
                   Рассылки&nbsp;
-                  {isCreationAllowed &&
+                  {isCreationAllowed && (
                     <Button
                       className={sUtils.pushedLeftSm2}
                       kind="accent"
@@ -67,7 +72,8 @@ class List extends Component {
                       to={`/newsletters/create`}
                     >
                       добавить
-                    </Button>}
+                    </Button>
+                  )}
                 </Heading>
               </Col>
             </Row>
@@ -76,9 +82,9 @@ class List extends Component {
 
         {isFetching && <Loading />}
 
-        {!isFetching &&
-          !ids.length &&
-          <Heading notFound>Не найдено рассылок</Heading>}
+        {!isFetching && !ids.length && (
+          <Heading notFound>Не найдено рассылок</Heading>
+        )}
 
         {!isFetching &&
           ids.map(id => (
@@ -88,8 +94,7 @@ class List extends Component {
             />
           ))}
 
-        {!isFetching &&
-          !!ids.length &&
+        {!isFetching && !!ids.length && (
           <Container fluid>
             <Row xs="center">
               <Col sm="10" className={sUtils.pushed6_0}>
@@ -99,7 +104,8 @@ class List extends Component {
                 />
               </Col>
             </Row>
-          </Container>}
+          </Container>
+        )}
       </section>
     );
   }

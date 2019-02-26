@@ -19,7 +19,7 @@ const loadLeadsFailed = (searchRequestId, { errors }) => ({
   errors,
 });
 
-export default searchRequestId => (dispatch) => {
+export default searchRequestId => dispatch => {
   dispatch(loadLeadsStarted(searchRequestId));
 
   const queryParams = {

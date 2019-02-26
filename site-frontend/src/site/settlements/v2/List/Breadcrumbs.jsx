@@ -8,7 +8,9 @@ import media from 'site/styles/media';
 
 const { Icon, Visibility } = UI;
 
-const Wrapper = styled.nav`margin: 0;`;
+const Wrapper = styled.nav`
+  margin: 0;
+`;
 
 const Ol = styled.ol`
   display: none;
@@ -60,14 +62,22 @@ class PropertyBreadcrumbs extends Component {
       <Visibility xs="hidden" sm="hidden">
         <Wrapper>
           <Ol itemScope itemType="http://schema.org/BreadcrumbList">
-            <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+            <Li
+              itemProp="itemListElement"
+              itemScope
+              itemType="http://schema.org/ListItem"
+            >
               <StLink to="/" itemProp="item">
                 <span itemProp="name">Элитная недвижимость</span>
                 <meta itemProp="position" content="1" />
                 <StIcon icon="arrow-down" />
               </StLink>
             </Li>
-            <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+            <Li
+              itemProp="itemListElement"
+              itemScope
+              itemType="http://schema.org/ListItem"
+            >
               <ActiveBreadcrumb itemProp="item">
                 <span itemProp="name">Посёлки</span>
                 <meta itemProp="position" content="1" />

@@ -23,12 +23,21 @@ import Selected from 'site/countryProperties/v2/List/Filter/Selected';
 
 import { HideXsSm } from 'site/styles/mediaUtils';
 
-import { dealTypes, kindsTranslit } from 'site/constants/properties/dictionaries';
+import {
+  dealTypes,
+  kindsTranslit,
+} from 'site/constants/properties/dictionaries';
 
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const { Grid: { Row, Col }, Button, CountIndicator, BtnGroup, Icon } = UI;
+const {
+  Grid: { Row, Col },
+  Button,
+  CountIndicator,
+  BtnGroup,
+  Icon,
+} = UI;
 
 const Title = styled.div`
   margin: 1rem 2rem 0.2rem;
@@ -259,10 +268,16 @@ class Filter extends Component {
     const { translatedPlaceKind, dealType, place } = this.props;
 
     if (state.kind.length > 1) {
-      this.props.dispatch(push(`/zagorodnaya/${translatedPlaceKind}/${place}/${dealType}`));
+      this.props.dispatch(
+        push(`/zagorodnaya/${translatedPlaceKind}/${place}/${dealType}`),
+      );
     } else {
       this.props.dispatch(
-        push(`/zagorodnaya/${translatedPlaceKind}/${place}/${dealType}/${kindsTranslit[value]}`),
+        push(
+          `/zagorodnaya/${translatedPlaceKind}/${place}/${dealType}/${
+            kindsTranslit[value]
+          }`,
+        ),
       );
     }
   }
@@ -270,7 +285,9 @@ class Filter extends Component {
   resetLink() {
     const { translatedPlaceKind, dealType, place } = this.props;
 
-    this.props.dispatch(push(`/zagorodnaya/${translatedPlaceKind}/${place}/${dealType}`));
+    this.props.dispatch(
+      push(`/zagorodnaya/${translatedPlaceKind}/${place}/${dealType}`),
+    );
   }
 
   updateFilter(key, value) {
@@ -280,15 +297,23 @@ class Filter extends Component {
       [key]: value,
     };
 
-    this.props.dispatch(updatePagination(this.props.resourceName, { offset: 0 }));
+    this.props.dispatch(
+      updatePagination(this.props.resourceName, { offset: 0 }),
+    );
     this.props.dispatch(updateFilter(this.props.resourceName, values));
 
     if (value.length === 1) {
       this.props.dispatch(
-        push(`/zagorodnaya/${translatedPlaceKind}/${place}/${dealType}/${kindsTranslit[value]}`),
+        push(
+          `/zagorodnaya/${translatedPlaceKind}/${place}/${dealType}/${
+            kindsTranslit[value]
+          }`,
+        ),
       );
     } else {
-      this.props.dispatch(push(`/zagorodnaya/${translatedPlaceKind}/${place}/${dealType}`));
+      this.props.dispatch(
+        push(`/zagorodnaya/${translatedPlaceKind}/${place}/${dealType}`),
+      );
     }
   }
 
@@ -302,12 +327,21 @@ class Filter extends Component {
     this.props.dispatch(resetFilter(this.props.resourceName));
 
     if (kind) {
-      this.props.dispatch(push(`/zagorodnaya/${translatedPlaceKind}/${place}/${dealType}`));
+      this.props.dispatch(
+        push(`/zagorodnaya/${translatedPlaceKind}/${place}/${dealType}`),
+      );
     }
   }
 
   renderFilters() {
-    const { data = {}, translatedPlaceKind, dealType, kind, place, location } = this.props;
+    const {
+      data = {},
+      translatedPlaceKind,
+      dealType,
+      kind,
+      place,
+      location,
+    } = this.props;
     const propertyKind = kind || false;
 
     const state = this.props.filters[this.props.resourceName];
@@ -407,7 +441,11 @@ class Filter extends Component {
           </HideXsSm>
         )}
 
-        <Overlay ref="overlay" isViewOpen={isViewOpen} onClick={this.toggleView} />
+        <Overlay
+          ref="overlay"
+          isViewOpen={isViewOpen}
+          onClick={this.toggleView}
+        />
 
         <StBtnGroup isViewOpen={isViewOpen}>
           <ResetBtn

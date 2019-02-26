@@ -16,7 +16,13 @@ import ByPropertyModal from 'site/request/byPropertyModal';
 import Price from './price';
 import Breadcrumbs from './Breadcrumbs';
 
-const { Icon, Button, Visibility, CountIndicator, Grid: { Row, Col, Container } } = UI;
+const {
+  Icon,
+  Button,
+  Visibility,
+  CountIndicator,
+  Grid: { Row, Col, Container },
+} = UI;
 
 export const CallBtnWrapper = styled.div`
   position: fixed;
@@ -87,24 +93,29 @@ class PropertyInfo extends Component {
 
               <Visibility md="hidden" lg="hidden">
                 <div className={sUtils.pushedTop1}>
-                  <span className={s.labelXs}>
-                    ID {data && data.id}
-                  </span>
+                  <span className={s.labelXs}>ID {data && data.id}</span>
                 </div>
               </Visibility>
 
               {location.routeName && (
                 <p className={cn(s.titleLg, s.pushedTop1_9)}>
                   {location.routeName} ш.,&nbsp;{location.mkadDistance} км
-                  <span className={cn(s.label, sUtils.pushedLeft2)}>ID {data && data.id}</span>
+                  <span className={cn(s.label, sUtils.pushedLeft2)}>
+                    ID {data && data.id}
+                  </span>
                 </p>
               )}
-              {!location.routeName && <h2 className={cn(s.titleLg, s.pushedTop1_9)}>—</h2>}
+              {!location.routeName && (
+                <h2 className={cn(s.titleLg, s.pushedTop1_9)}>—</h2>
+              )}
 
               {!!data[`${dealType}Offer`] && (
                 <div className={s.pushedTopXs1_5Md2}>
                   <p className={s.titleMd}>
-                    <Price deal={data[`${dealType}Offer`]} dealType={dealType} />
+                    <Price
+                      deal={data[`${dealType}Offer`]}
+                      dealType={dealType}
+                    />
                   </p>
                 </div>
               )}
@@ -147,9 +158,10 @@ class PropertyInfo extends Component {
                   <li className={st.property.listItem}>
                     <Icon className={s.iconLg} icon="triangle" />
                     <span className={cn(s.displayInlineBlock, s.pushedTop1_2)}>
-                      {specification &&
-                      !!specification.area && (
-                        <span>{Math.floor(specification.area)}&nbsp;м²&nbsp;/&nbsp;</span>
+                      {specification && !!specification.area && (
+                        <span>
+                          {Math.floor(specification.area)}&nbsp;м²&nbsp;/&nbsp;
+                        </span>
                       )}
                       {Math.floor(landDetails.area)}&nbsp;сот
                     </span>
@@ -167,7 +179,10 @@ class PropertyInfo extends Component {
                   <Col sm="6" md="12" className={s.pushedTopMd3_5}>
                     <div className={s.btnLgContainer}>
                       <Visibility xs="hidden" sm="hidden">
-                        <ByPropertyModal propertyCategory="country" propertyId={data.id}>
+                        <ByPropertyModal
+                          propertyCategory="country"
+                          propertyId={data.id}
+                        >
                           <Button
                             className={cn(s.btnLg, sUtils.borderRadius10)}
                             size="lg"
@@ -180,7 +195,10 @@ class PropertyInfo extends Component {
 
                       <Visibility md="hidden" lg="hidden">
                         {!isWorkTime && (
-                          <ByPropertyModal propertyCategory="country" propertyId={data.id}>
+                          <ByPropertyModal
+                            propertyCategory="country"
+                            propertyId={data.id}
+                          >
                             <Button
                               className={cn(s.btnLg, sUtils.borderRadius10)}
                               size="lg"

@@ -20,12 +20,13 @@ const loadResidentialFailed = (id, errors) => ({
   id,
 });
 
-export default function (id) {
-  return (dispatch) => {
+export default function(id) {
+  return dispatch => {
     dispatch(loadResidentialStarted(id));
 
     return API.get(`/v1/complexes/${id}`).then(
-      ({ body }) => dispatch(loadResidentialSucceeded(id, transformResidentialIn(body))),
+      ({ body }) =>
+        dispatch(loadResidentialSucceeded(id, transformResidentialIn(body))),
       ({ body }) => dispatch(loadResidentialFailed(id, body)),
     );
   };

@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 
-import { selectLabels, headers, valueKeys } from 'cem/constants/transfer/dictionaries';
+import {
+  selectLabels,
+  headers,
+  valueKeys,
+} from 'cem/constants/transfer/dictionaries';
 
 import UI from 'cem/components/ui';
 const {
-  Form, Button, AsyncSelect, Heading,
+  Form,
+  Button,
+  AsyncSelect,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -30,7 +37,11 @@ class TransferUser extends Component {
   transferObject() {
     const {
       values: { responsibleUserId },
-      objectKind, objectId, transferAction, reloadAction, closeModal,
+      objectKind,
+      objectId,
+      transferAction,
+      reloadAction,
+      closeModal,
     } = this.props;
 
     return transferAction(objectKind, objectId, responsibleUserId).then(() => {
@@ -41,15 +52,38 @@ class TransferUser extends Component {
 
   render() {
     const {
-      fields, handleSubmit,
-      destinationKind, responsibleUser, restrictToCurrentDepartment = false,
+      fields,
+      handleSubmit,
+      destinationKind,
+      responsibleUser,
+      restrictToCurrentDepartment = false,
     } = this.props;
 
-    const departmentFilter = { 'details.departmentId': restrictToCurrentDepartment && responsibleUser.details && responsibleUser.details.departmentId || undefined };
+    const departmentFilter = {
+      'details.departmentId':
+        (restrictToCurrentDepartment &&
+          responsibleUser.details &&
+          responsibleUser.details.departmentId) ||
+        undefined,
+    };
 
     const selectOptions = {
-      users: fetchResource(`/v1/users/staff`, `lastName`, [`firstName`, `lastName`], { id: responsibleUser.id }, departmentFilter),
-      departments: fetchResource(`/v1/daily_duty/current`, `departmentTitle`, [`departmentTitle`], { departmentId: responsibleUser.details && responsibleUser.details.departmentId }),
+      users: fetchResource(
+        `/v1/users/staff`,
+        `lastName`,
+        [`firstName`, `lastName`],
+        { id: responsibleUser.id },
+        departmentFilter,
+      ),
+      departments: fetchResource(
+        `/v1/daily_duty/current`,
+        `departmentTitle`,
+        [`departmentTitle`],
+        {
+          departmentId:
+            responsibleUser.details && responsibleUser.details.departmentId,
+        },
+      ),
     };
 
     return (
@@ -62,13 +96,22 @@ class TransferUser extends Component {
           </Row>
           <Row className={sUtils.pushedBottom3}>
             <Col sm="20">
-              <FormField field={fields.responsibleUserId} label={selectLabels[destinationKind]} float>
-                <AsyncSelect asyncOptions={selectOptions[destinationKind]} valueKey={valueKeys[destinationKind]} />
+              <FormField
+                field={fields.responsibleUserId}
+                label={selectLabels[destinationKind]}
+                float
+              >
+                <AsyncSelect
+                  asyncOptions={selectOptions[destinationKind]}
+                  valueKey={valueKeys[destinationKind]}
+                />
               </FormField>
             </Col>
           </Row>
         </Container>
-        <Button type="submit" block kind="success" className={sButton.btnWide}>Передать</Button>
+        <Button type="submit" block kind="success" className={sButton.btnWide}>
+          Передать
+        </Button>
       </Form.Container>
     );
   }

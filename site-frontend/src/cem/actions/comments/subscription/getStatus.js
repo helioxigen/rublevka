@@ -23,7 +23,7 @@ const getStatusFailed = (entityKey, entityId, errors) => ({
   errors,
 });
 
-export default (entityKey, entityId) => (dispatch) => {
+export default (entityKey, entityId) => dispatch => {
   dispatch(getStatusStarted(entityKey, entityId));
 
   const subscriptionPath = subscriptionPaths(entityId)[entityKey];

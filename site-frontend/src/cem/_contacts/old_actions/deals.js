@@ -14,7 +14,7 @@ const loadDealsFailed = (contactId, { errors }) => ({
 });
 
 export default function loadDealsByContactId(contactId) {
-  return (dispatch) => {
+  return dispatch => {
     const query = {
       filter: { 'contactDetails.id': contactId },
       pagination: { limit: 256 },

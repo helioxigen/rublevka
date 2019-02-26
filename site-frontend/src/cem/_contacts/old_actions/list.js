@@ -11,7 +11,7 @@ const loadContactsStarted = (queryParams, flat) => ({
   flat,
 });
 
-const loadContactsSucceeded = ({ items, pagination }, flat) => (dispatch) => {
+const loadContactsSucceeded = ({ items, pagination }, flat) => dispatch => {
   dispatch(updatePagination('contacts', pagination));
 
   return dispatch({
@@ -27,7 +27,7 @@ const loadContactsFailed = ({ errors }) => ({
 });
 
 export function loadContacts(queryParams, flat = false) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadContactsStarted(queryParams, flat));
 
     const filter = mapFilters(queryParams.filter);

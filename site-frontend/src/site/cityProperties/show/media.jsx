@@ -38,7 +38,9 @@ export default class extends Component {
 
     const images = publicImages.map(({ id }) => ({
       id,
-      src: `${global.config.cloudfront || cloudfront}/${id}-${global.config.postfix}`,
+      src: `${global.config.cloudfront || cloudfront}/${id}-${
+        global.config.postfix
+      }`,
     }));
 
     const thumbnails = publicImages.map(({ id }) => ({
@@ -58,7 +60,9 @@ export default class extends Component {
                 key={index}
               >
                 <RetinaImage
-                  src={`${global.config.cloudfront || cloudfront}/${id}-${global.config.postfix}`}
+                  src={`${global.config.cloudfront || cloudfront}/${id}-${
+                    global.config.postfix
+                  }`}
                   size={512}
                   className={s.image}
                   alt={id}
@@ -77,7 +81,9 @@ export default class extends Component {
               key={index}
             >
               <RetinaImage
-                src={`${global.config.cloudfront || cloudfront}/${id}-${global.config.postfix}`}
+                src={`${global.config.cloudfront || cloudfront}/${id}-${
+                  global.config.postfix
+                }`}
                 size={512}
                 className={s.image}
                 alt={id}

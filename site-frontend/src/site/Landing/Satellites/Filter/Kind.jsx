@@ -30,18 +30,30 @@ class KindSelect extends Component {
 
     return (
       <ul className={cn(s.list, sUtils.pushedTopXs1Sm2)}>
-        <Button className={cn(s.item, items.indexOf('house') > -1 && s.active)} onClick={() => this.onUpdate('house')}>
+        <Button
+          className={cn(s.item, items.indexOf('house') > -1 && s.active)}
+          onClick={() => this.onUpdate('house')}
+        >
           Дом
         </Button>
         {dealType !== 'rent' && (
-          <Button className={cn(s.item, items.indexOf('land') > -1 && s.active)} onClick={() => this.onUpdate('land')}>
+          <Button
+            className={cn(s.item, items.indexOf('land') > -1 && s.active)}
+            onClick={() => this.onUpdate('land')}
+          >
             Участок
           </Button>
         )}
-        <Button className={cn(s.item, items.indexOf('townhouse') > -1 && s.active)} onClick={() => this.onUpdate('townhouse')}>
+        <Button
+          className={cn(s.item, items.indexOf('townhouse') > -1 && s.active)}
+          onClick={() => this.onUpdate('townhouse')}
+        >
           Таунхаус
         </Button>
-        <Button className={cn(s.item, items.indexOf('flat') > -1 && s.active)} onClick={() => this.onUpdate('flat')}>
+        <Button
+          className={cn(s.item, items.indexOf('flat') > -1 && s.active)}
+          onClick={() => this.onUpdate('flat')}
+        >
           Квартира
         </Button>
       </ul>

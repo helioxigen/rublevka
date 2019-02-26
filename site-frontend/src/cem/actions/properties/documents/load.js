@@ -19,8 +19,8 @@ const loadDocumentsFailed = (propertyId, errors) => ({
   errors,
 });
 
-export default function (propertyId, category = 'city') {
-  return (dispatch) => {
+export default function(propertyId, category = 'city') {
+  return dispatch => {
     dispatch(loadDocumentsStarted(propertyId));
 
     return API.get(`/v1/properties/${category}/${propertyId}/documents`).then(

@@ -9,7 +9,7 @@ const createLeadStarted = () => ({
   type: types.CREATE_LEAD,
 });
 
-const createLeadSucceeded = (id, data) => (dispatch) => {
+const createLeadSucceeded = (id, data) => dispatch => {
   dispatch({
     type: types.CREATE_LEAD_SUCCESS,
     id,
@@ -25,11 +25,13 @@ const createLeadFailed = ({ errors }) => ({
 });
 
 export default function createLead(searchRequestId, lead) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(createLeadStarted());
 
     const transformedLead =
-      lead.requestDetails.requestKind === 'selling' ? transformLeadOut(lead) : transformLead(lead);
+      lead.requestDetails.requestKind === 'selling'
+        ? transformLeadOut(lead)
+        : transformLead(lead);
 
     return API.post('/v1/client_leads', transformedLead).then(
       ({ headers }) =>

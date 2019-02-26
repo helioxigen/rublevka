@@ -19,7 +19,7 @@ const loadContactFailed = (id, errors) => ({
   errors,
 });
 
-export default id => (dispatch) => {
+export default id => dispatch => {
   dispatch(loadContactStarted(id));
 
   return API.get(`/v1/contacts/${id}`).then(

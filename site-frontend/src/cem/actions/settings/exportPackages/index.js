@@ -6,4 +6,10 @@ import updatePackage from './id/update';
 
 import loadErrorLogs from './id/errorLogs';
 
-export { loadPackages, loadPackage, createPackage, updatePackage, loadErrorLogs };
+export {
+  loadPackages,
+  loadPackage,
+  createPackage,
+  updatePackage,
+  loadErrorLogs,
+};

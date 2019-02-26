@@ -10,8 +10,11 @@ import StaticMask from 'core/components/ui/staticMask';
 import RequestModal from 'landing/request/selectionModal';
 import UI from 'site/ui';
 const {
-  Grid, Navbar, Icon,
-  Visibility, Button,
+  Grid,
+  Navbar,
+  Icon,
+  Visibility,
+  Button,
   Navbar: { Menu, Brand },
 } = UI;
 
@@ -78,44 +81,102 @@ class Header extends Component {
     const { isScrolled } = this.state;
 
     return (
-      <Body className={this.state.active ? sUtils.scrollNot : sUtils.scroll} ref="body">
-        <header className={cn(s.header, this.props.className, isScrolled && s.scrolled)}>
+      <Body
+        className={this.state.active ? sUtils.scrollNot : sUtils.scroll}
+        ref="body"
+      >
+        <header
+          className={cn(
+            s.header,
+            this.props.className,
+            isScrolled && s.scrolled,
+          )}
+        >
           <Visibility lg="hidden">
             <Brand to="/" className={s.logoContainer}>
-              <Icon className={cn(s.iconLogo, isScrolled && s.scrolled)} icon="jqestate-logo" />
+              <Icon
+                className={cn(s.iconLogo, isScrolled && s.scrolled)}
+                icon="jqestate-logo"
+              />
             </Brand>
 
-            <a className={cn(s.linkXs, isScrolled && s.scrolled)} href={`tel:+${global.config.phones.country}`} id="comagicDTPhoneNumber">
-              <StaticMask pattern="+1 (111) 111-11-11">{global.config.phones.country}</StaticMask>
+            <a
+              className={cn(s.linkXs, isScrolled && s.scrolled)}
+              href={`tel:+${global.config.phones.country}`}
+              id="comagicDTPhoneNumber"
+            >
+              <StaticMask pattern="+1 (111) 111-11-11">
+                {global.config.phones.country}
+              </StaticMask>
             </a>
 
-            <Button className={s.btnHamburger} size="xs" onClick={::this.openMenu}>
-              <Icon className={cn(s.iconHamburger, isScrolled && s.scrolled)} icon="hamburger-landing" />
+            <Button
+              className={s.btnHamburger}
+              size="xs"
+              onClick={::this.openMenu}
+            >
+              <Icon
+                className={cn(s.iconHamburger, isScrolled && s.scrolled)}
+                icon="hamburger-landing"
+              />
             </Button>
           </Visibility>
 
           <Grid.Container fluid>
-            <div ref="overlay" className={cn(s.overlay, { [s.overlayActive]: this.state.active })} />
-            <Navbar.Container className={cn(s.menu, { [s.menuActive]: this.state.active })}>
+            <div
+              ref="overlay"
+              className={cn(s.overlay, {
+                [s.overlayActive]: this.state.active,
+              })}
+            />
+            <Navbar.Container
+              className={cn(s.menu, { [s.menuActive]: this.state.active })}
+            >
               <Menu left>
                 <ul className={cn(s.list, s.nav)}>
                   <Visibility xs="hidden" sm="hidden" md="hidden">
                     <li className={cn(s.item, isScrolled && s.scrolled)}>
-                      <Icon className={cn(s.iconLogo, isScrolled && s.scrolled)} icon="jqestate-logo" />
+                      <Icon
+                        className={cn(s.iconLogo, isScrolled && s.scrolled)}
+                        icon="jqestate-logo"
+                      />
                     </li>
                   </Visibility>
                   <li className={cn(s.item, isScrolled && s.scrolled)}>
-                    <Scroll.Link activeClass={s.active} to="properties" spy smooth offset={-50} duration={800} onClick={::this.closeMenu}>
+                    <Scroll.Link
+                      activeClass={s.active}
+                      to="properties"
+                      spy
+                      smooth
+                      offset={-50}
+                      duration={800}
+                      onClick={::this.closeMenu}
+                    >
                       Предложения
                     </Scroll.Link>
                   </li>
                   <li className={cn(s.item, isScrolled && s.scrolled)}>
-                    <Scroll.Link activeClass={s.active} to="description" spy smooth offset={-40} duration={800} onClick={::this.closeMenu}>
+                    <Scroll.Link
+                      activeClass={s.active}
+                      to="description"
+                      spy
+                      smooth
+                      offset={-40}
+                      duration={800}
+                      onClick={::this.closeMenu}
+                    >
                       О посёлке
                     </Scroll.Link>
                   </li>
                   <li className={cn(s.item, isScrolled && s.scrolled)}>
-                    <Scroll.Link activeClass={s.active} to="map" spy smooth duration={1000} onClick={::this.closeMenu}>
+                    <Scroll.Link
+                      activeClass={s.active}
+                      to="map"
+                      spy
+                      smooth
+                      duration={1000}
+                      onClick={::this.closeMenu}
+                    >
                       Расположение
                     </Scroll.Link>
                   </li>
@@ -123,7 +184,9 @@ class Header extends Component {
                   <Visibility md="hidden" lg="hidden">
                     <li className={cn(s.item, s.resetIndentTop)}>
                       <RequestModal propertyCategory="country">
-                        <Button className={s.btn} kind="success" size="md">Обратный звонок</Button>
+                        <Button className={s.btn} kind="success" size="md">
+                          Обратный звонок
+                        </Button>
                       </RequestModal>
                     </li>
                   </Visibility>
@@ -131,14 +194,22 @@ class Header extends Component {
                   <Visibility xs="hidden" sm="hidden" lg="hidden">
                     <ul className={cn(s.list, s.contactXs)}>
                       <li className={s.item}>
-                        <a className={cn(s.linkLg, isScrolled && s.scrolled)} href={`tel:+${global.config.phones.country}`} id="comagicDTPhoneNumber">
-                          <StaticMask pattern="+1 (111) 111-11-11">{global.config.phones.country}</StaticMask>
+                        <a
+                          className={cn(s.linkLg, isScrolled && s.scrolled)}
+                          href={`tel:+${global.config.phones.country}`}
+                          id="comagicDTPhoneNumber"
+                        >
+                          <StaticMask pattern="+1 (111) 111-11-11">
+                            {global.config.phones.country}
+                          </StaticMask>
                         </a>
                       </li>
 
                       <li className={cn(s.item, s.resetIndentTop)}>
                         <RequestModal propertyCategory="country">
-                          <Button className={s.btn} kind="success" size="md">Обратный звонок</Button>
+                          <Button className={s.btn} kind="success" size="md">
+                            Обратный звонок
+                          </Button>
                         </RequestModal>
                       </li>
                     </ul>
@@ -150,14 +221,22 @@ class Header extends Component {
                 <Menu right>
                   <ul className={s.list}>
                     <li className={s.item}>
-                      <a className={cn(s.linkLg, isScrolled && s.scrolled)} href={`tel:+${global.config.phones.country}`} id="comagicDTPhoneNumber">
-                        <StaticMask pattern="+1 (111) 111-11-11">{global.config.phones.country}</StaticMask>
+                      <a
+                        className={cn(s.linkLg, isScrolled && s.scrolled)}
+                        href={`tel:+${global.config.phones.country}`}
+                        id="comagicDTPhoneNumber"
+                      >
+                        <StaticMask pattern="+1 (111) 111-11-11">
+                          {global.config.phones.country}
+                        </StaticMask>
                       </a>
                     </li>
 
                     <li className={cn(s.item, s.resetIndentTop)}>
                       <RequestModal propertyCategory="country">
-                        <Button className={s.btn} kind="success" size="md">Обратный звонок</Button>
+                        <Button className={s.btn} kind="success" size="md">
+                          Обратный звонок
+                        </Button>
                       </RequestModal>
                     </li>
                   </ul>
@@ -173,8 +252,15 @@ class Header extends Component {
           </Grid.Container>
 
           <Visibility md="hidden" lg="hidden">
-            <a href={`tel:+${global.config.phones.country}`} id="comagicDTPhoneNumber">
-              <Button className={cn(s.btnXs, sUtils.borderRadius10)} size="lg" kind="success">
+            <a
+              href={`tel:+${global.config.phones.country}`}
+              id="comagicDTPhoneNumber"
+            >
+              <Button
+                className={cn(s.btnXs, sUtils.borderRadius10)}
+                size="lg"
+                kind="success"
+              >
                 <Icon className={s.iconModal} icon="phone" />
               </Button>
             </a>

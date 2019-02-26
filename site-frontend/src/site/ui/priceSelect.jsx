@@ -22,7 +22,11 @@ export default class extends Component {
     const { min = 0, max = 0 } = nextProps.value || {};
 
     const isOfferKindChanged = nextProps.dealType !== this.props.dealType;
-    const isValueChanged = nextProps.value && this.props.value && nextProps.value.min === this.props.value.min && nextProps.value.max === this.props.value.max;
+    const isValueChanged =
+      nextProps.value &&
+      this.props.value &&
+      nextProps.value.min === this.props.value.min &&
+      nextProps.value.max === this.props.value.max;
 
     if (isOfferKindChanged || isValueChanged) {
       if (nextProps.dealType === `sale`) {
@@ -75,11 +79,24 @@ export default class extends Component {
     const priceOptions = options.prices[dealType].filter(::this.filterPrice);
 
     const minPlaceholder = `$${min}`;
-    const maxPlaceholder = dealType === `sale` ? `$${max === 30.02 ? `30+` : max} млн` : `$${max === 100.02 ? `100+` : max} тыс`;
-    const placeholder = (min || max) ? <span>{minPlaceholder}&nbsp;&nbsp;—&nbsp;&nbsp;{maxPlaceholder}</span> : `Стоимость`;
+    const maxPlaceholder =
+      dealType === `sale`
+        ? `$${max === 30.02 ? `30+` : max} млн`
+        : `$${max === 100.02 ? `100+` : max} тыс`;
+    const placeholder =
+      min || max ? (
+        <span>
+          {minPlaceholder}&nbsp;&nbsp;—&nbsp;&nbsp;{maxPlaceholder}
+        </span>
+      ) : (
+        `Стоимость`
+      );
 
     const minValue = min === 30.02 || min === 100.02 ? 0 : min;
-    const maxValue = max === 30.02 || max === 100.02 ? `${dealType === `sale` ? `30+` : `100+`}` : max;
+    const maxValue =
+      max === 30.02 || max === 100.02
+        ? `${dealType === `sale` ? `30+` : `100+`}`
+        : max;
 
     const optionClassName = cn({
       [s.alignLeft]: focus === `min`,
@@ -87,14 +104,42 @@ export default class extends Component {
     });
 
     return (
-      <Dropdown ref="dropdown" className={cn(sDropdown.priceDropdown, st.dropdown.priceDropdown)} onOpen={::this.handleDropdownOpen} placeholder={placeholder} value={min || max} filterIcon="arrow-down" isFilterIconAlwaysShown>
+      <Dropdown
+        ref="dropdown"
+        className={cn(sDropdown.priceDropdown, st.dropdown.priceDropdown)}
+        onOpen={::this.handleDropdownOpen}
+        placeholder={placeholder}
+        value={min || max}
+        filterIcon="arrow-down"
+        isFilterIconAlwaysShown
+      >
         <span className={s.inputContainer}>
-          <input className={s.input} ref="min" onChange={(event) => ::this.handleChange({ min: event.target.value })} value={minValue || undefined} onFocus={() => ::this.changeFocus(`min`)} placeholder="От" />
+          <input
+            className={s.input}
+            ref="min"
+            onChange={event => ::this.handleChange({ min: event.target.value })}
+            value={minValue || undefined}
+            onFocus={() => ::this.changeFocus(`min`)}
+            placeholder="От"
+          />
         </span>
-        <input className={s.input} ref="max" onChange={(event) => ::this.handleChange({ max: event.target.value })} value={maxValue || undefined} onFocus={() => ::this.changeFocus(`max`)} placeholder="До" />
+        <input
+          className={s.input}
+          ref="max"
+          onChange={event => ::this.handleChange({ max: event.target.value })}
+          value={maxValue || undefined}
+          onFocus={() => ::this.changeFocus(`max`)}
+          placeholder="До"
+        />
         <ul className={s.list} ref="list">
           {priceOptions.map((option, index) => (
-            <li className={cn(s.item, optionClassName)} key={index} onClick={() => this.changeFromButton(option.value)}>{option.label}</li>
+            <li
+              className={cn(s.item, optionClassName)}
+              key={index}
+              onClick={() => this.changeFromButton(option.value)}
+            >
+              {option.label}
+            </li>
           ))}
         </ul>
       </Dropdown>

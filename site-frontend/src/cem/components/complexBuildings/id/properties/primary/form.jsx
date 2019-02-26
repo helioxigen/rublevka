@@ -6,7 +6,8 @@ import { commonFieldsFormSettings as formSettings } from 'cem/constants/complexB
 
 import UI from 'cem/components/ui';
 const {
-  Button, Heading,
+  Button,
+  Heading,
   Grid: { Row, Col },
 } = UI;
 
@@ -39,8 +40,15 @@ class PrimaryProperties extends Component {
 
   render() {
     const {
-      id, isUpdateAllowed,
-      fields, values, handleSubmit, pristine, error, submitting, valid,
+      id,
+      isUpdateAllowed,
+      fields,
+      values,
+      handleSubmit,
+      pristine,
+      error,
+      submitting,
+      valid,
     } = this.props;
 
     return (
@@ -51,10 +59,24 @@ class PrimaryProperties extends Component {
           </Col>
           <Col xs="20">
             <CommonFields fields={fields} isUpdateAllowed={isUpdateAllowed} />
-            <PropertiesTable id={id} commonValues={values} customSubmit={handleSubmit} commonFieldsValid={valid} />
+            <PropertiesTable
+              id={id}
+              commonValues={values}
+              customSubmit={handleSubmit}
+              commonFieldsValid={valid}
+            />
           </Col>
         </Row>
-        <Button className={cn(sButton.btnFixedBottom, pristine && sUtils.hidden)} disabled={error || submitting} kind="warning" size="md" block onClick={handleSubmit(::this.updateComplexBuilding)}>Сохранить</Button>
+        <Button
+          className={cn(sButton.btnFixedBottom, pristine && sUtils.hidden)}
+          disabled={error || submitting}
+          kind="warning"
+          size="md"
+          block
+          onClick={handleSubmit(::this.updateComplexBuilding)}
+        >
+          Сохранить
+        </Button>
       </section>
     );
   }

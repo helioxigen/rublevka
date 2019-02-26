@@ -3,7 +3,10 @@ import { Link } from 'react-router';
 import { FormattedDate } from 'react-formatted';
 
 // constants
-import { leadKinds, requestKinds } from 'cem/_client_leads/constants/dictionaries';
+import {
+  leadKinds,
+  requestKinds,
+} from 'cem/_client_leads/constants/dictionaries';
 
 // UI
 import UI from 'cem/components/ui';
@@ -35,7 +38,10 @@ export default class extends Component {
           <Col xs="20">
             <Heading size="md">
               Источник
-              <Link className={s.linkIcon} to={`/client_leads/${clientLead.kind}/${clientLead.id}`}>
+              <Link
+                className={s.linkIcon}
+                to={`/client_leads/${clientLead.kind}/${clientLead.id}`}
+              >
                 <Icon className={s.icon} icon="arrow" />
               </Link>
             </Heading>
@@ -44,10 +50,14 @@ export default class extends Component {
               {hasRequestKind && <span>({requestKindTitle})</span>}
             </h4>
             <p className={s.description}>
-              <FormattedDate mask="dd.mm.yy HH:MM" value={clientLead.createdAt} />
+              <FormattedDate
+                mask="dd.mm.yy HH:MM"
+                value={clientLead.createdAt}
+              />
             </p>
             <p className={s.description}>
-              {clientLead.contactDetails.firstName}&nbsp;{clientLead.contactDetails.lastName}
+              {clientLead.contactDetails.firstName}&nbsp;
+              {clientLead.contactDetails.lastName}
             </p>
           </Col>
         </Row>

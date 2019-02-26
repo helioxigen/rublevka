@@ -23,9 +23,11 @@ export default handleActions(
     // list
     [types.LOAD_LIST]: (state, { group }) => listLoadStart(state, group),
 
-    [types.LOAD_LIST_FAILED]: (state, { group, errors }) => listLoadFail(state, group, errors),
+    [types.LOAD_LIST_FAILED]: (state, { group, errors }) =>
+      listLoadFail(state, group, errors),
 
-    [types.LOAD_LIST_SUCCEEDED]: (state, { group, items }) => listLoadSuccess(state, group, items),
+    [types.LOAD_LIST_SUCCEEDED]: (state, { group, items }) =>
+      listLoadSuccess(state, group, items),
 
     // create
     [types.CREATE]: state => elementCreateStart(state),
@@ -37,9 +39,11 @@ export default handleActions(
     // read
     [types.LOAD]: (state, { id }) => elementLoadStart(state, id),
 
-    [types.LOAD_FAILED]: (state, { id, errors }) => elementLoadFail(state, id, errors),
+    [types.LOAD_FAILED]: (state, { id, errors }) =>
+      elementLoadFail(state, id, errors),
 
-    [types.LOAD_SUCCEEDED]: (state, { id, data }) => elementLoadSuccess(state, id, data),
+    [types.LOAD_SUCCEEDED]: (state, { id, data }) =>
+      elementLoadSuccess(state, id, data),
 
     // update
     [types.UPDATE]: state => elementUpdateStart(state),

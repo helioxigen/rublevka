@@ -20,11 +20,12 @@ const loadSettlementFailed = ({ errors }) => ({
 });
 
 export default function loadSettlement(id) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadSettlementStarted(id));
 
     return API.get(`/v1/places/settlements/${id}`).then(
-      ({ body }) => dispatch(loadSettlementSucceeded(id, transformSettlementIn(body))),
+      ({ body }) =>
+        dispatch(loadSettlementSucceeded(id, transformSettlementIn(body))),
       ({ body }) => dispatch(loadSettlementFailed(body)),
     );
   };

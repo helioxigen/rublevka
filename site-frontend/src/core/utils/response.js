@@ -1,4 +1,4 @@
-export const extractIdFromLocation = (location) => {
+export const extractIdFromLocation = location => {
   const locationSplit = location.split('/');
   const id = locationSplit[locationSplit.length - 1];
 

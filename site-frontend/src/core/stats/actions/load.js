@@ -4,16 +4,16 @@ import { API } from 'core/config/sources';
 import * as types from 'core/stats/constants/actions';
 import { apiPath } from 'core/stats/constants/defaults';
 
-const load = id => (dispatch) => {
+const load = id => dispatch => {
   dispatch(loadElementStarted(types.LOAD, id));
 
   return API.get(apiPath).then(
-    (data) => {
+    data => {
       dispatch({ type: types.LOAD_SUCCEEDED, data: data.body });
 
       return data;
     },
-    (errors) => {
+    errors => {
       dispatch(loadElementFailed(types.LOAD_FAILED, id, errors));
 
       return errors;

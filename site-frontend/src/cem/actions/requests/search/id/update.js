@@ -19,7 +19,7 @@ const updateSearchRequestFailed = (id, { errors }) => ({
   errors,
 });
 
-export default (id, data) => (dispatch) => {
+export default (id, data) => dispatch => {
   dispatch(updateSearchRequestStarted(id, data));
 
   return API.put(`/v1/properties/orders/search/${id}`, data)

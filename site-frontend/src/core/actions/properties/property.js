@@ -16,7 +16,7 @@ function loadStarted(id) {
   };
 }
 
-const loadSucceeded = (id, data) => (dispatch) => {
+const loadSucceeded = (id, data) => dispatch => {
   const succeededAction = {
     type: LOAD_PROPERTY_SUCCEEDED,
     id,
@@ -25,7 +25,9 @@ const loadSucceeded = (id, data) => (dispatch) => {
   };
 
   if (data.complexBuildingId) {
-    return dispatch(loadComplex(data.complexBuildingId)).then(dispatch(succeededAction));
+    return dispatch(loadComplex(data.complexBuildingId)).then(
+      dispatch(succeededAction),
+    );
   }
   return dispatch(succeededAction);
 };
@@ -40,7 +42,7 @@ function loadFailed(id, error) {
 
 // TODO Substitute 'kind' for 'category' according to new API
 function loadProperty(category, id) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadStarted(id));
     // dispatch(loadSimilarProperties(category, id, dealType));
 

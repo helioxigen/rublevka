@@ -19,24 +19,46 @@ export default ({ laneKey, count, stateFilter, stats }) => {
   return (
     <section>
       <h3 className={cn(s.title, lane.style && s[lane.style])}>{lane.title}</h3>
-      {!isApprovalLane &&
+      {!isApprovalLane && (
         <p className={s.description}>
-          <FormattedCurrency symbol="USD" value={lane && stats[lane.statsKey] && stats[lane.statsKey].usd || '0'} />
+          <FormattedCurrency
+            symbol="USD"
+            value={
+              (lane && stats[lane.statsKey] && stats[lane.statsKey].usd) || '0'
+            }
+          />
         </p>
-      }
-      {isApprovalLane &&
+      )}
+      {isApprovalLane && (
         <p className={s.description}>
           <span className={sHeader.success}>
-            <FormattedCurrency symbol="USD" value={(!stateFilter || stateFilter === 'approval') && calculateToApproveAgencyFee(stats, 'successful', 'usd') || '0'} />
+            <FormattedCurrency
+              symbol="USD"
+              value={
+                ((!stateFilter || stateFilter === 'approval') &&
+                  calculateToApproveAgencyFee(stats, 'successful', 'usd')) ||
+                '0'
+              }
+            />
           </span>
           &nbsp;/&nbsp;
           <span className={sHeader.danger}>
-            <FormattedCurrency symbol="USD" value={(!stateFilter || stateFilter === 'approval') && calculateToApproveAgencyFee(stats, 'unsuccessful', 'usd') || '0'} />
+            <FormattedCurrency
+              symbol="USD"
+              value={
+                ((!stateFilter || stateFilter === 'approval') &&
+                  calculateToApproveAgencyFee(stats, 'unsuccessful', 'usd')) ||
+                '0'
+              }
+            />
           </span>
         </p>
-      }
+      )}
       <p className={s.description}>
-        <CountIndicator count={count} declensionForms={['сделка', 'сделки', 'сделок']} />
+        <CountIndicator
+          count={count}
+          declensionForms={['сделка', 'сделки', 'сделок']}
+        />
       </p>
     </section>
   );

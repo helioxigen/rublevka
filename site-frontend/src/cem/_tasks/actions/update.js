@@ -16,15 +16,23 @@ const update = (id: number | string, values) => dispatch =>
   new Promise((resolve, reject) => {
     dispatch(updateElementStarted(types.UPDATE, id));
 
-    return updateElement(apiPath, id, recursiveCleanUp(transformOutputValues(values))).then(
-      (response) => {
+    return updateElement(
+      apiPath,
+      id,
+      recursiveCleanUp(transformOutputValues(values)),
+    ).then(
+      response => {
         dispatch(
-          updateElementSucceeded(types.UPDATE_SUCCEEDED, id, transformInputValues(response)),
+          updateElementSucceeded(
+            types.UPDATE_SUCCEEDED,
+            id,
+            transformInputValues(response),
+          ),
         );
 
         return resolve(transformInputValues(response));
       },
-      (response) => {
+      response => {
         dispatch(updateElementFailed(types.UPDATE_FAILED, id, response));
 
         return reject(response);

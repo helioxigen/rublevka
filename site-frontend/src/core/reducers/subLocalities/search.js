@@ -13,7 +13,10 @@ export default handleActions(
       isFetching: true,
     }),
 
-    [types.SEARCH_SUB_LOCALITIES_SUCCESS]: (state, { items, pagination, more }) => {
+    [types.SEARCH_SUB_LOCALITIES_SUCCESS]: (
+      state,
+      { items, pagination, more },
+    ) => {
       const newItems = more ? [...state.items, ...items] : items;
 
       return {

@@ -17,11 +17,13 @@ const unlinkContactFailed = (propertyId, id, errors) => ({
   id,
 });
 
-export default function (propertyId, id, category = 'city') {
-  return (dispatch) => {
+export default function(propertyId, id, category = 'city') {
+  return dispatch => {
     dispatch(unlinkContactStarted(propertyId, id));
 
-    API.del(`/v1/properties/${category}/${propertyId}/linked_contacts/${id}`).then(
+    API.del(
+      `/v1/properties/${category}/${propertyId}/linked_contacts/${id}`,
+    ).then(
       () => dispatch(loadLinkedContacts(propertyId)),
       ({ body }) => {
         dispatch(unlinkContactFailed(propertyId, id, body));

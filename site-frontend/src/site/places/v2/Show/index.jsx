@@ -12,7 +12,11 @@ import { resourceName } from 'core/countryProperties/constants/defaults';
 // helpers
 import isEqual from 'lodash/isEqual';
 import capitalize from 'lodash/capitalize';
-import { dealTypes, placeKinds, kinds } from 'site/constants/properties/dictionaries';
+import {
+  dealTypes,
+  placeKinds,
+  kinds,
+} from 'site/constants/properties/dictionaries';
 
 // components
 import Helmet from './Helmet';
@@ -53,8 +57,14 @@ class Place extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const isPlaceKindUpdated = !isEqual(this.props.params.placeKind, nextProps.params.placeKind);
-    const isDealTypeUpdated = !isEqual(this.props.params.dealType, nextProps.params.dealType);
+    const isPlaceKindUpdated = !isEqual(
+      this.props.params.placeKind,
+      nextProps.params.placeKind,
+    );
+    const isDealTypeUpdated = !isEqual(
+      this.props.params.dealType,
+      nextProps.params.dealType,
+    );
 
     if (isPlaceKindUpdated || isDealTypeUpdated) {
       load(nextProps);

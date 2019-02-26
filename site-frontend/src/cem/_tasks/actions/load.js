@@ -10,18 +10,18 @@ import { apiPath } from 'cem/_tasks/constants/defaults';
 
 import { transformInputValues } from 'cem/_tasks/helpers/transformInputValues';
 
-const load = id => (dispatch) => {
+const load = id => dispatch => {
   dispatch(loadElementStarted(types.LOAD, id));
 
   return loadElement(apiPath, id).then(
-    (data) => {
+    data => {
       const values = transformInputValues(data);
 
       dispatch(loadElementSucceeded(types.LOAD_SUCCEEDED, id, values));
 
       return values;
     },
-    (errors) => {
+    errors => {
       dispatch(loadElementFailed(types.LOAD_FAILED, id, errors));
 
       return errors;

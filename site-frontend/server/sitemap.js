@@ -47,26 +47,30 @@ function generatePropertyIds(xml, category = 'country') {
       const kindTranslit = dict.kindsTranslit[kind];
 
       const saleUrl =
-        saleOffer && `https://${HOST}/${categoryTranslit}/${saleTranslit}/${kindTranslit}/${id}`;
+        saleOffer &&
+        `https://${HOST}/${categoryTranslit}/${saleTranslit}/${kindTranslit}/${id}`;
 
       const rentUrl =
-        rentOffer && `https://${HOST}/${categoryTranslit}/${rentTranslit}/${kindTranslit}/${id}`;
+        rentOffer &&
+        `https://${HOST}/${categoryTranslit}/${rentTranslit}/${kindTranslit}/${id}`;
 
       const lastMod = getDate(new Date(updatedAt));
 
-      return [saleUrl, rentUrl].filter(url => url).map((url) => {
-        appendXmlUrl(xml, url, lastMod);
+      return [saleUrl, rentUrl]
+        .filter(url => url)
+        .map(url => {
+          appendXmlUrl(xml, url, lastMod);
 
-        // return { url, lastMod, frequency: 'daily', priority: 1.0 };
-      });
+          // return { url, lastMod, frequency: 'daily', priority: 1.0 };
+        });
     }),
   );
 }
 
 function generatePropertiesList(xml, category = 'country') {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     resolve(
-      Object.keys(kindsByCategoryAndDealType[category]).forEach((dealType) => {
+      Object.keys(kindsByCategoryAndDealType[category]).forEach(dealType => {
         const categoryTranslit = dict.categoriesTranslit[category];
         const dealTypeTranslit = dict.dealTypesTranslit[dealType];
 
@@ -78,7 +82,7 @@ function generatePropertiesList(xml, category = 'country') {
           1.0,
         );
 
-        return kindsByCategoryAndDealType[category][dealType].map((kind) => {
+        return kindsByCategoryAndDealType[category][dealType].map(kind => {
           const kindTranslit = dict.kindsTranslit[kind];
           const url = `https://${HOST}/${categoryTranslit}/${dealTypeTranslit}/${kindTranslit}`;
 
@@ -95,7 +99,7 @@ function generatePlaces(xml) {
 
   return getItems('/v1/places/localities', routeIds).then(items =>
     items.map(({ id, name, updatedAt }) =>
-      dealTypes.map((dealType) => {
+      dealTypes.map(dealType => {
         const kindTranslit = dict.placeKindsTranslit.localities;
         const dealTypeTranslit = dict.dealTypesTranslit[dealType];
         const nameId = `${nameToSlug(name)}_${id}`;
@@ -113,7 +117,9 @@ function generatePlaces(xml) {
 }
 
 function generateSettlements(xml) {
-  return getItems('/v1/places/settlements', routeIds, { 'filter[state]': 'public' }).then(items =>
+  return getItems('/v1/places/settlements', routeIds, {
+    'filter[state]': 'public',
+  }).then(items =>
     items.map(({ name, id, updatedAt }) => {
       const nameId = `${nameToSlug(name)}_${id}`;
       const url = `https://${HOST}/zagorodnaya/kottedzhnye-poselki/${nameId}`;
@@ -131,7 +137,7 @@ function generateRoutes(xml) {
   return getItems('/v1/places/routes', [], {
     'filter[id]': routeIds,
   }).then(items =>
-    dealTypes.map((dealType) => {
+    dealTypes.map(dealType => {
       const dealTypeTranslit = dict.dealTypesTranslit[dealType];
 
       return items.map(({ name, id, updatedAt }) => {
@@ -169,9 +175,15 @@ function generateSite() {
       xml.end({ pretty: true });
 
       const xmlString = `<?xml version="1.0" encoding="UTF-8"?>\n${xml.toString()}`;
-      const pathToSitemap = path.join(__dirname, '..', 'build', HOST, 'sitemap.xml');
+      const pathToSitemap = path.join(
+        __dirname,
+        '..',
+        'build',
+        HOST,
+        'sitemap.xml',
+      );
 
-      fs.writeFile(pathToSitemap, xmlString, (err) => {
+      fs.writeFile(pathToSitemap, xmlString, err => {
         if (err) throw err;
 
         const t1 = pnow();

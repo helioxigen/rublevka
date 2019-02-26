@@ -12,9 +12,11 @@ const loadDutySucceeded = data => ({
 });
 
 export default function loadDuty(id) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadDutyStarted(id));
 
-    return API.get(`/v1/daily_duty/${id}`).then(({ body }) => dispatch(loadDutySucceeded(body)));
+    return API.get(`/v1/daily_duty/${id}`).then(({ body }) =>
+      dispatch(loadDutySucceeded(body)),
+    );
   };
 }

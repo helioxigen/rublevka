@@ -1,0 +1,67 @@
+{
+  "name": "export-app-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "now-build": "npm run build"
+  },
+  "dependencies": {
+    "date-fns": "^1.30.1",
+    "firebase": "^5.8.2",
+    "flexboxgrid2": "^7.2.1",
+    "json-diff": "^0.5.3",
+    "lodash": "^4.17.11",
+    "normalize.css": "^8.0.1",
+    "ramda": "^0.26.1",
+    "react": "^16.8.1",
+    "react-copy-to-clipboard": "^5.0.1",
+    "react-dom": "^16.8.1",
+    "react-firebaseui": "^3.1.2",
+    "react-intl": "^2.8.0",
+    "react-loader-spinner": "^2.3.0",
+    "react-scripts": "2.1.3",
+    "styled-components": "^4.1.3",
+    "styled-media-query": "^2.1.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "9.0.0",
+    "eslint": "5.6.0",
+    "eslint-config-airbnb": "17.1.0",
+    "eslint-plugin-import": "2.16.0",
+    "eslint-plugin-jsx-a11y": "6.2.0",
+    "eslint-plugin-react": "7.12.4"
+  },
+  "resolutions": {
+    "react-scripts/terser-webpack-plugin/terser": "3.14.1"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": "airbnb",
+    "rules": {
+      "react/jsx-filename-extension": 0,
+      "react/prop-types": 0,
+      "max-len": [
+        "error",
+        {
+          "code": 80,
+          "ignoreStrings": true,
+          "ignoreComments": true,
+          "ignoreTemplateLiterals": true
+        }
+      ]
+    },
+    "env": {
+      "browser": true
+    }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

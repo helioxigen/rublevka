@@ -28,7 +28,9 @@ export default {
     Header: reduxForm(formSettings.phoneCall)(submitValidator()(Header)),
   },
   recommendation: {
-    About: reduxForm(formSettings.recommendation)(submitValidator()(DefaultAbout)),
+    About: reduxForm(formSettings.recommendation)(
+      submitValidator()(DefaultAbout),
+    ),
     Header: reduxForm(formSettings.recommendation)(submitValidator()(Header)),
   },
 };

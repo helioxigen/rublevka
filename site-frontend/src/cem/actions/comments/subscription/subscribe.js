@@ -22,7 +22,7 @@ const subscribeFailed = (entityKey, entityId, responseBody) => ({
   responseBody,
 });
 
-export default (entityKey, entityId) => (dispatch) => {
+export default (entityKey, entityId) => dispatch => {
   dispatch(subscribeStarted(entityKey, entityId));
 
   const subscriptionPath = subscriptionPaths(entityId)[entityKey];

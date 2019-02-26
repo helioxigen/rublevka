@@ -1,17 +1,47 @@
 import React, { Component, PropTypes } from 'react';
+import styled from 'styled-components';
 import cn from 'classnames';
 import { dictionary } from 'core/config/constants';
+import Select from './Select';
 
 import UI from 'site/ui';
-const {
-  Dropdown, Button,
-} = UI;
+const { Dropdown, Button, Visibility } = UI;
 
 // components
 import CurrencyToggle from 'site/components/common/currencyToggle';
 
 import sBtn from 'site/styles/button';
 import sUtils from 'site/styles/utils';
+
+
+const BtnContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Placeholder = styled.span`
+  font-size: 16px;
+  margin-right: 10px;
+`;
+
+const StBtn = styled(Button)`
+  &&& {
+    padding: 11px 17px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    color: ${p => p.isActive ? '#373737' : '#6E6E6E'};
+    background: ${p => p.isActive ? '#EEEEEE' : 'transparent'};
+
+    &:hover,
+    &:active{
+      color: #373737;
+    }
+    &::first-letter {
+      text-transform: capitalize;
+    }
+  }
+`;
 
 class OrderBy extends Component {
   static propTypes = {
@@ -33,7 +63,7 @@ class OrderBy extends Component {
 
   update(field) {
     const { resourceName, state = {} } = this.props;
-    const predicate = state.predicate === `asc` ? `desc` : `asc`;
+    const predicate = state.predicate === 'asc' ? 'desc' : 'asc';
 
     this.props.actions.updatePagination(resourceName, { offset: 0 });
     this.props.actions.updateOrder(resourceName, field, predicate);
@@ -44,23 +74,43 @@ class OrderBy extends Component {
     const isActive = state.field === field;
 
     return (
-      <Button block size="md" className={cn(sBtn.btnInner, { [sBtn.active]: isActive })} key={field} onClick={this.update.bind(this, field)}>
+      <StBtn
+        isActive={isActive}
+        block
+        size="sm"
+        key={field}
+        onClick={this.update.bind(this, field)}
+      >
         {dictionary.orderBy[field]}
-      </Button>
+      </StBtn>
     );
   }
 
   render() {
     const { state = {} } = this.props;
-    const placeholder = !!state.field ? `Сортировать ${dictionary.orderBy[state.field]}` : `Сортировать`;
+    const placeholder = state.field
+      ? `Сортировать ${dictionary.orderBy[state.field]}`
+      : 'Сортировать';
+
+    const newFields = this.props.fields.map(field => ({ value: field, label: dictionary.orderBy[field] }));
 
     return (
-      <div className={sUtils.flex}>
-        <CurrencyToggle />
-
-        <Dropdown className={sUtils.btnWideXs} alwaysActive placeholder={placeholder} reset={::this.reset} value={state.field}>
-          {this.props.fields.map(::this.renderButton)}
-        </Dropdown>
+      <div>
+        {/* <CurrencyToggle /> */}
+        <Visibility xs="block" sm="block" md="hidden">
+          <Select
+            options={newFields}
+            onChange={this.update.bind(this)}
+            placeholder="▾ Сортировать"
+            selected={state.field}
+          />
+        </Visibility>
+        <Visibility xs="hidden" sm="hidden" md="block" lg="block">
+          <BtnContainer>
+            <Placeholder>Сортировать: </Placeholder>
+            {this.props.fields.map(::this.renderButton)}
+          </BtnContainer>
+        </Visibility>
       </div>
     );
   }

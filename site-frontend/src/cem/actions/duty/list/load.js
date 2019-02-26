@@ -12,7 +12,7 @@ const loadDutiesStarted = queryParams => ({
   queryParams,
 });
 
-const loadDutiesSucceeded = ({ items, pagination }) => (dispatch) => {
+const loadDutiesSucceeded = ({ items, pagination }) => dispatch => {
   dispatch(
     userActions.loadList({
       filter: {
@@ -33,7 +33,7 @@ const loadDutiesFailed = ({ errors }) => ({
 });
 
 export default function loadDuties(queryParams = {}) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadDutiesStarted(queryParams));
 
     return API.get('/v1/daily_duty', queryParams).then(

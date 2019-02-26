@@ -12,8 +12,11 @@ class UnsuccessfulDealsListContainer extends Component {
   render() {
     return (
       <List
-        {...this.props} title="Незаключённые сделки" notFoundCaption="Не найдено сделок"
-        card={<Card />} filter={<Filter isArchived fetcherFilter={this.props.filters} />}
+        {...this.props}
+        title="Незаключённые сделки"
+        notFoundCaption="Не найдено сделок"
+        card={<Card />}
+        filter={<Filter isArchived fetcherFilter={this.props.filters} />}
       />
     );
   }
@@ -23,14 +26,16 @@ const pickState = ({ auth }) => ({
   state: { auth },
 });
 
-export default connect(pickState)(listResourcer({
-  id: 'archiveDeals',
-  apiPath: '/v1/deals',
-  filter: { state: 'unsuccessful' },
-  linkedResourcesSchemes: [
-    {
-      typeId: 'contacts',
-      primaryKeyPath: 'contactDetails.id',
-    },
-  ],
-})(UnsuccessfulDealsListContainer));
+export default connect(pickState)(
+  listResourcer({
+    id: 'archiveDeals',
+    apiPath: '/v1/deals',
+    filter: { state: 'unsuccessful' },
+    linkedResourcesSchemes: [
+      {
+        typeId: 'contacts',
+        primaryKeyPath: 'contactDetails.id',
+      },
+    ],
+  })(UnsuccessfulDealsListContainer),
+);

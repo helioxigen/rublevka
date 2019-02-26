@@ -72,7 +72,10 @@ class List extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const isGroupUpdated = !isEqual(this.props.params.group, nextProps.params.group);
+    const isGroupUpdated = !isEqual(
+      this.props.params.group,
+      nextProps.params.group,
+    );
 
     if (isGroupUpdated) {
       // TODO: move that check to isUpdated
@@ -106,7 +109,8 @@ class List extends Component {
 
   render() {
     const { state } = this.props;
-    const { ids = [], isFetching, errors = [] } = state._contacts[this.group] || {};
+    const { ids = [], isFetching, errors = [] } =
+      state._contacts[this.group] || {};
     const pagination = state.pagination[this.resource] || {};
 
     const hasErrors = !isFetching && !!errors.length;
@@ -140,9 +144,12 @@ class List extends Component {
 
         {hasErrors && <ListErrorMessage errors={errors} />}
 
-        {!isFetching && !ids.length && <Heading notFound>Контакты не найдены</Heading>}
+        {!isFetching && !ids.length && (
+          <Heading notFound>Контакты не найдены</Heading>
+        )}
 
-        {hasItems && ids.map(id => <Card key={id} contact={state._contacts[id].data} />)}
+        {hasItems &&
+          ids.map(id => <Card key={id} contact={state._contacts[id].data} />)}
 
         {hasItems && (
           <Container fluid>
@@ -164,7 +171,7 @@ class List extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { _contacts, filters, pagination, order } = state;
 
   return {
@@ -177,7 +184,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     ..._ContactsActions,
     ...FilterActions,

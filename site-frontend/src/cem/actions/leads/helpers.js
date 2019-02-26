@@ -18,9 +18,12 @@ const transformRentOfferOut = deal => ({
   price: normalizeNumber(deal.price),
   isAllowedPets: deal.isAllowedPets === 'true',
   isAllowedChildren: deal.isAllowedChildren === 'true',
-  agentFee: deal.isAgentFixed !== 'true' ? normalizeNumber(deal.agentFee) : undefined,
+  agentFee:
+    deal.isAgentFixed !== 'true' ? normalizeNumber(deal.agentFee) : undefined,
   agentFixedPrice:
-    deal.isAgentFixed === 'true' ? transformFixedPriceOut(deal.agentFixedPrice) : undefined,
+    deal.isAgentFixed === 'true'
+      ? transformFixedPriceOut(deal.agentFixedPrice)
+      : undefined,
 });
 
 const transformRentOfferIn = deal => ({
@@ -30,7 +33,9 @@ const transformRentOfferIn = deal => ({
   isAllowedChildren: String(deal.isAllowedChildren),
   isAgentFixed: String(!!deal.agentFixedPrice),
   agentFee: !deal.agentFixedPrice ? normalizeString(deal.agentFee) : undefined,
-  agentFixedPrice: deal.agentFixedPrice ? transformFixedPriceIn(deal.agentFixedPrice) : undefined,
+  agentFixedPrice: deal.agentFixedPrice
+    ? transformFixedPriceIn(deal.agentFixedPrice)
+    : undefined,
 });
 
 const transformSaleOfferOut = deal => ({
@@ -40,9 +45,12 @@ const transformSaleOfferOut = deal => ({
   isMortgage: deal.isMortgage === 'true',
   isInstallment: deal.isInstallment === 'true',
   isResale: true,
-  agentFee: deal.isAgentFixed !== 'true' ? normalizeNumber(deal.agentFee) : undefined,
+  agentFee:
+    deal.isAgentFixed !== 'true' ? normalizeNumber(deal.agentFee) : undefined,
   agentFixedPrice:
-    deal.isAgentFixed === 'true' ? transformFixedPriceOut(deal.agentFixedPrice) : undefined,
+    deal.isAgentFixed === 'true'
+      ? transformFixedPriceOut(deal.agentFixedPrice)
+      : undefined,
 });
 
 const transformSaleOfferIn = deal => ({
@@ -54,10 +62,12 @@ const transformSaleOfferIn = deal => ({
   isResale: String(deal.isResale),
   isAgentFixed: String(!!deal.agentFixedPrice),
   agentFee: !deal.agentFixedPrice ? normalizeString(deal.agentFee) : undefined,
-  agentFixedPrice: deal.agentFixedPrice ? transformFixedPriceIn(deal.agentFixedPrice) : undefined,
+  agentFixedPrice: deal.agentFixedPrice
+    ? transformFixedPriceIn(deal.agentFixedPrice)
+    : undefined,
 });
 
-const transformLeadOut = (lead) => {
+const transformLeadOut = lead => {
   const values = recursiveCleanUp(lead);
   const { requestDetails = {} } = values;
 
@@ -75,7 +85,7 @@ const transformLeadOut = (lead) => {
   };
 };
 
-const transformLeadIn = (lead) => {
+const transformLeadIn = lead => {
   const values = recursiveCleanUp(lead);
   const { requestDetails = {} } = values;
 
@@ -95,7 +105,8 @@ const transformLeadIn = (lead) => {
 
 const transformLead = lead => ({
   ...lead,
-  phoneCallDetails: lead.kind === 'phone_call' ? lead.phoneCallDetails : undefined,
+  phoneCallDetails:
+    lead.kind === 'phone_call' ? lead.phoneCallDetails : undefined,
   requestDetails: {
     ...lead.requestDetails,
     countryProperty:
@@ -112,7 +123,13 @@ const transformLead = lead => ({
 });
 
 const mapFilterAndFilterNot = (
-  { createdAtFrom, createdAtTo, awaitingApproval, notAwaitingApproval, ...filter } = {},
+  {
+    createdAtFrom,
+    createdAtTo,
+    awaitingApproval,
+    notAwaitingApproval,
+    ...filter
+  } = {},
   filterNot = {},
 ) => {
   const tasksWeightZeroDeadline = filter['tasksWeight.zero.deadline'];
@@ -128,14 +145,25 @@ const mapFilterAndFilterNot = (
       'tasksWeight.zero.deadline': tasksWeightZeroDeadline
         ? formatFilterDate(tasksWeightZeroDeadline)
         : undefined,
-      ...(phoneNumber ? { 'contactDetails.phoneNumber': `*${phoneNumber}*` } : {}),
-      ...(awaitingApproval ? { 'stateDetails.toApprove': 'spam,processed,rejected' } : {}),
+      ...(phoneNumber
+        ? { 'contactDetails.phoneNumber': `*${phoneNumber}*` }
+        : {}),
+      ...(awaitingApproval
+        ? { 'stateDetails.toApprove': 'spam,processed,rejected' }
+        : {}),
     },
     filterNot: {
       ...filterNot,
-      ...(notAwaitingApproval ? { 'stateDetails.toApprove': 'spam,processed,rejected' } : {}),
+      ...(notAwaitingApproval
+        ? { 'stateDetails.toApprove': 'spam,processed,rejected' }
+        : {}),
     },
   };
 };
 
-export { transformLead, transformLeadIn, transformLeadOut, mapFilterAndFilterNot };
+export {
+  transformLead,
+  transformLeadIn,
+  transformLeadOut,
+  mapFilterAndFilterNot,
+};

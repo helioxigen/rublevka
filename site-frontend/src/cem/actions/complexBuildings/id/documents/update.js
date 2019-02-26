@@ -16,10 +16,13 @@ const updateDocumentsFailed = (complexBuildingId, errors) => ({
   errors,
 });
 
-const updateDocument = (complexBuildingId, id, documentData) => (dispatch) => {
+const updateDocument = (complexBuildingId, id, documentData) => dispatch => {
   dispatch(updateDocumentsStarted(complexBuildingId, id));
 
-  return API.put(`/v1/complex_buildings/${complexBuildingId}/documents/${id}`, documentData).then(
+  return API.put(
+    `/v1/complex_buildings/${complexBuildingId}/documents/${id}`,
+    documentData,
+  ).then(
     () => dispatch(loadDocuments(complexBuildingId)),
     ({ body }) => {
       dispatch(updateDocumentsFailed(complexBuildingId, body));

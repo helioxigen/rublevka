@@ -4,8 +4,12 @@ import { FormattedDate } from 'react-formatted';
 import cn from 'classnames';
 import UI from 'cem/components/ui';
 const {
-  Select, AsyncSelect, Daypicker,
-  Button, Icon, Heading,
+  Select,
+  AsyncSelect,
+  Daypicker,
+  Button,
+  Icon,
+  Heading,
   Grid: { Row, Col },
   Form: { Input, Label, Group },
 } = UI;
@@ -30,19 +34,34 @@ const FilterExtended = ({ fields, isArchived }) => (
           <Col sm="6">
             <Group>
               <Label>Департамент</Label>
-              <AsyncSelect asyncOptions={fetchResource(`/v1/departments`, `name`, [`name`])} {...fields.ruDepartmentId} />
+              <AsyncSelect
+                asyncOptions={fetchResource(`/v1/departments`, `name`, [
+                  `name`,
+                ])}
+                {...fields.ruDepartmentId}
+              />
             </Group>
           </Col>
           <Col sm="6" smOffset="1">
             <Group>
               <Label>Отдел</Label>
-              <AsyncSelect asyncOptions={fetchResource(`/v1/divisions`, `name`, [`name`])} {...fields.ruDivisionId} />
+              <AsyncSelect
+                asyncOptions={fetchResource(`/v1/divisions`, `name`, [`name`])}
+                {...fields.ruDivisionId}
+              />
             </Group>
           </Col>
           <Col sm="6" smOffset="1">
             <Group>
               <Label>Ответственный</Label>
-              <AsyncSelect asyncOptions={fetchResource(`/v1/users/staff`, `lastName,firstName`, [`firstName`, `lastName`])} {...fields.ruId} />
+              <AsyncSelect
+                asyncOptions={fetchResource(
+                  `/v1/users/staff`,
+                  `lastName,firstName`,
+                  [`firstName`, `lastName`],
+                )}
+                {...fields.ruId}
+              />
             </Group>
           </Col>
         </Row>
@@ -50,9 +69,21 @@ const FilterExtended = ({ fields, isArchived }) => (
           <Col sm="6">
             <Group>
               <Label block>Ожидаемая дата завершения (от)</Label>
-              <Daypicker className={sUtils.fullWidth}
-                control={<Input block type="text" {...fields.expectedFinishAtFrom} required />}
-                button={<Button className={sDaypicker.btn}><Icon className={sDaypicker.icon} icon="calendar" /></Button>}
+              <Daypicker
+                className={sUtils.fullWidth}
+                control={
+                  <Input
+                    block
+                    type="text"
+                    {...fields.expectedFinishAtFrom}
+                    required
+                  />
+                }
+                button={
+                  <Button className={sDaypicker.btn}>
+                    <Icon className={sDaypicker.icon} icon="calendar" />
+                  </Button>
+                }
                 onDayClick={day => fields.expectedFinishAtFrom.onChange(day)}
               />
             </Group>
@@ -60,9 +91,21 @@ const FilterExtended = ({ fields, isArchived }) => (
           <Col sm="6" smOffset="1">
             <Group>
               <Label block>Ожидаемая дата завершения (до)</Label>
-              <Daypicker className={sUtils.fullWidth}
-                control={<Input block type="text" {...fields.expectedFinishAtTo} required />}
-                button={<Button className={sDaypicker.btn}><Icon className={sDaypicker.icon} icon="calendar" /></Button>}
+              <Daypicker
+                className={sUtils.fullWidth}
+                control={
+                  <Input
+                    block
+                    type="text"
+                    {...fields.expectedFinishAtTo}
+                    required
+                  />
+                }
+                button={
+                  <Button className={sDaypicker.btn}>
+                    <Icon className={sDaypicker.icon} icon="calendar" />
+                  </Button>
+                }
                 onDayClick={day => fields.expectedFinishAtTo.onChange(day)}
               />
             </Group>
@@ -70,7 +113,7 @@ const FilterExtended = ({ fields, isArchived }) => (
         </Row>
       </Col>
     </Row>
-    {!isArchived &&
+    {!isArchived && (
       <Row>
         <Col xs="20">
           <Row className={sUtils.pushedTop3}>
@@ -82,39 +125,71 @@ const FilterExtended = ({ fields, isArchived }) => (
             <Col sm="4">
               <Group>
                 <Label block>Дата отсчёта</Label>
-                <Daypicker className={sUtils.fullWidth} kind="to"
+                <Daypicker
+                  className={sUtils.fullWidth}
+                  kind="to"
                   onDayClick={day => fields.tasksDeadlineDate.onChange(day)}
-                  control={<Input block type="text" {...fields.tasksDeadlineDate} />}
-                  button={<Button className={sDaypicker.btn}><Icon className={sDaypicker.icon} icon="calendar" /></Button>}
+                  control={
+                    <Input block type="text" {...fields.tasksDeadlineDate} />
+                  }
+                  button={
+                    <Button className={sDaypicker.btn}>
+                      <Icon className={sDaypicker.icon} icon="calendar" />
+                    </Button>
+                  }
                 />
               </Group>
             </Col>
             <Col sm="4">
               <Group>
                 <Label block>
-                  Нет запланированных задач {fields.tasksDeadlineDate.value && (<span>до <FormattedDate mask="dd.mm" value={fields.tasksDeadlineDate.value} /></span>)}
+                  Нет запланированных задач{' '}
+                  {fields.tasksDeadlineDate.value && (
+                    <span>
+                      до{' '}
+                      <FormattedDate
+                        mask="dd.mm"
+                        value={fields.tasksDeadlineDate.value}
+                      />
+                    </span>
+                  )}
                 </Label>
                 <Label className={cn(s.checkboxLabel, sUtils.pushedTop_5)}>
                   <Input
                     type="checkbox"
                     checked={!!fields.tasksDoesntHaveScheduled.value}
-                    onChange={() => fields.tasksDoesntHaveScheduled.onChange(!fields.tasksDoesntHaveScheduled.value)}
+                    onChange={() =>
+                      fields.tasksDoesntHaveScheduled.onChange(
+                        !fields.tasksDoesntHaveScheduled.value,
+                      )
+                    }
                   />
-                  нет задач {fields.tasksDeadlineDate.value && (<span>до <FormattedDate mask="dd.mm" value={fields.tasksDeadlineDate.value} /></span>)}
+                  нет задач{' '}
+                  {fields.tasksDeadlineDate.value && (
+                    <span>
+                      до{' '}
+                      <FormattedDate
+                        mask="dd.mm"
+                        value={fields.tasksDeadlineDate.value}
+                      />
+                    </span>
+                  )}
                 </Label>
               </Group>
             </Col>
             {!fields.tasksDeadlineDate.value && (
               <Col sm="4">
                 <Group>
-                  <Label block>
-                    Есть просроченные задачи
-                  </Label>
+                  <Label block>Есть просроченные задачи</Label>
                   <Label className={cn(s.checkboxLabel, sUtils.pushedTop_5)}>
                     <Input
                       type="checkbox"
                       checked={!!fields.tasksHasOverdue.value}
-                      onChange={() => fields.tasksHasOverdue.onChange(!fields.tasksHasOverdue.value)}
+                      onChange={() =>
+                        fields.tasksHasOverdue.onChange(
+                          !fields.tasksHasOverdue.value,
+                        )
+                      }
                     />
                     есть просроченные
                   </Label>
@@ -124,7 +199,7 @@ const FilterExtended = ({ fields, isArchived }) => (
           </Row>
         </Col>
       </Row>
-    }
+    )}
   </section>
 );
 
@@ -141,7 +216,11 @@ export default class extends Component {
 
   render() {
     const {
-      fields, count, resetFilter, filterCount, extendedFilterCount,
+      fields,
+      count,
+      resetFilter,
+      filterCount,
+      extendedFilterCount,
       isArchived,
     } = this.props;
     return (
@@ -149,32 +228,45 @@ export default class extends Component {
         <Row>
           <Col xs="20">
             <Row>
-            <Col sm="5">
-              <Group>
-                <Label>ID</Label>
-                <Input block type="text" {...fields.id} />
-              </Group>
-            </Col>
-            <Col sm="5">
-              <Group>
-                <Label>Контакт</Label>
-                <AsyncSelect asyncOptions={fetchResource(`/v1/contacts`, `details.name`, [`details.firstName`, `details.lastName`])} {...fields.cdId} />
-              </Group>
-            </Col>
-            <Col sm="5">
-              <Group>
-                <Label>Телефон</Label>
-                <Input block type="text" {...fields.cdPhoneNumber} />
-              </Group>
-            </Col>
-            <Col sm="5">
-              {!isArchived &&
+              <Col sm="5">
                 <Group>
-                  <Label>Стадия</Label>
-                  <Select block valueKey="id" labelKey="title" options={activeFilterOptions} {...fields[`state`]} />
+                  <Label>ID</Label>
+                  <Input block type="text" {...fields.id} />
                 </Group>
-              }
-            </Col>
+              </Col>
+              <Col sm="5">
+                <Group>
+                  <Label>Контакт</Label>
+                  <AsyncSelect
+                    asyncOptions={fetchResource(
+                      `/v1/contacts`,
+                      `details.name`,
+                      [`details.firstName`, `details.lastName`],
+                    )}
+                    {...fields.cdId}
+                  />
+                </Group>
+              </Col>
+              <Col sm="5">
+                <Group>
+                  <Label>Телефон</Label>
+                  <Input block type="text" {...fields.cdPhoneNumber} />
+                </Group>
+              </Col>
+              <Col sm="5">
+                {!isArchived && (
+                  <Group>
+                    <Label>Стадия</Label>
+                    <Select
+                      block
+                      valueKey="id"
+                      labelKey="title"
+                      options={activeFilterOptions}
+                      {...fields[`state`]}
+                    />
+                  </Group>
+                )}
+              </Col>
             </Row>
           </Col>
         </Row>
@@ -182,10 +274,25 @@ export default class extends Component {
         <Row>
           <Col xs="20">
             <div className={s.btnGroup}>
-              <Button size="xs" kind="primary" className={sUtils.pushedRight1} type="button" onClick={::this.toggleExtended}>
-                {this.state.extended ? `Скрыть` : `Показать` } расширенный фильтр {!!extendedFilterCount && `(${extendedFilterCount})`}
+              <Button
+                size="xs"
+                kind="primary"
+                className={sUtils.pushedRight1}
+                type="button"
+                onClick={::this.toggleExtended}
+              >
+                {this.state.extended ? `Скрыть` : `Показать`} расширенный фильтр{' '}
+                {!!extendedFilterCount && `(${extendedFilterCount})`}
               </Button>
-              <Button className={sUtils.pushedTopXs2} size="xs" type="button" onClick={resetFilter} disabled={!filterCount}>Сбросить</Button>
+              <Button
+                className={sUtils.pushedTopXs2}
+                size="xs"
+                type="button"
+                onClick={resetFilter}
+                disabled={!filterCount}
+              >
+                Сбросить
+              </Button>
               {!!count && <p className={s.textFind}>Найдено: {count}</p>}
             </div>
           </Col>

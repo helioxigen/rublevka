@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import { reduxForm } from "redux-form";
+import React, { Component } from 'react';
+import { reduxForm } from 'redux-form';
 
-import submitValidator from "core/decorators/submitValidator";
-import { fields as formFields } from "cem/constants/duty/form";
-import validate from "cem/validators/duty";
+import submitValidator from 'core/decorators/submitValidator';
+import { fields as formFields } from 'cem/constants/duty/form';
+import validate from 'cem/validators/duty';
 
-import { generateTimeSlotsList } from "core/helpers";
-import { fetchResource } from "cem/helpers/autocomplete";
+import { generateTimeSlotsList } from 'core/helpers';
+import { fetchResource } from 'cem/helpers/autocomplete';
 
-import cn from "classnames";
-import UI from "cem/components/ui";
+import cn from 'classnames';
+import UI from 'cem/components/ui';
 const {
   Form,
   Select,
@@ -22,10 +22,10 @@ const {
   Grid: { Container, Row, Col },
 } = UI;
 
-import s from "cem/styles/modal/list";
-import sUtils from "cem/styles/utils";
-import sButton from "cem/styles/buttons";
-import sDaypicker from "cem/styles/ui/daypicker";
+import s from 'cem/styles/modal/list';
+import sUtils from 'cem/styles/utils';
+import sButton from 'cem/styles/buttons';
+import sDaypicker from 'cem/styles/ui/daypicker';
 
 const formSettings = {
   form: `duty`,
@@ -55,7 +55,9 @@ export default reduxForm(formSettings)(
         const { formKey, actions } = this.props;
         actions.pop(
           `error`,
-          `Ошибка ${formKey === `create` ? `создания` : `обновления`} дежурства!`,
+          `Ошибка ${
+            formKey === `create` ? `создания` : `обновления`
+          } дежурства!`,
         );
       }
 
@@ -89,25 +91,28 @@ export default reduxForm(formSettings)(
           >
             <div className={s.container}>
               <Row>
-                {formKey === `create` &&
+                {formKey === `create` && (
                   <Col xs="20">
                     <Heading size="md">Добавить дежурство</Heading>
                     <p className={cn(s.text, sUtils.pushedTop3)}>
-                      Чтобы добавить дежурство требуется заполнить все поля внизу.
+                      Чтобы добавить дежурство требуется заполнить все поля
+                      внизу.
                     </p>
-                  </Col>}
-                {formKey !== `create` &&
+                  </Col>
+                )}
+                {formKey !== `create` && (
                   <Col xs="20">
                     <Heading size="md">Редактировать дежурство</Heading>
-                  </Col>}
+                  </Col>
+                )}
               </Row>
               <Row className={sUtils.pushedTop3}>
                 <Col xs="20">
                   <Group
                     kind={
                       fields.departmentId.touched &&
-                        fields.departmentId.error &&
-                        `error`
+                      fields.departmentId.error &&
+                      `error`
                     }
                   >
                     <Label>Департамент</Label>
@@ -119,8 +124,9 @@ export default reduxForm(formSettings)(
                       ])}
                     />
                     {fields.departmentId.touched &&
-                      fields.departmentId.error &&
-                      <Helper>{fields.departmentId.error}</Helper>}
+                      fields.departmentId.error && (
+                        <Helper>{fields.departmentId.error}</Helper>
+                      )}
                   </Group>
                 </Col>
               </Row>
@@ -129,8 +135,8 @@ export default reduxForm(formSettings)(
                   <Group
                     kind={
                       fields.startDate.touched &&
-                        fields.startDate.error &&
-                        `error`
+                      fields.startDate.error &&
+                      `error`
                     }
                   >
                     <Label block>Дата начала</Label>
@@ -152,19 +158,19 @@ export default reduxForm(formSettings)(
                       }
                       onDayClick={day => fields.startDate.onBlur(day)}
                     />
-                    {fields.startDate.touched &&
-                      fields.startDate.error &&
+                    {fields.startDate.touched && fields.startDate.error && (
                       <Form.Helper className={s.helperDaypicker}>
                         {fields.startDate.error}
-                      </Form.Helper>}
+                      </Form.Helper>
+                    )}
                   </Group>
                 </Col>
                 <Col xs="10">
                   <Group
                     kind={
                       fields.finishDate.touched &&
-                        fields.finishDate.error &&
-                        `error`
+                      fields.finishDate.error &&
+                      `error`
                     }
                   >
                     <Label block>Дата конца</Label>
@@ -186,11 +192,11 @@ export default reduxForm(formSettings)(
                       }
                       onDayClick={day => fields.finishDate.onBlur(day)}
                     />
-                    {fields.finishDate.touched &&
-                      fields.finishDate.error &&
+                    {fields.finishDate.touched && fields.finishDate.error && (
                       <Form.Helper className={s.helperDaypicker}>
                         {fields.finishDate.error}
-                      </Form.Helper>}
+                      </Form.Helper>
+                    )}
                   </Group>
                 </Col>
               </Row>
@@ -199,8 +205,8 @@ export default reduxForm(formSettings)(
                   <Group
                     kind={
                       fields.startTime.touched &&
-                        fields.startTime.error &&
-                        `error`
+                      fields.startTime.error &&
+                      `error`
                     }
                   >
                     <Select
@@ -210,17 +216,17 @@ export default reduxForm(formSettings)(
                       {...fields.startTime}
                       disabled={!fields.startDate.value}
                     />
-                    {fields.startTime.touched &&
-                      fields.startTime.error &&
-                      <Form.Helper>{fields.startTime.error}</Form.Helper>}
+                    {fields.startTime.touched && fields.startTime.error && (
+                      <Form.Helper>{fields.startTime.error}</Form.Helper>
+                    )}
                   </Group>
                 </Col>
                 <Col sm="10">
                   <Group
                     kind={
                       fields.finishTime.touched &&
-                        fields.finishTime.error &&
-                        `error`
+                      fields.finishTime.error &&
+                      `error`
                     }
                   >
                     <Select
@@ -230,9 +236,9 @@ export default reduxForm(formSettings)(
                       {...fields.finishTime}
                       disabled={!fields.finishDate.value}
                     />
-                    {fields.finishTime.touched &&
-                      fields.finishTime.error &&
-                      <Form.Helper>{fields.finishTime.error}</Form.Helper>}
+                    {fields.finishTime.touched && fields.finishTime.error && (
+                      <Form.Helper>{fields.finishTime.error}</Form.Helper>
+                    )}
                   </Group>
                 </Col>
               </Row>
@@ -241,8 +247,8 @@ export default reduxForm(formSettings)(
                   <Group
                     kind={
                       fields.staffUserId.touched &&
-                        fields.staffUserId.error &&
-                        `error`
+                      fields.staffUserId.error &&
+                      `error`
                     }
                   >
                     <Label>Сотрудник</Label>
@@ -255,18 +261,18 @@ export default reduxForm(formSettings)(
                         [`firstName`, `lastName`],
                       )}
                       linkedTo={{
-                        "details.departmentId": fields.departmentId.value ||
-                          `..0`,
+                        'details.departmentId':
+                          fields.departmentId.value || `..0`,
                       }}
                     />
-                    {fields.staffUserId.touched &&
-                      fields.staffUserId.error &&
-                      <Helper>{fields.staffUserId.error}</Helper>}
+                    {fields.staffUserId.touched && fields.staffUserId.error && (
+                      <Helper>{fields.staffUserId.error}</Helper>
+                    )}
                   </Group>
                 </Col>
               </Row>
             </div>
-            {formKey === `create` &&
+            {formKey === `create` && (
               <Button
                 className={sButton.btnWide}
                 kind="success"
@@ -275,8 +281,9 @@ export default reduxForm(formSettings)(
                 block
               >
                 Добавить дежурство
-              </Button>}
-            {formKey !== `create` &&
+              </Button>
+            )}
+            {formKey !== `create` && (
               <Button
                 className={sButton.btnWide}
                 kind="warning"
@@ -285,7 +292,8 @@ export default reduxForm(formSettings)(
                 block
               >
                 Отредактировать дежурство
-              </Button>}
+              </Button>
+            )}
           </Form.Container>
         );
       }

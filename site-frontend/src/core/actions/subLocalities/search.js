@@ -20,7 +20,7 @@ const searchSubLocalitiesFailed = (query, { errors }) => ({
   errors,
 });
 
-export const searchSubLocalities = (query, offset) => (dispatch) => {
+export const searchSubLocalities = (query, offset) => dispatch => {
   dispatch(searchSubLocalitiesStarted(query));
 
   const orderBy = {

@@ -21,11 +21,16 @@ import Tabs from 'cem/components/properties/id/tabs';
 import { fields } from 'cem/constants/properties/form';
 
 import UI from 'cem/components/ui';
-const { Grid: { Container } } = UI;
+const {
+  Grid: { Container },
+} = UI;
 
 class Id extends Component {
   componentWillMount() {
-    const { params: { id }, actions } = this.props;
+    const {
+      params: { id },
+      actions,
+    } = this.props;
 
     if (id !== 'create') {
       actions.loadProperty(id).then(({ category, data }) => {
@@ -39,13 +44,20 @@ class Id extends Component {
   }
 
   render() {
-    const { params: { id, category }, state, hasRight } = this.props;
+    const {
+      params: { id, category },
+      state,
+      hasRight,
+    } = this.props;
 
-    const { data = { images: [], layoutImages: [], location: {} } } = state.properties[id] || {};
+    const { data = { images: [], layoutImages: [], location: {} } } =
+      state.properties[id] || {};
 
-    const responsibleUser = (state.properties[id] &&
-      state.properties[id].data &&
-      state.properties[id].data.responsibleUser) || {};
+    const responsibleUser =
+      (state.properties[id] &&
+        state.properties[id].data &&
+        state.properties[id].data.responsibleUser) ||
+      {};
 
     const taskProps = {
       pk: 'propertyId',
@@ -55,41 +67,46 @@ class Id extends Component {
         propertyId: data.id,
         propertyCategory: category,
       },
-      isTaskCreationAllowed: hasRight('task_create') && data.state !== 'deleted',
+      isTaskCreationAllowed:
+        hasRight('task_create') && data.state !== 'deleted',
     };
 
     const permissionsProps = {
-      isUpdateAllowed: (!data.saleOffer || data.saleOffer.isResale === 'true'
-        ? hasRight(
-            `${category}_property_update`,
-            responsibleUser.id,
-            responsibleUser.departmentId,
-            responsibleUser.divisionId,
-          )
-        : hasRight(
-            `${category}_property_initial_update`,
-            responsibleUser.id,
-            responsibleUser.departmentId,
-            responsibleUser.divisionId,
-          )) && data.state !== 'deleted',
-      isImageUploadAllowed: hasRight(
-        `${category}_property_image_upload`,
-        responsibleUser.id,
-        responsibleUser.departmentId,
-        responsibleUser.divisionId,
-      ) && data.state !== 'deleted',
-      isContactLinkingAllowed: hasRight(
-        `${category}_property_contact_links`,
-        responsibleUser.id,
-        responsibleUser.departmentId,
-        responsibleUser.divisionId,
-      ) && data.state !== 'deleted',
-      isDocumentsUploadAllowed: hasRight(
-        `${category}_property_documents`,
-        responsibleUser.id,
-        responsibleUser.departmentId,
-        responsibleUser.divisionId,
-      ) && data.state !== 'deleted',
+      isUpdateAllowed:
+        (!data.saleOffer || data.saleOffer.isResale === 'true'
+          ? hasRight(
+              `${category}_property_update`,
+              responsibleUser.id,
+              responsibleUser.departmentId,
+              responsibleUser.divisionId,
+            )
+          : hasRight(
+              `${category}_property_initial_update`,
+              responsibleUser.id,
+              responsibleUser.departmentId,
+              responsibleUser.divisionId,
+            )) && data.state !== 'deleted',
+      isImageUploadAllowed:
+        hasRight(
+          `${category}_property_image_upload`,
+          responsibleUser.id,
+          responsibleUser.departmentId,
+          responsibleUser.divisionId,
+        ) && data.state !== 'deleted',
+      isContactLinkingAllowed:
+        hasRight(
+          `${category}_property_contact_links`,
+          responsibleUser.id,
+          responsibleUser.departmentId,
+          responsibleUser.divisionId,
+        ) && data.state !== 'deleted',
+      isDocumentsUploadAllowed:
+        hasRight(
+          `${category}_property_documents`,
+          responsibleUser.id,
+          responsibleUser.departmentId,
+          responsibleUser.divisionId,
+        ) && data.state !== 'deleted',
       isSensitiveDataVisible: hasRight(
         `${category}_property_sensitive_data`,
         responsibleUser.id,
@@ -97,14 +114,15 @@ class Id extends Component {
         responsibleUser.divisionId,
       ),
       isHistoryVisible: hasRight('event_show'),
-      isPhotoSessionAllowed: data.state !== 'deleted' &&
+      isPhotoSessionAllowed:
+        data.state !== 'deleted' &&
         (state.auth.details.isManager || state.auth.id === responsibleUser.id),
-      isImagesOrderingAllowed: hasRight(`images_order_${category}_create`) &&
-        data.state !== 'deleted',
-      isPropertyRemovalOrderingAllowed: hasRight('property_removal_order_create') &&
-        data.state !== 'deleted',
-      isPropertyExportWithoutLogoAllowed: hasRight('property_export_without_logo') &&
-        data.state !== 'deleted',
+      isImagesOrderingAllowed:
+        hasRight(`images_order_${category}_create`) && data.state !== 'deleted',
+      isPropertyRemovalOrderingAllowed:
+        hasRight('property_removal_order_create') && data.state !== 'deleted',
+      isPropertyExportWithoutLogoAllowed:
+        hasRight('property_export_without_logo') && data.state !== 'deleted',
     };
 
     const HeaderComponent = Header[category];
@@ -195,4 +213,7 @@ const pickActions = dispatch => ({
   ),
 });
 
-export default connect(pickState, pickActions)(Id);
+export default connect(
+  pickState,
+  pickActions,
+)(Id);

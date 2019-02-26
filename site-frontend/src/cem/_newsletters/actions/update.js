@@ -10,7 +10,7 @@ import { apiPath } from 'cem/_newsletters/constants/defaults';
 
 import transformOutputValues from 'cem/_newsletters/helpers/transformOutputValues';
 
-export default (id, data) => (dispatch) => {
+export default (id, data) => dispatch => {
   dispatch(updateElementStarted(types.UPDATE_NEWSLETTER, id));
 
   const values = transformOutputValues(data);
@@ -21,7 +21,7 @@ export default (id, data) => (dispatch) => {
 
       return { id };
     },
-    (errors) => {
+    errors => {
       dispatch(updateElementFailed(types.UPDATE_NEWSLETTER_FAILED, errors));
       return { errors };
     },

@@ -29,13 +29,16 @@ class About extends Component {
           </Row>
           <Address {...this.props} />
           <Description {...this.props} />
-          {formKey !== 'create' &&
+          {formKey !== 'create' && (
             <Row className={sUtils.pushedBottom6}>
               <Col sm="20">
-                <Comments entity={{ key: 'complexBuildings', id: formKey.toString() }} isSubscriptionAvailable />
+                <Comments
+                  entity={{ key: 'complexBuildings', id: formKey.toString() }}
+                  isSubscriptionAvailable
+                />
               </Col>
             </Row>
-          }
+          )}
           <Status {...this.props} />
         </section>
       </Row>

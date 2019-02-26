@@ -14,7 +14,10 @@ export default handleActions(
       },
     }),
 
-    [types.LOAD_BANNERS_SUCCESS]: (state, { propertyId, bannerState, items }) => ({
+    [types.LOAD_BANNERS_SUCCESS]: (
+      state,
+      { propertyId, bannerState, items },
+    ) => ({
       ...state,
       [propertyId]: {
         ...(state[propertyId] || {}),
@@ -23,7 +26,10 @@ export default handleActions(
       },
     }),
 
-    [types.LOAD_BANNERS_FAIL]: (state, { propertyId, bannerState, errors }) => ({
+    [types.LOAD_BANNERS_FAIL]: (
+      state,
+      { propertyId, bannerState, errors },
+    ) => ({
       ...state,
       [propertyId]: {
         ...(state[propertyId] || {}),

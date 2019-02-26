@@ -8,8 +8,19 @@ const changeStateSucceeded = (entityTypeId, id) => ({
   id,
 });
 
-export default (entityTypeId, id, state, data = {}, { apiPath = '' }) => dispatch =>
-  API.post(apiPath ? `${apiPath}/${id}/${state}` : `/v1/${entityTypeId}/${id}/${state}`, data).then(
+export default (
+  entityTypeId,
+  id,
+  state,
+  data = {},
+  { apiPath = '' },
+) => dispatch =>
+  API.post(
+    apiPath
+      ? `${apiPath}/${id}/${state}`
+      : `/v1/${entityTypeId}/${id}/${state}`,
+    data,
+  ).then(
     () => dispatch(changeStateSucceeded(entityTypeId, id)),
     ({ body }) => body,
   );

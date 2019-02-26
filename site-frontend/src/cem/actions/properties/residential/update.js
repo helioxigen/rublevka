@@ -15,8 +15,8 @@ const updateResidentialFailed = errors => ({
   errors,
 });
 
-export default function (id, data, location) {
-  return (dispatch) => {
+export default function(id, data, location) {
+  return dispatch => {
     dispatch(updateResidentialStarted(id));
 
     const complex = {

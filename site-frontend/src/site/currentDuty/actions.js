@@ -4,7 +4,8 @@ import * as types from 'site/currentDuty/constants/actions';
 import { apiPath } from 'site/currentDuty/constants/defaults';
 
 const loadDuties = propertyCategory => (dispatch, getState) => {
-  const currentDutyByPropertyCategory = getState().currentDuty[propertyCategory] || {};
+  const currentDutyByPropertyCategory =
+    getState().currentDuty[propertyCategory] || {};
   const finishAt = new Date(currentDutyByPropertyCategory.finishAt);
   const now = new Date();
 

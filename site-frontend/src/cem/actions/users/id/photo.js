@@ -10,7 +10,7 @@ const uploadPhotoStarted = userId => ({
   userId,
 });
 
-const uploadPhotoFailed = (userId, status) => (dispatch) => {
+const uploadPhotoFailed = (userId, status) => dispatch => {
   if (status === 304) {
     dispatch(pop('info', 'Такая фотография уже существует'));
   }
@@ -21,7 +21,7 @@ const uploadPhotoFailed = (userId, status) => (dispatch) => {
   });
 };
 
-const uploadPhotoSucceeded = (userId, id) => (dispatch) => {
+const uploadPhotoSucceeded = (userId, id) => dispatch => {
   dispatch(loadUser(userId));
   dispatch(pop('success', 'Фотография обновлена'));
 
@@ -32,7 +32,7 @@ const uploadPhotoSucceeded = (userId, id) => (dispatch) => {
   });
 };
 
-const uploadPhoto = (userId, src) => (dispatch) => {
+const uploadPhoto = (userId, src) => dispatch => {
   dispatch(uploadPhotoStarted(userId));
 
   return API.post(`/v1/users/staff/${userId}/photo`, { src }).then(

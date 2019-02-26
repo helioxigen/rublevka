@@ -1,12 +1,20 @@
-import { loadList, loadListStarted, loadListFailed, loadListSucceeded } from 'core/fetcher/actions';
+import {
+  loadList,
+  loadListStarted,
+  loadListFailed,
+  loadListSucceeded,
+} from 'core/fetcher/actions';
 
 import * as types from 'cem/constants/_tasks/actions';
-import { defaultQueryParamsByGroup, resourceName } from 'cem/constants/_tasks/defaults';
+import {
+  defaultQueryParamsByGroup,
+  resourceName,
+} from 'cem/constants/_tasks/defaults';
 
 import { updatePagination } from 'core/actions/pagination';
 import UsersActions from 'cem/actions/users';
 
-const loadLinkedUsers = userIds => (dispatch) => {
+const loadLinkedUsers = userIds => dispatch => {
   if (userIds.length) {
     dispatch(UsersActions.loadList({ filter: { id: userIds } }));
   }
@@ -15,7 +23,12 @@ const loadLinkedUsers = userIds => (dispatch) => {
 const loadTasks = (queryParams, group) => (dispatch, getState) => {
   dispatch(loadListStarted(types.LOAD_TASKS, group));
 
-  return loadList(resourceName, group, { defaultQueryParamsByGroup }, { ...queryParams }).then(
+  return loadList(
+    resourceName,
+    group,
+    { defaultQueryParamsByGroup },
+    { ...queryParams },
+  ).then(
     ({ items, pagination }) => {
       dispatch(
         loadLinkedUsers(
@@ -29,7 +42,7 @@ const loadTasks = (queryParams, group) => (dispatch, getState) => {
 
       return items;
     },
-    (errors) => {
+    errors => {
       dispatch(loadListFailed(types.LOAD_TASKS_FAILED, group, errors));
 
       return errors;

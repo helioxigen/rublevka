@@ -29,9 +29,9 @@ export default ({ data, kind, ...props }) => {
       meta.push({
         name: 'header',
         header: 'Location',
-        content: `https://${global.config.domain}/zagorodnaya/${props.dealType}/${
-          kindsTranslit[data.kind]
-        }/${data.id}`,
+        content: `https://${global.config.domain}/zagorodnaya/${
+          props.dealType
+        }/${kindsTranslit[data.kind]}/${data.id}`,
       });
 
       return <Helmet meta={meta} />;
@@ -89,11 +89,13 @@ export default ({ data, kind, ...props }) => {
     const script = [
       {
         innerHTML: `
-        fbq('track', 'ViewContent', {content_name: '${props.titleH1}', content_category: '${
-          dealTypesTranslate[dealType]
-        } > ${kindsTranslatePlural[data.kind]}', content_ids: ['${
-          data.id
-        }'], content_type: 'product', value: ${props.usdPrice}, currency: 'USD'});
+        fbq('track', 'ViewContent', {content_name: '${
+          props.titleH1
+        }', content_category: '${dealTypesTranslate[dealType]} > ${
+          kindsTranslatePlural[data.kind]
+        }', content_ids: ['${data.id}'], content_type: 'product', value: ${
+          props.usdPrice
+        }, currency: 'USD'});
       `,
       },
     ];

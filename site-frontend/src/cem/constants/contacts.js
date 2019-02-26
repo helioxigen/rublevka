@@ -15,21 +15,24 @@ export const UPDATE_ID_SUCCESS = 'contacts.id.update.succeeded';
 export const UPDATE_ID_FAIL = 'contacts.id.update.failed';
 
 export const LOAD_DOCUMENTS = 'contacts.id.document.list.load.started';
-export const LOAD_DOCUMENTS_SUCCESS = 'contacts.id.document.list.load.succeeded';
+export const LOAD_DOCUMENTS_SUCCESS =
+  'contacts.id.document.list.load.succeeded';
 export const LOAD_DOCUMENTS_FAIL = 'contacts.id.document.list.load.failed';
 
 export const CREATE_DOCUMENT = 'contacts.id.document.create.started';
 export const CREATE_DOCUMENT_FAIL = 'contacts.id.document.create.failed';
 
 export const UPDATE_DOCUMENT = 'contacts.id.document.id.update.started';
-export const UPDATE_DOCUMENT_SUCCESS = 'contacts.id.document.id.update.succeeded';
+export const UPDATE_DOCUMENT_SUCCESS =
+  'contacts.id.document.id.update.succeeded';
 export const UPDATE_DOCUMENT_FAIL = 'contacts.id.document.id.update.failed';
 
 export const DELETE_DOCUMENT = 'contacts.id.document.id.delete';
 export const DELETE_DOCUMENT_FAIL = 'contacts.id.document.id.delete.failed';
 
 export const LOAD_LINKED_CONTACTS = 'contacts.id.linked.list.load.started';
-export const LOAD_LINKED_CONTACTS_SUCCESS = 'contacts.id.linked.list.load.succeeded';
+export const LOAD_LINKED_CONTACTS_SUCCESS =
+  'contacts.id.linked.list.load.succeeded';
 export const LOAD_LINKED_CONTACTS_FAIL = 'contacts.id.linked.list.load.failed';
 
 export const ADD_LINKED_CONTACT = 'contacts.id.linked.add.started';

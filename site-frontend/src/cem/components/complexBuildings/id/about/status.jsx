@@ -30,30 +30,38 @@ export default class extends Component {
   }
 
   render() {
-    const { data, data: { responsibleUser = {} }, state } = this.props;
+    const {
+      data,
+      data: { responsibleUser = {} },
+      state,
+    } = this.props;
     const createdBy = state.users[data.createdByUserId];
     const updatedBy = state.users[data.updatedByUserId];
 
     return (
       <section className={this.props.className}>
-        {responsibleUser.id &&
+        {responsibleUser.id && (
           <Row className={sUtils.pushedBottom6}>
             <Col xs="20">
               <User id={responsibleUser.id} title="Ответственный" />
             </Col>
           </Row>
-        }
+        )}
         <Row>
           {createdBy && (
             <Col sm="10">
               <Heading size="md">Создан</Heading>
               <Group>
                 <Label block>Дата создания</Label>
-                <Static><FormattedDate mask="dd.mm.yy HH:MM" value={data.createdAt} /></Static>
+                <Static>
+                  <FormattedDate mask="dd.mm.yy HH:MM" value={data.createdAt} />
+                </Static>
               </Group>
               <Group className={sUtils.resetIndentation}>
                 <Label block>Создал</Label>
-                <Static>{createdBy.data.firstName} {createdBy.data.lastName}</Static>
+                <Static>
+                  {createdBy.data.firstName} {createdBy.data.lastName}
+                </Static>
               </Group>
             </Col>
           )}
@@ -63,11 +71,15 @@ export default class extends Component {
               <Heading size="md">Изменен</Heading>
               <Group>
                 <Label block>Дата изменения</Label>
-                <Static><FormattedDate mask="dd.mm.yy HH:MM" value={data.updatedAt} /></Static>
+                <Static>
+                  <FormattedDate mask="dd.mm.yy HH:MM" value={data.updatedAt} />
+                </Static>
               </Group>
               <Group className={sUtils.resetIndentation}>
                 <Label block>Изменил</Label>
-                <Static>{updatedBy.data.firstName} {updatedBy.data.lastName}</Static>
+                <Static>
+                  {updatedBy.data.firstName} {updatedBy.data.lastName}
+                </Static>
               </Group>
             </Col>
           )}

@@ -26,40 +26,58 @@ class ComplexBuilding extends Component {
 
               <Row>
                 <Col sm="9" className={sUtils.pushedBottomXs2Sm3}>
-                  {complexBuildingDetails.constructionKind &&
+                  {complexBuildingDetails.constructionKind && (
                     <dl className={s.list}>
                       <dt className={s.listTitle}>Тип:&nbsp;</dt>
-                      <dd className={s.listItem}>{dict.constructionKinds[complexBuildingDetails.constructionKind]}</dd>
+                      <dd className={s.listItem}>
+                        {
+                          dict.constructionKinds[
+                            complexBuildingDetails.constructionKind
+                          ]
+                        }
+                      </dd>
                     </dl>
-                  }
+                  )}
                   <dl className={s.list}>
                     <dt className={s.listTitle}>Год постройки:&nbsp;</dt>
-                    <dd className={s.listItem}>{complexBuildingDetails.builtYear ? complexBuildingDetails.builtYear : '–'}</dd>
+                    <dd className={s.listItem}>
+                      {complexBuildingDetails.builtYear
+                        ? complexBuildingDetails.builtYear
+                        : '–'}
+                    </dd>
                   </dl>
-                  {complexBuildingDetails.floors &&
+                  {complexBuildingDetails.floors && (
                     <dl className={s.list}>
                       <dt className={s.listTitle}>Этажей:&nbsp;</dt>
-                      <dd className={s.listItem}>{complexBuildingDetails.floors}</dd>
+                      <dd className={s.listItem}>
+                        {complexBuildingDetails.floors}
+                      </dd>
                     </dl>
-                  }
+                  )}
                   {complexBuildingDetails.elevators && (
                     <dl className={s.list}>
                       <dt className={s.listTitle}>Лифтов:&nbsp;</dt>
-                      <dd className={s.listItem}>{complexBuildingDetails.elevators}</dd>
+                      <dd className={s.listItem}>
+                        {complexBuildingDetails.elevators}
+                      </dd>
                     </dl>
                   )}
                   {complexBuildingDetails.freightElevators && (
                     <dl className={s.list}>
                       <dt className={s.listTitle}>Грузовых лифтов:&nbsp;</dt>
-                      <dd className={s.listItem}>{complexBuildingDetails.freightElevators}</dd>
+                      <dd className={s.listItem}>
+                        {complexBuildingDetails.freightElevators}
+                      </dd>
                     </dl>
                   )}
-                  {complexBuildingDetails.security &&
+                  {complexBuildingDetails.security && (
                     <dl className={s.list}>
                       <dt className={s.listTitle}>Территория:&nbsp;</dt>
-                      <dd className={s.listItem}>{dict.securityKinds[complexBuildingDetails.security]}</dd>
+                      <dd className={s.listItem}>
+                        {dict.securityKinds[complexBuildingDetails.security]}
+                      </dd>
                     </dl>
-                  }
+                  )}
                 </Col>
               </Row>
             </Col>

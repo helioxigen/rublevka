@@ -18,8 +18,8 @@ const searchResidentialFailed = () => ({
   type: types.SEARCH_RESIDENTIAL_FAIL,
 });
 
-export default function (location) {
-  return (dispatch) => {
+export default function(location) {
+  return dispatch => {
     dispatch(searchResidentialStarted(location));
 
     const filter = {

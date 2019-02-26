@@ -10,7 +10,7 @@ const loadComplexesStarted = () => ({
   type: types.LOAD_COMPLEXES,
 });
 
-const loadComplexesSucceeded = ({ items, pagination }) => (dispatch) => {
+const loadComplexesSucceeded = ({ items, pagination }) => dispatch => {
   dispatch(updatePagination('complexes', pagination));
 
   return dispatch({
@@ -24,7 +24,7 @@ const loadComplexesFailed = ({ errors }) => ({
   errors,
 });
 
-const loadComplexes = queryParams => (dispatch) => {
+const loadComplexes = queryParams => dispatch => {
   dispatch(loadComplexesStarted());
 
   return API.get('/v1/complexes', {

@@ -9,7 +9,9 @@ import Pagination from 'core/components/pagination';
 
 import UI from 'cem/components/ui';
 const {
-  Heading, Loading, Button,
+  Heading,
+  Loading,
+  Button,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -29,10 +31,17 @@ class List extends Component {
     const { state, actions } = this.props;
     const pagination = state.pagination[`selections.all`] || {};
     const nextPagination = nextProps.state.pagination[`selections.all`] || {};
-    const isPaginationUpdated = pagination.offset !== undefined && pagination.offset !== nextPagination.offset;
+    const isPaginationUpdated =
+      pagination.offset !== undefined &&
+      pagination.offset !== nextPagination.offset;
 
     if (isPaginationUpdated) {
-      actions.loadComplexes({ pagination: { offset: nextPagination.offset, limit: nextPagination.limit } });
+      actions.loadComplexes({
+        pagination: {
+          offset: nextPagination.offset,
+          limit: nextPagination.limit,
+        },
+      });
     }
   }
 
@@ -58,9 +67,16 @@ class List extends Component {
               <Col xs="20">
                 <Heading size="lg">
                   Подборки&nbsp;
-                  {isCreationAllowed &&
-                    <Button className={sUtils.pushedLeftSm2} kind="accent" size="xs" to={`/selections/create`}>добавить</Button>
-                  }
+                  {isCreationAllowed && (
+                    <Button
+                      className={sUtils.pushedLeftSm2}
+                      kind="accent"
+                      size="xs"
+                      to={`/selections/create`}
+                    >
+                      добавить
+                    </Button>
+                  )}
                 </Heading>
               </Col>
             </Row>
@@ -69,19 +85,30 @@ class List extends Component {
 
         {isFetching && <Loading />}
 
-        {!isFetching && !ids.length && <Heading notFound>Не найдено подборок</Heading>}
+        {!isFetching && !ids.length && (
+          <Heading notFound>Не найдено подборок</Heading>
+        )}
 
-        {!isFetching && ids.map(id => <Card key={id} data={state.selections[id] && state.selections[id].data} />)}
+        {!isFetching &&
+          ids.map(id => (
+            <Card
+              key={id}
+              data={state.selections[id] && state.selections[id].data}
+            />
+          ))}
 
-        {!isFetching && !!ids.length &&
+        {!isFetching && !!ids.length && (
           <Container fluid>
             <Row xs="center">
               <Col sm="10" className={sUtils.pushed6_0}>
-                <Pagination {...pagination} onUpdate={::this.handlePaginationUpdate} />
+                <Pagination
+                  {...pagination}
+                  onUpdate={::this.handlePaginationUpdate}
+                />
               </Col>
             </Row>
           </Container>
-        }
+        )}
       </section>
     );
   }
@@ -91,8 +118,14 @@ const pickState = ({ selections, pagination }) => ({
   state: { selections, pagination },
 });
 
-const pickActions = (dispatch) => ({
-  actions: bindActionCreators({ ...SelectionsActions, ...PaginationActions }, dispatch),
+const pickActions = dispatch => ({
+  actions: bindActionCreators(
+    { ...SelectionsActions, ...PaginationActions },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, pickActions)(List);
+export default connect(
+  pickState,
+  pickActions,
+)(List);

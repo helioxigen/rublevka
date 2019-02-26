@@ -6,8 +6,12 @@ import formSettings from 'cem/constants/requests/remove/form';
 
 import UI from 'cem/components/ui';
 const {
-  Button, Back, Icon,
-  Form, Grid, Heading,
+  Button,
+  Back,
+  Icon,
+  Form,
+  Grid,
+  Heading,
   Grid: { Row, Col },
 } = UI;
 
@@ -24,11 +28,15 @@ class Header extends Component {
     const { formKey, values, actions, propertyId } = this.props;
 
     if (formKey === `create`) {
-      return actions.createRemovalRequest({ ...values, propertyId: Number(propertyId) })
-        .then(({ id }) => actions.pushPath(`/requests/properties/to_remove/${id}`));
+      return actions
+        .createRemovalRequest({ ...values, propertyId: Number(propertyId) })
+        .then(({ id }) =>
+          actions.pushPath(`/requests/properties/to_remove/${id}`),
+        );
     }
     if (formKey !== `create`) {
-      return actions.updateRemovalRequest(formKey, values)
+      return actions
+        .updateRemovalRequest(formKey, values)
         .then(() => actions.loadRemovalRequest(formKey));
     }
   }
@@ -41,9 +49,15 @@ class Header extends Component {
 
   render() {
     const {
-      values, formKey, handleSubmit, pristine, submitting, error,
+      values,
+      formKey,
+      handleSubmit,
+      pristine,
+      submitting,
+      error,
       data,
-      isCurrentUserSupervisor, isCurrentUserChief,
+      isCurrentUserSupervisor,
+      isCurrentUserChief,
     } = this.props;
 
     return (
@@ -53,8 +67,16 @@ class Header extends Component {
             <Row>
               <Col xs="20" className={sUtils.positionRelative}>
                 <Heading size="lg">
-                  <Back button={<Button type="button" className={sButton.btnBack}><Icon className={s.iconBack} icon="arrow-right" /></Button>} />
-                  {formKey !== `create` ? `Заявка (ID: ${formKey})` : `Создать заявку`}
+                  <Back
+                    button={
+                      <Button type="button" className={sButton.btnBack}>
+                        <Icon className={s.iconBack} icon="arrow-right" />
+                      </Button>
+                    }
+                  />
+                  {formKey !== `create`
+                    ? `Заявка (ID: ${formKey})`
+                    : `Создать заявку`}
                 </Heading>
               </Col>
             </Row>
@@ -64,24 +86,44 @@ class Header extends Component {
                   <RequestDetails {...this.props} />
                 </Col>
               </Row>
-              {data && <StateControls state={data.state} values={values} changeState={::this.changeState} isCurrentUserSupervisor={isCurrentUserSupervisor} isCurrentUserChief={isCurrentUserChief} />}
+              {data && (
+                <StateControls
+                  state={data.state}
+                  values={values}
+                  changeState={::this.changeState}
+                  isCurrentUserSupervisor={isCurrentUserSupervisor}
+                  isCurrentUserChief={isCurrentUserChief}
+                />
+              )}
               {/* data && formKey !== `create` && <Timeline className={sTimeline.maxWidth83} settings={timelineSettings} {...data} /> */}
               {/* data && formKey !== `create` && <ManagerControls data={data} /> */}
-              {data && data.stateDetails.reason &&
+              {data && data.stateDetails.reason && (
                 <Row>
                   <Col md="18" lg="14" mdOffset="2" lgOffset="4">
                     <Row>
                       <Col sm="10" smOffset="1">
                         <Heading size="sm">Причина:</Heading>
-                        <p className={sUtils.pushedTop_5}>{data.stateDetails.reason}</p>
+                        <p className={sUtils.pushedTop_5}>
+                          {data.stateDetails.reason}
+                        </p>
                       </Col>
                     </Row>
                   </Col>
                 </Row>
-              }
+              )}
             </div>
           </Grid.Container>
-          <Button className={cn(sButton.btnFixedBottom, formKey !== `create` && pristine && sUtils.hidden)} disabled={error || submitting} type="submit" kind={formKey === `create` ? `success` : `warning`} size="md" block>
+          <Button
+            className={cn(
+              sButton.btnFixedBottom,
+              formKey !== `create` && pristine && sUtils.hidden,
+            )}
+            disabled={error || submitting}
+            type="submit"
+            kind={formKey === `create` ? `success` : `warning`}
+            size="md"
+            block
+          >
             {formKey === `create` ? `Создать` : `Сохранить`}
           </Button>
         </Form.Container>

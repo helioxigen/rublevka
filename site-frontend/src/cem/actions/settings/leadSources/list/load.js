@@ -7,7 +7,7 @@ const loadListStarted = () => ({
   type: types.LOAD_LEAD_SOURCES,
 });
 
-const loadListSucceeded = ({ items, pagination }) => (dispatch) => {
+const loadListSucceeded = ({ items, pagination }) => dispatch => {
   dispatch(updatePagination('leadSources', pagination));
   dispatch({
     type: types.LOAD_LEAD_SOURCES_SUCCESS,
@@ -20,7 +20,7 @@ const loadListFailed = ({ errors }) => ({
   errors,
 });
 
-export default (queryParams = {}) => (dispatch) => {
+export default (queryParams = {}) => dispatch => {
   dispatch(loadListStarted());
 
   return API.get('/v1/client_lead_sources', queryParams)

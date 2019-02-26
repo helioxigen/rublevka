@@ -22,7 +22,8 @@ export const deleteElementFailed = (type, id, errors) => ({
 export const deleteElement = (resourceName, id, data) => {
   if (!resourceName) throwFormattedError('required', resourceName);
   if (!id) throwFormattedError('required', id);
-  if (!apiPaths[resourceName]) throwFormattedError('apiPathEmpty', resourceName);
+  if (!apiPaths[resourceName])
+    throwFormattedError('apiPathEmpty', resourceName);
 
   return API.del(`${apiPaths[resourceName]}/${id}`).then(
     () => Promise.resolve(data),

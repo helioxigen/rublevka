@@ -1,5 +1,6 @@
 @import "../responsive-utils";
 @import "../variables";
+
 .card {
   position: relative;
   z-index: 1;
@@ -13,6 +14,7 @@
   border: 0;
   overflow: hidden;
   transition: all 0.3s;
+
   &:hover,
   &:focus {
     z-index: 2;
@@ -20,6 +22,7 @@
     text-decoration: none;
     border-color: $silver-chalice;
   }
+
   @include responsive(sm) {
     margin: -1px -1.5rem 0 -1.6rem;
     padding: 3rem;
@@ -41,18 +44,23 @@
   background: $brand-white;
   border: 1px solid $grey;
   transition: all 0.3s;
+
   &:hover .imageOverlay {
     opacity: 1;
   }
+
   &:hover,
   &:focus {
     color: $brand-black;
     text-decoration: none;
   }
+
   @include responsive(sm) {
     margin: -1px -1.5rem 0 -1.6rem;
   }
+
   @include responsive(md) {
+
     &:hover,
     &:focus {
       z-index: 2;
@@ -70,6 +78,7 @@
   text-decoration: none;
   background: $body-bg;
   border: 1px solid $grey;
+
   @include responsive(sm) {
     margin: -1px -1.5rem 0 -1.6rem;
     padding: 7rem 3rem 0;
@@ -84,12 +93,14 @@
   z-index: 2;
   padding-left: 1.5rem;
   text-align: left;
+
   @include responsive(sm) {
     position: relative;
     right: auto;
     bottom: auto;
     left: auto;
     padding-left: 0;
+
     &:after {
       content: "";
       position: absolute;
@@ -107,6 +118,7 @@
 .imageContainer {
   position: relative;
   margin: 0;
+
   &:after {
     content: "";
     position: absolute;
@@ -117,8 +129,10 @@
     z-index: 1;
     background: rgba(0, 0, 0, 0.3);
   }
+
   @include responsive(sm) {
     margin-bottom: 2.5rem;
+
     &:after {
       box-shadow: none;
     }
@@ -149,10 +163,12 @@
   min-height: 25rem;
   max-height: 25rem;
   fill: $gallery;
+
   @include responsive(xs) {
     min-height: 40rem;
     max-height: 40rem;
   }
+
   @include responsive(sm) {
     min-height: 24.5rem;
     max-height: 24.5rem;
@@ -165,6 +181,7 @@
   min-height: 25rem;
   background: transparent center center no-repeat;
   background-size: cover;
+
   &:after {
     content: "";
     position: absolute;
@@ -173,15 +190,19 @@
     bottom: 0;
     left: 0;
   }
+
   @include responsive(xs) {
     min-height: 40rem;
   }
+
   @include responsive(sm) {
     min-height: 20rem;
+
     &:after {
       box-shadow: none;
     }
   }
+
   @include responsive(lg) {
     min-height: 25rem;
     max-height: 25rem;
@@ -195,6 +216,7 @@
   margin-right: 1.5rem;
   padding: 0;
   padding-right: 1.5rem;
+
   &:after {
     content: "";
     position: absolute;
@@ -205,17 +227,21 @@
     height: 1.3rem;
     background: $grey;
     opacity: 0.5;
+
     @include responsive(sm) {
       opacity: 1;
     }
   }
+
   &:last-child {
     margin: 0;
     padding: 0;
+
     &:after {
       display: none;
     }
   }
+
   @include responsive(sm) {
     &:after {
       top: 100%;
@@ -236,6 +262,7 @@
   color: $brand-white;
   font-size: 1.5rem;
   line-height: 1;
+
   @include responsive(sm) {
     color: $brand-black;
     font-size: 1.4rem;
@@ -256,9 +283,11 @@
   color: $brand-white;
   font-size: 1.6rem;
   line-height: 1;
+
   &:first-child {
     margin-right: 3.5rem;
   }
+
   @include responsive(sm) {
     color: $brand-black;
   }
@@ -269,6 +298,7 @@
   top: 0.1rem;
   margin-right: 1rem;
   fill: $brand-white;
+
   @include responsive(sm) {
     fill: $nobel;
   }
@@ -284,6 +314,7 @@
   padding: 1.1rem 1.2rem 0.9rem;
   border-top-left-radius: 0.4rem;
   border-bottom-left-radius: 0.4rem;
+
   @include responsive(sm) {
     top: 3rem;
     left: 0;
@@ -304,6 +335,7 @@
 .price {
   color: $brand-white;
   font-weight: 500;
+
   @include responsive(sm) {
     color: $brand-black;
     font-weight: 700;
@@ -321,6 +353,7 @@
   line-height: 1;
   overflow: hidden;
   white-space: normal;
+
   @include responsive(sm) {
     position: relative;
     top: 0;
@@ -335,6 +368,7 @@
   margin-bottom: 0.5rem;
   color: $brand-white;
   font-size: 1.8rem;
+
   @include responsive(sm) {
     position: relative;
     display: inline-block;
@@ -348,6 +382,7 @@
 .settlementName {
   font-size: 2.6rem;
   margin: 0 0 1.5rem;
+
   @include responsive(sm) {
     font-size: 1.8rem;
     margin: 0;
@@ -361,9 +396,11 @@
   line-height: 1;
   overflow: hidden;
   white-space: normal;
+
   @include responsive(sm) {
     padding-right: 0;
     white-space: nowrap;
+
     &:after {
       content: "";
       position: absolute;
@@ -381,6 +418,7 @@
   color: $dove-gray;
   font-size: 1.6rem;
   display: inline-block;
+
   @include responsive(sm) {
     position: relative;
     max-width: 100%;
@@ -397,6 +435,7 @@
   font-weight: 300;
   line-height: 1.1;
   white-space: nowrap;
+
   @include responsive(sm) {
     color: $brand-black;
     font-size: 2rem;
@@ -435,6 +474,7 @@
   color: $brand-white;
   font-size: 2.2rem;
   font-weight: 600;
+
   @include responsive(sm) {
     color: $brand-black;
   }
@@ -461,6 +501,7 @@
   font-weight: 700;
   line-height: 3.6rem;
   color: inherit;
+
   @include responsive(lg) {
     font-size: 3.1rem;
   }
@@ -468,6 +509,7 @@
 
 .textGrey {
   color: $brand-white;
+
   @include responsive(sm) {
     color: $star-dust;
   }
@@ -487,6 +529,7 @@
   position: relative;
   margin-top: 4rem;
   padding-top: 3.5rem;
+
   &:after {
     content: "";
     position: absolute;
@@ -503,6 +546,7 @@
   margin-top: 1rem;
   margin-bottom: 1.5rem;
   color: $brand-white;
+
   @include responsive(sm) {
     color: $brand-black;
   }
@@ -518,6 +562,7 @@
 
 .bottom1_8 {
   bottom: 1.8rem;
+
   @include responsive(sm) {
     bottom: auto;
   }
@@ -525,6 +570,7 @@
 
 .alignCenter {
   text-align: left;
+
   @include responsive(sm) {
     text-align: center;
   }
@@ -532,6 +578,7 @@
 
 .pushedTopXs1_7_Sm2_5 {
   margin-top: 1.7rem;
+
   @include responsive(sm) {
     margin-top: 2.5rem;
   }
@@ -539,6 +586,7 @@
 
 .pushedTopXs1Sm1_7 {
   margin-top: 1rem;
+
   @include responsive(sm) {
     margin-top: 1.7rem;
   }

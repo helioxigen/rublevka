@@ -12,7 +12,9 @@ import { nameToSlug } from 'core/helpers/nameToSlug';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const { Grid: { Col } } = UI;
+const {
+  Grid: { Col },
+} = UI;
 
 const CardContainer = styled(Col)`
   margin-bottom: 3rem;
@@ -22,7 +24,9 @@ const CardContainer = styled(Col)`
   `};
 `;
 
-const KindsWrapper = styled.div`padding: 0;`;
+const KindsWrapper = styled.div`
+  padding: 0;
+`;
 
 const StLink = styled(Link)`
   display: flex;
@@ -50,7 +54,9 @@ const StLink = styled(Link)`
   `};
 `;
 
-const StLinkLast = StLink.extend`border-radius: 0 0 0.4rem 0.4rem;`;
+const StLinkLast = StLink.extend`
+  border-radius: 0 0 0.4rem 0.4rem;
+`;
 
 const Wrapper = styled(Link)`
   position: relative;
@@ -81,7 +87,8 @@ const Overlay = styled.div`
   left: 0;
   bottom: 0;
   top: 0;
-  background: ${p => (p.bgImg ? 'rgba(0, 0, 0, 0.35)' : 'rgba(86, 104, 114, .8)')};
+  background: ${p =>
+    p.bgImg ? 'rgba(0, 0, 0, 0.35)' : 'rgba(86, 104, 114, .8)'};
   z-index: 1;
 `;
 
@@ -134,13 +141,16 @@ const LocationTitle = styled.span`
   `};
 `;
 
-const Counter = styled.span`margin-left: 0.5rem;`;
+const Counter = styled.span`
+  margin-left: 0.5rem;
+`;
 
 function getImgUrl(cover) {
   if (cover === undefined) {
     return `${require('site/assets/images/white-pattern.svg')}`;
   }
-  return `url(${global.config.cloudfront || cloudfront}/${cover}-thumbnail-512)`;
+  return `url(${global.config.cloudfront ||
+    cloudfront}/${cover}-thumbnail-512)`;
 }
 
 class Card extends Component {
@@ -159,7 +169,9 @@ class Card extends Component {
     return (
       <CardContainer xs="12" sm="6" md="4">
         <Wrapper
-          to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${data.id}`}
+          to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${
+            data.id
+          }`}
           style={{ backgroundImage: imgUrl }}
           withPattern={cover === undefined}
         >
@@ -174,31 +186,33 @@ class Card extends Component {
         <KindsWrapper>
           <StLink
             isDisabled={houses === 0}
-            to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${data.id}/dom`}
+            to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${
+              data.id
+            }/dom`}
           >
             Дома <Counter>{houses}</Counter>
           </StLink>
           <StLink
             isDisabled={lands === 0}
-            to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
-              data.name,
-            )}_${data.id}/uchastok`}
+            to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${
+              data.id
+            }/uchastok`}
           >
             Участки <Counter>{lands}</Counter>
           </StLink>
           <StLink
             isDisabled={townhouses === 0}
-            to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
-              data.name,
-            )}_${data.id}/taunhaus`}
+            to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${
+              data.id
+            }/taunhaus`}
           >
             Таунхаусы <Counter>{townhouses}</Counter>
           </StLink>
           <StLinkLast
             isDisabled={flats === 0}
-            to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
-              data.name,
-            )}_${data.id}/kvartira`}
+            to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${
+              data.id
+            }/kvartira`}
           >
             Квартиры <Counter>{flats}</Counter>
           </StLinkLast>

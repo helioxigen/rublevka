@@ -23,7 +23,7 @@ const updatePlaceSucceeded = (id, data) => dispatch =>
   });
 
 export default function updatePlaces(kind, id, data) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(updatePlaceStarted(kind, data));
 
     return API.put(`/v1/places/${kind}/${id}`, data)

@@ -127,14 +127,18 @@ class SelectionForm extends Component {
   render() {
     return (
       <Form.Container className={this.props.className} onSubmit={::this.submit}>
-        {!this.state.requestSent &&
+        {!this.state.requestSent && (
           <Container fluid>
             <Row>
               <Col xs="12">
                 <div className={sUtils.pushedBottom4_5}>
-                  <h1 className={s.title}>Подберем предложения по вашему запросу</h1>
+                  <h1 className={s.title}>
+                    Подберем предложения по вашему запросу
+                  </h1>
 
-                  <p className={s.text}>Если вы не нашли подходящие предложения, мы вам поможем</p>
+                  <p className={s.text}>
+                    Если вы не нашли подходящие предложения, мы вам поможем
+                  </p>
                   {/* <p className={s.textGreySm}>
                     Похоже, допущена ошибка при написании номера телефона, попробуйте еще раз
                   </p> */}
@@ -205,7 +209,12 @@ class SelectionForm extends Component {
             </div>
           )} */}
 
-                <Button className={sUtils.pushedTop3} kind="primary" size="lg" block>
+                <Button
+                  className={sUtils.pushedTop3}
+                  kind="primary"
+                  size="lg"
+                  block
+                >
                   Отправить
                 </Button>
 
@@ -214,9 +223,10 @@ class SelectionForm extends Component {
                 </p>
               </Col>
             </Row>
-          </Container>}
+          </Container>
+        )}
 
-        {!!this.state.requestSent &&
+        {!!this.state.requestSent && (
           <div>
             <Icon className={s.iconLogo} icon="jqestate-logo" />
 
@@ -224,7 +234,8 @@ class SelectionForm extends Component {
             <p className={cn(s.text, s.textGrey, s.pushedTop1_5)}>
               Через 10 минут наш агент свяжется с вами
             </p>
-          </div>}
+          </div>
+        )}
       </Form.Container>
     );
   }
@@ -237,7 +248,7 @@ const pickState = ({ currentDuty }) => ({
   },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadDuties,
     createClientLead,
@@ -249,4 +260,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(SelectionForm);
+export default connect(
+  pickState,
+  pickActions,
+)(SelectionForm);

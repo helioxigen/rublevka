@@ -16,8 +16,8 @@ export const Bg = styled.div`
   background-repeat: no-repeat;
   background-position: center;
 
-  background: url('//s3.eu-central-1.amazonaws.com/dt-marketing/assets/hero.jpg') center bottom
-    no-repeat;
+  background: url('//s3.eu-central-1.amazonaws.com/dt-marketing/assets/hero.jpg')
+    center bottom no-repeat;
 
   min-height: 42rem;
 
@@ -79,7 +79,8 @@ export const MobileContainer = styled.div`
   height: 21.5rem;
   padding: 2.5rem 1rem 0;
   margin-bottom: 1rem;
-  background: url(${require('site/assets/images/black-pattern.svg')}) repeat #303030;
+  background: url(${require('site/assets/images/black-pattern.svg')}) repeat
+    #303030;
   background-size: 150%;
 
   ${media.sm`

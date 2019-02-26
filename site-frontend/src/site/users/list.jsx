@@ -18,7 +18,10 @@ import sUtils from 'site/styles/utils.css';
 
 import Card from './card';
 
-const { Loading, Grid: { Container, Row, Col } } = UI;
+const {
+  Loading,
+  Grid: { Container, Row, Col },
+} = UI;
 
 class Department extends Component {
   constructor(props) {
@@ -49,29 +52,28 @@ class Department extends Component {
 
     return (
       <div className={cn(s.dividerTop, s.staffContainer)}>
-        <h1 className={cn(s.titleXMd, s.bold, sUtils.textCenter)}>
-          {title}
-        </h1>
+        <h1 className={cn(s.titleXMd, s.bold, sUtils.textCenter)}>{title}</h1>
 
         <Container className={sUtils.pushedTopXs2_6Md4}>
           <Row xs="center">
-            {ids.map(id =>
-              (<Card
+            {ids.map(id => (
+              <Card
                 key={id}
                 id={id}
                 showExperience={showExperience}
                 showDescription={showDescription}
-              />),
-            )}
+              />
+            ))}
           </Row>
         </Container>
 
-        {isFetching &&
+        {isFetching && (
           <Row>
             <Col xs="12" className={cn(s.padding5_0_8)}>
               <Loading />
             </Col>
-          </Row>}
+          </Row>
+        )}
       </div>
     );
   }
@@ -85,4 +87,7 @@ const mapDispatch = dispatch => ({
   actions: bindActionCreators({ loadUsers }, dispatch),
 });
 
-export default connect(mapState, mapDispatch)(Department);
+export default connect(
+  mapState,
+  mapDispatch,
+)(Department);

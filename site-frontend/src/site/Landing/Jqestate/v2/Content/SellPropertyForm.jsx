@@ -2,7 +2,14 @@ import React from 'react';
 
 import SellPropertyModal from 'site/request/SellPropertyModal';
 
-import { BlockWrapper, SellProperty, TextWrapper, TitleSale, Btn, ColSale } from './styled';
+import {
+  BlockWrapper,
+  SellProperty,
+  TextWrapper,
+  TitleSale,
+  Btn,
+  ColSale,
+} from './styled';
 
 export default () => (
   <ColSale xs="12" sm="6">

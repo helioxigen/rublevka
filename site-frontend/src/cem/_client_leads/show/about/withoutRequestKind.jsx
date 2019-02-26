@@ -27,7 +27,9 @@ class About extends Component {
   changeKind(requestKind) {
     const { data } = this.props;
 
-    this.props.actions.pushPath(`/client_leads/${data.kind}/${data.id}?requestKind=${requestKind}`);
+    this.props.actions.pushPath(
+      `/client_leads/${data.kind}/${data.id}?requestKind=${requestKind}`,
+    );
   }
 
   update() {
@@ -50,7 +52,12 @@ class About extends Component {
     } = this.props;
 
     const isNew = formKey === 'create';
-    const { id: clientLeadId, stateDetails = {}, responsibleUser = {}, createdByUser = {} } = data;
+    const {
+      id: clientLeadId,
+      stateDetails = {},
+      responsibleUser = {},
+      createdByUser = {},
+    } = data;
     const state = stateDetails.toApprove || data.state;
     const isStatic =
       (formKey !== 'create' && !isUpdateAllowed) ||
@@ -75,7 +82,10 @@ class About extends Component {
             )}
 
             {(formKey === 'create' || isSensitiveDataVisible) && (
-              <ContactInlineCard id={data.contactId} className={sUtils.pushedBottom6} />
+              <ContactInlineCard
+                id={data.contactId}
+                className={sUtils.pushedBottom6}
+              />
             )}
 
             {!isStatic && <Heading size="md">Запрос</Heading>}

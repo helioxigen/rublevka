@@ -29,7 +29,9 @@ import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from 'core/helpers
 
 // ui
 const {
-  Checkbox, Button, Icon,
+  Checkbox,
+  Button,
+  Icon,
   Form: { Input },
   Grid: { Container, Row, Col },
 } = UI;
@@ -41,7 +43,9 @@ const sequences = {
   numbers: `0123456789`,
 };
 
-const complexesGroupingSequence = `#${sequences.english}${sequences.russian}`.split(``);
+const complexesGroupingSequence = `#${sequences.english}${
+  sequences.russian
+}`.split(``);
 
 const masonryOptions = {
   transitionDuration: 0,
@@ -73,7 +77,7 @@ class Complexes extends Component {
       updateFilter: PropTypes.func.isRequired,
       resetFilter: PropTypes.func.isRequired,
     }),
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -101,7 +105,10 @@ class Complexes extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (isUpdated(this.resource, this.props, nextProps) || isUpdated(this.resourceSubLocality, this.props, nextProps)) {
+    if (
+      isUpdated(this.resource, this.props, nextProps) ||
+      isUpdated(this.resourceSubLocality, this.props, nextProps)
+    ) {
       this.load(nextProps);
     }
   }
@@ -157,7 +164,10 @@ class Complexes extends Component {
     if (value) {
       this.props.updateFilter(this.state.key, [...complexes, { id: id, name }]);
     } else {
-      this.props.updateFilter(this.state.key, complexes.filter(complex => complex.id !== id));
+      this.props.updateFilter(
+        this.state.key,
+        complexes.filter(complex => complex.id !== id),
+      );
     }
   }
 
@@ -167,9 +177,15 @@ class Complexes extends Component {
 
     // TODO fix this
     if (value) {
-      this.props.updateFilter(this.state.key, [...subLocalities, { id: id, name }]);
+      this.props.updateFilter(this.state.key, [
+        ...subLocalities,
+        { id: id, name },
+      ]);
     } else {
-      this.props.updateFilter(this.state.key, subLocalities.filter(sublocality => sublocality.id !== id));
+      this.props.updateFilter(
+        this.state.key,
+        subLocalities.filter(sublocality => sublocality.id !== id),
+      );
     }
   }
 
@@ -188,36 +204,61 @@ class Complexes extends Component {
     const isFetchingSubLocalities = subLocalitiesList.isFetching;
 
     const hasComplexes = !isFetchingComplexes && !!complexesIds.length;
-    const hasSubLocalities = !isFetchingSubLocalities && !!subLocalitiesIds.length;
+    const hasSubLocalities =
+      !isFetchingSubLocalities && !!subLocalitiesIds.length;
 
-    const anyComplexStartsWith = (character) => {
-      return !!complexesIds.filter(id => settlementMatchesCharacter(state.complexes[id].data.name, character)).length;
+    const anyComplexStartsWith = character => {
+      return !!complexesIds.filter(id =>
+        settlementMatchesCharacter(state.complexes[id].data.name, character),
+      ).length;
     };
 
-    const anySubLocalityStartsWith = (character) => {
-      return !!subLocalitiesIds.filter(id => settlementMatchesCharacter(state.subLocalities[id].data.name, character)).length;
+    const anySubLocalityStartsWith = character => {
+      return !!subLocalitiesIds.filter(id =>
+        settlementMatchesCharacter(
+          state.subLocalities[id].data.name,
+          character,
+        ),
+      ).length;
     };
 
     return (
       <div>
-        <Container fluid className={cn(s.paddingTop2_3Bottom2_3, s.extraPaddingXs0_3Md0)}>
+        <Container
+          fluid
+          className={cn(s.paddingTop2_3Bottom2_3, s.extraPaddingXs0_3Md0)}
+        >
           <Row md="middle">
             <Col xs="12" className={sUtils.positionRelative}>
-              <Input className={s.inputRoutes} block placeholder="Введите название района или ЖК" onChange={debounce(::this.handleQueryChange, 150)} />
+              <Input
+                className={s.inputRoutes}
+                block
+                placeholder="Введите название района или ЖК"
+                onChange={debounce(::this.handleQueryChange, 150)}
+              />
 
               <Button className={s.btnMd} type="button" onClick={::this.toggle}>
-                <Icon className={st.filterSatellites.iconListPrimary} icon="listBold" />
+                <Icon
+                  className={st.filterSatellites.iconListPrimary}
+                  icon="listBold"
+                />
               </Button>
             </Col>
           </Row>
         </Container>
 
         {this.state.isOpened && (
-          <Container fluid className={cn(s.tabsContainer, s.extraPaddingXs0_3Md0)}>
+          <Container
+            fluid
+            className={cn(s.tabsContainer, s.extraPaddingXs0_3Md0)}
+          >
             <Row>
               <Col xs="3">
                 <Button
-                  className={cn(s.tabButton, this.state.key === `subLocalities` && s.btnActive)}
+                  className={cn(
+                    s.tabButton,
+                    this.state.key === `subLocalities` && s.btnActive,
+                  )}
                   onClick={() => this.toggleTab(`subLocalities`)}
                 >
                   Район
@@ -225,7 +266,10 @@ class Complexes extends Component {
               </Col>
               <Col xs="3">
                 <Button
-                  className={cn(s.tabButton, this.state.key === `complexes` && s.btnActive)}
+                  className={cn(
+                    s.tabButton,
+                    this.state.key === `complexes` && s.btnActive,
+                  )}
                   onClick={() => this.toggleTab(`complexes`)}
                 >
                   Жилой комплекс
@@ -237,45 +281,85 @@ class Complexes extends Component {
 
         {this.state.isOpened && this.state.key === `complexes` && (
           <Container fluid>
-            <Row className={cn(sUtils.positionRelative, s.extraPaddingXs0_3Md0)}>
+            <Row
+              className={cn(sUtils.positionRelative, s.extraPaddingXs0_3Md0)}
+            >
               {/* ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ WHAT THE FUCK IS IT ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓  */}
               {hasComplexes && (
                 <Col xs="12">
-                  <Masonry className={s.grid} elementType={'ul'} options={masonryOptions} disableImagesLoaded={false} updateOnEachImageLoad={false}>
-                    {complexesGroupingSequence.filter(character => anyComplexStartsWith(character)).map(character => {
-                      return (
-                        <li className={s.column}>
-                          <label className={s.labelPrimary}>{character.toUpperCase()}</label>
+                  <Masonry
+                    className={s.grid}
+                    elementType={'ul'}
+                    options={masonryOptions}
+                    disableImagesLoaded={false}
+                    updateOnEachImageLoad={false}
+                  >
+                    {complexesGroupingSequence
+                      .filter(character => anyComplexStartsWith(character))
+                      .map(character => {
+                        return (
+                          <li className={s.column}>
+                            <label className={s.labelPrimary}>
+                              {character.toUpperCase()}
+                            </label>
 
-                          {complexesIds.filter(id => settlementMatchesCharacter(state.complexes[id].data.name, character)).map(id => {
-                            const complex = state.complexes[id].data;
-                            const isChecked = complexes.filter(sett => sett.id === id).length > 0; // if we found anything
+                            {complexesIds
+                              .filter(id =>
+                                settlementMatchesCharacter(
+                                  state.complexes[id].data.name,
+                                  character,
+                                ),
+                              )
+                              .map(id => {
+                                const complex = state.complexes[id].data;
+                                const isChecked =
+                                  complexes.filter(sett => sett.id === id)
+                                    .length > 0; // if we found anything
 
-                            const handleChange = (k, value) => { // eslint-disable-line
-                              return this.handleComplexChange(complex.id, value, complex.name);
-                            };
+                                const handleChange = (k, value) => {
+                                  // eslint-disable-line
+                                  return this.handleComplexChange(
+                                    complex.id,
+                                    value,
+                                    complex.name,
+                                  );
+                                };
 
-                            return (
-                              <Checkbox
-                                className={cn(s.checkbox, sUtils.pushedTop1)}
-                                controlClassName={st.filterSatellites.checkboxControl}
-                                key={complex.id}
-                                reference={complex.name}
-                                checked={isChecked}
-                                handleChange={handleChange}
-                              >
-                                <span className={st.filterSatellites.checkboxLabelSettlements}>{complex.name}</span>
-                              </Checkbox>
-                            );
-                          })}
-                        </li>
-                      );
-                    })}
+                                return (
+                                  <Checkbox
+                                    className={cn(
+                                      s.checkbox,
+                                      sUtils.pushedTop1,
+                                    )}
+                                    controlClassName={
+                                      st.filterSatellites.checkboxControl
+                                    }
+                                    key={complex.id}
+                                    reference={complex.name}
+                                    checked={isChecked}
+                                    handleChange={handleChange}
+                                  >
+                                    <span
+                                      className={
+                                        st.filterSatellites
+                                          .checkboxLabelSettlements
+                                      }
+                                    >
+                                      {complex.name}
+                                    </span>
+                                  </Checkbox>
+                                );
+                              })}
+                          </li>
+                        );
+                      })}
                   </Masonry>
                 </Col>
               )}
               {!hasComplexes && !isFetchingComplexes && (
-                <p className={cn(s.textMd, s.textPrimary)}>Жилые комплексы не найдены</p>
+                <p className={cn(s.textMd, s.textPrimary)}>
+                  Жилые комплексы не найдены
+                </p>
               )}
               {/* ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ WHAT THE FUCK IS THAT ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑  */}
             </Row>
@@ -284,40 +368,79 @@ class Complexes extends Component {
 
         {this.state.isOpened && this.state.key === `subLocalities` && (
           <Container fluid>
-            <Row className={cn(sUtils.positionRelative, s.extraPaddingXs0_3Md0)}>
+            <Row
+              className={cn(sUtils.positionRelative, s.extraPaddingXs0_3Md0)}
+            >
               {/* ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ WHAT THE FUCK IS IT ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓  */}
               {hasSubLocalities && (
                 <Col xs="12">
-                  <Masonry className={s.grid} elementType={'ul'} options={masonryOptions} disableImagesLoaded={false} updateOnEachImageLoad={false}>
-                    {complexesGroupingSequence.filter(character => anySubLocalityStartsWith(character)).map(character => {
-                      return (
-                        <li className={s.column}>
-                          <label className={s.labelPrimary}>{character.toUpperCase()}</label>
+                  <Masonry
+                    className={s.grid}
+                    elementType={'ul'}
+                    options={masonryOptions}
+                    disableImagesLoaded={false}
+                    updateOnEachImageLoad={false}
+                  >
+                    {complexesGroupingSequence
+                      .filter(character => anySubLocalityStartsWith(character))
+                      .map(character => {
+                        return (
+                          <li className={s.column}>
+                            <label className={s.labelPrimary}>
+                              {character.toUpperCase()}
+                            </label>
 
-                          {subLocalitiesIds.filter(id => settlementMatchesCharacter(state.subLocalities[id].data.name, character)).map(id => {
-                            const sublocality = state.subLocalities[id].data;
-                            const isChecked = subLocalities.filter(sett => sett.id === id).length > 0; // if we found anything
+                            {subLocalitiesIds
+                              .filter(id =>
+                                settlementMatchesCharacter(
+                                  state.subLocalities[id].data.name,
+                                  character,
+                                ),
+                              )
+                              .map(id => {
+                                const sublocality =
+                                  state.subLocalities[id].data;
+                                const isChecked =
+                                  subLocalities.filter(sett => sett.id === id)
+                                    .length > 0; // if we found anything
 
-                            const handleChange = (k, value) => { // eslint-disable-line
-                              return this.handleSublocalityChange(sublocality.id, value, sublocality.name);
-                            };
+                                const handleChange = (k, value) => {
+                                  // eslint-disable-line
+                                  return this.handleSublocalityChange(
+                                    sublocality.id,
+                                    value,
+                                    sublocality.name,
+                                  );
+                                };
 
-                            return (
-                              <Checkbox
-                                className={cn(s.checkbox, sUtils.pushedTop1)}
-                                controlClassName={st.filterSatellites.checkboxControl}
-                                key={sublocality.id}
-                                reference={sublocality.name}
-                                checked={isChecked}
-                                handleChange={handleChange}
-                              >
-                                <span className={st.filterSatellites.checkboxLabelSettlements}>{sublocality.name}</span>
-                              </Checkbox>
-                            );
-                          })}
-                        </li>
-                      );
-                    })}
+                                return (
+                                  <Checkbox
+                                    className={cn(
+                                      s.checkbox,
+                                      sUtils.pushedTop1,
+                                    )}
+                                    controlClassName={
+                                      st.filterSatellites.checkboxControl
+                                    }
+                                    key={sublocality.id}
+                                    reference={sublocality.name}
+                                    checked={isChecked}
+                                    handleChange={handleChange}
+                                  >
+                                    <span
+                                      className={
+                                        st.filterSatellites
+                                          .checkboxLabelSettlements
+                                      }
+                                    >
+                                      {sublocality.name}
+                                    </span>
+                                  </Checkbox>
+                                );
+                              })}
+                          </li>
+                        );
+                      })}
                   </Masonry>
                 </Col>
               )}
@@ -334,7 +457,7 @@ class Complexes extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { complexes, subLocalities, filters, pagination, order } = state;
 
   return {
@@ -348,7 +471,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadComplexes,
     loadSubLocalities,
@@ -360,4 +483,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Complexes);
+export default connect(
+  pickState,
+  pickActions,
+)(Complexes);

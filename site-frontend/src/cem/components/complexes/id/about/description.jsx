@@ -3,8 +3,11 @@ import React, { Component } from 'react';
 import UI from 'cem/components/ui';
 const {
   // AsyncSelect,
-  Select, Heading,
-  Daypicker, Button, Icon,
+  Select,
+  Heading,
+  Daypicker,
+  Button,
+  Icon,
   Form: { Group, Label, Input, Helper },
   Grid: { Row, Col },
 } = UI;
@@ -85,28 +88,60 @@ class Description extends Component {
               <Col lg="16">
                 <Row>
                   <Col sm="10" md="8">
-                    <FormField label="Квартал" field={fields.commissioningQuarter} float static={!isUpdateAllowed && formKey !== 'create'}>
-                      <Select options={options.quarters} {...fields.commissioningQuarter} disableReset />
+                    <FormField
+                      label="Квартал"
+                      field={fields.commissioningQuarter}
+                      float
+                      static={!isUpdateAllowed && formKey !== 'create'}
+                    >
+                      <Select
+                        options={options.quarters}
+                        {...fields.commissioningQuarter}
+                        disableReset
+                      />
                     </FormField>
                   </Col>
                   <Col sm="10" md="12">
-                    <FormField field={fields.commissioningYear} label="Год" float static={!isUpdateAllowed && formKey !== 'create'}>
+                    <FormField
+                      field={fields.commissioningYear}
+                      label="Год"
+                      float
+                      static={!isUpdateAllowed && formKey !== 'create'}
+                    >
                       <Input block type="text" />
                     </FormField>
                   </Col>
                 </Row>
                 <Row>
                   <Col sm="20">
-                    <Group kind={fields.keysIssueDate.touched && !!fields.keysIssueDate.error && 'error'}>
+                    <Group
+                      kind={
+                        fields.keysIssueDate.touched &&
+                        !!fields.keysIssueDate.error &&
+                        'error'
+                      }
+                    >
                       <Label block>Дата получения ключей</Label>
                       <Daypicker
-                        className={cn(sUtils.displayBlock, sUtils.noMargin)} kind="from"
-                        control={<Input block type="text" {...fields.keysIssueDate} />}
-                        button={<Button className={sDaypicker.btn}><Icon className={sDaypicker.icon} icon="calendar" /></Button>}
+                        className={cn(sUtils.displayBlock, sUtils.noMargin)}
+                        kind="from"
+                        control={
+                          <Input block type="text" {...fields.keysIssueDate} />
+                        }
+                        button={
+                          <Button className={sDaypicker.btn}>
+                            <Icon className={sDaypicker.icon} icon="calendar" />
+                          </Button>
+                        }
                         disabled={formKey !== 'create' && !isUpdateAllowed}
                         onDayClick={day => fields.keysIssueDate.onBlur(day)}
                       />
-                      {fields.keysIssueDate.touched && fields.keysIssueDate.error && <Helper className={sDaypicker.helperDaypicker}>{fields.keysIssueDate.error}</Helper>}
+                      {fields.keysIssueDate.touched &&
+                        fields.keysIssueDate.error && (
+                          <Helper className={sDaypicker.helperDaypicker}>
+                            {fields.keysIssueDate.error}
+                          </Helper>
+                        )}
                     </Group>
                   </Col>
                 </Row>
@@ -119,39 +154,166 @@ class Description extends Component {
               <Col lg="16">
                 <Row>
                   <Col sm="10">
-                    <FormField field={fields.adjacentTerritory.area} label="Количество гектар" float static={!isUpdateAllowed && formKey !== 'create'}>
+                    <FormField
+                      field={fields.adjacentTerritory.area}
+                      label="Количество гектар"
+                      float
+                      static={!isUpdateAllowed && formKey !== 'create'}
+                    >
                       <Input block type="text" />
                     </FormField>
                   </Col>
                   <Col sm="10">
-                    <FormField field={fields.adjacentTerritory.playgrounds} label="Детских площадок" float static={!isUpdateAllowed && formKey !== 'create'}>
+                    <FormField
+                      field={fields.adjacentTerritory.playgrounds}
+                      label="Детских площадок"
+                      float
+                      static={!isUpdateAllowed && formKey !== 'create'}
+                    >
                       <Input block type="text" />
                     </FormField>
                   </Col>
                 </Row>
                 <Row>
                   <Col sm="8">
-                    <Group kind={fields.adjacentTerritory.isAccessOpen.touched && !!fields.adjacentTerritory.isAccessOpen.error && 'error'}>
-                      <Label className={sUtils.pushedBottom1} block>Доступ</Label>
-                      <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}><Input type="radio" {...fields.adjacentTerritory.isAccessOpen} value checked={fields.adjacentTerritory.isAccessOpen.value === 'true'} disabled={!isUpdateAllowed && formKey !== 'create'} />Открытый</Label>
-                      <Label className={s.radioLabel}><Input type="radio" {...fields.adjacentTerritory.isAccessOpen} value={false} checked={fields.adjacentTerritory.isAccessOpen.value !== 'true'} disabled={!isUpdateAllowed && formKey !== 'create'} />Закрытый</Label>
-                      {fields.adjacentTerritory.isAccessOpen.touched && fields.adjacentTerritory.isAccessOpen.error && <Helper>{fields.adjacentTerritory.isAccessOpen.error}</Helper>}
+                    <Group
+                      kind={
+                        fields.adjacentTerritory.isAccessOpen.touched &&
+                        !!fields.adjacentTerritory.isAccessOpen.error &&
+                        'error'
+                      }
+                    >
+                      <Label className={sUtils.pushedBottom1} block>
+                        Доступ
+                      </Label>
+                      <Label
+                        className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                      >
+                        <Input
+                          type="radio"
+                          {...fields.adjacentTerritory.isAccessOpen}
+                          value
+                          checked={
+                            fields.adjacentTerritory.isAccessOpen.value ===
+                            'true'
+                          }
+                          disabled={!isUpdateAllowed && formKey !== 'create'}
+                        />
+                        Открытый
+                      </Label>
+                      <Label className={s.radioLabel}>
+                        <Input
+                          type="radio"
+                          {...fields.adjacentTerritory.isAccessOpen}
+                          value={false}
+                          checked={
+                            fields.adjacentTerritory.isAccessOpen.value !==
+                            'true'
+                          }
+                          disabled={!isUpdateAllowed && formKey !== 'create'}
+                        />
+                        Закрытый
+                      </Label>
+                      {fields.adjacentTerritory.isAccessOpen.touched &&
+                        fields.adjacentTerritory.isAccessOpen.error && (
+                          <Helper>
+                            {fields.adjacentTerritory.isAccessOpen.error}
+                          </Helper>
+                        )}
                     </Group>
                   </Col>
                   <Col sm="7">
-                    <Group kind={fields.adjacentTerritory.isAllowedCars.touched && !!fields.adjacentTerritory.isAllowedCars.error && 'error'}>
-                      <Label className={sUtils.pushedBottom1} block>Машинам</Label>
-                      <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}><Input type="radio" {...fields.adjacentTerritory.isAllowedCars} value checked={fields.adjacentTerritory.isAllowedCars.value === 'true'} disabled={!isUpdateAllowed && formKey !== 'create'} />Можно</Label>
-                      <Label className={s.radioLabel}><Input type="radio" {...fields.adjacentTerritory.isAllowedCars} value={false} checked={fields.adjacentTerritory.isAllowedCars.value !== 'true'} disabled={!isUpdateAllowed && formKey !== 'create'} />Нельзя</Label>
-                      {fields.adjacentTerritory.isAllowedCars.touched && fields.adjacentTerritory.isAllowedCars.error && <Helper>{fields.adjacentTerritory.isAllowedCars.error}</Helper>}
+                    <Group
+                      kind={
+                        fields.adjacentTerritory.isAllowedCars.touched &&
+                        !!fields.adjacentTerritory.isAllowedCars.error &&
+                        'error'
+                      }
+                    >
+                      <Label className={sUtils.pushedBottom1} block>
+                        Машинам
+                      </Label>
+                      <Label
+                        className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                      >
+                        <Input
+                          type="radio"
+                          {...fields.adjacentTerritory.isAllowedCars}
+                          value
+                          checked={
+                            fields.adjacentTerritory.isAllowedCars.value ===
+                            'true'
+                          }
+                          disabled={!isUpdateAllowed && formKey !== 'create'}
+                        />
+                        Можно
+                      </Label>
+                      <Label className={s.radioLabel}>
+                        <Input
+                          type="radio"
+                          {...fields.adjacentTerritory.isAllowedCars}
+                          value={false}
+                          checked={
+                            fields.adjacentTerritory.isAllowedCars.value !==
+                            'true'
+                          }
+                          disabled={!isUpdateAllowed && formKey !== 'create'}
+                        />
+                        Нельзя
+                      </Label>
+                      {fields.adjacentTerritory.isAllowedCars.touched &&
+                        fields.adjacentTerritory.isAllowedCars.error && (
+                          <Helper>
+                            {fields.adjacentTerritory.isAllowedCars.error}
+                          </Helper>
+                        )}
                     </Group>
                   </Col>
                   <Col sm="5">
-                    <Group kind={fields.adjacentTerritory.isGreeneryPlanted.touched && !!fields.adjacentTerritory.isGreeneryPlanted.error && 'error'}>
-                      <Label className={sUtils.pushedBottom1} block>Озеленение</Label>
-                      <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}><Input type="radio" {...fields.adjacentTerritory.isGreeneryPlanted} value checked={fields.adjacentTerritory.isGreeneryPlanted.value === 'true'} disabled={!isUpdateAllowed && formKey !== 'create'} />Да</Label>
-                      <Label className={s.radioLabel}><Input type="radio" {...fields.adjacentTerritory.isGreeneryPlanted} value={false} checked={fields.adjacentTerritory.isGreeneryPlanted.value !== 'true'} disabled={!isUpdateAllowed && formKey !== 'create'} />Нет</Label>
-                      {fields.adjacentTerritory.isGreeneryPlanted.touched && fields.adjacentTerritory.isGreeneryPlanted.error && <Helper>{fields.adjacentTerritory.isGreeneryPlanted.error}</Helper>}
+                    <Group
+                      kind={
+                        fields.adjacentTerritory.isGreeneryPlanted.touched &&
+                        !!fields.adjacentTerritory.isGreeneryPlanted.error &&
+                        'error'
+                      }
+                    >
+                      <Label className={sUtils.pushedBottom1} block>
+                        Озеленение
+                      </Label>
+                      <Label
+                        className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                      >
+                        <Input
+                          type="radio"
+                          {...fields.adjacentTerritory.isGreeneryPlanted}
+                          value
+                          checked={
+                            fields.adjacentTerritory.isGreeneryPlanted.value ===
+                            'true'
+                          }
+                          disabled={!isUpdateAllowed && formKey !== 'create'}
+                        />
+                        Да
+                      </Label>
+                      <Label className={s.radioLabel}>
+                        <Input
+                          type="radio"
+                          {...fields.adjacentTerritory.isGreeneryPlanted}
+                          value={false}
+                          checked={
+                            fields.adjacentTerritory.isGreeneryPlanted.value !==
+                            'true'
+                          }
+                          disabled={!isUpdateAllowed && formKey !== 'create'}
+                        />
+                        Нет
+                      </Label>
+                      {fields.adjacentTerritory.isGreeneryPlanted.touched &&
+                        fields.adjacentTerritory.isGreeneryPlanted.error && (
+                          <Helper>
+                            {fields.adjacentTerritory.isGreeneryPlanted.error}
+                          </Helper>
+                        )}
                     </Group>
                   </Col>
                 </Row>

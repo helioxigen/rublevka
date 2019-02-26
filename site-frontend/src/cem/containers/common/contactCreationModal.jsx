@@ -28,10 +28,21 @@ class ContactCreationModal extends Component {
   render() {
     return (
       <div className={cn(s.modalWrapper, this.props.className)}>
-        <Button type="button" className={sButton.btnRoundPlus} onClick={::this.toggle}>
+        <Button
+          type="button"
+          className={sButton.btnRoundPlus}
+          onClick={::this.toggle}
+        >
           <Icon className={s.icon} icon="modal" />
         </Button>
-        <Modal size="sm" closePortal={::this.close} isOpened={this.state.isOpened} onClose={::this.close} closeOnEsc closeOnOutsideClick>
+        <Modal
+          size="sm"
+          closePortal={::this.close}
+          isOpened={this.state.isOpened}
+          onClose={::this.close}
+          closeOnEsc
+          closeOnOutsideClick
+        >
           <ContactCreationForm {...this.props} closeModal={::this.close} />
         </Modal>
       </div>
@@ -39,8 +50,11 @@ class ContactCreationModal extends Component {
   }
 }
 
-const pickActions = (dispatch) => ({
+const pickActions = dispatch => ({
   actions: bindActionCreators({ createContact, linkContact }, dispatch),
 });
 
-export default connect(() => ({}), pickActions)(ContactCreationModal);
+export default connect(
+  () => ({}),
+  pickActions,
+)(ContactCreationModal);

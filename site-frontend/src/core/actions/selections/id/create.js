@@ -8,7 +8,7 @@ import {
 import * as types from 'core/constants/selections/actions';
 import { resourceName } from 'core/constants/selections/defaults';
 
-const createSelection = data => (dispatch) => {
+const createSelection = data => dispatch => {
   dispatch(createElementStarted(types.CREATE_SELECTION));
 
   return createElement(resourceName, data).then(
@@ -16,7 +16,7 @@ const createSelection = data => (dispatch) => {
       dispatch(createElementSucceeded(types.CREATE_SELECTION_SUCCEEDED, id));
       return { id };
     },
-    (errors) => {
+    errors => {
       dispatch(createElementFailed(types.CREATE_SELECTION_FAILED, errors));
       return { errors };
     },

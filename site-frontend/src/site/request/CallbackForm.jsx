@@ -21,7 +21,13 @@ import media from 'site/styles/media';
 
 import * as analyticsEvents from 'core/analytics/constants';
 
-const { Button, Icon, Form, Grid: { Container, Row, Col }, Form: { Group, Input } } = UI;
+const {
+  Button,
+  Icon,
+  Form,
+  Grid: { Container, Row, Col },
+  Form: { Group, Input },
+} = UI;
 
 const Wrapper = styled.div`
   background: ${p => p.theme.brandWhite};
@@ -153,7 +159,9 @@ class CallbackForm extends Component {
           this.setState({ requestSent: true }, () => {
             this.props.actions.setSharedRetargetingKey('vk');
 
-            this.props.actions.sendAnalytics(analyticsEvents.callbackSubmitted(data));
+            this.props.actions.sendAnalytics(
+              analyticsEvents.callbackSubmitted(data),
+            );
 
             fbq('track', 'Lead');
           });
@@ -170,7 +178,9 @@ class CallbackForm extends Component {
             <Container fluid>
               <Row>
                 <Col xs="12">
-                  <Title>Заполните форму и мы свяжемся с вами в течении 10&nbsp;минут</Title>
+                  <Title>
+                    Заполните форму и мы свяжемся с вами в течении 10&nbsp;минут
+                  </Title>
                   <StGroup>
                     <StInput
                       block
@@ -188,9 +198,13 @@ class CallbackForm extends Component {
                       placeholder="+7 (___) ___-__-__"
                       value={this.state.phoneNumber}
                       required
-                      onChange={e => this.onChange('phoneNumber', e.target.value)}
+                      onChange={e =>
+                        this.onChange('phoneNumber', e.target.value)
+                      }
                     />
-                    {this.state.phoneErrors.map(error => <Error>{error}</Error>)}
+                    {this.state.phoneErrors.map(error => (
+                      <Error>{error}</Error>
+                    ))}
                   </StGroup>
                   <StButton kind="success">Отправить</StButton>
                 </Col>
@@ -202,7 +216,9 @@ class CallbackForm extends Component {
             <SuccessWrapper>
               <Logo icon="jqestate-logo" />
               <SuccessTitle>Заявка отправлена!</SuccessTitle>
-              <Message>Через 10 минут наш брокер обязательно свяжется с вами.</Message>
+              <Message>
+                Через 10 минут наш брокер обязательно свяжется с вами.
+              </Message>
             </SuccessWrapper>
           )}
         </Form.Container>
@@ -218,7 +234,7 @@ const pickState = ({ currentDuty }) => ({
   },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadDuties,
     createClientLead,
@@ -231,4 +247,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(CallbackForm);
+export default connect(
+  pickState,
+  pickActions,
+)(CallbackForm);

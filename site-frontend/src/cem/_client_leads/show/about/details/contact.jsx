@@ -28,12 +28,32 @@ export default ({ fields = {}, isStatic, isPhoneStatic, data = {} }) => (
       <Col sm="10">
         <Row>
           <Col md="12">
-            <FormField float label="Имя" field={fields.firstName} static={isStatic}>
-              <Input valueClassName="floatLabel" block type="text" placeholder="Имя" />
+            <FormField
+              float
+              label="Имя"
+              field={fields.firstName}
+              static={isStatic}
+            >
+              <Input
+                valueClassName="floatLabel"
+                block
+                type="text"
+                placeholder="Имя"
+              />
             </FormField>
 
-            <FormField float label="Фамилия" field={fields.lastName} static={isStatic}>
-              <Input valueClassName="floatLabel" block type="text" placeholder="Фамилия" />
+            <FormField
+              float
+              label="Фамилия"
+              field={fields.lastName}
+              static={isStatic}
+            >
+              <Input
+                valueClassName="floatLabel"
+                block
+                type="text"
+                placeholder="Фамилия"
+              />
             </FormField>
           </Col>
         </Row>
@@ -48,12 +68,27 @@ export default ({ fields = {}, isStatic, isPhoneStatic, data = {} }) => (
               field={fields.phoneNumber}
               static={isPhoneStatic}
             >
-              <Input valueClassName="floatLabel" block type="text" placeholder="Основной телефон" />
+              <Input
+                valueClassName="floatLabel"
+                block
+                type="text"
+                placeholder="Основной телефон"
+              />
             </FormField>
           </Col>
           <Col sm="18" md="12">
-            <FormField float label="Email" field={fields.email} static={isStatic}>
-              <Input valueClassName="floatLabel" block type="text" placeholder="Email" />
+            <FormField
+              float
+              label="Email"
+              field={fields.email}
+              static={isStatic}
+            >
+              <Input
+                valueClassName="floatLabel"
+                block
+                type="text"
+                placeholder="Email"
+              />
             </FormField>
           </Col>
         </Row>

@@ -2,18 +2,25 @@ import { makeDateRange, formatFilterDate } from 'core/helpers';
 
 export const transformDeal = deal => ({
   ...deal,
-  isAgentFixed: deal.details && deal.details.expectedAgentFixedPrice ? 'true' : 'false',
+  isAgentFixed:
+    deal.details && deal.details.expectedAgentFixedPrice ? 'true' : 'false',
 });
 
 export const mapFilter = (filter = {}) => {
   const { expectedFinishAtFrom, expectedFinishAtTo } = filter;
 
-  const { tasksDeadlineDate, tasksDoesntHaveScheduled, tasksHasOverdue } = filter;
+  const {
+    tasksDeadlineDate,
+    tasksDoesntHaveScheduled,
+    tasksHasOverdue,
+  } = filter;
 
   return {
     id: filter.id,
     'contactDetails.id': filter.cdId,
-    'contactDetails.phoneNumber': filter.cdPhoneNumber ? `*${filter.cdPhoneNumber}*` : undefined,
+    'contactDetails.phoneNumber': filter.cdPhoneNumber
+      ? `*${filter.cdPhoneNumber}*`
+      : undefined,
     state: filter.state,
     'stateDetails.toApprove': filter['stateDetails.toApprove'],
 
@@ -32,7 +39,11 @@ export const mapFilter = (filter = {}) => {
   };
 };
 
-export const mapLaneFilterAndFilterNot = (filter = {}, filterNot = {}, kind) => {
+export const mapLaneFilterAndFilterNot = (
+  filter = {},
+  filterNot = {},
+  kind,
+) => {
   // Handle 'state' filter resetting ('undefined' value is set in this case)
   const state = filter.state === undefined ? kind : filter.state;
   const updatedFilter = { ...filter, state };
@@ -43,7 +54,10 @@ export const mapLaneFilterAndFilterNot = (filter = {}, filterNot = {}, kind) => 
       filter: mapFilter(filterWithoutState),
       filterNot:
         !!filter.state && filter.state !== 'approval'
-          ? { ...filterNot, 'stateDetails.toApprove': 'successful,unsuccessful' }
+          ? {
+              ...filterNot,
+              'stateDetails.toApprove': 'successful,unsuccessful',
+            }
           : filterNot,
     };
 

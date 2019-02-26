@@ -1,4 +1,6 @@
 import { handleActions } from 'redux-actions';
+import sortBy from 'lodash/sortBy';
+// import groupBy from 'lodash/groupBy';
 
 import * as types from 'core/settlements/constants/actions';
 import {
@@ -26,6 +28,33 @@ export default handleActions(
     [types.LOAD_LIST_FAILED]: (state, { group, errors }) => listLoadFail(state, group, errors),
 
     [types.LOAD_LIST_SUCCEEDED]: (state, { group, items }) => listLoadSuccess(state, group, items),
+
+    [types.LOAD_LIST_BY_LETTER_SUCCEEDED]: (state, { group, items }) => {
+      const fetcherResult = listLoadSuccess(state, group, items);
+
+      // FIXME simplify and move to helpers
+      // console.log(groupBy(items, 'name[0]'));
+      const firstSort = items.reduce((acc, item) => {
+        const letter = item.name[0].toUpperCase();
+        return { ...acc, [letter]: [...(acc[letter] || []), item.id] };
+      }, {});
+
+      const secondSort = Object.keys(firstSort)
+        .sort()
+        .reduce((acc, item) => ({ ...acc, [item]: firstSort[item] }), {});
+
+      const thirdSort = Object.keys(secondSort).reduce(
+        (acc, item) => ({ ...acc, [item]: sortBy(secondSort[item], 'name') }),
+        {},
+      );
+
+      const result = {
+        ...fetcherResult,
+        [group]: { ...fetcherResult[group], idsByLetter: thirdSort },
+      };
+
+      return result;
+    },
 
     // create
     [types.CREATE]: state => elementCreateStart(state),

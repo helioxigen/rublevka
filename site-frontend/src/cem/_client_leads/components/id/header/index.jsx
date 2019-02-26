@@ -40,7 +40,8 @@ class Header extends Component {
 
   process(action, body, validate) {
     const { handleSubmit } = this.props;
-    const submitFn = () => this.props.actions.processLead(this.props.id, action, body);
+    const submitFn = () =>
+      this.props.actions.processLead(this.props.id, action, body);
 
     if (validate) {
       handleSubmit(submitFn)();
@@ -68,14 +69,17 @@ class Header extends Component {
     // TODO Extract this flag into container along with similar flags from other components
     // const isStatic = (formKey !== `create` && !isUpdateAllowed) || stateDetails.toApprove || ([`spam`, `processed`, `rejected`].indexOf(leadState) > -1) || (leadState === `new` && data.kind !== `phone_call`) || (leadState === `new` && data.kind === `phone_call` && !requestKind);
     const canTransfer =
-      (leadState === 'new' || leadState === 'in_progress') && !stateDetails.toApprove;
+      (leadState === 'new' || leadState === 'in_progress') &&
+      !stateDetails.toApprove;
 
     const responsibleUserId = data.responsibleUser && data.responsibleUser.id;
     const responsibleUser = state.users[responsibleUserId] || {};
 
     return (
       <header className={s.header}>
-        <Form.Container onSubmit={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}>
+        <Form.Container
+          onSubmit={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}
+        >
           <Grid.Container fluid>
             <Row>
               <Col xs="20" className={sUtils.positionRelative}>
@@ -88,7 +92,9 @@ class Header extends Component {
                     }
                   />
 
-                  {id !== 'create' ? `Лид (ID: ${data.id})` : 'Создать новый лид'}
+                  {id !== 'create'
+                    ? `Лид (ID: ${data.id})`
+                    : 'Создать новый лид'}
                 </Heading>
                 {canTransfer && (
                   <Dropdown
@@ -107,7 +113,10 @@ class Header extends Component {
                       responsibleUser={responsibleUser.data}
                       reloadAction={actions.loadLead}
                     >
-                      <Button type="button" className={sButton.btnDropdownInner}>
+                      <Button
+                        type="button"
+                        className={sButton.btnDropdownInner}
+                      >
                         Передать другому сотруднику
                       </Button>
                     </TransferUserModal>
@@ -119,7 +128,10 @@ class Header extends Component {
                       responsibleUser={responsibleUser.data}
                       reloadAction={actions.loadLead}
                     >
-                      <Button type="button" className={sButton.btnDropdownInner}>
+                      <Button
+                        type="button"
+                        className={sButton.btnDropdownInner}
+                      >
                         Передать в другой департамент
                       </Button>
                     </TransferUserModal>
@@ -146,7 +158,11 @@ class Header extends Component {
               )}
 
               {id !== 'create' && (
-                <Timeline className={sUtils.maxWidth75_5} settings={timelineSettings} {...data} />
+                <Timeline
+                  className={sUtils.maxWidth75_5}
+                  settings={timelineSettings}
+                  {...data}
+                />
               )}
 
               {id !== 'create' && (
@@ -154,7 +170,8 @@ class Header extends Component {
                   state={leadState}
                   stateDetails={stateDetails}
                   isCurrentUserDepartmentManager={
-                    state.auth.details.isManager && !state.auth.details.divisionId
+                    state.auth.details.isManager &&
+                    !state.auth.details.divisionId
                   }
                   process={::this.process}
                   updatedByUserId={data.updatedByUserId}

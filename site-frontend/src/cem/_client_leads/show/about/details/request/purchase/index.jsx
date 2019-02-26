@@ -32,7 +32,12 @@ export default ({ fields, isStatic, className, ...props }) => {
     <section className={className}>
       <Heading size="md">На покупку</Heading>
 
-      <Properties fields={fields} isStatic={isStatic} {...props} className={sUtils.pushedBottom3} />
+      <Properties
+        fields={fields}
+        isStatic={isStatic}
+        {...props}
+        className={sUtils.pushedBottom3}
+      />
 
       <div className={sUtils.pushedBottom3}>
         <Heading size="sm">Запрос</Heading>
@@ -45,7 +50,11 @@ export default ({ fields, isStatic, className, ...props }) => {
               options={dict.offerKinds}
               isStatic={isStatic}
             >
-              <Select className={sUtils.fontSizeMd} options={options.offerKinds} disableReset />
+              <Select
+                className={sUtils.fontSizeMd}
+                options={options.offerKinds}
+                disableReset
+              />
             </FormField>
           </Col>
 
@@ -131,7 +140,9 @@ export default ({ fields, isStatic, className, ...props }) => {
         </Row>
       </div>
 
-      {PropertyAbout && <PropertyAbout fields={fields.requestDetails} isStatic={isStatic} />}
+      {PropertyAbout && (
+        <PropertyAbout fields={fields.requestDetails} isStatic={isStatic} />
+      )}
     </section>
   );
 };

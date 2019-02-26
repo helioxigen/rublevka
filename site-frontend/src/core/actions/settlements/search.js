@@ -22,7 +22,7 @@ const searchSettlementsFailed = (query, { errors }) => ({
 });
 
 export function searchSettlements(query, offset, isPaginated = false) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(searchSettlementsStarted(query));
 
     const orderBy = {
@@ -33,7 +33,8 @@ export function searchSettlements(query, offset, isPaginated = false) {
     const filter = {
       state: 'public',
       name: query ? `*${query}*` : undefined,
-      'location.routeId': (config.routes && config.routes.map(route => route.id)) || undefined,
+      'location.routeId':
+        (config.routes && config.routes.map(route => route.id)) || undefined,
     };
 
     const pagination = {

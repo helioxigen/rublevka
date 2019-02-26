@@ -7,4 +7,11 @@ import loadContacts from './list/load';
 
 import loadProperties from './properties/load';
 
-export { loadProperties, loadContacts, loadContact, createContact, updateContact, deleteContact };
+export {
+  loadProperties,
+  loadContacts,
+  loadContact,
+  createContact,
+  updateContact,
+  deleteContact,
+};

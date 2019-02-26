@@ -21,7 +21,7 @@ const loadPlaceSucceeded = (id, data) => dispatch =>
   });
 
 export default function loadPlaces(kind, id) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadPlaceStarted(kind, id));
 
     return API.get(`/v1/places/${kind}/${id}`)

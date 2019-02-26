@@ -5,13 +5,17 @@ export default {
   postfix: 'rublevka',
   phones: { country: '74954323322' },
   seo: {
-    title: 'Дома и коттеджи на Рублевке. Недвижимость на Рублево-Успенском шоссе.',
+    title:
+      'Дома и коттеджи на Рублевке. Недвижимость на Рублево-Успенском шоссе.',
     description:
       'Большой выбор домов и коттеджей на Рублевке. Более 200 поселков и тысячи предложений по продаже или аренде домов на Рублево-Успенском шоссе.',
     keywords:
       'дома, коттеджи, таунхаусы, квартиры, участки, Рублевка, Рублево-Успенское шоссе,  Рублево-Успенское направление',
   },
-  routes: [{ name: 'Рублёво-Успенское', id: 1178 }, { name: 'Ильинское', id: 1192 }],
+  routes: [
+    { name: 'Рублёво-Успенское', id: 1178 },
+    { name: 'Ильинское', id: 1192 },
+  ],
   landing: {
     countryProperties: [],
     settlements: {
@@ -53,7 +57,8 @@ export default {
   banner: {
     logo: 'RUBLEVKA.RU',
     logoClassName: 'rublevka',
-    image: '//s3.eu-central-1.amazonaws.com/dt-marketing/hero-images/satellites-background.jpg',
+    image:
+      '//s3.eu-central-1.amazonaws.com/dt-marketing/hero-images/satellites-background.jpg',
     title: 'Рублёвка.ру',
     route: 'на Рублевке',
     subTitle:

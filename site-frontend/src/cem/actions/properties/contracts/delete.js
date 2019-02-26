@@ -17,11 +17,13 @@ const unlinkContractFailed = (propertyId, id, errors) => ({
   id,
 });
 
-export default function (propertyId, id, category = 'city') {
-  return (dispatch) => {
+export default function(propertyId, id, category = 'city') {
+  return dispatch => {
     dispatch(unlinkContractStarted(propertyId, id));
 
-    return API.del(`/v1/properties/${category}/${propertyId}/contracts/${id}`).then(
+    return API.del(
+      `/v1/properties/${category}/${propertyId}/contracts/${id}`,
+    ).then(
       () => dispatch(loadContracts(propertyId)),
       ({ body }) => {
         dispatch(unlinkContractFailed(propertyId, id, body));

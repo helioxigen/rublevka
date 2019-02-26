@@ -134,12 +134,18 @@ const createTemplate = values => `
 
 const replaceStyleToAttr = template =>
   template
-    .replace(/style="text-align:center;vertical-align:top;"/g, 'align="center" valign="top"')
-    .replace(/style="text-align:left;vertical-align:top;"/g, 'align="left" valign="top"');
+    .replace(
+      /style="text-align:center;vertical-align:top;"/g,
+      'align="center" valign="top"',
+    )
+    .replace(
+      /style="text-align:left;vertical-align:top;"/g,
+      'align="left" valign="top"',
+    );
 // .replace(/text-align:left/g, 'align="left"')
 // .replace(/text-align:right/g, 'align="right"')
 
-export default (values) => {
+export default values => {
   const scheduledAtDate = values._sendNow ? Date.now() : values.scheduledAtDate;
   const scheduledAtTime = values._sendNow ? Date.now() : values.scheduledAtTime;
 

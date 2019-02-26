@@ -2,12 +2,7 @@ import Filter from '../filter';
 
 import filterHelper from 'core/decorators/filter';
 
-const fields = [
-  'id',
-  'cdId',
-  'cdPhoneNumber',
-  'state',
-];
+const fields = ['id', 'cdId', 'cdPhoneNumber', 'state'];
 
 const extendedFields = [
   'ruId',

@@ -15,18 +15,20 @@
   line-height: 1;
   background: transparent;
   border-radius: 10rem;
-  &.active {
-    cursor: default;
-    pointer-events: none;
-    outline: none;
-  }
   &:hover {
-    color: $brand-primary;
+    color: #8F8F8F;
   }
   &:focus,
   &.active {
     background-color: #f5f5f5;
     outline: none;
+  }
+  &.active {
+    cursor: default;
+    pointer-events: none;
+    outline: none;
+    background: #F44336;
+    color: #FFFFFF;
   }
   &.active {
     &:hover,

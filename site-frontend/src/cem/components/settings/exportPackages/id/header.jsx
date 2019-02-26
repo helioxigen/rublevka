@@ -12,7 +12,10 @@ import { FormattedDate } from 'react-formatted';
 
 import UI from 'cem/components/ui';
 const {
-  Form, Button, Icon, Heading,
+  Form,
+  Button,
+  Icon,
+  Heading,
   Select,
   Dropdown,
   Form: { Input, Group, Label, Static },
@@ -70,27 +73,63 @@ class Header extends Component {
 
   render() {
     const {
-      formKey, handleSubmit, fields, values, pristine, error, submitting,
-      isUpdateAllowed, isDeleteAllowed,
+      formKey,
+      handleSubmit,
+      fields,
+      values,
+      pristine,
+      error,
+      submitting,
+      isUpdateAllowed,
+      isDeleteAllowed,
     } = this.props;
 
     return (
-      <Form.Container onSubmit={handleSubmit(::this.createOrUpdate, ::this.onCreateOrUpdateSuccess)} className={s.header}>
+      <Form.Container
+        onSubmit={handleSubmit(
+          ::this.createOrUpdate,
+          ::this.onCreateOrUpdateSuccess,
+        )}
+        className={s.header}
+      >
         <Container fluid>
           <Row>
             <Col xs="20" className={sUtils.positionRelative}>
               <Heading size="lg">
-                <UI.Back button={<Button type="button" className={sButton.btnBack}><UI.Icon className={s.iconBack} icon="arrow-right" /></Button>} />
+                <UI.Back
+                  button={
+                    <Button type="button" className={sButton.btnBack}>
+                      <UI.Icon className={s.iconBack} icon="arrow-right" />
+                    </Button>
+                  }
+                />
                 {formKey === `create` && `Создать пакет`}
                 {formKey !== `create` && `Пакет (ID: ${formKey})`}
               </Heading>
-              {formKey !== `create` && isDeleteAllowed && values.state !== `deleted` &&
-                <Dropdown className={sDropdown.header} button={<Button type="button" className={sButton.btnDropdown}><Icon className={s.iconSubmenu} icon="submenu" /></Button>}>
-                  <Button type="button" className={cn(sUtils.displayBlock, sButton.btnDropdownInner)} disabled={error || submitting} onClick={::this.handleDelete}>
-                    Архивировать пакет
-                  </Button>
-                </Dropdown>
-              }
+              {formKey !== `create` &&
+                isDeleteAllowed &&
+                values.state !== `deleted` && (
+                  <Dropdown
+                    className={sDropdown.header}
+                    button={
+                      <Button type="button" className={sButton.btnDropdown}>
+                        <Icon className={s.iconSubmenu} icon="submenu" />
+                      </Button>
+                    }
+                  >
+                    <Button
+                      type="button"
+                      className={cn(
+                        sUtils.displayBlock,
+                        sButton.btnDropdownInner,
+                      )}
+                      disabled={error || submitting}
+                      onClick={::this.handleDelete}
+                    >
+                      Архивировать пакет
+                    </Button>
+                  </Dropdown>
+                )}
             </Col>
           </Row>
           <Row className={s.formContainer}>
@@ -100,35 +139,66 @@ class Header extends Component {
                   <Col sm="10">
                     <Row>
                       <Col sm="10">
-                        <FormField label="Название" field={fields.title} float static={!isUpdateAllowed}>
+                        <FormField
+                          label="Название"
+                          field={fields.title}
+                          float
+                          static={!isUpdateAllowed}
+                        >
                           <Input className={s.input} block type="text" />
                         </FormField>
                       </Col>
                       <Col sm="10" md="8" lg="7">
-                        <FormField label="Формат" field={fields.format} options={dict.formats} float static={!isUpdateAllowed}>
-                          <Select className={s.input} options={options.formats} {...fields.format} />
+                        <FormField
+                          label="Формат"
+                          field={fields.format}
+                          options={dict.formats}
+                          float
+                          static={!isUpdateAllowed}
+                        >
+                          <Select
+                            className={s.input}
+                            options={options.formats}
+                            {...fields.format}
+                          />
                         </FormField>
                       </Col>
                     </Row>
                   </Col>
                   <Col sm="10" lg="8" lgOffset="2">
                     <Row>
-                      {formKey !== `create` &&
+                      {formKey !== `create` && (
                         <Col sm="10" md="10">
                           <Group>
-                            <Label block className={s.input}>Дата обновления</Label>
-                            <Static className={s.input}><FormattedDate value={values.lastExportAt} mask="dd.mm.yyyy HH:MM" /></Static>
+                            <Label block className={s.input}>
+                              Дата обновления
+                            </Label>
+                            <Static className={s.input}>
+                              <FormattedDate
+                                value={values.lastExportAt}
+                                mask="dd.mm.yyyy HH:MM"
+                              />
+                            </Static>
                           </Group>
                         </Col>
-                      }
-                      {formKey !== `create` && !!values.lastExportAt &&
+                      )}
+                      {formKey !== `create` && !!values.lastExportAt && (
                         <Col sm="10" md="10">
                           <Group>
-                            <Label block className={s.input}>Ссылка</Label>
-                            <Static className={s.input}><Link to={`https://s3-eu-west-1.amazonaws.com/jq-export/${values.format}-${values.id}.xml`} target="_blank">{`/${values.id}.xml`}</Link></Static>
+                            <Label block className={s.input}>
+                              Ссылка
+                            </Label>
+                            <Static className={s.input}>
+                              <Link
+                                to={`https://s3-eu-west-1.amazonaws.com/jq-export/${
+                                  values.format
+                                }-${values.id}.xml`}
+                                target="_blank"
+                              >{`/${values.id}.xml`}</Link>
+                            </Static>
                           </Group>
                         </Col>
-                      }
+                      )}
                     </Row>
                   </Col>
                 </Row>
@@ -136,8 +206,30 @@ class Header extends Component {
             </Col>
           </Row>
         </Container>
-        {formKey === `create` && <Button type="submit" className={cn(sButton.btnFixedBottom, pristine && sUtils.hidden)} disabled={error || submitting} kind="success" size="md" block>Добавить</Button>}
-        {formKey !== `create` && <Button type="submit" className={cn(sButton.btnFixedBottom, pristine && sUtils.hidden)} disabled={error || submitting} kind="warning" size="md" block>Сохранить</Button>}
+        {formKey === `create` && (
+          <Button
+            type="submit"
+            className={cn(sButton.btnFixedBottom, pristine && sUtils.hidden)}
+            disabled={error || submitting}
+            kind="success"
+            size="md"
+            block
+          >
+            Добавить
+          </Button>
+        )}
+        {formKey !== `create` && (
+          <Button
+            type="submit"
+            className={cn(sButton.btnFixedBottom, pristine && sUtils.hidden)}
+            disabled={error || submitting}
+            kind="warning"
+            size="md"
+            block
+          >
+            Сохранить
+          </Button>
+        )}
       </Form.Container>
     );
   }

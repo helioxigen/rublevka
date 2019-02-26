@@ -161,7 +161,10 @@ export default (styles = {}) =>
 
     isNextMoreHidden() {
       const blocks = this.calcBlocks();
-      return blocks.total === TITLE_SHIFT || blocks.current === blocks.total - TITLE_SHIFT;
+      return (
+        blocks.total === TITLE_SHIFT ||
+        blocks.current === blocks.total - TITLE_SHIFT
+      );
     }
 
     handlePrevUrl() {
@@ -254,8 +257,7 @@ export default (styles = {}) =>
             1
           </Page>
 
-          {current > 2 &&
-          total > 4 && (
+          {current > 2 && total > 4 && (
             <div styles={styles} className={styles.separator}>
               ...
             </div>

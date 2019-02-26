@@ -78,7 +78,11 @@ const DocumentForm = reduxForm(formSettings, () => {})(
                   <Cell>
                     <Group
                       className={sUtils.resetIndentation}
-                      kind={fields.kindId.touched && !!fields.kindId.error && 'error'}
+                      kind={
+                        fields.kindId.touched &&
+                        !!fields.kindId.error &&
+                        'error'
+                      }
                     >
                       <AsyncSelect
                         className={sUtils.resetBorder}
@@ -97,12 +101,19 @@ const DocumentForm = reduxForm(formSettings, () => {})(
                     <Grid.Row>
                       <Col xs="16">
                         {formKey !== 'add' && (
-                          <FormattedDate mask="dd.mm.yy @ HH:MM" value={values.createdAt} />
+                          <FormattedDate
+                            mask="dd.mm.yy @ HH:MM"
+                            value={values.createdAt}
+                          />
                         )}
                         {formKey === 'add' && (
                           <Group
                             className={sUtils.resetIndentation}
-                            kind={fields.file.touched && !!fields.file.error && 'error'}
+                            kind={
+                              fields.file.touched &&
+                              !!fields.file.error &&
+                              'error'
+                            }
                           >
                             <Input type="file" {...fields.file} value={null} />
                             {fields.file.touched && fields.file.error && (
@@ -129,7 +140,10 @@ const DocumentForm = reduxForm(formSettings, () => {})(
                         <Button
                           className={sButton.btnTableAction}
                           size="xs"
-                          onClick={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}
+                          onClick={handleSubmit(
+                            ::this.createOrUpdate,
+                            ::this.onSubmitSuccess,
+                          )}
                           disabled={pristine || error || submitting}
                         >
                           <Icon className={s.btnIcon} icon="checkmark" />
@@ -139,7 +153,9 @@ const DocumentForm = reduxForm(formSettings, () => {})(
                           size="xs"
                           to={`${API}/v1/contacts/${
                             this.props.contactId
-                          }/documents/${formKey}/download?token=${state.auth.token}`}
+                          }/documents/${formKey}/download?token=${
+                            state.auth.token
+                          }`}
                           target="_blank"
                         >
                           <Icon className={s.btnIcon} icon="download" />
@@ -156,7 +172,10 @@ const DocumentForm = reduxForm(formSettings, () => {})(
                         <Button
                           className={sButton.btnTableAction}
                           size="xs"
-                          onClick={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)}
+                          onClick={handleSubmit(
+                            ::this.createOrUpdate,
+                            ::this.onSubmitSuccess,
+                          )}
                           disabled={pristine || error || submitting}
                         >
                           <Icon className={s.btnIcon} icon="checkmark" />
@@ -197,7 +216,11 @@ class Documents extends Component {
             <Heading width="35%">Комментарий</Heading>
             <Heading width="10%">Действия</Heading>
           </Row>
-          <DocumentForm contactId={this.props.contactId} formKey="add" actions={actions} />
+          <DocumentForm
+            contactId={this.props.contactId}
+            formKey="add"
+            actions={actions}
+          />
 
           {items.map((item, index) => (
             <DocumentForm

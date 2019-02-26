@@ -5,7 +5,9 @@ import UI from 'site/ui';
 
 import { FilterWrapper, StCheckbox } from './styled';
 
-const { Grid: { Container, Row, Col } } = UI;
+const {
+  Grid: { Container, Row, Col },
+} = UI;
 
 const key = 'routeIds';
 
@@ -31,12 +33,16 @@ class Route extends Component {
         <Container fluid>
           <Row md="middle">
             <Col>
-              {global.config.routes.map((route) => {
+              {global.config.routes.map(route => {
                 const { id, name } = route;
                 const index = items.indexOf(id);
                 const isActive = index > -1;
                 return (
-                  <StCheckbox key={id} checked={isActive} handleChange={() => this.onUpdate(id)}>
+                  <StCheckbox
+                    key={id}
+                    checked={isActive}
+                    handleChange={() => this.onUpdate(id)}
+                  >
                     {name}
                   </StCheckbox>
                 );

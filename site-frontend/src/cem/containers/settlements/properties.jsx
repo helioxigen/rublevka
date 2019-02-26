@@ -17,7 +17,13 @@ import s from 'cem/styles/id/content';
 
 class Properties extends Component {
   render() {
-    const { actions, formKey, state, params: { id }, isUpdateAllowed } = this.props;
+    const {
+      actions,
+      formKey,
+      state,
+      params: { id },
+      isUpdateAllowed,
+    } = this.props;
 
     const { items = [], isFetching } = state.primaryProperties[id] || {};
     const { data = {} } = state.settlements[id] || {};
@@ -25,7 +31,16 @@ class Properties extends Component {
     return (
       <Row>
         <Col className={s.section}>
-          <PrimaryPropertiesForm isUpdateAllowed={isUpdateAllowed} actions={actions} id={id} formKey={formKey} settlementData={data} initialValues={data.propertyDefaults || {}} items={items} isFetching={isFetching} />
+          <PrimaryPropertiesForm
+            isUpdateAllowed={isUpdateAllowed}
+            actions={actions}
+            id={id}
+            formKey={formKey}
+            settlementData={data}
+            initialValues={data.propertyDefaults || {}}
+            items={items}
+            isFetching={isFetching}
+          />
         </Col>
       </Row>
     );
@@ -33,11 +48,18 @@ class Properties extends Component {
 }
 
 const pickState = ({ auth, propertiesBySettlementId, settlements }) => ({
-  state: { auth, primaryProperties: propertiesBySettlementId.primary, settlements },
+  state: {
+    auth,
+    primaryProperties: propertiesBySettlementId.primary,
+    settlements,
+  },
 });
 
 const pickActions = dispatch => ({
   actions: bindActionCreators({ ...SettlementsActions, pop }, dispatch),
 });
 
-export default connect(pickState, pickActions)(Properties);
+export default connect(
+  pickState,
+  pickActions,
+)(Properties);

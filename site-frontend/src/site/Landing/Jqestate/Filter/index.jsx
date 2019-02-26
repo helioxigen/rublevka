@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 
 import UI from 'site/ui';
-const { Button, Visibility, Grid: { Container, Row, Col } } = UI;
+const {
+  Button,
+  Visibility,
+  Grid: { Container, Row, Col },
+} = UI;
 
 import City from './City';
 import Country from './Country';
@@ -57,7 +61,10 @@ class Filter extends Component {
               <Row>
                 <Col xs="12" className={s.flex}>
                   <Button
-                    className={cn(s.tab, this.state.tab === 'Country' && s.tabActive)}
+                    className={cn(
+                      s.tab,
+                      this.state.tab === 'Country' && s.tabActive,
+                    )}
                     block
                     type="button"
                     onClick={() => this.switchTab('Country')}
@@ -65,7 +72,10 @@ class Filter extends Component {
                     Загородная
                   </Button>
                   <Button
-                    className={cn(s.tab, this.state.tab === 'City' && s.tabActive)}
+                    className={cn(
+                      s.tab,
+                      this.state.tab === 'City' && s.tabActive,
+                    )}
                     block
                     type="button"
                     onClick={() => this.switchTab('City')}
@@ -81,12 +91,17 @@ class Filter extends Component {
           </Visibility>
 
           <Visibility lg="hidden">
-            <Button kind="primary" block type="button" className={s.btnOval} onClick={this.toggle}>
+            <Button
+              kind="primary"
+              block
+              type="button"
+              className={s.btnOval}
+              onClick={this.toggle}
+            >
               Начать поиск
             </Button>
 
-            {this.state.isViewOpen &&
-              this.props.resource === 'country' &&
+            {this.state.isViewOpen && this.props.resource === 'country' && (
               <FilterMobileCountry
                 resourceName={this.props.resourceName}
                 resource={this.props.resource}
@@ -99,10 +114,10 @@ class Filter extends Component {
                 onClose={this.toggle}
                 toggleResourceName={this.toggleResourceName}
                 isViewOpen
-              />}
+              />
+            )}
 
-            {this.state.isViewOpen &&
-              this.props.resource === 'city' &&
+            {this.state.isViewOpen && this.props.resource === 'city' && (
               <FilterMobileCity
                 resourceName={this.props.resourceName}
                 resource={this.props.resource}
@@ -115,7 +130,8 @@ class Filter extends Component {
                 onClose={this.toggle}
                 toggleResourceName={this.toggleResourceName}
                 isViewOpen
-              />}
+              />
+            )}
           </Visibility>
         </Col>
       </Row>

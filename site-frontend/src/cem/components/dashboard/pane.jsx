@@ -13,7 +13,9 @@ class Pane extends Component {
     return (
       <Row>
         <Col xs="20">
-          <Heading size="lg" className={sUtils.pushedBottom1}>{this.props.title}</Heading>
+          <Heading size="lg" className={sUtils.pushedBottom1}>
+            {this.props.title}
+          </Heading>
           {this.props.children}
         </Col>
       </Row>

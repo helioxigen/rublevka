@@ -9,20 +9,30 @@ import ComplexesActions from 'cem/actions/complexes';
 
 import UI from 'cem/components/ui';
 const {
-  Icon, Media, Image, Heading, ParamList,
+  Icon,
+  Media,
+  Image,
+  Heading,
+  ParamList,
   Grid: { Container, Row, Col },
 } = UI;
 
 import s from 'cem/styles/id/content';
 import sUtils from 'cem/styles/utils';
 
-const ComplexImage = ({ src }) => (
-  src ? <Image src={`${src}-128`} kind="circle" width="114" height="114" /> : <Icon className={s.placeholder} icon="placeholder" />
-);
+const ComplexImage = ({ src }) =>
+  src ? (
+    <Image src={`${src}-128`} kind="circle" width="114" height="114" />
+  ) : (
+    <Icon className={s.placeholder} icon="placeholder" />
+  );
 
 class ComplexDescription extends Component {
   render() {
-    const { data, data: { location = {}, statistics = {} } } = this.props;
+    const {
+      data,
+      data: { location = {}, statistics = {} },
+    } = this.props;
 
     return (
       <Container fluid>
@@ -89,8 +99,18 @@ class Complex extends Component {
         <Row>
           <Col xs="20">
             <Media
-              left={<ComplexImage src={data.images && data.images[0] && data.images[0].url} />}
-              body={<ComplexDescription data={data} state={state} actions={actions} />}
+              left={
+                <ComplexImage
+                  src={data.images && data.images[0] && data.images[0].url}
+                />
+              }
+              body={
+                <ComplexDescription
+                  data={data}
+                  state={state}
+                  actions={actions}
+                />
+              }
             />
           </Col>
         </Row>
@@ -107,4 +127,7 @@ const pickActions = dispatch => ({
   actions: bindActionCreators({ ...ComplexesActions }, dispatch),
 });
 
-export default connect(pickState, pickActions)(Complex);
+export default connect(
+  pickState,
+  pickActions,
+)(Complex);

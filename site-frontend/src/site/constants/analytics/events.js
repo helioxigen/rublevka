@@ -1,6 +1,9 @@
 import upperCase from 'lodash/upperCase';
 
-const events = ['complexesList.filter.opened', 'complexesId.propertyCard.opened'];
+const events = [
+  'complexesList.filter.opened',
+  'complexesId.propertyCard.opened',
+];
 
 export default events.reduce(
   (result, event) => ({

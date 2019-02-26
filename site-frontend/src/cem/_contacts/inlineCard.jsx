@@ -32,7 +32,9 @@ const Description = ({ details = {} }) => (
       {details.lastName} {details.firstName} {details.middleName}
     </h4>
     <p className={s.mediaText}>
-      <StaticMask pattern="+1 (111) 111-11-11">{details.phoneNumber}</StaticMask>
+      <StaticMask pattern="+1 (111) 111-11-11">
+        {details.phoneNumber}
+      </StaticMask>
     </p>
     <p className={s.mediaText}>{details.email}</p>
   </div>

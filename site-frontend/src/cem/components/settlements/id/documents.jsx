@@ -12,8 +12,13 @@ import validate from 'cem/validators/document';
 
 import UI from 'cem/components/ui';
 const {
-  Grid, Table, Button, Heading,
-  Form, Icon, AsyncSelect,
+  Grid,
+  Table,
+  Button,
+  Heading,
+  Form,
+  Icon,
+  AsyncSelect,
   Grid: { Col },
 } = UI;
 
@@ -27,39 +32,62 @@ const formSettings = {
   validate,
 };
 
-const DocumentForm = reduxForm(formSettings)(submitValidator()(
-  class extends Component {
+const DocumentForm = reduxForm(formSettings)(
+  submitValidator()(
+    class extends Component {
+      createOrUpdate() {
+        const { formKey, values, actions, settlementId } = this.props;
 
-    createOrUpdate() {
-      const { formKey, values, actions, settlementId } = this.props;
+        if (formKey === `add`)
+          return actions.uploadDocument(settlementId, values);
+        if (formKey !== `add`)
+          return actions.updateDocument(settlementId, formKey, values);
+      }
 
-      if (formKey === `add`) return actions.uploadDocument(settlementId, values);
-      if (formKey !== `add`) return actions.updateDocument(settlementId, formKey, values);
-    }
+      delete() {
+        const { formKey, actions, settlementId } = this.props;
+        return actions.deleteDocument(settlementId, formKey);
+      }
 
-    delete() {
-      const { formKey, actions, settlementId } = this.props;
-      return actions.deleteDocument(settlementId, formKey);
-    }
+      render() {
+        const {
+          formKey,
+          fields,
+          handleSubmit,
+          values,
+          pristine,
+          error,
+          submitting,
+          settlementId,
+          state,
+        } = this.props;
 
-    render() {
-      const {
-        formKey, fields, handleSubmit, values, pristine, error, submitting,
-        settlementId, state,
-      } = this.props;
-
-      return (
-        <Table.Row>
-          <Table.Cell>
-            <Grid.Row>
-              <Col xs="16">
-                <Form.Group className={sUtils.resetIndentation} kind={fields.kindId.touched && !!fields.kindId.error && `error`}>
-                  <AsyncSelect className={sUtils.resetBorder} {...fields.kindId} asyncOptions={fetchDictionary(`settlement_document_type`)} labelKey="title" valueKey="id" onBlur={() => {}} />
-                  {fields.kindId.touched && fields.kindId.error && <Form.Helper>{fields.kindId.error}</Form.Helper>}
-                </Form.Group>
-              </Col>
-            </Grid.Row>
-          </Table.Cell>
+        return (
+          <Table.Row>
+            <Table.Cell>
+              <Grid.Row>
+                <Col xs="16">
+                  <Form.Group
+                    className={sUtils.resetIndentation}
+                    kind={
+                      fields.kindId.touched && !!fields.kindId.error && `error`
+                    }
+                  >
+                    <AsyncSelect
+                      className={sUtils.resetBorder}
+                      {...fields.kindId}
+                      asyncOptions={fetchDictionary(`settlement_document_type`)}
+                      labelKey="title"
+                      valueKey="id"
+                      onBlur={() => {}}
+                    />
+                    {fields.kindId.touched && fields.kindId.error && (
+                      <Form.Helper>{fields.kindId.error}</Form.Helper>
+                    )}
+                  </Form.Group>
+                </Col>
+              </Grid.Row>
+            </Table.Cell>
             <Table.Cell>
               {formKey !== `add` && (
                 <Form.Group className={sUtils.resetIndentation}>
@@ -67,48 +95,81 @@ const DocumentForm = reduxForm(formSettings)(submitValidator()(
                 </Form.Group>
               )}
               {formKey === `add` && (
-                <Form.Group className={sUtils.resetIndentation} kind={fields.file.touched && !!fields.file.error && `error`}>
+                <Form.Group
+                  className={sUtils.resetIndentation}
+                  kind={fields.file.touched && !!fields.file.error && `error`}
+                >
                   <Form.Input type="file" {...fields.file} value={null} />
-                  {fields.file.touched && fields.file.error && <Form.Helper>{fields.file.error}</Form.Helper>}
+                  {fields.file.touched && fields.file.error && (
+                    <Form.Helper>{fields.file.error}</Form.Helper>
+                  )}
                 </Form.Group>
               )}
             </Table.Cell>
-          {formKey !== `add` && (
-            <Table.Cell>
-              <Form.Group className={sUtils.resetIndentation}>
-                <Form.Static><FormattedDate mask="dd.mm.yy @ HH:MM" value={values.createdAt} /></Form.Static>
-              </Form.Group>
-            </Table.Cell>
-          )}
-          {formKey === `add` && <Table.Cell>&nbsp;</Table.Cell>}
-          {formKey !== `add` && (
-            <Table.Cell>
-              <Form.Group className={sUtils.resetIndentation}>
-                <Button className={sButton.btnTableAction} size="xs" onClick={handleSubmit(::this.createOrUpdate)} disabled={pristine || error || submitting}>
-                  <Icon className={s.btnIcon} icon="checkmark" />
-                </Button>
-                <Button className={sButton.btnTableAction} size="xs" to={`${API}/v1/places/settlements/${settlementId}/documents/${formKey}/download?token=${state.auth.token}`} target="_blank">
-                  <Icon className={s.btnIcon} icon="download" />
-                </Button>
-                <Button className={sButton.btnTableAction} size="xs" type="button" onClick={::this.delete}>
-                  <Icon className={s.btnIcon} icon="delete" />
-                </Button>
-              </Form.Group>
-            </Table.Cell>
-          )}
-          {formKey === `add` && (
-            <Table.Cell>
-              <Form.Group className={sUtils.resetIndentation}>
-                <Button className={sButton.btnTableAction} size="xs" onClick={handleSubmit(::this.createOrUpdate)} disabled={pristine || error || submitting}>
-                  <Icon className={s.btnIcon} icon="checkmark" />
-                </Button>
-              </Form.Group>
-            </Table.Cell>
-          )}
-        </Table.Row>
-      );
-    }
-  })
+            {formKey !== `add` && (
+              <Table.Cell>
+                <Form.Group className={sUtils.resetIndentation}>
+                  <Form.Static>
+                    <FormattedDate
+                      mask="dd.mm.yy @ HH:MM"
+                      value={values.createdAt}
+                    />
+                  </Form.Static>
+                </Form.Group>
+              </Table.Cell>
+            )}
+            {formKey === `add` && <Table.Cell>&nbsp;</Table.Cell>}
+            {formKey !== `add` && (
+              <Table.Cell>
+                <Form.Group className={sUtils.resetIndentation}>
+                  <Button
+                    className={sButton.btnTableAction}
+                    size="xs"
+                    onClick={handleSubmit(::this.createOrUpdate)}
+                    disabled={pristine || error || submitting}
+                  >
+                    <Icon className={s.btnIcon} icon="checkmark" />
+                  </Button>
+                  <Button
+                    className={sButton.btnTableAction}
+                    size="xs"
+                    to={`${API}/v1/places/settlements/${settlementId}/documents/${formKey}/download?token=${
+                      state.auth.token
+                    }`}
+                    target="_blank"
+                  >
+                    <Icon className={s.btnIcon} icon="download" />
+                  </Button>
+                  <Button
+                    className={sButton.btnTableAction}
+                    size="xs"
+                    type="button"
+                    onClick={::this.delete}
+                  >
+                    <Icon className={s.btnIcon} icon="delete" />
+                  </Button>
+                </Form.Group>
+              </Table.Cell>
+            )}
+            {formKey === `add` && (
+              <Table.Cell>
+                <Form.Group className={sUtils.resetIndentation}>
+                  <Button
+                    className={sButton.btnTableAction}
+                    size="xs"
+                    onClick={handleSubmit(::this.createOrUpdate)}
+                    disabled={pristine || error || submitting}
+                  >
+                    <Icon className={s.btnIcon} icon="checkmark" />
+                  </Button>
+                </Form.Group>
+              </Table.Cell>
+            )}
+          </Table.Row>
+        );
+      }
+    },
+  ),
 );
 
 export default class extends Component {
@@ -146,11 +207,23 @@ export default class extends Component {
                   <Table.Heading width="10%">Действия</Table.Heading>
                 </Table.Row>
 
-                <DocumentForm formKey="add" settlementId={data.id} actions={actions} state={state} />
+                <DocumentForm
+                  formKey="add"
+                  settlementId={data.id}
+                  actions={actions}
+                  state={state}
+                />
 
-                {documents.map((doc, index) =>
-                  <DocumentForm key={index} settlementId={data.id} initialValues={doc} formKey={doc.id} actions={actions} state={state} />
-                )}
+                {documents.map((doc, index) => (
+                  <DocumentForm
+                    key={index}
+                    settlementId={data.id}
+                    initialValues={doc}
+                    formKey={doc.id}
+                    actions={actions}
+                    state={state}
+                  />
+                ))}
               </Table.Container>
             </Col>
           </Grid.Row>

@@ -6,7 +6,11 @@ import {
 } from 'core/fetcher2/actions';
 
 import * as types from 'cem/_tasks/constants/actions';
-import { getDefaultsByGroup, apiPath, resourceName } from 'cem/_tasks/constants/defaults';
+import {
+  getDefaultsByGroup,
+  apiPath,
+  resourceName,
+} from 'cem/_tasks/constants/defaults';
 
 import { updatePagination } from 'core/actions/pagination';
 import loadUsers from 'cem/_users/actions/loadList';
@@ -23,9 +27,14 @@ import transformInputValues from 'cem/_tasks/helpers/transformInputValues';
 
 const groupForLinkedResources = 'forTasks';
 
-const loadTasks = (queryParams, group, options = {}) => (dispatch, getState) => {
+const loadTasks = (queryParams, group, options = {}) => (
+  dispatch,
+  getState,
+) => {
   const defaultQueryParams = getDefaultsByGroup(group, options);
-  const params = mapParams(recursiveCleanUp(mergeParams(defaultQueryParams, queryParams)));
+  const params = mapParams(
+    recursiveCleanUp(mergeParams(defaultQueryParams, queryParams)),
+  );
 
   dispatch(loadListStarted(types.LOAD_LIST, group, options.append, params));
 
@@ -35,21 +44,34 @@ const loadTasks = (queryParams, group, options = {}) => (dispatch, getState) => 
 
       dispatch(updatePagination(`${resourceName}.${group}`, pagination));
       dispatch(
-        loadListSucceeded(types.LOAD_LIST_SUCCEEDED, group, transformedItems, options.append),
+        loadListSucceeded(
+          types.LOAD_LIST_SUCCEEDED,
+          group,
+          transformedItems,
+          options.append,
+        ),
       );
 
       // and then load linked resources
       const linkedUsersIds = uniq(
-        transformedItems.map(task => task.responsibleUser.id).filter(id => !!id),
+        transformedItems
+          .map(task => task.responsibleUser.id)
+          .filter(id => !!id),
       ).filter(id => !isInState(getState(), '_users', id));
       const linkedClientLeadsIds = uniq(
-        transformedItems.map(task => getDetails(task).clientLeadId).filter(id => !!id),
+        transformedItems
+          .map(task => getDetails(task).clientLeadId)
+          .filter(id => !!id),
       ).filter(id => !isInState(getState(), '_clientLeads', id));
       const linkedContactsIds = uniq(
-        transformedItems.map(task => getDetails(task).contactId).filter(id => !!id),
+        transformedItems
+          .map(task => getDetails(task).contactId)
+          .filter(id => !!id),
       ).filter(id => !isInState(getState(), '_contacts', id));
       const linkedDealsIds = uniq(
-        transformedItems.map(task => getDetails(task).dealId).filter(id => !!id),
+        transformedItems
+          .map(task => getDetails(task).dealId)
+          .filter(id => !!id),
       ).filter(id => !isInState(getState(), '_deals', id));
 
       if (linkedUsersIds.length) {
@@ -57,19 +79,32 @@ const loadTasks = (queryParams, group, options = {}) => (dispatch, getState) => 
       } // TODO: fix loadUsers
       if (linkedClientLeadsIds.length) {
         dispatch(
-          loadClientLeads({ filter: { id: linkedClientLeadsIds } }, groupForLinkedResources),
+          loadClientLeads(
+            { filter: { id: linkedClientLeadsIds } },
+            groupForLinkedResources,
+          ),
         );
       }
       if (linkedContactsIds.length) {
-        dispatch(loadContacts({ filter: { id: linkedContactsIds } }, groupForLinkedResources));
+        dispatch(
+          loadContacts(
+            { filter: { id: linkedContactsIds } },
+            groupForLinkedResources,
+          ),
+        );
       }
       if (linkedDealsIds.length) {
-        dispatch(loadDeals({ filter: { id: linkedDealsIds } }, groupForLinkedResources));
+        dispatch(
+          loadDeals(
+            { filter: { id: linkedDealsIds } },
+            groupForLinkedResources,
+          ),
+        );
       }
 
       return Promise.resolve(transformedItems);
     },
-    (errors) => {
+    errors => {
       dispatch(loadListFailed(types.LOAD_LIST_FAILED, group, errors));
 
       return Promise.reject(errors);

@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import Form from 'cem/components/tasks/id/about/document';
 import UI from 'cem/components/ui';
 const {
-  Table, Heading,
+  Table,
+  Heading,
   Grid: { Row, Col },
 } = UI;
 
@@ -37,7 +38,13 @@ class Document extends Component {
               <Table.Heading>Дата архивации</Table.Heading>
               <Table.Heading>Действия</Table.Heading>
             </Table.Row>
-            <Form data={data} initialData={initialData} auth={this.props.state.auth} taskId={this.props.taskId} actions={this.props.actions} />
+            <Form
+              data={data}
+              initialData={initialData}
+              auth={this.props.state.auth}
+              taskId={this.props.taskId}
+              actions={this.props.actions}
+            />
           </Table.Container>
         </Col>
       </Row>
@@ -53,4 +60,7 @@ const mapDispatch = dispatch => ({
   actions: bindActionCreators(documentActions, dispatch),
 });
 
-export default connect(pickState, mapDispatch)(Document);
+export default connect(
+  pickState,
+  mapDispatch,
+)(Document);

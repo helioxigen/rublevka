@@ -37,8 +37,14 @@ const specificationFields = {
   'specification.windows': { title: 'Вид из окон', dictionaryKey: 'windows' },
   'specification.bedrooms': { title: 'Количество спален' },
   'specification.area': { title: 'Площадь' },
-  'specification.wallMaterial': { title: 'Материал стен', dictionaryKey: 'wallMaterials' },
-  'specification.roofMaterial': { title: 'Материал крыши', dictionaryKey: 'roofMaterials' },
+  'specification.wallMaterial': {
+    title: 'Материал стен',
+    dictionaryKey: 'wallMaterials',
+  },
+  'specification.roofMaterial': {
+    title: 'Материал крыши',
+    dictionaryKey: 'roofMaterials',
+  },
   'specification.builtYear': { title: 'Год постройки' },
   'specification.floors': { title: 'Количество этажей' },
   'specification.elevators': { title: 'Количество лифтов' },
@@ -46,8 +52,14 @@ const specificationFields = {
   'specification.withConditioning': { title: 'Кондиционер' },
   'specification.withVentilation': { title: 'Вентиляция' },
   'specification.renovate': { title: 'Ремонт', dictionaryKey: 'renovateKinds' },
-  'specification.condition': { title: 'Состояние', dictionaryKey: 'conditions' },
-  'specification.furniture': { title: 'Мебель', dictionaryKey: 'furnitureKinds' },
+  'specification.condition': {
+    title: 'Состояние',
+    dictionaryKey: 'conditions',
+  },
+  'specification.furniture': {
+    title: 'Мебель',
+    dictionaryKey: 'furnitureKinds',
+  },
   'specification.layout': { title: 'Планировка', dictionaryKey: 'layouts' },
   'specification.legacyLayouts': { title: 'Поэтажное описание', ignore: true },
   'specification.legacyLayouts.items': {
@@ -96,11 +108,19 @@ const residentialComplexFields = {
   'residentialComplex.details.floors': { title: 'Количество этажей' },
   'residentialComplex.details.builtYear': { title: 'Год постройки дома' },
   'residentialComplex.details.deliveryQuarter': { title: 'Квартал сдачи' },
-  'residentialComplex.details.constructionStage': { title: 'Стадия строительства' },
+  'residentialComplex.details.constructionStage': {
+    title: 'Стадия строительства',
+  },
   'residentialComplex.details.elevators': { title: 'Количество лифтов' },
-  'residentialComplex.details.freightElevators': { title: 'Количество грузовых лифтов' },
-  'residentialComplex.details.parkings': { title: 'Количество парковочных мест' },
-  'residentialComplex.details.undergroundGarages': { title: 'Количество подземных гаражей' },
+  'residentialComplex.details.freightElevators': {
+    title: 'Количество грузовых лифтов',
+  },
+  'residentialComplex.details.parkings': {
+    title: 'Количество парковочных мест',
+  },
+  'residentialComplex.details.undergroundGarages': {
+    title: 'Количество подземных гаражей',
+  },
 };
 
 const locationFields = {
@@ -127,7 +147,10 @@ const locationFields = {
 
 const landDetailsFields = {
   'landDetails.landscaping': { title: 'Ландшафтные работы' },
-  'landDetails.landscapeKind': { title: 'Тип участка', dictionaryKey: 'landscapeKinds' },
+  'landDetails.landscapeKind': {
+    title: 'Тип участка',
+    dictionaryKey: 'landscapeKinds',
+  },
   'landDetails.area': { title: 'Площать участка' },
 };
 
@@ -174,7 +197,10 @@ const commonFields = {
   },
   saleOffer: { title: 'Условия продажи', messageKind: 'offer' },
   rentOffer: { title: 'Условия аренды', messageKind: 'offer' },
-  residentialComplexId: { title: 'Жилищный комплекс', messageKind: 'residentialComplex' },
+  residentialComplexId: {
+    title: 'Жилищный комплекс',
+    messageKind: 'residentialComplex',
+  },
 };
 
 const contactFields = {
@@ -184,11 +210,17 @@ const contactFields = {
 };
 
 const imagesFields = {
-  'images.isPublic': { title: 'Фотография на сайте', messageKind: 'imageIsPublic' },
+  'images.isPublic': {
+    title: 'Фотография на сайте',
+    messageKind: 'imageIsPublic',
+  },
 };
 
 const layoutFields = {
-  'layoutImages.isPublic': { title: 'Планировка на сайте', messageKind: 'imageIsPublic' },
+  'layoutImages.isPublic': {
+    title: 'Планировка на сайте',
+    messageKind: 'imageIsPublic',
+  },
 };
 
 export const ignoredFields = [

@@ -1,7 +1,7 @@
 export const resourceName = 'subLocalities';
 export const apiPath = '/v1/sub_locality';
 
-export const getApiPathByGroup = (group) => {
+export const getApiPathByGroup = group => {
   if (group === 'forProperties') {
     return '/v1/places/sub_localities/items';
   }
@@ -20,4 +20,5 @@ const defaultParamsByGroup = {
   },
 };
 
-export const getDefaultsByGroup = (group, options) => defaultParamsByGroup[group] || {};
+export const getDefaultsByGroup = (group, options) =>
+  defaultParamsByGroup[group] || {};

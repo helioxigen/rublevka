@@ -8,7 +8,9 @@ import { pop } from 'cem/actions/toastr';
 
 import UI from 'cem/components/ui';
 const {
-  Loading, Table, Heading,
+  Loading,
+  Table,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -39,19 +41,31 @@ class Divisions extends Component {
           </Row>
           <Row>
             <Col xs="20" className={sUtils.pushedBottom3}>
-              {!isFetching &&
+              {!isFetching && (
                 <Table.Container width="100%">
                   <Table.Row>
                     <Table.Heading width="50%">Название</Table.Heading>
                     <Table.Heading width="35%">Департамент</Table.Heading>
                     <Table.Heading width="15%">Действия</Table.Heading>
                   </Table.Row>
-                  {isCreationAllowed && <DivisionRecordForm actions={actions} formKey="create" isUpdateAllowed />}
-                  {items.map(item =>
-                    <DivisionRecordForm actions={actions} key={item.id} formKey={item.id.toString()} initialValues={item} isUpdateAllowed={isUpdateAllowed} />,
+                  {isCreationAllowed && (
+                    <DivisionRecordForm
+                      actions={actions}
+                      formKey="create"
+                      isUpdateAllowed
+                    />
                   )}
+                  {items.map(item => (
+                    <DivisionRecordForm
+                      actions={actions}
+                      key={item.id}
+                      formKey={item.id.toString()}
+                      initialValues={item}
+                      isUpdateAllowed={isUpdateAllowed}
+                    />
+                  ))}
                 </Table.Container>
-              }
+              )}
               {isFetching && <Loading />}
             </Col>
           </Row>
@@ -69,4 +83,7 @@ const pickActions = dispatch => ({
   actions: bindActionCreators({ ...DivisionsActions, pop }, dispatch),
 });
 
-export default connect(pickState, pickActions)(Divisions);
+export default connect(
+  pickState,
+  pickActions,
+)(Divisions);

@@ -14,11 +14,9 @@ import { api } from 'core/config/constants';
 const Image = ({ id }) => (
   <UI.Image
     src={
-      id ? (
-        `${api.cloudfront}/${id}-128`
-      ) : (
-        'https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder-photo.svg'
-      )
+      id
+        ? `${api.cloudfront}/${id}-128`
+        : 'https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder-photo.svg'
     }
     kind="circle"
     width="42"
@@ -40,7 +38,13 @@ const CommentBody = props => (
         className={s.commentBtn}
         size="xs"
         type="button"
-        onClick={() => props.actions.setActiveComment(props.entity.key, props.entity.id, props.id)}
+        onClick={() =>
+          props.actions.setActiveComment(
+            props.entity.key,
+            props.entity.id,
+            props.id,
+          )
+        }
       >
         Ответить
       </Button>
@@ -50,7 +54,16 @@ const CommentBody = props => (
 
 export default class extends Component {
   render() {
-    const { state, actions, text, createdAt, userId, entity, id, className } = this.props;
+    const {
+      state,
+      actions,
+      text,
+      createdAt,
+      userId,
+      entity,
+      id,
+      className,
+    } = this.props;
     const { data: userData = {} } = state.users[userId] || {};
 
     return (

@@ -24,13 +24,14 @@ const updateLeadFailed = ({ errors }) => ({
 });
 
 export default function processLead(id, action, data = {}) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(updateLeadStarted(id));
 
     return API.post(`/v1/client_leads/${id}/${action}`, data).then(
       () =>
-        dispatch(pop('success', `Лид (ID: ${id})`, `${leadServerActions[action]}`)) &&
-        dispatch(loadLead(id)),
+        dispatch(
+          pop('success', `Лид (ID: ${id})`, `${leadServerActions[action]}`),
+        ) && dispatch(loadLead(id)),
       ({ body }) => {
         dispatch(updateLeadFailed(body));
         return body;

@@ -15,7 +15,7 @@ const loadCompaniesFailed = ({ errors }) => ({
   errors,
 });
 
-const loadCompaniesSucceeded = ({ items, pagination }) => (dispatch) => {
+const loadCompaniesSucceeded = ({ items, pagination }) => dispatch => {
   dispatch(updatePagination('companies', pagination));
 
   return dispatch({
@@ -24,10 +24,13 @@ const loadCompaniesSucceeded = ({ items, pagination }) => (dispatch) => {
   });
 };
 
-export default (queryParams = { filter: {} }) => (dispatch) => {
+export default (queryParams = { filter: {} }) => dispatch => {
   dispatch(loadCompaniesStarted());
 
-  return API.get('/v1/companies', { ...queryParams, filter: mapFilter(queryParams.filter) }).then(
+  return API.get('/v1/companies', {
+    ...queryParams,
+    filter: mapFilter(queryParams.filter),
+  }).then(
     ({ body }) => dispatch(loadCompaniesSucceeded(body)),
     ({ body }) => dispatch(loadCompaniesFailed(body)),
   );

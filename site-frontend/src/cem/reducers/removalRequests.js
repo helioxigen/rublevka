@@ -33,12 +33,17 @@ export default handleActions(
       },
     }),
 
-    [types.LOAD_REMOVAL_REQUESTS_SUCCESS]: (state, { key, items, isResultAppended }) => ({
+    [types.LOAD_REMOVAL_REQUESTS_SUCCESS]: (
+      state,
+      { key, items, isResultAppended },
+    ) => ({
       ...state,
       list: {
         ...state.list,
         [key]: {
-          items: isResultAppended ? [...((state.list[key] || {}).items || []), ...items] : items,
+          items: isResultAppended
+            ? [...((state.list[key] || {}).items || []), ...items]
+            : items,
         },
       },
     }),

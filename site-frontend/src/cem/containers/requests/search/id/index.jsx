@@ -16,7 +16,10 @@ import { REQUESTS_SEARCH_BY_CATEGORY_OPENED } from 'cem/constants/analytics';
 
 class IdContainer extends Component {
   componentWillMount() {
-    const { actions, params: { id } } = this.props;
+    const {
+      actions,
+      params: { id },
+    } = this.props;
     const { propertyCategory } = this.props.location.query;
 
     if (id !== 'create') {
@@ -32,19 +35,35 @@ class IdContainer extends Component {
   }
 
   render() {
-    const { params: { id }, state, hasRight } = this.props;
+    const {
+      params: { id },
+      state,
+      hasRight,
+    } = this.props;
     const { propertyCategory } = this.props.location.query;
     const { data = {} /* , isUploading */ } = state.searchRequests[id] || {};
     const createdByUser = data.createdByUser || {};
     const responsibleUser = data.responsibleUser || {};
-    const initialValues = id === 'create' ? { ...data, propertyCategory } : data;
+    const initialValues =
+      id === 'create' ? { ...data, propertyCategory } : data;
 
     const permissionsProps = {
-      isUpdateAllowed: hasRight('property_search_order_update', responsibleUser.id || createdByUser.id),
-      isAnswersPreviewAllowed: hasRight('property_search_order_answers', responsibleUser.id || createdByUser.id),
-      isCommentingAllowed: hasRight('property_search_order_comments', responsibleUser.id || createdByUser.id),
+      isUpdateAllowed: hasRight(
+        'property_search_order_update',
+        responsibleUser.id || createdByUser.id,
+      ),
+      isAnswersPreviewAllowed: hasRight(
+        'property_search_order_answers',
+        responsibleUser.id || createdByUser.id,
+      ),
+      isCommentingAllowed: hasRight(
+        'property_search_order_comments',
+        responsibleUser.id || createdByUser.id,
+      ),
       isCurrentUserChief: hasRight(`hub_chief_${data.propertyCategory}`),
-      isCurrentUserSupervisor: hasRight(`hub_supervisor_${data.propertyCategory}`),
+      isCurrentUserSupervisor: hasRight(
+        `hub_supervisor_${data.propertyCategory}`,
+      ),
       isCurrentUserManager: state.auth.details.isManager,
       isCurrentUserCreator: state.auth.id === createdByUser.id,
       isCurrentUserResponsible: state.auth.id === responsibleUser.id,
@@ -52,10 +71,24 @@ class IdContainer extends Component {
 
     return data || id === 'create' ? (
       <section>
-        <Header {...this.props} formKey={id} initialValues={initialValues} data={data} {...permissionsProps} />
-        <About {...this.props} formKey={id} initialValues={initialValues} data={data} {...permissionsProps} />
+        <Header
+          {...this.props}
+          formKey={id}
+          initialValues={initialValues}
+          data={data}
+          {...permissionsProps}
+        />
+        <About
+          {...this.props}
+          formKey={id}
+          initialValues={initialValues}
+          data={data}
+          {...permissionsProps}
+        />
       </section>
-    ) : <div />;
+    ) : (
+      <div />
+    );
   }
 }
 
@@ -64,7 +97,20 @@ const pickState = ({ auth, comments, searchRequests, users }) => ({
 });
 
 const pickActions = dispatch => ({
-  actions: bindActionCreators({ ...SearchRequestActions, ...CommentsActions, pushPath, loadUser, pop, sendAnalytics }, dispatch),
+  actions: bindActionCreators(
+    {
+      ...SearchRequestActions,
+      ...CommentsActions,
+      pushPath,
+      loadUser,
+      pop,
+      sendAnalytics,
+    },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, pickActions)(IdContainer);
+export default connect(
+  pickState,
+  pickActions,
+)(IdContainer);

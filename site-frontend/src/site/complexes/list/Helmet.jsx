@@ -15,6 +15,10 @@ export default ({ pagination, query }) => {
   ];
 
   return (
-    <Helmet title={seo.title(queryPage)} meta={metaInfo} link={seo.link(queryPage, totalPages)} />
+    <Helmet
+      title={seo.title(queryPage)}
+      meta={metaInfo}
+      link={seo.link(queryPage, totalPages)}
+    />
   );
 };

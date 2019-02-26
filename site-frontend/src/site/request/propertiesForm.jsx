@@ -7,7 +7,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import UI from 'site/ui';
-const { Grid, Button, CountIndicator, Grid: { Row, Col }, Form: { Container, Input } } = UI;
+const {
+  Grid,
+  Button,
+  CountIndicator,
+  Grid: { Row, Col },
+  Form: { Container, Input },
+} = UI;
 
 import formsContent from 'site/request/constants/formsContent';
 
@@ -108,8 +114,10 @@ class Form extends Component {
 
     const { step } = this.state;
 
-    const isPrivateFieldsFull = this.props.type === 'private' && inputData.name && inputData.phone;
-    const isNoPrivateFieldsFull = this.props.type !== 'private' && inputData.name;
+    const isPrivateFieldsFull =
+      this.props.type === 'private' && inputData.name && inputData.phone;
+    const isNoPrivateFieldsFull =
+      this.props.type !== 'private' && inputData.name;
 
     if (step === 'step1' && (!inputData.phone && !inputData.email)) {
       this.setState({ requiredFirstField: true });
@@ -122,10 +130,12 @@ class Form extends Component {
     if (step === 'step1' && inputData.email) {
       this.setState({ step: 'step2' });
 
-      return this.props.actions.subscribe(inputData.name, inputData.email).then(() => {
-        this.props.actions.setSharedRetargetingKey('vk');
-        track(analyticsEvents.subscribeSubmitted(inputData));
-      });
+      return this.props.actions
+        .subscribe(inputData.name, inputData.email)
+        .then(() => {
+          this.props.actions.setSharedRetargetingKey('vk');
+          track(analyticsEvents.subscribeSubmitted(inputData));
+        });
     }
 
     if (step === 'step2' && (!isNoPrivateFieldsFull && !isPrivateFieldsFull)) {
@@ -167,10 +177,11 @@ class Form extends Component {
                 {data.title[step]}
               </strong>
             </p>
-            {!isPrivate && <p className={sUtils.pushedBottom3}>{data.description[step]}</p>}
+            {!isPrivate && (
+              <p className={sUtils.pushedBottom3}>{data.description[step]}</p>
+            )}
 
-            {isPrivate &&
-            isStep1 && (
+            {isPrivate && isStep1 && (
               <p className={sUtils.pushedBottom3}>
                 Мы нашли{' '}
                 <CountIndicator
@@ -186,8 +197,7 @@ class Form extends Component {
             )}
 
             <Container onSubmit={::this.submit}>
-              {isStep1 &&
-              !isPrivate && (
+              {isStep1 && !isPrivate && (
                 <Row>
                   <Col xs="10" xsOffset="1">
                     <Input
@@ -200,15 +210,16 @@ class Form extends Component {
                       placeholder={this.state.phonePlaceholder}
                       onFocus={::this.changePlaceholderOnFocus}
                       onBlur={::this.changePlaceholderOnBlur}
-                      onChange={e => this.onChange('phoneNumber', e.target.value)}
+                      onChange={e =>
+                        this.onChange('phoneNumber', e.target.value)
+                      }
                       required={this.state.requiredFirstField}
                     />
                   </Col>
                 </Row>
               )}
 
-              {isStep1 &&
-              isPrivate && (
+              {isStep1 && isPrivate && (
                 <Row>
                   <Col xs="10" xsOffset="1">
                     <Input
@@ -225,8 +236,7 @@ class Form extends Component {
                 </Row>
               )}
 
-              {isStep2 &&
-              !isPrivate && (
+              {isStep2 && !isPrivate && (
                 <Row>
                   <Col xs="10" xsOffset="1">
                     <Input
@@ -243,8 +253,7 @@ class Form extends Component {
                 </Row>
               )}
 
-              {isStep2 &&
-              isPrivate && (
+              {isStep2 && isPrivate && (
                 <Row>
                   <Col xs="10" xsOffset="1">
                     <Input
@@ -267,7 +276,9 @@ class Form extends Component {
                       placeholder={this.state.phonePlaceholder}
                       onFocus={::this.changePlaceholderOnFocus}
                       onBlur={::this.changePlaceholderOnBlur}
-                      onChange={e => this.onChange('phoneNumber', e.target.value)}
+                      onChange={e =>
+                        this.onChange('phoneNumber', e.target.value)
+                      }
                       required={this.state.requiredSecondField}
                     />
                   </Col>
@@ -299,7 +310,7 @@ const pickState = ({ currentDuty }) => ({
   },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     ...EmailActions,
     loadDuties,
@@ -312,4 +323,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Form);
+export default connect(
+  pickState,
+  pickActions,
+)(Form);

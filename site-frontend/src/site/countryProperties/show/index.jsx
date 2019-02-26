@@ -35,14 +35,20 @@ import Description from './description';
 import Info from './info';
 import Similar from './similar';
 
-const { Button, Grid: { Container, Row } } = UI;
+const {
+  Button,
+  Grid: { Container, Row },
+} = UI;
 
 const isJQ = global.config.domain === 'jq.estate';
 
 const load = ({ actions, id }) => {
   actions
     .loadProperty(id)
-    .then(data => track(analyticsEvents.propertyOpened(data)), err => console.error(err));
+    .then(
+      data => track(analyticsEvents.propertyOpened(data)),
+      err => console.error(err),
+    );
 };
 
 class Property extends Component {
@@ -121,7 +127,11 @@ class Property extends Component {
               onClick={e => this.handleSwitchProperty(e, prevIndex)}
             >
               <UI.Icon
-                className={cn(sUtils.iconArrow, sUtils.pushedRight1_2, sUtils.rotate180)}
+                className={cn(
+                  sUtils.iconArrow,
+                  sUtils.pushedRight1_2,
+                  sUtils.rotate180,
+                )}
                 icon="arrow-right"
               />
               Предыдущий
@@ -133,7 +143,10 @@ class Property extends Component {
               onClick={e => this.handleSwitchProperty(e, nextIndex)}
             >
               Следующий
-              <UI.Icon className={cn(sUtils.iconArrow, sUtils.pushedLeft1)} icon="arrow-right" />
+              <UI.Icon
+                className={cn(sUtils.iconArrow, sUtils.pushedLeft1)}
+                icon="arrow-right"
+              />
             </Button>
           </Row>
 
@@ -174,7 +187,7 @@ class Property extends Component {
   }
 }
 
-const pickState = (state) => {
+const pickState = state => {
   const { countryProperties } = state;
 
   return {
@@ -184,7 +197,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadProperty,
     setSharedRetargetingKey,
@@ -197,4 +210,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Property);
+export default connect(
+  pickState,
+  pickActions,
+)(Property);

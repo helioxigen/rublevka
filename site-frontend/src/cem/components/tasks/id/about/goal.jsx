@@ -21,16 +21,24 @@ import { taskFormSettings } from 'cem/constants/tasks/form';
 
 class About extends Component {
   render() {
-    const {
-      fields, formKey,
-      data, isUpdateAllowed,
-    } = this.props;
+    const { fields, formKey, data, isUpdateAllowed } = this.props;
 
-    const isFree = formKey === 'create' ? fields.kind.value === 'free' : data.kind === 'free';
-    const isPreview = formKey === 'create' ? fields.kind.value === 'preview' : data.kind === 'preview';
-    const isNegotiation = formKey === 'create' ? fields.kind.value === 'negotiation' : data.kind === 'negotiation';
+    const isFree =
+      formKey === 'create'
+        ? fields.kind.value === 'free'
+        : data.kind === 'free';
+    const isPreview =
+      formKey === 'create'
+        ? fields.kind.value === 'preview'
+        : data.kind === 'preview';
+    const isNegotiation =
+      formKey === 'create'
+        ? fields.kind.value === 'negotiation'
+        : data.kind === 'negotiation';
 
-    const isFieldStatic = formKey !== 'create' && (fields.state.value !== 'to_do' || !isUpdateAllowed);
+    const isFieldStatic =
+      formKey !== 'create' &&
+      (fields.state.value !== 'to_do' || !isUpdateAllowed);
 
     if (isPreview || isNegotiation) return null;
 
@@ -41,7 +49,14 @@ class About extends Component {
         <Col xs="20">
           <Heading size="md">Цель</Heading>
           <FormField field={detailsFields.goal} static={isFieldStatic}>
-            <Textarea className={cn(!isFieldStatic && s.textarea)} rows="9" block kind="primary" {...detailsFields.goal} value={detailsFields.goal.value || ''} />
+            <Textarea
+              className={cn(!isFieldStatic && s.textarea)}
+              rows="9"
+              block
+              kind="primary"
+              {...detailsFields.goal}
+              value={detailsFields.goal.value || ''}
+            />
           </FormField>
         </Col>
       </Row>

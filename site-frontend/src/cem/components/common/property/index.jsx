@@ -3,7 +3,14 @@ import { Link } from 'react-router';
 import { FormattedCurrency } from 'react-formatted';
 
 import UI from 'cem/components/ui';
-const { Icon, Media, Image, Heading, ParamList, Grid: { Container, Row, Col } } = UI;
+const {
+  Icon,
+  Media,
+  Image,
+  Heading,
+  ParamList,
+  Grid: { Container, Row, Col },
+} = UI;
 
 import cn from 'classnames';
 import s from 'cem/styles/id/content';
@@ -13,8 +20,8 @@ import { idResourcer } from 'core/decorators/fetcher';
 
 import * as dict from 'cem/constants/properties/dictionaries';
 
-const PropertyImage = ({ src }) =>
-  (<Image
+const PropertyImage = ({ src }) => (
+  <Image
     className={cn({ [s.imageProperties]: !src }, s.placeholder)}
     src={
       src
@@ -24,36 +31,48 @@ const PropertyImage = ({ src }) =>
     kind="circle"
     width="64"
     height="64"
-  />);
+  />
+);
 
-const PropertyDescription = ({ id, kind, saleOffer = {}, rentOffer = {} }) =>
-  (<div>
-    <h4 className={s.heading}>
-      {dict.kinds[kind]}
-    </h4>
-    {saleOffer.price &&
+const PropertyDescription = ({ id, kind, saleOffer = {}, rentOffer = {} }) => (
+  <div>
+    <h4 className={s.heading}>{dict.kinds[kind]}</h4>
+    {saleOffer.price && (
       <p className={s.objectDescription}>
         Продажа:{' '}
-        {saleOffer.price
-          ? <FormattedCurrency symbol={saleOffer.currency} value={saleOffer.price} />
-          : '—'}
-      </p>}
-    {rentOffer.price &&
+        {saleOffer.price ? (
+          <FormattedCurrency
+            symbol={saleOffer.currency}
+            value={saleOffer.price}
+          />
+        ) : (
+          '—'
+        )}
+      </p>
+    )}
+    {rentOffer.price && (
       <p className={s.objectDescription}>
         Аренда:{' '}
-        {rentOffer.price
-          ? <FormattedCurrency symbol={rentOffer.currency} value={rentOffer.price} />
-          : '—'}
-      </p>}
-    <p className={s.objectDescription}>
-      ID: {id}
-    </p>
-  </div>);
+        {rentOffer.price ? (
+          <FormattedCurrency
+            symbol={rentOffer.currency}
+            value={rentOffer.price}
+          />
+        ) : (
+          '—'
+        )}
+      </p>
+    )}
+    <p className={s.objectDescription}>ID: {id}</p>
+  </div>
+);
 
 const PropertyPreviewImage = ({ src }) =>
-  src
-    ? <Image src={`${src}-128`} kind="circle" width="114" height="114" />
-    : <Icon className={s.placeholder} icon="placeholder" />;
+  src ? (
+    <Image src={`${src}-128`} kind="circle" width="114" height="114" />
+  ) : (
+    <Icon className={s.placeholder} icon="placeholder" />
+  );
 
 const PropertyPreviewDescription = ({
   id,
@@ -65,8 +84,8 @@ const PropertyPreviewDescription = ({
   rentOffer = {},
   location = {},
   showAddress,
-}) =>
-  (<Container fluid>
+}) => (
+  <Container fluid>
     <Row>
       <Col sm="6" md="5" lg="4">
         <ParamList label="ID" big>
@@ -87,24 +106,29 @@ const PropertyPreviewDescription = ({
           {dict.states[state] && dict.states[state].title}
         </ParamList>
       </Col>
-      {showAddress &&
+      {showAddress && (
         <Col sm="15" lg="7">
           <ParamList label="Адрес" big>
-            {category === 'country' &&
+            {category === 'country' && (
               <span>
-                {location.settlementId
-                  ? <Link to={`/places/settlements/${location.settlementId}`}>
+                {location.settlementId ? (
+                  <Link to={`/places/settlements/${location.settlementId}`}>
                     {location.settlementName}
                     {location.mkadDistance && `, ${location.mkadDistance} км`}
                   </Link>
-                  : '—'}
-              </span>}
-            {category === 'city' &&
+                ) : (
+                  '—'
+                )}
+              </span>
+            )}
+            {category === 'city' && (
               <span>
                 {location.street && `${location.street},`} {location.house}
-              </span>}
+              </span>
+            )}
           </ParamList>
-        </Col>}
+        </Col>
+      )}
     </Row>
     <Row className={sUtils.pushedTop2}>
       <Col sm="6" md="5" lg="4">
@@ -114,20 +138,31 @@ const PropertyPreviewDescription = ({
       </Col>
       <Col sm="7" md="5" lg="4">
         <ParamList label="Продажа" big>
-          {saleOffer.price
-            ? <FormattedCurrency symbol={saleOffer.currency} value={saleOffer.price} />
-            : '—'}
+          {saleOffer.price ? (
+            <FormattedCurrency
+              symbol={saleOffer.currency}
+              value={saleOffer.price}
+            />
+          ) : (
+            '—'
+          )}
         </ParamList>
       </Col>
       <Col sm="7" md="5" lg="4">
         <ParamList label="Аренда" big>
-          {rentOffer.price
-            ? <FormattedCurrency symbol={rentOffer.currency} value={rentOffer.price} />
-            : '—'}
+          {rentOffer.price ? (
+            <FormattedCurrency
+              symbol={rentOffer.currency}
+              value={rentOffer.price}
+            />
+          ) : (
+            '—'
+          )}
         </ParamList>
       </Col>
     </Row>
-  </Container>);
+  </Container>
+);
 
 class Property extends Component {
   static defaultProps = {
@@ -135,38 +170,62 @@ class Property extends Component {
   };
 
   render() {
-    const { id, itemData, isPreview, showAddress, title = 'Объект' } = this.props;
+    const {
+      id,
+      itemData,
+      isPreview,
+      showAddress,
+      title = 'Объект',
+    } = this.props;
 
     return (
       <section className={sUtils.pushedBottom1_5}>
         <Heading size="md">
           {title}
-          <Link className={s.linkIcon} to={`/properties/${itemData.category}/${id}`}>
+          <Link
+            className={s.linkIcon}
+            to={`/properties/${itemData.category}/${id}`}
+          >
             <Icon className={s.icon} icon="arrow" />
           </Link>
         </Heading>
-        {!isPreview &&
+        {!isPreview && (
           <Media
             left={
               <PropertyImage
-                src={itemData.images && itemData.images[0] && itemData.images[0].url}
+                src={
+                  itemData.images &&
+                  itemData.images[0] &&
+                  itemData.images[0].url
+                }
               />
             }
             body={<PropertyDescription {...itemData} />}
-          />}
-        {!!isPreview &&
+          />
+        )}
+        {!!isPreview && (
           <Row>
             <Col xs="20">
               <Media
                 left={
                   <PropertyPreviewImage
-                    src={itemData.images && itemData.images[0] && itemData.images[0].url}
+                    src={
+                      itemData.images &&
+                      itemData.images[0] &&
+                      itemData.images[0].url
+                    }
                   />
                 }
-                body={<PropertyPreviewDescription showAddress={showAddress} {...itemData} />}
+                body={
+                  <PropertyPreviewDescription
+                    showAddress={showAddress}
+                    {...itemData}
+                  />
+                }
               />
             </Col>
-          </Row>}
+          </Row>
+        )}
       </section>
     );
   }

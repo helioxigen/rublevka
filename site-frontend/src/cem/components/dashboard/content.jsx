@@ -23,13 +23,26 @@ class Header extends Component {
             <Pane title="Задачи">
               <Row>
                 <Col xs="20">
-                  <TasksList kind="overdue" declensionForms={['просроченная', 'просроченных', 'просроченных']} />
+                  <TasksList
+                    kind="overdue"
+                    declensionForms={[
+                      'просроченная',
+                      'просроченных',
+                      'просроченных',
+                    ]}
+                  />
                 </Col>
                 <Col xs="20">
-                  <TasksList kind="today" declensionForms={['на сегодня', 'на сегодня', 'на сегодня']} />
+                  <TasksList
+                    kind="today"
+                    declensionForms={['на сегодня', 'на сегодня', 'на сегодня']}
+                  />
                 </Col>
                 <Col xs="20">
-                  <TasksList kind="tomorrow" declensionForms={['на завтра', 'на завтра', 'на завтра']} />
+                  <TasksList
+                    kind="tomorrow"
+                    declensionForms={['на завтра', 'на завтра', 'на завтра']}
+                  />
                 </Col>
               </Row>
             </Pane>
@@ -38,10 +51,16 @@ class Header extends Component {
             <Pane title="Лиды">
               <Row>
                 <Col xs="20">
-                  <LeadsList kind="noTasks" declensionForms={['без задач', 'без задач', 'без задач']} />
+                  <LeadsList
+                    kind="noTasks"
+                    declensionForms={['без задач', 'без задач', 'без задач']}
+                  />
                 </Col>
                 <Col xs="20">
-                  <LeadsList kind="new" declensionForms={['новый', 'новых', 'новых']} />
+                  <LeadsList
+                    kind="new"
+                    declensionForms={['новый', 'новых', 'новых']}
+                  />
                 </Col>
               </Row>
             </Pane>
@@ -50,7 +69,10 @@ class Header extends Component {
             <Pane title="Сделки">
               <Row>
                 <Col xs="20">
-                  <DealsList kind="noTasks" declensionForms={['без задач', 'без задач', 'без задач']} />
+                  <DealsList
+                    kind="noTasks"
+                    declensionForms={['без задач', 'без задач', 'без задач']}
+                  />
                 </Col>
               </Row>
             </Pane>

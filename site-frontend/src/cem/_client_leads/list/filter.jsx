@@ -8,8 +8,12 @@ import * as options from 'cem/_client_leads/constants/options';
 
 import UI from 'cem/components/ui';
 const {
-  Select, AsyncSelect, Heading,
-  Button, Daypicker, Icon,
+  Select,
+  AsyncSelect,
+  Heading,
+  Button,
+  Daypicker,
+  Icon,
   Grid: { Row, Col },
   Form: { Input, Group, Label },
 } = UI;
@@ -32,19 +36,37 @@ const FilterExtended = ({ fields, group }) => (
           <Col sm="6">
             <Group>
               <Label>Департамент</Label>
-              <AsyncSelect multi asyncOptions={fetchResource(`/v1/departments`, `name`, [`name`])} {...fields.cuDepartmentId} />
+              <AsyncSelect
+                multi
+                asyncOptions={fetchResource(`/v1/departments`, `name`, [
+                  `name`,
+                ])}
+                {...fields.cuDepartmentId}
+              />
             </Group>
           </Col>
           <Col sm="6" smOffset="1">
             <Group>
               <Label>Отдел</Label>
-              <AsyncSelect multi asyncOptions={fetchResource(`/v1/divisions`, `name`, [`name`])} {...fields.cuDivisionId} />
+              <AsyncSelect
+                multi
+                asyncOptions={fetchResource(`/v1/divisions`, `name`, [`name`])}
+                {...fields.cuDivisionId}
+              />
             </Group>
           </Col>
           <Col sm="6" smOffset="1">
             <Group>
               <Label>Сотрудник</Label>
-              <AsyncSelect multi asyncOptions={fetchResource(`/v1/users/staff`, `lastName,firstName`, [`firstName`, `lastName`])} {...fields.cuId} />
+              <AsyncSelect
+                multi
+                asyncOptions={fetchResource(
+                  `/v1/users/staff`,
+                  `lastName,firstName`,
+                  [`firstName`, `lastName`],
+                )}
+                {...fields.cuId}
+              />
             </Group>
           </Col>
         </Row>
@@ -61,25 +83,43 @@ const FilterExtended = ({ fields, group }) => (
           <Col sm="6">
             <Group>
               <Label>Департамент</Label>
-              <AsyncSelect multi asyncOptions={fetchResource(`/v1/departments`, `name`, [`name`])} {...fields.ruDepartmentId} />
+              <AsyncSelect
+                multi
+                asyncOptions={fetchResource(`/v1/departments`, `name`, [
+                  `name`,
+                ])}
+                {...fields.ruDepartmentId}
+              />
             </Group>
           </Col>
           <Col sm="6" smOffset="1">
             <Group>
               <Label>Отдел</Label>
-              <AsyncSelect multi asyncOptions={fetchResource(`/v1/divisions`, `name`, [`name`])} {...fields.ruDivisionId} />
+              <AsyncSelect
+                multi
+                asyncOptions={fetchResource(`/v1/divisions`, `name`, [`name`])}
+                {...fields.ruDivisionId}
+              />
             </Group>
           </Col>
           <Col sm="6" smOffset="1">
             <Group>
               <Label>Сотрудник</Label>
-              <AsyncSelect multi asyncOptions={fetchResource(`/v1/users/staff`, `lastName,firstName`, [`firstName`, `lastName`])} {...fields.ruId} />
+              <AsyncSelect
+                multi
+                asyncOptions={fetchResource(
+                  `/v1/users/staff`,
+                  `lastName,firstName`,
+                  [`firstName`, `lastName`],
+                )}
+                {...fields.ruId}
+              />
             </Group>
           </Col>
         </Row>
       </Col>
     </Row>
-    {group === `active` &&
+    {group === `active` && (
       <Row>
         <Col xs="20">
           <Row className={sUtils.pushedTop3}>
@@ -91,39 +131,71 @@ const FilterExtended = ({ fields, group }) => (
             <Col sm="4">
               <Group>
                 <Label block>Дата отсчёта</Label>
-                <Daypicker className={sUtils.fullWidth} kind="to"
+                <Daypicker
+                  className={sUtils.fullWidth}
+                  kind="to"
                   onDayClick={day => fields.tasksDeadlineDate.onChange(day)}
-                  control={<Input block type="text" {...fields.tasksDeadlineDate} />}
-                  button={<Button className={sDaypicker.btn}><Icon className={sDaypicker.icon} icon="calendar" /></Button>}
+                  control={
+                    <Input block type="text" {...fields.tasksDeadlineDate} />
+                  }
+                  button={
+                    <Button className={sDaypicker.btn}>
+                      <Icon className={sDaypicker.icon} icon="calendar" />
+                    </Button>
+                  }
                 />
               </Group>
             </Col>
             <Col sm="4">
               <Group>
                 <Label block>
-                  Нет запланированных задач {fields.tasksDeadlineDate.value && (<span>до <FormattedDate mask="dd.mm" value={fields.tasksDeadlineDate.value} /></span>)}
+                  Нет запланированных задач{' '}
+                  {fields.tasksDeadlineDate.value && (
+                    <span>
+                      до{' '}
+                      <FormattedDate
+                        mask="dd.mm"
+                        value={fields.tasksDeadlineDate.value}
+                      />
+                    </span>
+                  )}
                 </Label>
                 <Label className={cn(s.checkboxLabel, sUtils.pushedTop_5)}>
                   <Input
                     type="checkbox"
                     checked={!!fields.tasksDoesntHaveScheduled.value}
-                    onChange={() => fields.tasksDoesntHaveScheduled.onChange(!fields.tasksDoesntHaveScheduled.value)}
+                    onChange={() =>
+                      fields.tasksDoesntHaveScheduled.onChange(
+                        !fields.tasksDoesntHaveScheduled.value,
+                      )
+                    }
                   />
-                  нет задач {fields.tasksDeadlineDate.value && (<span>до <FormattedDate mask="dd.mm" value={fields.tasksDeadlineDate.value} /></span>)}
+                  нет задач{' '}
+                  {fields.tasksDeadlineDate.value && (
+                    <span>
+                      до{' '}
+                      <FormattedDate
+                        mask="dd.mm"
+                        value={fields.tasksDeadlineDate.value}
+                      />
+                    </span>
+                  )}
                 </Label>
               </Group>
             </Col>
             {!fields.tasksDeadlineDate.value && (
               <Col sm="4">
                 <Group>
-                  <Label block>
-                    Есть просроченные задачи
-                  </Label>
+                  <Label block>Есть просроченные задачи</Label>
                   <Label className={cn(s.checkboxLabel, sUtils.pushedTop_5)}>
                     <Input
                       type="checkbox"
                       checked={!!fields.tasksHasOverdue.value}
-                      onChange={() => fields.tasksHasOverdue.onChange(!fields.tasksHasOverdue.value)}
+                      onChange={() =>
+                        fields.tasksHasOverdue.onChange(
+                          !fields.tasksHasOverdue.value,
+                        )
+                      }
                     />
                     есть просроченные
                   </Label>
@@ -133,7 +205,7 @@ const FilterExtended = ({ fields, group }) => (
           </Row>
         </Col>
       </Row>
-    }
+    )}
     <Row className={sUtils.pushedTop3}>
       <Col xs="20">
         <Row>
@@ -145,20 +217,34 @@ const FilterExtended = ({ fields, group }) => (
           <Col sm="4">
             <Group>
               <Label block>Лид поступил (от)</Label>
-              <Daypicker className={sUtils.fullWidth} restrict="future" kind="from"
+              <Daypicker
+                className={sUtils.fullWidth}
+                restrict="future"
+                kind="from"
                 onDayClick={day => fields.createdAtFrom.onChange(day)}
                 control={<Input block type="text" {...fields.createdAtFrom} />}
-                button={<Button className={sDaypicker.btn}><Icon className={sDaypicker.icon} icon="calendar" /></Button>}
+                button={
+                  <Button className={sDaypicker.btn}>
+                    <Icon className={sDaypicker.icon} icon="calendar" />
+                  </Button>
+                }
               />
             </Group>
           </Col>
           <Col sm="4">
             <Group>
               <Label block>Лид поступил (до)</Label>
-              <Daypicker className={sUtils.fullWidth} restrict="future" kind="to"
+              <Daypicker
+                className={sUtils.fullWidth}
+                restrict="future"
+                kind="to"
                 onDayClick={day => fields.createdAtTo.onChange(day)}
                 control={<Input block type="text" {...fields.createdAtTo} />}
-                button={<Button className={sDaypicker.btn}><Icon className={sDaypicker.icon} icon="calendar" /></Button>}
+                button={
+                  <Button className={sDaypicker.btn}>
+                    <Icon className={sDaypicker.icon} icon="calendar" />
+                  </Button>
+                }
               />
             </Group>
           </Col>
@@ -166,8 +252,16 @@ const FilterExtended = ({ fields, group }) => (
             <Group>
               <Label block>Ожидающие подтверждения</Label>
               <Label className={cn(s.checkboxLabel, sUtils.pushedTop_5)}>
-                <Input type="checkbox" checked={!!fields.awaitingApproval.value}
-                  onChange={() => fields.awaitingApproval.onChange(!fields.awaitingApproval.value)} /> ожидающие подтверждения
+                <Input
+                  type="checkbox"
+                  checked={!!fields.awaitingApproval.value}
+                  onChange={() =>
+                    fields.awaitingApproval.onChange(
+                      !fields.awaitingApproval.value,
+                    )
+                  }
+                />{' '}
+                ожидающие подтверждения
               </Label>
             </Group>
           </Col>
@@ -175,8 +269,16 @@ const FilterExtended = ({ fields, group }) => (
             <Group>
               <Label block>Без ожидающих подтверждения</Label>
               <Label className={cn(s.checkboxLabel, sUtils.pushedTop_5)}>
-                <Input type="checkbox" checked={!!fields.notAwaitingApproval.value}
-                  onChange={() => fields.notAwaitingApproval.onChange(!fields.notAwaitingApproval.value)} /> без ожидающих подтверждения
+                <Input
+                  type="checkbox"
+                  checked={!!fields.notAwaitingApproval.value}
+                  onChange={() =>
+                    fields.notAwaitingApproval.onChange(
+                      !fields.notAwaitingApproval.value,
+                    )
+                  }
+                />{' '}
+                без ожидающих подтверждения
               </Label>
             </Group>
           </Col>
@@ -185,7 +287,6 @@ const FilterExtended = ({ fields, group }) => (
     </Row>
   </section>
 );
-
 
 class Filter extends Component {
   constructor() {
@@ -198,7 +299,14 @@ class Filter extends Component {
   }
 
   render() {
-    const { fields, count, resetFilter, group, filterCount, extendedFilterCount } = this.props;
+    const {
+      fields,
+      count,
+      resetFilter,
+      group,
+      filterCount,
+      extendedFilterCount,
+    } = this.props;
 
     return (
       <Col xs="20" className={sUtils.pushedTop5}>
@@ -208,7 +316,11 @@ class Filter extends Component {
               <Col sm="6" md="3">
                 <Group>
                   <Label block>ID</Label>
-                  <Input className={sUtils.fullWidth} type="text" {...fields.id} />
+                  <Input
+                    className={sUtils.fullWidth}
+                    type="text"
+                    {...fields.id}
+                  />
                 </Group>
               </Col>
               <Col sm="6" md="4">
@@ -220,19 +332,37 @@ class Filter extends Component {
               <Col sm="6" md="4">
                 <Group>
                   <Label>Тип заявки</Label>
-                  <Select options={options.requestKinds} {...fields.requestKind} />
+                  <Select
+                    options={options.requestKinds}
+                    {...fields.requestKind}
+                  />
                 </Group>
               </Col>
               <Col sm="3">
                 <Group>
                   <Label block>Номер телефона</Label>
-                  <Input className={sUtils.fullWidth} type="text" {...fields.phoneNumber} />
+                  <Input
+                    className={sUtils.fullWidth}
+                    type="text"
+                    {...fields.phoneNumber}
+                  />
                 </Group>
               </Col>
               <Col sm="3">
                 <Group>
                   <Label>Источник</Label>
-                  <AsyncSelect multi asyncOptions={fetchResource(`/v1/client_lead_sources`, `slug,title`, (leadSource) => `${leadSource.slug}${leadSource.title ? ` — ${leadSource.title}` : ``}`)} {...fields.clientLeadSourceId} />
+                  <AsyncSelect
+                    multi
+                    asyncOptions={fetchResource(
+                      `/v1/client_lead_sources`,
+                      `slug,title`,
+                      leadSource =>
+                        `${leadSource.slug}${
+                          leadSource.title ? ` — ${leadSource.title}` : ``
+                        }`,
+                    )}
+                    {...fields.clientLeadSourceId}
+                  />
                 </Group>
               </Col>
               <Col sm="3">
@@ -250,10 +380,23 @@ class Filter extends Component {
         <Row>
           <Col xs="20">
             <div className={s.btnGroup}>
-              <Button kind="primary" className={sUtils.pushedRight1} type="button" onClick={::this.toggle}>
-                {this.state.extended ? `Скрыть` : `Показать` } расширенный фильтр {!!extendedFilterCount && `(${extendedFilterCount})`}
+              <Button
+                kind="primary"
+                className={sUtils.pushedRight1}
+                type="button"
+                onClick={::this.toggle}
+              >
+                {this.state.extended ? `Скрыть` : `Показать`} расширенный фильтр{' '}
+                {!!extendedFilterCount && `(${extendedFilterCount})`}
               </Button>
-              <Button className={sUtils.pushedTopXs2} type="button" onClick={resetFilter} disabled={!filterCount}>Сбросить</Button>
+              <Button
+                className={sUtils.pushedTopXs2}
+                type="button"
+                onClick={resetFilter}
+                disabled={!filterCount}
+              >
+                Сбросить
+              </Button>
               {!!count && <p className={s.textFind}>Найдено: {count}</p>}
             </div>
           </Col>

@@ -16,7 +16,7 @@ const updateImageRequestSucceeded = id => ({
 });
 
 export default function updateImageReuqest(id, data) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(updateImageRequestStarted(id));
 
     return API.put(`/v1/orders/images/${id}`, data)

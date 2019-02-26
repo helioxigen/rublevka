@@ -25,7 +25,7 @@ const createContactFailed = (companyId, errors) => ({
   errors,
 });
 
-export default (companyId, data) => (dispatch) => {
+export default (companyId, data) => dispatch => {
   dispatch(createContactStarted(companyId));
 
   return API.post('/v1/contacts', {
@@ -43,19 +43,27 @@ export default (companyId, data) => (dispatch) => {
     ({ body: { errors } }) => {
       if (
         errors &&
-        errors.some(error => error.param === 'details.phoneNumber' || error.param === 'phoneNumber')
+        errors.some(
+          error =>
+            error.param === 'details.phoneNumber' ||
+            error.param === 'phoneNumber',
+        )
       ) {
         return API.get('/v1/contacts', {
-          filter: { 'details.phoneNumber': normalizePhoneNumber(data.details.phoneNumber) },
+          filter: {
+            'details.phoneNumber': normalizePhoneNumber(
+              data.details.phoneNumber,
+            ),
+          },
         }).then(
           ({ body }) => {
             const existingContactData = body.items[0];
             dispatch(
               pop(
                 'info',
-                `Под таким номером телефона записан ${existingContactData.details.firstName} ${
-                  existingContactData.details.lastName
-                }`,
+                `Под таким номером телефона записан ${
+                  existingContactData.details.firstName
+                } ${existingContactData.details.lastName}`,
               ),
             );
             dispatch(updateLinkedContact(companyId, existingContactData));

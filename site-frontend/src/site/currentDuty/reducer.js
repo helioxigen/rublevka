@@ -1,7 +1,10 @@
 import { handleActions } from 'redux-actions';
 
 import * as types from 'site/currentDuty/constants/actions';
-import { countryDepartmentsIds, cityDepartmentsIds } from 'site/currentDuty/constants/defaults';
+import {
+  countryDepartmentsIds,
+  cityDepartmentsIds,
+} from 'site/currentDuty/constants/defaults';
 
 const initialState = {};
 

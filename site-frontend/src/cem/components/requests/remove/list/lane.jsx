@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import UI from 'cem/components/ui';
 const {
-  Button, Loading,
+  Button,
+  Loading,
   Grid: { Container, Row, Col },
 } = UI;
 import Card from './card';
@@ -24,37 +25,76 @@ class Lane extends Component {
     const { actions, state, laneKey } = this.props;
 
     const pagination = state.pagination[`removalRequests.${laneKey}`] || {};
-    const nextPagination = nextProps.state.pagination[`removalRequests.${laneKey}`] || {};
+    const nextPagination =
+      nextProps.state.pagination[`removalRequests.${laneKey}`] || {};
 
     const filter = state.filters.removalRequests || {};
     const nextFilter = nextProps.state.filters.removalRequests || {};
 
-    const isPaginationUpdated = pagination.offset !== undefined && pagination.offset !== nextPagination.offset;
+    const isPaginationUpdated =
+      pagination.offset !== undefined &&
+      pagination.offset !== nextPagination.offset;
     const isFilterUpdated = !isEqual(filter, nextFilter);
 
     if (isPaginationUpdated || isFilterUpdated) {
-      const isResultAppended = isPaginationUpdated && !isFilterUpdated && laneKey !== 'archive';
-      actions.loadPropertyRemovalRequests(laneKey, { pagination: { offset: isFilterUpdated ? 0 : nextPagination.offset, limit: nextPagination.limit }, filter: nextFilter }, isResultAppended);
+      const isResultAppended =
+        isPaginationUpdated && !isFilterUpdated && laneKey !== 'archive';
+      actions.loadPropertyRemovalRequests(
+        laneKey,
+        {
+          pagination: {
+            offset: isFilterUpdated ? 0 : nextPagination.offset,
+            limit: nextPagination.limit,
+          },
+          filter: nextFilter,
+        },
+        isResultAppended,
+      );
     }
   }
 
   render() {
     const { actions, state, laneKey } = this.props;
 
-    const { items = [], isFetching } = state.removalRequests.list[laneKey] || {};
+    const { items = [], isFetching } =
+      state.removalRequests.list[laneKey] || {};
     const pagination = state.pagination[`removalRequests.${laneKey}`] || {};
 
     return (
       <section>
-        {items.map((item, index) =>
-          <Card key={index} data={item} creatorUserData={state.users[item.createdByUserId] && state.users[item.createdByUserId].data} responsibleUserData={item.responsibleUserId && state.users[item.responsibleUserId] && state.users[item.responsibleUserId].data} />,
-        )}
+        {items.map((item, index) => (
+          <Card
+            key={index}
+            data={item}
+            creatorUserData={
+              state.users[item.createdByUserId] &&
+              state.users[item.createdByUserId].data
+            }
+            responsibleUserData={
+              item.responsibleUserId &&
+              state.users[item.responsibleUserId] &&
+              state.users[item.responsibleUserId].data
+            }
+          />
+        ))}
         <Container fluid>
           <Row xs="center">
             <Col className={sUtils.pushedTop2Bottom2}>
-              {!isFetching && pagination.total > pagination.limit && pagination.total > items.length &&
-                <Button size="xs" kind="accent" onClick={() => actions.updatePagination(`removalRequests.${laneKey}`, { offset: pagination.offset + pagination.limit })}>Загрузить следующие</Button>
-              }
+              {!isFetching &&
+                pagination.total > pagination.limit &&
+                pagination.total > items.length && (
+                  <Button
+                    size="xs"
+                    kind="accent"
+                    onClick={() =>
+                      actions.updatePagination(`removalRequests.${laneKey}`, {
+                        offset: pagination.offset + pagination.limit,
+                      })
+                    }
+                  >
+                    Загрузить следующие
+                  </Button>
+                )}
               {isFetching && <Loading />}
             </Col>
           </Row>

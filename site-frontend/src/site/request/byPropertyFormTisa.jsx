@@ -144,8 +144,8 @@ class ByPropertyForm extends Component {
                 <div className={sUtils.pushedBottom4_5}>
                   <h1 className={s.title}>Забронировать просмотр</h1>
                   <p className={s.text}>
-                    Заполните форму и мы свяжемся с вами в течение 10 минут, чтобы назначить
-                    бесплатный просмотр
+                    Заполните форму и мы свяжемся с вами в течение 10 минут,
+                    чтобы назначить бесплатный просмотр
                   </p>
                   {/* <p className={s.textGreySm}>
                     Похоже, допущена ошибка при написании номера телефона, попробуйте еще раз
@@ -229,12 +229,11 @@ class ByPropertyForm extends Component {
           </Container>
         )}
 
-        {!!this.state.requestSending &&
-          !this.state.requestSent && (
-            <LoaderWrapper>
-              <Loader />
-            </LoaderWrapper>
-          )}
+        {!!this.state.requestSending && !this.state.requestSent && (
+          <LoaderWrapper>
+            <Loader />
+          </LoaderWrapper>
+        )}
 
         {!!this.state.requestSent && (
           <div>
@@ -257,7 +256,7 @@ const pickState = ({ currentDuty }) => ({
   },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadDuties,
     createClientLead,
@@ -269,4 +268,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(ByPropertyForm);
+export default connect(
+  pickState,
+  pickActions,
+)(ByPropertyForm);

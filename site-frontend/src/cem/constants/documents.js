@@ -1,1 +1,8 @@
-export const formFields = ['id', 'kindId', 'comment', 'createdAt', 'uploaderTitle', 'file'];
+export const formFields = [
+  'id',
+  'kindId',
+  'comment',
+  'createdAt',
+  'uploaderTitle',
+  'file',
+];

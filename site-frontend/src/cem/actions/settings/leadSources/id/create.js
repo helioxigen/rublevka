@@ -9,13 +9,13 @@ const createIdStarted = data => ({
   data,
 });
 
-const createIdSucceeded = () => (dispatch) => {
+const createIdSucceeded = () => dispatch => {
   dispatch(pop('success', 'Источник создан'));
 
   return dispatch(loadList());
 };
 
-const createIdFailed = ({ errors }) => (dispatch) => {
+const createIdFailed = ({ errors }) => dispatch => {
   dispatch(pop('error', 'Произошла ошибка'));
 
   return dispatch({
@@ -24,8 +24,8 @@ const createIdFailed = ({ errors }) => (dispatch) => {
   });
 };
 
-export default function (lead) {
-  return (dispatch) => {
+export default function(lead) {
+  return dispatch => {
     dispatch(createIdStarted(lead));
 
     return API.post('/v1/client_lead_sources', lead)

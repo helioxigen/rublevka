@@ -51,8 +51,14 @@ class Place extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const isPlaceKindUpdated = !isEqual(this.props.params.placeKind, nextProps.params.placeKind);
-    const isDealTypeUpdated = !isEqual(this.props.params.dealType, nextProps.params.dealType);
+    const isPlaceKindUpdated = !isEqual(
+      this.props.params.placeKind,
+      nextProps.params.placeKind,
+    );
+    const isDealTypeUpdated = !isEqual(
+      this.props.params.dealType,
+      nextProps.params.dealType,
+    );
 
     if (isPlaceKindUpdated || isDealTypeUpdated) {
       load(nextProps);

@@ -34,7 +34,10 @@ class FooterList extends Component {
 
     return (
       <div className={s.navColumn}>
-        <Link className={s.linkTitle} to={`/zagorodnaya/shosse/${routesToSlug[group]}/prodaja`}>
+        <Link
+          className={s.linkTitle}
+          to={`/zagorodnaya/shosse/${routesToSlug[group]}/prodaja`}
+        >
           {title}
         </Link>
         <hr className={s.divider} />
@@ -43,7 +46,9 @@ class FooterList extends Component {
           <div key={id}>
             <Link
               className={s.link}
-              to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(list[id])}_${id}`}
+              to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
+                list[id],
+              )}_${id}`}
             >
               {list[id]}
             </Link>

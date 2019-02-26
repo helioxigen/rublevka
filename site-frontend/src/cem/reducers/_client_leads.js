@@ -26,9 +26,11 @@ export default handleActions(
     // list
     [types.LOAD_LIST]: (state, { group }) => listLoadStart(state, group),
 
-    [types.LOAD_LIST_FAILED]: (state, { group, errors }) => listLoadFail(state, group, errors),
+    [types.LOAD_LIST_FAILED]: (state, { group, errors }) =>
+      listLoadFail(state, group, errors),
 
-    [types.LOAD_LIST_SUCCEEDED]: (state, { group, items }) => listLoadSuccess(state, group, items),
+    [types.LOAD_LIST_SUCCEEDED]: (state, { group, items }) =>
+      listLoadSuccess(state, group, items),
 
     // // create
     // [types.CREATE_CONTACT]: (state) =>

@@ -6,13 +6,22 @@ const DEFAULT_LIMIT = 256;
 
 function encodeQueryData(params) {
   const query = [];
-  Object.keys(params).map((key) => {
+  Object.keys(params).map(key => {
     query.push(`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`);
   });
   return query.join('&');
 }
 
-function paginate(resource, routes, customParams, offset, limit, totalItems, resolve, reject) {
+function paginate(
+  resource,
+  routes,
+  customParams,
+  offset,
+  limit,
+  totalItems,
+  resolve,
+  reject,
+) {
   const params = {
     'filter[location.routeId]': routes.join(','),
     'pagination[limit]': limit,
@@ -21,10 +30,11 @@ function paginate(resource, routes, customParams, offset, limit, totalItems, res
   };
 
   const querystring = encodeQueryData(params);
-  const url = `${process.env.API_ENDPOINT || 'http://api.jqestate.ru'}${resource}?${querystring}`;
+  const url = `${process.env.API_ENDPOINT ||
+    'http://api.jqestate.ru'}${resource}?${querystring}`;
 
   fetch(url)
-    .then((response) => {
+    .then(response => {
       if (response.status >= 400) {
         throw new Error('Bad response from server');
       }
@@ -35,7 +45,16 @@ function paginate(resource, routes, customParams, offset, limit, totalItems, res
       if (pagination.total > pagination.offset + pagination.limit) {
         const newOffset = pagination.offset + pagination.limit;
 
-        paginate(resource, routes, customParams, newOffset, limit, allItems, resolve, reject);
+        paginate(
+          resource,
+          routes,
+          customParams,
+          newOffset,
+          limit,
+          allItems,
+          resolve,
+          reject,
+        );
       } else {
         resolve(allItems);
       }
@@ -43,19 +62,31 @@ function paginate(resource, routes, customParams, offset, limit, totalItems, res
     .catch(reject);
 }
 
-function getItems(resource, routes, params = {}, offset = DEFAULT_OFFSET, limit = DEFAULT_LIMIT) {
+function getItems(
+  resource,
+  routes,
+  params = {},
+  offset = DEFAULT_OFFSET,
+  limit = DEFAULT_LIMIT,
+) {
   return new Promise((resolve, reject) => {
     paginate(resource, routes, params, offset, limit, [], resolve, reject);
-  }).catch((error) => {
+  }).catch(error => {
     console.log(error); // Error: Not Found
   });
 }
 
-const resursiveLoad = (resource, initParams, totalItems = [], resolve, reject) => {
+const resursiveLoad = (
+  resource,
+  initParams,
+  totalItems = [],
+  resolve,
+  reject,
+) => {
   const queryParams = qs.stringify(initParams, { addQueryPrefix: true });
 
   fetch(resource + queryParams)
-    .then((response) => {
+    .then(response => {
       if (response.status >= 400) {
         throw new Error('Bad response from server');
       }
@@ -85,7 +116,7 @@ const resursiveLoad = (resource, initParams, totalItems = [], resolve, reject) =
 export const getItems2 = (resource, params = {}) =>
   new Promise((resolve, reject) => {
     paginate(resource, params, [], resolve, reject);
-  }).catch((error) => {
+  }).catch(error => {
     console.log(error);
   });
 

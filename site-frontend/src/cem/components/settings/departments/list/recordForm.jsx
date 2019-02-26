@@ -37,18 +37,42 @@ class DepartmentRecordForm extends Component {
   }
 
   render() {
-    const { fields, handleSubmit, pristine, error, submitting, isUpdateAllowed } = this.props;
+    const {
+      fields,
+      handleSubmit,
+      pristine,
+      error,
+      submitting,
+      isUpdateAllowed,
+    } = this.props;
 
     return (
       <Row>
         <Cell>
-          <FormField className={sUtils.resetIndentation} field={fields.name} helperClassName={s.formHelper} static={!isUpdateAllowed}>
-            <Input className={s.tableInput} type="text" placeholder="Введите название департамента" />
+          <FormField
+            className={sUtils.resetIndentation}
+            field={fields.name}
+            helperClassName={s.formHelper}
+            static={!isUpdateAllowed}
+          >
+            <Input
+              className={s.tableInput}
+              type="text"
+              placeholder="Введите название департамента"
+            />
           </FormField>
         </Cell>
         <Cell>
           <Group className={sUtils.resetIndentation}>
-            <Button className={sButton.btnTableAction} size="xs" onClick={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)} disabled={!isUpdateAllowed || pristine || error || submitting}>
+            <Button
+              className={sButton.btnTableAction}
+              size="xs"
+              onClick={handleSubmit(
+                ::this.createOrUpdate,
+                ::this.onSubmitSuccess,
+              )}
+              disabled={!isUpdateAllowed || pristine || error || submitting}
+            >
               <Icon className={s.btnIcon} icon="checkmark" />
             </Button>
           </Group>

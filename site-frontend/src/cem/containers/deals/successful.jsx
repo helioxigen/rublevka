@@ -13,8 +13,11 @@ class SuccessfulDealsListContainer extends Component {
   render() {
     return (
       <List
-        {...this.props} title="Состоявшиеся сделки" notFoundCaption="Не найдено сделок"
-        card={<Card />} filter={<Filter isArchived fetcherFilter={this.props.filters} />}
+        {...this.props}
+        title="Состоявшиеся сделки"
+        notFoundCaption="Не найдено сделок"
+        card={<Card />}
+        filter={<Filter isArchived fetcherFilter={this.props.filters} />}
       />
     );
   }
@@ -24,14 +27,16 @@ const pickState = ({ auth }) => ({
   state: { auth },
 });
 
-export default connect(pickState)(listResourcer({
-  id: 'archiveDeals',
-  apiPath: '/v1/deals',
-  filter: { state: 'successful' },
-  linkedResourcesSchemes: [
-    {
-      typeId: 'contacts',
-      primaryKeyPath: 'contactDetails.id',
-    },
-  ],
-})(SuccessfulDealsListContainer));
+export default connect(pickState)(
+  listResourcer({
+    id: 'archiveDeals',
+    apiPath: '/v1/deals',
+    filter: { state: 'successful' },
+    linkedResourcesSchemes: [
+      {
+        typeId: 'contacts',
+        primaryKeyPath: 'contactDetails.id',
+      },
+    ],
+  })(SuccessfulDealsListContainer),
+);

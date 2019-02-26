@@ -16,8 +16,10 @@ class BannersContainer extends Component {
 
   shouldComponentUpdate(nextProps) {
     const { propertyId, bannerState } = this.props;
-    const currentBannerGroup = this.props.state.bannersByPropertyId[propertyId] || {};
-    const nextBannerGroup = nextProps.state.bannersByPropertyId[propertyId] || {};
+    const currentBannerGroup =
+      this.props.state.bannersByPropertyId[propertyId] || {};
+    const nextBannerGroup =
+      nextProps.state.bannersByPropertyId[propertyId] || {};
     const { items: currentItems } = currentBannerGroup[bannerState] || {};
     const { items: nextItems } = nextBannerGroup[bannerState] || {};
 
@@ -29,7 +31,9 @@ class BannersContainer extends Component {
     const bannerGroup = state.bannersByPropertyId[propertyId] || {};
     const { items, isFetching } = bannerGroup[bannerState] || {};
 
-    return items && !!items.length ? <Banners {...this.props} items={items} isFetching={isFetching} /> : null;
+    return items && !!items.length ? (
+      <Banners {...this.props} items={items} isFetching={isFetching} />
+    ) : null;
   }
 }
 
@@ -41,4 +45,7 @@ const mapDispatch = dispatch => ({
   actions: bindActionCreators({ ...BannerActions, pop }, dispatch),
 });
 
-export default connect(pickState, mapDispatch)(BannersContainer);
+export default connect(
+  pickState,
+  mapDispatch,
+)(BannersContainer);

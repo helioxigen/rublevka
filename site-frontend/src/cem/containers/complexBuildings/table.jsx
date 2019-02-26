@@ -17,8 +17,14 @@ import Pagination from 'core/containers/pagination';
 
 import UI from 'cem/components/ui';
 const {
-  Table, Select, Button, Heading, PriceInput,
-  Tooltip, Icon, Loading,
+  Table,
+  Select,
+  Button,
+  Heading,
+  PriceInput,
+  Tooltip,
+  Icon,
+  Loading,
   Grid: { Container, Row, Col },
   Form: { Input },
 } = UI;
@@ -58,7 +64,10 @@ const TableRowForm = validatorShortcut(formSettings)(
       const { refreshTable, destroyForm, initializeForm } = this.props;
 
       destroyForm();
-      initializeForm({ specification: { livingArea: `` }, saleOffer: { price: `` } });
+      initializeForm({
+        specification: { livingArea: `` },
+        saleOffer: { price: `` },
+      });
       refreshTable();
     }
 
@@ -72,7 +81,8 @@ const TableRowForm = validatorShortcut(formSettings)(
       const { commonValues, actions, complexBuildingId } = this.props;
 
       const createData = {
-        ...values, ...commonValues,
+        ...values,
+        ...commonValues,
         saleOffer: { ...values.saleOffer, ...commonValues.saleOffer },
         complexBuildingId: parseInt(complexBuildingId, 10),
         location: {
@@ -87,7 +97,8 @@ const TableRowForm = validatorShortcut(formSettings)(
       const { formKey, data, actions } = this.props;
 
       const updateData = {
-        ...data, ...values,
+        ...data,
+        ...values,
         saleOffer: { ...data.saleOffer, ...values.saleOffer },
         specification: { ...data.specification, ...values.specification },
       };
@@ -100,7 +111,10 @@ const TableRowForm = validatorShortcut(formSettings)(
 
       if (event.key === `Enter`) {
         if (formKey === `create`) {
-          this.props.customSubmit(() => Promise.resolve(), handleSubmit(::this.create, ::this.onCreateSuccess))();
+          this.props.customSubmit(
+            () => Promise.resolve(),
+            handleSubmit(::this.create, ::this.onCreateSuccess),
+          )();
         } else {
           handleSubmit(::this.update)();
         }
@@ -110,7 +124,14 @@ const TableRowForm = validatorShortcut(formSettings)(
     render() {
       const {
         isUpdateAllowed,
-        formKey, fields, values, handleSubmit, customSubmit, pristine, error, submitting,
+        formKey,
+        fields,
+        values,
+        handleSubmit,
+        customSubmit,
+        pristine,
+        error,
+        submitting,
       } = this.props;
 
       return (
@@ -118,88 +139,211 @@ const TableRowForm = validatorShortcut(formSettings)(
           <Table.Cell>{values.id}</Table.Cell>
 
           <Table.Cell onKeyDown={::this.handleKeyPress}>
-            <FormField className={sUtils.resetIndentation} helperClassName={s.helperPosition} field={fields.externalId} static={!isUpdateAllowed}>
-              <Input block className={sUtils.resetBorder} type="text" placeholder="№ п/п" />
+            <FormField
+              className={sUtils.resetIndentation}
+              helperClassName={s.helperPosition}
+              field={fields.externalId}
+              static={!isUpdateAllowed}
+            >
+              <Input
+                block
+                className={sUtils.resetBorder}
+                type="text"
+                placeholder="№ п/п"
+              />
             </FormField>
           </Table.Cell>
 
           <Table.Cell onKeyDown={::this.handleKeyPress}>
-            <FormField className={sUtils.resetIndentation} helperClassName={s.helperPosition} field={fields.specification.floor} static={!isUpdateAllowed}>
-              <Input block className={sUtils.resetBorder} type="text" placeholder="Этаж" />
+            <FormField
+              className={sUtils.resetIndentation}
+              helperClassName={s.helperPosition}
+              field={fields.specification.floor}
+              static={!isUpdateAllowed}
+            >
+              <Input
+                block
+                className={sUtils.resetBorder}
+                type="text"
+                placeholder="Этаж"
+              />
             </FormField>
           </Table.Cell>
 
           <Table.Cell onKeyDown={::this.handleKeyPress}>
-            <FormField className={sUtils.resetIndentation} helperClassName={s.helperPosition} field={fields.specification.rooms} static={!isUpdateAllowed}>
-              <Input block className={sUtils.resetBorder} type="text" placeholder="Комнат" />
+            <FormField
+              className={sUtils.resetIndentation}
+              helperClassName={s.helperPosition}
+              field={fields.specification.rooms}
+              static={!isUpdateAllowed}
+            >
+              <Input
+                block
+                className={sUtils.resetBorder}
+                type="text"
+                placeholder="Комнат"
+              />
             </FormField>
           </Table.Cell>
 
           <Table.Cell onKeyDown={::this.handleKeyPress}>
-            <FormField className={sUtils.resetIndentation} helperClassName={s.helperPosition} field={fields.specification.livingArea} static={!isUpdateAllowed}>
-              <Input block className={sUtils.resetBorder} type="text" placeholder="Жилая" />
+            <FormField
+              className={sUtils.resetIndentation}
+              helperClassName={s.helperPosition}
+              field={fields.specification.livingArea}
+              static={!isUpdateAllowed}
+            >
+              <Input
+                block
+                className={sUtils.resetBorder}
+                type="text"
+                placeholder="Жилая"
+              />
             </FormField>
           </Table.Cell>
 
           <Table.Cell onKeyDown={::this.handleKeyPress}>
-            <FormField className={sUtils.resetIndentation} helperClassName={s.helperPosition} field={fields.specification.totalArea} static={!isUpdateAllowed}>
-              <Input block className={sUtils.resetBorder} type="text" placeholder="Общая" />
+            <FormField
+              className={sUtils.resetIndentation}
+              helperClassName={s.helperPosition}
+              field={fields.specification.totalArea}
+              static={!isUpdateAllowed}
+            >
+              <Input
+                block
+                className={sUtils.resetBorder}
+                type="text"
+                placeholder="Общая"
+              />
             </FormField>
           </Table.Cell>
 
           <Table.Cell>
-            <FormField className={sUtils.resetIndentation} helperClassName={s.helperPosition} options={dict.kinds} field={fields.kind} static={!isUpdateAllowed}>
-              <Select className={sUtils.resetBorder} options={options.kinds} placeholder="Тип" labelKey="title" valueKey="id" disableReset customKeyHandler={::this.handleKeyPress} />
+            <FormField
+              className={sUtils.resetIndentation}
+              helperClassName={s.helperPosition}
+              options={dict.kinds}
+              field={fields.kind}
+              static={!isUpdateAllowed}
+            >
+              <Select
+                className={sUtils.resetBorder}
+                options={options.kinds}
+                placeholder="Тип"
+                labelKey="title"
+                valueKey="id"
+                disableReset
+                customKeyHandler={::this.handleKeyPress}
+              />
             </FormField>
           </Table.Cell>
 
           <Table.Cell onKeyDown={::this.handleKeyPress}>
-            <FormField className={sUtils.resetIndentation} helperClassName={s.helperPosition} field={fields.saleOffer.price} static={!isUpdateAllowed} price>
-              <PriceInput block className={sUtils.resetBorder} type="text" placeholder="Цена" />
+            <FormField
+              className={sUtils.resetIndentation}
+              helperClassName={s.helperPosition}
+              field={fields.saleOffer.price}
+              static={!isUpdateAllowed}
+              price
+            >
+              <PriceInput
+                block
+                className={sUtils.resetBorder}
+                type="text"
+                placeholder="Цена"
+              />
             </FormField>
           </Table.Cell>
 
           <Table.Cell>
-            <FormField className={sUtils.resetIndentation} helperClassName={s.helperPosition} options={dict.currencies} field={fields.saleOffer.currency} static={!isUpdateAllowed}>
-              <Select className={sUtils.resetBorder} options={options.currencies} placeholder="Валюта" labelKey="title" valueKey="id" disableReset customKeyHandler={::this.handleKeyPress} />
+            <FormField
+              className={sUtils.resetIndentation}
+              helperClassName={s.helperPosition}
+              options={dict.currencies}
+              field={fields.saleOffer.currency}
+              static={!isUpdateAllowed}
+            >
+              <Select
+                className={sUtils.resetBorder}
+                options={options.currencies}
+                placeholder="Валюта"
+                labelKey="title"
+                valueKey="id"
+                disableReset
+                customKeyHandler={::this.handleKeyPress}
+              />
             </FormField>
           </Table.Cell>
 
           <Table.Cell>
-            <FormField className={sUtils.resetIndentation} helperClassName={s.helperPosition} options={staticStatesDict} field={fields.state} static={!isUpdateAllowed}>
-              <Select className={cn(sUtils.resetBorder, s[stateStyles[fields.state.value]])} options={options.states} placeholder="Статус" labelKey="title" valueKey="id" disableReset customKeyHandler={::this.handleKeyPress} />
+            <FormField
+              className={sUtils.resetIndentation}
+              helperClassName={s.helperPosition}
+              options={staticStatesDict}
+              field={fields.state}
+              static={!isUpdateAllowed}
+            >
+              <Select
+                className={cn(
+                  sUtils.resetBorder,
+                  s[stateStyles[fields.state.value]],
+                )}
+                options={options.states}
+                placeholder="Статус"
+                labelKey="title"
+                valueKey="id"
+                disableReset
+                customKeyHandler={::this.handleKeyPress}
+              />
             </FormField>
           </Table.Cell>
 
           <Table.Cell>
-            {formKey === `create` &&
+            {formKey === `create` && (
               <Tooltip title="Добавить">
-                <Button className={sButton.btnTableAction} type="button" onClick={customSubmit(() => Promise.resolve(), handleSubmit(::this.create, ::this.onCreateSuccess))} disabled={pristine || error || submitting}>
+                <Button
+                  className={sButton.btnTableAction}
+                  type="button"
+                  onClick={customSubmit(
+                    () => Promise.resolve(),
+                    handleSubmit(::this.create, ::this.onCreateSuccess),
+                  )}
+                  disabled={pristine || error || submitting}
+                >
                   <Icon className={s.btnIcon} icon="checkmark" />
                 </Button>
               </Tooltip>
-            }
+            )}
 
-            {formKey !== `create` &&
+            {formKey !== `create` && (
               <Tooltip title="Обновить">
-                <Button className={sButton.btnTableAction} type="button" onClick={handleSubmit(::this.update, ::this.onUpdateSuccess)} disabled={!isUpdateAllowed || pristine || error || submitting}>
+                <Button
+                  className={sButton.btnTableAction}
+                  type="button"
+                  onClick={handleSubmit(::this.update, ::this.onUpdateSuccess)}
+                  disabled={!isUpdateAllowed || pristine || error || submitting}
+                >
                   <Icon className={s.btnIcon} icon="checkmark" />
                 </Button>
               </Tooltip>
-            }
+            )}
 
-            {formKey !== `create` &&
+            {formKey !== `create` && (
               <Tooltip className={sUtils.pushedLeft1} title="Перейти">
-                <Button className={sButton.btnTableAction} type="button" to={`/properties/city/${formKey}`}>
+                <Button
+                  className={sButton.btnTableAction}
+                  type="button"
+                  to={`/properties/city/${formKey}`}
+                >
                   <Icon className={s.btnIcon} icon="arrow-left" />
                 </Button>
               </Tooltip>
-            }
+            )}
           </Table.Cell>
         </Table.Row>
       );
     }
-  }
+  },
 );
 
 class PrimaryPropertiesTable extends Component {
@@ -209,7 +353,9 @@ class PrimaryPropertiesTable extends Component {
 
   refreshTable(withPagination) {
     if (withPagination) {
-      this.load(this.props.state.pagination[`complexBuildingProperties.primary`]);
+      this.load(
+        this.props.state.pagination[`complexBuildingProperties.primary`],
+      );
     } else {
       this.load();
     }
@@ -222,7 +368,15 @@ class PrimaryPropertiesTable extends Component {
   }
 
   render() {
-    const { id, state, actions, commonValues, customSubmit, commonFieldsValid, hasRight } = this.props;
+    const {
+      id,
+      state,
+      actions,
+      commonValues,
+      customSubmit,
+      commonFieldsValid,
+      hasRight,
+    } = this.props;
     const { items = [], isFetching = false } = state.properties[id] || {};
 
     const isCreateAllowed = hasRight(`city_property_create`);
@@ -236,7 +390,9 @@ class PrimaryPropertiesTable extends Component {
             <Table.Heading width="15%">№ п/п</Table.Heading>
             <Table.Heading width="5%">Этаж</Table.Heading>
             <Table.Heading width="5%">Комнат</Table.Heading>
-            <Table.Heading width="15%" colSpan="2">Площадь, м²</Table.Heading>
+            <Table.Heading width="15%" colSpan="2">
+              Площадь, м²
+            </Table.Heading>
             <Table.Heading width="15%">Тип</Table.Heading>
             <Table.Heading width="10%">Цена</Table.Heading>
             <Table.Heading width="10%">Валюта</Table.Heading>
@@ -244,53 +400,100 @@ class PrimaryPropertiesTable extends Component {
             <Table.Heading width="5%">Действия</Table.Heading>
           </Table.Row>
           <Table.Row>
-            <Table.Heading width="26%" colSpan="4"></Table.Heading>
-            <Table.Heading width="8%" style={{ padding: `1.5rem` }}>Жилая</Table.Heading>
-            <Table.Heading width="8%" style={{ padding: `1.5rem` }}>Общая</Table.Heading>
-            <Table.Heading width="58%" colSpan="5"></Table.Heading>
+            <Table.Heading width="26%" colSpan="4" />
+            <Table.Heading width="8%" style={{ padding: `1.5rem` }}>
+              Жилая
+            </Table.Heading>
+            <Table.Heading width="8%" style={{ padding: `1.5rem` }}>
+              Общая
+            </Table.Heading>
+            <Table.Heading width="58%" colSpan="5" />
           </Table.Row>
-          {commonFieldsValid && isCreateAllowed &&
-            <TableRowForm formKey="create" commonValues={commonValues} customSubmit={customSubmit} actions={actions} refreshTable={::this.refreshTable} complexBuildingId={id} isUpdateAllowed={isCreateAllowed} />
-          }
-          {!commonFieldsValid && isCreateAllowed &&
+          {commonFieldsValid && isCreateAllowed && (
+            <TableRowForm
+              formKey="create"
+              commonValues={commonValues}
+              customSubmit={customSubmit}
+              actions={actions}
+              refreshTable={::this.refreshTable}
+              complexBuildingId={id}
+              isUpdateAllowed={isCreateAllowed}
+            />
+          )}
+          {!commonFieldsValid && isCreateAllowed && (
             <Table.Row>
-              <Table.Cell className={cn(sUtils.textCenter, sUtils.dangerRow)} colSpan="12">Для добавления нового объекта заполните общие характеристики</Table.Cell>
+              <Table.Cell
+                className={cn(sUtils.textCenter, sUtils.dangerRow)}
+                colSpan="12"
+              >
+                Для добавления нового объекта заполните общие характеристики
+              </Table.Cell>
             </Table.Row>
-          }
-          {!isCreateAllowed &&
+          )}
+          {!isCreateAllowed && (
             <Table.Row>
-              <Table.Cell className={cn(sUtils.textCenter, sUtils.dangerRow)} colSpan="12">Для добавления нового объекта у вас нет прав</Table.Cell>
+              <Table.Cell
+                className={cn(sUtils.textCenter, sUtils.dangerRow)}
+                colSpan="12"
+              >
+                Для добавления нового объекта у вас нет прав
+              </Table.Cell>
             </Table.Row>
-          }
+          )}
           {items.map(item => {
-            const canUpdateInitialProperty = hasRight(`city_property_initial_update`, item.responsibleUser.id);
+            const canUpdateInitialProperty = hasRight(
+              `city_property_initial_update`,
+              item.responsibleUser.id,
+            );
 
             return (
-              <TableRowForm key={item.id} data={item} initialValues={item} formKey={item.id.toString()} commonValues={commonValues} actions={actions} refreshTable={::this.refreshTable} isUpdateAllowed={canUpdateInitialProperty} />
+              <TableRowForm
+                key={item.id}
+                data={item}
+                initialValues={item}
+                formKey={item.id.toString()}
+                commonValues={commonValues}
+                actions={actions}
+                refreshTable={::this.refreshTable}
+                isUpdateAllowed={canUpdateInitialProperty}
+              />
             );
           })}
         </Table.Container>
         {isFetching && <Loading />}
-        {!isFetching && !!items.length &&
+        {!isFetching && !!items.length && (
           <Container fluid>
             <Row xs="center">
               <Col xs="20" className={sUtils.pushed6_0}>
-                <Pagination kind="complexBuildingProperties.primary" onUpdate={::this.load} />
+                <Pagination
+                  kind="complexBuildingProperties.primary"
+                  onUpdate={::this.load}
+                />
               </Col>
             </Row>
           </Container>
-        }
+        )}
       </div>
     );
   }
 }
 
 const pickState = ({ auth, propertiesByComplexBuildingId, pagination }) => ({
-  state: { auth, properties: propertiesByComplexBuildingId.primary, pagination },
+  state: {
+    auth,
+    properties: propertiesByComplexBuildingId.primary,
+    pagination,
+  },
 });
 
-const pickActions = (dispatch) => ({
-  actions: bindActionCreators({ ...ComplexBuildingsActions, createProperty, updateProperty, pop }, dispatch),
+const pickActions = dispatch => ({
+  actions: bindActionCreators(
+    { ...ComplexBuildingsActions, createProperty, updateProperty, pop },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, pickActions)(permissionResolver()(PrimaryPropertiesTable));
+export default connect(
+  pickState,
+  pickActions,
+)(permissionResolver()(PrimaryPropertiesTable));

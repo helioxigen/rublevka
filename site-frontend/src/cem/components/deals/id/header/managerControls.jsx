@@ -5,14 +5,20 @@ import { fetchResource } from 'cem/helpers/autocomplete';
 
 import UI from 'cem/components/ui';
 const {
-  Button, StaticDictionary, Heading,
+  Button,
+  StaticDictionary,
+  Heading,
   Grid: { Row, Col },
 } = UI;
 
 import s from 'cem/styles/id/header';
 import sUtils from 'cem/styles/utils';
 
-export default ({ data: { stateDetails = {}, state, updatedByUserId, updatedAt }, isCurrentUserDepartmentManager, actions }) => {
+export default ({
+  data: { stateDetails = {}, state, updatedByUserId, updatedAt },
+  isCurrentUserDepartmentManager,
+  actions,
+}) => {
   const isReasonPresented = !!stateDetails.reason;
   const isNeedToApprove = !!stateDetails.toApprove;
   const isApproved = state === 'successful' || state === 'unsuccessful';
@@ -20,27 +26,42 @@ export default ({ data: { stateDetails = {}, state, updatedByUserId, updatedAt }
 
   return (
     <section>
-      {isReasonPresented &&
+      {isReasonPresented && (
         <Row>
           <Col sm="14" lg="10" smOffset="3" lgOffset="5">
             <Heading size="sm">Причина:</Heading>
             <p className={sUtils.pushedTop1_5}>{stateDetails.reason}</p>
           </Col>
         </Row>
-      }
+      )}
 
-      {isNeedToApprove && isCurrentUserDepartmentManager &&
+      {isNeedToApprove && isCurrentUserDepartmentManager && (
         <Row sm="center" className={sUtils.pushedTop2}>
           <Col sm="12" md="10">
-            <Button className={sUtils.pushedRight2} type="button" kind="success" size="xs" onClick={() => actions.changeState('approve').then(() => actions.load())}>
+            <Button
+              className={sUtils.pushedRight2}
+              type="button"
+              kind="success"
+              size="xs"
+              onClick={() =>
+                actions.changeState('approve').then(() => actions.load())
+              }
+            >
               одобрить
             </Button>
-            <Button type="button" kind="danger" size="xs" onClick={() => actions.changeState('disapprove').then(() => actions.load())}>
+            <Button
+              type="button"
+              kind="danger"
+              size="xs"
+              onClick={() =>
+                actions.changeState('disapprove').then(() => actions.load())
+              }
+            >
               отклонить
             </Button>
           </Col>
         </Row>
-      }
+      )}
 
       {isApproved && isApprovedByUser && (
         <Row>
@@ -51,9 +72,16 @@ export default ({ data: { stateDetails = {}, state, updatedByUserId, updatedAt }
               </Col>
               <Col sm="6" smOffset="1">
                 <p className={sUtils.textCenter}>
-                  <StaticDictionary fetch={fetchResource('/v1/users/staff', 'name')} value={updatedByUserId} labelKey="firstName" />
-                  {' '}
-                  <StaticDictionary fetch={fetchResource('/v1/users/staff', 'name')} value={updatedByUserId} labelKey="lastName" />
+                  <StaticDictionary
+                    fetch={fetchResource('/v1/users/staff', 'name')}
+                    value={updatedByUserId}
+                    labelKey="firstName"
+                  />{' '}
+                  <StaticDictionary
+                    fetch={fetchResource('/v1/users/staff', 'name')}
+                    value={updatedByUserId}
+                    labelKey="lastName"
+                  />
                 </p>
               </Col>
               <Col sm="6" smOffset="1">

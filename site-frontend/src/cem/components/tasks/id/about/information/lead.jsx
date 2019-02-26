@@ -10,9 +10,18 @@ import s from 'cem/styles/id/content';
 
 const LeadDescription = ({ contactDetails = {} }) => (
   <div>
-    <h4 className={s.heading}>{`${contactDetails.firstName || ''} ${contactDetails.lastName || ''}`}</h4>
-    <div><a className={s.mediaText} href={`tel:${contactDetails.phoneNumber}`}>{contactDetails.phoneNumber}</a></div>
-    <div><a className={s.mediaText} href={`mailto:${contactDetails.email}`}>{contactDetails.email}</a></div>
+    <h4 className={s.heading}>{`${contactDetails.firstName ||
+      ''} ${contactDetails.lastName || ''}`}</h4>
+    <div>
+      <a className={s.mediaText} href={`tel:${contactDetails.phoneNumber}`}>
+        {contactDetails.phoneNumber}
+      </a>
+    </div>
+    <div>
+      <a className={s.mediaText} href={`mailto:${contactDetails.email}`}>
+        {contactDetails.email}
+      </a>
+    </div>
   </div>
 );
 
@@ -24,7 +33,12 @@ class Lead extends Component {
       <section>
         <Heading size="md">
           Лид
-          <Link className={s.linkIcon} to={`/client_leads/${itemData.kind}/${id}`}><Icon className={s.icon} icon="arrow" /></Link>
+          <Link
+            className={s.linkIcon}
+            to={`/client_leads/${itemData.kind}/${id}`}
+          >
+            <Icon className={s.icon} icon="arrow" />
+          </Link>
         </Heading>
         <Grid.Row>
           <Grid.Col xs="20">

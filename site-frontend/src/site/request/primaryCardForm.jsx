@@ -52,7 +52,12 @@ class ByPropertyForm extends Component {
   componentDidMount() {
     const { dealType } = this.props;
 
-    track(analyticsEvents.propertyRequestSubmitted({ dealType, ...this.props.data }));
+    track(
+      analyticsEvents.propertyRequestSubmitted({
+        dealType,
+        ...this.props.data,
+      }),
+    );
   }
 
   onChange(key, value) {
@@ -75,7 +80,9 @@ class ByPropertyForm extends Component {
     const { dealType } = this.props;
 
     this.props.actions.loadDuties(this.props.propertyCategory).then(() => {
-      const { staffUserId = 1 } = this.props.state.currentDuty[this.props.propertyCategory];
+      const { staffUserId = 1 } = this.props.state.currentDuty[
+        this.props.propertyCategory
+      ];
 
       const data = {
         kind: 'online',
@@ -115,7 +122,12 @@ class ByPropertyForm extends Component {
       this.props.actions.createClientLead(data, staffUserId).then(() => {
         this.setState({ requestSent: true }, () => {
           this.props.actions.setSharedRetargetingKey('vk');
-          track(analyticsEvents.propertyRequestSubmitted({ dealType, ...this.props.data }));
+          track(
+            analyticsEvents.propertyRequestSubmitted({
+              dealType,
+              ...this.props.data,
+            }),
+          );
         });
       });
     });
@@ -145,17 +157,28 @@ class ByPropertyForm extends Component {
                 <div className={s.detailsContainer}>
                   <p className={s.text}>Стоимость</p>
                   <p className={cn(s.price, sUtils.pushedBottom1)}>
-                    <FormattedCurrency value={saleOffer.price} symbol={saleOffer.currency} />
+                    <FormattedCurrency
+                      value={saleOffer.price}
+                      symbol={saleOffer.currency}
+                    />
                   </p>
 
                   {data.kind && (
-                    <ParamList label="Тип:" titleClassName={s.text} itemClassName={s.fontSizeMd}>
+                    <ParamList
+                      label="Тип:"
+                      titleClassName={s.text}
+                      itemClassName={s.fontSizeMd}
+                    >
                       &nbsp;{dict.kinds[data.kind]}
                     </ParamList>
                   )}
 
                   {specification.area && (
-                    <ParamList label="Дом:" titleClassName={s.text} itemClassName={s.fontSizeMd}>
+                    <ParamList
+                      label="Дом:"
+                      titleClassName={s.text}
+                      itemClassName={s.fontSizeMd}
+                    >
                       &nbsp;{specification.area} м²
                     </ParamList>
                   )}
@@ -171,7 +194,11 @@ class ByPropertyForm extends Component {
                   )}
 
                   {specification.bedrooms && (
-                    <ParamList label="Комнат:" titleClassName={s.text} itemClassName={s.fontSizeMd}>
+                    <ParamList
+                      label="Комнат:"
+                      titleClassName={s.text}
+                      itemClassName={s.fontSizeMd}
+                    >
                       &nbsp;{specification.bedrooms}
                     </ParamList>
                   )}
@@ -187,7 +214,11 @@ class ByPropertyForm extends Component {
                   )}
 
                   {propertyId && (
-                    <ParamList label="ID:" titleClassName={s.text} itemClassName={s.fontSizeMd}>
+                    <ParamList
+                      label="ID:"
+                      titleClassName={s.text}
+                      itemClassName={s.fontSizeMd}
+                    >
                       &nbsp;{propertyId}
                     </ParamList>
                   )}
@@ -196,8 +227,9 @@ class ByPropertyForm extends Component {
 
               <Col xs="12" sm="7">
                 <Image
-                  src={`${global.config.cloudfront || cloudfront}/${publicLayoutImages[0]
-                    .id}-thumbnail-512`}
+                  src={`${global.config.cloudfront || cloudfront}/${
+                    publicLayoutImages[0].id
+                  }-thumbnail-512`}
                   alt="Планировка"
                   responsive
                 />
@@ -210,20 +242,31 @@ class ByPropertyForm extends Component {
               <Col xs="12">
                 <p className={s.text}>Стоимость</p>
                 <p className={cn(s.price, sUtils.pushedBottom3)}>
-                  <FormattedCurrency value={saleOffer.price} symbol={saleOffer.currency} />
+                  <FormattedCurrency
+                    value={saleOffer.price}
+                    symbol={saleOffer.currency}
+                  />
                 </p>
               </Col>
 
               {(data.kind || specification.area) && (
                 <Col xs="12" sm="4">
                   {data.kind && (
-                    <ParamList label="Тип:" titleClassName={s.text} itemClassName={s.fontSizeMd}>
+                    <ParamList
+                      label="Тип:"
+                      titleClassName={s.text}
+                      itemClassName={s.fontSizeMd}
+                    >
                       &nbsp;{dict.kinds[data.kind]}
                     </ParamList>
                   )}
 
                   {specification.area && (
-                    <ParamList label="Дом:" titleClassName={s.text} itemClassName={s.fontSizeMd}>
+                    <ParamList
+                      label="Дом:"
+                      titleClassName={s.text}
+                      itemClassName={s.fontSizeMd}
+                    >
                       &nbsp;{specification.area} м²
                     </ParamList>
                   )}
@@ -243,7 +286,11 @@ class ByPropertyForm extends Component {
                   )}
 
                   {specification.bedrooms && (
-                    <ParamList label="Комнат:" titleClassName={s.text} itemClassName={s.fontSizeMd}>
+                    <ParamList
+                      label="Комнат:"
+                      titleClassName={s.text}
+                      itemClassName={s.fontSizeMd}
+                    >
                       &nbsp;{specification.bedrooms}
                     </ParamList>
                   )}
@@ -263,7 +310,11 @@ class ByPropertyForm extends Component {
                   )}
 
                   {propertyId && (
-                    <ParamList label="ID:" titleClassName={s.text} itemClassName={s.fontSizeMd}>
+                    <ParamList
+                      label="ID:"
+                      titleClassName={s.text}
+                      itemClassName={s.fontSizeMd}
+                    >
                       &nbsp;{propertyId}
                     </ParamList>
                   )}
@@ -279,8 +330,8 @@ class ByPropertyForm extends Component {
               <Col xs="12">
                 <div className={sUtils.pushedBottom4_5}>
                   <p className={s.textWhite}>
-                    Понравился {data.kind === 'land' ? 'участок' : 'дом'}? Запишитесь на просмотр
-                    прямо сейчас!
+                    Понравился {data.kind === 'land' ? 'участок' : 'дом'}?
+                    Запишитесь на просмотр прямо сейчас!
                   </p>
                 </div>
               </Col>
@@ -353,7 +404,7 @@ const pickState = ({ currentDuty, countryProperties }) => ({
   },
 });
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadDuties,
     createClientLead,
@@ -365,4 +416,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(ByPropertyForm);
+export default connect(
+  pickState,
+  pickActions,
+)(ByPropertyForm);

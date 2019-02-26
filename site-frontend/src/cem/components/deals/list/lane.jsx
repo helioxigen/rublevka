@@ -6,17 +6,31 @@ import isEqual from 'lodash/isEqual';
 
 class Lane extends Component {
   shouldComponentUpdate(nextProps) {
-    const { items, linkedItemsMap: { contacts } } = this.props;
-    return !isEqual(items, nextProps.items) || !isEqual(contacts, nextProps.linkedItemsMap.contacts);
+    const {
+      items,
+      linkedItemsMap: { contacts },
+    } = this.props;
+    return (
+      !isEqual(items, nextProps.items) ||
+      !isEqual(contacts, nextProps.linkedItemsMap.contacts)
+    );
   }
 
   render() {
-    const { items, linkedItemsMap: { contacts } } = this.props;
+    const {
+      items,
+      linkedItemsMap: { contacts },
+    } = this.props;
     return (
       <section>
-        {items && items.map(item =>
-          <Card data={item} key={item.id} linkedContact={contacts[item.contactDetails.id]} />,
-        )}
+        {items &&
+          items.map(item => (
+            <Card
+              data={item}
+              key={item.id}
+              linkedContact={contacts[item.contactDetails.id]}
+            />
+          ))}
       </section>
     );
   }

@@ -19,7 +19,7 @@ const loadDocumentsFailed = (id, errors) => ({
 });
 
 export default function loadDocuments(id) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadDocumentsStarted(id));
 
     return API.get(`/v1/places/settlements/${id}/documents`).then(

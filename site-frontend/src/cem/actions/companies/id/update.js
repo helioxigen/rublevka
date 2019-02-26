@@ -21,7 +21,7 @@ const updateCompanyFailed = (id, { errors }, data) => ({
 });
 
 export default function updateCompany(id, data) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(updateCompanyStarted(id, data));
 
     return API.put(`/v1/companies/${id}`, data)

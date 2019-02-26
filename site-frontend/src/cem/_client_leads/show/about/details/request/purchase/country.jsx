@@ -20,7 +20,9 @@ import sUtils from 'cem/styles/utils';
 
 export default ({ fields, isStatic }) => {
   const propertyFields = fields.countryProperty;
-  const localityDependencies = { 'route.id': propertyFields.location.routeId.value };
+  const localityDependencies = {
+    'route.id': propertyFields.location.routeId.value,
+  };
   const settlementDependencies = {
     'location.routeId': propertyFields.location.routeId.value,
     'location.localityId': propertyFields.location.localityId.value,
@@ -115,7 +117,10 @@ export default ({ fields, isStatic }) => {
             isStatic={isStatic}
             labelKey="name"
           >
-            <AsyncSelect asyncOptions={fetchLocality} linkedTo={localityDependencies} />
+            <AsyncSelect
+              asyncOptions={fetchLocality}
+              linkedTo={localityDependencies}
+            />
           </FormField>
           <FormField
             label="Поселок"
@@ -126,7 +131,10 @@ export default ({ fields, isStatic }) => {
             isStatic={isStatic}
             labelKey="name"
           >
-            <AsyncSelect asyncOptions={fetchSettlement} linkedTo={settlementDependencies} />
+            <AsyncSelect
+              asyncOptions={fetchSettlement}
+              linkedTo={settlementDependencies}
+            />
           </FormField>
           <FormField
             float
@@ -161,7 +169,11 @@ export default ({ fields, isStatic }) => {
               float
               isStatic={isStatic}
             >
-              <Select options={options.conditions} labelKey="title" valueKey="id" />
+              <Select
+                options={options.conditions}
+                labelKey="title"
+                valueKey="id"
+              />
             </FormField>
           </Col>
 
@@ -174,7 +186,11 @@ export default ({ fields, isStatic }) => {
               float
               isStatic={isStatic}
             >
-              <Select options={options.renovate} labelKey="title" valueKey="id" />
+              <Select
+                options={options.renovate}
+                labelKey="title"
+                valueKey="id"
+              />
             </FormField>
           </Col>
 
@@ -187,7 +203,11 @@ export default ({ fields, isStatic }) => {
               float
               isStatic={isStatic}
             >
-              <Select options={options.furniture} labelKey="title" valueKey="id" />
+              <Select
+                options={options.furniture}
+                labelKey="title"
+                valueKey="id"
+              />
             </FormField>
           </Col>
         </Row>

@@ -7,7 +7,9 @@ import PositionsActions from 'cem/actions/settings/positions';
 
 import UI from 'cem/components/ui';
 const {
-  Loading, Table, Heading,
+  Loading,
+  Table,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -44,18 +46,29 @@ class Positions extends Component {
           </Row>
           <Row>
             <Col xs="20" className={sUtils.pushedBottom3}>
-              {!isFetching &&
+              {!isFetching && (
                 <Table.Container width="100%">
                   <Table.Row>
                     <Table.Heading width="85%">Название</Table.Heading>
                     <Table.Heading width="15%">Действия</Table.Heading>
                   </Table.Row>
-                  {isCreationAllowed && <PositionRecordForm actions={actions} formKey="create" initialValues={createFormInitialValues} />}
-                  {items.map(item =>
-                    <PositionRecordForm actions={actions} key={item.id} formKey={item.id.toString()} initialValues={item} />,
+                  {isCreationAllowed && (
+                    <PositionRecordForm
+                      actions={actions}
+                      formKey="create"
+                      initialValues={createFormInitialValues}
+                    />
                   )}
+                  {items.map(item => (
+                    <PositionRecordForm
+                      actions={actions}
+                      key={item.id}
+                      formKey={item.id.toString()}
+                      initialValues={item}
+                    />
+                  ))}
                 </Table.Container>
-              }
+              )}
               {isFetching && <Loading />}
             </Col>
           </Row>
@@ -73,4 +86,7 @@ const pickActions = dispatch => ({
   actions: bindActionCreators({ ...PositionsActions }, dispatch),
 });
 
-export default connect(pickState, pickActions)(Positions);
+export default connect(
+  pickState,
+  pickActions,
+)(Positions);

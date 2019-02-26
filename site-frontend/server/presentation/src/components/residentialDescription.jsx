@@ -27,7 +27,9 @@ export default ({ name, details }) => (
     {details && details.security && (
       <dl>
         <dt className="description-list-title">Территория:&nbsp;</dt>
-        <dd className="description-list-item">{dicts.securityKinds[details.security]}</dd>
+        <dd className="description-list-item">
+          {dicts.securityKinds[details.security]}
+        </dd>
       </dl>
     )}
     {details && details.parkings && (

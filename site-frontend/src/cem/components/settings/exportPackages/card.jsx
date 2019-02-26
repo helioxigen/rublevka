@@ -23,12 +23,17 @@ moment.locale('ru');
 const declensionFormsOfFiltersCount = ['объект', 'объекта', 'объектов'];
 
 export default ({ data = { filter: {}, statistics: {} } }) => {
-  const categoryTitle = propertyDict.categories[data.filter['filter[category]']];
+  const categoryTitle =
+    propertyDict.categories[data.filter['filter[category]']];
   const resaleTitle = propertyDict.resaleKinds[data.filter['filter[isResale]']];
-  const lastExportTitle = !!data.lastExportAt && moment(data.lastExportAt).fromNow();
+  const lastExportTitle =
+    !!data.lastExportAt && moment(data.lastExportAt).fromNow();
 
   return (
-    <Link to={`/settings/export_packages/${data.id}`} className={cn(s.card, s.cardMd)}>
+    <Link
+      to={`/settings/export_packages/${data.id}`}
+      className={cn(s.card, s.cardMd)}
+    >
       <Container fluid>
         <Row sm="middle">
           <Col sm={3}>
@@ -36,7 +41,12 @@ export default ({ data = { filter: {}, statistics: {} } }) => {
               {dict.formats[data.format]}
               <br />
               <span className={sUtils.textGrey}>
-                {!!data.statistics.propertiesCount && <CountIndicator count={data.statistics.propertiesCount} declensionForms={declensionFormsOfFiltersCount} />}
+                {!!data.statistics.propertiesCount && (
+                  <CountIndicator
+                    count={data.statistics.propertiesCount}
+                    declensionForms={declensionFormsOfFiltersCount}
+                  />
+                )}
                 {!data.statistics.propertiesCount && 'нет объектов'}
               </span>
             </span>
@@ -46,7 +56,8 @@ export default ({ data = { filter: {}, statistics: {} } }) => {
               {data.title}
               <br />
               <span className={sUtils.textGrey}>
-                {categoryTitle}{resaleTitle && `, ${resaleTitle}`}
+                {categoryTitle}
+                {resaleTitle && `, ${resaleTitle}`}
               </span>
             </span>
           </Col>
@@ -69,8 +80,15 @@ export default ({ data = { filter: {}, statistics: {} } }) => {
               </span>
             </span>
           </Col>
-          <Col xs={6} sm={3} lg={2} className={cn(sUtils.textRight, sUtils.pushedTopXs4)}>
-            <span className={cn(s.textMd, s[dict.stateColors[data.state]])}>ID: {data.id}</span>
+          <Col
+            xs={6}
+            sm={3}
+            lg={2}
+            className={cn(sUtils.textRight, sUtils.pushedTopXs4)}
+          >
+            <span className={cn(s.textMd, s[dict.stateColors[data.state]])}>
+              ID: {data.id}
+            </span>
             <Icon className={s.icon} icon="chevron-down" />
           </Col>
         </Row>

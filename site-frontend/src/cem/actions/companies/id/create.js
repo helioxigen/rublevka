@@ -21,7 +21,7 @@ const createCompanyFailed = ({ errors }, data) => ({
 });
 
 export default function createCompany(data) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(createCompanyStarted(data));
 
     return API.post('/v1/companies', data)

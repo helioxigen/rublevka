@@ -1,6 +1,22 @@
 const WEEKDAYS_LONG = {
-  en: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-  ru: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
+  en: [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ],
+  ru: [
+    'Понедельник',
+    'Вторник',
+    'Среда',
+    'Четверг',
+    'Пятница',
+    'Суббота',
+    'Воскресенье',
+  ],
 };
 
 const WEEKDAYS_SHORT = {
@@ -40,7 +56,8 @@ const MONTHS = {
 };
 
 const localeCustomUtils = {
-  formatMonthTitle: (day, locale) => `${MONTHS[locale][day.getMonth()]} ${day.getFullYear()}`,
+  formatMonthTitle: (day, locale) =>
+    `${MONTHS[locale][day.getMonth()]} ${day.getFullYear()}`,
   formatWeekdayShort: (index, locale) => WEEKDAYS_SHORT[locale][index],
   formatWeekdayLong: (index, locale) => WEEKDAYS_LONG[locale][index],
   // BUG: A bug in react-day-picker causes incorect weekdays header ordering while

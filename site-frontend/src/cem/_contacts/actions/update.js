@@ -11,7 +11,7 @@ import { apiPath } from 'cem/_contacts/constants/defaults';
 // TODO Move dependencies to another place
 import { transform, uploadPhoto } from 'cem/_contacts/old_actions/helpers';
 
-const update = ({ photo, ...data }) => (dispatch) => {
+const update = ({ photo, ...data }) => dispatch => {
   dispatch(updateElementStarted(types.UPDATE, data.id));
 
   return updateElement(apiPath, data.id, transform(data)).then(
@@ -24,7 +24,7 @@ const update = ({ photo, ...data }) => (dispatch) => {
 
       return data;
     },
-    (errors) => {
+    errors => {
       dispatch(updateElementFailed(types.UPDATE_FAILED, data.id, errors));
       return { errors };
     },

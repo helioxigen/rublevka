@@ -1,5 +1,6 @@
 export const LOAD_LEAD_SOURCES = 'settings.lead_sources.list.load';
-export const LOAD_LEAD_SOURCES_SUCCESS = 'settings.lead_sources.list.load.succeeded';
+export const LOAD_LEAD_SOURCES_SUCCESS =
+  'settings.lead_sources.list.load.succeeded';
 export const LOAD_LEAD_SOURCES_FAIL = 'settings.lead_sources.list.load.failed';
 
 export const CREATE_ID = 'settings.lead_sources.id.create';
@@ -15,5 +16,6 @@ export const DELETE_ID_SUCCESS = 'settings.lead_sources.id.delete.succeeded';
 export const DELETE_ID_FAIL = 'settings.lead_sources.id.delete.failed';
 
 export const LOAD_LEAD_SOURCE = 'settings.lead_sources.id.load';
-export const LOAD_LEAD_SOURCE_SUCCESS = 'settings.lead_sources.id.load.succeeded';
+export const LOAD_LEAD_SOURCE_SUCCESS =
+  'settings.lead_sources.id.load.succeeded';
 export const LOAD_LEAD_SOURCE_FAIL = 'settings.lead_sources.id.load.failed';

@@ -10,7 +10,7 @@ import { resourceName } from 'cem/constants/settings/exportPackages/defaults';
 
 import { transformRequestValues } from 'cem/helpers/exportPackages';
 
-export default data => (dispatch) => {
+export default data => dispatch => {
   dispatch(createElementStarted(types.CREATE_PACKAGE));
 
   return createElement(resourceName, transformRequestValues(data)).then(
@@ -19,7 +19,7 @@ export default data => (dispatch) => {
 
       return { id };
     },
-    (errors) => {
+    errors => {
       dispatch(createElementFailed(types.CREATE_PACKAGE_FAILED, errors));
 
       return { errors };

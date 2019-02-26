@@ -17,8 +17,13 @@ import { fetchResource, fetchDictionary } from 'cem/helpers/autocomplete';
 import cn from 'classnames';
 import UI from 'cem/components/ui';
 const {
-  Grid, Table, Button, Heading,
-  Icon, Daypicker, AsyncSelect,
+  Grid,
+  Table,
+  Button,
+  Heading,
+  Icon,
+  Daypicker,
+  AsyncSelect,
   Form: { Helper, Input, Group },
   Grid: { Col },
 } = UI;
@@ -34,108 +39,238 @@ const formSettings = {
   validate,
 };
 
-const ContractForm = reduxForm(formSettings)(submitValidator()(
-  class extends Component {
-    onSubmitSuccess() {
-      if (this.props.formKey === `add`) this.props.resetForm();
-    }
+const ContractForm = reduxForm(formSettings)(
+  submitValidator()(
+    class extends Component {
+      onSubmitSuccess() {
+        if (this.props.formKey === `add`) this.props.resetForm();
+      }
 
-    createOrUpdate() {
-      const { propertyId, formKey, values, actions, category } = this.props;
+      createOrUpdate() {
+        const { propertyId, formKey, values, actions, category } = this.props;
 
-      if (formKey === `add`) return actions.linkContract(propertyId, values, category);
-      if (formKey !== `add`) return actions.updateContract(propertyId, formKey, values, category);
-    }
+        if (formKey === `add`)
+          return actions.linkContract(propertyId, values, category);
+        if (formKey !== `add`)
+          return actions.updateContract(propertyId, formKey, values, category);
+      }
 
-    unlink() {
-      const { propertyId, formKey, actions, category } = this.props;
+      unlink() {
+        const { propertyId, formKey, actions, category } = this.props;
 
-      return actions.unlinkContract(propertyId, formKey, category);
-    }
+        return actions.unlinkContract(propertyId, formKey, category);
+      }
 
-    render() {
-      const {
-        formKey, fields, values, handleSubmit, pristine, error, submitting,
-        propertyId, category,
-        state,
-      } = this.props;
+      render() {
+        const {
+          formKey,
+          fields,
+          values,
+          handleSubmit,
+          pristine,
+          error,
+          submitting,
+          propertyId,
+          category,
+          state,
+        } = this.props;
 
-      return (
-        <Table.Row>
-          <Table.Cell>
-            <Group className={sUtils.resetIndentation} kind={fields.kindId.touched && !!fields.kindId.error && `error`}>
-              <AsyncSelect className={sUtils.resetBorder} {...fields.kindId} asyncOptions={fetchDictionary(`property_contract_type`)} labelKey="title" valueKey="id" onBlur={() => {}} />
-              {fields.kindId.touched && fields.kindId.error && <Helper>{fields.kindId.error}</Helper>}
-            </Group>
-          </Table.Cell>
-          <Table.Cell>
-            <Group className={sUtils.resetIndentation} kind={fields.signedById.touched && !!fields.signedById.error && `error`}>
-              <div>
-                <AsyncSelect className={sUtils.resetBorder} asyncOptions={fetchResource(`/v1/users/staff`, `lastName,firstName`, [`firstName`, `lastName`])} {...fields.signedById} />
-              </div>
-              {fields.signedById.touched && fields.signedById.error && <Helper className={s.helperPosition}>{fields.signedById.error}</Helper>}
-            </Group>
-          </Table.Cell>
-          <Table.Cell>
-            <Grid.Row>
-              <Col xs="16">
-                {formKey !== `add` && (<FormattedDate mask="dd.mm.yy @ HH:MM" value={values.createdAt} />)}
-                {formKey === `add` &&
-                  <Group className={sUtils.resetIndentation} kind={fields.file.touched && !!fields.file.error && `error`}>
-                    <Input type="file" {...fields.file} value={null} />
-                  </Group>
+        return (
+          <Table.Row>
+            <Table.Cell>
+              <Group
+                className={sUtils.resetIndentation}
+                kind={fields.kindId.touched && !!fields.kindId.error && `error`}
+              >
+                <AsyncSelect
+                  className={sUtils.resetBorder}
+                  {...fields.kindId}
+                  asyncOptions={fetchDictionary(`property_contract_type`)}
+                  labelKey="title"
+                  valueKey="id"
+                  onBlur={() => {}}
+                />
+                {fields.kindId.touched && fields.kindId.error && (
+                  <Helper>{fields.kindId.error}</Helper>
+                )}
+              </Group>
+            </Table.Cell>
+            <Table.Cell>
+              <Group
+                className={sUtils.resetIndentation}
+                kind={
+                  fields.signedById.touched &&
+                  !!fields.signedById.error &&
+                  `error`
                 }
-              </Col>
-            </Grid.Row>
-          </Table.Cell>
-          <Table.Cell>
-            <Group className={sUtils.resetIndentation} kind={fields.validFrom.touched && !!fields.validFrom.error && `error`}>
-              <Daypicker className={sDaypicker.daypicker} restrict="future" kind="from"
-                control={<Input className={cn(sDaypicker.inputDaypicker, sUtils.resetBorder)} {...fields.validFrom} type="text" />}
-                button={<Button className={sDaypicker.btnDaypicker}><Icon className={sDaypicker.icon} icon="calendar" /></Button>}
-                onDayClick={(day) => fields.validFrom.onBlur(day)}
-              />
-              {fields.validFrom.touched && fields.validFrom.error && <Helper className={sDaypicker.helperDaypicker}>{fields.validFrom.error}</Helper>}
-            </Group>
-          </Table.Cell>
-          <Table.Cell>
-            <Group className={sUtils.resetIndentation} kind={fields.validTo.touched && !!fields.validTo.error && `error`}>
-              <Daypicker className={sDaypicker.daypicker} kind="to"
-                control={<Input className={cn(sDaypicker.inputDaypicker, sUtils.resetBorder)} {...fields.validTo} type="text" />}
-                button={<Button className={sDaypicker.btnDaypicker}><Icon className={sDaypicker.icon} icon="calendar" /></Button>}
-                onDayClick={(day) => fields.validTo.onBlur(day)}
-              />
-              {fields.validTo.touched && fields.validTo.error && <Helper className={sDaypicker.helperDaypicker}>{fields.validTo.error}</Helper>}
-            </Group>
-          </Table.Cell>
-          {formKey !== `add` && (
-            <Table.Cell>
-              <Group className={sUtils.resetIndentation}>
-                <Button className={sButton.btnTableAction} size="xs" onClick={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)} disabled={pristine || error || submitting}>
-                  <Icon className={s.btnIcon} icon="checkmark" />
-                </Button>
-                <Button className={sButton.btnTableAction} size="xs" to={`${API}/v1/properties/${category}/${propertyId}/contracts/${formKey}/download?token=${state.auth.token}`} target="_blank">
-                  <Icon className={s.btnIcon} icon="download" />
-                </Button>
-                <Button className={sButton.btnTableAction} size="xs" onClick={handleSubmit(::this.unlink)}>
-                  <Icon className={s.btnIcon} icon="delete" />
-                </Button>
+              >
+                <div>
+                  <AsyncSelect
+                    className={sUtils.resetBorder}
+                    asyncOptions={fetchResource(
+                      `/v1/users/staff`,
+                      `lastName,firstName`,
+                      [`firstName`, `lastName`],
+                    )}
+                    {...fields.signedById}
+                  />
+                </div>
+                {fields.signedById.touched && fields.signedById.error && (
+                  <Helper className={s.helperPosition}>
+                    {fields.signedById.error}
+                  </Helper>
+                )}
               </Group>
             </Table.Cell>
-          )}
-          {formKey === `add` && (
             <Table.Cell>
-              <Group className={sUtils.resetIndentation}>
-                <Button className={sButton.btnTableAction} size="xs" onClick={handleSubmit(::this.createOrUpdate, ::this.onSubmitSuccess)} disabled={pristine || error || submitting}>
-                  <Icon className={s.btnIcon} icon="checkmark" />
-                </Button>
+              <Grid.Row>
+                <Col xs="16">
+                  {formKey !== `add` && (
+                    <FormattedDate
+                      mask="dd.mm.yy @ HH:MM"
+                      value={values.createdAt}
+                    />
+                  )}
+                  {formKey === `add` && (
+                    <Group
+                      className={sUtils.resetIndentation}
+                      kind={
+                        fields.file.touched && !!fields.file.error && `error`
+                      }
+                    >
+                      <Input type="file" {...fields.file} value={null} />
+                    </Group>
+                  )}
+                </Col>
+              </Grid.Row>
+            </Table.Cell>
+            <Table.Cell>
+              <Group
+                className={sUtils.resetIndentation}
+                kind={
+                  fields.validFrom.touched &&
+                  !!fields.validFrom.error &&
+                  `error`
+                }
+              >
+                <Daypicker
+                  className={sDaypicker.daypicker}
+                  restrict="future"
+                  kind="from"
+                  control={
+                    <Input
+                      className={cn(
+                        sDaypicker.inputDaypicker,
+                        sUtils.resetBorder,
+                      )}
+                      {...fields.validFrom}
+                      type="text"
+                    />
+                  }
+                  button={
+                    <Button className={sDaypicker.btnDaypicker}>
+                      <Icon className={sDaypicker.icon} icon="calendar" />
+                    </Button>
+                  }
+                  onDayClick={day => fields.validFrom.onBlur(day)}
+                />
+                {fields.validFrom.touched && fields.validFrom.error && (
+                  <Helper className={sDaypicker.helperDaypicker}>
+                    {fields.validFrom.error}
+                  </Helper>
+                )}
               </Group>
             </Table.Cell>
-          )}
-        </Table.Row>
-      );
-    }
-  })
+            <Table.Cell>
+              <Group
+                className={sUtils.resetIndentation}
+                kind={
+                  fields.validTo.touched && !!fields.validTo.error && `error`
+                }
+              >
+                <Daypicker
+                  className={sDaypicker.daypicker}
+                  kind="to"
+                  control={
+                    <Input
+                      className={cn(
+                        sDaypicker.inputDaypicker,
+                        sUtils.resetBorder,
+                      )}
+                      {...fields.validTo}
+                      type="text"
+                    />
+                  }
+                  button={
+                    <Button className={sDaypicker.btnDaypicker}>
+                      <Icon className={sDaypicker.icon} icon="calendar" />
+                    </Button>
+                  }
+                  onDayClick={day => fields.validTo.onBlur(day)}
+                />
+                {fields.validTo.touched && fields.validTo.error && (
+                  <Helper className={sDaypicker.helperDaypicker}>
+                    {fields.validTo.error}
+                  </Helper>
+                )}
+              </Group>
+            </Table.Cell>
+            {formKey !== `add` && (
+              <Table.Cell>
+                <Group className={sUtils.resetIndentation}>
+                  <Button
+                    className={sButton.btnTableAction}
+                    size="xs"
+                    onClick={handleSubmit(
+                      ::this.createOrUpdate,
+                      ::this.onSubmitSuccess,
+                    )}
+                    disabled={pristine || error || submitting}
+                  >
+                    <Icon className={s.btnIcon} icon="checkmark" />
+                  </Button>
+                  <Button
+                    className={sButton.btnTableAction}
+                    size="xs"
+                    to={`${API}/v1/properties/${category}/${propertyId}/contracts/${formKey}/download?token=${
+                      state.auth.token
+                    }`}
+                    target="_blank"
+                  >
+                    <Icon className={s.btnIcon} icon="download" />
+                  </Button>
+                  <Button
+                    className={sButton.btnTableAction}
+                    size="xs"
+                    onClick={handleSubmit(::this.unlink)}
+                  >
+                    <Icon className={s.btnIcon} icon="delete" />
+                  </Button>
+                </Group>
+              </Table.Cell>
+            )}
+            {formKey === `add` && (
+              <Table.Cell>
+                <Group className={sUtils.resetIndentation}>
+                  <Button
+                    className={sButton.btnTableAction}
+                    size="xs"
+                    onClick={handleSubmit(
+                      ::this.createOrUpdate,
+                      ::this.onSubmitSuccess,
+                    )}
+                    disabled={pristine || error || submitting}
+                  >
+                    <Icon className={s.btnIcon} icon="checkmark" />
+                  </Button>
+                </Group>
+              </Table.Cell>
+            )}
+          </Table.Row>
+        );
+      }
+    },
+  ),
 );
 
 class Contracts extends Component {
@@ -169,10 +304,17 @@ class Contracts extends Component {
                   <Table.Heading width="10%">Действия</Table.Heading>
                 </Table.Row>
 
-                {isDocumentsUploadAllowed && <ContractForm {...this.props} formKey="add" />}
+                {isDocumentsUploadAllowed && (
+                  <ContractForm {...this.props} formKey="add" />
+                )}
 
                 {contracts.map((item, index) => (
-                  <ContractForm {...this.props} key={index} formKey={item.id} initialValues={item} />
+                  <ContractForm
+                    {...this.props}
+                    key={index}
+                    formKey={item.id}
+                    initialValues={item}
+                  />
                 ))}
               </Table.Container>
             </div>
@@ -187,8 +329,11 @@ const pickState = ({ contractsByPropertyId, auth }) => ({
   state: { contractsByPropertyId, auth },
 });
 
-const mapDispatch = (dispatch) => ({
+const mapDispatch = dispatch => ({
   actions: bindActionCreators(ContractActions, dispatch),
 });
 
-export default connect(pickState, mapDispatch)(Contracts);
+export default connect(
+  pickState,
+  mapDispatch,
+)(Contracts);

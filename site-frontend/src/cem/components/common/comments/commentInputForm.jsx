@@ -4,7 +4,10 @@ import { reduxForm } from 'redux-form';
 import submitValidator from 'core/decorators/submitValidator';
 
 import UI from 'cem/components/ui';
-const { Button, Form: { Container, Group, Textarea } } = UI;
+const {
+  Button,
+  Form: { Container, Group, Textarea },
+} = UI;
 
 import cn from 'classnames';
 import s from 'cem/styles/id/content';
@@ -15,11 +18,9 @@ import { api } from 'core/config/constants';
 const Image = ({ id }) => (
   <UI.Image
     src={
-      id ? (
-        `${api.cloudfront}/${id}-128`
-      ) : (
-        'https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder-photo.svg'
-      )
+      id
+        ? `${api.cloudfront}/${id}-128`
+        : 'https://s3.eu-central-1.amazonaws.com/dt-marketing/assets/placeholder-photo.svg'
     }
     kind="circle"
     width="42"
@@ -55,7 +56,11 @@ class CommentInput extends Component {
   }
 
   createComment() {
-    const { entity, actions, values: { text, parentId = null } } = this.props;
+    const {
+      entity,
+      actions,
+      values: { text, parentId = null },
+    } = this.props;
 
     return actions.createComment(entity.key, entity.id, { parentId, text });
   }
@@ -78,7 +83,7 @@ class CommentInput extends Component {
 const formSettings = {
   form: 'commentInput',
   fields: ['parentId', 'text'],
-  validate: (values) => {
+  validate: values => {
     const errors = {};
     if (!values.text) errors.text = 'Введите комментарий!';
     return errors;

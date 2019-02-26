@@ -22,14 +22,16 @@ const updateLinkedContactFailed = (companyId, id, errors) => ({
   errors,
 });
 
-export default (companyId, data) => (dispatch) => {
+export default (companyId, data) => dispatch => {
   dispatch(updateLinkedContactStarted(data.id));
 
   return API.put(`/v1/contacts/${data.id}`, {
     ...data,
     additionalDetails: {
       ...data.additionalDetails,
-      autoRegion: data.additionalDetails ? data.additionalDetails.autoRegion : undefined,
+      autoRegion: data.additionalDetails
+        ? data.additionalDetails.autoRegion
+        : undefined,
     },
     companyDetails: { ...data.companyDetails, companyId },
   }).then(

@@ -6,7 +6,10 @@ import { prices } from './options';
 import { connect } from 'react-redux';
 
 // actions
-import { updateDisplayOption, resetDisplayOption } from 'site/displayOptions/actions';
+import {
+  updateDisplayOption,
+  resetDisplayOption,
+} from 'site/displayOptions/actions';
 
 import SelectGroup from './SelectGroup';
 
@@ -23,7 +26,10 @@ import {
   CurrencyItemLast,
 } from './styled';
 
-const { Visibility, Grid: { Container, Row, Col } } = UI;
+const {
+  Visibility,
+  Grid: { Container, Row, Col },
+} = UI;
 
 class Price extends Component {
   constructor(props) {
@@ -39,8 +45,9 @@ class Price extends Component {
     const { state, dealType, selected = {} } = this.props;
     const price = selected[dealTypes[dealType]] || {};
     const stateRef = ref === 'min' ? 'max' : 'min';
-    const currency = `${dealTypes[dealType]}Offer.multiCurrencyPrice.${state.displayOptions
-      .currency}`;
+    const currency = `${dealTypes[dealType]}Offer.multiCurrencyPrice.${
+      state.displayOptions.currency
+    }`;
 
     const options = {
       [stateRef]: price[stateRef],
@@ -92,10 +99,17 @@ class Price extends Component {
           <Row md="middle">
             <Col md="5">
               <SelectWrapper>
-                <SelectGroup options={dealPrices} selected={price} onUpdate={this.onUpdate} />
+                <SelectGroup
+                  options={dealPrices}
+                  selected={price}
+                  onUpdate={this.onUpdate}
+                />
                 <CurrencySelect>
                   <Visibility xs="hidden" sm="hidden" md="hidden">
-                    <SelectedCurrency onClick={this.toggleSelect} isActive={this.state.isOpen}>
+                    <SelectedCurrency
+                      onClick={this.toggleSelect}
+                      isActive={this.state.isOpen}
+                    >
                       {current === 'rub' ? '₽' : '$'}
                     </SelectedCurrency>
 
@@ -118,12 +132,20 @@ class Price extends Component {
 
                   <Visibility lg="hidden">
                     <CurrencySelectMobile
-                      onChange={e => this.handleCurrencyButtonClick(e.target.value)}
+                      onChange={e =>
+                        this.handleCurrencyButtonClick(e.target.value)
+                      }
                     >
-                      <option value="usd" selected={current === 'usd' && 'selected'}>
+                      <option
+                        value="usd"
+                        selected={current === 'usd' && 'selected'}
+                      >
                         $
                       </option>
-                      <option selected={current === 'rub' && 'selected'} value="rub">
+                      <option
+                        selected={current === 'rub' && 'selected'}
+                        value="rub"
+                      >
                         ₽
                       </option>
                     </CurrencySelectMobile>

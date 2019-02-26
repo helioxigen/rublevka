@@ -1,14 +1,14 @@
-/* eslint-disable react/jsx-filename-extension */
-import 'core-js';
-import 'site/styles/base';
-import 'site/config/satellites';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from 'site/app';
 import sbjs from 'sourcebuster';
 import global from 'window-or-global';
 import Sentry from '@sentry/browser';
+
+import 'core-js';
+import './styles/base.css';
+import './config/satellites';
+
+import App from './App';
 
 sbjs.init({
   domain: global.config.domain,

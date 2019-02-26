@@ -14,7 +14,10 @@ import sUtils from 'site/styles/utils';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const { Button, Grid: { Container, Row, Col } } = UI;
+const {
+  Button,
+  Grid: { Container, Row, Col },
+} = UI;
 
 export const StLink = styled(Link)`
   color: #000;
@@ -55,14 +58,18 @@ class NotFound extends Component {
       <Container fluid className={cn(s.negativeMarginTop)}>
         <Row xs="center" className={cn(s.mainContainer, s.padding3_0)}>
           <Col xs="12" className={s.zIndex3}>
-            <h2 className={cn(s.titleMd, s.light)}>На сайте нет таких объектов</h2>
+            <h2 className={cn(s.titleMd, s.light)}>
+              На сайте нет таких объектов
+            </h2>
             <p className={s.textMd}>Подберем из закрытых предложений?</p>
             <a
               className={cn(s.titleMd, sUtils.pushedTopXs3Sm1_5)}
               href={`tel:+${global.config.phones.country}`}
               id="comagicDTPhoneNumber"
             >
-              <StaticMask pattern="+1 (111) 111-11-11">{global.config.phones.country}</StaticMask>
+              <StaticMask pattern="+1 (111) 111-11-11">
+                {global.config.phones.country}
+              </StaticMask>
             </a>
 
             <div>

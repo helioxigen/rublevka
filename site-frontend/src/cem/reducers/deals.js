@@ -71,7 +71,10 @@ export default handleActions(
             : items.map(item => item.id),
         },
       },
-      ...items.reduce((result, item) => ({ ...result, [item.id]: { data: item } }), {}),
+      ...items.reduce(
+        (result, item) => ({ ...result, [item.id]: { data: item } }),
+        {},
+      ),
     }),
 
     [types.LOAD_DEALS_LANE]: (state, { kind, reset }) => ({
@@ -104,7 +107,10 @@ export default handleActions(
       },
     }),
 
-    [types.LOAD_DEALS_STATS_FAIL]: (state, { kind, errors, toApproveState }) => {
+    [types.LOAD_DEALS_STATS_FAIL]: (
+      state,
+      { kind, errors, toApproveState },
+    ) => {
       const toApproveErrors = toApproveState ? { errors } : {};
       const defaultErrors = !toApproveState ? { errors } : undefined;
 
@@ -123,7 +129,10 @@ export default handleActions(
       };
     },
 
-    [types.LOAD_DEALS_STATS_SUCCESS]: (state, { kind, data, toApproveState }) => {
+    [types.LOAD_DEALS_STATS_SUCCESS]: (
+      state,
+      { kind, data, toApproveState },
+    ) => {
       const toApproveData = toApproveState ? { [toApproveState]: data } : {};
       const defaultData = !toApproveState ? data : undefined;
 

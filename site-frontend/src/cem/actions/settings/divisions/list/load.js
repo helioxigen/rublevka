@@ -8,7 +8,7 @@ const loadDivisionsStarted = params => ({
   params,
 });
 
-const loadDivisionsSucceeded = ({ items, pagination }) => (dispatch) => {
+const loadDivisionsSucceeded = ({ items, pagination }) => dispatch => {
   dispatch(updatePagination('divisions', pagination));
 
   dispatch({
@@ -23,7 +23,7 @@ const loadDivisionsFailed = ({ errors }) => ({
 });
 
 export default function loadDivisions(queryParams = {}) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadDivisionsStarted(queryParams));
 
     return API.get('/v1/divisions', queryParams).then(

@@ -40,16 +40,21 @@ const loadComplexBuildingsFailed = ({ errors }) => ({
   errors,
 });
 
-const loadComplexBuildingsByComplexId = (complexId, queryParams) => (dispatch) => {
+const loadComplexBuildingsByComplexId = (
+  complexId,
+  queryParams,
+) => dispatch => {
   dispatch(loadComplexBuildingsByComplexIdStarted(complexId));
 
   return API.get('/v1/complex_buildings', { ...queryParams }).then(
-    ({ body }) => dispatch(loadComplexBuildingsByComplexIdSucceeded(complexId, body)),
-    ({ body }) => dispatch(loadComplexBuildingsByComplexIdFailed(complexId, body)),
+    ({ body }) =>
+      dispatch(loadComplexBuildingsByComplexIdSucceeded(complexId, body)),
+    ({ body }) =>
+      dispatch(loadComplexBuildingsByComplexIdFailed(complexId, body)),
   );
 };
 
-const loadComplexBuildings = queryParams => (dispatch) => {
+const loadComplexBuildings = queryParams => dispatch => {
   dispatch(loadComplexBuildingsStarted());
 
   return API.get('/v1/complex_buildings', { ...queryParams }).then(

@@ -12,7 +12,9 @@ import Filter from 'cem/components/settlements/list/filter';
 
 import UI from 'cem/components/ui';
 const {
-  Loading, Button, Heading,
+  Loading,
+  Button,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -41,7 +43,10 @@ class List extends Component {
     if (pagination.offset !== nextPagination.offset) {
       const { offset, limit } = nextPagination;
 
-      this.props.actions.loadSettlements({ pagination: { offset, limit }, filter });
+      this.props.actions.loadSettlements({
+        pagination: { offset, limit },
+        filter,
+      });
     }
   }
 
@@ -69,25 +74,45 @@ class List extends Component {
             <Row>
               <Col xs="20">
                 <Heading size="lg">
-                  Посëлки {isCreationAllowed && <Button className={sUtils.pushedLeftSm2} kind="accent" size="xs" to="/places/settlements/create">добавить</Button>}
+                  Посëлки{' '}
+                  {isCreationAllowed && (
+                    <Button
+                      className={sUtils.pushedLeftSm2}
+                      kind="accent"
+                      size="xs"
+                      to="/places/settlements/create"
+                    >
+                      добавить
+                    </Button>
+                  )}
                 </Heading>
               </Col>
             </Row>
             <Row>
-              <Filter filters={filters} actions={this.props.actions} count={pagination.total} onFilterUpdate={::this.handleFilterUpdate} />
+              <Filter
+                filters={filters}
+                actions={this.props.actions}
+                count={pagination.total}
+                onFilterUpdate={::this.handleFilterUpdate}
+              />
             </Row>
           </div>
         </Container>
 
         {isFetching && <Loading />}
-        {!isFetching && !items.length && <Heading notFound>Не найдено посёлков</Heading>}
-        {!isFetching && items.map((item) => <Card data={item} key={item.id} />)}
+        {!isFetching && !items.length && (
+          <Heading notFound>Не найдено посёлков</Heading>
+        )}
+        {!isFetching && items.map(item => <Card data={item} key={item.id} />)}
 
         {!isFetching && (
           <Container fluid>
             <Row xs="center">
               <Col sm="10" className={sUtils.pushed6_0}>
-                <Pagination {...pagination} onUpdate={::this.handlePaginationUpdate} />
+                <Pagination
+                  {...pagination}
+                  onUpdate={::this.handlePaginationUpdate}
+                />
               </Col>
             </Row>
           </Container>
@@ -101,8 +126,14 @@ const pickState = ({ settlements, pagination, filters }) => ({
   state: { settlements, pagination, filters },
 });
 
-const mapDispatch = (dispatch) => ({
-  actions: bindActionCreators({ ...SettlementActions, ...PaginationActions, ...FilterActions }, dispatch),
+const mapDispatch = dispatch => ({
+  actions: bindActionCreators(
+    { ...SettlementActions, ...PaginationActions, ...FilterActions },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, mapDispatch)(List);
+export default connect(
+  pickState,
+  mapDispatch,
+)(List);

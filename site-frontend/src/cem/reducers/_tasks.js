@@ -8,7 +8,8 @@ const initialState = {};
 
 export default handleActions(
   {
-    [types.LOAD_TASKS]: (state, { group }) => reducers.listLoadStart(state, group),
+    [types.LOAD_TASKS]: (state, { group }) =>
+      reducers.listLoadStart(state, group),
 
     [types.LOAD_TASKS_FAILED]: (state, { group, errors }) =>
       reducers.listLoadFail(state, group, errors),
@@ -28,7 +29,8 @@ export default handleActions(
 
     [types.UPDATE_TASK_FAILED]: state => reducers.elementUpdateFail(state),
 
-    [types.UPDATE_TASK_SUCCEEDED]: state => reducers.elementUpdateSuccess(state),
+    [types.UPDATE_TASK_SUCCEEDED]: state =>
+      reducers.elementUpdateSuccess(state),
   },
   initialState,
 );

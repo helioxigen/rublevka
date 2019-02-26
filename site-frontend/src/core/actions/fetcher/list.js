@@ -17,7 +17,7 @@ const loadEntitiesSucceeded = (
   linkedResourcesSchemes,
   { items, pagination },
   append,
-) => (dispatch) => {
+) => dispatch => {
   dispatch(updatePagination(entityTypeId, pagination));
   dispatch(loadLinkedEntities(linkedResourcesSchemes, entityTypeId, items));
   dispatch({
@@ -44,13 +44,23 @@ export default function loadEntities(
   },
   append,
 ) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadEntitiesStarted(entityTypeId, queryParams, apiPath));
     const filter = filterTransform(queryParams.filter || {});
 
-    return API.get(apiPath || `/v1/${entityTypeId}`, { ...queryParams, filter }).then(
+    return API.get(apiPath || `/v1/${entityTypeId}`, {
+      ...queryParams,
+      filter,
+    }).then(
       ({ body }) =>
-        dispatch(loadEntitiesSucceeded(entityTypeId, linkedResourcesSchemes, body, append)),
+        dispatch(
+          loadEntitiesSucceeded(
+            entityTypeId,
+            linkedResourcesSchemes,
+            body,
+            append,
+          ),
+        ),
       ({ body }) => dispatch(loadEntitiesFailed(entityTypeId, body)),
     );
   };

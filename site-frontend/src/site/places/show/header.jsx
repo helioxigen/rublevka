@@ -10,9 +10,15 @@ import placesSeo from 'site/config/seo/places';
 
 import s from 'site/styles/places/header.css';
 
-const { Icon, BtnGroup, Button, Visibility, Grid: { Container, Row, Col } } = UI;
+const {
+  Icon,
+  BtnGroup,
+  Button,
+  Visibility,
+  Grid: { Container, Row, Col },
+} = UI;
 
-export default (props) => {
+export default props => {
   const { data = {}, placeKind, translatedPlaceKind, dealType } = props;
   const { location = {} } = data || {};
   const propertyKind = props.kind || false;
@@ -21,7 +27,11 @@ export default (props) => {
   return (
     <section
       className={s.header}
-      style={isHaveMainImage ? { backgroundImage: `url(${cloudfront}/${data.images[0].id})` } : {}}
+      style={
+        isHaveMainImage
+          ? { backgroundImage: `url(${cloudfront}/${data.images[0].id})` }
+          : {}
+      }
     >
       <Container fluid>
         <div className={s.positionRelative}>
@@ -32,9 +42,9 @@ export default (props) => {
               </Link>
               {location.routeName && (
                 <Link
-                  to={`/zagorodnaya/shosse/${nameToSlug(
-                    location.routeName,
-                  )}_${location.routeId}/prodaja`}
+                  to={`/zagorodnaya/shosse/${nameToSlug(location.routeName)}_${
+                    location.routeId
+                  }/prodaja`}
                   className={s.navItem}
                 >
                   <Icon className={s.iconArrow} icon="arrow-down" />
@@ -55,26 +65,38 @@ export default (props) => {
             </nav>
           </Visibility>
           <Container fluid>
-            <h1 className={s.title}>{placesSeo[placeKind].show.h1(data, dealType)}</h1>
+            <h1 className={s.title}>
+              {placesSeo[placeKind].show.h1(data, dealType)}
+            </h1>
 
             <Row className={s.pushedBtnsGroup}>
               <Col xs="12">
                 <BtnGroup className={cn(s.pushedBtns2, s.btnGroup)}>
                   <Button
-                    className={cn(s.btn, props.dealType === 'sale' ? s.active : s.btn)}
+                    className={cn(
+                      s.btn,
+                      props.dealType === 'sale' ? s.active : s.btn,
+                    )}
                     size="md"
                     to={`/zagorodnaya/${translatedPlaceKind}/${nameToSlug(
                       data.name,
-                    )}_${data.id}/prodaja${propertyKind ? `/${propertyKind}` : ''}`}
+                    )}_${data.id}/prodaja${
+                      propertyKind ? `/${propertyKind}` : ''
+                    }`}
                   >
                     Продажа
                   </Button>
                   <Button
-                    className={cn(s.btn, props.dealType === 'rent' ? s.active : s.btn)}
+                    className={cn(
+                      s.btn,
+                      props.dealType === 'rent' ? s.active : s.btn,
+                    )}
                     size="md"
                     to={`/zagorodnaya/${translatedPlaceKind}/${nameToSlug(
                       data.name,
-                    )}_${data.id}/arenda${propertyKind ? `/${propertyKind}` : ''}`}
+                    )}_${data.id}/arenda${
+                      propertyKind ? `/${propertyKind}` : ''
+                    }`}
                   >
                     Аренда
                   </Button>

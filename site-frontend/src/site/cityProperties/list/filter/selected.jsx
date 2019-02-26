@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import CSSModules from 'react-css-modules';
 
 // constants
-import { kinds, renovateKinds } from 'core/countryProperties/constants/dictionaries';
+import {
+  kinds,
+  renovateKinds,
+} from 'core/countryProperties/constants/dictionaries';
 
 // helpers
 import { formatByDictionary, formatByMinMax } from 'site/helpers';
@@ -11,10 +14,7 @@ import { formatByDictionary, formatByMinMax } from 'site/helpers';
 import UI from 'site/ui';
 
 // ui
-const {
-  Icon,
-  CountIndicator,
-} = UI;
+const { Icon, CountIndicator } = UI;
 
 // styles
 import s from 'site/styles/components/satellites/filter.css';
@@ -33,17 +33,33 @@ const cssOptions = {
 const theme = st.filterSatellites;
 
 // components
-const ArrayButton = ({ dictionary, children, reference, onChange, ...props }) => (
+const ArrayButton = ({
+  dictionary,
+  children,
+  reference,
+  onChange,
+  ...props
+}) => (
   <span className={theme.selected}>
     {formatByDictionary(children, dictionary)}
 
-    <UI.Button className={props.styles.btnTimesSm} onClick={() => onChange(reference, children)}>
+    <UI.Button
+      className={props.styles.btnTimesSm}
+      onClick={() => onChange(reference, children)}
+    >
       <Icon className={props.styles.iconTimesSm} icon="times" />
     </UI.Button>
   </span>
 );
 
-const MinMaxButton = ({ value, reference, onChange, prefix, postfix, ...props }) => {
+const MinMaxButton = ({
+  value,
+  reference,
+  onChange,
+  prefix,
+  postfix,
+  ...props
+}) => {
   return (
     <span className={theme.selected} onClick={() => onChange(reference)}>
       {formatByMinMax(value, postfix, prefix)}
@@ -83,42 +99,93 @@ class Selected extends Component {
     return (
       <span>
         {kind.map(value => (
-          <ArrayButton dictionary={kinds} reference="kind" onChange={::this.onChange} key={value} styles={this.props.styles}>
+          <ArrayButton
+            dictionary={kinds}
+            reference="kind"
+            onChange={::this.onChange}
+            key={value}
+            styles={this.props.styles}
+          >
             {value}
           </ArrayButton>
         ))}
 
         {isSaleShown && (
-          <MinMaxButton reference="sale" onChange={::this.onChange} prefix="$" postfix=" млн" value={sale} styles={this.props.styles} />
+          <MinMaxButton
+            reference="sale"
+            onChange={::this.onChange}
+            prefix="$"
+            postfix=" млн"
+            value={sale}
+            styles={this.props.styles}
+          />
         )}
 
         {isRentShown && (
-          <MinMaxButton reference="rent" onChange={::this.onChange} prefix="$" postfix=" тыс" value={rent} styles={this.props.styles} />
+          <MinMaxButton
+            reference="rent"
+            onChange={::this.onChange}
+            prefix="$"
+            postfix=" тыс"
+            value={rent}
+            styles={this.props.styles}
+          />
         )}
 
         {isRoomsShown && (
-          <MinMaxButton reference="rooms" onChange={::this.onChange} postfix=" комнат" value={rooms} styles={this.props.styles} />
+          <MinMaxButton
+            reference="rooms"
+            onChange={::this.onChange}
+            postfix=" комнат"
+            value={rooms}
+            styles={this.props.styles}
+          />
         )}
 
         {isTotalAreaShown && (
-          <MinMaxButton reference="totalArea" onChange={::this.onChange} postfix=" м²" value={totalArea} styles={this.props.styles} />
+          <MinMaxButton
+            reference="totalArea"
+            onChange={::this.onChange}
+            postfix=" м²"
+            value={totalArea}
+            styles={this.props.styles}
+          />
         )}
 
         {isFloorShown && (
-          <MinMaxButton reference="floor" onChange={::this.onChange} postfix=" этаж" value={floor} styles={this.props.styles} />
+          <MinMaxButton
+            reference="floor"
+            onChange={::this.onChange}
+            postfix=" этаж"
+            value={floor}
+            styles={this.props.styles}
+          />
         )}
 
         {renovate.map(value => (
-          <ArrayButton dictionary={renovateKinds} reference="renovate" onChange={::this.onChange} key={value} styles={this.props.styles}>
+          <ArrayButton
+            dictionary={renovateKinds}
+            reference="renovate"
+            onChange={::this.onChange}
+            key={value}
+            styles={this.props.styles}
+          >
             {value}
           </ArrayButton>
         ))}
 
         {!!settlements.length && (
           <span className={theme.selected}>
-            <CountIndicator className={s.success} count={settlements.length} declensionForms={[`посёлок`, `посёлка`, `посёлков`]} />
+            <CountIndicator
+              className={s.success}
+              count={settlements.length}
+              declensionForms={[`посёлок`, `посёлка`, `посёлков`]}
+            />
 
-            <UI.Button className={styles.btnTimesSm} onClick={() => ::this.onChange(`settlements`)}>
+            <UI.Button
+              className={styles.btnTimesSm}
+              onClick={() => ::this.onChange(`settlements`)}
+            >
               <Icon className={styles.iconTimesSm} icon="times" />
             </UI.Button>
           </span>

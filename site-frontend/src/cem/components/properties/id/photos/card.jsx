@@ -38,5 +38,13 @@ const collectTarget = connect => ({
   connectDropTarget: connect.dropTarget(),
 });
 
-export const PhotoCard = DropTarget('properties.photos.card', targetSpec, collectTarget)(DragSource('properties.photos.card', sourceSpec, collectSource)(Card));
-export const LayoutCard = DropTarget('properties.photos.cardLayout', targetSpec, collectTarget)(DragSource('properties.photos.cardLayout', sourceSpec, collectSource)(Card));
+export const PhotoCard = DropTarget(
+  'properties.photos.card',
+  targetSpec,
+  collectTarget,
+)(DragSource('properties.photos.card', sourceSpec, collectSource)(Card));
+export const LayoutCard = DropTarget(
+  'properties.photos.cardLayout',
+  targetSpec,
+  collectTarget,
+)(DragSource('properties.photos.cardLayout', sourceSpec, collectSource)(Card));

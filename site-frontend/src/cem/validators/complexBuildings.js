@@ -1,7 +1,7 @@
 import { formHelpers } from 'cem/helpers';
 const { normalizeNumber } = formHelpers;
 
-const validate = (values) => {
+const validate = values => {
   const errors = {
     location: {},
     details: {},
@@ -40,7 +40,7 @@ const validate = (values) => {
   return errors;
 };
 
-const validateCommonFields = (values) => {
+const validateCommonFields = values => {
   const errors = {
     saleOffer: {
       agentFixedPrice: {},
@@ -72,13 +72,17 @@ const validateCommonFields = (values) => {
   }
 
   if (values.information) {
-    if (!values.information.condition) errors.information.condition = 'Укажите состояние';
-    if (!values.information.renovate) errors.information.renovate = 'Укажите ремонт';
+    if (!values.information.condition)
+      errors.information.condition = 'Укажите состояние';
+    if (!values.information.renovate)
+      errors.information.renovate = 'Укажите ремонт';
     if (!values.information.conditioning) {
       errors.information.conditioning = 'Укажите кондиционирование';
     }
-    if (!values.information.ventilation) errors.information.ventilation = 'Укажите вентиляцию';
-    if (!values.information.furniture) errors.information.furniture = 'Укажите мебель';
+    if (!values.information.ventilation)
+      errors.information.ventilation = 'Укажите вентиляцию';
+    if (!values.information.furniture)
+      errors.information.furniture = 'Укажите мебель';
   } else {
     errors.information.condition = 'Заполните этот блок';
   }
@@ -86,7 +90,7 @@ const validateCommonFields = (values) => {
   return errors;
 };
 
-const validatePropertiesTableFields = (values) => {
+const validatePropertiesTableFields = values => {
   const errors = {
     saleOffer: {
       agentFixedPrice: {},
@@ -104,8 +108,10 @@ const validatePropertiesTableFields = (values) => {
   if (values.specification) {
     if (!values.specification.floor) errors.specification.floor = 'Обязательно';
     // if (!values.specification.rooms) errors.specification.rooms = `Обязательно`;
-    if (!values.specification.totalArea) errors.specification.totalArea = 'Обязательно';
-    if (!values.specification.livingArea) errors.specification.livingArea = 'Обязательно';
+    if (!values.specification.totalArea)
+      errors.specification.totalArea = 'Обязательно';
+    if (!values.specification.livingArea)
+      errors.specification.livingArea = 'Обязательно';
   } else {
     errors.specification.layout = 'Заполните этот блок';
   }

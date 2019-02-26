@@ -1,0 +1,66 @@
+@import '../../responsive-utils';
+@import '../../variables';
+
+.selectContainer {
+  display: inline-block;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.flexWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.flexItem {
+  flex-basis: 50%;
+}
+
+.visibility {
+  @include responsive(md) {
+    display: block;
+  }
+}
+
+.dash {
+  display: inline-block;
+  vertical-align: top;
+
+  font-size: 1.6rem;
+  color: $dove-gray;
+
+  margin: 1.5rem .3rem;
+
+  @include responsive(sm) {
+    margin: 1.5rem .3rem;
+  }
+
+  @include responsive(md) {
+    margin: 1.1rem .3rem;
+  }
+}
+
+.select {
+  width: 45%;
+  padding: 1.7rem 1.5rem;
+
+  font-size: 1.4rem;
+  color: $dove-gray;
+
+  background: $brand-white;
+  border: 1px solid $grey-darker;
+  box-shadow: none;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.select option[disabled] {
+  display: none;
+}

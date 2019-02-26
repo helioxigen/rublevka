@@ -19,14 +19,16 @@ const updateLinkedContactFailed = (id, errors) => ({
   errors,
 });
 
-export default data => (dispatch) => {
+export default data => dispatch => {
   dispatch(updateLinkedContactStarted(data.id));
 
   return API.put(`/v1/contacts/${data.id}`, {
     ...data,
     additionalDetails: {
       ...data.additionalDetails,
-      autoRegion: data.additionalDetails ? data.additionalDetails.autoRegion : undefined,
+      autoRegion: data.additionalDetails
+        ? data.additionalDetails.autoRegion
+        : undefined,
     },
   }).then(
     () => {

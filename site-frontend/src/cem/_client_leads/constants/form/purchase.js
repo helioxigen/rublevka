@@ -49,7 +49,10 @@ const requestFields = [
   ...requestCountryFields.map(field => `countryProperty.${field}`),
 ];
 
-const fields = [...commonFields, ...requestFields.map(field => `requestDetails.${field}`)];
+const fields = [
+  ...commonFields,
+  ...requestFields.map(field => `requestDetails.${field}`),
+];
 
 const formSettings = {
   form: 'leadSelectionRequest',

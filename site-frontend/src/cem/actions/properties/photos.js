@@ -11,7 +11,7 @@ const uploadPhotoStarted = (category, id, src) => ({
   src,
 });
 
-const uploadPhotoFailed = (category, id, status) => (dispatch) => {
+const uploadPhotoFailed = (category, id, status) => dispatch => {
   if (status === 304) {
     dispatch(pop('info', 'Такая фотография уже существует'));
   }
@@ -31,11 +31,14 @@ const uploadPhotoSucceeded = (category, propertyId, photoId) => ({
 });
 
 export function uploadPhoto(propertyId, src, category = 'city') {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(uploadPhotoStarted(category, propertyId, src));
 
-    return API.post(`/v1/properties/${category}/${propertyId}/images`, { src }).then(
-      ({ body }) => dispatch(uploadPhotoSucceeded(category, propertyId, body.id)),
+    return API.post(`/v1/properties/${category}/${propertyId}/images`, {
+      src,
+    }).then(
+      ({ body }) =>
+        dispatch(uploadPhotoSucceeded(category, propertyId, body.id)),
       ({ status, body }) => {
         dispatch(uploadPhotoFailed(category, propertyId, status));
         return body;
@@ -51,7 +54,7 @@ const uploadLayoutStarted = (category, id, src) => ({
   src,
 });
 
-const uploadLayoutFailed = (category, id, status) => (dispatch) => {
+const uploadLayoutFailed = (category, id, status) => dispatch => {
   if (status === 304) {
     dispatch(pop('info', 'Такая планировка уже существует'));
   }
@@ -71,11 +74,14 @@ const uploadLayoutSucceeded = (category, propertyId, layoutId) => ({
 });
 
 export function uploadLayout(propertyId, src, category = 'city') {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(uploadLayoutStarted(category, propertyId, src));
 
-    return API.post(`/v1/properties/${category}/${propertyId}/layouts`, { src }).then(
-      ({ body }) => dispatch(uploadLayoutSucceeded(category, propertyId, body.id)),
+    return API.post(`/v1/properties/${category}/${propertyId}/layouts`, {
+      src,
+    }).then(
+      ({ body }) =>
+        dispatch(uploadLayoutSucceeded(category, propertyId, body.id)),
       ({ status, body }) => {
         dispatch(uploadLayoutFailed(category, propertyId, status));
         return body;

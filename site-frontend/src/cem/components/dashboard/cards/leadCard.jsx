@@ -3,15 +3,19 @@ import { Link } from 'react-router';
 
 import cn from 'classnames';
 import UI from 'cem/components/ui';
-const { Image, Icon, Grid: { Container, Row, Col } } = UI;
+const {
+  Image,
+  Icon,
+  Grid: { Container, Row, Col },
+} = UI;
 
 import s from 'cem/styles/dashboard/taskCard';
 import sUtils from 'cem/styles/utils';
 
 import * as dict from 'cem/constants/leads/dictionaries';
 
-const Contact = ({ photo = {}, details = {} }) =>
-  (<div className={s.mediaContainer}>
+const Contact = ({ photo = {}, details = {} }) => (
+  <div className={s.mediaContainer}>
     <Image
       src={
         photo.url
@@ -23,20 +27,20 @@ const Contact = ({ photo = {}, details = {} }) =>
       height="42"
     />
     <div className={s.mediaDescription}>
-      {!details.firstName &&
-        !details.lastName &&
-        !details.phoneNumber &&
-        <p className={s.mediaText}>Данные не указаны</p>}
-      {(details.firstName || details.lastName || details.phoneNumber) &&
+      {!details.firstName && !details.lastName && !details.phoneNumber && (
+        <p className={s.mediaText}>Данные не указаны</p>
+      )}
+      {(details.firstName || details.lastName || details.phoneNumber) && (
         <p className={s.mediaText}>
           {details.firstName} {details.lastName || ''}
-        </p>}
-      {(details.firstName || details.lastName || details.phoneNumber) &&
-        <p className={s.mediaText}>
-          {details.phoneNumber}
-        </p>}
+        </p>
+      )}
+      {(details.firstName || details.lastName || details.phoneNumber) && (
+        <p className={s.mediaText}>{details.phoneNumber}</p>
+      )}
     </div>
-  </div>);
+  </div>
+);
 
 class Card extends Component {
   render() {
@@ -70,18 +74,20 @@ class Card extends Component {
               <Contact details={data.contactDetails} />
             </Col>
             <Col sm={2} className={cn(sUtils.textRight, s.textMd)}>
-              {(!isActive || !isArchive) &&
-                data.tasks &&
+              {(!isActive || !isArchive) && data.tasks && (
                 <span>
                   <span className={s.primary}>{data.tasks.toDo}</span>
                   &nbsp;/&nbsp;
                   <span className={s.success}>{data.tasks.done}</span>
-                </span>}
+                </span>
+              )}
             </Col>
-            <Col sm={4} lg={3} className={cn(sUtils.textRight, sUtils.pushedTopXs2)}>
-              <span className={s.textMd}>
-                ID: {data.id}
-              </span>
+            <Col
+              sm={4}
+              lg={3}
+              className={cn(sUtils.textRight, sUtils.pushedTopXs2)}
+            >
+              <span className={s.textMd}>ID: {data.id}</span>
               <Icon className={s.icon} icon="chevron-down" />
             </Col>
           </Row>

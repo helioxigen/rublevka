@@ -5,9 +5,10 @@ import submitValidator from 'core/decorators/submitValidator';
 
 import UI from 'cem/components/ui';
 const {
-  Modal, Heading,
+  Modal,
+  Heading,
   Grid: { Row, Col },
- } = UI;
+} = UI;
 
 import Properties from 'cem/containers/common/properties';
 import s from 'cem/styles/modal/list';
@@ -51,13 +52,27 @@ export default reduxForm(formSettings)(
       }
 
       render() {
-        const { values, submitBtn, handleSubmit, propertyCategory = `country` } = this.props;
+        const {
+          values,
+          submitBtn,
+          handleSubmit,
+          propertyCategory = `country`,
+        } = this.props;
 
         return (
           <div className={s.modalContainer}>
-            {React.cloneElement(this.props.children, { onClick: ::this.toggle })}
+            {React.cloneElement(this.props.children, {
+              onClick: ::this.toggle,
+            })}
 
-            <Modal size="lg" closePortal={::this.close} isOpened={this.state.isOpened} onClose={::this.close} closeOnEsc closeOnOutsideClick>
+            <Modal
+              size="lg"
+              closePortal={::this.close}
+              isOpened={this.state.isOpened}
+              onClose={::this.close}
+              closeOnEsc
+              closeOnOutsideClick
+            >
               <div className={s.container}>
                 <Row>
                   <Col xs="20">
@@ -66,20 +81,30 @@ export default reduxForm(formSettings)(
                 </Row>
                 <Row className={sUtils.pushedTop1}>
                   <Col xs="20">
-                    <p className={s.text}>Укажите подходящие объекты из нашей базы</p>
+                    <p className={s.text}>
+                      Укажите подходящие объекты из нашей базы
+                    </p>
                   </Col>
                 </Row>
                 <Row className={sUtils.pushedTop1}>
                   <Col xs="20">
-                    <Properties field={this.props.fields.propertyIds} propertyCategory={propertyCategory} />
+                    <Properties
+                      field={this.props.fields.propertyIds}
+                      propertyCategory={propertyCategory}
+                    />
                   </Col>
                 </Row>
               </div>
-              {React.cloneElement(submitBtn, { ...submitBtn.props, type: `button`, disabled: !values.propertyIds.length, onClick: handleSubmit(::this.update) })}
+              {React.cloneElement(submitBtn, {
+                ...submitBtn.props,
+                type: `button`,
+                disabled: !values.propertyIds.length,
+                onClick: handleSubmit(::this.update),
+              })}
             </Modal>
           </div>
         );
       }
-    }
-  )
+    },
+  ),
 );

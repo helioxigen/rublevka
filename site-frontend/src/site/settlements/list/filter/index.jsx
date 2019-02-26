@@ -17,7 +17,9 @@ import sUtils from 'site/styles/utils';
 
 import { resourceName } from 'core/settlements/constants/defaults';
 
-const { Grid: { Container, Row } } = UI;
+const {
+  Grid: { Container, Row },
+} = UI;
 
 const group = 'all';
 const resource = `${resourceName}.${group}`;

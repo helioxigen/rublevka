@@ -17,9 +17,11 @@ import recursiveCleanUp from 'core/helpers/recursiveCleanUp';
 import { mapParams } from 'core/complexes/helpers';
 import { mergeParams } from 'core/fetcher2/helpers';
 
-const loadProperties = (queryParams, group, options = {}) => (dispatch) => {
+const loadProperties = (queryParams, group, options = {}) => dispatch => {
   const defaultQueryParams = getDefaultsByGroup(group, options);
-  const params = mapParams(recursiveCleanUp(mergeParams(defaultQueryParams, queryParams)));
+  const params = mapParams(
+    recursiveCleanUp(mergeParams(defaultQueryParams, queryParams)),
+  );
 
   const apiPath = getApiPathByGroup(group);
 
@@ -32,7 +34,7 @@ const loadProperties = (queryParams, group, options = {}) => (dispatch) => {
 
       return Promise.resolve(items);
     },
-    (errors) => {
+    errors => {
       dispatch(loadListFailed(types.LOAD_LIST_FAILED, group, errors));
 
       return Promise.reject(errors);

@@ -18,7 +18,12 @@ const transferSucceeded = (objectKind, objectId, responsibleUserId) => ({
   responsibleUserId,
 });
 
-const transferFailed = (objectKind, objectId, responsibleUserId, { errors }) => ({
+const transferFailed = (
+  objectKind,
+  objectId,
+  responsibleUserId,
+  { errors },
+) => ({
   type: types.TRANSFER_FAIL,
   objectKind,
   objectId,
@@ -26,16 +31,24 @@ const transferFailed = (objectKind, objectId, responsibleUserId, { errors }) => 
   errors,
 });
 
-export default (objectKind, objectId, responsibleUserId) => (dispatch) => {
+export default (objectKind, objectId, responsibleUserId) => dispatch => {
   dispatch(transferStarted(objectKind, objectId, responsibleUserId));
 
-  return API.post(`/v1/${objectKind}/${objectId}/transfer`, { responsibleUserId })
+  return API.post(`/v1/${objectKind}/${objectId}/transfer`, {
+    responsibleUserId,
+  })
     .then(() => {
       dispatch(pop('success', 'Передача осуществлена!'));
       dispatch(transferSucceeded(objectKind, objectId, responsibleUserId));
     })
     .catch(({ body, body: { errors = {} } }) => {
-      dispatch(pop('error', 'Передача не осуществлена', errors[0] && errors[0].message));
+      dispatch(
+        pop(
+          'error',
+          'Передача не осуществлена',
+          errors[0] && errors[0].message,
+        ),
+      );
       dispatch(transferFailed(objectKind, objectId, responsibleUserId, body));
       return body;
     });

@@ -11,7 +11,7 @@ const updateWordStarted = key => ({
 });
 
 function updateWordFailed(key, { errors }) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(pop('danger', 'Ошибка обновления слова!'));
 
     return dispatch({
@@ -23,7 +23,7 @@ function updateWordFailed(key, { errors }) {
 }
 
 export default function updateWord(item) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(updateWordStarted());
 
     return API.put(`/v1/dictionary_items/${item.id}`, item).then(

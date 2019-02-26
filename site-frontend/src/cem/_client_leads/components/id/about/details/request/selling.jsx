@@ -44,10 +44,12 @@ class Selling extends Component {
   render() {
     const { isStatic, fields, values, data } = this.props;
     const { saleOffer, rentOffer } = fields.requestDetails;
-    const isSaleOffer = !!Object.keys(recursiveCleanUp(this.props.values.requestDetails.saleOffer))
-      .length;
-    const isRentOffer = !!Object.keys(recursiveCleanUp(this.props.values.requestDetails.rentOffer))
-      .length;
+    const isSaleOffer = !!Object.keys(
+      recursiveCleanUp(this.props.values.requestDetails.saleOffer),
+    ).length;
+    const isRentOffer = !!Object.keys(
+      recursiveCleanUp(this.props.values.requestDetails.rentOffer),
+    ).length;
 
     return (
       <div>
@@ -56,7 +58,9 @@ class Selling extends Component {
           {data.propertyId && (
             <Link
               className={s.linkIcon}
-              to={`/properties/${data.requestDetails.category}/${data.propertyId}`}
+              to={`/properties/${data.requestDetails.category}/${
+                data.propertyId
+              }`}
             >
               <Icon className={s.icon} icon="arrow" />
             </Link>
@@ -141,7 +145,13 @@ class Selling extends Component {
                 <Col sm="14" className={sUtils.pushedBottom3}>
                   <Row>
                     <Col sm="10">
-                      <FormField label="Цена" float field={saleOffer.price} static={isStatic} price>
+                      <FormField
+                        label="Цена"
+                        float
+                        field={saleOffer.price}
+                        static={isStatic}
+                        price
+                      >
                         <PriceInput
                           valueClassName="floatLabel"
                           className={sUtils.fontSizeMd}
@@ -196,7 +206,9 @@ class Selling extends Component {
                         <Label className={sUtils.pushedBottom1} block>
                           Торг
                         </Label>
-                        <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}>
+                        <Label
+                          className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                        >
                           <Input
                             type="radio"
                             {...saleOffer.isBargain}
@@ -226,7 +238,9 @@ class Selling extends Component {
                         <Label className={sUtils.pushedBottom1} block>
                           Рассрочка
                         </Label>
-                        <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}>
+                        <Label
+                          className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                        >
                           <Input
                             type="radio"
                             {...saleOffer.isMortgage}
@@ -253,7 +267,9 @@ class Selling extends Component {
                         <Label className={sUtils.pushedBottom1} block>
                           Ипотека
                         </Label>
-                        <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}>
+                        <Label
+                          className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                        >
                           <Input
                             type="radio"
                             {...saleOffer.isInstallment}
@@ -309,9 +325,10 @@ class Selling extends Component {
                           />{' '}
                           Фиксированная сумма
                         </Label>
-                        {saleOffer.isAgentFixed.touched && saleOffer.isAgentFixed.error && (
-                          <Helper>{saleOffer.isAgentFixed.error}</Helper>
-                        )}
+                        {saleOffer.isAgentFixed.touched &&
+                          saleOffer.isAgentFixed.error && (
+                            <Helper>{saleOffer.isAgentFixed.error}</Helper>
+                          )}
                       </Group>
                     </Col>
                   </Row>
@@ -406,7 +423,13 @@ class Selling extends Component {
                 <Col sm="14" className={sUtils.pushedBottom3}>
                   <Row>
                     <Col sm="10">
-                      <FormField label="Цена" field={rentOffer.price} float static={isStatic} price>
+                      <FormField
+                        label="Цена"
+                        field={rentOffer.price}
+                        float
+                        static={isStatic}
+                        price
+                      >
                         <PriceInput
                           valueClassName="floatLabel"
                           className={sUtils.fontSizeMd}
@@ -476,12 +499,16 @@ class Selling extends Component {
                         <Label className={sUtils.pushedBottom1} block>
                           C детьми
                         </Label>
-                        <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}>
+                        <Label
+                          className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                        >
                           <Input
                             type="radio"
                             {...rentOffer.isAllowedChildren}
                             value="true"
-                            checked={rentOffer.isAllowedChildren.value === 'true'}
+                            checked={
+                              rentOffer.isAllowedChildren.value === 'true'
+                            }
                             disabled={isStatic}
                           />{' '}
                           Да
@@ -491,7 +518,9 @@ class Selling extends Component {
                             type="radio"
                             {...rentOffer.isAllowedChildren}
                             value="false"
-                            checked={rentOffer.isAllowedChildren.value !== 'true'}
+                            checked={
+                              rentOffer.isAllowedChildren.value !== 'true'
+                            }
                             disabled={isStatic}
                           />{' '}
                           Нет
@@ -503,7 +532,9 @@ class Selling extends Component {
                         <Label className={sUtils.pushedBottom1} block>
                           C животными
                         </Label>
-                        <Label className={cn(s.radioLabel, sUtils.pushedRight1_5)}>
+                        <Label
+                          className={cn(s.radioLabel, sUtils.pushedRight1_5)}
+                        >
                           <Input
                             type="radio"
                             {...rentOffer.isAllowedPets}
@@ -559,9 +590,10 @@ class Selling extends Component {
                           />{' '}
                           Фиксированная сумма
                         </Label>
-                        {rentOffer.isAgentFixed.touched && rentOffer.isAgentFixed.error && (
-                          <Helper>{rentOffer.isAgentFixed.error}</Helper>
-                        )}
+                        {rentOffer.isAgentFixed.touched &&
+                          rentOffer.isAgentFixed.error && (
+                            <Helper>{rentOffer.isAgentFixed.error}</Helper>
+                          )}
                       </Group>
                     </Col>
                   </Row>

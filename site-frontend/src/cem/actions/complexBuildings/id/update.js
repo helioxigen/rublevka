@@ -18,7 +18,7 @@ const updateComplexBuildingFailed = (id, errors) => ({
   errors,
 });
 
-const updateComplexBuilding = (id, data) => (dispatch) => {
+const updateComplexBuilding = (id, data) => dispatch => {
   dispatch(updateComplexBuildingStarted(id, data));
 
   return API.put(`/v1/complex_buildings/${id}`, transformDataOut(data)).then(

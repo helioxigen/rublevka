@@ -20,7 +20,7 @@ const loadQuestionsFailed = (kind, { errors }) => ({
   errors,
 });
 
-export default kind => (dispatch) => {
+export default kind => dispatch => {
   dispatch(loadQuestionsStarted(kind));
 
   return API.get('/v1/csi/questions', { filter: getFilterByKind(kind) })

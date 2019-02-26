@@ -8,7 +8,7 @@ const updateIdStarted = id => ({
   id,
 });
 
-const updateIdSucceeded = id => (dispatch) => {
+const updateIdSucceeded = id => dispatch => {
   dispatch(pop('success', 'Источник обновлён'));
 
   return dispatch({
@@ -17,7 +17,7 @@ const updateIdSucceeded = id => (dispatch) => {
   });
 };
 
-const updateIdFailed = (id, { errors }) => (dispatch) => {
+const updateIdFailed = (id, { errors }) => dispatch => {
   dispatch(pop('error', 'Произошла ошибка'));
 
   return dispatch({
@@ -27,8 +27,8 @@ const updateIdFailed = (id, { errors }) => (dispatch) => {
   });
 };
 
-export default function (id, leadSource) {
-  return (dispatch) => {
+export default function(id, leadSource) {
+  return dispatch => {
     dispatch(updateIdStarted(id));
 
     return API.put(`/v1/client_lead_sources/${id}`, leadSource)

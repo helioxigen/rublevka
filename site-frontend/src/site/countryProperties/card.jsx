@@ -16,7 +16,10 @@ import cn from 'classnames';
 import s from 'site/styles/components/card';
 import sUtils from 'site/styles/utils';
 
-import { dealTypes, kindsTranslit } from 'site/constants/properties/dictionaries';
+import {
+  dealTypes,
+  kindsTranslit,
+} from 'site/constants/properties/dictionaries';
 
 const isJQ = global.config.domain === 'jq.estate';
 const { Grid, Icon, Visibility } = UI;
@@ -31,8 +34,9 @@ class Card extends Component {
         <div
           className={s.images}
           style={{
-            backgroundImage: `url(${global.config.cloudfront || cloudfront}/${publicImages[0]
-              .id}-thumbnail-512)`,
+            backgroundImage: `url(${global.config.cloudfront || cloudfront}/${
+              publicImages[0].id
+            }-thumbnail-512)`,
           }}
         />
       );
@@ -49,7 +53,10 @@ class Card extends Component {
 
       return (
         <div className={s.location}>
-          <p className={cn(s.subLocality, s.settlementName)} title={isJQ && location.routeName}>
+          <p
+            className={cn(s.subLocality, s.settlementName)}
+            title={isJQ && location.routeName}
+          >
             {location.settlementName}
             <span className={sUtils.hideXsInline}>,</span>&nbsp;
           </p>
@@ -79,7 +86,9 @@ class Card extends Component {
         <Grid.Col xs="12" sm="6" md="4">
           <Link
             className={cn(s.card, this.props.className, s.paddingBottomSm2)}
-            to={`/zagorodnaya/${this.props.dealType}/${kindsTranslit[data.kind]}/${data.id}`}
+            to={`/zagorodnaya/${this.props.dealType}/${
+              kindsTranslit[data.kind]
+            }/${data.id}`}
           >
             <div className={s.imageContainer}>
               {this.renderPhoto(data)}
@@ -112,21 +121,30 @@ class Card extends Component {
                 <ul className={s.cardList}>
                   {!!landDetails.area && (
                     <li className={s.cardListItem}>
-                      <Icon className={cn(s.cardListIcon, s.iconLand)} icon="area" />
+                      <Icon
+                        className={cn(s.cardListIcon, s.iconLand)}
+                        icon="area"
+                      />
                       {Math.floor(landDetails.area)} сот
                     </li>
                   )}
 
                   {!!specification.totalArea && (
                     <li className={s.cardListItem}>
-                      <Icon className={cn(s.cardListIcon, s.iconHouse)} icon="house" />
+                      <Icon
+                        className={cn(s.cardListIcon, s.iconHouse)}
+                        icon="house"
+                      />
                       {Math.floor(specification.totalArea)} м²
                     </li>
                   )}
 
                   {!!specification.area && (
                     <li className={s.cardListItem}>
-                      <Icon className={cn(s.cardListIcon, s.iconHouse)} icon="house" />
+                      <Icon
+                        className={cn(s.cardListIcon, s.iconHouse)}
+                        icon="house"
+                      />
                       {Math.floor(specification.area)} м²
                     </li>
                   )}

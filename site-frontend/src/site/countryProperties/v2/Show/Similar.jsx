@@ -19,7 +19,9 @@ import s from 'site/styles/property/similar';
 import styled from 'styled-components';
 import media from 'site/styles/media';
 
-const { Grid: { Row } } = UI;
+const {
+  Grid: { Row },
+} = UI;
 
 const Title = styled.div`
   font-size: 2rem;
@@ -69,13 +71,17 @@ class Similar extends Component {
       <section className={s.container}>
         {hasItems && <Title>Похожие объекты</Title>}
 
-        <Row>{ids.map(id => <Card dealType={dealType} key={id} id={id} showLocation />)}</Row>
+        <Row>
+          {ids.map(id => (
+            <Card dealType={dealType} key={id} id={id} showLocation />
+          ))}
+        </Row>
       </section>
     );
   }
 }
 
-const pickState = (state) => {
+const pickState = state => {
   const { countryProperties } = state;
 
   return {
@@ -85,7 +91,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadProperties,
   };
@@ -95,4 +101,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Similar);
+export default connect(
+  pickState,
+  pickActions,
+)(Similar);

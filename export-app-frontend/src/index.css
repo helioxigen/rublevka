@@ -1,0 +1,21 @@
+html {
+  font-family: "PT Sans", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+    "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: #fbfbfd;
+}
+
+body {
+  font-size: 14px;
+  padding: 72px 0;
+}
+
+h2 {
+  font-family: "Lora", serif;
+  font-weight: normal;
+}
+
+@media only screen and (min-width: 1200px) {
+  .container {
+    width: 1024px;
+  }
+}

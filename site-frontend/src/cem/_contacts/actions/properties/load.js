@@ -1,8 +1,11 @@
-import { LOAD_PROPERTIES_START, LOAD_PROPERTIES_DONE } from 'cem/_contacts/constants/actions';
+import {
+  LOAD_PROPERTIES_START,
+  LOAD_PROPERTIES_DONE,
+} from 'cem/_contacts/constants/actions';
 import { API } from 'core/config/sources';
 
 function loadProperties(contactId, propertyCategory, offset) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch({
       type: LOAD_PROPERTIES_START,
       propertyCategory,
@@ -17,7 +20,7 @@ function loadProperties(contactId, propertyCategory, offset) {
       },
     };
 
-    API.get(`/v1/properties/${propertyCategory}`, options).then((response) => {
+    API.get(`/v1/properties/${propertyCategory}`, options).then(response => {
       const items = response.body.items;
       const pagination = response.body.pagination;
 

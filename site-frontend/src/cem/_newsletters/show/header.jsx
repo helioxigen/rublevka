@@ -1,21 +1,21 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import { Provider } from "react-redux";
-import { renderToStaticMarkup } from "react-dom/server";
+import { Provider } from 'react-redux';
+import { renderToStaticMarkup } from 'react-dom/server';
 
-import store from "cem/store";
-import { reduxForm } from "redux-form";
-import submitValidator from "core/decorators/submitValidator";
+import store from 'cem/store';
+import { reduxForm } from 'redux-form';
+import submitValidator from 'core/decorators/submitValidator';
 
-import { generateTimeSlotsList } from "core/helpers";
-import load from "cem/_newsletters/actions/load";
-import create from "cem/_newsletters/actions/create";
-import update from "cem/_newsletters/actions/update";
+import { generateTimeSlotsList } from 'core/helpers';
+import load from 'cem/_newsletters/actions/load';
+import create from 'cem/_newsletters/actions/create';
+import update from 'cem/_newsletters/actions/update';
 
-import { pushPath } from "redux-simple-router";
-import { pop } from "cem/actions/toastr";
+import { pushPath } from 'redux-simple-router';
+import { pop } from 'cem/actions/toastr';
 
-import UI from "cem/components/ui";
+import UI from 'cem/components/ui';
 const {
   Button,
   Icon,
@@ -27,18 +27,18 @@ const {
   Grid: { Container, Row, Col },
 } = UI;
 
-import FormField from "cem/helpers/formField";
-import DatePickerField from "cem/helpers/datePickerField";
+import FormField from 'cem/helpers/formField';
+import DatePickerField from 'cem/helpers/datePickerField';
 
-import cn from "classnames";
-import s from "cem/styles/id/header";
-import sUtils from "cem/styles/utils";
-import sButton from "cem/styles/buttons";
+import cn from 'classnames';
+import s from 'cem/styles/id/header';
+import sUtils from 'cem/styles/utils';
+import sButton from 'cem/styles/buttons';
 
-import * as options from "cem/_newsletters/constants/options";
-import { formSettings } from "cem/_newsletters/constants/form";
+import * as options from 'cem/_newsletters/constants/options';
+import { formSettings } from 'cem/_newsletters/constants/form';
 
-import Template from "./template";
+import Template from './template';
 
 const Description = ({ fields, values, isStatic }) => (
   <section>
@@ -99,12 +99,22 @@ const Description = ({ fields, values, isStatic }) => (
         </FormField>
       </Col>
       <Col sm="6" lg="3">
-        <FormField field={fields.fromEmail} label="С почты" static={isStatic} float>
+        <FormField
+          field={fields.fromEmail}
+          label="С почты"
+          static={isStatic}
+          float
+        >
           <Input className={s.input} block type="email" />
         </FormField>
       </Col>
       <Col sm="6" lg="4">
-        <FormField field={fields.fromTitle} label="От кого" static={isStatic} float>
+        <FormField
+          field={fields.fromTitle}
+          label="От кого"
+          static={isStatic}
+          float
+        >
           <Input className={s.input} block type="text" />
         </FormField>
       </Col>
@@ -189,7 +199,7 @@ class Header extends Component {
               </Col>
             </Row>
           </Container>
-          {formKey === `create` &&
+          {formKey === `create` && (
             <Button
               className={cn(sButton.btnFixedBottom, pristine && sUtils.hidden)}
               disabled={error || submitting}
@@ -199,8 +209,9 @@ class Header extends Component {
             >
               {values._sendNow && `Отправить`}
               {!values._sendNow && `Запланировать`}
-            </Button>}
-          {formKey !== `create` &&
+            </Button>
+          )}
+          {formKey !== `create` && (
             <Button
               className={cn(sButton.btnFixedBottom, pristine && sUtils.hidden)}
               disabled={error || submitting}
@@ -209,7 +220,8 @@ class Header extends Component {
               block
             >
               Сохранить
-            </Button>}
+            </Button>
+          )}
         </Form.Container>
       </header>
     );

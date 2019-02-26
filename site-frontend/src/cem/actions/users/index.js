@@ -7,7 +7,7 @@ const loadListStarted = () => ({
   type: types.LOAD_LIST,
 });
 
-const loadListSucceeded = data => (dispatch) => {
+const loadListSucceeded = data => dispatch => {
   dispatch(updatePagination('users', data.pagination));
 
   dispatch({
@@ -22,7 +22,7 @@ const loadListFailed = ({ errors }) => ({
 });
 
 function loadList(queryParams) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadListStarted());
 
     const { filter: rawFilter, ...params } = queryParams;

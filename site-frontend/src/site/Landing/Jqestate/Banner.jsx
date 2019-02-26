@@ -46,16 +46,31 @@ class Landing extends Component {
                   </Link>
 
                   <Link className={s.filterItem} to="/zagorodnaya/prodaja/dom">
-                    Дома <span className={s.filterNumber}>{countrySale.house}</span>
+                    Дома{' '}
+                    <span className={s.filterNumber}>{countrySale.house}</span>
                   </Link>
-                  <Link className={s.filterItem} to="/zagorodnaya/prodaja/taunhaus">
-                    Таунхаусы <span className={s.filterNumber}>{countrySale.townhouse}</span>
+                  <Link
+                    className={s.filterItem}
+                    to="/zagorodnaya/prodaja/taunhaus"
+                  >
+                    Таунхаусы{' '}
+                    <span className={s.filterNumber}>
+                      {countrySale.townhouse}
+                    </span>
                   </Link>
-                  <Link className={s.filterItem} to="/zagorodnaya/prodaja/kvartira">
-                    Квартиры <span className={s.filterNumber}>{countrySale.flat}</span>
+                  <Link
+                    className={s.filterItem}
+                    to="/zagorodnaya/prodaja/kvartira"
+                  >
+                    Квартиры{' '}
+                    <span className={s.filterNumber}>{countrySale.flat}</span>
                   </Link>
-                  <Link className={s.filterItem} to="/zagorodnaya/prodaja/uchastok">
-                    Участки <span className={s.filterNumber}>{countrySale.land}</span>
+                  <Link
+                    className={s.filterItem}
+                    to="/zagorodnaya/prodaja/uchastok"
+                  >
+                    Участки{' '}
+                    <span className={s.filterNumber}>{countrySale.land}</span>
                   </Link>
                 </div>
 
@@ -65,13 +80,24 @@ class Landing extends Component {
                   </Link>
 
                   <Link className={s.filterItem} to="/zagorodnaya/arenda/dom">
-                    Дома <span className={s.filterNumber}>{countryRent.house}</span>
+                    Дома{' '}
+                    <span className={s.filterNumber}>{countryRent.house}</span>
                   </Link>
-                  <Link className={s.filterItem} to="/zagorodnaya/arenda/taunhaus">
-                    Таунхаусы <span className={s.filterNumber}>{countryRent.townhouse}</span>
+                  <Link
+                    className={s.filterItem}
+                    to="/zagorodnaya/arenda/taunhaus"
+                  >
+                    Таунхаусы{' '}
+                    <span className={s.filterNumber}>
+                      {countryRent.townhouse}
+                    </span>
                   </Link>
-                  <Link className={s.filterItem} to="/zagorodnaya/arenda/kvartira">
-                    Квартиры <span className={s.filterNumber}>{countryRent.flat}</span>
+                  <Link
+                    className={s.filterItem}
+                    to="/zagorodnaya/arenda/kvartira"
+                  >
+                    Квартиры{' '}
+                    <span className={s.filterNumber}>{countryRent.flat}</span>
                   </Link>
                 </div>
               </div>
@@ -95,14 +121,26 @@ class Landing extends Component {
                     Купить
                   </Link>
 
-                  <Link className={s.filterItem} to="/gorodskaya/prodaja/kvartira">
-                    Квартиры <span className={s.filterNumber}>{citySale.flat}</span>
+                  <Link
+                    className={s.filterItem}
+                    to="/gorodskaya/prodaja/kvartira"
+                  >
+                    Квартиры{' '}
+                    <span className={s.filterNumber}>{citySale.flat}</span>
                   </Link>
-                  <Link className={s.filterItem} to="/gorodskaya/prodaja/apartamenty">
-                    Апартаменты <span className={s.filterNumber}>{citySale.apartment}</span>
+                  <Link
+                    className={s.filterItem}
+                    to="/gorodskaya/prodaja/apartamenty"
+                  >
+                    Апартаменты{' '}
+                    <span className={s.filterNumber}>{citySale.apartment}</span>
                   </Link>
-                  <Link className={s.filterItem} to="/gorodskaya/prodaja/penthaus">
-                    Пентхаусы <span className={s.filterNumber}>{citySale.penthouse}</span>
+                  <Link
+                    className={s.filterItem}
+                    to="/gorodskaya/prodaja/penthaus"
+                  >
+                    Пентхаусы{' '}
+                    <span className={s.filterNumber}>{citySale.penthouse}</span>
                   </Link>
                 </div>
 
@@ -111,11 +149,19 @@ class Landing extends Component {
                     Снять
                   </Link>
 
-                  <Link className={s.filterItem} to="/gorodskaya/arenda/kvartira">
-                    Квартиры <span className={s.filterNumber}>{cityRent.flat}</span>
+                  <Link
+                    className={s.filterItem}
+                    to="/gorodskaya/arenda/kvartira"
+                  >
+                    Квартиры{' '}
+                    <span className={s.filterNumber}>{cityRent.flat}</span>
                   </Link>
-                  <Link className={s.filterItem} to="/gorodskaya/arenda/apartamenty">
-                    Апартаменты <span className={s.filterNumber}>{cityRent.apartment}</span>
+                  <Link
+                    className={s.filterItem}
+                    to="/gorodskaya/arenda/apartamenty"
+                  >
+                    Апартаменты{' '}
+                    <span className={s.filterNumber}>{cityRent.apartment}</span>
                   </Link>
                 </div>
               </div>
@@ -128,7 +174,7 @@ class Landing extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { stats } = state;
 
   return {
@@ -138,7 +184,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     push,
     ...FilterActions,
@@ -149,4 +195,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Landing);
+export default connect(
+  pickState,
+  pickActions,
+)(Landing);

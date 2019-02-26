@@ -23,7 +23,8 @@ export const loadElementFailed = (type, id, errors) => ({
 export const loadElement = (resourceName, id) => {
   if (!resourceName) throwFormattedError('required', resourceName);
   if (!id) throwFormattedError('required', id);
-  if (!apiPaths[resourceName]) throwFormattedError('apiPathEmpty', resourceName);
+  if (!apiPaths[resourceName])
+    throwFormattedError('apiPathEmpty', resourceName);
 
   return API.get(`${apiPaths[resourceName]}/${id}`).then(
     ({ body }) => Promise.resolve(body),

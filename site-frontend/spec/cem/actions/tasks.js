@@ -32,17 +32,17 @@ export default () => {
       };
       */
 
-      it(`should produce LOAD_TASK if task data failed to load`, (done) => {
-        const expectedActions = [
-          { type: types.LOAD_TASK, id },
-        ];
+      it(`should produce LOAD_TASK if task data failed to load`, done => {
+        const expectedActions = [{ type: types.LOAD_TASK, id }];
 
-        nock(API).get(`/v1/tasks/${id}`).reply(404);
+        nock(API)
+          .get(`/v1/tasks/${id}`)
+          .reply(404);
 
         mockStore({}, expectedActions, done).dispatch(actions.loadTask(id));
       });
 
-      it(`should produce LOAD_TASK and LOAD_TASK_SUCCESS if task data was successfully retrieved`, (done) => {
+      it(`should produce LOAD_TASK and LOAD_TASK_SUCCESS if task data was successfully retrieved`, done => {
         const expectedResponse = {
           id,
           kind: `contact`,
@@ -53,9 +53,11 @@ export default () => {
           { type: types.LOAD_TASK_SUCCESS, data: { ...expectedResponse } },
         ];
 
-        nock(API).get(`/v1/tasks/${id}`).reply(200, {
-          ...expectedResponse,
-        });
+        nock(API)
+          .get(`/v1/tasks/${id}`)
+          .reply(200, {
+            ...expectedResponse,
+          });
 
         mockStore({}, expectedActions, done).dispatch(actions.loadTask(id));
       });
@@ -108,13 +110,16 @@ export default () => {
         });
       */
 
-      it(`should produce LOAD_TASKS and LOAD_TASKS_FAIL if server responded with error`, (done) => {
+      it(`should produce LOAD_TASKS and LOAD_TASKS_FAIL if server responded with error`, done => {
         const expectedActions = [
           { type: types.LOAD_TASKS, queryParams: {} },
           { type: types.LOAD_TASKS_FAIL, errors: [] },
         ];
 
-        nock(API).get(`/v1/tasks`).query(true).reply(404, { errors: [] });
+        nock(API)
+          .get(`/v1/tasks`)
+          .query(true)
+          .reply(404, { errors: [] });
 
         mockStore({}, expectedActions, done).dispatch(actions.loadTasks());
       });

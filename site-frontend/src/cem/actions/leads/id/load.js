@@ -20,14 +20,16 @@ const loadLeadFailed = (id, { errors }) => ({
 });
 
 export default function loadLead(id) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadLeadStarted(id));
 
     return API.get(`/v1/client_leads/${id}`).then(
       ({ body }) => {
         const { requestDetails = {} } = body;
         const transformedBody =
-          requestDetails.requestKind === 'selling' ? transformLeadIn(body) : body;
+          requestDetails.requestKind === 'selling'
+            ? transformLeadIn(body)
+            : body;
 
         dispatch(loadLeadSucceeded(id, transformedBody));
       },

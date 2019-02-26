@@ -35,6 +35,9 @@ export default values => ({
 
   successfulDealsCount: values.clientLeadsSuccessfulDeal,
   successfulDealsPercentage: parseFloat(
-    toPercentage(values.clientLeadsSuccessfulDeal, values.clientLeadsInProgress),
+    toPercentage(
+      values.clientLeadsSuccessfulDeal,
+      values.clientLeadsInProgress,
+    ),
   ),
 });

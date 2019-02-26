@@ -74,7 +74,7 @@ global.XMLHttpRequest = xhr;
 
 // required because of MODULE
 const manifest = require(`./build/${MODULE}/manifest`); // eslint-disable-line import/no-dynamic-require
-const routes = require(`./src/${MODULE}/routes`).default; // eslint-disable-line import/no-dynamic-require
+const routes = require(`./src/${MODULE}/Routes`).default; // eslint-disable-line import/no-dynamic-require
 
 // const logger = createLogger();
 
@@ -152,23 +152,16 @@ function renderFullPage(renderProps, store) {
           <script>
             mapboxgl.accessToken="${MAPBOX_TOKEN}";
             window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
-
-            ${COMAGIC_KEY &&
-              `
-              var __cs = __cs || [];
-              __cs.push(["setCsAccount", "${COMAGIC_KEY}"]);
-              __cs.push(["setCsHost", "//server.comagic.ru/comagic"]);
-              __cs.push(["setDynamicalReplacement", true]);
-            `}
           </script>
 
-          ${COMAGIC_KEY && '<script src="//app.comagic.ru/static/cs.min.js"></script>'}
-          ${COMAGIC_KEY &&
-            `
-            <script>
-              (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter = new Ya.Metrika({ id: ${REACT_APP_METRIKA_CODE}, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/${REACT_APP_METRIKA_CODE}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-
-          `}
+          <script>
+            (function(w, d, s, h, id) {
+                w.roistatProjectId = id; w.roistatHost = h;
+                var p = d.location.protocol == "https:" ? "https://" : "http://";
+                var u = /^.*roistat_visit=[^;]+(.*)?$/.test(d.cookie) ? "/dist/module.js" : "/api/site/1.0/"+id+"/init";
+                var js = d.createElement(s); js.charset="UTF-8"; js.async = 1; js.src = p+h+u; var js2 = d.getElementsByTagName(s)[0]; js2.parentNode.insertBefore(js, js2);
+            })(window, document, 'script', 'cloud.roistat.com', 'eae5017254b3e856dfa7ab4274db5073');
+          </script>
           <script>
             window._txq = window._txq || [];
             var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//st.targetix.net/txsp.js';
@@ -191,7 +184,9 @@ function getStatusCode(meta, cb) {
 
   parseString(xml, (err, result) => {
     const status = (result.root.meta &&
-      result.root.meta.find(item => item.$.name === 'status-code')) || { $: { content: 200 } };
+      result.root.meta.find(item => item.$.name === 'status-code')) || {
+        $: { content: 200 },
+      };
 
     const headers =
       (result.root.meta && result.root.meta.filter(item => item.$.name === 'header')) || [];

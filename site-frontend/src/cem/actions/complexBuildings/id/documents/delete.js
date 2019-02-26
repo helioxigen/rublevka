@@ -16,10 +16,12 @@ const deleteDocumentsFailed = (complexBuildingId, errors) => ({
   errors,
 });
 
-const deleteDocument = (complexBuildingId, id) => (dispatch) => {
+const deleteDocument = (complexBuildingId, id) => dispatch => {
   dispatch(deleteDocumentsStarted(complexBuildingId, id));
 
-  return API.del(`/v1/complex_buildings/${complexBuildingId}/documents/${id}`).then(
+  return API.del(
+    `/v1/complex_buildings/${complexBuildingId}/documents/${id}`,
+  ).then(
     () => dispatch(loadDocumetns(complexBuildingId)),
     ({ body }) => {
       dispatch(deleteDocumentsFailed(complexBuildingId, body));

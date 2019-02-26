@@ -35,46 +35,58 @@ class Status extends Component {
   }
 
   render() {
-    const { data, data: { responsibleUser = {} }, state } = this.props;
+    const {
+      data,
+      data: { responsibleUser = {} },
+      state,
+    } = this.props;
     const createdByUser = state.users[data.createdByUserId];
     const updatedByUser = state.users[data.updatedByUserId];
 
     return (
       <section className={this.props.className}>
-        {responsibleUser.id &&
+        {responsibleUser.id && (
           <Row className={sUtils.pushedBottom6}>
             <Col xs="20">
               <User id={responsibleUser.id} title="Ответственный" />
             </Col>
           </Row>
-        }
+        )}
         <Row>
-          {createdByUser &&
+          {createdByUser && (
             <Col sm="10">
               <Heading size="md">Создан</Heading>
               <Group>
                 <Label block>Дата создания</Label>
-                <Static><FormattedDate mask="dd.mm.yy HH:MM" value={data.createdAt} /></Static>
+                <Static>
+                  <FormattedDate mask="dd.mm.yy HH:MM" value={data.createdAt} />
+                </Static>
               </Group>
               <Group className={sUtils.resetIndentation}>
                 <Label block>Создал</Label>
-                <Static>{createdByUser.data.firstName} {createdByUser.data.lastName}</Static>
+                <Static>
+                  {createdByUser.data.firstName} {createdByUser.data.lastName}
+                </Static>
               </Group>
             </Col>
-          }
-          {updatedByUser &&
+          )}
+          {updatedByUser && (
             <Col className={sUtils.pushedTopXs4} sm="10">
               <Heading size="md">Изменен</Heading>
               <Group>
                 <Label block>Дата изменения</Label>
-                <Static><FormattedDate mask="dd.mm.yy HH:MM" value={data.updatedAt} /></Static>
+                <Static>
+                  <FormattedDate mask="dd.mm.yy HH:MM" value={data.updatedAt} />
+                </Static>
               </Group>
               <Group className={sUtils.resetIndentation}>
                 <Label block>Изменил</Label>
-                <Static>{updatedByUser.data.firstName} {updatedByUser.data.lastName}</Static>
+                <Static>
+                  {updatedByUser.data.firstName} {updatedByUser.data.lastName}
+                </Static>
               </Group>
             </Col>
-          }
+          )}
         </Row>
       </section>
     );

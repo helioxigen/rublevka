@@ -11,7 +11,9 @@ import Pagination from 'core/components/pagination';
 
 import UI from 'cem/components/ui';
 const {
-  Button, Loading, Heading,
+  Button,
+  Loading,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -40,11 +42,19 @@ class List extends Component {
     const pagination = state.pagination.complexes || {};
     const nextPagination = nextProps.state.pagination.complexes || {};
 
-    const isPaginationUpdated = pagination.offset !== undefined && pagination.offset !== nextPagination.offset;
+    const isPaginationUpdated =
+      pagination.offset !== undefined &&
+      pagination.offset !== nextPagination.offset;
     const isFilterUpdated = !isEqual(filter, nextFilter);
 
     if (isPaginationUpdated || isFilterUpdated) {
-      actions.loadComplexes({ pagination: { offset: nextPagination.offset, limit: nextPagination.limit }, filter: nextFilter });
+      actions.loadComplexes({
+        pagination: {
+          offset: nextPagination.offset,
+          limit: nextPagination.limit,
+        },
+        filter: nextFilter,
+      });
     }
   }
 
@@ -68,7 +78,17 @@ class List extends Component {
             <Row>
               <Col xs="20">
                 <Heading size="lg">
-                  Жилые комплексы {isCreationAllowed && <Button className={sUtils.pushedLeftSm2} kind="accent" size="xs" to={`/places/complexes/create`}>добавить</Button>}
+                  Жилые комплексы{' '}
+                  {isCreationAllowed && (
+                    <Button
+                      className={sUtils.pushedLeftSm2}
+                      kind="accent"
+                      size="xs"
+                      to={`/places/complexes/create`}
+                    >
+                      добавить
+                    </Button>
+                  )}
                 </Heading>
               </Col>
             </Row>
@@ -79,20 +99,23 @@ class List extends Component {
         </Container>
 
         {isFetching && <Loading />}
-        {!isFetching && !items.length && <Heading notFound>Не найдено жилых комплексов</Heading>}
-        {!isFetching && items.map((data) =>
-          <Card key={data.id} data={data} />
+        {!isFetching && !items.length && (
+          <Heading notFound>Не найдено жилых комплексов</Heading>
         )}
+        {!isFetching && items.map(data => <Card key={data.id} data={data} />)}
 
-        {!isFetching && !!items.length &&
+        {!isFetching && !!items.length && (
           <Container fluid>
             <Row xs="center">
               <Col sm="10" className={sUtils.pushed6_0}>
-                <Pagination {...pagination} onUpdate={::this.handlePaginationUpdate} />
+                <Pagination
+                  {...pagination}
+                  onUpdate={::this.handlePaginationUpdate}
+                />
               </Col>
             </Row>
           </Container>
-        }
+        )}
       </section>
     );
   }
@@ -102,8 +125,14 @@ const pickState = ({ complexes, pagination, filters }) => ({
   state: { complexes, pagination, filters },
 });
 
-const pickActions = (dispatch) => ({
-  actions: bindActionCreators({ ...ComplexesActions, ...PaginationActions, ...FilterActions }, dispatch),
+const pickActions = dispatch => ({
+  actions: bindActionCreators(
+    { ...ComplexesActions, ...PaginationActions, ...FilterActions },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, pickActions)(List);
+export default connect(
+  pickState,
+  pickActions,
+)(List);

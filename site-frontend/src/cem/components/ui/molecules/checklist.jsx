@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-export default () => (
+export default () =>
   class extends Component {
     isChecked() {
       const { option, value = [] } = this.props;
-      return (value.indexOf(option) > -1);
+      return value.indexOf(option) > -1;
     }
 
     toggle() {
@@ -22,7 +22,9 @@ export default () => (
     }
 
     render() {
-      return React.cloneElement(this.props.checkbox, { checked: ::this.isChecked(), onChange: () => this.toggle() });
+      return React.cloneElement(this.props.checkbox, {
+        checked: ::this.isChecked(),
+        onChange: () => this.toggle(),
+      });
     }
-  }
-);
+  };

@@ -29,8 +29,13 @@ class StaffIdContainer extends Component {
   }
 
   render() {
-    const { params: { id }, state, hasRight } = this.props;
-    const { isFetching, isPhotoUploading, data, errors } = state.users[id] || {};
+    const {
+      params: { id },
+      state,
+      hasRight,
+    } = this.props;
+    const { isFetching, isPhotoUploading, data, errors } =
+      state.users[id] || {};
 
     const permissionsProps = {
       isUpdateAllowed: hasRight('staff_user_update'),
@@ -46,10 +51,24 @@ class StaffIdContainer extends Component {
     if (id === 'create' || (data && !errors)) {
       return (
         <section>
-          <Header id={id} formKey={id} initialValues={data} data={data} isPhotoUploading={isPhotoUploading} {...this.props} {...permissionsProps} />
+          <Header
+            id={id}
+            formKey={id}
+            initialValues={data}
+            data={data}
+            isPhotoUploading={isPhotoUploading}
+            {...this.props}
+            {...permissionsProps}
+          />
           <Tabs id={id} currentUserId={state.auth.id} />
           <Grid.Container fluid>
-            {React.cloneElement(this.props.children, { ...this.props, id, initialValues: data, formKey: id, ...permissionsProps })}
+            {React.cloneElement(this.props.children, {
+              ...this.props,
+              id,
+              initialValues: data,
+              formKey: id,
+              ...permissionsProps,
+            })}
           </Grid.Container>
         </section>
       );
@@ -64,7 +83,13 @@ const pickState = ({ auth, users }) => ({
 });
 
 const mapDispatch = dispatch => ({
-  actions: bindActionCreators({ ...UserActions, loadSubordinateUsers, loginAsUser, pop, pushPath }, dispatch),
+  actions: bindActionCreators(
+    { ...UserActions, loadSubordinateUsers, loginAsUser, pop, pushPath },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, mapDispatch)(StaffIdContainer);
+export default connect(
+  pickState,
+  mapDispatch,
+)(StaffIdContainer);

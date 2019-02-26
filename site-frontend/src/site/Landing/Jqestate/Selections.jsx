@@ -11,7 +11,10 @@ import Slider from 'react-slick';
 import Card from 'site/selections/card';
 
 import UI from 'site/ui';
-const { Grid: { Row, Col, Container }, Visibility } = UI;
+const {
+  Grid: { Row, Col, Container },
+  Visibility,
+} = UI;
 
 import s from 'site/styles/landing/jqestate/selections';
 import sUtils from 'site/styles/utils';
@@ -68,53 +71,61 @@ class Selections extends Component {
           </Col>
         </Row>
 
-        {hasItems &&
+        {hasItems && (
           <Visibility xs="hidden" sm="hidden" className={sUtils.fullWidth}>
             <Row sm="center">
               <Col xs="12" lg="10">
                 <Container fluid>
                   <Row sm="center">
-                    {ids[0] &&
+                    {ids[0] && (
                       <Col sm="6" md="4">
                         <Card id={ids[0]} className={s.largeCard} />
-                      </Col>}
+                      </Col>
+                    )}
 
-                    {ids[1] &&
+                    {ids[1] && (
                       <Col sm="6" md="4">
                         <Card id={ids[1]} className={s.largeCard} />
-                      </Col>}
+                      </Col>
+                    )}
 
-                    {ids[2] &&
+                    {ids[2] && (
                       <Col sm="6" md="4">
                         <Card id={ids[2]} className={s.largeCard} />
-                      </Col>}
+                      </Col>
+                    )}
 
-                    {ids[3] &&
+                    {ids[3] && (
                       <Col sm="6" md="3">
                         <Card id={ids[3]} className={s.mediumCard} />
-                      </Col>}
+                      </Col>
+                    )}
 
-                    {ids[4] &&
+                    {ids[4] && (
                       <Col sm="4" md="3">
                         <Card id={ids[4]} className={s.smallCard} />
-                      </Col>}
+                      </Col>
+                    )}
 
-                    {ids[5] &&
+                    {ids[5] && (
                       <Col sm="4" md="3">
                         <Card id={ids[5]} className={s.smallCard} />
-                      </Col>}
+                      </Col>
+                    )}
 
-                    {ids[6] &&
+                    {ids[6] && (
                       <Col sm="4" md="3">
                         <Card id={ids[6]} className={s.smallCard} />
-                      </Col>}
+                      </Col>
+                    )}
                   </Row>
                 </Container>
               </Col>
             </Row>
-          </Visibility>}
+          </Visibility>
+        )}
 
-        {hasItems &&
+        {hasItems && (
           <Visibility md="hidden" lg="hidden">
             <Row>
               <Slider {...settings}>
@@ -125,14 +136,15 @@ class Selections extends Component {
                 ))}
               </Slider>
             </Row>
-          </Visibility>}
+          </Visibility>
+        )}
       </Container>
     );
   }
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { selections, filters, pagination, order } = state;
 
   return {
@@ -145,7 +157,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadSelections,
   };
@@ -155,4 +167,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Selections);
+export default connect(
+  pickState,
+  pickActions,
+)(Selections);

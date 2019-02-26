@@ -5,7 +5,8 @@ import Dadata from 'cem/components/dadata';
 
 import UI from 'cem/components/ui';
 const {
-  Heading, MapBox,
+  Heading,
+  MapBox,
   Form: { Group, Input, Label, Static },
   Grid: { Row, Col },
 } = UI;
@@ -22,7 +23,11 @@ import { coordinates } from 'core/constants/maps';
 
 class Address extends Component {
   complete(option, value) {
-    fetchAddress(1, [{ kladr_id: value.data.kladr_id }])(`${value.label}`, null, null).then(options => {
+    fetchAddress(1, [{ kladr_id: value.data.kladr_id }])(
+      `${value.label}`,
+      null,
+      null,
+    ).then(options => {
       const { data } = options[0];
       const { fields, destroyForm, initializeForm } = this.props;
 
@@ -69,23 +74,31 @@ class Address extends Component {
 
   render() {
     const {
-      fields, formKey, values: { location = {} },
+      fields,
+      formKey,
+      values: { location = {} },
       isUpdateAllowed,
     } = this.props;
 
-    const markerPosition = location.latitude && location.longitude ? { lat: location.latitude, lng: location.longitude } : { lat: coordinates.moscow[1], lng: coordinates.moscow[0] };
+    const markerPosition =
+      location.latitude && location.longitude
+        ? { lat: location.latitude, lng: location.longitude }
+        : { lat: coordinates.moscow[1], lng: coordinates.moscow[0] };
 
     return (
       <section className={this.props.className}>
         <Heading size="md">Адрес</Heading>
         <Row>
           <Col lg="20">
-            {(isUpdateAllowed || formKey === `create`) &&
+            {(isUpdateAllowed || formKey === `create`) && (
               <Group>
                 <Label>Поиск адреса</Label>
-                <Dadata.Location className={sUtils.fontSizeMd} onChange={::this.complete} />
+                <Dadata.Location
+                  className={sUtils.fontSizeMd}
+                  onChange={::this.complete}
+                />
               </Group>
-            }
+            )}
           </Col>
         </Row>
         <Row className={cn(sUtils.pushedBottom1, sUtils.pushedTop1)}>
@@ -100,22 +113,39 @@ class Address extends Component {
           <Col md="10" lg="6">
             <Group>
               <Label block>Район, улица, дом</Label>
-              <Static className={sUtils.fontSizeMd}>{location.subLocalityName || `—`}, {location.street || `—`}, {location.house || `—`}</Static>
+              <Static className={sUtils.fontSizeMd}>
+                {location.subLocalityName || `—`}, {location.street || `—`},{' '}
+                {location.house || `—`}
+              </Static>
             </Group>
           </Col>
           <Col xs="10" md="10" lg="5">
-            <FormField field={fields.location.latitude} label="Широта" float static={!isUpdateAllowed && formKey !== `create`}>
+            <FormField
+              field={fields.location.latitude}
+              label="Широта"
+              float
+              static={!isUpdateAllowed && formKey !== `create`}
+            >
               <Input className={sUtils.fontSizeMd} block type="text" />
             </FormField>
           </Col>
           <Col xs="10" md="10" lg="5">
-            <FormField field={fields.location.longitude} label="Долгота" float static={!isUpdateAllowed && formKey !== `create`}>
+            <FormField
+              field={fields.location.longitude}
+              label="Долгота"
+              float
+              static={!isUpdateAllowed && formKey !== `create`}
+            >
               <Input className={sUtils.fontSizeMd} block type="text" />
             </FormField>
           </Col>
         </Row>
         <Row className={cn(sMap.mapContainer, sUtils.pushedBottom6)}>
-          <MapBox center={[markerPosition.lng, markerPosition.lat]} markers={[markerPosition]} container={<div className={sMap.map} />} />
+          <MapBox
+            center={[markerPosition.lng, markerPosition.lat]}
+            markers={[markerPosition]}
+            container={<div className={sMap.map} />}
+          />
         </Row>
       </section>
     );

@@ -15,14 +15,14 @@ export const validateSellingContactDetails = (contactDetails, state) => {
       ? {
           // firstName: !contactDetails.firstName && `Укажите имя контакта`,
           // phoneNumber: !contactDetails.phoneNumber && `Укажите телефон контакта`,
-        kindId: !contactDetails.kindId && 'Обязательно',
+          kindId: !contactDetails.kindId && 'Обязательно',
           // email: `Укажите e-mail контакта`,
-      }
+        }
       : {
           // firstName: `Укажите имя контакта`,
           // phoneNumber: `Укажите телефон контакта`,
           // email: `Укажите e-mail контакта`,
-        kindId: 'Обязательно',
-      };
+          kindId: 'Обязательно',
+        };
   }
 };

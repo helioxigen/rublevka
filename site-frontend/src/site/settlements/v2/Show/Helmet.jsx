@@ -18,9 +18,11 @@ export default ({ placeName, placeKind, data, dealType, kind }) => {
     const meta = [];
 
     const kindPostfix = (kind && `/${kind}`) || '';
-    const canonical = `https://${global.config.domain}/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
-      data.name,
-    )}_${data.id}${kindPostfix}`;
+    const canonical = `https://${
+      global.config.domain
+    }/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${
+      data.id
+    }${kindPostfix}`;
 
     // send 404 if settlement can't be on this site
     // if (!routeIds.includes(data.location.routeId)) {
@@ -41,7 +43,9 @@ export default ({ placeName, placeKind, data, dealType, kind }) => {
 
     // otherwise send correct meta
 
-    const metaItem = (data.meta && data.meta[(kind && `${dealType}_${kind}`) || dealType]) || {};
+    const metaItem =
+      (data.meta && data.meta[(kind && `${dealType}_${kind}`) || dealType]) ||
+      {};
 
     const title = metaItem.title || seo.title(data, dealType, kind);
     const link = [
@@ -52,15 +56,27 @@ export default ({ placeName, placeKind, data, dealType, kind }) => {
     ];
     // ↑ fucking russian seo
 
-    meta.push(makeMetaElement('description', data.name, dealType, kind, metaItem.description));
-    meta.push(makeMetaElement('keywords', data.name, dealType, kind, metaItem.keywords));
+    meta.push(
+      makeMetaElement(
+        'description',
+        data.name,
+        dealType,
+        kind,
+        metaItem.description,
+      ),
+    );
+    meta.push(
+      makeMetaElement('keywords', data.name, dealType, kind, metaItem.keywords),
+    );
 
     const script = [
       {
         innerHTML: `
         fbq('track', 'ViewContent', {content_name: 'Котеджный посёлок ${
           data.name
-        }', content_category: 'Посёлки', content_ids: ['${data.id}'], content_type: 'product'});
+        }', content_category: 'Посёлки', content_ids: ['${
+          data.id
+        }'], content_type: 'product'});
       `,
       },
     ];

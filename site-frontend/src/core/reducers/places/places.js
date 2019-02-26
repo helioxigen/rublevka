@@ -20,7 +20,10 @@ const places = handleActions(
       },
     }),
 
-    [types.LOAD_PLACES_SUCCEEDED]: (state, { kind, items, pagination, timestamp }) => ({
+    [types.LOAD_PLACES_SUCCEEDED]: (
+      state,
+      { kind, items, pagination, timestamp },
+    ) => ({
       ...state,
       [kind]: {
         isFetching: false,

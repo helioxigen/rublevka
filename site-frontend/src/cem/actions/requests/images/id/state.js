@@ -17,7 +17,7 @@ const changeStateFailed = (id, state, { errors }) => ({
 });
 
 export default function changeState(id, state, data) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(changeStateStarted(id, state, data));
 
     return API.post(`/v1/orders/images/${id}/${state}`, data)

@@ -13,7 +13,9 @@ import Card from 'cem/components/places/card';
 
 import UI from 'cem/components/ui';
 const {
-  Button, Loading, Heading,
+  Button,
+  Loading,
+  Heading,
   Grid: { Container, Row, Col },
 } = UI;
 
@@ -22,14 +24,20 @@ import sUtils from 'cem/styles/utils';
 
 class ListContainer extends Component {
   componentWillMount() {
-    const { params: { kind } } = this.props;
+    const {
+      params: { kind },
+    } = this.props;
 
     this.load(kind);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { params: { kind } } = this.props;
-    const { params: { kind: nextKind } } = nextProps;
+    const {
+      params: { kind },
+    } = this.props;
+    const {
+      params: { kind: nextKind },
+    } = nextProps;
 
     if (kind !== nextKind) {
       this.load(nextKind);
@@ -37,7 +45,9 @@ class ListContainer extends Component {
   }
 
   updatePagination(offset) {
-    const { params: { kind } } = this.props;
+    const {
+      params: { kind },
+    } = this.props;
 
     this.load(kind, { offset });
   }
@@ -49,7 +59,11 @@ class ListContainer extends Component {
   }
 
   render() {
-    const { state, hasRight, params: { kind } } = this.props;
+    const {
+      state,
+      hasRight,
+      params: { kind },
+    } = this.props;
     const { items = [], isFetching } = state.places.list;
     const pagination = state.pagination.places || {};
     const { permissionName } = dicts.kinds[kind];
@@ -64,7 +78,16 @@ class ListContainer extends Component {
               <Col xs="20">
                 <Heading size="lg">
                   {dicts.kinds[kind].title[2]}
-                  {isCreateAllowed && <Button className={sUtils.pushedLeftSm2} kind="accent" size="xs" to={`/places/${kind}/create`}>добавить</Button>}
+                  {isCreateAllowed && (
+                    <Button
+                      className={sUtils.pushedLeftSm2}
+                      kind="accent"
+                      size="xs"
+                      to={`/places/${kind}/create`}
+                    >
+                      добавить
+                    </Button>
+                  )}
                 </Heading>
               </Col>
             </Row>
@@ -72,23 +95,26 @@ class ListContainer extends Component {
         </Container>
 
         {!!isFetching && <Loading />}
-        {!isFetching && !!items.length &&
+        {!isFetching && !!items.length && (
           <section>
-            {items.map((item, index) => <Card item={item} key={index} kind={kind} />)}
+            {items.map((item, index) => (
+              <Card item={item} key={index} kind={kind} />
+            ))}
           </section>
-        }
-        {!isFetching && !items.length &&
-          <Heading notFound>Не найдено</Heading>
-        }
-        {!isFetching && !!items.length &&
+        )}
+        {!isFetching && !items.length && <Heading notFound>Не найдено</Heading>}
+        {!isFetching && !!items.length && (
           <Container fluid>
             <Row sm="center">
               <Col sm="10" className={sUtils.pushed6_0}>
-                <Pagination {...pagination} onUpdate={::this.updatePagination} />
+                <Pagination
+                  {...pagination}
+                  onUpdate={::this.updatePagination}
+                />
               </Col>
             </Row>
           </Container>
-        }
+        )}
       </section>
     );
   }
@@ -98,8 +124,14 @@ const pickState = ({ places, pagination }) => ({
   state: { places, pagination },
 });
 
-const mapDispatch = (dispatch) => ({
-  actions: bindActionCreators({ ...PlacesActions, ...PaginationActions }, dispatch),
+const mapDispatch = dispatch => ({
+  actions: bindActionCreators(
+    { ...PlacesActions, ...PaginationActions },
+    dispatch,
+  ),
 });
 
-export default connect(pickState, mapDispatch)(ListContainer);
+export default connect(
+  pickState,
+  mapDispatch,
+)(ListContainer);

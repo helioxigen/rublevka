@@ -3,7 +3,10 @@ import { Link } from 'react-router';
 
 import UI from 'site/ui';
 
-import { dealTypesTranslit, dealTypesTranslate } from 'site/constants/properties/dictionaries';
+import {
+  dealTypesTranslit,
+  dealTypesTranslate,
+} from 'site/constants/properties/dictionaries';
 
 import styled from 'styled-components';
 import media from 'site/styles/media';
@@ -72,21 +75,33 @@ class SettlementBreadcrumbs extends Component {
       <Visibility xs="hidden" sm="hidden">
         <Wrapper>
           <Ol itemScope itemType="http://schema.org/BreadcrumbList">
-            <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+            <Li
+              itemProp="itemListElement"
+              itemScope
+              itemType="http://schema.org/ListItem"
+            >
               <StLink to="/" itemProp="item">
                 <span itemProp="name">Главная</span>
                 <meta itemProp="position" content="1" />
                 <StIcon icon="arrow-down" />
               </StLink>
             </Li>
-            <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+            <Li
+              itemProp="itemListElement"
+              itemScope
+              itemType="http://schema.org/ListItem"
+            >
               <StLink to="/zagorodnaya/kottedzhnye-poselki" itemProp="item">
                 <span itemProp="name">Посёлки</span>
                 <meta itemProp="position" content="2" />
                 <StIcon icon="arrow-down" />
               </StLink>
             </Li>
-            <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+            <Li
+              itemProp="itemListElement"
+              itemScope
+              itemType="http://schema.org/ListItem"
+            >
               <ActiveBreadcrumb itemProp="item">
                 <span itemProp="name">{data.name}</span>
                 <meta itemProp="position" content="3" />

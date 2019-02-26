@@ -4,7 +4,9 @@ import filterHelper from 'core/decorators/filter';
 
 import UI from 'cem/components/ui';
 const {
-  Button, Select, AsyncSelect,
+  Button,
+  Select,
+  AsyncSelect,
   Form: { Group, Input, Label },
   Grid: { Row, Col },
 } = UI;
@@ -20,25 +22,49 @@ const FilterExtended = ({ fields }) => (
       <Col sm="5">
         <Group>
           <Label>ИНН</Label>
-          <AsyncSelect multi valueKey="inn" asyncOptions={fetchResource(`/v1/companies`, `inn`)} {...fields.inn} />
+          <AsyncSelect
+            multi
+            valueKey="inn"
+            asyncOptions={fetchResource(`/v1/companies`, `inn`)}
+            {...fields.inn}
+          />
         </Group>
       </Col>
       <Col sm="5">
         <Group>
           <Label>ОГРН(ИП)</Label>
-          <AsyncSelect multi valueKey="ogrn" asyncOptions={fetchResource(`/v1/companies`, `ogrn`)} {...fields.ogrn} />
+          <AsyncSelect
+            multi
+            valueKey="ogrn"
+            asyncOptions={fetchResource(`/v1/companies`, `ogrn`)}
+            {...fields.ogrn}
+          />
         </Group>
       </Col>
       <Col sm="5">
         <Group>
           <Label>Создатель</Label>
-          <AsyncSelect asyncOptions={fetchResource(`/v1/users/staff`, `lastName,firstName`, [`firstName`, `lastName`])} {...fields.createdByUserId} />
+          <AsyncSelect
+            asyncOptions={fetchResource(
+              `/v1/users/staff`,
+              `lastName,firstName`,
+              [`firstName`, `lastName`],
+            )}
+            {...fields.createdByUserId}
+          />
         </Group>
       </Col>
       <Col sm="5">
         <Group>
           <Label>Ответственный</Label>
-          <AsyncSelect asyncOptions={fetchResource(`/v1/users/staff`, `lastName,firstName`, [`firstName`, `lastName`])} {...fields.responsibleUserId} />
+          <AsyncSelect
+            asyncOptions={fetchResource(
+              `/v1/users/staff`,
+              `lastName,firstName`,
+              [`firstName`, `lastName`],
+            )}
+            {...fields.responsibleUserId}
+          />
         </Group>
       </Col>
     </Row>
@@ -53,7 +79,13 @@ class Filter extends Component {
   }
 
   render() {
-    const { fields, count, resetFilter, filterCount, extendedFilterCount } = this.props;
+    const {
+      fields,
+      count,
+      resetFilter,
+      filterCount,
+      extendedFilterCount,
+    } = this.props;
 
     return (
       <Col xs="20" className={sUtils.pushedTop5}>
@@ -75,7 +107,13 @@ class Filter extends Component {
               <Col sm="7">
                 <Group>
                   <Label>Статус</Label>
-                  <Select options={[{ value: `active`, label: `Активная` }, { value: `closed`, label: `Закрытая` }]} {...fields.state} />
+                  <Select
+                    options={[
+                      { value: `active`, label: `Активная` },
+                      { value: `closed`, label: `Закрытая` },
+                    ]}
+                    {...fields.state}
+                  />
                 </Group>
               </Col>
             </Row>
@@ -83,11 +121,27 @@ class Filter extends Component {
           </Col>
           <Col xs="20">
             <div className={s.btnGroup}>
-              <Button size="xs" kind="primary" className={sUtils.pushedRight1} type="button" onClick={::this.toggleExtended}>
-                {this.state.extended ? `Скрыть` : `Показать` } расширенный фильтр {!!extendedFilterCount && `(${extendedFilterCount})`}
+              <Button
+                size="xs"
+                kind="primary"
+                className={sUtils.pushedRight1}
+                type="button"
+                onClick={::this.toggleExtended}
+              >
+                {this.state.extended ? `Скрыть` : `Показать`} расширенный фильтр{' '}
+                {!!extendedFilterCount && `(${extendedFilterCount})`}
               </Button>
-              <Button size="xs" type="button" onClick={resetFilter} disabled={!filterCount}>Сбросить</Button>
-              {count && (<p className={s.textFind}>Найдено: {this.props.count}</p>)}
+              <Button
+                size="xs"
+                type="button"
+                onClick={resetFilter}
+                disabled={!filterCount}
+              >
+                Сбросить
+              </Button>
+              {count && (
+                <p className={s.textFind}>Найдено: {this.props.count}</p>
+              )}
             </div>
           </Col>
         </Row>
@@ -96,17 +150,8 @@ class Filter extends Component {
   }
 }
 
-const fields = [
-  `id`,
-  `name`,
-  `state`,
-];
+const fields = [`id`, `name`, `state`];
 
-const extendedFields = [
-  `inn`,
-  `ogrn`,
-  `createdByUserId`,
-  `responsibleUserId`,
-];
+const extendedFields = [`inn`, `ogrn`, `createdByUserId`, `responsibleUserId`];
 
 export default filterHelper(`companies`, fields, extendedFields)(Filter);

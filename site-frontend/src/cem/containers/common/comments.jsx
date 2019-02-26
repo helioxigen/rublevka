@@ -24,15 +24,16 @@ class CommentsContainer extends Component {
   componentWillReceiveProps(nextProps) {
     const { entity, actions } = this.props;
 
-    if (nextProps.entity.key !== entity.key || nextProps.entity.id !== entity.id) {
+    if (
+      nextProps.entity.key !== entity.key ||
+      nextProps.entity.id !== entity.id
+    ) {
       actions.loadComments(nextProps.entity.key, nextProps.entity.id);
     }
   }
 
   render() {
-    return (
-      <Comments {...this.props} />
-    );
+    return <Comments {...this.props} />;
   }
 }
 
@@ -44,4 +45,7 @@ const pickActions = dispatch => ({
   actions: bindActionCreators({ ...CommentsActions, pushPath, pop }, dispatch),
 });
 
-export default connect(pickState, pickActions)(CommentsContainer);
+export default connect(
+  pickState,
+  pickActions,
+)(CommentsContainer);

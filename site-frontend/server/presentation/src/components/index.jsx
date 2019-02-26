@@ -26,9 +26,9 @@ export default class extends Component {
             <div
               className="banner-image"
               style={{
-                backgroundImage: `url(https://images.jqestate.ru/${images[0].id}-${
-                  showLogo ? 'jqestate' : 'presentation'
-                }-1024)`,
+                backgroundImage: `url(https://images.jqestate.ru/${
+                  images[0].id
+                }-${showLogo ? 'jqestate' : 'presentation'}-1024)`,
               }}
             />
           )}
@@ -46,7 +46,9 @@ export default class extends Component {
               <Parking {...data} />
             </div>
 
-            {!!Object.keys(data.communication).filter(key => !!data.communication[key]).length && (
+            {!!Object.keys(data.communication).filter(
+              key => !!data.communication[key],
+            ).length && (
               <Communications {...data.communication} {...data.specification} />
             )}
           </section>
@@ -54,7 +56,9 @@ export default class extends Component {
         {data.category === 'city' && (
           <section className="description">
             <FlatDescrition {...data.specification} />
-            {residentialComplex && <ResidentialDescription {...residentialComplex} />}
+            {residentialComplex && (
+              <ResidentialDescription {...residentialComplex} />
+            )}
           </section>
         )}
 

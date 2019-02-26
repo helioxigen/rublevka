@@ -28,7 +28,9 @@ export default ({
     {wallMaterial && (
       <dl>
         <dt className="description-list-title">Конструкция дома:&nbsp;</dt>
-        <dd className="description-list-item">{dicts.wallMaterials[wallMaterial]}</dd>
+        <dd className="description-list-item">
+          {dicts.wallMaterials[wallMaterial]}
+        </dd>
       </dl>
     )}
     <dl>
@@ -44,7 +46,9 @@ export default ({
     {(ceilHeight || ceilingHeight) && (
       <dl>
         <dt className="description-list-title">Высота потолков:&nbsp;</dt>
-        <dd className="description-list-item">{ceilHeight || ceilingHeight}&nbsp;м</dd>
+        <dd className="description-list-item">
+          {ceilHeight || ceilingHeight}&nbsp;м
+        </dd>
       </dl>
     )}
     {floors && (
@@ -56,7 +60,9 @@ export default ({
     {roofMaterial && (
       <dl>
         <dt className="description-list-title">Материал крыши:&nbsp;</dt>
-        <dd className="description-list-item">{dicts.roofMaterials[roofMaterial]}</dd>
+        <dd className="description-list-item">
+          {dicts.roofMaterials[roofMaterial]}
+        </dd>
       </dl>
     )}
     {bedrooms && (
@@ -79,11 +85,15 @@ export default ({
     )}
     <dl>
       <dt className="description-list-title">Кондиционирование:&nbsp;</dt>
-      <dd className="description-list-item">{withConditioning ? 'Да' : 'Нет'}</dd>
+      <dd className="description-list-item">
+        {withConditioning ? 'Да' : 'Нет'}
+      </dd>
     </dl>
     <dl>
       <dt className="description-list-title">Вентиляция:&nbsp;</dt>
-      <dd className="description-list-item">{withVentilation ? 'Да' : 'Нет'}</dd>
+      <dd className="description-list-item">
+        {withVentilation ? 'Да' : 'Нет'}
+      </dd>
     </dl>
   </div>
 );

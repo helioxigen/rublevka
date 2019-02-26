@@ -6,7 +6,13 @@ class Footer extends Component {
   render() {
     return (
       <div className={s.container}>
-        <p>©  2016. JQEstate. <a className={s.link} href={`http://kp-${this.props.link}.ru/`}>{this.props.name}.</a> Все права защищены.</p>
+        <p>
+          © 2016. JQEstate.{' '}
+          <a className={s.link} href={`http://kp-${this.props.link}.ru/`}>
+            {this.props.name}.
+          </a>{' '}
+          Все права защищены.
+        </p>
       </div>
     );
   }

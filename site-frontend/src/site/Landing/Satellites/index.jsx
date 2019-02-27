@@ -35,6 +35,8 @@ import { dealTypes } from 'site/constants/properties/dictionaries';
 // UI
 import UI from 'site/ui';
 
+import bgImage from './bg.png';
+
 const {
   Grid: { Container },
 } = UI;
@@ -58,7 +60,7 @@ const SearchSection = styled.section`
     display: flex;
     justify-content: center;
     flex-direction: column;
-    background: url('https://images.unsplash.com/photo-1533779283484-8ad4940aa3a8') no-repeat;
+    background: url(${bgImage}) no-repeat;
     background-size: cover;
     min-height: 100vh;
   `}

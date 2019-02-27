@@ -29,9 +29,8 @@ const Wrapper = styled.div`
   padding-bottom: 21.5px;
 
   ${media.xs`
+    margin: 0;
     margin-top: 40px;
-    margin-left: -10px;
-    margin-right: -10px;
     padding-bottom: 40px;
   `}
 

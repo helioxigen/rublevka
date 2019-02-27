@@ -3,6 +3,11 @@ import styled from 'styled-components';
 import { FormattedNumber } from 'react-intl';
 
 import media from 'site/styles/media';
+import CallbackModal from 'site/request/v2019/CallbackModal';
+
+import UI from 'site/ui';
+
+const { Icon } = UI;
 
 const CallBlock = styled.div`
   padding: 12px 15px;
@@ -50,7 +55,9 @@ const SmallPrice = styled.p`
 `;
 
 const CallButton = styled.button`
-  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  padding: 20px 30px;
   max-width: 182px;
   background: #47b34c;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
@@ -61,10 +68,17 @@ const CallButton = styled.button`
   font-size: 15px;
   font-weight: 500;
   text-align: center;
-  letter-spacing: 0.2125px;
   text-transform: uppercase;
 
   color: #ffffff;
+`;
+
+const PhoneIcon = styled(Icon)`
+  margin-right: 8px;
+
+  width: 16px;
+  height: 16px;
+  fill: #fff;
 `;
 
 export default ({ priceData: { currency, price, priceForBlock }, kind }) => (
@@ -90,6 +104,11 @@ export default ({ priceData: { currency, price, priceForBlock }, kind }) => (
         </SmallPrice>
       )}
     </TextBlock>
-    <CallButton>забронировать просмотр</CallButton>
+    <CallbackModal style={{ width: 'auto' }}>
+      <CallButton>
+        <PhoneIcon icon="new-phone" />
+        позвонить
+      </CallButton>
+    </CallbackModal>
   </CallBlock>
 );

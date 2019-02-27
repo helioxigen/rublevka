@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ReactSwipe from 'react-swipe';
 import global from 'window-or-global';
 import { cloudfront } from 'core/config/resources';
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 import cameraIcon from './img/camera.png';
 import media from 'site/styles/media';
@@ -76,6 +77,7 @@ const MobilePhoto = styled.img`
   margin: 8px 0;
   width: 100%;
   height: 220px;
+  object-fit: cover;
 `;
 
 const Wrapper = styled.div`
@@ -215,9 +217,25 @@ const PhotoCount = styled.p`
 export default class Media extends Component {
   state = { isGalleryOpen: false };
 
+  componentDidMount() {
+    if (typeof document !== 'undefined') this.targetElement = document.getElementsByTagName('body')[0];
+  }
+
+  componentWillUnmount() {
+    clearAllBodyScrollLocks();
+  }
+
+  closeGallery = () => {
+    enableBodyScroll(this.targetElement);
+    this.setState({ isGalleryOpen: false });
+  }
+
   openGallery = () => {
-    this.setState(prevState => ({ isGalleryOpen: !prevState.isGalleryOpen }));
+    disableBodyScroll(this.targetElement);
+    this.setState({ isGalleryOpen: true });
   };
+
+  targetElement = null;
 
   render() {
     const { isGalleryOpen } = this.state;
@@ -233,7 +251,7 @@ export default class Media extends Component {
       <div>
         <MobileGallery visible={images.length !== 0 && isGalleryOpen}>
           <Header>
-            <CloseButton onClick={this.openGallery}>
+            <CloseButton onClick={this.closeGallery}>
               <CloseIcon icon="close-button" />
             </CloseButton>
           </Header>
@@ -249,8 +267,8 @@ export default class Media extends Component {
             ))}
           </MobilePhotos>
         </MobileGallery>
-        <Wrapper onClick={this.openGallery}>
-          <Visibility sm="hidden" md="hidden" lg="hidden">
+        <Visibility sm="hidden" md="hidden" lg="hidden">
+          <Wrapper onClick={this.openGallery}>
             {images.length !== 0 && (
               <Photo
                 src={`${global.config.cloudfront || cloudfront}/${images[0].id}-${
@@ -260,8 +278,15 @@ export default class Media extends Component {
               />
             )}
             {images.length === 0 && <PhotoPlaceholder />}
-          </Visibility>
-          <Visibility xs="hidden">
+            <Id>{`№ ${propertyId}`}</Id>
+            <PhotoNum>
+              <CameraIcon alt="Camera Icon" src={cameraIcon} />
+              <PhotoCount>{images.length} фото</PhotoCount>
+            </PhotoNum>
+          </Wrapper>
+        </Visibility>
+        <Visibility xs="hidden">
+          <Wrapper>
             <PrevButton onClick={() => this.carousel.prev()}>
               <ArrowIcon icon="carousel-left" />
             </PrevButton>
@@ -283,13 +308,13 @@ export default class Media extends Component {
             <NextButton onClick={() => this.carousel.next()}>
               <ArrowIcon icon="carousel-right" />
             </NextButton>
-          </Visibility>
-          <Id>{`№ ${propertyId}`}</Id>
-          <PhotoNum>
-            <CameraIcon alt="Camera Icon" src={cameraIcon} />
-            <PhotoCount>{images.length} фото</PhotoCount>
-          </PhotoNum>
-        </Wrapper>
+            <Id>{`№ ${propertyId}`}</Id>
+            <PhotoNum>
+              <CameraIcon alt="Camera Icon" src={cameraIcon} />
+              <PhotoCount>{images.length} фото</PhotoCount>
+            </PhotoNum>
+          </Wrapper>
+        </Visibility>
       </div>
     );
   }

@@ -44,6 +44,7 @@ export const Input = styled.input`
   background-color: #fff;
   border-radius: 8px;
   border: 1px solid #eeeeee;
+  box-shadow: none;
   outline: none;
   padding: 15px;
   margin: 0 4px;

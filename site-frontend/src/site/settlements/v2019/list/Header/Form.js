@@ -62,7 +62,7 @@ const Text = styled.p`
 const resource = 'settlements.byLetter';
 
 const intervals = [
-  { name: 'До 5 км', value: { min: null, max: 5 } },
+  { name: 'Любое', value: { min: null, max: null } },
   { name: 'До 10 км', value: { min: null, max: 10 } },
   { name: 'До 15 км', value: { min: null, max: 15 } },
   { name: 'До 20 км', value: { min: null, max: 20 } },

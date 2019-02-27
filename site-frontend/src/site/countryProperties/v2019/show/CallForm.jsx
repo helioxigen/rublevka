@@ -119,6 +119,7 @@ const Input = styled.input`
   margin-top: 8px;
   border: 1px solid #d9d9d9;
   border-radius: 8px;
+  box-shadow: none;
 
   line-height: 18px;
   font-size: 15px;
@@ -210,7 +211,12 @@ export default ({ priceData: { currency, price, priceForBlock }, kind }) => (
     <CallbackForm>
       <Input type="text" placeholder="Имя" />
       <Input type="text" placeholder="Номер телефона" />
-      <Callback>Оставить заявку</Callback>
+      <Visibility md="hidden" lg="hidden">
+        <Callback>Отправить</Callback>
+      </Visibility>
+      <Visibility xs="hidden">
+        <Callback>забронировать просмотр</Callback>
+      </Visibility>
     </CallbackForm>
     <Visibility md="hidden" lg="hidden">
       <Agreement>

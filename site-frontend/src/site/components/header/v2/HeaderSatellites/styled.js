@@ -100,6 +100,7 @@ export const Nav = styled(Navbar.Container)`
   z-index: 5;
   width: 100%;
   min-height: 100vh;
+  max-height: 100%;
   padding: 0 20px;
   white-space: nowrap;
   transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
@@ -117,6 +118,7 @@ export const Nav = styled(Navbar.Container)`
     `
       transform: translate3d(0, 0, 0);
   `};
+
   ${media.md`
     display: flex;
     align-items: center;
@@ -125,6 +127,7 @@ export const Nav = styled(Navbar.Container)`
     left: 0;
     width: auto;
     min-height: 100%;
+    max-height: 100%;
     background: transparent;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
     box-shadow: none;

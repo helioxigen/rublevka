@@ -64,6 +64,7 @@ pipeline:
       - yarn config set cache-folder $(pwd)/.yarn-cache
       - cd export-app-frontend
       - yarn --ignore-engines
+      - yarn build
     secrets:
       [
         react_app_firebase_api_key,

@@ -17,7 +17,7 @@ pipeline:
       branch: [develop]
       event: [push]
 
-  build-firebase-dev:
+  build-firebase:
     image: node:8.15.0
     commands:
       - yarn config set cache-folder $(pwd)/.yarn-cache
@@ -25,7 +25,7 @@ pipeline:
       - cd export-app-firebase
       - yarn --ignore-engines
     when:
-      branch: [develop]
+      branch: [develop, master]
       event: [push]
 
   build-rublevka-frontend-dev:
@@ -46,7 +46,7 @@ pipeline:
       branch: [develop]
       event: [push]
 
-  build-staff-frontend-dev:
+  build-staff-frontend-prod:
     image: node:8.15.0
     commands:
       - yarn config set cache-folder $(pwd)/.yarn-cache
@@ -55,10 +55,10 @@ pipeline:
       - yarn build:dev
     secrets: [react_app_env, react_app_staff_sentry_dsn]
     when:
-      branch: [develop]
+      branch: [master]
       event: [push]
 
-  build-export-app-frontend-dev:
+  build-export-app-frontend-prod:
     image: node:8.15.0
     commands:
       - yarn config set cache-folder $(pwd)/.yarn-cache
@@ -72,28 +72,37 @@ pipeline:
         react_app_firebase_project_id,
       ]
     when:
-      branch: [develop]
+      branch: [master]
       event: [push]
 
-  deploy-backend-dev:
-    image: docker/compose:1.22.0
-    commands:
-      - cd backend
-      - docker-compose -f devops/docker-compose-dev.yml build
-      - docker-compose -f devops/docker-compose-dev.yml up -d
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    when:
-      branch: [develop]
-      event: [push]
+  # deploy-backend-dev:
+  #   image: docker/compose:1.22.0
+  #   commands:
+  #     - cd backend
+  #     - docker-compose -f devops/docker-compose-dev.yml build
+  #     - docker-compose -f devops/docker-compose-dev.yml up -d
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   when:
+  #     branch: [develop]
+  #     event: [push]
 
   deploy-firebase-dev:
     image: node:8.15.0
     commands:
-      - yarn firebase deploy --token "$FIREBASE_TOKEN"
+      - yarn firebase deploy --token "$FIREBASE_TOKEN" --only hosting:rublevka-frontend-dev
     secrets: [firebase_token]
     when:
       branch: [develop]
+      event: [push]
+
+  deploy-firebase-prod:
+    image: node:8.15.0
+    commands:
+      - yarn firebase deploy --token "$FIREBASE_TOKEN" --except hosting:rublevka-frontend-dev
+    secrets: [firebase_token]
+    when:
+      branch: [master]
       event: [push]
 
   rebuild-cache:

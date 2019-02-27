@@ -52,7 +52,7 @@ pipeline:
       - yarn config set cache-folder $(pwd)/.yarn-cache
       - cd staff-frontend
       - yarn --ignore-engines
-      - yarn build:dev
+      - yarn build
     secrets: [react_app_env, react_app_staff_sentry_dsn]
     when:
       branch: [master]
@@ -64,7 +64,7 @@ pipeline:
       - yarn config set cache-folder $(pwd)/.yarn-cache
       - cd export-app-frontend
       - yarn --ignore-engines
-      - yarn build
+      - yarn build:dev
     secrets:
       [
         react_app_firebase_api_key,

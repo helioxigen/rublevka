@@ -34,7 +34,7 @@ pipeline:
       - yarn config set cache-folder $(pwd)/.yarn-cache
       - cd site-frontend
       - yarn --ignore-engines
-      - yarn build
+      - yarn build:dev
     environment: # FIXME
       - APP_ENV=development
       - APP=jqestate
@@ -64,7 +64,6 @@ pipeline:
       - yarn config set cache-folder $(pwd)/.yarn-cache
       - cd export-app-frontend
       - yarn --ignore-engines
-      - yarn build:dev
     secrets:
       [
         react_app_firebase_api_key,

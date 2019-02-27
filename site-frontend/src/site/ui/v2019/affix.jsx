@@ -23,6 +23,7 @@ export class AffixBottom extends Component {
     const rect = this.refs.parent.getBoundingClientRect();
     const innerHeight = (typeof window !== 'undefined' && window.innerHeight) || 0;
     const isInView = rect.bottom <= (innerHeight || document.documentElement.clientHeight);
+
     if (!isInView) this.setState({ affix: false });
     if (isInView) this.setState({ affix: true });
   }

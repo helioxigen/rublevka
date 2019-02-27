@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 import styled from 'styled-components';
 
 import { FormattedNumber } from 'react-intl';
-
 import { cloudfront } from 'core/config/resources';
 
 import global from 'window-or-global';

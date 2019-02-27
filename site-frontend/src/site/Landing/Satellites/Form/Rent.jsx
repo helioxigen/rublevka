@@ -277,9 +277,7 @@ export default class extends Component {
           </Downshift>
         </Form>
         <Search
-          onClick={() =>
-            navigate('/zagorodnaya/arenda', 'countryProperties.rent', this.formateData())
-          }
+          onClick={() => navigate('/zagorodnaya/arenda', 'countryProperties.rent', this.formateData())}
         />
       </Wrapper>
     );

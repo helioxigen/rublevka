@@ -30,7 +30,6 @@ exports.handler = functions.pubsub.topic('update-xml').onPublish(() => admin
     const idsParts = splitEvery(API_PAGE_SIZE, ids);
 
     const promises = idsParts.map(part => getItemsFromAPI(part.join(',')));
-
     const filename = `feed_${Math.random().toString(36).slice(2)}.xml`;
 
     return Promise.all(promises)
@@ -44,6 +43,7 @@ exports.handler = functions.pubsub.topic('update-xml').onPublish(() => admin
         {},
       ))
       .then(items => docs.map(doc => ({ ...doc, ...items[doc.id] })))
+      .then(items => items.filter(({ state }) => !!state)) // because not all in state=public
       .then(items => writeFileAsync(join(tmpdir, filename), createXML(items)))
       .then(() => fileStorage.upload(join(tmpdir, filename), {
         destination: 'cian-feed.xml',

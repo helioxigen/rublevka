@@ -216,6 +216,7 @@ const PhotoCount = styled.p`
 
 export default class Media extends Component {
   state = { isGalleryOpen: false };
+  targetElement = null;
 
   componentDidMount() {
     if (typeof document !== 'undefined') this.targetElement = document.getElementsByTagName('body')[0];
@@ -234,8 +235,6 @@ export default class Media extends Component {
     disableBodyScroll(this.targetElement);
     this.setState({ isGalleryOpen: true });
   };
-
-  targetElement = null;
 
   render() {
     const { isGalleryOpen } = this.state;

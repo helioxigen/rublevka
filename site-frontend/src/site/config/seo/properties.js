@@ -1,12 +1,12 @@
 import global from 'window-or-global';
 
+const domain = global.config.domain;
+
 function generateLink(ruDealType, ruKind) {
   if (ruKind) {
-    return `https://${
-      global.config.domain
-    }/zagorodnaya/${ruDealType}/${ruKind}`;
+    return `https://${domain}/zagorodnaya/${ruDealType}/${ruKind}`;
   }
-  return `https://${global.config.domain}/zagorodnaya/${ruDealType}`;
+  return `https://${domain}/zagorodnaya/${ruDealType}`;
 }
 
 function numberWithCommas(number) {
@@ -34,9 +34,7 @@ export default {
         if (!kind) {
           return `${dictionary.dealType[dealType]} недвижимости в Москве`;
         }
-        return `${dictionary.dealType[dealType]} ${
-          dictionary.kind[kind]
-        } в Москве`;
+        return `${dictionary.dealType[dealType]} ${dictionary.kind[kind]} в Москве`;
       },
       title: (dealType, kind) => {
         const dictionary = {
@@ -63,15 +61,13 @@ export default {
         };
 
         if (!kind) {
-          return `${dictionary[dealType].title} в Москве – ${
-            global.config.domain
-          }`;
+          return `${dictionary[dealType].title} в Москве – ${domain}`;
         } else if (kind === 'apartment') {
-          return `Снять апартаменты в Москве – ${global.config.domain}`;
+          return `Снять апартаменты в Москве – ${domain}`;
         }
         return `${dictionary[dealType].titleWithCategory} ${
           dictionary[dealType][kind]
-        } в Москве – ${global.config.domain}`;
+        } в Москве – ${domain}`;
       },
       description: () => '',
       keywords: () => '',
@@ -183,15 +179,13 @@ export default {
         if (!kind) {
           return `${
             dictionary[dealType].title
-          } загородной недвижимости в Московской области на ${
-            global.config.domain
-          }${queryPage > 1 ? ` — cтраница ${queryPage}` : ''}`;
+          } загородной недвижимости в Московской области на ${domain}${
+            queryPage > 1 ? ` — cтраница ${queryPage}` : ''
+          }`;
         }
         return `${dictionary[dealType].titleWithCategory} ${
           dictionary[dealType][kind]
-        } в Московской области на ${global.config.domain}${
-          queryPage > 1 ? ` — cтраница ${queryPage}` : ''
-        }`;
+        } в Московской области на ${domain}${queryPage > 1 ? ` — cтраница ${queryPage}` : ''}`;
       },
 
       titleH1: (dealType, kind) => {
@@ -210,11 +204,7 @@ export default {
           },
           rent: {
             title: 'Аренда элитной недвижимости',
-            titleWithCategory: [
-              'Аренда элитного',
-              'Аренда элитной',
-              'Аренда элитных',
-            ],
+            titleWithCategory: ['Аренда элитного', 'Аренда элитной', 'Аренда элитных'],
 
             townhouse: 'таунхауса',
             penthouse: 'пентхауса',
@@ -270,14 +260,12 @@ export default {
           office: 'офисов',
         };
 
+        const { title, titleWithCategory } = dictionary[dealType] || {};
+
         if (!kind) {
-          return `${dictionary[dealType].title}. на ${
-            global.config.domain
-          }. Лучшие предложения на ${global.config.domain}!`;
+          return `${title} на ${domain}. Лучшие предложения на ${domain}!`;
         }
-        return `${
-          dictionary[dealType].titleWithCategory
-        } в Подмосковье. Лучшие предложения на ${global.config.domain}!`;
+        return `${titleWithCategory} в Подмосковье. Лучшие предложения на ${domain}!`;
       },
       keywords: (dealType, kind) => {
         const dictionary = {
@@ -301,25 +289,21 @@ export default {
         };
 
         if (!kind) {
-          return `${dictionary.withoutKind[dealType]}, ${
-            global.config.domain
-          }, цена, стоимость, Московская область, Подмосковье, отзывы`;
+          return `${
+            dictionary.withoutKind[dealType]
+          }, ${domain}, цена, стоимость, Московская область, Подмосковье, отзывы`;
         } else if (dealType === 'sale') {
-          return `${dictionary.dealType[dealType][0]} ${
-            dictionary.kind[kind][0]
-          }, ${dictionary.dealType[dealType][1]} ${
+          return `${dictionary.dealType[dealType][0]} ${dictionary.kind[kind][0]}, ${
+            dictionary.dealType[dealType][1]
+          } ${
             dictionary.kind[kind][1]
-          }, недвижимость, ${
-            global.config.domain
-          }, цена, стоимость, Москва, Московская область, Подмосковье, отзывы`;
+          }, недвижимость, ${domain}, цена, стоимость, Москва, Московская область, Подмосковье, отзывы`;
         } else if (dealType === 'rent') {
-          return `${dictionary.dealType[dealType][0]} ${
-            dictionary.kind[kind][0]
-          }, ${dictionary.dealType[dealType][1]} ${
+          return `${dictionary.dealType[dealType][0]} ${dictionary.kind[kind][0]}, ${
+            dictionary.dealType[dealType][1]
+          } ${
             dictionary.kind[kind][1]
-          }, недвижимость, ${
-            global.config.domain
-          }, цена, стоимость, Москва, Московская область, Подмосковье, отзывы`;
+          }, недвижимость, ${domain}, цена, стоимость, Москва, Московская область, Подмосковье, отзывы`;
         }
       },
     },
@@ -368,13 +352,11 @@ export default {
           },
         };
 
-        return `${dictionary[dealType].title} ${
-          dictionary[dealType][kind]
-        } ID ${id}${street ? ` на ${street}` : ''} в Москве${
-          totalArea ? `, общей площадью ${totalArea} м²` : ''
-        }, по цене ${price}${subLocality ? `, ${subLocality}` : ''} – ${
-          global.config.domain
-        }`;
+        return `${dictionary[dealType].title} ${dictionary[dealType][kind]} ID ${id}${
+          street ? ` на ${street}` : ''
+        } в Москве${totalArea ? `, общей площадью ${totalArea} м²` : ''}, по цене ${price}${
+          subLocality ? `, ${subLocality}` : ''
+        } – ${domain}`;
       },
       description: () => '',
       keywords: () => '',
@@ -383,9 +365,7 @@ export default {
       link: (ruDealType, ruKind, id) => [
         {
           rel: 'canonical',
-          href: `https://${
-            global.config.domain
-          }/zagorodnaya/${ruDealType}/${ruKind}/${id}`,
+          href: `https://${domain}/zagorodnaya/${ruDealType}/${ruKind}/${id}`,
         },
       ],
       h1: (kind, area, landArea, settlement) => {
@@ -401,23 +381,11 @@ export default {
           },
         };
 
-        return `${dictionary.kind[kind]} ${
-          area ? `${numberWithCommas(area)} м²` : ''
-        } ${
+        return `${dictionary.kind[kind]} ${area ? `${numberWithCommas(area)} м²` : ''} ${
           !area && landArea ? `${numberWithCommas(landArea)} сот` : ''
         } в посёлке «${settlement}»`;
       },
-      title: (
-        dealType,
-        kind,
-        id,
-        name,
-        mkadDistance,
-        area,
-        price,
-        route,
-        meta,
-      ) => {
+      title: (dealType, kind, id, name, mkadDistance, area, price, route, meta) => {
         if (meta) return meta;
 
         const dictionary = {
@@ -448,17 +416,13 @@ export default {
         };
 
         if (!kind) {
-          return `${
-            dictionary[dealType].title
-          } недвижимости Московской области на ${global.config.domain}`;
+          return `${dictionary[dealType].title} недвижимости Московской области на ${domain}`;
         }
-        return `${dictionary[dealType].titleWithCategory} ${
-          dictionary[dealType][kind]
-        } ID ${id}${name ? ` в поселке «${name}»` : ''}${
-          mkadDistance ? `, ${mkadDistance} км от МКАД` : ''
-        }${area ? `, общей площадью ${area} м²` : ''}, по цене ${price}${
-          route ? `, ${route}` : ''
-        } на ${global.config.domain}`;
+        return `${dictionary[dealType].titleWithCategory} ${dictionary[dealType][kind]} ID ${id}${
+          name ? ` в поселке «${name}»` : ''
+        }${mkadDistance ? `, ${mkadDistance} км от МКАД` : ''}${
+          area ? `, общей площадью ${area} м²` : ''
+        }, по цене ${price}${route ? `, ${route}` : ''} на ${domain}`;
       },
       description: (
         dealType,
@@ -502,15 +466,10 @@ export default {
 
         const { title } = dictionary[dealType];
 
-        return `${title} ${
-          dictionary[dealType][kind]
-        } ID ${id} по цене ${price} ${name &&
-          `в поселке «${name}»`} ${mkadDistance &&
-          `в ${mkadDistance} км от МКАД`} ${route &&
-          `на ${route} направлении`}${area &&
-          `, площадью ${area} м²`}${region && `, ${region}`} – ${
-          global.config.domain
-        }!`;
+        return `${title} ${dictionary[dealType][kind]} ID ${id} по цене ${price} ${name &&
+          `в поселке «${name}»`} ${mkadDistance && `в ${mkadDistance} км от МКАД`} ${route &&
+          `на ${route} направлении`}${area && `, площадью ${area} м²`}${region &&
+          `, ${region}`} – ${domain}!`;
       },
       keywords: (name, dealType, kind, region, district, route, meta) => {
         if (meta) return meta;
@@ -532,11 +491,9 @@ export default {
         };
 
         // снять таунхаус, аренда таунхауса, недвижимость, {адрес сайта}, цена, стоимость, {наименование региона}, {наименование района}, {наименование шоссе}, {ID}, {цена}
-        return `${dictionary.dealType[dealType][0]} ${
-          dictionary.kind[kind][0]
-        }, ${dictionary.dealType[dealType][1]} ${dictionary.kind[kind][1]}, ${
-          global.config.domain
-        }${region ? `, ${region}` : ''}${
+        return `${dictionary.dealType[dealType][0]} ${dictionary.kind[kind][0]}, ${
+          dictionary.dealType[dealType][1]
+        } ${dictionary.kind[kind][1]}, ${domain}${region ? `, ${region}` : ''}${
           district ? `, ${district} район` : ''
         }${route ? `, ${route} направление` : ''}`;
       },

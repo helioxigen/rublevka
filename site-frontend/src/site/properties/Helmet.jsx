@@ -3,10 +3,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { helmet } from 'site/config/seo';
 
-import {
-  dealTypesTranslit,
-  kindsTranslit,
-} from 'site/constants/properties/dictionaries';
+import { dealTypesTranslit, kindsTranslit } from 'site/constants/properties/dictionaries';
 
 export default ({ dealType, kind, pagination, query }) => {
   const seo = helmet.properties.list.country;
@@ -24,12 +21,7 @@ export default ({ dealType, kind, pagination, query }) => {
     <Helmet
       title={seo.title(dealType, kind, queryPage)}
       meta={metaInfo}
-      link={seo.link(
-        dealTypesTranslit[dealType],
-        kindsTranslit[kind],
-        queryPage,
-        totalPages,
-      )}
+      link={seo.link(dealTypesTranslit[dealType], kindsTranslit[kind], queryPage, totalPages)}
     />
   );
 };

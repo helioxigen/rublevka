@@ -100,16 +100,17 @@ const PrevButton = styled.button`
   position: absolute;
   bottom: 0;
   top: 0;
-  left: 15px;
+  left: 0;
   border: none;
   background: none;
   padding: 0;
   z-index: 2;
+  width: 64px;
 `;
 
 const NextButton = styled(PrevButton)`
   left: unset;
-  right: 15px;
+  right: 0;
 `;
 
 const ArrowIcon = styled(Icon)`

@@ -104,7 +104,7 @@ export const roofMaterials = {
 
 export const waterSupply = {
   purification: 'Очистные сооружения',
-  central: 'Центральное водоснабжение',
+  central: 'Центральное',
   well: 'Скважина',
 };
 
@@ -112,12 +112,12 @@ export const gasSupply = {
   without_gas: 'Без газа',
   gas_holder: 'Газгольдер',
   near_border: 'На границе',
-  mains: 'Магистральный газ',
+  mains: 'Магистральный',
   diesel: 'Дизель',
 };
 
 export const sewerageSupply = {
-  central: 'Центральная канализация',
+  central: 'Центральная',
   septic: 'Септик',
 };
 

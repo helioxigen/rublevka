@@ -261,6 +261,7 @@ function handleRender(req, res) {
           throw new Error('unhandled errors at promises');
         });
     } else {
+      console.log(JSON.stringify(req));
       res.status(404).send('Not found');
     }
   });

@@ -111,6 +111,11 @@ class Header extends Component {
                   <CloseButton onClick={this.toggleMenu}>
                     <CloseIcon icon="close" />
                   </CloseButton>
+                  <Visibility lg="hidden">
+                    <Link activeClassName="active" to="/" inverted={inverted}>
+                      Главная
+                    </Link>
+                  </Visibility>
                   <Link activeClassName="active" to="/zagorodnaya/prodaja" inverted={inverted}>
                     Продажа
                   </Link>

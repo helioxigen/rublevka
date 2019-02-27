@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { FormattedNumber } from 'react-intl';
 
 import media from 'site/styles/media';
-import CallbackModal from 'site/request/v2019/CallbackModal';
 
 import UI from 'site/ui';
 
@@ -52,6 +51,10 @@ const SmallPrice = styled.p`
   font-weight: 500;
   letter-spacing: 0.352941px;
   text-transform: lowercase;
+`;
+
+const CallLink = styled.a`
+  text-decoration: none;
 `;
 
 const CallButton = styled.button`
@@ -104,11 +107,11 @@ export default ({ priceData: { currency, price, priceForBlock }, kind }) => (
         </SmallPrice>
       )}
     </TextBlock>
-    <CallbackModal style={{ width: 'auto' }}>
+    <CallLink href={`tel:+${global.config.phones.country}`}>
       <CallButton>
         <PhoneIcon icon="new-phone" />
         позвонить
       </CallButton>
-    </CallbackModal>
+    </CallLink>
   </CallBlock>
 );

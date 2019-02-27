@@ -21,6 +21,7 @@ const Header = styled.p`
   `}
 
   ${media.md`
+    margin-bottom: 105px;
     line-height: 58px;
     font-size: 48px;
     text-shadow: 0px 0px 35px rgba(0, 0, 0, 0.35);

@@ -18,6 +18,10 @@ const Wrapper = styled.div`
   ${media.xs`
     margin: 0;
   `}
+
+  ${media.md`
+    transform: translateY(-50%);
+  `}
 `;
 
 const TabSelector = styled.div`

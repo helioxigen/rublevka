@@ -99,7 +99,7 @@ export default class Form extends Component {
               selected={selectedTab === 'number'}
               onClick={() => this.setState({ selectedTab: 'number' })}
             >
-              Номер объекта
+              № объекта
             </Tab>
             <Tab
               selected={selectedTab === 'sell'}

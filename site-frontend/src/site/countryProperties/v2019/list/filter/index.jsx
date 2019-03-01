@@ -302,7 +302,7 @@ class Filter extends Component {
 
           <div
             className={theme.filterContainer}
-            innerRef={el => this.modalMobile = el}
+            ref={el => this.modalMobile = el}
             style={{ display: isViewOpen ? 'block' : 'none' }}
           >
             <S.BtnGroupHead>

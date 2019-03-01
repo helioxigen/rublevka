@@ -17,24 +17,26 @@ const Visibility = styled(BaseVisibility)`
 
 const MobileGallery = styled.div`
   display: none;
-  pointer-events: none;
   position: fixed;
+
   top: 0;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
   z-index: 2;
+
   min-width: 100vw;
   min-height: 100vh;
   height: 100%;
   background-color: #fafafa;
+
+  padding-bottom: 128px;
 
   ${({ visible }) =>
     visible &&
     `
     display: flex;
     flex-direction: column;
-    pointer-events: auto;
   `};
 
   ${media.xs`
@@ -43,7 +45,8 @@ const MobileGallery = styled.div`
 `;
 
 const Header = styled.div`
-  position: absolute;
+  position: fixed;
+  z-index: 9999;
   top: 0;
   left: 0;
   right: 0;
@@ -58,6 +61,7 @@ const CloseButton = styled.button`
   padding: 0;
   border: none;
   background: none;
+  z-index: 50;
 `;
 
 const CloseIcon = styled(Icon)`
@@ -70,7 +74,8 @@ const MobilePhotos = styled.div`
   padding: 64px 15px 94px 15px;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 `;
 
 const MobilePhoto = styled.img`
@@ -231,7 +236,7 @@ export default class Media extends Component {
     enableBodyScroll(this.targetElement);
 
     this.setState({ isGalleryOpen: false });
-  }
+  };
 
   openGallery = () => {
     disableBodyScroll(this.targetElement);
@@ -251,13 +256,14 @@ export default class Media extends Component {
 
     return (
       <div>
-        <MobileGallery visible={images.length !== 0 && isGalleryOpen} innerRef={el => this.modal = el}>
+        <MobileGallery visible={images.length !== 0 && isGalleryOpen}>
           <Header>
             <CloseButton onClick={this.closeGallery}>
               <CloseIcon icon="close-button" />
             </CloseButton>
           </Header>
-          <MobilePhotos>
+
+          <MobilePhotos innerRef={el => (this.modal = el)}>
             {images.map(({ id }) => (
               <MobilePhoto
                 key={id}
@@ -269,6 +275,7 @@ export default class Media extends Component {
             ))}
           </MobilePhotos>
         </MobileGallery>
+
         <Visibility sm="hidden" md="hidden" lg="hidden">
           <Wrapper onClick={this.openGallery}>
             {images.length !== 0 && (
@@ -287,6 +294,7 @@ export default class Media extends Component {
             </PhotoNum>
           </Wrapper>
         </Visibility>
+
         <Visibility xs="hidden">
           <Wrapper>
             <PrevButton onClick={() => this.carousel.prev()}>

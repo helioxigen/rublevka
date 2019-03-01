@@ -17,7 +17,9 @@ if (global.location) {
   const hostnameSplit = global.location.hostname.split('.');
   const domain = hostnameSplit[hostnameSplit.length - 2];
 
-  global.config = configs[domain] || configs.jqestate;
+  global.config = configs[domain] || configs.rublevka;
+} else {
+  global.config = configs.rublevka;
 }
 
 export default configs;

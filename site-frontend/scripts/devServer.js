@@ -45,11 +45,11 @@ app.get('*', (req, res) => {
 });
 
 const { PORT = 3000 } = process.env;
-app.listen(PORT, 'localhost', err => {
+app.listen(PORT, '0.0.0.0', err => {
   if (err) {
     console.log(err); // eslint-disable-line no-console
     return;
   }
 
-  console.log('Listening at http://localhost:%s', PORT); // eslint-disable-line no-console
+  console.log('Listening at http://0.0.0.0:%s', PORT); // eslint-disable-line no-console
 });

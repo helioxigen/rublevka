@@ -6,6 +6,7 @@ import BezierEasing from 'bezier-easing';
 import CSSModules from 'react-css-modules';
 
 import global from 'window-or-global';
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 import UI from 'site/ui/v2019';
 
@@ -61,10 +62,25 @@ class Filter extends Component {
     this.updateFilter = this.updateFilter.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.targetElement = null;
   }
 
   componentWillMount() {
     this.load();
+  }
+
+  componentDidMount() {
+    if (typeof document !== 'undefined') {
+      if (document.body.offsetWidth < 767) {
+        this.targetElement = this.modalMobile;
+      } else {
+        this.targetElement = this.modalTablet;
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    clearAllBodyScrollLocks();
   }
 
   load() {
@@ -81,8 +97,10 @@ class Filter extends Component {
   toggle() {
     if (this.props.isViewOpen) {
       this.props.onClose();
+      enableBodyScroll(this.targetElement);
     } else {
       this.props.toggle();
+      disableBodyScroll(this.targetElement);
     }
 
     this.setState({ currentLayout: null, isSubViewOpen: false }, () => {
@@ -242,7 +260,10 @@ class Filter extends Component {
             </S.ButtonReset>
           </S.BtnGroupHead>
 
-          <S.DesktopContainer isViewOpen={isViewOpen}>
+          <S.DesktopContainer
+            innerRef={el => this.modalTablet = el}
+            isViewOpen={isViewOpen}
+          >
 
             {this.renderFilters()}
 
@@ -281,6 +302,7 @@ class Filter extends Component {
 
           <div
             className={theme.filterContainer}
+            innerRef={el => this.modalMobile = el}
             style={{ display: isViewOpen ? 'block' : 'none' }}
           >
             <S.BtnGroupHead>

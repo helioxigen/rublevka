@@ -51,41 +51,48 @@ class Renovate extends Component {
 
   render() {
     const { selected = {} } = this.props;
+    const { kind = [] } = selected;
     const items = selected[key] || [];
 
-    return (
-      <ControlsContainer>
-        <Container fluid styleName="contentContainer">
-          <FilterHeader>
-            <Title>Ремонт</Title>
-            {items.length > 0 && <IconReset onClick={this.onReset} icon="times" />}
-          </FilterHeader>
-          <CheckboxWrapper>
-            <Checkbox
-              checked={items.includes('full_construction')}
-              referece="full_construction"
-              handleChange={() => this.onUpdate('full_construction')}
-            >
-              <CheckboxLabel>Под ключ</CheckboxLabel>
-            </Checkbox>
-            <Checkbox
-              checked={items.includes('partly_turnkey')}
-              referece="partly_turnkey"
-              handleChange={() => this.onUpdate('partly_turnkey')}
-            >
-              <CheckboxLabel>Частично под ключ</CheckboxLabel>
-            </Checkbox>
-            <Checkbox
-              checked={items.includes('rough_finish')}
-              referece="rough_finish"
-              handleChange={() => this.onUpdate('rough_finish')}
-            >
-              <CheckboxLabel>Черновая отделка</CheckboxLabel>
-            </Checkbox>
-          </CheckboxWrapper>
-        </Container>
-      </ControlsContainer>
-    );
+    if (kind.includes('land')) {
+      return (
+        <div>
+          <ControlsContainer>
+            <Container fluid styleName="contentContainer">
+              <FilterHeader>
+                <Title>Ремонт</Title>
+                {items.length > 0 && <IconReset onClick={this.onReset} icon="times" />}
+              </FilterHeader>
+              <CheckboxWrapper>
+                <Checkbox
+                  checked={items.includes('full_construction')}
+                  referece="full_construction"
+                  handleChange={() => this.onUpdate('full_construction')}
+                >
+                  <CheckboxLabel>Под ключ</CheckboxLabel>
+                </Checkbox>
+                <Checkbox
+                  checked={items.includes('partly_turnkey')}
+                  referece="partly_turnkey"
+                  handleChange={() => this.onUpdate('partly_turnkey')}
+                >
+                  <CheckboxLabel>Частично под ключ</CheckboxLabel>
+                </Checkbox>
+                <Checkbox
+                  checked={items.includes('rough_finish')}
+                  referece="rough_finish"
+                  handleChange={() => this.onUpdate('rough_finish')}
+                >
+                  <CheckboxLabel>Черновая отделка</CheckboxLabel>
+                </Checkbox>
+              </CheckboxWrapper>
+            </Container>
+          </ControlsContainer>
+        </div>
+      )
+    }
+
+    return <div />;
   }
 }
 

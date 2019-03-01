@@ -1,6 +1,7 @@
 import React from 'react';
 import Downshift from 'downshift';
 import styled from 'styled-components';
+import { isEqual } from 'lodash';
 
 const itemToString = (item) => {
   if (item) {
@@ -21,6 +22,7 @@ const Input = styled.input`
   background: rgba(255, 255, 255, 0.75);
   border: 1px solid #d9d9d9;
   border-radius: 8px;
+  box-shadow: none;
   line-height: 15px;
   font-size: 15px;
   font-weight: 500;
@@ -67,27 +69,34 @@ const Item = styled.li`
 `;
 
 export default class Select extends React.Component {
+  componentDidUpdate(prevProps) {
+    const { items } = this.props;
+
+    if (!isEqual(items, prevProps.items)) {
+      this.dropdown.selectItem(null);
+    }
+  }
+
   getItems = (inputValue) => {
-    const { prefix, type = 'from', bound } = this.props;
-    let values = [];
+    const { items, type = 'from', bound } = this.props;
 
     if (type === 'from') {
-      values = [{ id: 1, label: `1 ${prefix}`, value: 1 }];
+      const filteredItems = items.filter(item => item.value <= (bound || 100000));
 
-      for (let i = 10; i <= bound; i += 10) {
-        values = [...values, { id: i, label: `${i} ${prefix}`, value: i }];
+      if (inputValue) {
+        return filteredItems.filter(item => item.label.startsWith(inputValue));
       }
-    } else {
-      for (let i = Math.max(bound, 10); i <= 300; i += 10) {
-        values = [...values, { id: i, label: `${i} ${prefix}`, value: i }];
-      }
+
+      return filteredItems;
     }
+
+    const filteredItems = items.filter(item => item.value >= (bound || -1));
 
     if (inputValue) {
-      return values.filter(item => item.label.startsWith(inputValue));
+      return filteredItems.filter(item => item.label.startsWith(inputValue));
     }
 
-    return values;
+    return filteredItems;
   };
 
   blurInput = () => {
@@ -97,13 +106,15 @@ export default class Select extends React.Component {
   };
 
   render() {
-    const { placeholder, onChange } = this.props;
+    const { placeholder, onChange, initialValue } = this.props;
 
     return (
       <Downshift
+        ref={el => (this.dropdown = el)}
         onSelect={this.blurInput}
         onChange={value => onChange(value)}
         itemToString={i => itemToString(i)}
+        initialSelectedItem={initialValue}
       >
         {({
           getRootProps,

@@ -37,6 +37,7 @@ const MobileGallery = styled.div`
     `
     display: flex;
     flex-direction: column;
+    pointer-events: auto;
   `};
 
   ${media.xs`
@@ -222,7 +223,6 @@ const PhotoCount = styled.p`
 
 export default class Media extends Component {
   state = { isGalleryOpen: false };
-  targetElement = null;
 
   componentDidMount() {
     this.targetElement = this.modal;
@@ -231,6 +231,8 @@ export default class Media extends Component {
   componentWillUnmount() {
     clearAllBodyScrollLocks();
   }
+
+  targetElement = null;
 
   closeGallery = () => {
     enableBodyScroll(this.targetElement);
@@ -262,7 +264,6 @@ export default class Media extends Component {
               <CloseIcon icon="close-button" />
             </CloseButton>
           </Header>
-
           <MobilePhotos innerRef={el => (this.modal = el)}>
             {images.map(({ id }) => (
               <MobilePhoto

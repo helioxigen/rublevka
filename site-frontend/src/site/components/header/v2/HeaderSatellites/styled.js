@@ -99,8 +99,6 @@ export const Nav = styled(Navbar.Container)`
   bottom: 0;
   z-index: 5;
   width: 100%;
-  min-height: 100vh;
-  max-height: 100%;
   padding: 0 20px;
   white-space: nowrap;
   transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);

@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Downshift from 'downshift';
 
+import { prices } from 'site/countryProperties/v2019/list/filter/options';
+
 import media from 'site/styles/media';
 import UI from 'site/ui/v2019';
 
@@ -18,23 +20,11 @@ import {
   Search,
 } from './styled';
 import Select from './Select';
+import {
+  rentKinds as kinds,
+} from './constants';
 
 const { RadioButton } = UI;
-
-const kinds = [
-  {
-    value: 'house',
-    name: 'Дом',
-  },
-  {
-    value: 'townhouse',
-    name: 'Таунхаус',
-  },
-  {
-    value: 'flat',
-    name: 'Квартира',
-  },
-];
 
 const PriceTitle = styled.p`
   display: none;
@@ -97,7 +87,7 @@ export default class extends Component {
       rent: {
         min: (priceFrom || {}).value,
         max: (priceTo || {}).value,
-        currency: `rentOffer.multiCurrencyPrice.${currency}`,
+        currencyPrice: `rentOffer.multiCurrencyPrice.${currency}`,
       },
       specification: {
         bedrooms: parseInt(bedrooms, 10),
@@ -125,6 +115,7 @@ export default class extends Component {
     const { priceTo, priceFrom, bedrooms, currency } = this.state;
     const { navigate } = this.props;
     const priceResetButtonActive = priceTo || priceFrom || currency !== 'rub';
+    const rentPrices = prices[currency].rent.map(item => ({ value: item.value, label: item.label.slice(0, -5) }));
 
     return (
       <Wrapper>
@@ -191,9 +182,10 @@ export default class extends Component {
                       <SelectWrapper>
                         <Select
                           placeholder="ОТ"
-                          prefix="тыс"
                           onChange={value => this.setState({ priceFrom: value })}
-                          bound={(priceTo || {}).value || 300}
+                          items={rentPrices}
+                          bound={(priceTo || {}).value}
+                          initialValue={priceFrom}
                           type="from"
                         />
                       </SelectWrapper>
@@ -201,9 +193,10 @@ export default class extends Component {
                       <SelectWrapper>
                         <Select
                           placeholder="ДО"
-                          prefix="тыс"
                           onChange={value => this.setState({ priceTo: value })}
-                          bound={(priceFrom || {}).value || 10}
+                          items={rentPrices.slice(1)}
+                          bound={(priceFrom || {}).value}
+                          initialValue={priceTo}
                           type="to"
                         />
                       </SelectWrapper>
@@ -277,7 +270,9 @@ export default class extends Component {
           </Downshift>
         </Form>
         <Search
-          onClick={() => navigate('/zagorodnaya/arenda', 'countryProperties.rent', this.formateData())}
+          onClick={() =>
+            navigate('/zagorodnaya/arenda', 'countryProperties.rent', this.formateData())
+          }
         />
       </Wrapper>
     );

@@ -3,7 +3,10 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Downshift from 'downshift';
 
+import { prices, landAreas } from 'site/countryProperties/v2019/list/filter/options';
+
 import UI from 'site/ui/v2019';
+import media from 'site/styles/media';
 
 import {
   Wrapper,
@@ -17,29 +20,11 @@ import {
   Search,
 } from './styled';
 import Select from './Select';
-import media from 'site/styles/media';
-// import { kinds as origKinds } from 'core/countryProperties/constants/dictionaries'; FIXME use publicKinds or sort of
+import {
+  sellKinds as kinds,
+} from './constants';
 
 const { RadioButton } = UI;
-
-const kinds = [
-  {
-    value: 'house',
-    name: 'Дом',
-  },
-  {
-    value: 'land',
-    name: 'Участок',
-  },
-  {
-    value: 'townhouse',
-    name: 'Таунхаус',
-  },
-  {
-    value: 'flat',
-    name: 'Квартира',
-  },
-];
 
 const PriceTitle = styled.p`
   display: none;
@@ -93,10 +78,32 @@ const SelectWrapper = styled.div`
 `;
 
 export default class extends Component {
-  state = { priceTo: null, priceFrom: null, currency: 'usd', bedrooms: '2', kind: kinds[0].value };
+  state = {
+    priceTo: null,
+    priceFrom: null,
+    currency: 'usd',
+    areaFrom: null,
+    areaTo: null,
+    bedrooms: '2',
+    kind: kinds[0].value,
+  };
 
   formateData = () => {
-    const { priceTo = {}, priceFrom = {}, currency, bedrooms, kind = {} } = this.state;
+    const { priceTo, priceFrom, areaFrom, areaTo, currency, bedrooms, kind = {} } = this.state;
+
+    if (kind !== 'land') {
+      return {
+        sale: {
+          min: (priceFrom || {}).value,
+          max: (priceTo || {}).value,
+          currencyPrice: `saleOffer.multiCurrencyPrice.${currency}`,
+        },
+        specification: {
+          bedrooms: parseInt(bedrooms, 10),
+        },
+        kind: [kind],
+      };
+    }
 
     return {
       sale: {
@@ -104,8 +111,9 @@ export default class extends Component {
         max: (priceTo || {}).value,
         currency: `saleOffer.multiCurrencyPrice.${currency}`,
       },
-      specification: {
-        bedrooms: parseInt(bedrooms, 10),
+      landArea: {
+        min: (areaFrom || {}).value,
+        max: (areaTo || {}).value,
       },
       kind: [kind],
     };
@@ -126,10 +134,26 @@ export default class extends Component {
     return 'Любая';
   };
 
+  generateAreaPhrase = () => {
+    const { areaFrom, areaTo } = this.state;
+
+    if (areaFrom && !areaTo) {
+      return `От ${areaFrom.label}`;
+    } else if (!areaFrom && areaTo) {
+      return `До ${areaTo.label}`;
+    } else if (areaFrom && areaTo) {
+      return `От ${areaFrom.label} до ${areaTo.label}`;
+    }
+
+    return 'Любая';
+  };
+
   render() {
-    const { priceTo, priceFrom, bedrooms, currency } = this.state;
+    const { priceTo, priceFrom, areaTo, areaFrom, bedrooms, currency, kind } = this.state;
     const { navigate } = this.props;
     const priceResetButtonActive = priceTo || priceFrom || currency !== 'rub';
+    const areaResetButtonActive = areaTo || areaFrom;
+    const sellPrices = prices[currency].sale.map(item => ({ value: item.value, label: currency === 'usd' ? item.label.slice(1) : item.label.slice(0, -2) }));
 
     return (
       <Wrapper>
@@ -196,9 +220,10 @@ export default class extends Component {
                       <SelectWrapper>
                         <Select
                           placeholder="ОТ"
-                          prefix="млн"
                           onChange={value => this.setState({ priceFrom: value })}
-                          bound={(priceTo || {}).value || 300}
+                          items={sellPrices}
+                          bound={(priceTo || {}).value}
+                          initialValue={priceFrom}
                           type="from"
                         />
                       </SelectWrapper>
@@ -206,9 +231,10 @@ export default class extends Component {
                       <SelectWrapper>
                         <Select
                           placeholder="ДО"
-                          prefix="млн"
                           onChange={value => this.setState({ priceTo: value })}
-                          bound={(priceFrom || {}).value || 10}
+                          items={sellPrices.slice(1)}
+                          bound={(priceFrom || {}).value}
+                          initialValue={priceTo}
                           type="to"
                         />
                       </SelectWrapper>
@@ -232,54 +258,101 @@ export default class extends Component {
               </Dropdown>
             )}
           </Downshift>
-          <Downshift>
-            {({ getToggleButtonProps, isOpen, getRootProps, getMenuProps }) => (
-              <Dropdown isOpen={isOpen} {...getRootProps({ refKey: 'innerRef' })}>
-                <Selector {...getToggleButtonProps({ refKey: 'innerRef' })}>
-                  <SelectorName>спален</SelectorName>
-                  <SelectorValue>{`${bedrooms} и более`}</SelectorValue>
-                </Selector>
-                {isOpen && (
-                  <Options
-                    isResetButtonActive={bedrooms !== '2'}
-                    resetButtonCallback={() => this.setState({ bedrooms: '2' })}
-                    withSaveButton
-                    getToggleButtonProps={getToggleButtonProps}
-                    getMenuProps={getMenuProps}
-                  >
-                    <RadioButton
-                      name="two"
-                      text="От 2"
-                      value={2}
-                      checked={bedrooms === '2'}
-                      handleChange={e => this.setState({ bedrooms: e.target.value })}
-                    />
-                    <RadioButton
-                      name="three"
-                      text="От 3"
-                      value={3}
-                      checked={bedrooms === '3'}
-                      handleChange={e => this.setState({ bedrooms: e.target.value })}
-                    />
-                    <RadioButton
-                      name="four"
-                      text="От 4"
-                      value={4}
-                      checked={bedrooms === '4'}
-                      handleChange={e => this.setState({ bedrooms: e.target.value })}
-                    />
-                    <RadioButton
-                      name="five"
-                      text="5 и более"
-                      value={5}
-                      checked={bedrooms === '5'}
-                      handleChange={e => this.setState({ bedrooms: e.target.value })}
-                    />
-                  </Options>
-                )}
-              </Dropdown>
-            )}
-          </Downshift>
+          {kind !== 'land' ? (
+            <Downshift>
+              {({ getToggleButtonProps, isOpen, getRootProps, getMenuProps }) => (
+                <Dropdown isOpen={isOpen} {...getRootProps({ refKey: 'innerRef' })}>
+                  <Selector {...getToggleButtonProps({ refKey: 'innerRef' })}>
+                    <SelectorName>спален</SelectorName>
+                    <SelectorValue>{`${bedrooms} и более`}</SelectorValue>
+                  </Selector>
+                  {isOpen && (
+                    <Options
+                      isResetButtonActive={bedrooms !== '2'}
+                      resetButtonCallback={() => this.setState({ bedrooms: '2' })}
+                      withSaveButton
+                      getToggleButtonProps={getToggleButtonProps}
+                      getMenuProps={getMenuProps}
+                    >
+                      <RadioButton
+                        name="two"
+                        text="От 2"
+                        value={2}
+                        checked={bedrooms === '2'}
+                        handleChange={e => this.setState({ bedrooms: e.target.value })}
+                      />
+                      <RadioButton
+                        name="three"
+                        text="От 3"
+                        value={3}
+                        checked={bedrooms === '3'}
+                        handleChange={e => this.setState({ bedrooms: e.target.value })}
+                      />
+                      <RadioButton
+                        name="four"
+                        text="От 4"
+                        value={4}
+                        checked={bedrooms === '4'}
+                        handleChange={e => this.setState({ bedrooms: e.target.value })}
+                      />
+                      <RadioButton
+                        name="five"
+                        text="5 и более"
+                        value={5}
+                        checked={bedrooms === '5'}
+                        handleChange={e => this.setState({ bedrooms: e.target.value })}
+                      />
+                    </Options>
+                  )}
+                </Dropdown>
+              )}
+            </Downshift>
+          ) : (
+            <Downshift>
+              {({ getToggleButtonProps, isOpen, getRootProps, getMenuProps }) => (
+                <Dropdown isOpen={isOpen} {...getRootProps({ refKey: 'innerRef' })}>
+                  <Selector {...getToggleButtonProps({ refKey: 'innerRef' })}>
+                    <SelectorName>площадь (сот.)</SelectorName>
+                    <SelectorValue>{this.generateAreaPhrase()}</SelectorValue>
+                  </Selector>
+                  {isOpen && (
+                    <Options
+                      isResetButtonActive={areaResetButtonActive}
+                      resetButtonCallback={() => this.setState({ areaFrom: null, areaTo: null })}
+                      withSaveButton
+                      getToggleButtonProps={getToggleButtonProps}
+                      getMenuProps={getMenuProps}
+                    >
+                      <PriceTitle>Площадь:</PriceTitle>
+                      <InputsBlock>
+                        <SelectWrapper>
+                          <Select
+                            placeholder="ОТ"
+                            onChange={value => this.setState({ areaFrom: value })}
+                            items={landAreas.map(item => ({ value: item.value, label: `${item.label} сот` }))}
+                            bound={(areaTo || {}).value || 100}
+                            initialValue={areaFrom}
+                            type="from"
+                          />
+                        </SelectWrapper>
+                        <Divider>–</Divider>
+                        <SelectWrapper>
+                          <Select
+                            placeholder="ДО"
+                            onChange={value => this.setState({ areaTo: value })}
+                            items={landAreas.map(item => ({ value: item.value, label: `${item.label} сот` })).slice(1)}
+                            bound={(areaFrom || {}).value || 10}
+                            initialValue={areaTo}
+                            type="to"
+                          />
+                        </SelectWrapper>
+                      </InputsBlock>
+                    </Options>
+                  )}
+                </Dropdown>
+              )}
+            </Downshift>
+          )}
         </Form>
         <Search
           onClick={() =>

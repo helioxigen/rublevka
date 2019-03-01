@@ -220,7 +220,7 @@ export default class Media extends Component {
   targetElement = null;
 
   componentDidMount() {
-    if (typeof document !== 'undefined') this.targetElement = document.getElementsByTagName('body')[0];
+    this.targetElement = this.modal;
   }
 
   componentWillUnmount() {
@@ -229,11 +229,13 @@ export default class Media extends Component {
 
   closeGallery = () => {
     enableBodyScroll(this.targetElement);
+
     this.setState({ isGalleryOpen: false });
   }
 
   openGallery = () => {
     disableBodyScroll(this.targetElement);
+
     this.setState({ isGalleryOpen: true });
   };
 
@@ -248,7 +250,7 @@ export default class Media extends Component {
     }));
 
     return (
-      <div>
+      <div innerRef={el => this.modal = el}>
         <MobileGallery visible={images.length !== 0 && isGalleryOpen}>
           <Header>
             <CloseButton onClick={this.closeGallery}>

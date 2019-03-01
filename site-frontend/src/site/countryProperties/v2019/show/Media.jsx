@@ -250,7 +250,7 @@ export default class Media extends Component {
     }));
 
     return (
-      <div innerRef={el => this.modal = el}>
+      <div ref={el => this.modal = el}>
         <MobileGallery visible={images.length !== 0 && isGalleryOpen}>
           <Header>
             <CloseButton onClick={this.closeGallery}>

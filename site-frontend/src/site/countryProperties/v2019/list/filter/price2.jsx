@@ -26,7 +26,6 @@ const {
 
 
 class Price extends Component {
-
   constructor(props) {
     super(props);
 
@@ -37,8 +36,22 @@ class Price extends Component {
     this.state = { isOpen: false, currencyTag: 'usd' };
   }
 
+  componentDidMount() {
+    const { selected = {}, dealType } = this.props;
+    const key = dealTypes[dealType];
+    const { currencyPrice } = (selected[key] || {});
+
+    if (currencyPrice) {
+      if (currencyPrice === `${key}Offer.multiCurrencyPrice.usd`) {
+        this.onChangeCurrency('usd');
+      } else if (currencyPrice === `${key}Offer.multiCurrencyPrice.rub`) {
+        this.onChangeCurrency('rub');
+      }
+    }
+  }
+
   onUpdate(ref, value) {
-    const { state, dealType, selected = {} } = this.props;
+    const { dealType, selected = {} } = this.props;
     const price = selected[dealTypes[dealType]] || {};
     const stateRef = ref === 'min' ? 'max' : 'min';
     const currency = `${dealTypes[dealType]}Offer.multiCurrencyPrice.${this.state.currencyTag}`;
@@ -91,7 +104,7 @@ class Price extends Component {
   }
 
   render() {
-    const { selected = {}, dealType, state } = this.props;
+    const { selected = {}, dealType } = this.props;
     const key = dealTypes[dealType];
     const price = selected[key] || {};
 

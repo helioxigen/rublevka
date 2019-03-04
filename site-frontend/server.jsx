@@ -301,7 +301,7 @@ app.use(metricsMiddleware);
 app.use(cacheMiddleware);
 
 // static .js and .css
-app.use('/static', express.static(`./build/${MODULE}/static`, { maxAge: '1y' }));
+app.use('/static', express.static(`./build/${HOST}/static`, { maxAge: '1y' }));
 app.use('/robots.txt', (req, res) => fs.createReadStream(`./build/${HOST}/robots.txt`).pipe(res));
 app.use('/favicon.png', (req, res) => fs.createReadStream(`./build/${HOST}/favicon.png`).pipe(res));
 

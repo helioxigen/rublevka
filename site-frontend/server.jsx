@@ -73,7 +73,7 @@ global.config = config[INSTANCE];
 global.XMLHttpRequest = xhr;
 
 // required because of MODULE
-const manifest = require(`./build/${MODULE}/manifest`); // eslint-disable-line import/no-dynamic-require
+const manifest = require(`./build/${HOST}/manifest`); // eslint-disable-line import/no-dynamic-require
 const routes = require(`./src/${MODULE}/Routes`).default; // eslint-disable-line import/no-dynamic-require
 
 // const logger = createLogger();

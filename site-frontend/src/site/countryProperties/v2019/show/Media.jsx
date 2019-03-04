@@ -30,8 +30,6 @@ const MobileGallery = styled.div`
   height: 100%;
   background-color: #fafafa;
 
-  padding-bottom: 128px;
-
   ${({ visible }) =>
     visible &&
     `

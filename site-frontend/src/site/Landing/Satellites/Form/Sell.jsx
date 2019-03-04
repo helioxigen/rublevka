@@ -151,7 +151,7 @@ export default class extends Component {
   render() {
     const { priceTo, priceFrom, areaTo, areaFrom, bedrooms, currency, kind } = this.state;
     const { navigate } = this.props;
-    const priceResetButtonActive = priceTo || priceFrom || currency !== 'rub';
+    const priceResetButtonActive = priceTo || priceFrom || currency !== 'usd';
     const areaResetButtonActive = areaTo || areaFrom;
     const sellPrices = prices[currency].sale.map(item => ({ value: item.value, label: currency === 'usd' ? item.label.slice(1) : item.label.slice(0, -2) }));
 
@@ -209,7 +209,7 @@ export default class extends Component {
                   <Options
                     isResetButtonActive={priceResetButtonActive}
                     resetButtonCallback={() =>
-                      this.setState({ priceFrom: null, priceTo: null, currency: 'rub' })
+                      this.setState({ priceFrom: null, priceTo: null, currency: 'usd' })
                     }
                     withSaveButton
                     getToggleButtonProps={getToggleButtonProps}

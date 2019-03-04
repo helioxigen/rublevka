@@ -54,7 +54,7 @@ class Renovate extends Component {
     const { kind = [] } = selected;
     const items = selected[key] || [];
 
-    if (kind.includes('land')) {
+    if (!kind.includes('land')) {
       return (
         <div>
           <ControlsContainer>
@@ -89,7 +89,7 @@ class Renovate extends Component {
             </Container>
           </ControlsContainer>
         </div>
-      )
+      );
     }
 
     return <div />;

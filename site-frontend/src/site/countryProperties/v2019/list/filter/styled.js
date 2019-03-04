@@ -121,7 +121,7 @@ export const DesktopContainer = styled.div`
     padding: 0;
     padding-top: 3px;
     width: 100%;
-    overflow: hidden;
+    overflow: visible;
   `}
 `;
 

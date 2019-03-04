@@ -151,7 +151,7 @@ class Property extends Component {
             </Col>
           </Row>
           <Similar id={data.id} dealType={this.props.dealType} />
-          {!!price && <CallBlock priceData={priceData} />}
+          {!!price && <CallBlock priceData={priceData} kind={data.kind} />}
         </Container>
 
       </div>

@@ -154,6 +154,7 @@ const Input = styled.input`
   margin-top: 8px;
   border: 1px solid #d9d9d9;
   border-radius: 8px;
+  appearance: none;
 
   line-height: 18px;
   font-size: 15px;
@@ -175,6 +176,7 @@ const TextInput = styled.textarea`
   margin-top: 8px;
   border: 1px solid #d9d9d9;
   border-radius: 8px;
+  appearance: none;
 
   line-height: 18px;
   font-size: 15px;

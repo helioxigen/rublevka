@@ -7,9 +7,9 @@ const PropertyPrice = ({ deal = {}, dealType, selectedCurrency = 'usd' }) => (
   <span>
     <FormattedNumber
       style="currency"
-      maximumSignificantDigits={1}
       currency={selectedCurrency}
       value={deal.multiCurrencyPrice[selectedCurrency]}
+      maximumSignificantDigits={12}
     />
     {dealType === 'rent' ? '/ месяц' : ''}
   </span>

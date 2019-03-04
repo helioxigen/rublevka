@@ -90,18 +90,18 @@ export default ({ priceData: { currency, price, priceForBlock }, kind }) => (
       <Price>
         <FormattedNumber
           style="currency"
-          maximumSignificantDigits={1}
           currency={currency}
           value={price}
+          maximumSignificantDigits={12}
         />
       </Price>
       {kind === 'land' && (
         <SmallPrice>
           <FormattedNumber
             style="currency"
-            maximumSignificantDigits={1}
             currency={currency}
-            value={priceForBlock}
+            value={Math.round(priceForBlock)}
+            maximumSignificantDigits={12}
           />{' '}
           / сот.
         </SmallPrice>

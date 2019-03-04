@@ -22,7 +22,7 @@ const Input = styled.input`
   background: rgba(255, 255, 255, 0.75);
   border: 1px solid #d9d9d9;
   border-radius: 8px;
-  box-shadow: none;
+  appearance: none;
   line-height: 15px;
   font-size: 15px;
   font-weight: 500;

@@ -119,7 +119,7 @@ const Input = styled.input`
   margin-top: 8px;
   border: 1px solid #d9d9d9;
   border-radius: 8px;
-  box-shadow: none;
+  appearance: none;
 
   line-height: 18px;
   font-size: 15px;
@@ -183,18 +183,18 @@ export default ({ priceData: { currency, price, priceForBlock }, kind }) => (
       <Price>
         <FormattedNumber
           style="currency"
-          maximumSignificantDigits={1}
           currency={currency}
           value={price}
+          maximumSignificantDigits={12}
         />
       </Price>
       {kind === 'land' && (
         <SmallPrice>
           <FormattedNumber
             style="currency"
-            maximumSignificantDigits={1}
             currency={currency}
-            value={priceForBlock}
+            value={Math.round(priceForBlock)}
+            maximumSignificantDigits={12}
           />{' '}
           / сот.
         </SmallPrice>

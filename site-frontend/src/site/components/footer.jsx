@@ -7,7 +7,7 @@ import StaticMask from 'core/components/ui/staticMask';
 import Footer from 'site/components/footer/index';
 import CallbackModal from 'site/request/CallbackModal';
 
-import UI from 'site/ui';
+import UI from 'site/ui/v2019';
 
 import styled from 'styled-components';
 import media from 'site/styles/media';
@@ -252,7 +252,7 @@ export default ({ params }) => {
           <LogoSatellites icon={global.config.brand} />
         </Visibility>
 
-        <Col xs="10" xsOffset="1">
+        <Col xs="8" xsOffset="2" >
           <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
             <Footer.NavSatellites />
             <DividerSatellites />

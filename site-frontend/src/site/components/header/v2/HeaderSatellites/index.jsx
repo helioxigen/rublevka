@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -28,6 +29,9 @@ import {
   Phone,
   CallbackBtn,
   MenuBtn,
+  FavoriteIcon,
+  FavoriteWrapper,
+  FavoriteCounter,
 } from './styled';
 
 const {
@@ -81,9 +85,11 @@ class Header extends Component {
       location: { pathname },
     } = this.props;
     const { navInverted } = this.state;
+    const { favorites } = this.props.state;
     const isLanding = pathname === '/';
     // const isLanding = false;
     const inverted = isLanding && navInverted;
+
 
     return (
       <HeaderBody active={this.state.active}>
@@ -93,16 +99,28 @@ class Header extends Component {
             <Container>
               <NavPanel isLanding={isLanding}>
                 <LogoSatellites isLanding={isLanding} inverted={inverted} />
-                <MenuBtn onClick={this.toggleMenu}>
-                  <HamburgerIcon icon="hamburger-rublevka" isLanding={isLanding} />
-                </MenuBtn>
+                <div>
+                  <Link
+                    activeClassName="active"
+                    to="/favorites"
+                    inverted={inverted}
+                  >
+                    <FavoriteWrapper>
+                      <FavoriteIcon inverted={inverted} icon="favorite" />
+                      <FavoriteCounter> {favorites && favorites.length}</FavoriteCounter>
+                    </FavoriteWrapper>
+                  </Link>
+                  <MenuBtn onClick={this.toggleMenu}>
+                    <HamburgerIcon icon="hamburger-rublevka" isLanding={isLanding} />
+                  </MenuBtn>
+                </div>
               </NavPanel>
             </Container>
           </Visibility>
 
           <Container>
             <Col xs="12">
-              <Nav active={this.state.active} inverted={inverted}>
+              <Nav isVisible active={this.state.active} inverted={inverted}>
                 <Menu left>
                   <Visibility xs="hidden" sm="hidden" md="hidden">
                     <LogoSatellites inverted={inverted} />
@@ -150,6 +168,18 @@ class Header extends Component {
                       Обратный звонок
                     </CallbackBtn>
                   </CallbackModal>
+                  <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
+                    <Link
+                      to="/favorites"
+                      inverted={inverted}
+                      style={{ marginRight: '5px' }}
+                    >
+                      <FavoriteWrapper>
+                        <FavoriteIcon inverted={inverted} icon="favorite" />
+                        <FavoriteCounter> {favorites && favorites.length}</FavoriteCounter>
+                      </FavoriteWrapper>
+                    </Link>
+                  </Visibility>
                 </StMenu>
               </Nav>
             </Col>
@@ -162,11 +192,12 @@ class Header extends Component {
 
 // redux connectors
 const pickState = (state) => {
-  const { stats } = state;
+  const { stats, favorites } = state;
 
   return {
     state: {
       stats,
+      favorites,
     },
   };
 };

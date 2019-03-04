@@ -10,6 +10,7 @@ import global from 'window-or-global';
 // actions
 import loadProperty from 'core/countryProperties/actions/id/load';
 import { setSharedRetargetingKey } from 'site/retargeting/actions';
+import { toggleFavorite } from 'core/actions/favorites';
 
 import { track } from 'core/analytics';
 import * as analyticsEvents from 'core/analytics/constants';
@@ -90,7 +91,8 @@ class Property extends Component {
   }
 
   render() {
-    const { state, kind, id } = this.props;
+    const { state, kind, id, actions } = this.props;
+    const { favorites = [] } = state;
     const dealType = dealTypes[this.props.dealType];
 
     const property = state.countryProperties[id] || {};
@@ -133,20 +135,20 @@ class Property extends Component {
             <Col xs="12" md="8">
               <Wrapper>
                 <Header data={data} propertyId={id} dealType={dealType} />
-                <Media images={images} propertyId={id} />
+                <Media toggleFavorite={() => actions.toggleFavorite(Number.parseInt(id))} isFavorite={favorites.includes(Number.parseInt(id))} images={images} propertyId={id} />
                 {displaySummary && <Summary data={data} />}
                 {/* <Description data={data} /> */}
                 {(!!specification.area || Object.keys(communication).length !== 0) && <Info data={data} />}
                 {Object.keys((specification.layouts || {})).length !== 0 && <Layout kind={data.kind} layout={specification.layouts} />}
                 <Visibility sm="hidden" md="hidden" lg="hidden">
-                  {!!price && <CallForm priceData={priceData} kind={data.kind} />}
+                  {!!price && <CallForm toggleFavorite={() => actions.toggleFavorite(Number.parseInt(id))} priceData={priceData} kind={data.kind} />}
                 </Visibility>
                 {isPositionAvailable && <Location markerPosition={markerPosition} />}
               </Wrapper>
             </Col>
             <Col md="4">
               <FormVisibility xs="hidden" sm="hidden" md="hidden">
-                {!!price && <CallForm priceData={priceData} kind={data.kind} />}
+                {!!price && <CallForm toggleFavorite={() => actions.toggleFavorite(Number.parseInt(id))} priceData={priceData} kind={data.kind} />}
               </FormVisibility>
             </Col>
           </Row>
@@ -160,11 +162,12 @@ class Property extends Component {
 }
 
 const pickState = (state) => {
-  const { countryProperties } = state;
+  const { countryProperties, favorites } = state;
 
   return {
     state: {
       countryProperties,
+      favorites,
     },
   };
 };
@@ -174,6 +177,7 @@ const pickActions = (dispatch) => {
     loadProperty,
     setSharedRetargetingKey,
     push,
+    toggleFavorite,
   };
 
   return {

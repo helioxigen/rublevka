@@ -3,6 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import styled from 'styled-components';
 
+import { bindActionCreators } from 'redux';
+// actions
+import { toggleFavorite } from 'core/actions/favorites';
+//
+
 import { FormattedNumber } from 'react-intl';
 import { cloudfront } from 'core/config/resources';
 
@@ -14,6 +19,7 @@ import Price from 'site/countryProperties/v2019/show/Price';
 import UI from 'site/ui';
 
 import media from 'site/styles/media';
+
 
 import {
   dealTypes,
@@ -115,6 +121,19 @@ const StIcon = styled(Icon)`
   fill: #edecec;
 `;
 
+const FavoriteIcon = styled(Icon)`
+  margin: 0;
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  width: 24px;
+  height: 22px;
+  display: block;
+  stroke: #ffffff;
+  stroke-width: 2px;
+  fill: ${p => p.isActive ? '#F44336' : 'rgba(0,0,0, 0.3)'};
+`;
+
 class Card extends Component {
   renderPhoto = (data) => {
     const { images = [] } = data;
@@ -136,17 +155,21 @@ class Card extends Component {
   }
 
   render() {
-    const { data = {} } = this.props;
+    const { data = {}, favorites, id } = this.props;
     const dealType = dealTypes[this.props.dealType];
     const { specification = {}, landDetails = {} } = data;
     const deal = data[`${dealType}Offer`] || {};
-
     return (
       <LinkWrapper to={`/zagorodnaya/${this.props.dealType}/${
           kindsTranslit[data.kind]
           }/${data.id}`}
       >
         <Id>№ {data.id}</Id>
+        <FavoriteIcon
+          isActive={favorites.includes(Number.parseInt(id))}
+          onClick={(e) => { e.preventDefault(); this.props.actions.toggleFavorite(Number.parseInt(id)); }}
+          icon="favorite"
+        />
         {this.renderPhoto(data)}
         <TitleWrapper> <Title data={data} dealType={dealType} /> </TitleWrapper>
         <Summary>
@@ -177,14 +200,26 @@ class Card extends Component {
 
 // redux connectors
 const pickState = (state, { id }) => {
-  const { countryProperties } = state;
+  const { countryProperties, favorites } = state;
   const { data = {}, isFetching } = countryProperties[id] || {};
 
   return {
     data,
+    favorites,
     isFetching,
   };
 };
 
-export default connect(pickState)(Card);
+const pickActions = (dispatch) => {
+  const actions = {
+    toggleFavorite,
+  };
+
+  return {
+    actions: bindActionCreators(actions, dispatch),
+    dispatch,
+  };
+};
+
+export default connect(pickState, pickActions)(Card);
 

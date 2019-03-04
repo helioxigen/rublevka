@@ -10,6 +10,7 @@ export { autoRehydrate } from 'redux-persist';
 
 // reducers
 import filters from 'core/reducers/filters';
+import favorites from 'core/reducers/favorites';
 import pagination from 'core/reducers/pagination';
 import order from 'core/reducers/order';
 
@@ -56,6 +57,7 @@ export const reducer = combineReducers({
   users,
 
   filters,
+  favorites,
   order,
   pagination,
   stats,

@@ -7,7 +7,7 @@ import media from 'site/styles/media';
 import { WrapperBase, Title as TitleBase } from './styled';
 import UI from 'site/ui';
 
-const { Visibility } = UI;
+const { Visibility, Icon } = UI;
 
 const Wrapper = styled(WrapperBase)`
   ${media.md`
@@ -171,7 +171,26 @@ const Link = styled.a`
   letter-spacing: 0.1px;
 `;
 
-export default ({ priceData: { currency, price, priceForBlock }, kind }) => (
+export const FavoriteWrapper = styled.div`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #AAAAAA;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 500;
+`;
+
+export const FavoriteIcon = styled(Icon)`
+  width: 24px;
+  height: 22px;
+  stroke: #F44336;
+  stroke-width: 2px;
+  fill: transparent;
+  margin-right: 8px;
+`;
+
+export default ({ priceData: { currency, price, priceForBlock }, kind, toggleFavorite }) => (
   <Wrapper>
     <Visibility md="hidden" lg="hidden">
       <Title>Обратный звонок</Title>
@@ -199,7 +218,6 @@ export default ({ priceData: { currency, price, priceForBlock }, kind }) => (
           / сот.
         </SmallPrice>
       )}
-      <Divider />
       {/* <Author>
             {!!data.photo && <Avatar src={`${global.config.cloudfront || cloudfront}/${data.photo.id}`} alt="Фотография агента" />}
             <TextBlock>
@@ -218,6 +236,8 @@ export default ({ priceData: { currency, price, priceForBlock }, kind }) => (
         <Callback>забронировать просмотр</Callback>
       </Visibility>
     </CallbackForm>
+    <Divider />
+    <FavoriteWrapper onClick={toggleFavorite}><FavoriteIcon icon="favorite" />В избранное</FavoriteWrapper>
     <Visibility md="hidden" lg="hidden">
       <Agreement>
         Отправляя заявку, вы соглашаетесь с нашей{' '}

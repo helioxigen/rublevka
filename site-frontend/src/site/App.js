@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import { Router, browserHistory, applyRouterMiddleware } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { useScroll } from 'react-router-scroll';
+import { persistStore } from 'redux-persist';
 
 import { reducer, autoRehydrate, router, logger, tracker } from './store';
 import Routes from './Routes';
@@ -34,10 +35,37 @@ const routerRender = applyRouterMiddleware(
   useScroll((prevRouterProps, { routes }) => !routes.some(route => route.ignoreScrollBehavior)),
 );
 
-export default () => (
-  <Provider store={store}>
-    <Router history={history} render={routerRender}>
-      {Routes}
-    </Router>
-  </Provider>
-);
+class App extends Component {
+
+  static childContextTypes = {
+    rehydrated: React.PropTypes.bool,
+  };
+
+  constructor() {
+    super();
+    this.state = { rehydrated: false };
+  }
+
+  getChildContext() {
+    return { rehydrated: this.state.rehydrated };
+  }
+
+  componentDidMount() {
+    persistStore(store, { whitelist: ['favorites'] }, () => {
+      this.setState({ rehydrated: true });
+    });
+  }
+
+
+  render() {
+    return (
+      <Provider store={store}>
+        <Router history={history} render={routerRender}>
+          {Routes}
+        </Router>
+      </Provider>
+    );
+  }
+}
+
+export default App;

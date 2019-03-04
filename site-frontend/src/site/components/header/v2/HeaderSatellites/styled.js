@@ -132,6 +132,7 @@ export const Nav = styled(Navbar.Container)`
     transform: none;
     padding: 0;
   `}
+  overflow-y: ${p => p.isVisible ? 'visible' : scroll}
 `;
 
 export const HamburgerIcon = styled(Icon)`
@@ -346,4 +347,46 @@ export const HideSm = styled.div`
   `} ${media.md`
     display: inline-block;
   `};
+`;
+
+export const FavoriteWrapper = styled.div`
+  position:relative;
+  display: inline-block;
+  margin-right: 18px;
+
+  ${media.sm`
+    margin-right: 5px;
+  `}
+
+  ${media.md`
+    margin-right: -15px;
+  `}
+`;
+
+export const FavoriteCounter = styled.span`
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  text-align: center;
+  vertical-align: top;
+  margin-bottom: 2px;
+  background-color: rgba(244, 67, 54, 0.9);
+  color: #fff;
+  position: absolute;
+  top: 0;
+  right: -10px;
+`;
+
+export const FavoriteIcon = styled(Icon)`
+  position: relative;
+  top: 6px;
+  left: 5px;
+  width: 24px;
+  height: 22px;
+  stroke-width: 2px;
+  stroke: ${p => p.inverted ? '#ffffff' : '#212121'};
+  fill: transparent;
 `;

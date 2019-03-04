@@ -71,9 +71,9 @@ class PropertyInfo extends Component {
                 </nav>
 
                 <h2 className={cn(s.titleLg, s.pushedTop1_9)}>
-                  <span>{location.street || ``}</span>
+                  <span>{location.street || ''}</span>
                   <span className={s.pushedRight2}>
-                    {(location.house && `, ${location.house}`) || ``}
+                    {(location.house && `, ${location.house}`) || ''}
                   </span>
                   <span className={s.label}>ID {id}</span>
                 </h2>
@@ -96,7 +96,7 @@ class PropertyInfo extends Component {
                       >
                         <CountIndicator
                           count={data.specification.rooms}
-                          declensionForms={[`комната`, `комнаты`, `комнат`]}
+                          declensionForms={['комната', 'комнаты', 'комнат']}
                         />
                       </span>
                     </li>
@@ -109,7 +109,7 @@ class PropertyInfo extends Component {
                       >
                         <CountIndicator
                           count={data.specification.bedrooms}
-                          declensionForms={[`спальня`, `спальни`, `спален`]}
+                          declensionForms={['спальня', 'спальни', 'спален']}
                         />
                       </span>
                     </li>
@@ -121,7 +121,7 @@ class PropertyInfo extends Component {
                         className={cn(s.displayInlineBlock, s.pushedTop1_2)}
                       >
                         {data.specification.floor}{' '}
-                        {data && data.kind === `house` ? `этажей` : `этаж`}
+                        {data && data.kind === 'house' ? 'этажей' : 'этаж'}
                         {/* {complex.details && (
                           <span>/{complex.details.floors}</span>
                         )} */}

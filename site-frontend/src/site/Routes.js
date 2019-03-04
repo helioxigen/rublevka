@@ -13,6 +13,8 @@ import Agents from './agents';
 
 import NotFound from './NotFound';
 
+import Favorites from './favorites';
+
 import * as Selections from './selections';
 
 import * as CountryProperties from './countryProperties/v2';
@@ -95,6 +97,12 @@ export default (
         <Route
           path="/zagorodnaya/:placeKind/:place/:dealType(/:kind)"
           component={PlacesSatellite.Show}
+        />
+      )}
+      {!isJQ && (
+        <Route
+          path="/favorites"
+          component={Favorites}
         />
       )}
       <Route path="*" component={NotFound} />

@@ -36,13 +36,13 @@ const routerRender = applyRouterMiddleware(
 );
 
 class App extends Component {
-
   static childContextTypes = {
     rehydrated: React.PropTypes.bool,
   };
 
   constructor() {
     super();
+
     this.state = { rehydrated: false };
   }
 
@@ -55,7 +55,6 @@ class App extends Component {
       this.setState({ rehydrated: true });
     });
   }
-
 
   render() {
     return (

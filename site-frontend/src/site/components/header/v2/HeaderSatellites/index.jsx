@@ -107,7 +107,7 @@ class Header extends Component {
                   >
                     <FavoriteWrapper>
                       <FavoriteIcon inverted={inverted} icon="favorite" />
-                      <FavoriteCounter> {favorites && favorites.length}</FavoriteCounter>
+                      { (favorites && favorites.length > 0) && <FavoriteCounter> {favorites.length}</FavoriteCounter> }
                     </FavoriteWrapper>
                   </Link>
                   <MenuBtn onClick={this.toggleMenu}>
@@ -176,7 +176,7 @@ class Header extends Component {
                     >
                       <FavoriteWrapper>
                         <FavoriteIcon inverted={inverted} icon="favorite" />
-                        <FavoriteCounter> {favorites && favorites.length}</FavoriteCounter>
+                        {(favorites && favorites.length > 0) && <FavoriteCounter> {favorites.length}</FavoriteCounter>}
                       </FavoriteWrapper>
                     </Link>
                   </Visibility>

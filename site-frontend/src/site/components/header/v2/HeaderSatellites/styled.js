@@ -387,6 +387,10 @@ export const FavoriteIcon = styled(Icon)`
   width: 24px;
   height: 22px;
   stroke-width: 2px;
-  stroke: ${p => p.inverted ? '#ffffff' : '#212121'};
   fill: transparent;
+  stroke: #212121;
+
+  ${media.xs`
+    stroke: ${p => p.inverted ? '#ffffff' : '#212121'};
+  `}
 `;

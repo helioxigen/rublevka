@@ -159,6 +159,7 @@ class Card extends Component {
     const dealType = dealTypes[this.props.dealType];
     const { specification = {}, landDetails = {} } = data;
     const deal = data[`${dealType}Offer`] || {};
+
     return (
       <LinkWrapper to={`/zagorodnaya/${this.props.dealType}/${
           kindsTranslit[data.kind]

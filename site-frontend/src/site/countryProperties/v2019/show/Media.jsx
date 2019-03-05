@@ -195,7 +195,7 @@ const FavoriteIcon = styled(Icon)`
   stroke: #ffffff;
   stroke-width: 2px;
   fill: ${p => p.isActive ? '#F44336' : 'rgba(0,0,0, 0.3)'};
-  z-index: 999999;
+  z-index: 1;
 
   ${media.md`
     display: none;
@@ -305,7 +305,7 @@ export default class Media extends Component {
             </NextButton>
           </Visibility>
           <Id>{`№ ${propertyId}`}</Id>
-          <FavoriteIcon isActive={isFavorite} onClick={toggleFavorite} icon="favorite" />
+          <FavoriteIcon isActive={isFavorite} onClick={(e) => { e.stopPropagation(); toggleFavorite(); }} icon="favorite" />
           <PhotoNum>
             <CameraIcon alt="Camera Icon" src={cameraIcon} />
             <PhotoCount>{images.length} фото</PhotoCount>

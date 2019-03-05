@@ -155,7 +155,7 @@ class Card extends Component {
   }
 
   render() {
-    const { data = {}, favorites, id } = this.props;
+    const { data = {}, favorites, id, actions } = this.props;
     const dealType = dealTypes[this.props.dealType];
     const { specification = {}, landDetails = {} } = data;
     const deal = data[`${dealType}Offer`] || {};
@@ -167,8 +167,8 @@ class Card extends Component {
       >
         <Id>№ {data.id}</Id>
         <FavoriteIcon
-          isActive={favorites.includes(Number.parseInt(id))}
-          onClick={(e) => { e.preventDefault(); this.props.actions.toggleFavorite(Number.parseInt(id)); }}
+          isActive={favorites.some(item => item.id === Number.parseInt(id) && item.dealType === this.props.dealType)}
+          onClick={(e) => { e.preventDefault(); actions.toggleFavorite(Number.parseInt(id), this.props.dealType); }}
           icon="favorite"
         />
         {this.renderPhoto(data)}

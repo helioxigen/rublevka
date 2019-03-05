@@ -45,7 +45,8 @@ const Wrapper = styled.div`
 `;
 
 function load({ state: { favorites }, actions }) {
-  return actions.loadCountryProperties({ filter: { id: favorites } }, 'favorites');
+  const favoritesIds = favorites.map(item => item.id);
+  return actions.loadCountryProperties({ filter: { id: favoritesIds } }, 'favorites');
 }
 
 class Favorites extends React.Component {
@@ -77,9 +78,9 @@ class Favorites extends React.Component {
           <Col md="10" mdOffset="1">
             <Row>
               {favorites.length > 0 &&
-                favorites.map(id => (
+                favorites.map(({ id, dealType }) => (
                   <Col xs="12" sm="6" md="6" lg="4">
-                    <Card dealType="prodaja" key={id} id={id} showLocation />
+                    <Card dealType={dealType} key={id} id={id} showLocation />
                   </Col>
                 ))}
             </Row>

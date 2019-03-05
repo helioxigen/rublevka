@@ -384,8 +384,8 @@ export const FavoriteCounter = styled.span`
   top: -6px;
   right: -7px;
   border-radius: 7.5px;
-  width: 15px;
-  height: 15px;
+  width: 18px;
+  height: 18px;
   font-weight: 300;
   line-height: 13px;
   font-size: 11px;

@@ -22,7 +22,7 @@ const MobileGallery = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 2;
+  z-index: 10;
   min-width: 100vw;
   min-height: 100vh;
   height: 100%;
@@ -195,7 +195,7 @@ const FavoriteIcon = styled(Icon)`
   stroke: #ffffff;
   stroke-width: 2px;
   fill: ${p => p.isActive ? '#F44336' : 'rgba(0,0,0, 0.3)'};
-  z-index: 1;
+  z-index: 5;
 
   ${media.md`
     display: none;
@@ -305,7 +305,7 @@ export default class Media extends Component {
             </NextButton>
           </Visibility>
           <Id>{`№ ${propertyId}`}</Id>
-          <FavoriteIcon isActive={isFavorite} onClick={(e) => { e.stopPropagation(); toggleFavorite(); }} icon="favorite" />
+          <FavoriteIcon isActive={isFavorite} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleFavorite(); }} icon="favorite" />
           <PhotoNum>
             <CameraIcon alt="Camera Icon" src={cameraIcon} />
             <PhotoCount>{images.length} фото</PhotoCount>

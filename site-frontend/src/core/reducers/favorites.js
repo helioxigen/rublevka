@@ -6,11 +6,11 @@ const initialState = [];
 
 export default handleActions(
   {
-    [types.TOGGLE_FAVORITE]: (state, { id }) => {
-      if (state.includes(id)) {
-        return state.filter(item => item !== id);
+    [types.TOGGLE_FAVORITE]: (state, { id, dealType }) => {
+      if (state.some(item => (item.id === id && item.dealType === dealType))) {
+        return state.filter(item => (item.id !== id || item.dealType !== dealType));
       }
-      return [...state, id];
+      return [...state, { id, dealType }];
     },
   },
   initialState,

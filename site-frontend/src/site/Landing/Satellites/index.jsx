@@ -35,7 +35,7 @@ import { dealTypes } from 'site/constants/properties/dictionaries';
 // UI
 import UI from 'site/ui';
 
-import bgImage from './bg.png';
+import bgImage from './bg.jpg';
 
 const {
   Grid: { Container },

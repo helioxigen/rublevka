@@ -384,16 +384,24 @@ export const FavoriteCounter = styled.span`
   top: -6px;
   right: -7px;
   border-radius: 7.5px;
-  width: 18px;
-  height: 18px;
+  width: 15px;
+  height: 15px;
   font-weight: 300;
-  line-height: 13px;
+  line-height: 15px;
   font-size: 11px;
   text-align: center;
-  vertical-align: top;
-  margin-bottom: 2px;
   background-color: rgba(244, 67, 54, 0.9);
   color: #fff;
+
+  ${media.md`
+    top: -7px;
+    right: -9px;
+    width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    line-height: 18px;
+    font-size: 12px;
+  `}
 `;
 
 export const FavoriteIcon = styled(Icon)`

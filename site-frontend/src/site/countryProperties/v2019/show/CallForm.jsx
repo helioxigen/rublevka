@@ -171,20 +171,20 @@ const Link = styled.a`
   letter-spacing: 0.1px;
 `;
 
-export const FavoriteWrapper = styled.div`
+const FavoriteWrapper = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
-  color: #AAAAAA;
+  color: #aaaaaa;
   justify-content: center;
   font-size: 15px;
   font-weight: 500;
 `;
 
-export const FavoriteIcon = styled(Icon)`
+const FavoriteIcon = styled(Icon)`
   width: 24px;
   height: 22px;
-  stroke: #F44336;
+  stroke: #f44336;
   stroke-width: 2px;
   fill: transparent;
   margin-right: 8px;
@@ -236,8 +236,12 @@ export default ({ priceData: { currency, price, priceForBlock }, kind, toggleFav
         <Callback>забронировать просмотр</Callback>
       </Visibility>
     </CallbackForm>
-    <Divider />
-    <FavoriteWrapper onClick={toggleFavorite}><FavoriteIcon icon="favorite" />В избранное</FavoriteWrapper>
+    <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
+      <Divider />
+      <FavoriteWrapper onClick={toggleFavorite}>
+        <FavoriteIcon icon="favorite" />В избранное
+      </FavoriteWrapper>
+    </Visibility>
     <Visibility md="hidden" lg="hidden">
       <Agreement>
         Отправляя заявку, вы соглашаетесь с нашей{' '}

@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import CallbackModal from 'site/request/CallbackModal';
 
-import LogoSatellites from './LogoSatellites';
-
 import loadStatistics from 'core/stats/actions/load';
 
 import StaticMask from 'core/components/ui/staticMask';
 
 import UI from 'site/ui/v2019';
+
+import LogoSatellites from './LogoSatellites';
 
 import {
   HeaderBody,
@@ -30,8 +29,10 @@ import {
   CallbackBtn,
   MenuBtn,
   FavoriteIcon,
-  FavoriteWrapper,
+  FavoriteLink,
+  FavoriteLinkDesktop,
   FavoriteCounter,
+  MobileButtons,
 } from './styled';
 
 const {
@@ -99,21 +100,15 @@ class Header extends Component {
             <Container>
               <NavPanel isLanding={isLanding}>
                 <LogoSatellites isLanding={isLanding} inverted={inverted} />
-                <div>
-                  <Link
-                    activeClassName="active"
-                    to="/favorites"
-                    inverted={inverted}
-                  >
-                    <FavoriteWrapper>
-                      <FavoriteIcon inverted={inverted} icon="favorite" />
-                      { (favorites && favorites.length > 0) && <FavoriteCounter> {favorites.length}</FavoriteCounter> }
-                    </FavoriteWrapper>
-                  </Link>
+                <MobileButtons>
+                  <FavoriteLink to="/favorites">
+                    <FavoriteIcon icon="favorite" />
+                    {(favorites && favorites.length > 0) && <FavoriteCounter> {favorites.length}</FavoriteCounter>}
+                  </FavoriteLink>
                   <MenuBtn onClick={this.toggleMenu}>
                     <HamburgerIcon icon="hamburger-rublevka" isLanding={isLanding} />
                   </MenuBtn>
-                </div>
+                </MobileButtons>
               </NavPanel>
             </Container>
           </Visibility>
@@ -168,18 +163,10 @@ class Header extends Component {
                       Обратный звонок
                     </CallbackBtn>
                   </CallbackModal>
-                  <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
-                    <Link
-                      to="/favorites"
-                      inverted={inverted}
-                      style={{ marginRight: '5px' }}
-                    >
-                      <FavoriteWrapper>
-                        <FavoriteIcon inverted={inverted} icon="favorite" />
-                        {(favorites && favorites.length > 0) && <FavoriteCounter> {favorites.length}</FavoriteCounter>}
-                      </FavoriteWrapper>
-                    </Link>
-                  </Visibility>
+                  <FavoriteLinkDesktop to="/favorites">
+                    <FavoriteIcon inverted={inverted} icon="favorite" />
+                    {(favorites && favorites.length > 0) && <FavoriteCounter> {favorites.length}</FavoriteCounter>}
+                  </FavoriteLinkDesktop>
                 </StMenu>
               </Nav>
             </Col>

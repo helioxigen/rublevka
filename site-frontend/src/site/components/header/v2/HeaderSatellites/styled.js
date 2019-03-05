@@ -132,7 +132,7 @@ export const Nav = styled(Navbar.Container)`
     transform: none;
     padding: 0;
   `}
-  overflow-y: ${p => p.isVisible ? 'visible' : scroll}
+  overflow-y: ${p => (p.isVisible ? 'visible' : scroll)}
 `;
 
 export const HamburgerIcon = styled(Icon)`
@@ -224,7 +224,7 @@ export const Phone = styled.a`
   ${media.md`
     position: relative;
     font-size: 18px;
-    margin: 21px 16px;
+    margin-right: 16px;
     width: inherit;
     padding-right: 0;
     color: ${p => (p.inverted ? p.theme.brandWhite : p.theme.brandBlack)};
@@ -339,6 +339,12 @@ export const Overlay = styled.div`
   `};
 `;
 
+export const MobileButtons = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
 export const HideSm = styled.div`
   display: block;
 
@@ -349,41 +355,48 @@ export const HideSm = styled.div`
   `};
 `;
 
-export const FavoriteWrapper = styled.div`
-  position:relative;
-  display: inline-block;
-  margin-right: 18px;
+export const FavoriteLink = styled(Navbar.Link)`
+  position: relative;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  max-height: 22px;
 
-  ${media.sm`
-    margin-right: 5px;
-  `}
+  margin-right: 25px;
 
   ${media.md`
-    margin-right: -15px;
+    margin-left: 24px;
+    margin-right: 0;
+  `}
+`;
+
+export const FavoriteLinkDesktop = styled(FavoriteLink)`
+  display: none;
+
+  ${media.md`
+    display: block;
   `}
 `;
 
 export const FavoriteCounter = styled.span`
-  border-radius: 50%;
-  width: 16px;
-  height: 16px;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
+  position: absolute;
+  top: -6px;
+  right: -7px;
+  border-radius: 7.5px;
+  width: 15px;
+  height: 15px;
+  font-weight: 300;
+  line-height: 13px;
+  font-size: 11px;
   text-align: center;
   vertical-align: top;
   margin-bottom: 2px;
   background-color: rgba(244, 67, 54, 0.9);
   color: #fff;
-  position: absolute;
-  top: 0;
-  right: -10px;
 `;
 
 export const FavoriteIcon = styled(Icon)`
-  position: relative;
-  top: 6px;
-  left: 5px;
   width: 24px;
   height: 22px;
   stroke-width: 2px;
@@ -391,6 +404,6 @@ export const FavoriteIcon = styled(Icon)`
   stroke: #212121;
 
   ${media.xs`
-    stroke: ${p => p.inverted ? '#ffffff' : '#212121'};
+    stroke: ${p => (p.inverted ? '#ffffff' : '#212121')};
   `}
 `;

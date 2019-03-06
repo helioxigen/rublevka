@@ -24,7 +24,9 @@ export const Main = styled.main`
 `;
 
 export const Layout = styled.div`
-  padding: 54px 24px;
+  padding-top: 54px;
+  padding-bottom: 54px;
+  width: 100%;
 `;
 
 const LogoContainer = styled(Link)`
@@ -75,11 +77,9 @@ export const Button = styled.button`
   box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.19);
   border-radius: 4px;
   font-size: 19px;
-  font-weight: bold;
   color: #fff;
   text-align: center;
-  padding: 14px 0px;
-  width: 100%;
+  padding: 14px 24px;
 
   &:hover {
     cursor: pointer;

@@ -1,7 +1,9 @@
 import React from 'react';
 import * as Sentry from '@sentry/browser';
 
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import {
+  BrowserRouter, Route, Switch, Redirect,
+} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import styled from 'styled-components';
@@ -12,6 +14,7 @@ import store from './store';
 import { Main } from './UI';
 import Auth from './auth/LoginPage/index';
 import PropertyDetailsPage from './countryProperties/DetailsPage';
+import Properties from './countryProperties/List';
 import Navigation from './Navigation';
 
 addLocaleData(ruIntlLocale);
@@ -23,6 +26,7 @@ const createPropertyRoute = id => ({
 });
 
 const testObjectsInfoList = [
+  { name: 'Загородные объекты', path: '/country-properties' },
   createPropertyRoute(16836),
   createPropertyRoute(16861),
   createPropertyRoute(16855),
@@ -44,8 +48,8 @@ class App extends React.PureComponent {
 
   componentDidCatch(error, errorInfo) {
     this.setState({ error }, () => {
-      Sentry.withScope(scope => {
-        Object.keys(errorInfo).forEach(key => {
+      Sentry.withScope((scope) => {
+        Object.keys(errorInfo).forEach((key) => {
           scope.setExtra(key, errorInfo[key]);
         });
 
@@ -75,6 +79,7 @@ class App extends React.PureComponent {
                     path="/country-properties/:id"
                     component={PropertyDetailsPage}
                   />
+                  <Route path="/country-properties" component={Properties} />
                 </Switch>
               </MainContainer>
             ) : (

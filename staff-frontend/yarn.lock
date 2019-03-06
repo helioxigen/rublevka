@@ -5596,10 +5596,6 @@ known-css-properties@^0.10.0:
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/known-css-properties/-/known-css-properties-0.10.0.tgz#8378a8921e6c815ecc47095744a8900af63d577d"
 
-ky@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/ky/-/ky-0.6.0.tgz#f1c931bbda8170c4532637abc43911b92694eae5"
-
 last-call-webpack-plugin@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/last-call-webpack-plugin/-/last-call-webpack-plugin-3.0.0.tgz#9742df0e10e3cf46e5c0381c2de90d3a7a2d7555"
@@ -6928,6 +6924,11 @@ please-upgrade-node@^3.0.2, please-upgrade-node@^3.1.1:
   resolved "https://registry.yarnpkg.com/please-upgrade-node/-/please-upgrade-node-3.1.1.tgz#ed320051dfcc5024fae696712c8288993595e8ac"
   dependencies:
     semver-compare "^1.0.0"
+
+pluralize-ru@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/pluralize-ru/-/pluralize-ru-1.0.1.tgz#92c09ced46089b268a530fa895e6b9ec04fe7795"
+  integrity sha1-ksCc7UYImyaKUw+olea57AT+d5U=
 
 pluralize@^7.0.0:
   version "7.0.0"

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import pluralize from 'pluralize-ru';
+// import pluralize from 'pluralize-ru';
 
 import { Body, BodyBigBold } from '../UI';
 
@@ -114,7 +114,7 @@ class Card extends Component {
   render() {
     const { data = {} } = this.props;
     const { specification = {}, landDetails = {}, location = {} } = data;
-    const deal = data.saleOffer || {};
+    // const deal = data.saleOffer || {};
 
     return (
       <Link to={`/country-properties/${data.id}`}>

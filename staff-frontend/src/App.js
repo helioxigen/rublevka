@@ -20,18 +20,13 @@ import Navigation from './Navigation';
 addLocaleData(ruIntlLocale);
 
 // TODO REMOVE; TEST DATA
-const createPropertyRoute = id => ({
-  name: `ID ${id}`,
-  path: `/country-properties/${id}`,
-});
+// const createPropertyRoute = id => ({
+//   name: `ID ${id}`,
+//   path: `/country-properties/${id}`,
+// });
 
 const testObjectsInfoList = [
   { name: 'Загородные объекты', path: '/country-properties' },
-  createPropertyRoute(16836),
-  createPropertyRoute(16861),
-  createPropertyRoute(16855),
-  createPropertyRoute(16854),
-  createPropertyRoute(16593),
 ];
 
 const MainContainer = styled(Main)`

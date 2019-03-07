@@ -3,16 +3,13 @@ import styled from 'styled-components';
 import ReactSwipe from 'react-swipe';
 import global from 'window-or-global';
 import { cloudfront } from 'core/config/resources';
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 import cameraIcon from './img/camera.png';
 import media from 'site/styles/media';
 import UI from 'site/ui';
 
-const { Icon, Visibility: BaseVisibility } = UI;
-
-const Visibility = styled(BaseVisibility)`
-  width: 100%;
-`;
+const { Icon, Visibility } = UI;
 
 const MobileGallery = styled.div`
   display: none;
@@ -22,7 +19,7 @@ const MobileGallery = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 2;
   min-width: 100vw;
   min-height: 100vh;
   height: 100%;
@@ -184,18 +181,15 @@ const Id = styled.p`
 `;
 
 const FavoriteIcon = styled(Icon)`
-  cursor: pointer;
   margin: 0;
   position: absolute;
   top: 20px;
   right: 15px;
   width: 24px;
   height: 22px;
-  display: block;
-  stroke: #ffffff;
+  stroke: #fff;
   stroke-width: 2px;
   fill: ${p => p.isActive ? '#F44336' : 'rgba(0,0,0, 0.3)'};
-  z-index: 5;
 
   ${media.md`
     display: none;
@@ -235,8 +229,20 @@ const PhotoCount = styled.p`
 export default class Media extends Component {
   state = { isGalleryOpen: false };
 
+  componentWillUnmount() {
+    clearAllBodyScrollLocks();
+  }
+
+  closeGallery = () => {
+    enableBodyScroll(this.modal);
+
+    this.setState({ isGalleryOpen: false });
+  };
+
   openGallery = () => {
-    this.setState(prevState => ({ isGalleryOpen: !prevState.isGalleryOpen }));
+    disableBodyScroll(this.modal);
+
+    this.setState({ isGalleryOpen: true });
   };
 
   render() {
@@ -253,11 +259,11 @@ export default class Media extends Component {
       <div>
         <MobileGallery visible={images.length !== 0 && isGalleryOpen}>
           <Header>
-            <CloseButton onClick={this.openGallery}>
+            <CloseButton onClick={this.closeGallery}>
               <CloseIcon icon="close-button" />
             </CloseButton>
           </Header>
-          <MobilePhotos>
+          <MobilePhotos innerRef={el => (this.modal = el)}>
             {images.map(({ id }) => (
               <MobilePhoto
                 key={id}
@@ -270,7 +276,7 @@ export default class Media extends Component {
           </MobilePhotos>
         </MobileGallery>
         <Wrapper onClick={this.openGallery}>
-          <Visibility sm="hidden" md="hidden" lg="hidden">
+          <Visibility xs="block" sm="hidden" md="hidden" lg="hidden">
             {images.length !== 0 && (
               <Photo
                 src={`${global.config.cloudfront || cloudfront}/${images[0].id}-${
@@ -281,7 +287,7 @@ export default class Media extends Component {
             )}
             {images.length === 0 && <PhotoPlaceholder />}
           </Visibility>
-          <Visibility xs="hidden">
+          <Visibility xs="hidden" sm="block" md="block" lg="block">
             <PrevButton onClick={() => this.carousel.prev()}>
               <ArrowIcon icon="carousel-left" />
             </PrevButton>

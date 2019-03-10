@@ -39,7 +39,7 @@ pipeline:
     environment:
       - APP=rublevka
       - APP_ENV=development
-      - PORT=7069
+      - HOST=dev.rublevka.ru
     when:
       branch: [develop]
       event: [push]
@@ -55,7 +55,7 @@ pipeline:
     environment:
       - APP=rublevka
       - APP_ENV=production
-      - PORT=7069
+      - HOST=rublevka.ru
     when:
       branch: [master]
       event: [push]

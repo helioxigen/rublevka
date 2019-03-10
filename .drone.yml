@@ -3,30 +3,30 @@ clone:
     image: plugins/git
 
 pipeline:
-  restore-cache:
-    image: drillster/drone-volume-cache
-    restore: true
-    mount:
-      - .yarn-cache
-      - ./staff-frontend/node_modules
-      - ./export-app-firebase/node_modules
-      - ./export-app-frontend/node_modules
-    volumes:
-      - /tmp/cache:/cache
-    when:
-      branch: [master]
-      event: [push]
+  # restore-cache:
+  #   image: drillster/drone-volume-cache
+  #   restore: true
+  #   mount:
+  #     - .yarn-cache
+  #     - ./staff-frontend/node_modules
+  #     - ./export-app-firebase/node_modules
+  #     - ./export-app-frontend/node_modules
+  #   volumes:
+  #     - /tmp/cache:/cache
+  #   when:
+  #     branch: [master]
+  #     event: [push]
 
-  build-firebase:
-    image: node:8.15.0
-    commands:
-      - yarn config set cache-folder $(pwd)/.yarn-cache
-      - yarn add firebase-tools
-      - cd export-app-firebase
-      - yarn --ignore-engines
-    when:
-      branch: [master]
-      event: [push]
+  # build-firebase:
+  #   image: node:8.15.0
+  #   commands:
+  #     - yarn config set cache-folder $(pwd)/.yarn-cache
+  #     - yarn add firebase-tools
+  #     - cd export-app-firebase
+  #     - yarn --ignore-engines
+  #   when:
+  #     branch: [master]
+  #     event: [push]
 
   deploy-rublevka-frontend-dev:
     image: docker/compose:1.22.0
@@ -67,68 +67,64 @@ pipeline:
       branch: [master]
       event: [push]
 
-  build-staff-frontend-prod:
-    image: node:8.15.0
-    commands:
-      - yarn config set cache-folder $(pwd)/.yarn-cache
-      - cd staff-frontend
-      - yarn --ignore-engines
-      - yarn build
-    secrets: [react_app_env, react_app_staff_sentry_dsn]
-    when:
-      branch: [master]
-      event: [push]
-
-  build-export-app-frontend-prod:
-    image: node:8.15.0
-    commands:
-      - yarn config set cache-folder $(pwd)/.yarn-cache
-      - cd export-app-frontend
-      - yarn --ignore-engines
-      - yarn build
-    secrets:
-      [
-        react_app_firebase_api_key,
-        react_app_firebase_auth_domain,
-        react_app_firebase_project_id,
-      ]
-    when:
-      branch: [master]
-      event: [push]
-
-  # deploy-backend-dev:
-  #   image: docker/compose:1.22.0
+  # build-staff-frontend-prod:
+  #   image: node:8.15.0
   #   commands:
-  #     - cd backend
-  #     - docker-compose -f devops/docker-compose-dev.yml build
-  #     - docker-compose -f devops/docker-compose-dev.yml up -d
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - yarn config set cache-folder $(pwd)/.yarn-cache
+  #     - cd staff-frontend
+  #     - yarn --ignore-engines
+  #     - yarn build
+  #   secrets: [react_app_env, react_app_staff_sentry_dsn]
   #   when:
-  #     branch: [develop]
+  #     branch: [master]
   #     event: [push]
-
-  deploy-firebase-prod:
-    image: node:8.15.0
-    commands:
-      - yarn firebase deploy --token "$FIREBASE_TOKEN" --except hosting:rublevka-frontend-dev
-    secrets: [firebase_token]
-    when:
-      branch: [master]
-      event: [push]
-
-  rebuild-cache:
-    image: drillster/drone-volume-cache
-    rebuild: true
-    mount:
-      - .yarn-cache
-      - ./staff-frontend/node_modules
-      - ./export-app-firebase/node_modules
-      - ./export-app-frontend/node_modules
-    volumes:
-      - /tmp/cache:/cache
-    when:
-      branch: [master]
-      event: [push]
+  # build-export-app-frontend-prod:
+  #   image: node:8.15.0
+  #   commands:
+  #     - yarn config set cache-folder $(pwd)/.yarn-cache
+  #     - cd export-app-frontend
+  #     - yarn --ignore-engines
+  #     - yarn build
+  #   secrets:
+  #     [
+  #       react_app_firebase_api_key,
+  #       react_app_firebase_auth_domain,
+  #       react_app_firebase_project_id,
+  #     ]
+  #   when:
+  #     branch: [master]
+  #     event: [push]
+  # # deploy-backend-dev:
+  # #   image: docker/compose:1.22.0
+  # #   commands:
+  # #     - cd backend
+  # #     - docker-compose -f devops/docker-compose-dev.yml build
+  # #     - docker-compose -f devops/docker-compose-dev.yml up -d
+  # #   volumes:
+  # #     - /var/run/docker.sock:/var/run/docker.sock
+  # #   when:
+  # #     branch: [develop]
+  # #     event: [push]
+  # deploy-firebase-prod:
+  #   image: node:8.15.0
+  #   commands:
+  #     - yarn firebase deploy --token "$FIREBASE_TOKEN" --except hosting:rublevka-frontend-dev
+  #   secrets: [firebase_token]
+  #   when:
+  #     branch: [master]
+  #     event: [push]
+  # rebuild-cache:
+  #   image: drillster/drone-volume-cache
+  #   rebuild: true
+  #   mount:
+  #     - .yarn-cache
+  #     - ./staff-frontend/node_modules
+  #     - ./export-app-firebase/node_modules
+  #     - ./export-app-frontend/node_modules
+  #   volumes:
+  #     - /tmp/cache:/cache
+  #   when:
+  #     branch: [master]
+  #     event: [push]
 
 branches: [master, develop]

@@ -10,12 +10,13 @@ services:
       args:
         - APP
         - APP_ENV
+        - HOST
         - REACT_APP_ROISTAT_ID
         - REACT_APP_FACEBOOK_PIXEL_ID
         - REACT_APP_TARGETIX_PIXEL_ID
         - BUILD_ID
     ports:
-      - '7069:8080'
+      - '8080:7069'
     networks:
       master_network:
         aliases:

@@ -1,5 +1,7 @@
 FROM node:10.15-alpine
 
+HEALTHCHECK CMD curl --fail http://localhost:8080/ || exit 1
+
 RUN mkdir /app
 WORKDIR /app
 COPY . /app

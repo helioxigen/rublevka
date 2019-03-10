@@ -16,7 +16,7 @@ services:
         - REACT_APP_TARGETIX_PIXEL_ID
         - BUILD_ID
     ports:
-      - '127.0.0.1:7070:8080'
+      - '127.0.0.1:8080:7070'
     networks:
       master_network:
         aliases:

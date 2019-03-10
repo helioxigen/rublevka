@@ -1,16 +1,16 @@
-import webpack from 'webpack';
-import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import ManifestPlugin from 'webpack-manifest-plugin';
+const webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 
-import { MODULE } from '../src/core/config/apps';
-import config, { cssGeneratedScopeName } from './webpack.config.shared';
+const config = require('./webpack.config.shared');
+const { cssGeneratedScopeName } = require('./webpack.config.shared');
 
-export default {
+module.exports = {
   ...config,
   entry: {
-    app: path.join(__dirname, '..', 'src', MODULE, 'index'),
+    app: path.join(__dirname, '..', 'src', 'site', 'index'),
   },
   output: {
     ...config.output,
@@ -62,13 +62,7 @@ export default {
     }),
     new webpack.optimize.UglifyJsPlugin(),
     new HtmlWebpackPlugin({
-      template: path.join(
-        __dirname,
-        '..',
-        'src',
-        'cem',
-        'index.production.html',
-      ),
+      template: path.join(__dirname, '..', 'src', 'cem', 'index.production.html'),
       minify: {
         collapseBooleanAttributes: true,
         collapseWhitespace: true,

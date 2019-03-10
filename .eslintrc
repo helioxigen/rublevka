@@ -16,5 +16,16 @@
   },
   "env": {
     "browser": true
+  },
+  "globals": {
+    "google": true,
+    "uploadcare": true,
+    "NODE_ENV": true,
+    "APP_ENV": true,
+    "Bugsnag": true,
+    "mapboxgl": true,
+    "Raven": true,
+    "analytics": true,
+    "yaCounter": true
   }
 }

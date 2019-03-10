@@ -32,15 +32,4 @@ module.exports = {
   env: {
     browser: true,
   },
-  settings: {
-    'import/resolver': {
-      webpack: {
-        config: {
-          resolve: {
-            modules: [path.join(__dirname, 'src'), 'node_modules'],
-          },
-        },
-      },
-    },
-  },
 };

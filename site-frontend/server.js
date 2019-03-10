@@ -46,21 +46,18 @@ const {
   NODE_ENV,
   APP_ENV,
   BUILD_ID,
-  SEGMENT_KEY,
-  MAPBOX_TOKEN,
-  COMAGIC_KEY,
   PORT,
   REACT_APP_SENTRY_DSN,
-  REACT_APP_METRIKA_CODE,
+  REACT_APP_FACEBOOK_PIXEL_ID,
+  REACT_APP_TARGETIX_PIXEL_ID,
+  REACT_APP_ROISAT_ID,
 } = process.env;
 
 const envParams = {
   APP: !!APP,
-  NODE_ENV: !!NODE_ENV,
   APP_ENV: !!APP_ENV,
+  NODE_ENV: !!NODE_ENV,
   BUILD_ID: !!BUILD_ID,
-  SEGMENT_KEY: !!SEGMENT_KEY,
-  MAPBOX_TOKEN: !!MAPBOX_TOKEN,
 };
 
 const failedEnvParams = Object.keys(envParams).filter(param => !envParams[param]);
@@ -121,10 +118,6 @@ function renderFullPage(renderProps, store) {
           <script>
             window.releaseStage = "${APP_ENV}";
             window.appVersion = "${BUILD_ID}";
-
-            !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0"; // eslint-disable-line
-              analytics.load("${SEGMENT_KEY}");
-            }}();
           </script>
 
           <!-- Facebook Pixel Code -->
@@ -137,20 +130,18 @@ function renderFullPage(renderProps, store) {
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '795556230652439');
+            fbq('init', '${REACT_APP_FACEBOOK_PIXEL_ID}');
             fbq('track', 'PageView');
           </script>
           <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=795556230652439&ev=PageView&noscript=1"
+            src="https://www.facebook.com/tr?id=${REACT_APP_FACEBOOK_PIXEL_ID}&ev=PageView&noscript=1"
           /></noscript>
           <!-- End Facebook Pixel Code -->
         </head>
         <body>
           <div id="app">${html}</div>
 
-          <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.16.0/mapbox-gl.js"></script>
           <script>
-            mapboxgl.accessToken="${MAPBOX_TOKEN}";
             window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
           </script>
 
@@ -160,13 +151,13 @@ function renderFullPage(renderProps, store) {
                 var p = d.location.protocol == "https:" ? "https://" : "http://";
                 var u = /^.*roistat_visit=[^;]+(.*)?$/.test(d.cookie) ? "/dist/module.js" : "/api/site/1.0/"+id+"/init";
                 var js = d.createElement(s); js.charset="UTF-8"; js.async = 1; js.src = p+h+u; var js2 = d.getElementsByTagName(s)[0]; js2.parentNode.insertBefore(js, js2);
-            })(window, document, 'script', 'cloud.roistat.com', 'eae5017254b3e856dfa7ab4274db5073');
+            })(window, document, 'script', 'cloud.roistat.com', '${REACT_APP_ROISAT_ID}');
           </script>
           <script>
             window._txq = window._txq || [];
             var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//st.targetix.net/txsp.js';
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
-            _txq.push(['createPixel', '59d249cd7bc72f3190025874']);
+            _txq.push(['createPixel', '${REACT_APP_TARGETIX_PIXEL_ID}']);
             _txq.push(['track', 'PageView']);
           </script>
           <script src="/${manifestJs}"></script>
@@ -183,13 +174,12 @@ function getStatusCode(meta, cb) {
   const xml = `<root>${meta}</root>`;
 
   parseString(xml, (err, result) => {
-    const status = (result.root.meta &&
-      result.root.meta.find(item => item.$.name === 'status-code')) || {
-        $: { content: 200 },
-      };
+    const status = (result.root.meta
+      && result.root.meta.find(item => item.$.name === 'status-code')) || {
+      $: { content: 200 }, // eslint-disable-line id-length
+    };
 
-    const headers =
-      (result.root.meta && result.root.meta.filter(item => item.$.name === 'header')) || [];
+    const headers = (result.root.meta && result.root.meta.filter(item => item.$.name === 'header')) || [];
 
     cb({ status, headers });
   });
@@ -256,12 +246,12 @@ function handleRender(req, res) {
         })
         .catch((e) => {
           res.sendStatus(404);
-          console.log(e);
+          console.log(e); // eslint-disable-line no-console
 
           throw new Error('unhandled errors at promises');
         });
     } else {
-      console.log(JSON.stringify(req));
+      console.log(JSON.stringify(req)); // eslint-disable-line no-console
       res.status(404).send('Not found');
     }
   });
@@ -315,6 +305,6 @@ app.use((err, req, res, next) => {
   res.status(500);
 });
 
-app.listen(port, '0.0.0.0', () => console.log(`started at http://localhost:${port}`)); // eslint-disable-line no-console
+app.listen(port, '0.0.0.0', () => console.log(`started at 0.0.0.0:${port}`)); // eslint-disable-line no-console
 
 process.on('uncaughtException', err => Sentry.captureException(err));

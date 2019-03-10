@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  rublevka_frontend_prod:
+    image: rublevka_frontend_prod
+    container_name: rublevka_frontend_prod
+    args:
+      - NODE_ENV=production
+      - APP=rublevka
+      - APP_ENV=production
+      - SEGMENT_KEY=NIySDe9ZsCVyD7zFA2V09p3GPHvLgwFH
+      - PORT=7070
+    build:
+      context: ./
+    ports:
+      - '127.0.0.1:7070:7070'
+    networks:
+      master_network:
+        aliases:
+          - rublevka_frontend_prod
+networks:
+  master_network:
+    external: true

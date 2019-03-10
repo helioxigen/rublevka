@@ -1,23 +1,20 @@
-import webpack from 'webpack';
-import path from 'path';
-import { MODULE } from '../src/core/config/apps';
+const webpack = require('webpack');
+const path = require('path');
 
 const envParams = {
   APP: !!process.env.APP,
-  NODE_ENV: !!process.env.NODE_ENV,
   APP_ENV: !!process.env.APP_ENV,
+  NODE_ENV: !!process.env.NODE_ENV,
   BUILD_ID: process.env.NODE_ENV === 'development' || !!process.env.BUILD_ID,
 };
 
-const failedEnvParams = Object.keys(envParams).filter(
-  param => !envParams[param],
-);
-if (failedEnvParams.length > 0)
-  throw new Error(`Provide ${failedEnvParams.join(', ')}`);
+const failedEnvParams = Object.keys(envParams).filter(param => !envParams[param]);
 
-export const cssGeneratedScopeName = '[hash:base64:5]';
+if (failedEnvParams.length > 0) throw new Error(`Provide ${failedEnvParams.join(', ')}`);
 
-export const postcssPlugins = [
+module.exports.cssGeneratedScopeName = '[hash:base64:5]';
+
+module.exports.postcssPlugins = [
   require('postcss-import'),
   require('postcss-sassy-mixins'),
   require('postcss-for'),
@@ -31,7 +28,7 @@ export const postcssPlugins = [
   }),
 ];
 
-export const svgoOptions = {
+const svgoOptions = {
   plugins: [
     { removeTitle: true },
     {
@@ -42,10 +39,12 @@ export const svgoOptions = {
   ],
 };
 
-export default {
-  entry: ['whatwg-fetch', path.join(__dirname, '..', 'src', MODULE, 'index')],
+module.exports.svgoOptions = svgoOptions;
+
+module.exports = {
+  entry: ['whatwg-fetch', path.join(__dirname, '..', 'src', 'site', 'index')],
   output: {
-    path: path.join(__dirname, '..', 'build', MODULE),
+    path: path.join(__dirname, '..', 'build', 'site'),
     publicPath: '/',
   },
   module: {
@@ -89,23 +88,15 @@ export default {
         test: /\.svg$/,
         loader: 'file-loader',
         exclude: /node_modules/,
-        include: [
-          path.join(__dirname, '..', 'src', 'site', 'assets', 'images'),
-        ],
+        include: [path.join(__dirname, '..', 'src', 'site', 'assets', 'images')],
         options: {
           name: 'static/[hash].[ext]',
         },
       },
       {
         test: /\.svg?$/,
-        exclude: [
-          path.join(__dirname, '..', 'src', 'site', 'assets', 'images'),
-          /node_modules/,
-        ],
-        use: [
-          'svg-sprite-loader',
-          { loader: 'svgo-loader', options: svgoOptions },
-        ],
+        exclude: [path.join(__dirname, '..', 'src', 'site', 'assets', 'images'), /node_modules/],
+        use: ['svg-sprite-loader', { loader: 'svgo-loader', options: svgoOptions }],
       },
       {
         test: /\.woff2?$/,
@@ -144,9 +135,7 @@ export default {
         MAPBOX_TOKEN: JSON.stringify(process.env.MAPBOX_TOKEN),
         UPLOADCARE_KEY: JSON.stringify(process.env.UPLOADCARE_KEY),
         REACT_APP_SENTRY_DSN: JSON.stringify(process.env.REACT_APP_SENTRY_DSN),
-        REACT_APP_METRIKA_CODE: JSON.stringify(
-          process.env.REACT_APP_METRIKA_CODE,
-        ),
+        REACT_APP_METRIKA_CODE: JSON.stringify(process.env.REACT_APP_METRIKA_CODE),
       },
     }),
   ],

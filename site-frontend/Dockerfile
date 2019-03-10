@@ -1,14 +1,27 @@
-FROM node:8.14-slim
-
-RUN npm install -g yarn
+FROM node:10.15-alpine
 
 RUN mkdir /app
 WORKDIR /app
-COPY ./package.json /app
-
-RUN yarn
-RUN yarn add -g @babel/core @babel/register
-
 COPY . /app
 
-CMD yarn start
+ARG APP
+ARG APP_ENV
+ARG REACT_APP_ROISTAT_ID
+ARG REACT_APP_FACEBOOK_PIXEL_ID
+ARG REACT_APP_TARGETIX_PIXEL_ID
+ARG BUILD_ID
+ARG PORT
+
+ENV APP=$APP
+ENV APP_ENV=$APP_ENV
+ENV REACT_APP_ROISTAT_ID=$REACT_APP_ROISTAT_ID
+ENV REACT_APP_FACEBOOK_PIXEL_ID=$REACT_APP_FACEBOOK_PIXEL_ID
+ENV REACT_APP_TARGETIX_PIXEL_ID=$REACT_APP_TARGETIX_PIXEL_ID
+ENV BUILD_ID=$BUILD_ID
+ENV PORT=$PORT
+
+RUN yarn --ignore-engines
+RUN NODE_ENV=production yarn build:dev
+
+RUN yarn global add @babel/core @babel/register
+CMD NODE_ENV=production yarn start

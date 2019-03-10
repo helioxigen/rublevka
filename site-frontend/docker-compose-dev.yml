@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  rublevka_frontend_dev:
+    image: rublevka_frontend_dev
+    container_name: rublevka_frontend_dev
+    restart: always
+    build:
+      context: .
+      args:
+        - APP
+        - APP_ENV
+        - REACT_APP_ROISTAT_ID
+        - REACT_APP_FACEBOOK_PIXEL_ID
+        - REACT_APP_TARGETIX_PIXEL_ID
+        - BUILD_ID
+        - PORT
+    ports:
+      - '7069:7069'
+    networks:
+      master_network:
+        aliases:
+          - rublevka_frontend_dev
+
+networks:
+  master_network:
+    external: true

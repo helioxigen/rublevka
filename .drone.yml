@@ -14,7 +14,7 @@ pipeline:
     volumes:
       - /tmp/cache:/cache
     when:
-      branch: [develop]
+      branch: [master]
       event: [push]
 
   build-firebase:
@@ -25,25 +25,23 @@ pipeline:
       - cd export-app-firebase
       - yarn --ignore-engines
     when:
-      branch: [develop, master]
+      branch: [master]
       event: [push]
 
-  build-rublevka-frontend-dev:
-    image: node:8.15.0
+  deploy-rublevka-frontend-dev:
+    image: docker/compose:1.22.0
     commands:
-      - yarn config set cache-folder $(pwd)/.yarn-cache
       - cd site-frontend
-      - yarn --ignore-engines
-      - yarn build:dev
-    environment: # FIXME
+      - docker-compose -f docker-compose-dev.yml build --build-arg BUILD_ID=$DRONE_BUILD_NUMBER
+      - docker-compose -f docker-compose-dev.yml up -d
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - APP=rublevka
       - APP_ENV=development
-      - APP=jqestate
-      - BUILD_ID=$DRONE_BUILD_NUMBER
-    # secrets:
-    #   - source: DRONE_BUILD_NUMBER
-    #     target: build_id
+      - PORT=7069
     when:
-      branch: [master, develop]
+      branch: [develop]
       event: [push]
 
   build-staff-frontend-prod:
@@ -87,15 +85,6 @@ pipeline:
   #     branch: [develop]
   #     event: [push]
 
-  deploy-firebase-dev:
-    image: node:8.15.0
-    commands:
-      - yarn firebase deploy --token "$FIREBASE_TOKEN" --only hosting:rublevka-frontend-dev
-    secrets: [firebase_token]
-    when:
-      branch: [develop]
-      event: [push]
-
   deploy-firebase-prod:
     image: node:8.15.0
     commands:
@@ -116,7 +105,7 @@ pipeline:
     volumes:
       - /tmp/cache:/cache
     when:
-      branch: [develop]
+      branch: [master]
       event: [push]
 
 branches: [master, develop]

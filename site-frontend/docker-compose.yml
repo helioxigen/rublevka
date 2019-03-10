@@ -16,7 +16,7 @@ services:
         - BUILD_ID
         - PORT
     ports:
-      - '7069:7069'
+      - '7070:7070'
     networks:
       master_network:
         aliases:

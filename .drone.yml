@@ -44,6 +44,22 @@ pipeline:
       branch: [develop]
       event: [push]
 
+  deploy-rublevka-frontend-prod:
+    image: docker/compose:1.22.0
+    commands:
+      - cd site-frontend
+      - docker-compose build --build-arg BUILD_ID=$DRONE_BUILD_NUMBER
+      - docker-compose up -d
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - APP=rublevka
+      - APP_ENV=production
+      - PORT=7069
+    when:
+      branch: [master]
+      event: [push]
+
   build-staff-frontend-prod:
     image: node:8.15.0
     commands:

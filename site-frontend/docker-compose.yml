@@ -4,20 +4,24 @@ services:
   rublevka_frontend_prod:
     image: rublevka_frontend_prod
     container_name: rublevka_frontend_prod
-    args:
-      - NODE_ENV=production
-      - APP=rublevka
-      - APP_ENV=production
-      - SEGMENT_KEY=NIySDe9ZsCVyD7zFA2V09p3GPHvLgwFH
-      - PORT=7070
+    restart: always
     build:
-      context: ./
+      context: .
+      args:
+        - APP
+        - APP_ENV
+        - REACT_APP_ROISTAT_ID
+        - REACT_APP_FACEBOOK_PIXEL_ID
+        - REACT_APP_TARGETIX_PIXEL_ID
+        - BUILD_ID
+        - PORT
     ports:
-      - '127.0.0.1:7070:7070'
+      - '7069:7069'
     networks:
       master_network:
         aliases:
           - rublevka_frontend_prod
+
 networks:
   master_network:
     external: true

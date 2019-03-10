@@ -10,9 +10,6 @@
         ],
         "staff-frontend": [
           "rublevka-staff-dev"
-        ],
-        "rublevka-frontend-dev": [
-          "rublevka-dev"
         ]
       }
     }

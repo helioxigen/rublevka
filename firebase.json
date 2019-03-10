@@ -12,17 +12,6 @@
       ]
     },
     {
-      "target": "rublevka-frontend-dev",
-      "public": "site-frontend/build/dev.rublevka.ru",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
       "target": "staff-frontend",
       "public": "staff-frontend/build",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],

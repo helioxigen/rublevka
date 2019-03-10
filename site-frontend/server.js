@@ -50,7 +50,7 @@ const {
   REACT_APP_SENTRY_DSN,
   REACT_APP_FACEBOOK_PIXEL_ID,
   REACT_APP_TARGETIX_PIXEL_ID,
-  REACT_APP_ROISAT_ID,
+  REACT_APP_ROISTAT_ID,
 } = process.env;
 
 const envParams = {
@@ -151,7 +151,7 @@ function renderFullPage(renderProps, store) {
                 var p = d.location.protocol == "https:" ? "https://" : "http://";
                 var u = /^.*roistat_visit=[^;]+(.*)?$/.test(d.cookie) ? "/dist/module.js" : "/api/site/1.0/"+id+"/init";
                 var js = d.createElement(s); js.charset="UTF-8"; js.async = 1; js.src = p+h+u; var js2 = d.getElementsByTagName(s)[0]; js2.parentNode.insertBefore(js, js2);
-            })(window, document, 'script', 'cloud.roistat.com', '${REACT_APP_ROISAT_ID}');
+            })(window, document, 'script', 'cloud.roistat.com', '${REACT_APP_ROISTAT_ID}');
           </script>
           <script>
             window._txq = window._txq || [];

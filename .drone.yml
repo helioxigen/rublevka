@@ -56,7 +56,7 @@ pipeline:
       - APP=rublevka
       - APP_ENV=production
       - HOST=rublevka.ru
-      secrets:
+    secrets:
       - source: react_app_facebook_pixel_id_rublevka_ru
         target: react_app_facebook_pixel_id
       - source: react_app_targetix_pixel_id_rublevka_ru

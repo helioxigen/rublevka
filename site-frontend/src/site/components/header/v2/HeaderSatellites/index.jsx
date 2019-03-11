@@ -102,7 +102,7 @@ class Header extends Component {
                 <LogoSatellites isLanding={isLanding} inverted={inverted} />
                 <MobileButtons>
                   <FavoriteLink to="/favorites">
-                    <FavoriteIcon icon="favorite" />
+                    <FavoriteIcon inverted={isLanding} icon="favorite" />
                     {(favorites && favorites.length > 0) && <FavoriteCounter> {favorites.length}</FavoriteCounter>}
                   </FavoriteLink>
                   <MenuBtn onClick={this.toggleMenu}>

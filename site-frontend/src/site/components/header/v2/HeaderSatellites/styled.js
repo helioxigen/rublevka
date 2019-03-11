@@ -103,6 +103,8 @@ export const Nav = styled(Navbar.Container)`
   white-space: nowrap;
   transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
   background: #232323;
+  flex-direction: column;
+  flex-wrap: nowrap;
 
   white-space: nowrap;
   transform: translate3d(100%, 0, 0);
@@ -121,6 +123,7 @@ export const Nav = styled(Navbar.Container)`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-direction: row;
     position: static;
     left: 0;
     width: auto;
@@ -200,6 +203,11 @@ export const StyledLinkSat = styled(Navbar.Link)`
   &.active {
     color: ${p => p.theme.brandRed};
   }
+
+  ${media.sm`
+    margin: 0;
+    border: none;
+  `}
 
   ${media.md`
     padding: 20px 0px;

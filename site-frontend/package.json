@@ -9,7 +9,7 @@
     "start": "NODE_PATH=./src babel-node server.js",
     "build:sitemaps": "APP_ENV=production babel-node server/sitemap.js",
     "build:stats": "NODE_ENV=production APP_ENV=production BUILD_ID=1 babel-node $(npm bin)/webpack --config ./scripts/webpack.config.prod.js --profile --json > stats.json",
-    "build": "$(yarn bin)/webpack --config ./scripts/webpack.config.babel.js && cp -r ./build/site ./build/$HOST && cp -r ./src/site/static/$HOST/* ./build/$HOST && cp ./src/site/static/production/robots.txt ./build/$HOST"
+    "build": "$(yarn bin)/webpack --config ./scripts/webpack.config.babel.js && cp -r ./build/site ./build/$HOST && cp -r ./src/site/static/$HOST/* ./build/$HOST && cp ./src/site/static/$APP_ENV/robots.txt ./build/$HOST"
   },
   "license": "CC-BY-NC-SA-4.0",
   "dependencies": {

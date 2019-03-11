@@ -96,7 +96,6 @@ export const Dropdown = styled.div`
   margin-top: 8px;
   margin-left: 4px;
   margin-right: 4px;
-  padding: 10px 15px;
   background: #ffffff;
   border: 1px solid #eeeeee;
   border-radius: 8px;
@@ -118,7 +117,7 @@ export const Dropdown = styled.div`
     flex-basis: 33.3333333%;
     border: ${({ isOpen }) => (isOpen ? '1.5px solid #f44336' : 'none')};
     border-radius: 0px;
-    padding: ${({ isOpen }) => (isOpen ? '11.5px 18.5px' : '13px 20px')};
+    padding: ${({ isOpen }) => (isOpen ? '0px' : '1.5px')};
 
     &:first-child {
       border-right: ${({ isOpen }) => (isOpen ? '1.5px solid #f44336' : '1px solid #eaeaea')};
@@ -133,7 +132,7 @@ export const Dropdown = styled.div`
     &:last-child {
       border-left: ${({ isOpen }) => (isOpen ? '1.5px solid #f44336' : '1px solid #eaeaea')};
       border-radius: 0px 12px 12px 0px;
-      padding: ${({ isOpen }) => (isOpen ? '11.5px 19.5px' : '13px 20px')};
+      padding-left: ${({ isOpen }) => (isOpen ? '1px' : '1.5px')};
     }
 
     &:hover {
@@ -143,11 +142,16 @@ export const Dropdown = styled.div`
 `;
 
 export const Selector = styled.div`
+  padding: 10px 15px;
   width: 100%;
   font-weight: bold;
   display: flex;
   flex-direction: column;
   border: none;
+
+  ${media.md`
+    padding: 11.5px 18.5px;
+  `}
 `;
 
 export const SelectorName = styled.p`

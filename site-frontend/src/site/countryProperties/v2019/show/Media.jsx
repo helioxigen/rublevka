@@ -73,6 +73,7 @@ const MobilePhoto = styled.img`
   margin: 8px 0;
   width: 100%;
   height: 220px;
+  object-fit: cover;
 `;
 
 const Wrapper = styled.div`
@@ -275,17 +276,17 @@ export default class Media extends Component {
             ))}
           </MobilePhotos>
         </MobileGallery>
-        <Wrapper onClick={this.openGallery}>
+        <Wrapper>
           <Visibility xs="block" sm="hidden" md="hidden" lg="hidden">
-            {images.length !== 0 && (
+            {images.length !== 0 ? (
               <Photo
                 src={`${global.config.cloudfront || cloudfront}/${images[0].id}-${
                   global.config.postfix
                   }-1024`}
                 alt={images[0].id}
+                onClick={this.openGallery}
               />
-            )}
-            {images.length === 0 && <PhotoPlaceholder />}
+            ) : <PhotoPlaceholder />}
           </Visibility>
           <Visibility xs="hidden" sm="block" md="block" lg="block">
             <PrevButton onClick={() => this.carousel.prev()}>

@@ -1,5 +1,5 @@
 import webpack from 'webpack';
-import config from './webpack.config.shared';
+import { config } from './webpack.config.shared';
 
 export default {
   ...config,

@@ -4,8 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
-const config = require('./webpack.config.shared');
-const { cssGeneratedScopeName } = require('./webpack.config.shared');
+const { config, cssGeneratedScopeName } = require('./webpack.config.shared');
 
 module.exports = {
   ...config,

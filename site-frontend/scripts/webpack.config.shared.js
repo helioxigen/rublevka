@@ -12,9 +12,9 @@ const failedEnvParams = Object.keys(envParams).filter(param => !envParams[param]
 
 if (failedEnvParams.length > 0) throw new Error(`Provide ${failedEnvParams.join(', ')}`);
 
-module.exports.cssGeneratedScopeName = '[hash:base64:5]';
+const cssGeneratedScopeName = '[hash:base64:5]';
 
-module.exports.postcssPlugins = [
+const postcssPlugins = [
   require('postcss-import'),
   require('postcss-sassy-mixins'),
   require('postcss-for'),
@@ -39,9 +39,7 @@ const svgoOptions = {
   ],
 };
 
-module.exports.svgoOptions = svgoOptions;
-
-module.exports = {
+const config = {
   entry: ['whatwg-fetch', path.join(__dirname, '..', 'src', 'site', 'index')],
   output: {
     path: path.join(__dirname, '..', 'build', 'site'),
@@ -139,4 +137,9 @@ module.exports = {
       },
     }),
   ],
+};
+
+
+module.exports = {
+  config, postcssPlugins, svgoOptions, cssGeneratedScopeName,
 };

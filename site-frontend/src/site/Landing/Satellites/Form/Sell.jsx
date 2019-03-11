@@ -109,7 +109,7 @@ export default class extends Component {
       sale: {
         min: (priceFrom || {}).value,
         max: (priceTo || {}).value,
-        currency: `saleOffer.multiCurrencyPrice.${currency}`,
+        currencyPrice: `saleOffer.multiCurrencyPrice.${currency}`,
       },
       landArea: {
         min: (areaFrom || {}).value,

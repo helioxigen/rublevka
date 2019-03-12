@@ -116,6 +116,11 @@ export const DesktopContainer = styled.div`
   background: #FAFAFA;
 
   transition: .6s cubic-bezier(.86, 0, .07, 1);
+
+  ${media.sm`
+    padding-bottom: 8rem;
+  `}
+
   ${media.md`
     position: static;
     padding: 0;
@@ -142,7 +147,7 @@ export const ControlsContainer = styled.div`
   white-space: nowrap;
   padding: 0;
 
-  margin-top: 1.5rem;
+  margin-top: 1.3rem;
   margin-bottom: 2.5rem;
 
   ${media.md`
@@ -159,7 +164,7 @@ export const CheckboxLabel = styled.span`
 `;
 
 export const CheckboxWrapper = styled.div`
-  margin-top: 1.5rem;
+  margin-top: 0.9rem;
 `;
 
 export const ButtonPrimary = styled(DefaultBtn)`

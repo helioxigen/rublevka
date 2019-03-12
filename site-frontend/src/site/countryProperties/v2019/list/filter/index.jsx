@@ -24,6 +24,7 @@ import Selected from './selected';
 import Routes from './routes';
 import Kind from './kind';
 import Price from './price2';
+import Bedroom from './bedroom';
 import Areas from './areas';
 import Renovate from './renovate';
 import Distance from './distance';
@@ -210,6 +211,13 @@ class Filter extends Component {
           toggle={() => this.toggleSubview(null)}
         />
 
+        <Bedroom
+          selected={state}
+          updateFilter={this.updateFilter}
+          removeFilter={this.removeFilter}
+          toggle={() => this.toggleSubview(null)}
+        />
+
       </div>
     );
   }
@@ -349,6 +357,7 @@ const fields = [
   'area',
   'landArea',
   'renovate',
+  'bedrooms',
   'mkadDistance',
   'settlements',
 ];

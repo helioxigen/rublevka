@@ -89,9 +89,7 @@ export default class extends Component {
         max: (priceTo || {}).value,
         currencyPrice: `rentOffer.multiCurrencyPrice.${currency}`,
       },
-      specification: {
-        bedrooms: parseInt(bedrooms, 10),
-      },
+      bedrooms: { min: parseInt(bedrooms, 10), max: null },
       kind: [kind],
     };
   };

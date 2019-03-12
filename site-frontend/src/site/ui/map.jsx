@@ -31,7 +31,9 @@ export default class extends Component {
   }
 
   componentDidUpdate() {
-    this.refs.mapgl.getMap().resize();
+    if (this.refs.mapgl) {
+      this.refs.mapgl.getMap().resize();
+    }
   }
 
   toggleFullscreen(fullscreen) {

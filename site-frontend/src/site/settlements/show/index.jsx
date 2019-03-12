@@ -17,7 +17,7 @@ import * as FilterActions from 'core/actions/filters';
 import { track } from 'core/analytics';
 
 import UI from 'site/ui';
-import MapComponent from 'site/ui/map';
+// import MapComponent from 'site/ui/map';
 import Subscribe from 'site/request/subscribe';
 
 import sUtils from 'site/styles/utils.css';
@@ -135,12 +135,12 @@ class SettlementContainer extends Component {
     const resaleTotal = saleProperties.resale;
     const rentTotal = rentProperties.total;
 
-    const isPositionAvailable = location.latitude && location.longitude;
-    const marker = {
-      lat: location.latitude,
-      lng: location.longitude,
-      icon: isJQ ? 'marker' : 'markerPurple',
-    };
+    // const isPositionAvailable = location.latitude && location.longitude;
+    // const marker = {
+    //   lat: location.latitude,
+    //   lng: location.longitude,
+    //   icon: isJQ ? 'marker' : 'markerPurple',
+    // };
 
     return (
       <section>
@@ -190,7 +190,7 @@ class SettlementContainer extends Component {
             kind={kind}
           />
 
-          {isPositionAvailable && (
+          {/* {isPositionAvailable && (
             <Row className={sUtils.positionRelative}>
               <MapComponent
                 center={[marker.lng, marker.lat]}
@@ -198,7 +198,7 @@ class SettlementContainer extends Component {
                 container={<div className={sUtils.mapContainer} />}
               />
             </Row>
-          )}
+          )} */}
         </Container>
 
         <Subscribe />

@@ -3,48 +3,50 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import isEqual from 'lodash/isEqual';
+
 // seo
-import { helmet } from 'site/config/seo';
+import { helmet } from '../config/seo';
 
 // actions
-import loadCountryProperties from 'core/countryProperties/actions/list/load';
-import loadCityProperties from 'core/cityProperties/actions/list/load';
-import * as PaginationActions from 'core/actions/pagination';
-import * as FilterActions from 'core/actions/filters';
-import * as OrderActions from 'core/actions/order';
-import { updateDisplayOption } from 'site/displayOptions/actions';
+import loadCountryProperties from '../../core/countryProperties/actions/list/load';
+import * as PaginationActions from '../../core/actions/pagination';
+import * as FilterActions from '../../core/actions/filters';
+import * as OrderActions from '../../core/actions/order';
+import { updateDisplayOption } from '../displayOptions/actions';
 
-import { track } from 'core/analytics';
-import * as analyticsEvents from 'core/analytics/constants';
+import { track } from '../../core/analytics';
+import * as analyticsEvents from '../../core/analytics/constants';
 
 // UI
-import UI from 'site/ui/v2019';
+import UI from '../ui/v2019';
 
-// component
-import Helmet from './Helmet';
-import { FormattedNumber } from 'react-formatted';
-
-import Breadcrumbs from './Breadcrumbs';
-import { Title, HeaderContainer, HeaderWrapper } from 'site/countryProperties/v2019/list/styled';
-import Card from 'site/countryProperties/v2019/Card';
-import Pagination from 'site/components/v2019/pagination';
-import Filter from 'site/countryProperties/v2019/list/filter';
-import OrderBy from 'site/properties/orderBy';
-import NotFound from 'site/properties/notFound';
+import {
+  Title,
+  HeaderContainer,
+  HeaderWrapper,
+} from '../countryProperties/v2019/list/styled';
+import Card from '../countryProperties/v2019/Card';
+import Pagination from '../components/v2019/pagination';
+import Filter from '../countryProperties/v2019/list/filter';
+import OrderBy from './orderBy';
+import NotFound from './notFound';
 
 // styles
-import s from 'site/styles/list';
-import sTypography from 'site/styles/typography';
+import s from '../styles/list.css';
 
 // helpers
-import isEqual from 'lodash/isEqual';
-import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from 'core/helpers/shouldLoad';
+import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from '../../core/helpers/shouldLoad';
 import {
   categories,
   dealTypes,
   dealTypesTranslateOther,
   kinds,
-} from 'site/constants/properties/dictionaries';
+} from '../constants/properties/dictionaries';
+import Breadcrumbs from './Breadcrumbs';
+import Helmet from './Helmet';
+
+import { accusativeKinds } from '../../core/countryProperties/constants/dictionaries';
 
 // UI
 const {
@@ -63,11 +65,7 @@ class List extends Component {
       },
     };
 
-    if (categories[props.params.category] === 'country') {
-      return Promise.all([dispatch(loadCountryProperties(params, this.group))]);
-    } else if (categories[props.params.category] === 'city') {
-      return Promise.all([dispatch(loadCityProperties(params, this.group))]);
-    }
+    return Promise.all([dispatch(loadCountryProperties(params, this.group))]);
   }
 
   constructor(props) {
@@ -79,7 +77,7 @@ class List extends Component {
     };
 
     this.group = dealTypes[props.params.dealType];
-    this.resource = `${this.state.resource}Properties.${this.group}`;
+    this.resource = `countryProperties.${this.group}`;
 
     this.toggleResourceName = this.toggleResourceName.bind(this);
     this.toggleView = this.toggleView.bind(this);
@@ -91,25 +89,25 @@ class List extends Component {
   }
 
   componentWillMount() {
-    const { params = {} } = this.props;
+    const { params = {}, location, actions } = this.props;
 
     const paginationParams = {
       pagination: {
-        offset: 22 * (this.props.location.query.page - 1),
+        offset: 22 * (location.query.page - 1),
       },
     };
 
     this.load(this.props, paginationParams);
 
     if (params.kind) {
-      this.props.actions.updateFilter(this.resource, {
+      actions.updateFilter(this.resource, {
         kind: [kinds[params.kind]],
       });
     }
 
     track(
       analyticsEvents.propertiesListOpened({
-        dealType: dealTypes[this.props.params.dealType],
+        dealType: dealTypes[params.dealType],
       }),
     );
   }
@@ -152,9 +150,9 @@ class List extends Component {
     }
 
     if (
-      isUpdated(this.resource, this.props, nextProps) ||
-      isGroupUpdated ||
-      isCategoryUpdated
+      isUpdated(this.resource, this.props, nextProps)
+      || isGroupUpdated
+      || isCategoryUpdated
     ) {
       const params = {
         pagination: {
@@ -173,9 +171,7 @@ class List extends Component {
   }
 
   toggleView() {
-    const isViewOpen = !this.state.isViewOpen;
-
-    this.setState({ isViewOpen });
+    this.setState(prevState => ({ isViewOpen: !prevState.isViewOpen }));
   }
 
   toggleResourceName(key, value) {
@@ -194,13 +190,7 @@ class List extends Component {
       orderBy: { ...state.order[this.resource], ...params.orderBy },
     };
 
-    if (this.state.resource === 'country') {
-      dispatch(loadCountryProperties(options, this.group));
-    }
-
-    if (this.state.resource === 'city') {
-      dispatch(loadCityProperties(options, this.group));
-    }
+    dispatch(loadCountryProperties(options, this.group));
   }
 
   resetFilter() {
@@ -259,13 +249,13 @@ class List extends Component {
       <Col xs="12" sm="6" md="6" lg="4">
         <Card dealType={dealType} key={id} id={id} showLocation />
       </Col>
-      ));
+    ));
   }
 
   render() {
-    const { actions, state, params = {}, location } = this.props;
+    const { state, params = {}, location } = this.props;
     const dealType = dealTypes[params.dealType];
-    const properties = state[`${categories[params.category]}Properties`] || {};
+    const properties = state.countryProperties || {};
     const { ids = [], data = {}, isFetching } = properties[this.group] || {};
     const pagination = state.pagination[this.resource] || {};
 
@@ -285,13 +275,20 @@ class List extends Component {
           />
         )}
 
-
         {hasItems && (
           <Container>
             <HeaderWrapper>
               <Breadcrumbs data={data} dealType={dealType} />
               <HeaderContainer>
-                <Title>{dealTypesTranslateOther[dealType]} недвижимость на Рублёвке</Title>
+                <Title>
+                  {dealTypesTranslateOther[dealType]}
+                  {' '}
+                  {params.kind
+                    ? accusativeKinds[kinds[params.kind]]
+                    : 'недвижимость'}
+                  {' '}
+                  на Рублёвке
+                </Title>
                 <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
                   {this.renderOrderBy()}
                 </Visibility>
@@ -309,24 +306,20 @@ class List extends Component {
         {this.state.resource === 'country' && (
           <div>
             <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
-              <Container >
+              <Container>
                 <Row>
                   <Col md="4" lg="3">
                     {this.renderFilter()}
                   </Col>
                   <Col md="8" lg="9">
-                    <Row>
-                      {this.renderCards()}
-                    </Row>
+                    <Row>{this.renderCards()}</Row>
                   </Col>
                 </Row>
               </Container>
             </Visibility>
             <Visibility xs="block" sm="block" md="block" lg="hidden">
               <Container>
-                <Row>
-                  {this.renderCards()}
-                </Row>
+                <Row>{this.renderCards()}</Row>
               </Container>
             </Visibility>
           </div>
@@ -363,17 +356,12 @@ class List extends Component {
 // redux connectors
 const pickState = (state) => {
   const {
-    countryProperties,
-    cityProperties,
-    filters,
-    pagination,
-    order,
+    countryProperties, filters, pagination, order,
   } = state;
 
   return {
     state: {
       countryProperties,
-      cityProperties,
       filters,
       pagination,
       order,
@@ -384,7 +372,6 @@ const pickState = (state) => {
 const pickActions = (dispatch) => {
   const actions = {
     loadCountryProperties,
-    loadCityProperties,
     ...FilterActions,
     ...PaginationActions,
     ...OrderActions,

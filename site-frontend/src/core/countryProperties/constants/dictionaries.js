@@ -37,6 +37,16 @@ export const kinds = {
   office: 'Офис',
 };
 
+// винительный падеж, кого/что
+export const accusativeKinds = {
+  flat: 'квартиру',
+  apartment: 'апартаменты',
+  house: 'дом',
+  townhouse: 'таунхаус',
+  penthouse: 'пентхаус',
+  land: 'участок',
+};
+
 export const conditions = {
   great: 'Отличное',
   good: 'Хорошее',

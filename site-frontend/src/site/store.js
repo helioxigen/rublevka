@@ -5,37 +5,36 @@ import { browserHistory } from 'react-router';
 import { createLogger } from 'redux-logger';
 import { createTracker } from 'redux-segment';
 
-// enhancers
-export { autoRehydrate } from 'redux-persist';
-
-// reducers
-import filters from 'core/reducers/filters';
-import favorites from 'core/reducers/favorites';
-import pagination from 'core/reducers/pagination';
-import order from 'core/reducers/order';
-
-import countryProperties from 'core/countryProperties/reducers';
-import cityProperties from 'core/cityProperties/reducers';
-import settlements from 'core/settlements/reducers';
-import currentDuty from 'site/currentDuty/reducer';
-import complexes from 'core/complexes/reducers';
-import complexBuildings from 'core/complexBuildings/reducers';
-import users from 'core/users/reducers';
-import places from 'core/places/reducers';
-import displayOptions from 'site/displayOptions/reducer';
-import selections from 'core/selections/reducers';
-import stats from 'core/stats/reducers';
-import subLocalities from 'core/subLocalities/reducers';
-
 import {
   routerReducer as routing,
   routerMiddleware as createRouter,
 } from 'react-router-redux';
 
-// fuck redux-form
 import { reducer as formReducer } from 'redux-form';
-import normalizers from 'site/normalizers';
+
+// reducers
+import filters from '../core/reducers/filters';
+import favorites from '../core/reducers/favorites';
+import pagination from '../core/reducers/pagination';
+import order from '../core/reducers/order';
+
+import countryProperties from '../core/countryProperties/reducers';
+import settlements from '../core/settlements/reducers';
+import users from '../core/users/reducers';
+import places from '../core/places/reducers';
+import selections from '../core/selections/reducers';
+import stats from '../core/stats/reducers';
+import subLocalities from '../core/subLocalities/reducers';
+
+import currentDuty from './currentDuty/reducer';
+import displayOptions from './displayOptions/reducer';
+
+import normalizers from './normalizers';
+
+// enhancers
 const form = formReducer.normalize(normalizers);
+
+export { autoRehydrate } from 'redux-persist';
 
 export const reducer = combineReducers({
   form, // deprecated
@@ -44,12 +43,9 @@ export const reducer = combineReducers({
   routing,
 
   countryProperties,
-  cityProperties,
 
   places,
   settlements,
-  complexes,
-  complexBuildings,
   selections,
   subLocalities,
 

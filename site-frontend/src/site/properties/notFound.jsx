@@ -4,7 +4,7 @@ import global from 'window-or-global';
 import cn from 'classnames';
 
 import StaticMask from '../../core/components/ui/staticMask';
-import RequestModal from '../request/selectionModal';
+import CallbackModal from '../request/v2019/CallbackModal';
 import s from '../styles/components/request.css';
 import sUtils from '../styles/utils.css';
 import media from '../styles/media';
@@ -72,7 +72,7 @@ const NotFound = ({ resetFilter }) => (
       </a>
 
       <div>
-        <RequestModal category="country">
+        <CallbackModal category="country">
           <Button
             className={cn(s.btn, sUtils.pushedTopXs2Sm5)}
             kind="success"
@@ -80,7 +80,7 @@ const NotFound = ({ resetFilter }) => (
           >
             Заказать звонок
           </Button>
-        </RequestModal>
+        </CallbackModal>
         <Button
           className={cn(s.btnRound, sUtils.pushedTopXs2Sm5)}
           onClick={resetFilter}

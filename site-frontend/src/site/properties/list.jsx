@@ -256,8 +256,9 @@ class List extends Component {
     const { state, params = {}, location } = this.props;
     const dealType = dealTypes[params.dealType];
     const properties = state.countryProperties || {};
-    const { ids = [], data = {}, isFetching } = properties[this.group] || {};
+    const { ids = [], isFetching } = properties[this.group] || {};
     const pagination = state.pagination[this.resource] || {};
+    const kind = kinds[params.kind];
 
     const { query } = location;
 
@@ -268,40 +269,37 @@ class List extends Component {
       <section>
         {seo && (
           <Helmet
-            kind={kinds[params.kind]}
+            kind={kind}
             dealType={dealType}
             pagination={pagination}
             query={query}
           />
         )}
 
-        {hasItems && (
-          <Container>
-            <HeaderWrapper>
-              <Breadcrumbs data={data} dealType={dealType} />
-              <HeaderContainer>
-                <Title>
-                  {dealTypesTranslateOther[dealType]}
-                  {' '}
-                  {params.kind
-                    ? accusativeKinds[kinds[params.kind]]
-                    : 'недвижимость'}
-                  {' '}
-                  на Рублёвке
-                </Title>
-                <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
-                  {this.renderOrderBy()}
-                </Visibility>
-              </HeaderContainer>
-            </HeaderWrapper>
-            <Visibility xs="block" sm="block" md="block" lg="hidden">
-              <HeaderContainer>
-                {this.renderFilter()}
+        <Container>
+          <HeaderWrapper>
+            <Breadcrumbs dealType={dealType} kind={kind} />
+            <HeaderContainer>
+              <Title>
+                {dealTypesTranslateOther[dealType]}
+                {' '}
+                {params.kind ? accusativeKinds[kind] : 'недвижимость'}
+                {' '}
+на
+                Рублёвке
+              </Title>
+              <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
                 {this.renderOrderBy()}
-              </HeaderContainer>
-            </Visibility>
-          </Container>
-        )}
+              </Visibility>
+            </HeaderContainer>
+          </HeaderWrapper>
+          <Visibility xs="block" sm="block" md="block" lg="hidden">
+            <HeaderContainer>
+              {this.renderFilter()}
+              {this.renderOrderBy()}
+            </HeaderContainer>
+          </Visibility>
+        </Container>
 
         {this.state.resource === 'country' && (
           <div>
@@ -312,7 +310,13 @@ class List extends Component {
                     {this.renderFilter()}
                   </Col>
                   <Col md="8" lg="9">
-                    <Row>{this.renderCards()}</Row>
+                    <Row>
+                      {!isFetching && !ids.length ? (
+                        <NotFound resetFilter={this.resetFilter} />
+                      ) : (
+                        this.renderCards()
+                      )}
+                    </Row>
                   </Col>
                 </Row>
               </Container>
@@ -326,7 +330,9 @@ class List extends Component {
         )}
 
         {!isFetching && !ids.length && (
-          <NotFound resetFilter={this.resetFilter} />
+          <Visibility xs="block" sm="block" md="block" lg="hidden">
+            <NotFound resetFilter={this.resetFilter} />
+          </Visibility>
         )}
 
         {hasItems && (

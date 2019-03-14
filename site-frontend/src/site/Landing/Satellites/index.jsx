@@ -1,39 +1,41 @@
 import React, { Component } from 'react';
 
+import Helmet from 'react-helmet';
+
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 import styled from 'styled-components';
 
 // actions
-import loadProperties from 'core/countryProperties/actions/list/load';
-import * as FilterActions from 'core/actions/filters';
-import * as PaginationActions from 'core/actions/pagination';
-import { push } from 'react-router-redux';
+import loadProperties from '../../../core/countryProperties/actions/list/load';
+import * as FilterActions from '../../../core/actions/filters';
+import * as PaginationActions from '../../../core/actions/pagination';
 
 // constants
-import { resourceName } from 'core/countryProperties/constants/defaults';
+import { resourceName } from '../../../core/countryProperties/constants/defaults';
 
 // components
-import Helmet from 'react-helmet';
-import OldHeader from './OldHeader';
+
+// import OldHeader from './OldHeader';
+// import Filter from './Filter';
+
 import Header from './Header';
-import Filter from './Filter';
 import Form from './Form';
 import Call from './Call';
 import Find from './Find';
 import Location from './Location';
 
-import s from 'site/styles/landing/satellites/list';
-
-import media from 'site/styles/media';
-
 // helpers
-import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from 'core/helpers/shouldLoad';
-import { dealTypes } from 'site/constants/properties/dictionaries';
+import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from '../../../core/helpers/shouldLoad';
+import { dealTypes } from '../../constants/properties/dictionaries';
 
 // UI
-import UI from 'site/ui';
+import UI from '../../ui';
+import media from '../../styles/media';
+
+// import s from '../../styles/landing/satellites/list';
 
 import bgImage from './bg.jpg';
 
@@ -42,13 +44,13 @@ const {
 } = UI;
 
 const groupForTotal = 'total';
-const totalResource = `${resourceName}.${groupForTotal}`;
+// const totalResource = `${resourceName}.${groupForTotal}`;
 
 const Wrapper = styled.section`
   background-color: #fff;
-  
+
   ${media.md`
-    margin-top: -64px;
+    margin-top: -60px;
   `}
 `;
 
@@ -65,7 +67,7 @@ const SearchSection = styled.section`
     min-height: 100vh;
   `}
 
-   ${media.md`
+  ${media.md`
     padding-top: 0;
   `}
 `;
@@ -179,7 +181,9 @@ class Landing extends Component {
 
 // redux connectors
 const pickState = (state) => {
-  const { countryProperties, filters, pagination, order } = state;
+  const {
+    countryProperties, filters, pagination, order,
+  } = state;
 
   return {
     state: {
@@ -191,7 +195,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = dispatch => {
+const pickActions = (dispatch) => {
   const actions = {
     loadProperties,
     push,

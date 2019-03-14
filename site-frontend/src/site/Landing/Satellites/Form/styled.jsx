@@ -54,9 +54,6 @@ export const Input = styled.input`
   font-size: 16px;
 
   ::-webkit-placeholder {
-    line-height: 19px;
-    font-size: 16px;
-
     color: #aaaaaa;
   }
 
@@ -75,10 +72,7 @@ export const Input = styled.input`
 
     color: ${p => p.theme.brandBlack};
 
-    &::placeholder {
-      line-height: 21px;
-      font-size: 18px;
-
+    &::-webkit-placeholder {
       color: #aaaaaa;
     }
 

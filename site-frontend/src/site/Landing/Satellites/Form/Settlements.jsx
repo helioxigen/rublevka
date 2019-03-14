@@ -1,22 +1,19 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-
 import Downshift from 'downshift';
+
 import { Link } from 'react-router';
 
-import { connect } from 'react-redux';
-import { updateFilter } from '../../../../../core/actions/filters';
-import { updatePagination } from '../../../../../core/actions/pagination';
+import { API } from '../../../../core/config/sources';
 
-import { API } from '../../../../../core/config/sources';
+import popularSettlements from '../../../settlements/constants/popularSettlements';
+import { nameToSlug } from '../../../../core/helpers/nameToSlug';
 
-import popularSettlements from '../../../constants/popularSettlements';
-import { nameToSlug } from '../../../../../core/helpers/nameToSlug';
-
+import media from '../../../styles/media';
 import {
-  Form,
   Wrapper,
   Input as BaseInput,
+  Form,
   Dropdown as BaseDropdown,
   Selector,
   SelectorName,
@@ -24,19 +21,9 @@ import {
   Options,
   Option,
   Search,
-} from '../../../../Landing/Satellites/Form/styled';
-import media from '../../../../styles/media';
+} from './styled';
 
-const resource = 'settlements.byLetter';
 const popularForRoute = popularSettlements[global.config.domain];
-
-const intervals = [
-  { name: 'Любое', value: { min: null, max: null } },
-  { name: 'До 10 км', value: { min: null, max: 10 } },
-  { name: 'До 15 км', value: { min: null, max: 15 } },
-  { name: 'До 20 км', value: { min: null, max: 20 } },
-  { name: 'От 20 км', value: { min: 20, max: null } },
-];
 
 const InputWrapper = styled.div`
   margin: 0 4px;
@@ -101,43 +88,26 @@ const DropdownLink = styled(Link)`
   }
 `;
 
-class FormClass extends Component {
+const intervals = [
+  { name: 'Любое', value: { min: null, max: null } },
+  { name: 'До 10 км', value: { min: null, max: 10 } },
+  { name: 'До 15 км', value: { min: null, max: 15 } },
+  { name: 'До 20 км', value: { min: null, max: 20 } },
+  { name: 'От 20 км', value: { min: 20, max: null } },
+];
+
+export default class extends Component {
   state = {
     name: '',
-    mkadDistance: intervals[0],
+    mkadDistance: intervals[0].value,
     isDropdownOpen: false,
     searchResults: null,
   };
-
-  componentWillMount() {
-    const { [resource]: filters = {} } = this.props.filters;
-
-    if (filters.name) {
-      this.setState({ name: filters.name });
-    }
-
-    if (filters.mkadDistance) {
-      const mkadDistance = intervals.find(
-        i => i.value === filters.mkadDistance,
-      );
-
-      this.setState({ mkadDistance: mkadDistance || intervals[0] });
-    }
-  }
 
   handleQueryChange = (value) => {
     this.setState({ name: value });
 
     API.get(`/v1/search/similar?query=${value}&limit=5`).then(data => this.setState({ searchResults: data.body.items }));
-  };
-
-  search = () => {
-    const { name, mkadDistance } = this.state;
-
-    this.props.dispatch(updatePagination(resource, { offset: 0 }));
-    this.props.dispatch(
-      updateFilter(resource, { name, mkadDistance: mkadDistance.value }),
-    );
   };
 
   renderSearchResult = (data) => {
@@ -164,6 +134,7 @@ class FormClass extends Component {
     const {
       name, mkadDistance, isDropdownOpen, searchResults,
     } = this.state;
+    const { navigate } = this.props;
 
     return (
       <Wrapper>
@@ -196,9 +167,9 @@ class FormClass extends Component {
             )}
           </InputWrapper>
           <Downshift
-            onChange={item => this.setState({ mkadDistance: item })}
-            itemToString={item => `${item.name}`}
-            initialSelectedItem={mkadDistance}
+            onChange={item => this.setState({ mkadDistance: item.value })}
+            itemToString={item => `${item}`}
+            initialSelectedItem={intervals[0]}
           >
             {({
               getToggleButtonProps,
@@ -231,7 +202,7 @@ class FormClass extends Component {
                           index,
                           item,
                         })}
-                        selected={selectedItem.value === item.value}
+                        selected={selectedItem.name === item.name}
                       >
                         {item.name}
                       </Option>
@@ -242,15 +213,18 @@ class FormClass extends Component {
             )}
           </Downshift>
         </Form>
-        <Search onClick={this.search} />
+        <Search
+          onClick={() => navigate(
+            'zagorodnaya/kottedzhnye-poselki',
+            'settlements.byLetter',
+            {
+              name,
+              mkadDistance,
+            },
+          )
+          }
+        />
       </Wrapper>
     );
   }
 }
-
-// redux connectors
-const mapStateToProps = state => ({
-  filters: state.filters,
-});
-
-export default connect(mapStateToProps)(FormClass);

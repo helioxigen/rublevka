@@ -170,6 +170,7 @@ class FormClass extends Component {
         <Form>
           <InputWrapper>
             <Input
+              autoComplete="off"
               type="text"
               name="number"
               placeholder="Введите название посёлка"

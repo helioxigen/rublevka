@@ -57,12 +57,16 @@ pipeline:
       - APP_ENV=production
       - HOST=rublevka.ru
     secrets:
-      - source: react_app_facebook_pixel_id_rublevka_ru
-        target: react_app_facebook_pixel_id
-      - source: react_app_targetix_pixel_id_rublevka_ru
-        target: react_app_targetix_pixel_id
       - source: react_app_roistat_id_rublevka_ru
         target: react_app_roistat_id
+      - source: react_app_targetix_pixel_id_rublevka_ru
+        target: react_app_targetix_pixel_id
+      - source: react_app_facebook_pixel_id_rublevka_ru
+        target: react_app_facebook_pixel_id
+      - source: react_app_google_analytics_id_rublevka_ru
+        target: react_app_google_analytics_id
+      - source: react_app_yandex_metrika_id_rublevka_ru
+        target: react_app_yandex_metrika_id
     when:
       branch: [master]
       event: [push]

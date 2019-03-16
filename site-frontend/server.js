@@ -51,6 +51,8 @@ const {
   REACT_APP_FACEBOOK_PIXEL_ID,
   REACT_APP_TARGETIX_PIXEL_ID,
   REACT_APP_ROISTAT_ID,
+  REACT_APP_GOOGLE_ANALYTICS_ID,
+  REACT_APP_YANDEX_METRIKA_ID,
 } = process.env;
 
 const envParams = {
@@ -60,9 +62,13 @@ const envParams = {
   BUILD_ID: !!BUILD_ID,
 };
 
-const failedEnvParams = Object.keys(envParams).filter(param => !envParams[param]);
+const failedEnvParams = Object.keys(envParams).filter(
+  param => !envParams[param],
+);
 
-if (failedEnvParams.length > 0) throw new Error(`Provide ${failedEnvParams.join(', ')}`);
+if (failedEnvParams.length > 0) {
+  throw new Error(`Provide ${failedEnvParams.join(', ')}`);
+}
 
 // Define a global config to use with application
 const config = require(`./src/${MODULE}/config/satellites/index`).default; // eslint-disable-line import/no-dynamic-require
@@ -119,6 +125,32 @@ function renderFullPage(renderProps, store) {
             window.releaseStage = "${APP_ENV}";
             window.appVersion = "${BUILD_ID}";
           </script>
+        </head>
+        <body>
+          <div id="app">${html}</div>
+
+          <script>
+            window.__PRELOADED_STATE__ = ${JSON.stringify(
+    preloadedState,
+  ).replace(/</g, '\\u003c')}
+          </script>
+
+          <script>
+            (function(w, d, s, h, id) {
+                w.roistatProjectId = id; w.roistatHost = h;
+                var p = d.location.protocol == "https:" ? "https://" : "http://";
+                var u = /^.*roistat_visit=[^;]+(.*)?$/.test(d.cookie) ? "/dist/module.js" : "/api/site/1.0/"+id+"/init";
+                var js = d.createElement(s); js.charset="UTF-8"; js.async = 1; js.src = p+h+u; var js2 = d.getElementsByTagName(s)[0]; js2.parentNode.insertBefore(js, js2);
+            })(window, document, 'script', 'cloud.roistat.com', '${REACT_APP_ROISTAT_ID}');
+          </script>
+
+          <script>
+            window._txq = window._txq || [];
+            var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//st.targetix.net/txsp.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+            _txq.push(['createPixel', '${REACT_APP_TARGETIX_PIXEL_ID}']);
+            _txq.push(['track', 'PageView']);
+          </script>
 
           <!-- Facebook Pixel Code -->
           <script>
@@ -137,29 +169,33 @@ function renderFullPage(renderProps, store) {
             src="https://www.facebook.com/tr?id=${REACT_APP_FACEBOOK_PIXEL_ID}&ev=PageView&noscript=1"
           /></noscript>
           <!-- End Facebook Pixel Code -->
-        </head>
-        <body>
-          <div id="app">${html}</div>
 
+          <!-- Global site tag (gtag.js) - Google Analytics -->
+          <script async src="https://www.googletagmanager.com/gtag/js?id=${REACT_APP_GOOGLE_ANALYTICS_ID}"></script>
           <script>
-            window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', '${REACT_APP_GOOGLE_ANALYTICS_ID}');
           </script>
 
-          <script>
-            (function(w, d, s, h, id) {
-                w.roistatProjectId = id; w.roistatHost = h;
-                var p = d.location.protocol == "https:" ? "https://" : "http://";
-                var u = /^.*roistat_visit=[^;]+(.*)?$/.test(d.cookie) ? "/dist/module.js" : "/api/site/1.0/"+id+"/init";
-                var js = d.createElement(s); js.charset="UTF-8"; js.async = 1; js.src = p+h+u; var js2 = d.getElementsByTagName(s)[0]; js2.parentNode.insertBefore(js, js2);
-            })(window, document, 'script', 'cloud.roistat.com', '${REACT_APP_ROISTAT_ID}');
+          <!-- Yandex.Metrika counter -->
+          <script type="text/javascript" >
+            (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+            ym(${REACT_APP_YANDEX_METRIKA_ID}, "init", {
+              clickmap: true,
+              trackLinks: true,
+              accurateTrackBounce: true,
+              webvisor: true
+            });
           </script>
-          <script>
-            window._txq = window._txq || [];
-            var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//st.targetix.net/txsp.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
-            _txq.push(['createPixel', '${REACT_APP_TARGETIX_PIXEL_ID}']);
-            _txq.push(['track', 'PageView']);
-          </script>
+          <noscript><div><img src="https://mc.yandex.ru/watch/${REACT_APP_YANDEX_METRIKA_ID}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+          <!-- /Yandex.Metrika counter -->
+
           <script src="/${manifestJs}"></script>
           <script src="/${vendorJs}"></script>
           <script src="/${appJs}"></script>
@@ -179,7 +215,9 @@ function getStatusCode(meta, cb) {
       $: { content: 200 }, // eslint-disable-line id-length
     };
 
-    const headers = (result.root.meta && result.root.meta.filter(item => item.$.name === 'header')) || [];
+    const headers = (result.root.meta
+        && result.root.meta.filter(item => item.$.name === 'header'))
+      || [];
 
     cb({ status, headers });
   });
@@ -208,53 +246,60 @@ function sendResponse(res, status, metaHeaders, body) {
 }
 
 function handleRender(req, res) {
-  match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
-    if (error) {
-      res.status(500).send(error.message);
-    } else if (redirectLocation) {
-      res.redirect(301, redirectLocation.pathname + redirectLocation.search);
-    } else if (renderProps) {
-      const initialState = {};
+  match(
+    { routes, location: req.url },
+    (error, redirectLocation, renderProps) => {
+      if (error) {
+        res.status(500).send(error.message);
+      } else if (redirectLocation) {
+        res.redirect(301, redirectLocation.pathname + redirectLocation.search);
+      } else if (renderProps) {
+        const initialState = {};
 
-      const store = createStore(reducer, initialState, applyMiddleware(thunk));
+        const store = createStore(
+          reducer,
+          initialState,
+          applyMiddleware(thunk),
+        );
 
-      // collect all data-loading promises
-      const promises = renderProps.components
-        .map((component) => {
-          // component can be undefined, so we have to check
-          if (component && typeof component.loadServer === 'function') {
-            // TODO pass renderProps as second param
-            return component.loadServer(
-              store.dispatch,
-              renderProps.params,
-              renderProps,
-              store.getState(),
-            );
-          }
+        // collect all data-loading promises
+        const promises = renderProps.components
+          .map((component) => {
+            // component can be undefined, so we have to check
+            if (component && typeof component.loadServer === 'function') {
+              // TODO pass renderProps as second param
+              return component.loadServer(
+                store.dispatch,
+                renderProps.params,
+                renderProps,
+                store.getState(),
+              );
+            }
 
-          return null;
-        })
-        .filter(elem => elem instanceof Promise);
+            return null;
+          })
+          .filter(elem => elem instanceof Promise);
 
-      Promise.all(promises)
-        .then(() => {
-          const { body, meta } = renderFullPage(renderProps, store);
+        Promise.all(promises)
+          .then(() => {
+            const { body, meta } = renderFullPage(renderProps, store);
 
-          getStatusCode(meta, ({ status, headers }) => {
-            sendResponse(res, status, headers, body);
+            getStatusCode(meta, ({ status, headers }) => {
+              sendResponse(res, status, headers, body);
+            });
+          })
+          .catch((e) => {
+            res.sendStatus(404);
+            console.log(e); // eslint-disable-line no-console
+
+            throw new Error('unhandled errors at promises');
           });
-        })
-        .catch((e) => {
-          res.sendStatus(404);
-          console.log(e); // eslint-disable-line no-console
-
-          throw new Error('unhandled errors at promises');
-        });
-    } else {
-      console.log(JSON.stringify(req)); // eslint-disable-line no-console
-      res.status(404).send('Not found');
-    }
-  });
+      } else {
+        console.log(JSON.stringify(req)); // eslint-disable-line no-console
+        res.status(404).send('Not found');
+      }
+    },
+  );
 }
 
 // express app
@@ -273,12 +318,16 @@ app.use('/pdf/properties/:category/:id/:token/:showLogo', genPresentation);
 
 // TODO move to sitemap.js
 app.use('/sitemap.xml', (req, res) => {
-  fs.readFile(path.join(__dirname, 'build', HOST, 'sitemap.xml'), 'utf-8', (err, content) => {
-    if (err && err.code === 'ENOENT') res.sendStatus(404);
+  fs.readFile(
+    path.join(__dirname, 'build', HOST, 'sitemap.xml'),
+    'utf-8',
+    (err, content) => {
+      if (err && err.code === 'ENOENT') res.sendStatus(404);
 
-    res.set('content-type', 'application/xml');
-    res.send(content);
-  });
+      res.set('content-type', 'application/xml');
+      res.send(content);
+    },
+  );
 });
 
 const interval = 1000 * 60 * 60;

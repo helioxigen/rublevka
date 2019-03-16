@@ -232,16 +232,13 @@ class Filter extends Component {
 
             <div>{this.renderFilters()}</div>
             <S.ButtonPrimary
-              to={`/zagorodnaya/${this.props.dealType}`}
               block
               size="lg"
               onClick={this.toggle}
               style={{ display: isViewOpen ? 'block' : 'none' }}
             >
               {count ? 'Показать' : 'Нет'}
-              {' '}
               <FormattedNumber value={count} />
-              {' '}
               <CountIndicator
                 count={count}
                 declensionForms={['объект', 'объекта', 'объектов']}

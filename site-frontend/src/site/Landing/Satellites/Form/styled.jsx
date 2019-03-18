@@ -1,9 +1,9 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import media from 'site/styles/media';
+import media from '../../../styles/media';
 
-import UI from 'site/ui';
+import UI from '../../../ui';
 
 import greySearchIcon from './searchGrey.png';
 
@@ -287,7 +287,7 @@ export const Option = styled.li`
 `;
 
 export const SearchContainer = styled.button`
-  margin-top: 36px;
+  margin-top: 16px;
   margin-bottom: 80px;
   padding: 19px 0px;
   background: #f44336;
@@ -355,9 +355,13 @@ export const Options = ({
         Сбросить
       </ResetButton>
     </OptionsHeader>
-    <OptionsList {...getMenuProps({ refKey: 'innerRef' })}>{children}</OptionsList>
+    <OptionsList {...getMenuProps({ refKey: 'innerRef' })}>
+      {children}
+    </OptionsList>
     {withSaveButton && (
-      <SaveButton {...getToggleButtonProps({ refKey: 'innerRef' })}>Применить</SaveButton>
+      <SaveButton {...getToggleButtonProps({ refKey: 'innerRef' })}>
+        Применить
+      </SaveButton>
     )}
   </OptionsWrapper>
 );

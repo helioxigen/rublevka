@@ -4,6 +4,7 @@ import global from 'window-or-global';
 import express from 'express';
 import expressPromBundleMiddleware from 'express-prom-bundle';
 import expressCacheMiddleware from 'express-cache-response-directive';
+import expressMinifier from 'express-minify-html';
 import { parseString } from 'xml2js';
 import dotenv from 'dotenv';
 
@@ -32,6 +33,7 @@ import { reducer } from './src/site/store';
 const Sentry = require('@sentry/node'); // import is not working
 
 dotenv.config();
+
 // hook for svg assets
 require('asset-require-hook')({ extensions: ['jpg', 'svg', 'png'] });
 
@@ -79,8 +81,6 @@ global.XMLHttpRequest = xhr;
 const manifest = require(`./build/${HOST}/manifest`); // eslint-disable-line import/no-dynamic-require
 const routes = require(`./src/${MODULE}/Routes`).default; // eslint-disable-line import/no-dynamic-require
 
-// const logger = createLogger();
-
 const manifestJs = manifest['manifest.js'];
 const vendorJs = manifest['vendor.js'];
 const appJs = manifest['app.js'];
@@ -104,6 +104,11 @@ function renderFullPage(renderProps, store) {
   const meta = head ? head.meta.toString() : '';
   const link = head ? head.link.toString() : '';
   const styles = sheet.getStyleTags();
+
+  const stringifiedPreloadedState = JSON.stringify(preloadedState).replace(
+    /</g,
+    '\\u003c',
+  );
 
   return {
     meta,
@@ -130,9 +135,7 @@ function renderFullPage(renderProps, store) {
           <div id="app">${html}</div>
 
           <script>
-            window.__PRELOADED_STATE__ = ${JSON.stringify(
-    preloadedState,
-  ).replace(/</g, '\\u003c')}
+            window.__PRELOADED_STATE__ = ${stringifiedPreloadedState}
           </script>
 
           <script>
@@ -307,7 +310,12 @@ const app = express();
 const port = PORT || 8080;
 const cacheMiddleware = expressCacheMiddleware({ maxAge: 120 });
 const metricsMiddleware = expressPromBundleMiddleware({ includeMethod: true });
+const minifierMiddleware = expressMinifier({ override: true });
+
 Sentry.init({ dsn: REACT_APP_SENTRY_DSN, environment: APP_ENV });
+Sentry.configureScope((scope) => {
+  scope.setTag('version', BUILD_ID);
+});
 
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.errorHandler());
@@ -338,8 +346,9 @@ setInterval(generateSitemaps, interval);
 app.use('/healthz', (req, res) => res.sendStatus(200));
 app.use(metricsMiddleware);
 app.use(cacheMiddleware);
+app.use(minifierMiddleware);
 
-// static .js and .css
+// static
 app.use('/static', express.static(`./build/${HOST}/static`, { maxAge: '1y' }));
 app.use('/robots.txt', (req, res) => fs.createReadStream(`./build/${HOST}/robots.txt`).pipe(res));
 app.use('/favicon.png', (req, res) => fs.createReadStream(`./build/${HOST}/favicon.png`).pipe(res));

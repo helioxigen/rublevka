@@ -57,6 +57,10 @@ export const Input = styled.input`
     color: #aaaaaa;
   }
 
+  &:focus {
+    border: 1px solid #f44336;
+  }
+
   ${media.md`
     margin: 0;
     padding: 0;

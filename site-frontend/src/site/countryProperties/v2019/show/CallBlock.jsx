@@ -1,14 +1,16 @@
+/* eslint-disable react/style-prop-object */
 import React from 'react';
 import styled from 'styled-components';
 import { FormattedNumber } from 'react-intl';
 
-import media from 'site/styles/media';
+import media from '../../../styles/media';
 
-import UI from 'site/ui';
+import UI from '../../../ui';
 
 const { Icon } = UI;
 
 const CallBlock = styled.div`
+  max-height: 85px;
   padding: 12px 15px;
   position: fixed;
   bottom: 0;
@@ -102,7 +104,8 @@ export default ({ priceData: { currency, price, priceForBlock }, kind }) => (
             currency={currency}
             value={Math.round(priceForBlock)}
             maximumSignificantDigits={12}
-          />{' '}
+          />
+          {' '}
           / сот.
         </SmallPrice>
       )}

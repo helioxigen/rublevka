@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-
 import styled from 'styled-components';
 
 import Sell from './Sell';
 import PropertyNumber from './PropertyNumber';
 import Rent from './Rent';
-import Countries from './Countries';
-import media from 'site/styles/media';
-import UI from 'site/ui';
+import Settlements from './Settlements';
+import media from '../../../styles/media';
+import UI from '../../../ui';
 
 const {
   Grid: { Col },
@@ -74,7 +73,11 @@ const Tab = styled.button`
 const Divider = styled.hr`
   margin: 0;
   margin-top: -1px;
-  background: linear-gradient(90deg, #eeeeee 0%, rgba(255, 255, 255, 0.05) 100%);
+  background: linear-gradient(
+    90deg,
+    #eeeeee 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
   margin-bottom: 25px;
 `;
 
@@ -114,17 +117,21 @@ export default class Form extends Component {
               Аренда
             </Tab>
             <Tab
-              selected={selectedTab === 'countries'}
-              onClick={() => this.setState({ selectedTab: 'countries' })}
+              selected={selectedTab === 'settlements'}
+              onClick={() => this.setState({ selectedTab: 'settlements' })}
             >
               Посёлки
             </Tab>
           </TabSelector>
           <Divider />
-          {selectedTab === 'number' && <PropertyNumber navigate={this.navigate} />}
+          {selectedTab === 'number' && (
+            <PropertyNumber navigate={this.navigate} />
+          )}
           {selectedTab === 'sell' && <Sell navigate={this.navigate} />}
           {selectedTab === 'rent' && <Rent navigate={this.navigate} />}
-          {selectedTab === 'countries' && <Countries navigate={this.navigate} />}
+          {selectedTab === 'settlements' && (
+            <Settlements navigate={this.navigate} />
+          )}
         </Wrapper>
       </Col>
     );

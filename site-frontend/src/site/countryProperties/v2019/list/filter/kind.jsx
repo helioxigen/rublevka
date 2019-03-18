@@ -1,30 +1,27 @@
 import React, { Component } from 'react';
-import CSSModules from 'react-css-modules';
 
-import s from 'site/styles/components/satellites/filter.css';
-import sUtils from 'site/styles/utils.css';
-import { CheckboxWrapper, ControlsContainer, Title, FilterHeader, IconReset } from './styled';
+import { withRouter } from 'react-router';
 
-import UI from 'site/ui/v2019';
+import { kindsTranslit } from '../../../../constants/properties/dictionaries';
+
+import {
+  CheckboxWrapper,
+  ControlsContainer,
+  Title,
+  FilterHeader,
+  IconReset,
+} from './styled';
+
+import UI from '../../../../ui/v2019';
 
 const {
   Grid: { Container },
   RadioButton,
 } = UI;
 
-const styles = {
-  ...s,
-  ...sUtils,
-};
-
-const cssOptions = {
-  allowMultiple: true,
-};
-
 const key = 'kind';
 
 class Kind extends Component {
-
   constructor(props) {
     super(props);
 
@@ -32,22 +29,31 @@ class Kind extends Component {
   }
 
   onUpdate(value) {
+    const { dealType, router } = this.props;
+
     this.props.updateFilter(key, [value]);
+    router.push(`/zagorodnaya/${dealType}/${kindsTranslit[value]}`);
   }
 
   onReset() {
-    this.props.updateFilter(key, []);
+    const { dealType, router } = this.props;
+
+    this.props.updateFilter(key, null);
+    router.push(`/zagorodnaya/${dealType}`);
   }
 
   render() {
     const { selected = {}, dealType } = this.props;
     const items = selected[key] || [];
+
     return (
       <ControlsContainer>
         <Container fluid styleName="contentContainer">
           <FilterHeader>
             <Title>Тип объекта</Title>
-            {items.length > 0 && <IconReset onClick={this.onReset} icon="times" /> }
+            {items.length > 0 && (
+              <IconReset onClick={this.onReset} icon="times" />
+            )}
           </FilterHeader>
           <CheckboxWrapper>
             <RadioButton
@@ -65,13 +71,14 @@ class Kind extends Component {
             />
 
             {dealType !== 'arenda' && (
-            <RadioButton
-              checked={items.includes('land')}
-              name="land"
-              handleChange={() => this.onUpdate('land')}
-              text="Участок"
-            />
-          )}
+              <RadioButton
+                checked={items.includes('land')}
+                name="land"
+                handleChange={() => this.onUpdate('land')}
+                text="Участок"
+              />
+            )}
+
             <RadioButton
               checked={items.includes('flat')}
               name="flat"
@@ -85,4 +92,4 @@ class Kind extends Component {
   }
 }
 
-export default CSSModules(Kind, styles, cssOptions);
+export default withRouter(Kind);

@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import media from 'site/styles/media';
+import media from '../../styles/media';
 
 const Header = styled.p`
   margin: 0;
@@ -13,7 +13,8 @@ const Header = styled.p`
   font-weight: bold;
 
   ${media.xs`
-    margin-bottom: 50px;
+    margin: 0;
+    transform: translateY(-50px);
     line-height: 48px;
     font-size: 40px;
     color: #fff;
@@ -21,7 +22,7 @@ const Header = styled.p`
   `}
 
   ${media.md`
-    margin-bottom: 105px;
+    transform: translateY(-105px);
     line-height: 58px;
     font-size: 48px;
     text-shadow: 0px 0px 35px rgba(0, 0, 0, 0.35);

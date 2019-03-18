@@ -1,22 +1,18 @@
 import styled from 'styled-components';
 
-import media from 'site/styles/media';
-import UI from 'site/ui/v2019';
+import media from '../../../../styles/media';
+import UI from '../../../../ui/v2019';
 
-const {
-  Button,
-  BtnGroup,
-  Icon,
-} = UI;
+const { Button, BtnGroup, Icon } = UI;
 
 export const ResetText = styled.span`
   font-size: 16px;
-  color: #F44336;
+  color: #f44336;
 `;
 
 export const Text = styled.span`
   font-size: 16px;
-  color: #F44336;
+  color: #f44336;
 
   ${media.sm`
     color: #373737;
@@ -28,9 +24,9 @@ export const IconClose = styled(Icon)`
     margin-top: 4px;
     width: 24px;
     height: 24px;
-    fill: #B5B5B5;
+    fill: #b5b5b5;
 
-    &:hover{
+    &:hover {
       fill: #080808;
     }
   }
@@ -46,22 +42,22 @@ export const IconReset = styled(Icon)`
   padding-left: 1px;
   fill: #080808;
 
-  &:hover{
+  &:hover {
     fill: #080808;
-    background-color: #CBCBCB;
+    background-color: #cbcbcb;
     border-radius: 50%;
   }
 `;
 
 export const IconFilter = styled(Icon)`
   &&& {
-  width: 14px;
-  height: 14px;
-  margin-right: 1rem;
-  vertical-align: middle;
-  fill: #f44336;
+    width: 14px;
+    height: 14px;
+    margin-right: 1rem;
+    vertical-align: middle;
+    fill: #f44336;
 
-  ${media.sm`
+    ${media.sm`
     fill: #373737;
   `}
   }
@@ -69,10 +65,12 @@ export const IconFilter = styled(Icon)`
 
 export const DefaultBtn = styled(Button)`
   &&& {
-  border: none;
-  outline: 0;
+    border: none;
+    outline: 0;
 
-    &:hover, &:focus, &:active {
+    &:hover,
+    &:focus,
+    &:active {
       background: none;
     }
   }
@@ -88,6 +86,8 @@ export const ButtonReset = styled(DefaultBtn)`
 
 export const ButtonFilter = styled(DefaultBtn)`
   &&& {
+    display: flex;
+    align-items: center;
     padding: 0;
 
     ${media.sm`
@@ -104,7 +104,7 @@ export const ButtonFilter = styled(DefaultBtn)`
 export const DesktopContainer = styled.div`
   position: fixed;
   top: 0;
-  left: ${p => p.isViewOpen ? '0' : '-50%'};
+  left: ${p => (p.isViewOpen ? '0' : '-50%')};
   bottom: 0;
   z-index: 999;
 
@@ -113,9 +113,9 @@ export const DesktopContainer = styled.div`
   width: 50%;
   padding: 5rem 1rem;
 
-  background: #FAFAFA;
+  background: #fafafa;
 
-  transition: .6s cubic-bezier(.86, 0, .07, 1);
+  transition: 0.6s cubic-bezier(0.86, 0, 0.07, 1);
 
   ${media.sm`
     padding-bottom: 8rem;
@@ -171,8 +171,8 @@ export const ButtonPrimary = styled(DefaultBtn)`
   &&& {
     display: block;
     position: fixed;
-    background: #F44336;
-    color: #FFFFFF;
+    background: #f44336;
+    color: #ffffff;
     border-radius: 8px;
     z-index: 9999;
     left: 1.5rem;
@@ -183,13 +183,13 @@ export const ButtonPrimary = styled(DefaultBtn)`
     padding: 1.8rem 0;
     text-transform: uppercase;
 
-    &:hover{
-      box-shadow: 0px 2px 4px
+    &:hover {
+      box-shadow: 0px 2px 4px;
     }
 
     ${media.sm`
-      right ${p => p.isViewOpen ? '3rem' : '0'};
-      left: ${p => p.isViewOpen ? '3rem' : '-50%'};
+      right ${p => (p.isViewOpen ? '3rem' : '0')};
+      left: ${p => (p.isViewOpen ? '3rem' : '-50%')};
 
       width: calc(50% - 6rem);
       padding: 2rem 0;
@@ -199,7 +199,6 @@ export const ButtonPrimary = styled(DefaultBtn)`
     `}
   }
 `;
-
 
 export const BtnGroupHead = styled(BtnGroup)`
   &&& {
@@ -218,7 +217,7 @@ export const BtnGroupHead = styled(BtnGroup)`
       padding-right: 25px;
       width: 50%;
       transition: 0.6s cubic-bezier(0.86, 0, 0.07, 1);
-      left: ${p => p.isViewOpen ? 0 : '-50%'}
+      left: ${p => (p.isViewOpen ? 0 : '-50%')}
     `}
   }
 `;

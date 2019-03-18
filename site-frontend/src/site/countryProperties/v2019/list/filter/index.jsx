@@ -1,46 +1,31 @@
 import React, { Component } from 'react';
 import { FormattedNumber } from 'react-formatted';
-import { Link } from 'react-router';
 
-import BezierEasing from 'bezier-easing';
 import CSSModules from 'react-css-modules';
 
-import global from 'window-or-global';
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks,
+} from 'body-scroll-lock';
 
-import UI from 'site/ui/v2019';
+import UI from '../../../../ui/v2019';
 
-import animate from 'core/helpers/ui/animation';
-import FilterHelper from 'core/decorators/filter';
-import { dealTypes } from 'site/constants/properties/dictionaries';
+import FilterHelper from '../../../../../core/decorators/filter';
+import s from '../../../../styles/components/satellites/filter.css';
+import sSlider from '../../../../styles/ui/slider.css';
+import sUtils from '../../../../styles/utils.css';
+import st from '../../../../styles/themes2019';
 
-import cn from 'classnames';
-import s from 'site/styles/components/satellites/filter.css';
-import sSlider from 'site/styles/ui/slider.css';
-import sUtils from 'site/styles/utils.css';
-import st from 'site/styles/themes2019';
-
-import Selected from './selected';
-import Routes from './routes';
 import Kind from './kind';
 import Price from './price2';
 import Bedroom from './bedroom';
 import Areas from './areas';
 import Renovate from './renovate';
 import Distance from './distance';
-import OnlyNew from './onlyNew';
 import * as S from './styled';
-import Search from 'site/components/Search';
 
-
-const isJQ = global.config.domain === 'jq.estate';
-
-const {
-  Visibility,
-  CountIndicator,
-  Form: { Group },
-  Grid: { Container, Row, Col },
-} = UI;
+const { Visibility, CountIndicator } = UI;
 
 const styles = {
   ...sUtils,
@@ -53,8 +38,6 @@ const cssOptions = {
 };
 
 const theme = st.filterSatellites;
-const easingX = BezierEasing(0.86, 0, 0.07, 1);
-const duration = 350;
 
 class Filter extends Component {
   constructor(props) {
@@ -64,10 +47,6 @@ class Filter extends Component {
     this.removeFilter = this.removeFilter.bind(this);
     this.toggle = this.toggle.bind(this);
     this.targetElement = null;
-  }
-
-  componentWillMount() {
-    this.load();
   }
 
   componentDidMount() {
@@ -84,17 +63,6 @@ class Filter extends Component {
     clearAllBodyScrollLocks();
   }
 
-  load() {
-    this.setState({
-      viewPosition: 1,
-
-      isSubViewOpen: false,
-      subViewPosition: 1,
-
-      currentLayout: null,
-    });
-  }
-
   toggle() {
     if (this.props.isViewOpen) {
       this.props.onClose();
@@ -103,44 +71,10 @@ class Filter extends Component {
       this.props.toggle();
       disableBodyScroll(this.targetElement);
     }
-
-    this.setState({ currentLayout: null, isSubViewOpen: false }, () => {
-      animate(duration, easingX, (viewPosition) => {
-        this.setState({ viewPosition });
-      });
-    });
   }
 
   toggleResourceName(key, value) {
     this.props.toggleResourceName(key, value);
-
-    if (key === 'resource') {
-      this.setState({ currentLayout: null });
-    }
-  }
-
-  toggleSubview(currentLayout, direction) {
-    const isSubViewOpen = !this.state.isSubViewOpen;
-
-    const onStart = () => {
-      if (this.state.isSubViewOpen) {
-        this.setState({ currentLayout });
-      }
-    };
-
-    const onEnd = () => {
-      if (!this.state.isSubViewOpen) {
-        this.setState({ currentLayout });
-      }
-    };
-
-    const onUpdate = (subViewPosition) => {
-      this.setState({ subViewPosition });
-    };
-
-    this.setState({ isSubViewOpen, direction }, () => {
-      animate(duration, easingX, onUpdate, onStart, onEnd);
-    });
   }
 
   updateFilter(key, value) {
@@ -178,7 +112,6 @@ class Filter extends Component {
           selected={state}
           updateFilter={this.updateFilter}
           removeFilter={this.removeFilter}
-          toggle={() => this.toggleSubview(null)}
           dealType={dealType}
         />
 
@@ -186,7 +119,6 @@ class Filter extends Component {
           selected={state}
           updateFilter={this.updateFilter}
           removeFilter={this.removeFilter}
-          toggle={() => this.toggleSubview(null)}
           dealType={dealType}
         />
 
@@ -194,30 +126,25 @@ class Filter extends Component {
           selected={state}
           updateFilter={this.updateFilter}
           removeFilter={this.removeFilter}
-          toggle={() => this.toggleSubview(null)}
         />
 
         <Distance
           selected={state}
           updateFilter={this.updateFilter}
           removeFilter={this.removeFilter}
-          toggle={() => this.toggleSubview(null)}
         />
 
         <Renovate
           selected={state}
           updateFilter={this.updateFilter}
           removeFilter={this.removeFilter}
-          toggle={() => this.toggleSubview(null)}
         />
 
         <Bedroom
           selected={state}
           updateFilter={this.updateFilter}
           removeFilter={this.removeFilter}
-          toggle={() => this.toggleSubview(null)}
         />
-
       </div>
     );
   }
@@ -225,54 +152,37 @@ class Filter extends Component {
   render() {
     const { isViewOpen } = this.props;
 
-    const { count, filterCount, resetFilter, resource } = this.props; // filter helper
-    const dealType = dealTypes[this.props.dealType];
-
+    const { count, filterCount, resetFilter } = this.props; // filter helper
 
     return (
       <section>
         {/* desktop */}
         <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
-          <S.DesktopContainer>
-            {this.renderFilters()}
-          </S.DesktopContainer>
+          <S.DesktopContainer>{this.renderFilters()}</S.DesktopContainer>
         </Visibility>
         {/* tablet */}
         <Visibility xs="hidden" sm="hidden" md="block" lg="hidden">
-          <S.ButtonFilter
-            onClick={this.toggle}
-          >
+          <S.ButtonFilter onClick={this.toggle}>
             <S.IconFilter icon="filter" />
             <S.Text>Фильтр</S.Text>
           </S.ButtonFilter>
-          <div
-            ref="overlay"
-            className={cn(s.overlay, isViewOpen && s.overlayActive)}
-            onClick={this.props.toggle}
-          />
 
-          <S.BtnGroupHead
-            isViewOpen={isViewOpen}
-          >
-            <S.ButtonReset
-              onClick={this.toggle}
-            >
+          <S.BtnGroupHead isViewOpen={isViewOpen}>
+            <S.ButtonReset onClick={this.toggle}>
               <S.IconClose icon="times" />
             </S.ButtonReset>
 
-            <S.ButtonReset
-              disabled={!filterCount}
-              onClick={resetFilter}
-            >
+            <S.ButtonReset disabled={!filterCount} onClick={resetFilter}>
               <S.ResetText>Сбросить</S.ResetText>
             </S.ButtonReset>
           </S.BtnGroupHead>
 
           <S.DesktopContainer
-            innerRef={el => this.modalTablet = el}
+            // FIXME
+            // eslint-disable-next-line no-return-assign
+            innerRef={el => (this.modalTablet = el)}
             isViewOpen={isViewOpen}
           >
-
             {this.renderFilters()}
 
             <S.ButtonPrimary
@@ -282,7 +192,8 @@ class Filter extends Component {
               disabled={!count}
               isViewOpen={isViewOpen}
             >
-              {count ? 'Показать' : 'Нет'} <FormattedNumber value={count} />{' '}
+              {count ? 'Показать' : 'Нет'}
+              <FormattedNumber value={count} />
               <CountIndicator
                 count={count}
                 declensionForms={['объект', 'объекта', 'объектов']}
@@ -295,48 +206,39 @@ class Filter extends Component {
         {/* mobile */}
         <Visibility md="hidden" lg="hidden">
           {/* closed */}
-          {!this.props.isViewOpen && !!count && (
-            <div>
-              <S.ButtonFilter
-                onClick={this.toggle}
-              >
-                <S.IconFilter icon="filter" />
-                <S.Text>Фильтр</S.Text>
-              </S.ButtonFilter>
-            </div>
-          )}
+          <S.ButtonFilter onClick={this.toggle}>
+            <S.IconFilter icon="filter" />
+            <S.Text>Фильтр</S.Text>
+          </S.ButtonFilter>
 
           {/* main view */}
 
           <div
             className={theme.filterContainer}
-            ref={el => this.modalMobile = el}
+            // FIXME
+            // eslint-disable-next-line no-return-assign
+            ref={el => (this.modalMobile = el)}
             style={{ display: isViewOpen ? 'block' : 'none' }}
           >
             <S.BtnGroupHead>
-              <S.ButtonReset
-                onClick={this.toggle}
-              >
+              <S.ButtonReset onClick={this.toggle}>
                 <S.IconClose icon="times" />
               </S.ButtonReset>
 
-              <S.ButtonReset
-                disabled={!filterCount}
-                onClick={resetFilter}
-              >
+              <S.ButtonReset disabled={!filterCount} onClick={resetFilter}>
                 <S.ResetText>Сбросить</S.ResetText>
               </S.ButtonReset>
             </S.BtnGroupHead>
 
             <div>{this.renderFilters()}</div>
             <S.ButtonPrimary
-              to={`/zagorodnaya/${this.props.dealType}`}
               block
               size="lg"
               onClick={this.toggle}
               style={{ display: isViewOpen ? 'block' : 'none' }}
             >
-              {count ? 'Показать' : 'Нет'} <FormattedNumber value={count} />{' '}
+              {count ? 'Показать' : 'Нет'}
+              <FormattedNumber value={count} />
               <CountIndicator
                 count={count}
                 declensionForms={['объект', 'объекта', 'объектов']}

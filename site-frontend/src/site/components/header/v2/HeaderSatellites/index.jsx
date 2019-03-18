@@ -3,15 +3,15 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import CallbackModal from 'site/request/CallbackModal';
+import loadStatistics from '../../../../../core/stats/actions/load';
 
-import loadStatistics from 'core/stats/actions/load';
+import StaticMask from '../../../../../core/components/ui/staticMask';
 
-import StaticMask from 'core/components/ui/staticMask';
-
-import UI from 'site/ui/v2019';
+import UI from '../../../../ui/v2019';
 
 import LogoSatellites from './LogoSatellites';
+
+import CallbackModal from '../../../../request/v2019/CallbackModal';
 
 import {
   HeaderBody,
@@ -50,14 +50,15 @@ class Header extends Component {
 
     this.state = {
       active: false,
-      isOpenRequest: false,
       navInverted: true,
     };
   }
 
   componentWillMount() {
     this.props.actions.loadStatistics();
-    if (typeof window !== 'undefined') window.addEventListener('scroll', this.handleScroll);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', this.handleScroll);
+    }
   }
 
   handleScroll() {
@@ -88,9 +89,7 @@ class Header extends Component {
     const { navInverted } = this.state;
     const { favorites } = this.props.state;
     const isLanding = pathname === '/';
-    // const isLanding = false;
     const inverted = isLanding && navInverted;
-
 
     return (
       <HeaderBody active={this.state.active}>
@@ -103,10 +102,18 @@ class Header extends Component {
                 <MobileButtons>
                   <FavoriteLink to="/favorites">
                     <FavoriteIcon inverted={isLanding} icon="favorite" />
-                    {(favorites && favorites.length > 0) && <FavoriteCounter> {favorites.length}</FavoriteCounter>}
+                    {favorites && favorites.length > 0 && (
+                      <FavoriteCounter>
+                        {' '}
+                        {favorites.length}
+                      </FavoriteCounter>
+                    )}
                   </FavoriteLink>
                   <MenuBtn onClick={this.toggleMenu}>
-                    <HamburgerIcon icon="hamburger-rublevka" isLanding={isLanding} />
+                    <HamburgerIcon
+                      icon="hamburger-rublevka"
+                      isLanding={isLanding}
+                    />
                   </MenuBtn>
                 </MobileButtons>
               </NavPanel>
@@ -129,10 +136,18 @@ class Header extends Component {
                       Главная
                     </Link>
                   </Visibility>
-                  <Link activeClassName="active" to="/zagorodnaya/prodaja" inverted={inverted}>
+                  <Link
+                    activeClassName="active"
+                    to="/zagorodnaya/prodaja"
+                    inverted={inverted}
+                  >
                     Продажа
                   </Link>
-                  <Link activeClassName="active" to="/zagorodnaya/arenda" inverted={inverted}>
+                  <Link
+                    activeClassName="active"
+                    to="/zagorodnaya/arenda"
+                    inverted={inverted}
+                  >
                     Аренда
                   </Link>
                   <Link
@@ -142,7 +157,11 @@ class Header extends Component {
                   >
                     Посёлки
                   </Link>
-                  <Link activeClassName="active" to="/contacts" inverted={inverted}>
+                  <Link
+                    activeClassName="active"
+                    to="/contacts"
+                    inverted={inverted}
+                  >
                     Контакты
                   </Link>
                 </Menu>
@@ -158,14 +177,23 @@ class Header extends Component {
                     </StaticMask>
                   </Phone>
 
-                  <CallbackModal propertyCategory={this.props.params && this.props.params.category}>
+                  <CallbackModal
+                    propertyCategory={
+                      this.props.params && this.props.params.category
+                    }
+                  >
                     <CallbackBtn kind="success" size="sm" inverted={inverted}>
                       Обратный звонок
                     </CallbackBtn>
                   </CallbackModal>
                   <FavoriteLinkDesktop to="/favorites">
                     <FavoriteIcon inverted={inverted} icon="favorite" />
-                    {(favorites && favorites.length > 0) && <FavoriteCounter> {favorites.length}</FavoriteCounter>}
+                    {favorites && favorites.length > 0 && (
+                      <FavoriteCounter>
+                        {' '}
+                        {favorites.length}
+                      </FavoriteCounter>
+                    )}
                   </FavoriteLinkDesktop>
                 </StMenu>
               </Nav>

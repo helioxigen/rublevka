@@ -1,13 +1,18 @@
+/* eslint-disable no-return-assign */
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import ReactSwipe from 'react-swipe';
 import global from 'window-or-global';
-import { cloudfront } from 'core/config/resources';
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks,
+} from 'body-scroll-lock';
+import { cloudfront } from '../../../../core/config/resources';
 
 import cameraIcon from './img/camera.png';
-import media from 'site/styles/media';
-import UI from 'site/ui';
+import media from '../../../styles/media';
+import UI from '../../../ui';
 
 const { Icon, Visibility } = UI;
 
@@ -16,18 +21,14 @@ const MobileGallery = styled.div`
   pointer-events: none;
   position: fixed;
   top: 0;
-  bottom: 0;
+  bottom: 85px;
   left: 0;
   right: 0;
   z-index: 2;
-  min-width: 100vw;
-  min-height: 100vh;
-  height: 100%;
   background-color: #fafafa;
 
-  ${({ visible }) =>
-    visible &&
-    `
+  ${({ visible }) => visible
+    && `
     display: flex;
     flex-direction: column;
     pointer-events: auto;
@@ -63,10 +64,11 @@ const CloseIcon = styled(Icon)`
 `;
 
 const MobilePhotos = styled.div`
-  padding: 64px 15px 94px 15px;
+  padding: 64px 15px 10px 15px;
   display: flex;
   flex-direction: column;
   overflow: scroll;
+  -webkit-overflow-scrolling: touch;
 `;
 
 const MobilePhoto = styled.img`
@@ -190,13 +192,12 @@ const FavoriteIcon = styled(Icon)`
   height: 22px;
   stroke: #fff;
   stroke-width: 2px;
-  fill: ${p => p.isActive ? '#F44336' : 'rgba(0,0,0, 0.3)'};
+  fill: ${p => (p.isActive ? '#F44336' : 'rgba(0,0,0, 0.3)')};
 
   ${media.md`
     display: none;
   `}
 `;
-
 
 const PhotoNum = styled.div`
   position: absolute;
@@ -253,7 +254,9 @@ export default class Media extends Component {
 
     const images = publicImages.map(({ id }) => ({
       id,
-      src: `${global.config.cloudfront || cloudfront}/${id}-${global.config.postfix}`,
+      src: `${global.config.cloudfront || cloudfront}/${id}-${
+        global.config.postfix
+      }`,
     }));
 
     return (
@@ -268,10 +271,9 @@ export default class Media extends Component {
             {images.map(({ id }) => (
               <MobilePhoto
                 key={id}
-                alt={id}
                 src={`${global.config.cloudfront || cloudfront}/${id}-${
                   global.config.postfix
-                  }-1024`}
+                }-1024`}
               />
             ))}
           </MobilePhotos>
@@ -280,13 +282,15 @@ export default class Media extends Component {
           <Visibility xs="block" sm="hidden" md="hidden" lg="hidden">
             {images.length !== 0 ? (
               <Photo
-                src={`${global.config.cloudfront || cloudfront}/${images[0].id}-${
-                  global.config.postfix
-                  }-1024`}
+                src={`${global.config.cloudfront || cloudfront}/${
+                  images[0].id
+                }-${global.config.postfix}-1024`}
                 alt={images[0].id}
                 onClick={this.openGallery}
               />
-            ) : <PhotoPlaceholder />}
+            ) : (
+              <PhotoPlaceholder />
+            )}
           </Visibility>
           <Visibility xs="hidden" sm="block" md="block" lg="block">
             <PrevButton onClick={() => this.carousel.prev()}>
@@ -300,22 +304,34 @@ export default class Media extends Component {
                     alt={id}
                     src={`${global.config.cloudfront || cloudfront}/${id}-${
                       global.config.postfix
-                      }-1024`}
+                    }-1024`}
                   />
                 ))}
               </ReactSwipe>
             ) : (
               <PhotoPlaceholder />
-              )}
+            )}
             <NextButton onClick={() => this.carousel.next()}>
               <ArrowIcon icon="carousel-right" />
             </NextButton>
           </Visibility>
           <Id>{`№ ${propertyId}`}</Id>
-          <FavoriteIcon isActive={isFavorite} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleFavorite(); }} icon="favorite" />
+          <FavoriteIcon
+            isActive={isFavorite}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              toggleFavorite();
+            }}
+            icon="favorite"
+          />
           <PhotoNum>
             <CameraIcon alt="Camera Icon" src={cameraIcon} />
-            <PhotoCount>{images.length} фото</PhotoCount>
+            <PhotoCount>
+              {images.length}
+              {' '}
+фото
+            </PhotoCount>
           </PhotoNum>
         </Wrapper>
       </div>

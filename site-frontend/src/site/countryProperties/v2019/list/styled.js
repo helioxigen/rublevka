@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import media from 'site/styles/media';
+import media from '../../../styles/media';
 
 export const WrapperBase = styled.div`
   margin: 8px 0;
@@ -50,6 +50,7 @@ export const Title = styled.h1`
 export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 11px;
 
   ${media.sm`
@@ -57,7 +58,7 @@ export const HeaderContainer = styled.div`
     margin-bottom: 26px;
   `}
 
-   ${media.md`
+  ${media.md`
      margin-bottom: 30px;
    `}
 `;

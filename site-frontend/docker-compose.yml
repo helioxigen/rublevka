@@ -10,11 +10,13 @@ services:
       args:
         - APP
         - APP_ENV
-        - HOST
         - REACT_APP_ROISTAT_ID
         - REACT_APP_FACEBOOK_PIXEL_ID
         - REACT_APP_TARGETIX_PIXEL_ID
+        - REACT_APP_GOOGLE_ANALYTICS_ID
+        - REACT_APP_YANDEX_METRIKA_ID
         - BUILD_ID
+        - HOST
     ports:
       - '127.0.0.1:7070:8080'
     networks:

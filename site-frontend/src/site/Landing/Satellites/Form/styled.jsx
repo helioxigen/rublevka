@@ -1,9 +1,9 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import media from 'site/styles/media';
+import media from '../../../styles/media';
 
-import UI from 'site/ui';
+import UI from '../../../ui';
 
 import greySearchIcon from './searchGrey.png';
 
@@ -54,10 +54,11 @@ export const Input = styled.input`
   font-size: 16px;
 
   ::-webkit-placeholder {
-    line-height: 19px;
-    font-size: 16px;
-
     color: #aaaaaa;
+  }
+
+  &:focus {
+    border: 1px solid #f44336;
   }
 
   ${media.md`
@@ -75,10 +76,7 @@ export const Input = styled.input`
 
     color: ${p => p.theme.brandBlack};
 
-    &::placeholder {
-      line-height: 21px;
-      font-size: 18px;
-
+    &::-webkit-placeholder {
       color: #aaaaaa;
     }
 
@@ -293,7 +291,7 @@ export const Option = styled.li`
 `;
 
 export const SearchContainer = styled.button`
-  margin-top: 36px;
+  margin-top: 16px;
   margin-bottom: 80px;
   padding: 19px 0px;
   background: #f44336;
@@ -361,9 +359,13 @@ export const Options = ({
         Сбросить
       </ResetButton>
     </OptionsHeader>
-    <OptionsList {...getMenuProps({ refKey: 'innerRef' })}>{children}</OptionsList>
+    <OptionsList {...getMenuProps({ refKey: 'innerRef' })}>
+      {children}
+    </OptionsList>
     {withSaveButton && (
-      <SaveButton {...getToggleButtonProps({ refKey: 'innerRef' })}>Применить</SaveButton>
+      <SaveButton {...getToggleButtonProps({ refKey: 'innerRef' })}>
+        Применить
+      </SaveButton>
     )}
   </OptionsWrapper>
 );

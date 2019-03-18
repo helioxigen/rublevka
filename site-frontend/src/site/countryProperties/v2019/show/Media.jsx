@@ -68,6 +68,7 @@ const MobilePhotos = styled.div`
   display: flex;
   flex-direction: column;
   overflow: scroll;
+  -webkit-overflow-scrolling: touch;
 `;
 
 const MobilePhoto = styled.img`
@@ -270,7 +271,6 @@ export default class Media extends Component {
             {images.map(({ id }) => (
               <MobilePhoto
                 key={id}
-                alt={id}
                 src={`${global.config.cloudfront || cloudfront}/${id}-${
                   global.config.postfix
                 }-1024`}

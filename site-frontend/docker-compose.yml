@@ -15,6 +15,7 @@ services:
         - REACT_APP_TARGETIX_PIXEL_ID
         - REACT_APP_GOOGLE_ANALYTICS_ID
         - REACT_APP_YANDEX_METRIKA_ID
+        - REACT_APP_SENTRY_DSN
         - BUILD_ID
         - HOST
     ports:

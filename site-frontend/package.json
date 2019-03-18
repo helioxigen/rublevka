@@ -32,6 +32,7 @@
     "dthttp": "2.0.0-beta24",
     "express": "4.15.3",
     "express-cache-response-directive": "1.1.0",
+    "express-minify-html": "^0.12.0",
     "express-prom-bundle": "3.1.0",
     "fluent-logger": "2.4.0",
     "inputmask-core": "2.1.1",

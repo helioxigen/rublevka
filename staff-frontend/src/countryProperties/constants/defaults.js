@@ -29,6 +29,11 @@ export const initialElementScheme = {
 };
 
 const defaultParamsByGroup = {
+  all: {
+    pagination: {
+      limit: 124,
+    },
+  },
   sale: {
     filter: {
       state: ['public', 'rented'],
@@ -155,10 +160,10 @@ export const getDefaultsByGroup = (group, options) => {
   }
 
   if (
-    group === 'forSettlementOnlyPrimary' ||
-    group === 'forSettlementSale' ||
-    group === 'forSettlementRent' ||
-    group === 'forSettlementLanding'
+    group === 'forSettlementOnlyPrimary'
+    || group === 'forSettlementSale'
+    || group === 'forSettlementRent'
+    || group === 'forSettlementLanding'
   ) {
     return {
       ...defaultParamsByGroup[group],

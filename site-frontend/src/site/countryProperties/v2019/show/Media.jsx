@@ -40,7 +40,7 @@ const MobileGallery = styled.div`
 `;
 
 const Header = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -48,6 +48,7 @@ const Header = styled.div`
   width: 100%;
   background: #ffffff;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+  z-index: 2;
 `;
 
 const CloseButton = styled.button`

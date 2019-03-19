@@ -193,7 +193,9 @@ class Filter extends Component {
               isViewOpen={isViewOpen}
             >
               {count ? 'Показать' : 'Нет'}
+              {' '}
               <FormattedNumber value={count} />
+              {' '}
               <CountIndicator
                 count={count}
                 declensionForms={['объект', 'объекта', 'объектов']}
@@ -238,7 +240,9 @@ class Filter extends Component {
               style={{ display: isViewOpen ? 'block' : 'none' }}
             >
               {count ? 'Показать' : 'Нет'}
+              {' '}
               <FormattedNumber value={count} />
+              {' '}
               <CountIndicator
                 count={count}
                 declensionForms={['объект', 'объекта', 'объектов']}

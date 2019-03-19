@@ -16,16 +16,30 @@ const Header = styled.header`
 `;
 
 const group = 'all';
-// const resource = `countryProperties.${group}`;
+
+function load({ dispatch, filter = {} } = {}) {
+  return dispatch(loadList({ filter }, group));
+}
 
 const mapStateToProps = ({ countryProperties }) => ({ countryProperties });
 
 export default connect(mapStateToProps)(({ dispatch, countryProperties }) => {
-  React.useEffect(() => {
-    dispatch(loadList({}, group));
-  }, []);
+  const [filter, update] = React.useState({});
+
+  React.useEffect(
+    () => {
+      load({ filter, dispatch });
+
+      return () => {};
+    },
+    [filter],
+  );
 
   const { ids = [] } = countryProperties[group] || {};
+
+  function onChange(key, value) {
+    return update({ ...filter, [key]: value });
+  }
 
   return (
     <Layout>
@@ -33,15 +47,18 @@ export default connect(mapStateToProps)(({ dispatch, countryProperties }) => {
         <Title>Загородные объекты</Title>
 
         <Header>
-          <Input type="text" placeholder="Поиск по ID" />
+          <Input
+            type="text"
+            placeholder="Поиск по ID"
+            onChange={e => onChange('id', e.target.value.replace(/ /g, '').split(','))
+            }
+          />
           <Button>Найти</Button>
         </Header>
 
         <section>
-          <Title2>Все предложения</Title2>
-
           <div className="row">
-            <div className="col-sm-9">
+            <div className="col-sm-12">
               {/* <pre>{JSON.stringify(props.countryProperties, null, 2)}</pre> */}
               <div className="row">
                 {ids.map(id => (
@@ -51,9 +68,9 @@ export default connect(mapStateToProps)(({ dispatch, countryProperties }) => {
                 ))}
               </div>
             </div>
-            <div className="col-sm-3">
+            {/* <div className="col-sm-3">
               <Title2>Фильтры</Title2>
-            </div>
+            </div> */}
           </div>
         </section>
       </div>

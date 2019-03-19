@@ -1,18 +1,17 @@
+/* eslint-disable react/style-prop-object */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-// import pluralize from 'pluralize-ru';
+import { FormattedNumber } from 'react-intl';
+import pluralize from 'pluralize-ru';
 
 import { Body, BodyBigBold } from '../UI';
 
-// import { FormattedNumber } from 'react-intl';
+import { states } from './constants/dictionaries';
 
-// import Title from 'site/countryProperties/v2019/show/Title';
-// import Price from 'site/countryProperties/v2019/show/Price';
-
-// import { dealTypes, kindsTranslit } from './constants/dictionaries';
+import placeholder from './img/placeholder.png';
 
 const Link = styled(RouterLink)`
   display: block;
@@ -37,23 +36,45 @@ const Image = styled.img`
 
 const Id = styled.p`
   margin: 0;
-  padding: 5px;
+  padding: 6px 8px;
   position: absolute;
-  top: 20px;
-  left: 0;
+  top: 14px;
+  right: 0;
   background: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+
+  line-height: 14px;
+  font-size: 14px;
+  font-weight: 500;
+
+  color: #ffffff;
+`;
+
+const stateStyles = {
+  primary: '#1EAAF1',
+  success: '#50AD55',
+  warning: '#FDC02F',
+  danger: '#F1453D',
+};
+
+const State = styled.p`
+  margin: 0;
+  padding: 6px 8px;
+  position: absolute;
+  top: 14px;
+  left: 0;
+  background: ${({ state }) => stateStyles[states[state].style]};
   border-radius: 4px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 
-  line-height: 18px;
-  font-size: 15px;
+  line-height: 14px;
+  font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.535714px;
 
   color: #ffffff;
-
-  text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.35);
 `;
 
 const TitleWrapper = styled.h3`
@@ -85,15 +106,42 @@ const Summary = styled.p`
   }
 `;
 
-const PriceWrapper = styled.p`
+const StPrice = styled.p`
   margin: 22px 10px 0px 10px;
   padding-bottom: 14px;
   line-height: 24px;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
 
   color: #232323;
 `;
+
+function Price({ saleOffer, rentOffer }) {
+  return (
+    <StPrice>
+      {saleOffer && (
+        <FormattedNumber
+          style="currency"
+          currency={saleOffer.currency}
+          value={saleOffer.price}
+          maximumSignificantDigits={12}
+        />
+      )}
+      {rentOffer && (
+        <>
+          {' / '}
+          <FormattedNumber
+            style="currency"
+            currency={rentOffer.currency}
+            value={rentOffer.price}
+            maximumSignificantDigits={12}
+          />{' '}
+          в мес
+        </>
+      )}
+    </StPrice>
+  );
+}
 
 class Card extends Component {
   renderPhoto = (data) => {
@@ -108,58 +156,58 @@ class Card extends Component {
       );
     }
 
-    return null;
+    return <Image src={placeholder} />;
   };
 
   render() {
     const { data = {} } = this.props;
-    const { specification = {}, landDetails = {}, location = {} } = data;
-    // const deal = data.saleOffer || {};
+    const {
+      specification = {},
+      landDetails = {},
+      location = {},
+      saleOffer,
+      rentOffer,
+    } = data;
 
     return (
       <Link to={`/country-properties/${data.id}`}>
-        <Id>
-№
-          {data.id}
-        </Id>
+        <Id>{`№ ${data.id}`}</Id>
+        <State state={data.state}>{states[data.state].title}</State>
+
         {this.renderPhoto(data)}
+
         <TitleWrapper>
           <BodyBigBold>{location.settlementName}</BodyBigBold>
-          <Body>
-            {location.routeName}
-,
-            {location.mkadDistance}
-            {' '}
-км
-          </Body>
+          <Body>{`${location.routeName}, ${location.mkadDistance} км`}</Body>
         </TitleWrapper>
+
         <Summary>
           {landDetails.area && (
             <SummaryInfo>
               {Math.floor(landDetails.area)}
-&nbsp;сот
+              &nbsp;сот
             </SummaryInfo>
           )}
           {!!specification.area && (
             <SummaryInfo>
               {Math.floor(specification.area)}
-&nbsp;м²
+              &nbsp;м²
             </SummaryInfo>
           )}
-          {!!specification.bedrooms && (
+          {specification.bedrooms && (
             <SummaryInfo>
-              {/* {pluralize(
+              {pluralize(
                 specification.bedrooms,
+                '0 спален',
                 '%d спальня',
                 '%d спальни',
                 '%d спален',
-              )} */}
+              )}
             </SummaryInfo>
           )}
         </Summary>
-        <PriceWrapper>
-          {/* <Price deal={deal} dealType={dealType} /> */}
-        </PriceWrapper>
+
+        <Price saleOffer={saleOffer} rentOffer={rentOffer} />
       </Link>
     );
   }

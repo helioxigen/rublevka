@@ -16,7 +16,7 @@ import { updatePagination } from '../../jq-redux-api/actions/pagination';
 import { recursiveCleanUp, mergeParams } from '../../jq-redux-api/helpers';
 import { mapParams } from '../helpers';
 
-const loadProperties = (queryParams, group, options = {}) => dispatch => {
+const loadProperties = (queryParams, group, options = {}) => (dispatch) => {
   const defaultQueryParams = getDefaultsByGroup(group, options);
   const params = mapParams(
     recursiveCleanUp(mergeParams(defaultQueryParams, queryParams)),
@@ -40,7 +40,7 @@ const loadProperties = (queryParams, group, options = {}) => dispatch => {
 
       return Promise.resolve(items);
     },
-    errors => {
+    (errors) => {
       dispatch(loadListFailed(types.LOAD_LIST_FAILED, group, errors));
 
       return Promise.reject(errors);

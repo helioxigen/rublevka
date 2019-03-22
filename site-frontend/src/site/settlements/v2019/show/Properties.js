@@ -4,8 +4,6 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import cn from 'classnames';
-
 // helpers
 import capitalize from 'lodash/capitalize';
 import isEqual from 'lodash/isEqual';
@@ -34,9 +32,6 @@ import NotFound from '../../../properties/notFound';
 import OrderBy from '../../../properties/orderBy';
 // import ResultForm from '../../../request/PropertiesFormSatTisa';
 
-// styles
-import st from '../../../styles/themes';
-import sUtils from '../../../styles/utils.css';
 import media from '../../../styles/media';
 
 import {
@@ -75,7 +70,7 @@ class List extends Component {
     this.props.actions.resetFilter(this.resource, null, null);
     this.props.actions.updatePagination(this.resource, { offset: 0 });
 
-    this.load(this.props);
+    this.load(this.props, false);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -102,13 +97,12 @@ class List extends Component {
       this.resource = `${resourceName}.${this.group}`;
     }
 
-    if (
-      isPaginationUpdated
-      || isGroupUpdated
-      || isFiltersUpdated
-      || isOrderUpdated
-    ) {
-      this.load(nextProps);
+    if (isGroupUpdated || isFiltersUpdated || isOrderUpdated) {
+      this.load(nextProps, false);
+    }
+
+    if (isPaginationUpdated && !isGroupUpdated) {
+      this.load(nextProps, true);
     }
   }
 
@@ -126,14 +120,14 @@ class List extends Component {
     actions.resetFilter(this.resource, null, null);
   };
 
-  load({ state, actions, settlementId }) {
+  load({ state, actions, settlementId }, append) {
     const options = {
       pagination: state.pagination[this.resource],
       filter: state.filters[this.resource],
       orderBy: state.order[this.resource],
     };
 
-    actions.loadProperties(options, this.group, { settlementId });
+    actions.loadProperties(options, this.group, { settlementId, append });
   }
 
   renderOrderBy() {
@@ -277,9 +271,8 @@ class List extends Component {
                     limit={pagination.limit}
                     resource={this.resource}
                     updatePagination={this.props.actions.updatePagination}
-                    className={cn(sUtils.pushedBottom4, st.settlement.btnLoad)}
                   >
-                    Показать ещё
+                    Загрузить ещё
                   </LoadMore>
                 </Col>
               </Row>

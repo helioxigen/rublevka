@@ -1,19 +1,35 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import styled from 'styled-components';
 
-export default (styles = {}, ui = {}) => {
-  const { Button } = ui;
+import media from '../../../styles/media';
 
-  return class extends Component {
-    static propTypes = {
-      resource: PropTypes.string.isRequired,
-      updatePagination: PropTypes.func.isRequired,
-      offset: PropTypes.number.isRequired,
-      limit: PropTypes.number.isRequired,
-      total: PropTypes.number.isRequired,
-      isScrollToTop: PropTypes.bool,
-    };
+const Button = styled.button`
+  padding: 19px 24px;
+  margin-top: 16px;
+  background: #f44336;
+  border: none;
+  border-radius: 8px;
 
-    handlePageChanged() {
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 18px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #ffffff;
+
+  ${media.xs`
+    margin-top: 32px;
+  `}
+
+  ${media.md`
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+  `}
+`;
+
+export default () => class extends Component {
+    handlePageChanged = () => {
       const offset = this.props.offset + this.props.limit;
 
       if (this.props.isScrollToTop) {
@@ -23,7 +39,7 @@ export default (styles = {}, ui = {}) => {
       if (this.props.resource && this.props.updatePagination) {
         this.props.updatePagination(this.props.resource, { offset });
       }
-    }
+    };
 
     render() {
       const { offset, limit, total } = this.props;
@@ -33,8 +49,7 @@ export default (styles = {}, ui = {}) => {
           <Button
             kind={this.props.kind}
             size={this.props.size}
-            onClick={::this.handlePageChanged}
-            className={this.props.className}
+            onClick={this.handlePageChanged}
           >
             {this.props.children}
           </Button>
@@ -43,5 +58,4 @@ export default (styles = {}, ui = {}) => {
 
       return null;
     }
-  };
 };

@@ -40,12 +40,12 @@ export default class extends Component {
     this.setState({ fullscreen });
 
     if (fullscreen) {
-      this.refs.container.addEventListener(`wheel`, cancelScrollEvent, false);
+      this.refs.container.addEventListener('wheel', cancelScrollEvent, false);
       this.refs.mapgl.getMap().scrollZoom.enable();
       this.refs.mapgl.getMap().dragPan.enable();
     } else {
       this.refs.container.removeEventListener(
-        `wheel`,
+        'wheel',
         cancelScrollEvent,
         false,
       );
@@ -72,7 +72,7 @@ export default class extends Component {
       container.props.className,
     );
 
-    if (typeof window !== `undefined` && !window.mapboxgl) return null;
+    if (typeof window !== 'undefined' && !window.mapboxgl) return null;
 
     return (
       <container ref="container" className={className}>
@@ -84,9 +84,9 @@ export default class extends Component {
           controls={false}
         />
 
-        {!this.state.fullscreen &&
-          !this.props.noFullScreen &&
-          !this.props.isFullScreenDisabled && (
+        {!this.state.fullscreen
+          && !this.props.noFullScreen
+          && !this.props.isFullScreenDisabled && (
             <UI.Button
               className={s.btnFullScreen}
               type="button"
@@ -95,7 +95,7 @@ export default class extends Component {
               <UI.Icon className={s.iconFrame} icon="frame" />
               На весь экран
             </UI.Button>
-          )}
+        )}
 
         {this.state.fullscreen && (
           <UI.Button

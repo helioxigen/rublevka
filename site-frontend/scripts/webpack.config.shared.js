@@ -8,7 +8,9 @@ const envParams = {
   BUILD_ID: process.env.NODE_ENV === 'development' || !!process.env.BUILD_ID,
 };
 
-const failedEnvParams = Object.keys(envParams).filter(param => !envParams[param]);
+const failedEnvParams = Object.keys(envParams).filter(
+  param => !envParams[param],
+);
 
 if (failedEnvParams.length > 0) throw new Error(`Provide ${failedEnvParams.join(', ')}`);
 
@@ -86,15 +88,23 @@ const config = {
         test: /\.svg$/,
         loader: 'file-loader',
         exclude: /node_modules/,
-        include: [path.join(__dirname, '..', 'src', 'site', 'assets', 'images')],
+        include: [
+          path.join(__dirname, '..', 'src', 'site', 'assets', 'images'),
+        ],
         options: {
           name: 'static/[hash].[ext]',
         },
       },
       {
         test: /\.svg?$/,
-        exclude: [path.join(__dirname, '..', 'src', 'site', 'assets', 'images'), /node_modules/],
-        use: ['svg-sprite-loader', { loader: 'svgo-loader', options: svgoOptions }],
+        exclude: [
+          path.join(__dirname, '..', 'src', 'site', 'assets', 'images'),
+          /node_modules/,
+        ],
+        use: [
+          'svg-sprite-loader',
+          { loader: 'svgo-loader', options: svgoOptions },
+        ],
       },
       {
         test: /\.woff2?$/,
@@ -133,13 +143,17 @@ const config = {
         MAPBOX_TOKEN: JSON.stringify(process.env.MAPBOX_TOKEN),
         UPLOADCARE_KEY: JSON.stringify(process.env.UPLOADCARE_KEY),
         REACT_APP_SENTRY_DSN: JSON.stringify(process.env.REACT_APP_SENTRY_DSN),
-        REACT_APP_METRIKA_CODE: JSON.stringify(process.env.REACT_APP_METRIKA_CODE),
+        REACT_APP_METRIKA_CODE: JSON.stringify(
+          process.env.REACT_APP_METRIKA_CODE,
+        ),
       },
     }),
   ],
 };
 
-
 module.exports = {
-  config, postcssPlugins, svgoOptions, cssGeneratedScopeName,
+  config,
+  postcssPlugins,
+  svgoOptions,
+  cssGeneratedScopeName,
 };

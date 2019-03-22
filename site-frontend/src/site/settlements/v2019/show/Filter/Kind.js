@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 
-import { withRouter } from 'react-router';
-
-import { kindsTranslit } from '../../../../constants/properties/dictionaries';
-
 import {
   CheckboxWrapper,
   ControlsContainer,
   Title,
   FilterHeader,
   IconReset,
-} from './styled';
+} from '../../../../countryProperties/v2019/list/filter/styled';
 
 import UI from '../../../../ui/v2019';
 
@@ -29,19 +25,11 @@ class Kind extends Component {
   }
 
   onUpdate(value) {
-    const { dealType, router } = this.props;
-
     this.props.updateFilter(key, [value]);
-
-    router.push(`/zagorodnaya/${dealType}/${kindsTranslit[value]}`);
   }
 
   onReset() {
-    const { dealType, router } = this.props;
-
     this.props.updateFilter(key, []);
-
-    router.push(`/zagorodnaya/${dealType}`);
   }
 
   render() {
@@ -94,4 +82,4 @@ class Kind extends Component {
   }
 }
 
-export default withRouter(Kind);
+export default Kind;

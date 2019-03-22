@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 
-import media from 'site/styles/media';
+import media from '../styles/media';
 
+import loadCountryProperties from '../../core/countryProperties/actions/list/load';
 import Card from '../countryProperties/v2019/Card';
-import loadCountryProperties from 'core/countryProperties/actions/list/load';
 
 import UI from '../ui/v2019';
 
@@ -46,7 +46,10 @@ const Wrapper = styled.div`
 
 function load({ state: { favorites }, actions }) {
   const favoritesIds = favorites.map(item => item.id);
-  return actions.loadCountryProperties({ filter: { id: favoritesIds } }, 'favorites');
+  return actions.loadCountryProperties(
+    { filter: { id: favoritesIds } },
+    'favorites',
+  );
 }
 
 class Favorites extends React.Component {
@@ -56,13 +59,13 @@ class Favorites extends React.Component {
     this.state = { isLoaded: false };
   }
 
-
   componentDidUpdate() {
     const { state, actions } = this.props;
     const { rehydrated } = this.context;
 
     if (rehydrated && !this.state.isLoaded) {
       load({ state, actions });
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ isLoaded: true });
     }
   }
@@ -77,8 +80,8 @@ class Favorites extends React.Component {
           <Title>Избранное</Title>
           <Col md="10" mdOffset="1">
             <Row>
-              {favorites.length > 0 &&
-                favorites.map(({ id, dealType }) => (
+              {favorites.length > 0
+                && favorites.map(({ id, dealType }) => (
                   <Col xs="12" sm="6" md="6" lg="4">
                     <Card dealType={dealType} key={id} id={id} showLocation />
                   </Col>
@@ -90,10 +93,6 @@ class Favorites extends React.Component {
     );
   }
 }
-
-Favorites.contextTypes = {
-  rehydrated: React.PropTypes.bool,
-};
 
 // redux connectors
 const pickState = (state) => {

@@ -1,11 +1,12 @@
+/* eslint-disable react/style-prop-object */
 import React from 'react';
 import styled from 'styled-components';
 
 import { FormattedNumber } from 'react-intl';
 
-import media from 'site/styles/media';
+import media from '../../../styles/media';
+import UI from '../../../ui';
 import { WrapperBase, Title as TitleBase } from './styled';
-import UI from 'site/ui';
 
 const { Visibility, Icon } = UI;
 
@@ -63,45 +64,45 @@ const Divider = styled.div`
   background-color: #eeeeee;
 `;
 
-const Author = styled.div`
-  padding-right: 80px;
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-`;
+// const Author = styled.div`
+//   padding-right: 80px;
+//   display: flex;
+//   align-items: center;
+//   margin-bottom: 8px;
+// `;
 
-const Avatar = styled.img`
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
-  margin-right: 10px;
-  background-color: #eeeeee;
-`;
+// const Avatar = styled.img`
+//   width: 80px;
+//   height: 80px;
+//   border-radius: 40px;
+//   margin-right: 10px;
+//   background-color: #eeeeee;
+// `;
 
-const TextBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+// const TextBlock = styled.div`
+//   display: flex;
+//   flex-direction: column;
+// `;
 
-const Name = styled.p`
-  margin: 0;
-  line-height: 18px;
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: 0.45px;
-  text-transform: uppercase;
-  color: #232323;
-`;
+// const Name = styled.p`
+//   margin: 0;
+//   line-height: 18px;
+//   font-size: 15px;
+//   font-weight: 500;
+//   letter-spacing: 0.45px;
+//   text-transform: uppercase;
+//   color: #232323;
+// `;
 
-const Position = styled.p`
-  margin: 0;
-  margin-top: 4px;
-  line-height: 18px;
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: 0.352941px;
-  color: rgba(35, 35, 35, 0.5);
-`;
+// const Position = styled.p`
+//   margin: 0;
+//   margin-top: 4px;
+//   line-height: 18px;
+//   font-size: 15px;
+//   font-weight: 500;
+//   letter-spacing: 0.352941px;
+//   color: rgba(35, 35, 35, 0.5);
+// `;
 
 const CallbackForm = styled.form`
   margin-top: 4px;
@@ -190,12 +191,17 @@ const FavoriteIcon = styled(Icon)`
   margin-right: 8px;
 `;
 
-export default ({ priceData: { currency, price, priceForBlock }, kind, toggleFavorite }) => (
+export default ({
+  priceData: { currency, price, priceForBlock },
+  kind,
+  toggleFavorite,
+}) => (
   <Wrapper>
     <Visibility md="hidden" lg="hidden">
       <Title>Обратный звонок</Title>
       <Body>
-        Понравился дом? Оставьте заявку ниже и наш менеджер свяжется с вами в течение дня.
+        Понравился дом? Оставьте заявку ниже и наш менеджер свяжется с вами в
+        течение дня.
       </Body>
     </Visibility>
     <Visibility xs="hidden" sm="hidden">

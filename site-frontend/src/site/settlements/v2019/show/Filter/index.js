@@ -17,13 +17,13 @@ import sSlider from '../../../../styles/ui/slider.css';
 import sUtils from '../../../../styles/utils.css';
 import st from '../../../../styles/themes2019';
 
-import Kind from './kind';
-import Price from './price2';
-import Bedroom from './bedroom';
-import Areas from './areas';
-import Renovate from './renovate';
-import Distance from './distance';
-import * as S from './styled';
+import Type from './Type';
+import Kind from './Kind';
+import Price from '../../../../countryProperties/v2019/list/filter/price2';
+import Bedroom from '../../../../countryProperties/v2019/list/filter/bedroom';
+import Areas from '../../../../countryProperties/v2019/list/filter/areas';
+import Renovate from '../../../../countryProperties/v2019/list/filter/renovate';
+import * as S from '../../../../countryProperties/v2019/list/filter/styled';
 
 const { Visibility, CountIndicator } = UI;
 
@@ -73,6 +73,10 @@ class Filter extends Component {
     }
   }
 
+  toggleResourceName(key, value) {
+    this.props.toggleResourceName(key, value);
+  }
+
   updateFilter(key, value) {
     const values = {
       [key]: value,
@@ -100,10 +104,16 @@ class Filter extends Component {
   }
 
   renderFilters() {
-    const { state, dealType } = this.props;
+    const { state, dealType, onTypeChange } = this.props;
 
     return (
       <div>
+        <Type
+          selected={dealType}
+          dealType={dealType}
+          onTypeChange={onTypeChange}
+        />
+
         <Kind
           selected={state}
           updateFilter={this.updateFilter}
@@ -119,12 +129,6 @@ class Filter extends Component {
         />
 
         <Areas
-          selected={state}
-          updateFilter={this.updateFilter}
-          removeFilter={this.removeFilter}
-        />
-
-        <Distance
           selected={state}
           updateFilter={this.updateFilter}
           removeFilter={this.removeFilter}

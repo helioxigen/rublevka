@@ -1,7 +1,7 @@
 /* eslint-disable react/style-prop-object */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link as RouterLink } from 'react-router-dom';
+// import { Link as RouterLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { FormattedNumber } from 'react-intl';
@@ -13,7 +13,7 @@ import { states } from './constants/dictionaries';
 
 import placeholder from './img/placeholder.png';
 
-const Link = styled(RouterLink)`
+const Link = styled.a`
   display: block;
   width: 100%;
   position: relative;
@@ -170,7 +170,8 @@ class Card extends Component {
     } = data;
 
     return (
-      <Link to={`/country-properties/${data.id}`}>
+      // <Link to={`/country-properties/${data.id}`}>
+      <Link href={`https://cem.jq.estate/properties/country/${data.id}/about`}>
         <Id>{`№ ${data.id}`}</Id>
         <State state={data.state}>{states[data.state].title}</State>
 

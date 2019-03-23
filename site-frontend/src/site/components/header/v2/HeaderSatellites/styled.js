@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import media from 'site/styles/media';
+import media from '../../../../styles/media';
 
-import Body from 'site/components/body';
+import Body from '../../../body';
 
-import UI from 'site/ui';
+import UI from '../../../../ui';
 
 const {
   Navbar,
@@ -21,9 +21,8 @@ export const HeaderBody = styled(Body)`
     box-shadow: none;
   `}
 
-  ${p =>
-    p.active &&
-    `
+  ${p => p.active
+    && `
     position: fixed;
     width: 100%;
   `};
@@ -50,18 +49,16 @@ export const Cover = styled.div`
 `;
 
 export const Wrapper = styled.header`
-  ${p =>
-    p.isLanding &&
-    `
+  ${p => p.isLanding
+    && `
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
   `}
 
-  ${p =>
-    !p.isLanding &&
-    `
+  ${p => !p.isLanding
+    && `
     position: relative;
     min-height: 48px;
     background: #FFFFFF;
@@ -113,9 +110,8 @@ export const Nav = styled(Navbar.Container)`
     display: none;
   }
 
-  ${p =>
-    p.active &&
-    `
+  ${p => p.active
+    && `
       transform: translate3d(0, 0, 0);
   `};
 
@@ -135,7 +131,8 @@ export const Nav = styled(Navbar.Container)`
     transform: none;
     padding: 0;
   `}
-  overflow-y: ${p => (p.isVisible ? 'visible' : scroll)}
+
+  overflow-y: ${p => (p.isVisible ? 'visible' : 'scroll')}
 `;
 
 export const HamburgerIcon = styled(Icon)`
@@ -329,9 +326,8 @@ export const CallbackBtn = styled(Button)`
 
 export const Overlay = styled.div`
   opacity: 0;
-  ${p =>
-    p.active &&
-    `
+  ${p => p.active
+    && `
     content: '';
     position: fixed;
     top: 0;

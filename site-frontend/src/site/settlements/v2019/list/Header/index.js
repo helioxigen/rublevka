@@ -13,12 +13,12 @@ const {
   Grid: { Container, Col },
 } = UI;
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   background-image: url(${bgImg});
   background-size: cover;
 `;
 
-const Header = styled.h1`
+export const Header = styled.h1`
   margin: 0;
   padding-top: 40px;
   line-height: 38px;
@@ -43,7 +43,7 @@ const Header = styled.h1`
   `}
 `;
 
-const FormWrapper = styled.div`
+export const FormWrapper = styled.div`
   padding-top: 24px;
   padding-bottom: 48px;
   margin: 0 -15px;

@@ -70,7 +70,6 @@ const defaultParamsByGroup = {
   forSettlementSale: {
     filter: {
       state: ['public'],
-      isResale: 'true',
       salePrice: '0..',
     },
     pagination: {

@@ -43,7 +43,11 @@ const LocationSection = ({ enableEditMode, isEditMode, property }) => {
             </PropertyBigValue>
             <PropertyValue>
               <BodyBold>От МКАД:&nbsp;</BodyBold>
-              <Body>{property.location.mkadDistance} км</Body>
+              <Body>
+                {property.location.mkadDistance}
+                {' '}
+км
+              </Body>
             </PropertyValue>
           </Property>
           <Property xs={3}>
@@ -59,9 +63,7 @@ const LocationSection = ({ enableEditMode, isEditMode, property }) => {
           </Property>
           <Property xs={5}>
             <PropertyTitle>Номер участка</PropertyTitle>
-            <BodyBig>
-              {property.location.latitude}, {property.location.longitude}
-            </BodyBig>
+            <BodyBig>{property.location.house}</BodyBig>
           </Property>
           {property.location.cadastralNumber && (
             <Property xs={3}>

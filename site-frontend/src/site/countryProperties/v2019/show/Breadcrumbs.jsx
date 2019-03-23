@@ -1,13 +1,15 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 import { Link } from 'react-router';
 
-import UI from 'site/ui';
+import UI from '../../../ui';
 
-import { nameToSlug } from 'core/helpers/nameToSlug';
-import { dealTypesTranslit, dealTypesTranslateV2 } from 'site/constants/properties/dictionaries';
-import media from 'site/styles/media';
-
-import styled from 'styled-components';
+import { nameToSlug } from '../../../../core/helpers/nameToSlug';
+import {
+  dealTypesTranslit,
+  dealTypesTranslate,
+} from '../../../constants/properties/dictionaries';
+import media from '../../../styles/media';
 
 const { Icon } = UI;
 
@@ -64,49 +66,58 @@ const StIcon = styled(Icon)`
   fill: rgba(35, 35, 35, 0.5);
 `;
 
-class PropertyBreadcrumbs extends Component {
-  static propTypes = {
-    data: PropTypes.object.isRequired,
-  };
+export default ({ data, dealType }) => {
+  const { location = {} } = data;
 
-  render() {
-    const { data, dealType } = this.props;
-    const { location = {} } = data;
-
-    return (
-      <Wrapper>
-        <Ol itemScope itemType="http://schema.org/BreadcrumbList">
-          <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-            <StLink to="/" itemProp="item">
-              <span itemProp="name">Главная</span>
-              <meta itemProp="position" content="1" />
-              <StIcon icon="arrow-left" />
+  return (
+    <Wrapper>
+      <Ol itemScope itemType="http://schema.org/BreadcrumbList">
+        <Li
+          itemProp="itemListElement"
+          itemScope
+          itemType="http://schema.org/ListItem"
+        >
+          <StLink to="/" itemProp="item">
+            <span itemProp="name">Главная</span>
+            <meta itemProp="position" content="1" />
+            <StIcon icon="arrow-left" />
+          </StLink>
+        </Li>
+        <Li
+          itemProp="itemListElement"
+          itemScope
+          itemType="http://schema.org/ListItem"
+        >
+          <StLink
+            to={`/zagorodnaya/${dealTypesTranslit[dealType]}`}
+            itemProp="item"
+          >
+            <span itemProp="name">{dealTypesTranslate[dealType]}</span>
+            <meta itemProp="position" content="2" />
+            <StIcon icon="arrow-left" />
+          </StLink>
+        </Li>
+        {location.localityId && (
+          <Li
+            itemProp="itemListElement"
+            itemScope
+            itemType="http://schema.org/ListItem"
+          >
+            <StLink
+              to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
+                location.settlementName,
+              )}_${location.settlementId}`}
+              itemProp="item"
+            >
+              <span itemProp="name">
+                {location.settlementName}
+&nbsp;
+              </span>
+              <meta itemProp="position" content="3" />
             </StLink>
           </Li>
-          <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-            <StLink to={`/zagorodnaya/${dealTypesTranslit[dealType]}`} itemProp="item">
-              <span itemProp="name">{dealTypesTranslateV2[dealType]}</span>
-              <meta itemProp="position" content="2" />
-              <StIcon icon="arrow-left" />
-            </StLink>
-          </Li>
-          {location.localityId && (
-            <Li itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-              <StLink
-                to={`/zagorodnaya/nas-punkt/${nameToSlug(location.localityName)}_${
-                  location.localityId
-                }/${dealTypesTranslit[dealType]}`}
-                itemProp="item"
-              >
-                <span itemProp="name">{location.localityName}&nbsp;</span>
-                <meta itemProp="position" content="3" />
-              </StLink>
-            </Li>
-          )}
-        </Ol>
-      </Wrapper>
-    );
-  }
-}
-
-export default PropertyBreadcrumbs;
+        )}
+      </Ol>
+    </Wrapper>
+  );
+};

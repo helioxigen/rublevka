@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 import styled from 'styled-components';
+import bgUrl from './assets/images/404.jpg';
 import media from './styles/media';
 
 const Wrapper = styled.div.attrs({
@@ -96,7 +97,7 @@ const MainpageLink = styled(Link)`
 `;
 
 const NotFound = () => (
-  <Wrapper bgUrl={require('./assets/images/404.jpg')}>
+  <Wrapper bgUrl={bgUrl}>
     <Title>404</Title>
     <SubTitle>Страница не найдена</SubTitle>
     <NewSearch to="/zagorodnaya/prodaja">Новый поиск</NewSearch>

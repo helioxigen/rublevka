@@ -3,6 +3,8 @@ import { FormattedNumber } from 'react-formatted';
 
 import CSSModules from 'react-css-modules';
 
+import { withRouter } from 'react-router';
+
 import {
   disableBodyScroll,
   enableBodyScroll,
@@ -45,6 +47,7 @@ class Filter extends Component {
 
     this.updateFilter = this.updateFilter.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
+    this.resetFilter = this.resetFilter.bind(this);
     this.toggle = this.toggle.bind(this);
     this.targetElement = null;
   }
@@ -73,10 +76,6 @@ class Filter extends Component {
     }
   }
 
-  toggleResourceName(key, value) {
-    this.props.toggleResourceName(key, value);
-  }
-
   updateFilter(key, value) {
     const values = {
       [key]: value,
@@ -86,8 +85,11 @@ class Filter extends Component {
     this.props.actions.updateFilter(this.props.resourceName, values);
   }
 
-  resetFilter(key, value) {
-    this.props.actions.resetFilter(this.props.resourceName, key, value);
+  resetFilter() {
+    const { resetFilter, router, dealType } = this.props;
+
+    resetFilter();
+    router.push(`/zagorodnaya/${dealType}`);
   }
 
   removeFilter(key, value) {
@@ -152,7 +154,7 @@ class Filter extends Component {
   render() {
     const { isViewOpen } = this.props;
 
-    const { count, filterCount, resetFilter } = this.props; // filter helper
+    const { count, filterCount } = this.props; // filter helper
 
     return (
       <section>
@@ -172,7 +174,7 @@ class Filter extends Component {
               <S.IconClose icon="times" />
             </S.ButtonReset>
 
-            <S.ButtonReset disabled={!filterCount} onClick={resetFilter}>
+            <S.ButtonReset disabled={!filterCount} onClick={this.resetFilter}>
               <S.ResetText>Сбросить</S.ResetText>
             </S.ButtonReset>
           </S.BtnGroupHead>
@@ -227,7 +229,7 @@ class Filter extends Component {
                 <S.IconClose icon="times" />
               </S.ButtonReset>
 
-              <S.ButtonReset disabled={!filterCount} onClick={resetFilter}>
+              <S.ButtonReset disabled={!filterCount} onClick={this.resetFilter}>
                 <S.ResetText>Сбросить</S.ResetText>
               </S.ButtonReset>
             </S.BtnGroupHead>
@@ -269,5 +271,5 @@ const fields = [
 ];
 
 export default FilterHelper(null, fields)(
-  CSSModules(Filter, styles, cssOptions),
+  CSSModules(withRouter(Filter), styles, cssOptions),
 );

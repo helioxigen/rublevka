@@ -194,7 +194,10 @@ class List extends Component {
   }
 
   resetFilter() {
+    const { history, params = {} } = this.props;
+
     this.props.actions.resetFilter(this.resource, null, null);
+    history.push(`/zagorodnaya/${params.dealType}`);
   }
 
   renderOrderBy() {

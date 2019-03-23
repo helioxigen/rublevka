@@ -5,23 +5,21 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
-import global from 'window-or-global';
+import isEqual from 'lodash/isEqual';
 
 // actions
-import loadProperty from 'core/countryProperties/actions/id/load';
-import { setSharedRetargetingKey } from 'site/retargeting/actions';
-import { toggleFavorite } from 'core/actions/favorites';
+import loadProperty from '../../../../core/countryProperties/actions/id/load';
+import { setSharedRetargetingKey } from '../../../retargeting/actions';
+import { toggleFavorite } from '../../../../core/actions/favorites';
 
-import { track } from 'core/analytics';
-import * as analyticsEvents from 'core/analytics/constants';
+import { track } from '../../../../core/analytics';
+import * as analyticsEvents from '../../../../core/analytics/constants';
 
-// helpers
-import isEqual from 'lodash/isEqual';
-import { dealTypes } from 'site/constants/properties/dictionaries';
+import { dealTypes } from '../../../constants/properties/dictionaries';
 
 // UI
-import UI from 'site/ui';
-import media from 'site/styles/media';
+import UI from '../../../ui';
+import media from '../../../styles/media';
 
 // components
 import Helmet from './Helmet';
@@ -29,7 +27,7 @@ import Breadcrumbs from './Breadcrumbs';
 import Header from './Header';
 import Media from './Media';
 import Summary from './Summary';
-import Description from './Description';
+// import Description from './Description';
 import Info from './Info';
 import Layout from './Layout';
 import Location from './Location';
@@ -37,7 +35,10 @@ import Similar from './Similar';
 import CallBlock from './CallBlock';
 import CallForm from './CallForm';
 
-const { Grid: { Container, Col, Row }, Visibility } = UI;
+const {
+  Grid: { Container, Col, Row },
+  Visibility,
+} = UI;
 
 const Wrapper = styled.div`
   margin: 0 -10px;
@@ -59,9 +60,11 @@ const FormVisibility = styled(Visibility)`
 `;
 
 const load = ({ actions, id }) => {
-  actions
-    .loadProperty(id)
-    .then(data => track(analyticsEvents.propertyOpened(data)), err => console.error(err));
+  actions.loadProperty(id).then(
+    data => track(analyticsEvents.propertyOpened(data)),
+    // eslint-disable-next-line no-console
+    err => console.error(err),
+  );
 };
 
 class Property extends Component {
@@ -91,13 +94,21 @@ class Property extends Component {
   }
 
   render() {
-    const { state, kind, id, actions } = this.props;
+    const {
+      state, kind, id, actions,
+    } = this.props;
     const { favorites = [] } = state;
     const dealType = dealTypes[this.props.dealType];
 
     const property = state.countryProperties[id] || {};
     const { data = {}, errors } = property;
-    const { location = {}, images = [], landDetails = {}, specification = {}, communication = {} } = data;
+    const {
+      location = {},
+      images = [],
+      landDetails = {},
+      specification = {},
+      communication = {},
+    } = data;
 
     if (errors) {
       return <div>{errors}</div>;
@@ -113,8 +124,8 @@ class Property extends Component {
       longitude: parseFloat(lng),
     };
 
-    const currency = (data[`${dealType}Offer`] || {}).currency;
-    const price = (data[`${dealType}Offer`] || {}).price;
+    const { currency } = data[`${dealType}Offer`] || {};
+    const { price } = data[`${dealType}Offer`] || {};
     const priceForBlock = price / landDetails.area;
 
     const priceData = {
@@ -123,6 +134,7 @@ class Property extends Component {
       priceForBlock,
     };
 
+    // eslint-disable-next-line max-len
     const displaySummary = landDetails.area || specification.area || specification.bedrooms;
 
     return (
@@ -135,27 +147,65 @@ class Property extends Component {
             <Col xs="12" md="8">
               <Wrapper>
                 <Header data={data} propertyId={id} dealType={dealType} />
-                <Media toggleFavorite={() => actions.toggleFavorite(Number.parseInt(id), this.props.dealType)} isFavorite={favorites.some(item => item.id === Number.parseInt(id) && item.dealType === this.props.dealType)} images={images} propertyId={id} />
+                <Media
+                  toggleFavorite={() => actions.toggleFavorite(
+                    Number.parseInt(id, 10),
+                    this.props.dealType,
+                  )
+                  }
+                  isFavorite={favorites.some(
+                    item => item.id === Number.parseInt(id, 10)
+                      && item.dealType === this.props.dealType,
+                  )}
+                  images={images}
+                  propertyId={id}
+                />
                 {displaySummary && <Summary data={data} />}
                 {/* <Description data={data} /> */}
-                {(!!specification.area || Object.keys(communication).length !== 0) && <Info data={data} />}
-                {Object.keys((specification.layouts || {})).length !== 0 && <Layout kind={data.kind} layout={specification.layouts} />}
+                {(!!specification.area
+                  || Object.keys(communication).length !== 0) && (
+                  <Info data={data} />
+                )}
+                {Object.keys(specification.layouts || {}).length !== 0 && (
+                  <Layout kind={data.kind} layout={specification.layouts} />
+                )}
                 <Visibility sm="hidden" md="hidden" lg="hidden">
-                  {!!price && <CallForm toggleFavorite={() => actions.toggleFavorite(Number.parseInt(id), this.props.dealType)} priceData={priceData} kind={data.kind} />}
+                  {!!price && (
+                    <CallForm
+                      toggleFavorite={() => actions.toggleFavorite(
+                        Number.parseInt(id, 10),
+                        this.props.dealType,
+                      )
+                      }
+                      priceData={priceData}
+                      kind={data.kind}
+                    />
+                  )}
                 </Visibility>
-                {isPositionAvailable && <Location markerPosition={markerPosition} />}
+                {isPositionAvailable && (
+                  <Location markerPosition={markerPosition} />
+                )}
               </Wrapper>
             </Col>
             <Col md="4">
               <FormVisibility xs="hidden" sm="hidden" md="hidden">
-                {!!price && <CallForm toggleFavorite={() => actions.toggleFavorite(Number.parseInt(id), this.props.dealType)} priceData={priceData} kind={data.kind} />}
+                {!!price && (
+                  <CallForm
+                    toggleFavorite={() => actions.toggleFavorite(
+                      Number.parseInt(id, 10),
+                      this.props.dealType,
+                    )
+                    }
+                    priceData={priceData}
+                    kind={data.kind}
+                  />
+                )}
               </FormVisibility>
             </Col>
           </Row>
           <Similar id={data.id} dealType={this.props.dealType} />
           {!!price && <CallBlock priceData={priceData} kind={data.kind} />}
         </Container>
-
       </div>
     );
   }
@@ -186,4 +236,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Property);
+export default connect(
+  pickState,
+  pickActions,
+)(Property);

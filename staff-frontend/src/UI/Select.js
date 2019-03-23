@@ -17,7 +17,7 @@ const SelectItem = styled.div`
   cursor: pointer;
   white-space: nowrap;
   background-color: ${props =>
-    props.filled && props.selected ? theme.lightBlue : '#fff'};
+    (props.filled && props.selected ? theme.lightBlue : '#fff')};
 
   &:hover {
     border: 1px solid ${theme.blue};
@@ -33,14 +33,14 @@ const SelectItem = styled.div`
 
   & + div {
     border-left-color: ${props =>
-      props.filled && props.selected && 'transparent'};
+    props.filled && props.selected && 'transparent'};
   }
 
-  :first-child {
+  &:first-child {
     border-radius: 4px 0px 0px 4px;
   }
 
-  :last-child {
+  &:last-child {
     border-radius: 0px 4px 4px 0px;
     border-right: 1px solid
       ${props => (props.selected ? theme.blue : theme.alto)};

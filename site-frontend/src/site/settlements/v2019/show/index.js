@@ -1,7 +1,4 @@
-import global from 'window-or-global';
 import React, { Component } from 'react';
-
-import Scroll from 'react-scroll';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -10,32 +7,39 @@ import { connect } from 'react-redux';
 // import capitalize from 'lodash/capitalize';
 import isEqual from 'lodash/isEqual';
 
-import loadSettlement from 'core/settlements/actions/id/load';
-import loadProperties from 'core/countryProperties/actions/list/load'; // for ssr
+import loadSettlement from '../../../../core/settlements/actions/id/load';
+import loadProperties from '../../../../core/countryProperties/actions/list/load'; // for ssr
 
-import * as FilterActions from 'core/actions/filters';
-import { track } from 'core/analytics';
+import * as FilterActions from '../../../../core/actions/filters';
+import { track } from '../../../../core/analytics';
 
-import UI from 'site/ui';
-import MapComponent from 'site/ui/map';
-import Subscribe from 'site/request/subscribe';
+import UI from '../../../ui/v2019';
 
-import sUtils from 'site/styles/utils.css';
+import Properties from './Properties';
 
-import PrimaryProperties from './primaryProperties';
-import ResaleProperties from './resaleProperties';
-
-import About from './about';
-import Information from './information';
-import Description from './description';
+import About from './About';
 import Helmet from './Helmet';
+import MapSection from './Map';
 
-const isJQ = global.config.domain === 'jq.estate';
 const {
-  Grid: { Container, Row },
+  Grid: { Container },
 } = UI;
 
 class SettlementContainer extends Component {
+  static loadServer(dispatch, params) {
+    const parsedSettlement = params.settlement.split('_');
+    const [, settlementId] = parsedSettlement;
+
+    return Promise.all([
+      dispatch(loadSettlement(settlementId)),
+      dispatch(
+        loadProperties({}, 'forSettlementSale', {
+          settlementId,
+        }),
+      ),
+    ]);
+  }
+
   constructor(props) {
     super(props);
 
@@ -60,13 +64,12 @@ class SettlementContainer extends Component {
 
   componentDidUpdate(prevProps) {
     const {
-      actions,
       state,
       params: { settlement },
     } = this.props;
 
     const parsedSettlement = settlement.split('_');
-    const [settlementName, settlementId] = parsedSettlement;
+    const [, settlementId] = parsedSettlement;
 
     const { data: place } = state.settlements[settlementId] || {};
     const { data: prevPlace } = prevProps.state.settlements[settlementId] || {};
@@ -83,8 +86,8 @@ class SettlementContainer extends Component {
     }
 
     if (
-      prevProps.params.settlementId !== settlementId &&
-      !state.settlements[settlementId]
+      prevProps.params.settlementId !== settlementId
+      && !state.settlements[settlementId]
     ) {
       this.load(this.props);
     }
@@ -94,26 +97,10 @@ class SettlementContainer extends Component {
     this.setState({ dealType });
   }
 
-  static loadServer(dispatch, params) {
-    const parsedSettlement = params.settlement.split('_');
-    const [settlementName, settlementId] = parsedSettlement;
-
-    return Promise.all([
-      dispatch(loadSettlement(settlementId)),
-      dispatch(
-        loadProperties({}, 'forSettlementOnlyPrimary', { settlementId }),
-      ),
-      dispatch(
-        loadProperties({}, 'forSettlementSale', {
-          settlementId,
-        }),
-      ),
-    ]);
-  }
-
+  // eslint-disable-next-line class-methods-use-this
   load({ dispatch, params }) {
     const parsedSettlement = params.settlement.split('_');
-    const [settlementName, settlementId] = parsedSettlement;
+    const [, settlementId] = parsedSettlement;
 
     dispatch(loadSettlement(settlementId));
   }
@@ -131,20 +118,21 @@ class SettlementContainer extends Component {
 
     const { saleProperties = {}, rentProperties = {} } = statistics || {};
 
-    const primaryTotal = saleProperties.primary;
     const resaleTotal = saleProperties.resale;
     const rentTotal = rentProperties.total;
 
     const isPositionAvailable = location.latitude && location.longitude;
-    const marker = {
-      lat: location.latitude,
-      lng: location.longitude,
-      icon: isJQ ? 'marker' : 'markerPurple',
-    };
 
     return (
       <section>
-        <Container fluid>
+        <About
+          isFetching={isFetching}
+          data={data}
+          dealType={this.state.dealType}
+          kind={kind}
+        />
+
+        <Container>
           <Helmet
             data={data}
             category="country"
@@ -154,54 +142,26 @@ class SettlementContainer extends Component {
             dealType={this.state.dealType}
             kind={kind}
           />
-
-          <About
-            isFetching={isFetching}
-            data={data}
-            dealType={this.state.dealType}
-            kind={kind}
-          />
         </Container>
 
-        {primaryTotal > 0 && (
-          <PrimaryProperties
-            settlementId={settlementId}
-            statistics={statistics}
-          />
-        )}
         {(resaleTotal > 0 || rentTotal > 0) && (
-          <ResaleProperties
+          <Properties
+            data={data}
             settlementId={settlementId}
             dealType={this.state.dealType}
             statistics={statistics}
             toggleDealType={this.toggleDealType}
+            onTypeChange={dealType => this.setState({ dealType })}
           />
         )}
 
-        <Scroll.Element name="scrollTo">
-          <Information isFetching={isFetching} data={data} kind={kind} />
-        </Scroll.Element>
-
-        <Container fluid>
-          <Description
-            isFetching={isFetching}
-            data={data}
-            dealType={this.state.dealType}
-            kind={kind}
+        {isPositionAvailable && (
+          <MapSection
+            location={location}
+            longitude={location.longitude}
+            latitude={location.latitude}
           />
-
-          {isPositionAvailable && (
-            <Row className={sUtils.positionRelative}>
-              <MapComponent
-                center={[marker.lng, marker.lat]}
-                markers={[marker]}
-                container={<div className={sUtils.mapContainer} />}
-              />
-            </Row>
-          )}
-        </Container>
-
-        <Subscribe />
+        )}
       </section>
     );
   }

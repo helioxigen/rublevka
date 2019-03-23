@@ -3,33 +3,26 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import styled from 'styled-components';
 
+import global from 'window-or-global';
 import { bindActionCreators } from 'redux';
 // actions
-import { toggleFavorite } from 'core/actions/favorites';
-//
+import { toggleFavorite } from '../../../core/actions/favorites';
 
-import { FormattedNumber } from 'react-intl';
-import { cloudfront } from 'core/config/resources';
+import { cloudfront } from '../../../core/config/resources';
 
-import global from 'window-or-global';
+import Title from './show/Title';
+import Price from './show/Price';
 
-import Title from 'site/countryProperties/v2019/show/Title';
-import Price from 'site/countryProperties/v2019/show/Price';
+import UI from '../../ui';
 
-import UI from 'site/ui';
-
-import media from 'site/styles/media';
-
+import media from '../../styles/media';
 
 import {
   dealTypes,
   kindsTranslit,
-} from 'site/constants/properties/dictionaries';
+} from '../../constants/properties/dictionaries';
 
-const {
-  Icon,
-  CountIndicator,
- } = UI;
+const { Icon, CountIndicator } = UI;
 
 const LinkWrapper = styled(Link)`
   display: block;
@@ -41,7 +34,7 @@ const LinkWrapper = styled(Link)`
   border-radius: 4px;
   overflow: hidden;
 
-  &:hover{
+  &:hover {
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
   }
 `;
@@ -85,8 +78,8 @@ const TitleWrapper = styled.h3`
 `;
 
 const SummaryInfo = styled.span`
-   &::before {
-    content: " · ";
+  &::before {
+    content: ' · ';
   }
 `;
 
@@ -100,7 +93,7 @@ const Summary = styled.p`
 
   ${SummaryInfo}:first-of-type {
     &::before {
-      content: "";
+      content: '';
     }
   }
 `;
@@ -131,7 +124,7 @@ const FavoriteIcon = styled(Icon)`
   display: block;
   stroke: #ffffff;
   stroke-width: 2px;
-  fill: ${p => p.isActive ? '#F44336' : 'rgba(0,0,0, 0.3)'};
+  fill: ${p => (p.isActive ? '#F44336' : 'rgba(0,0,0, 0.3)')};
 `;
 
 class Card extends Component {
@@ -143,45 +136,67 @@ class Card extends Component {
       return (
         <Image
           src={`${global.config.cloudfront || cloudfront}/${
-              publicImages[0].id
-              }-thumbnail-512`}
+            publicImages[0].id
+          }-thumbnail-512`}
         />
       );
-    } else if (typeof window !== 'undefined') {
+    }
+    if (typeof window !== 'undefined') {
       return <StIcon icon="placeholder" />;
     }
 
     return null;
-  }
+  };
 
   render() {
-    const { data = {}, favorites, id, actions } = this.props;
+    const {
+      data = {}, favorites, id, actions,
+    } = this.props;
     const dealType = dealTypes[this.props.dealType];
     const { specification = {}, landDetails = {} } = data;
     const deal = data[`${dealType}Offer`] || {};
 
     return (
-      <LinkWrapper to={`/zagorodnaya/${this.props.dealType}/${
-          kindsTranslit[data.kind]
-          }/${data.id}`}
+      <LinkWrapper
+        to={`/zagorodnaya/${this.props.dealType}/${kindsTranslit[data.kind]}/${
+          data.id
+        }`}
       >
-        <Id>№ {data.id}</Id>
+        <Id>
+№
+          {data.id}
+        </Id>
         <FavoriteIcon
-          isActive={favorites.some(item => item.id === Number.parseInt(id) && item.dealType === this.props.dealType)}
-          onClick={(e) => { e.preventDefault(); actions.toggleFavorite(Number.parseInt(id), this.props.dealType); }}
+          isActive={favorites.some(
+            item => item.id === Number.parseInt(id, 10)
+              && item.dealType === this.props.dealType,
+          )}
+          onClick={(e) => {
+            e.preventDefault();
+            actions.toggleFavorite(
+              Number.parseInt(id, 10),
+              this.props.dealType,
+            );
+          }}
           icon="favorite"
         />
         {this.renderPhoto(data)}
-        <TitleWrapper> <Title data={data} dealType={dealType} /> </TitleWrapper>
+        <TitleWrapper>
+          {' '}
+          <Title data={data} dealType={dealType} />
+          {' '}
+        </TitleWrapper>
         <Summary>
           {landDetails.area && (
             <SummaryInfo>
-              {Math.floor(landDetails.area)}&nbsp;сот
+              {Math.floor(landDetails.area)}
+              &nbsp;сот
             </SummaryInfo>
           )}
           {!!specification.area && (
             <SummaryInfo>
-              {Math.floor(specification.area)}&nbsp;м²
+              {Math.floor(specification.area)}
+              &nbsp;м²
             </SummaryInfo>
           )}
           {!!specification.bedrooms && (
@@ -191,9 +206,11 @@ class Card extends Component {
                 declensionForms={['спальня', 'спальни', 'спален']}
               />
             </SummaryInfo>
-            )}
+          )}
         </Summary>
-        <PriceWrapper><Price deal={deal} dealType={dealType} /></PriceWrapper>
+        <PriceWrapper>
+          <Price deal={deal} dealType={dealType} />
+        </PriceWrapper>
       </LinkWrapper>
     );
   }
@@ -222,5 +239,7 @@ const pickActions = (dispatch) => {
   };
 };
 
-export default connect(pickState, pickActions)(Card);
-
+export default connect(
+  pickState,
+  pickActions,
+)(Card);

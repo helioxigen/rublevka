@@ -68,7 +68,7 @@ class PropertyDetailsPage extends React.PureComponent {
     dispatch(load(propertyId));
   };
 
-  handleEscKey = event => {
+  handleEscKey = (event) => {
     if (event.keyCode === 27) {
       this.setState({
         ...infoMode,
@@ -96,7 +96,7 @@ class PropertyDetailsPage extends React.PureComponent {
     // return <pre>{JSON.stringify(this.props, null, 2)}</pre>;
 
     return (
-      <Grid fluid>
+      <Grid>
         <Helmet>
           <title>
             {`${kinds[property.kind]} в посёлке ${

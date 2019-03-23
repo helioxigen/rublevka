@@ -32,13 +32,15 @@ class Kind extends Component {
     const { dealType, router } = this.props;
 
     this.props.updateFilter(key, [value]);
+
     router.push(`/zagorodnaya/${dealType}/${kindsTranslit[value]}`);
   }
 
   onReset() {
     const { dealType, router } = this.props;
 
-    this.props.updateFilter(key, null);
+    this.props.updateFilter(key, []);
+
     router.push(`/zagorodnaya/${dealType}`);
   }
 

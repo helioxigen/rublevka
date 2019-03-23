@@ -13,7 +13,8 @@
         "ignoreComments": true,
         "ignoreTemplateLiterals": true
       }
-    ]
+    ],
+    "implicit-arrow-linebreak": 0
   },
   "env": {
     "browser": true

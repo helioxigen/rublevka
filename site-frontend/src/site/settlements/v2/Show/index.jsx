@@ -1,4 +1,3 @@
-import global from 'window-or-global';
 import React, { Component } from 'react';
 
 import Scroll from 'react-scroll';
@@ -10,18 +9,17 @@ import { connect } from 'react-redux';
 // import capitalize from 'lodash/capitalize';
 import isEqual from 'lodash/isEqual';
 
-import loadSettlement from 'core/settlements/actions/id/load';
-import loadProperties from 'core/countryProperties/actions/list/load'; // for ssr
+import loadSettlement from '../../../../core/settlements/actions/id/load';
+import loadProperties from '../../../../core/countryProperties/actions/list/load'; // for ssr
 
-import * as FilterActions from 'core/actions/filters';
-import { track } from 'core/analytics';
+import * as FilterActions from '../../../../core/actions/filters';
+import { track } from '../../../../core/analytics';
 
-import UI from 'site/ui';
+import UI from '../../../ui';
 // import MapComponent from 'site/ui/map';
-import Subscribe from 'site/request/SubscribeTisa';
+import Subscribe from '../../../request/SubscribeTisa';
 
-import sUtils from 'site/styles/utils.css';
-
+import { translitKinds } from '../../../constants/properties/dictionaries';
 import PrimaryProperties from './PrimaryProperties';
 import ResaleProperties from './ResaleProperties';
 
@@ -30,14 +28,28 @@ import Information from './Information';
 import Description from './Description';
 import Helmet from './Helmet';
 
-import { translitKinds } from 'site/constants/properties/dictionaries';
-
-const isJQ = global.config.domain === 'jq.estate';
 const {
-  Grid: { Container, Row },
+  Grid: { Container },
 } = UI;
 
 class SettlementContainer extends Component {
+  static loadServer(dispatch, params) {
+    const parsedSettlement = params.settlement.split('_');
+    const [, settlementId] = parsedSettlement;
+
+    return Promise.all([
+      dispatch(loadSettlement(settlementId)),
+      dispatch(
+        loadProperties({}, 'forSettlementOnlyPrimary', { settlementId }),
+      ),
+      dispatch(
+        loadProperties({}, 'forSettlementSale', {
+          settlementId,
+        }),
+      ),
+    ]);
+  }
+
   constructor(props) {
     super(props);
 
@@ -64,13 +76,12 @@ class SettlementContainer extends Component {
 
   componentDidUpdate(prevProps) {
     const {
-      actions,
       state,
       params: { settlement },
     } = this.props;
 
     const parsedSettlement = settlement.split('_');
-    const [settlementName, settlementId] = parsedSettlement;
+    const [, settlementId] = parsedSettlement;
 
     const { data: place } = state.settlements[settlementId] || {};
     const { data: prevPlace } = prevProps.state.settlements[settlementId] || {};
@@ -110,26 +121,9 @@ class SettlementContainer extends Component {
     this.setState({ dealType });
   }
 
-  static loadServer(dispatch, params) {
-    const parsedSettlement = params.settlement.split('_');
-    const [settlementName, settlementId] = parsedSettlement;
-
-    return Promise.all([
-      dispatch(loadSettlement(settlementId)),
-      dispatch(
-        loadProperties({}, 'forSettlementOnlyPrimary', { settlementId }),
-      ),
-      dispatch(
-        loadProperties({}, 'forSettlementSale', {
-          settlementId,
-        }),
-      ),
-    ]);
-  }
-
   load({ dispatch, params }) {
     const parsedSettlement = params.settlement.split('_');
-    const [settlementName, settlementId] = parsedSettlement;
+    const [, settlementId] = parsedSettlement;
 
     dispatch(loadSettlement(settlementId));
   }
@@ -144,7 +138,7 @@ class SettlementContainer extends Component {
     const [settlementName, settlementId] = parsedSettlement;
 
     const { isFetching, data } = state.settlements[settlementId] || {};
-    const { statistics = {}, location = {} } = data || {};
+    const { statistics = {} } = data || {};
 
     const { saleProperties = {}, rentProperties = {} } = statistics || {};
 

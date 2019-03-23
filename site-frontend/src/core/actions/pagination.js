@@ -1,9 +1,12 @@
 import * as types from 'core/constants/pagination';
 
-export const updatePagination = (kind, pagination) => ({
+export const updatePagination = (resource, pagination) => ({
   type: types.UPDATE_PAGINATION,
-  kind,
+  resource,
   pagination,
 });
 
-export default { updatePagination };
+export const resetPagination = resource =>
+  updatePagination(resource, { offset: 0 });
+
+export default { updatePagination, resetPagination };

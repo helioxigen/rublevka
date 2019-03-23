@@ -15,9 +15,9 @@ export const mapParams = ({
     sale = {},
     rent = {},
     area = {},
-    landArea = {},
     mkadDistance = {},
     bedrooms = {},
+    bedroomsFrom,
     wcs = {},
 
     routeIds,
@@ -33,7 +33,26 @@ export const mapParams = ({
     settlements = [],
 
     recentlyUpdated,
+
+    state,
+    kind,
+    id,
+    renovate,
+    furniture,
+    wallMaterial,
+
+    landArea = {},
+    landscapeKind,
+
+    isResale,
+    salePrice,
+    rentPrice,
+    currency,
+    ...rest
   } = filter;
+
+  // eslint-disable-next-line no-console
+  if (Object.keys(rest).length > 0) console.warn('not whitelisted keys', rest);
 
   return {
     pagination: {
@@ -44,18 +63,9 @@ export const mapParams = ({
       [orderBy.field]: orderBy.predicate,
     },
     filter: {
-      state: filter.state,
-      kind: filter.kind,
-      id: filter.id,
-      [sale.currencyPrice]: makeFilterRange(sale.min, sale.max, saleMultiplier),
-      [rent.currencyPrice]: makeFilterRange(rent.min, rent.max, rentMultiplier),
-      'specification.area': makeFilterRange(area.min, area.max),
-      'landDetails.area': makeFilterRange(landArea.min, landArea.max),
-      'specification.renovate': filter.renovate,
-      'location.mkadDistance': makeFilterRange(
-        mkadDistance.min,
-        mkadDistance.max,
-      ),
+      state,
+      kind,
+      id,
 
       'location.routeId': routeIds || routes.map(route => route.id),
       'location.districtId':
@@ -64,14 +74,39 @@ export const mapParams = ({
         localityId || localities.map(locality => locality.id),
       'location.settlementId':
         settlementId || settlements.map(settlement => settlement.id),
+      'location.mkadDistance': makeFilterRange(
+        mkadDistance.min,
+        mkadDistance.max,
+      ),
 
-      'specification.bedrooms': makeFilterRange(bedrooms.min, bedrooms.max),
+      'landDetails.area': makeFilterRange(landArea.min, landArea.max),
+      'landDetails.landscapeKind': landscapeKind,
+
+      'specification.bedrooms': makeFilterRange(
+        bedroomsFrom || bedrooms.min,
+        bedrooms.max,
+      ),
       'specification.wcs': makeFilterRange(wcs.min, wcs.max),
+      'specification.area': makeFilterRange(area.min, area.max),
+      'specification.renovate': renovate,
+      'specification.furniture': furniture,
+      'specification.wallMaterial': wallMaterial,
 
-      'saleOffer.isResale': filter.isResale,
-
-      'saleOffer.price': filter.salePrice,
-      'rentOffer.price': filter.rentPrice,
+      'saleOffer.isResale': isResale,
+      'saleOffer.price': salePrice,
+      'rentOffer.price': rentPrice,
+      [`saleOffer.multiCurrencyPrice.${currency}`]: makeFilterRange(
+        sale.min,
+        sale.max,
+        saleMultiplier,
+      ),
+      [`rentOffer.multiCurrencyPrice.${currency}`]: makeFilterRange(
+        rent.min,
+        rent.max,
+        rentMultiplier,
+      ),
+      // [sale.currencyPrice]: makeFilterRange(sale.min, sale.max, saleMultiplier),
+      // [rent.currencyPrice]: makeFilterRange(rent.min, rent.max, rentMultiplier),
 
       updatedAt: recentlyUpdated ? 'now-2w..' : null,
     },

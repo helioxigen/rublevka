@@ -4,7 +4,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { show as seo } from '../constants/seo';
 
-import { nameToSlug } from 'core/helpers/nameToSlug';
+import { nameToSlug } from '../../../../core/helpers/nameToSlug';
 
 const routeIds = global.config.routes.map(item => item.id) || [];
 
@@ -13,7 +13,9 @@ const makeMetaElement = (element, name, dealType, kind) => ({
   content: seo[element](name, dealType, kind),
 });
 
-export default ({ placeName, placeKind, data, dealType, kind }) => {
+export default ({
+  placeName, placeKind, data, dealType, kind,
+}) => {
   if (data) {
     const meta = [];
 

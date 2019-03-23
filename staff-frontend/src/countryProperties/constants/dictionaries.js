@@ -4,8 +4,8 @@ export const offerKinds = {
 };
 
 export const dealTypes = {
-  sale: 'purchase',
-  rent: 'rent',
+  sale: 'покупка',
+  rent: 'аренда',
 };
 
 export const resaleKinds = {
@@ -18,14 +18,18 @@ export const bathrooms = {
   separated: 'Раздельный',
 };
 
+export const bedrooms = {
+  2: 'от 2',
+  3: 'от 3',
+  4: 'от 4',
+  5: 'от 5',
+};
+
 export const kinds = {
-  flat: 'Квартира',
-  apartment: 'Апартаменты',
   house: 'Дом',
   townhouse: 'Таунхаус',
-  penthouse: 'Пентхаус',
   land: 'Участок',
-  office: 'Офис',
+  // flat: 'Квартира',
 };
 
 export const conditions = {
@@ -42,10 +46,14 @@ export const saleKinds = {
   assignment: 'Подряд',
 };
 
+export const feeKinds = {
+  fixed: 'фиксированная',
+  percent: 'процент',
+};
+
 export const currencies = {
-  USD: '$',
-  EUR: '€',
-  RUB: 'руб',
+  rub: 'руб',
+  usd: '$',
 };
 
 export const categories = {
@@ -274,3 +282,136 @@ export const mainLayouts = {
   utility_room: 'Хозяйственные помещения',
   loft: 'Мансарды',
 };
+
+export const binarySelect = {
+  [true]: 'да',
+  [false]: 'нет',
+};
+
+export const prices = {
+  usd: {
+    sale: [
+      { value: 0, label: '$0 млн' },
+      { value: 1, label: '$1 млн' },
+      { value: 2, label: '$2 млн' },
+      { value: 3, label: '$3 млн' },
+      { value: 4, label: '$4 млн' },
+      { value: 5, label: '$5 млн' },
+      { value: 6, label: '$6 млн' },
+      { value: 7, label: '$7 млн' },
+      { value: 8, label: '$8 млн' },
+      { value: 9, label: '$9 млн' },
+      { value: 'max', label: '$10+ млн' },
+    ],
+    rent: [
+      { value: 0, label: '$0 тыс/мес' },
+      { value: 1, label: '$1 тыс/мес' },
+      { value: 2, label: '$2 тыс/мес' },
+      { value: 3, label: '$3 тыс/мес' },
+      { value: 4, label: '$4 тыс/мес' },
+      { value: 5, label: '$5 тыс/мес' },
+      { value: 6, label: '$6 тыс/мес' },
+      { value: 7, label: '$7 тыс/мес' },
+      { value: 8, label: '$8 тыс/мес' },
+      { value: 9, label: '$9 тыс/мес' },
+      { value: 10, label: '$10 тыс/мес' },
+      { value: 15, label: '$15 тыс/мес' },
+      { value: 20, label: '$20 тыс/мес' },
+      { value: 25, label: '$25 тыс/мес' },
+      { value: 30, label: '$30 тыс/мес' },
+      { value: 35, label: '$35 тыс/мес' },
+      { value: 40, label: '$40 тыс/мес' },
+      { value: 'max', label: '$45+ тыс/мес' },
+    ],
+  },
+  rub: {
+    sale: [
+      { value: 0, label: '0 млн ₽' },
+      { value: 50, label: '50 млн ₽' },
+      { value: 100, label: '100 млн ₽' },
+      { value: 150, label: '150 млн ₽' },
+      { value: 200, label: '200 млн ₽' },
+      { value: 250, label: '250 млн ₽' },
+      { value: 300, label: '300 млн ₽' },
+      { value: 350, label: '350 млн ₽' },
+      { value: 400, label: '400 млн ₽' },
+      { value: 450, label: '450 млн ₽' },
+      { value: 500, label: '500 млн ₽' },
+      { value: 550, label: '550 млн ₽' },
+      { value: 'max', label: '600+ млн ₽' },
+    ],
+    rent: [
+      { value: 0, label: '0 тыс/мес' },
+      { value: 100, label: '100 тыс/мес' },
+      { value: 150, label: '150 тыс/мес' },
+      { value: 200, label: '200 тыс/мес' },
+      { value: 250, label: '250 тыс/мес' },
+      { value: 300, label: '300 тыс/мес' },
+      { value: 350, label: '350 тыс/мес' },
+      { value: 400, label: '400 тыс/мес' },
+      { value: 450, label: '450 тыс/мес' },
+      { value: 500, label: '500 тыс/мес' },
+      { value: 550, label: '550 тыс/мес' },
+      { value: 600, label: '600 тыс/мес' },
+      { value: 650, label: '650 тыс/мес' },
+      { value: 700, label: '700 тыс/мес' },
+      { value: 750, label: '750 тыс/мес' },
+      { value: 800, label: '800 тыс/мес' },
+      { value: 850, label: '850 тыс/мес' },
+      { value: 900, label: '900 тыс/мес' },
+      { value: 950, label: '950 тыс/мес' },
+      { value: 'max', label: '1 млн+ в мес' },
+    ],
+  },
+};
+
+export const mkadDistance = [
+  { value: 0, label: '0 км' },
+  { value: 5, label: '5 км' },
+  { value: 10, label: '10 км' },
+  { value: 15, label: '15 км' },
+  { value: 20, label: '20 км' },
+  { value: 25, label: '25 км' },
+  { value: 'max', label: 'от 25 км' },
+];
+
+export const areas = [
+  { value: 0, label: '0 м²' },
+  { value: 100, label: '100 м²' },
+  { value: 200, label: '200 м²' },
+  { value: 300, label: '300 м²' },
+  { value: 400, label: '400 м²' },
+  { value: 500, label: '500 м²' },
+  { value: 600, label: '600 м²' },
+  { value: 700, label: '700 м²' },
+  { value: 800, label: '800 м²' },
+  { value: 900, label: '900 м²' },
+  { value: 1000, label: '1000 м²' },
+  { value: 1100, label: '1100 м²' },
+  { value: 1200, label: '1200 м²' },
+  { value: 1300, label: '1300 м²' },
+  { value: 1400, label: '1400 м²' },
+  { value: 1500, label: '1500 м²' },
+  { value: 1600, label: '1600 м²' },
+  { value: 1700, label: '1700 м²' },
+  { value: 1800, label: '1800 м²' },
+  { value: 1900, label: '1900 м²' },
+  { value: 'max', label: '2000+ м²' },
+];
+
+export const landAreas = [
+  { value: 0, label: '0 сот' },
+  { value: 10, label: '10 сот' },
+  { value: 20, label: '20 сот' },
+  { value: 30, label: '30 сот' },
+  { value: 40, label: '40 сот' },
+  { value: 50, label: '50 сот' },
+  { value: 60, label: '60 сот' },
+  { value: 70, label: '70 сот' },
+  { value: 80, label: '80 сот' },
+  { value: 90, label: '90 сот' },
+  { value: 'max', label: '100+ сот' },
+];
+
+export const dictionaryToOptions = dic =>
+  Object.entries(dic).map(([key, value]) => ({ value: key, label: value }));

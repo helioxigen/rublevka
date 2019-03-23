@@ -31,7 +31,7 @@ const Link = styled(RouterLink)`
 const Image = styled.img`
   width: 100%;
   height: 200px;
-  object-fit: cover;
+  object-fit: ${p => (p.isPlaceholder ? 'contain' : 'cover')};
 `;
 
 const Id = styled.p`
@@ -156,7 +156,7 @@ class Card extends Component {
       );
     }
 
-    return <Image src={placeholder} />;
+    return <Image src={placeholder} isPlaceholder />;
   };
 
   render() {

@@ -26,7 +26,7 @@ const Menu = styled.nav`
   flex-flow: row wrap;
 `;
 
-const MenuItem = styled(NavLink)`
+const Link = styled(NavLink)`
   width: 100%;
   display: flex;
   justify-content: start;
@@ -38,25 +38,15 @@ const MenuItem = styled(NavLink)`
   }
 `;
 
-const Count = styled.div`
-  color: ${theme.gray};
-  margin-left: 10px;
-`;
-
-const Navigation = ({ menuItemsList }) => (
+export default () => (
   <StNavigation>
     <LogoWrapper>
       <Logo />
     </LogoWrapper>
+
     <Menu>
-      {menuItemsList.map(({ path, name, count }) => (
-        <MenuItem to={path} key={name}>
-          {name}
-          {count && <Count>{count}</Count>}
-        </MenuItem>
-      ))}
+      <Link to="/country-properties">Загородные объекты</Link>
+      <Link to="/settlements">Посёлки</Link>
     </Menu>
   </StNavigation>
 );
-
-export default Navigation;

@@ -49,6 +49,34 @@ export const throwFormattedError = (kind, ...args) => {
   }
 };
 
+export function recursiveJSONToQS(object, prevKey) {
+  if (object) {
+    return Object.keys(object)
+      .map(key => {
+        const value = object[key];
+
+        if (key && (value || (Array.isArray(value) && value.length))) {
+          if (
+            value instanceof Object &&
+            !(value instanceof Array) &&
+            !(value instanceof Function)
+          ) {
+            return recursiveJSONToQS(value, key);
+          }
+          if (prevKey) {
+            return `${prevKey}[${key}]=${value}`;
+          }
+          return `${key}=${value}`;
+        }
+        return null;
+      })
+      .filter(item => !!item)
+      .join('&');
+  }
+
+  return null;
+}
+
 export function recursiveCleanUp(input) {
   const obj = { ...input };
 
@@ -76,13 +104,22 @@ export function recursiveCleanUp(input) {
 }
 
 export const makeFilterRange = (min, max, multiplier = 1) => {
-  const isMin =
-    min === 'min' || typeof min === 'undefined' || typeof min === 'null';
-  const isMax =
-    max === 'max' || typeof max === 'undefined' || typeof max === 'null';
+  const hasNotMin =
+    min === 'min' ||
+    min === undefined ||
+    min === null ||
+    typeof min === 'undefined' ||
+    typeof min === 'null';
 
-  const from = !isMin ? min * multiplier : '';
-  const to = !isMax ? max * multiplier : '';
+  const hasNotMax =
+    max === 'max' ||
+    max === undefined ||
+    max === null ||
+    typeof max === 'undefined' ||
+    typeof max === 'null';
+
+  const from = !hasNotMin ? Number(min) * multiplier : '';
+  const to = !hasNotMax ? Number(max) * multiplier : '';
 
   return from || to ? `${from}..${to}` : null;
 };

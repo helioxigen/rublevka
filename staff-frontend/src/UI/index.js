@@ -30,15 +30,14 @@ export const Layout = styled.div`
 `;
 
 const LogoContainer = styled(Link)`
-  color: #fff;
   &:hover {
     opacity: 0.7;
   }
 `;
 
 const LogoImage = styled.img`
-  width: 38px;
-  height: 33px;
+  max-width: 100%;
+  height: 24px;
 `;
 
 export const Input = styled.input`
@@ -77,7 +76,7 @@ export const Button = styled.button`
   box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.19);
   border-radius: 4px;
   font-size: 19px;
-  color: #fff;
+  color: ${p => p.textColor || '#fff'};
   text-align: center;
   padding: 14px 24px;
 
@@ -86,8 +85,19 @@ export const Button = styled.button`
   }
 `;
 
+export const HollowButton = styled(Button)`
+  box-shadow: none;
+  background: transparent;
+  border: 1px solid ${theme.blue};
+  color: ${theme.blue};
+
+  &:hover {
+    box-shadow: 0px 3px 7px 1px rgba(49, 116, 246, 0.2);
+  }
+`;
+
 export const Logo = () => (
   <LogoContainer to="/">
-    <LogoImage src={logo} alt="JQEstate Logo" />
+    <LogoImage src={logo} alt="" />
   </LogoContainer>
 );

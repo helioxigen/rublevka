@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Sentry from '@sentry/browser';
 
+import Helmet from 'react-helmet';
 import {
   BrowserRouter, Route, Switch, Redirect,
 } from 'react-router-dom';
@@ -11,23 +12,12 @@ import styled from 'styled-components';
 import ruIntlLocale from 'react-intl/locale-data/ru';
 
 import store from './store';
-import { Main } from './UI';
-import Auth from './auth/LoginPage/index';
-import PropertyDetailsPage from './countryProperties/DetailsPage';
+import { Main, Title, Layout } from './UI';
+import Auth from './auth/LoginPage';
+import Property from './countryProperties/DetailsPage';
 import Properties from './countryProperties/List';
-import Navigation from './Navigation';
 
 addLocaleData(ruIntlLocale);
-
-// TODO REMOVE; TEST DATA
-// const createPropertyRoute = id => ({
-//   name: `ID ${id}`,
-//   path: `/country-properties/${id}`,
-// });
-
-const testObjectsInfoList = [
-  { name: 'Загородные объекты', path: '/country-properties' },
-];
 
 const MainContainer = styled(Main)`
   display: flex;
@@ -55,34 +45,57 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const { isAuthorized } = this.state;
+    const { isAuthorized, error } = this.state;
 
     return (
-      <Provider store={store}>
-        <IntlProvider locale="ru">
-          <BrowserRouter>
-            {isAuthorized ? (
-              <MainContainer>
-                <Navigation menuItemsList={testObjectsInfoList} />
-                <Switch>
-                  <Route
-                    exact
-                    path="/login"
-                    component={() => <Redirect to="/country-properties" />}
-                  />
-                  <Route
-                    path="/country-properties/:id"
-                    component={PropertyDetailsPage}
-                  />
-                  <Route path="/country-properties" component={Properties} />
-                </Switch>
-              </MainContainer>
-            ) : (
-              <Auth />
-            )}
-          </BrowserRouter>
-        </IntlProvider>
-      </Provider>
+      <>
+        <Helmet titleTemplate="%s — staff.rublevka.ru" />
+
+        <Provider store={store}>
+          <IntlProvider locale="ru">
+            <BrowserRouter>
+              {isAuthorized ? (
+                <MainContainer>
+                  {error ? (
+                    <>
+                      <Layout>
+                        <div className="container-fluid">
+                          <Title>Произошла ошибка</Title>
+                          <pre>{JSON.stringify(error, null, 2)}</pre>
+                        </div>
+                      </Layout>
+                    </>
+                  ) : (
+                    <Switch>
+                      <Route
+                        exact
+                        path="/login"
+                        component={() => <Redirect to="/country-properties" />}
+                      />
+
+                      <Route
+                        path="/country-properties/:id"
+                        component={Property}
+                      />
+                      <Route
+                        path="/country-properties"
+                        component={Properties}
+                      />
+
+                      <Route
+                        path="*"
+                        component={() => <Redirect to="/country-properties" />}
+                      />
+                    </Switch>
+                  )}
+                </MainContainer>
+              ) : (
+                <Auth />
+              )}
+            </BrowserRouter>
+          </IntlProvider>
+        </Provider>
+      </>
     );
   }
 }

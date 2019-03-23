@@ -14,6 +14,10 @@ import {
   Separator,
   SubTitle,
 } from './styled';
+
+import Tags from '../../UI/Tags';
+import SegmentedControl from '../../UI/SegmentedControl';
+
 import Select from '../../UI/Select';
 import SelectBubble from '../../UI/SelectBubble';
 import { Body, BodyBig, BodyBold } from '../../UI';
@@ -21,12 +25,14 @@ import {
   currencies,
   resaleKinds,
   saleKinds,
+  feeKinds,
   states,
+  binarySelect,
+  dictionaryToOptions,
 } from '../constants/dictionaries';
 import Switcher from '../../UI/Switcher';
 import {
   selectBinaryData,
-  selectDealData,
   selectCommissionData,
   selectMonthData,
   selectRentTimeData,
@@ -81,7 +87,10 @@ const ConditionsSection = ({
           </Property>
           <Property xs={4}>
             <PropertyTitle>Комиссия</PropertyTitle>
-            <PropertyBigValue>{property.saleOffer.agentFee}%</PropertyBigValue>
+            <PropertyBigValue>
+              {property.saleOffer.agentFee}
+%
+            </PropertyBigValue>
             <PropertyValue>
               <BodyBold>Полная комиссия:&nbsp;</BodyBold>
               <Body>
@@ -153,6 +162,7 @@ const ConditionsSection = ({
         <Col xs={2}>
           <SubTitle>Продажа</SubTitle>
         </Col>
+
         <Col xsOffset={1} xs={2}>
           <EditPropertyInput
             onBlur={e => setNewPrice(id, +e.target.value)}
@@ -160,37 +170,41 @@ const ConditionsSection = ({
           />
           <Switcher selected={currencies[property.saleOffer.currency]} />
         </Col>
+
         <Col xsOffset={1} xs={3}>
           <PropertyTitle>Сделка</PropertyTitle>
-          <SelectBubble selected={3} selectData={selectDealData} />
+          <Tags options={dictionaryToOptions(saleKinds)} />
+
           <PropertyTitle>Комиссия</PropertyTitle>
-          <Select selectData={selectCommissionData} selected={1} filled />
+          <Tags options={dictionaryToOptions(feeKinds)} />
+
           <EditPropertyInput
             defaultValue={property.saleOffer.agentFee}
             placeholder="Процент, %"
           />
         </Col>
+
         <Col xs={3}>
           <PropertyTitle>Рассрочка</PropertyTitle>
-          <Select
-            selectData={selectBinaryData}
+          <SegmentedControl
+            options={dictionaryToOptions(binarySelect)}
             selected={property.saleOffer.isInstallment}
-            filled
           />
+
           <PropertyTitle>Ипотека</PropertyTitle>
-          <Select
-            selectData={selectBinaryData}
+          <SegmentedControl
+            options={dictionaryToOptions(binarySelect)}
             selected={property.saleOffer.isMortgage}
-            filled
           />
+
           <PropertyTitle>Торг</PropertyTitle>
-          <Select
-            selectData={selectBinaryData}
+          <SegmentedControl
+            options={dictionaryToOptions(binarySelect)}
             selected={property.saleOffer.isBargain}
-            filled
           />
         </Col>
       </EditPropertyRow>
+
       <EditPropertyRow>
         <Col xs={2}>
           <SubTitle>Аренда</SubTitle>

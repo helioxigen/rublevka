@@ -107,7 +107,9 @@ export default class extends Component {
   handleQueryChange = (value) => {
     this.setState({ name: value });
 
-    API.get(`/v1/search/similar?query=${value}&limit=5`).then(data => this.setState({ searchResults: data.body.items }));
+    API.get(`/v1/search/similar?query=${value}&limit=5`).then(data =>
+      this.setState({ searchResults: data.body.items }),
+    );
   };
 
   renderSearchResult = (data) => {
@@ -131,9 +133,7 @@ export default class extends Component {
   };
 
   render() {
-    const {
-      name, mkadDistance, isDropdownOpen, searchResults,
-    } = this.state;
+    const { name, mkadDistance, isDropdownOpen, searchResults } = this.state;
     const { navigate } = this.props;
 
     return (
@@ -156,13 +156,13 @@ export default class extends Component {
                   ? Object.keys(popularForRoute).map(id => (
                     <DropdownLink
                       to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
-                        popularForRoute[id],
-                      )}_${id}`}
+                          popularForRoute[id],
+                        )}_${id}`}
                       key={id}
                     >
                       {popularForRoute[id]}
                     </DropdownLink>
-                  ))
+                    ))
                   : searchResults.map(this.renderSearchResult)}
               </InputDropdown>
             )}
@@ -215,14 +215,15 @@ export default class extends Component {
           </Downshift>
         </Form>
         <Search
-          onClick={() => navigate(
-            'zagorodnaya/kottedzhnye-poselki',
-            'settlements.byLetter',
-            {
-              name,
-              mkadDistance,
-            },
-          )
+          onClick={() =>
+            navigate(
+              'zagorodnaya/kottedzhnye-poselki',
+              'settlements.byLetter',
+              {
+                name,
+                mkadDistance,
+              },
+            )
           }
         />
       </Wrapper>

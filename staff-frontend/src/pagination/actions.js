@@ -1,4 +1,4 @@
-import * as types from 'core/constants/pagination';
+import * as types from './constants';
 
 export const updatePagination = (resource, pagination) => ({
   type: types.UPDATE_PAGINATION,

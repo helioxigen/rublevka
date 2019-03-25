@@ -24,12 +24,15 @@ export const mapParams = ({
     routes = [],
 
     localityId,
+    localityIds,
     localities = [],
 
     districtId,
+    districtIds,
     districts = [],
 
     settlementId,
+    settlementIds,
     settlements = [],
 
     recentlyUpdated,
@@ -69,11 +72,13 @@ export const mapParams = ({
 
       'location.routeId': routeIds || routes.map(route => route.id),
       'location.districtId':
-        districtId || districts.map(district => district.id),
+        districtIds || districtId || districts.map(district => district.id),
       'location.localityId':
-        localityId || localities.map(locality => locality.id),
+        localityIds || localityId || localities.map(locality => locality.id),
       'location.settlementId':
-        settlementId || settlements.map(settlement => settlement.id),
+        settlementIds
+        || settlementId
+        || settlements.map(settlement => settlement.id),
       'location.mkadDistance': makeFilterRange(
         mkadDistance.min,
         mkadDistance.max,

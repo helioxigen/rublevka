@@ -160,10 +160,10 @@ export const securityKinds = {
 };
 
 export const landscapeKinds = {
-  field: 'Полевой',
-  near_forest: 'Прилесной',
-  near_water: 'Около воды',
-  forest: 'Лесной',
+  field: '🌾 Полевой',
+  near_forest: '🌿 Прилесной',
+  near_water: '💦 Около воды',
+  forest: '🌲 Лесной',
 };
 
 export const states = {

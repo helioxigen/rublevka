@@ -5,7 +5,9 @@ import { State, Kind } from './Property';
 import {
   Currency, Price, Resale, DealType,
 } from './Offers';
-import { MkadDistance } from './Location';
+import {
+  MkadDistance, Route, Locality, Settlement,
+} from './Location';
 import {
   Area, Bedrooms, WallMaterial, Renovate, Furniture,
 } from './House';
@@ -135,10 +137,22 @@ function Filter({ state = {}, ...props }) {
           remove={() => remove('mkadDistance')}
         />
 
-        {/* <Route kind="" update={update} remove={remove} />
-          <SubLocality kind="" update={update} remove={remove} />
-          <Settlement kind="" update={update} remove={remove} />
-          <House kind="" update={update} remove={remove} /> */}
+        <Route
+          currentValue={state.routeIds}
+          update={value => update('routeIds', value)}
+          remove={() => remove('routeIds')}
+        />
+        <Locality
+          currentValue={state.localityIds}
+          update={value => update('localityIds', value)}
+          remove={() => remove('localityIds')}
+        />
+        <Settlement
+          currentValue={state.settlementIds}
+          update={value => update('settlementIds', value)}
+          remove={() => remove('settlementIds')}
+        />
+        {/* <House kind="" update={update} remove={remove} /> */}
       </Section>
 
       {(state.kind === 'house' || state.kind === 'townhouse') && (

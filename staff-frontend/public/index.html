@@ -1,20 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="utf-8" />
+  <head>
+    <meta charset="utf-8" />
     <link href="%PUBLIC_URL%/favicon.png" rel="icon" type="image/png" />
-  <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />-->
-  <meta name="theme-color" content="#FCFCFA" />
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <link rel="stylesheet" href="%PUBLIC_URL%/fonts.css" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
-    crossorigin="anonymous">
-</head>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />-->
+    <meta name="theme-color" content="#FCFCFA" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="stylesheet" href="%PUBLIC_URL%/fonts.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+      integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+      crossorigin="anonymous"
+    />
+  </head>
 
-<body bgColor="#FCFCFA">
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
-</body>
+  <body bgColor="#FCFCFA">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
 
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+      (function (m, e, t, r, i, k, a) {
+      m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+        m[i].l = 1 * new Date(); k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+      })
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+      ym(%REACT_APP_YANDEX_METRIKA_ID%, "init", {
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true,
+        webvisor: true
+      });
+    </script>
+    <noscript>
+      <div>
+        <img
+          src="https://mc.yandex.ru/watch/%REACT_APP_YANDEX_METRIKA_ID%"
+          style="position:absolute; left:-9999px;"
+          alt=""
+        />
+      </div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+  </body>
 </html>

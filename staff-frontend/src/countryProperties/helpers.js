@@ -51,6 +51,7 @@ export const mapParams = ({
     salePrice,
     rentPrice,
     currency,
+    dealType,
     ...rest
   } = filter;
 
@@ -99,7 +100,7 @@ export const mapParams = ({
 
       'saleOffer.isResale': isResale,
       'saleOffer.price': salePrice,
-      'rentOffer.price': rentPrice,
+      'rentOffer.price': (dealType === 'rent' && '0..') || rentPrice,
       [`saleOffer.multiCurrencyPrice.${currency}`]: makeFilterRange(
         sale.min,
         sale.max,
@@ -110,6 +111,7 @@ export const mapParams = ({
         rent.max,
         rentMultiplier,
       ),
+
       // [sale.currencyPrice]: makeFilterRange(sale.min, sale.max, saleMultiplier),
       // [rent.currencyPrice]: makeFilterRange(rent.min, rent.max, rentMultiplier),
 

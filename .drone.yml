@@ -78,7 +78,7 @@ pipeline:
       - cd staff-frontend
       - yarn --ignore-engines
       - yarn build
-    secrets: [react_app_env, react_app_staff_sentry_dsn]
+    secrets:
       - source: react_app_env_staff_rublevka_ru
         target: react_app_env
       - source: react_app_yandex_metrika_id_staff_rublevka_ru

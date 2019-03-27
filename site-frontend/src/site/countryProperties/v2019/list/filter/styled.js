@@ -158,13 +158,14 @@ export const ControlsContainer = styled.div`
 `;
 
 export const CheckboxLabel = styled.span`
+  margin-left: 10px;
   font-size: 16px;
   color: #232323;
   cursor: pointer;
 `;
 
 export const CheckboxWrapper = styled.div`
-  margin-top: 0.9rem;
+  margin-top: 16px;
 `;
 
 export const ButtonPrimary = styled(DefaultBtn)`

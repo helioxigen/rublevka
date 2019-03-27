@@ -25,7 +25,7 @@ import {
   Search,
 } from './styled';
 import Select from './Select';
-import { rentKinds as kinds } from './constants';
+import { rentKinds as kinds, bedroomsOptions } from './constants';
 
 const { RadioButton } = UI;
 
@@ -85,7 +85,7 @@ export default class extends Component {
     priceTo: null,
     priceFrom: null,
     currency: 'usd',
-    bedrooms: '2',
+    bedrooms: bedroomsOptions[0].value,
     kind: kinds[0].value,
   };
 
@@ -127,9 +127,7 @@ export default class extends Component {
   };
 
   render() {
-    const {
-      priceTo, priceFrom, bedrooms, currency, kind,
-    } = this.state;
+    const { priceTo, priceFrom, bedrooms, currency, kind } = this.state;
     const { navigate } = this.props;
     const priceResetButtonActive = priceTo || priceFrom || currency !== 'usd';
     const rentPrices = prices[currency].rent.map(item => ({
@@ -166,11 +164,11 @@ export default class extends Component {
                   <Options
                     getToggleButtonProps={getToggleButtonProps}
                     getMenuProps={getMenuProps}
+                    isResetButtonActive={selectedItem !== kinds[0]}
+                    resetButtonCallback={() => selectItem(kinds[0])}
                   >
                     {kinds.map((item, index) => (
                       <Option
-                        isResetButtonActive={selectedItem !== kinds[0]}
-                        resetButtonCallback={() => selectItem(kinds[0])}
                         {...getItemProps({
                           key: item.value,
                           index,
@@ -187,9 +185,7 @@ export default class extends Component {
             )}
           </Downshift>
           <Downshift>
-            {({
-              getToggleButtonProps, isOpen, getRootProps, getMenuProps,
-            }) => (
+            {({ getToggleButtonProps, isOpen, getRootProps, getMenuProps }) => (
               <Dropdown
                 isOpen={isOpen}
                 {...getRootProps({ refKey: 'innerRef' })}
@@ -199,67 +195,81 @@ export default class extends Component {
                   <SelectorValue>{this.generateCostPhrase()}</SelectorValue>
                 </Selector>
                 {isOpen && (
-                <Options
-                  isResetButtonActive={priceResetButtonActive}
-                  resetButtonCallback={() => this.setState({
-                    priceFrom: null,
-                    priceTo: null,
-                    currency: 'usd',
-                  })
+                  <Options
+                    isResetButtonActive={priceResetButtonActive}
+                    resetButtonCallback={() =>
+                      this.setState({
+                        priceFrom: null,
+                        priceTo: null,
+                        currency: 'usd',
+                      })
                     }
-                  withSaveButton
-                  getToggleButtonProps={getToggleButtonProps}
-                  getMenuProps={getMenuProps}
-                >
-                  <PriceTitle>стоимость:</PriceTitle>
-                  <InputsBlock>
-                    <SelectWrapper>
-                      <Select
-                        placeholder="ОТ"
-                        onChange={value => this.setState({ priceFrom: value })
+                    withSaveButton
+                    getToggleButtonProps={getToggleButtonProps}
+                    getMenuProps={getMenuProps}
+                  >
+                    <PriceTitle>стоимость:</PriceTitle>
+                    <InputsBlock>
+                      <SelectWrapper>
+                        <Select
+                          placeholder="ОТ"
+                          onChange={value =>
+                            this.setState({ priceFrom: value })
                           }
-                        items={rentPrices}
-                        bound={(priceTo || {}).value}
-                        initialValue={priceFrom}
-                        type="from"
-                      />
-                    </SelectWrapper>
-                    <Divider>–</Divider>
-                    <SelectWrapper>
-                      <Select
-                        placeholder="ДО"
-                        onChange={value => this.setState({ priceTo: value })}
-                        items={rentPrices.slice(1)}
-                        bound={(priceFrom || {}).value}
-                        initialValue={priceTo}
-                        type="to"
-                      />
-                    </SelectWrapper>
-                  </InputsBlock>
-                  <RadioButton
-                    name="usd"
-                    text="Доллары ($)"
-                    value="usd"
-                    checked={currency === 'usd'}
-                    handleChange={e => this.setState({ currency: e.target.value })
+                          items={rentPrices}
+                          bound={(priceTo || {}).value}
+                          initialValue={priceFrom}
+                          type="from"
+                        />
+                      </SelectWrapper>
+                      <Divider>–</Divider>
+                      <SelectWrapper>
+                        <Select
+                          placeholder="ДО"
+                          onChange={value => this.setState({ priceTo: value })}
+                          items={rentPrices.slice(1)}
+                          bound={(priceFrom || {}).value}
+                          initialValue={priceTo}
+                          type="to"
+                        />
+                      </SelectWrapper>
+                    </InputsBlock>
+                    <RadioButton
+                      name="usd"
+                      text="Доллары ($)"
+                      value="usd"
+                      checked={currency === 'usd'}
+                      handleChange={e =>
+                        this.setState({ currency: e.target.value })
                       }
-                  />
-                  <RadioButton
-                    name="rub"
-                    text="Рубли (₽)"
-                    value="rub"
-                    checked={currency === 'rub'}
-                    handleChange={e => this.setState({ currency: e.target.value })
+                    />
+                    <RadioButton
+                      name="rub"
+                      text="Рубли (₽)"
+                      value="rub"
+                      checked={currency === 'rub'}
+                      handleChange={e =>
+                        this.setState({ currency: e.target.value })
                       }
-                  />
-                </Options>
+                    />
+                  </Options>
                 )}
               </Dropdown>
             )}
           </Downshift>
-          <Downshift>
+          <Downshift
+            onChange={item => this.setState({ bedrooms: item.value })}
+            itemToString={item => (item || {}).label}
+            initialSelectedItem={bedroomsOptions[0]}
+          >
             {({
-              getToggleButtonProps, isOpen, getRootProps, getMenuProps,
+              getToggleButtonProps,
+              isOpen,
+              selectedItem,
+              getRootProps,
+              getMenuProps,
+              getItemProps,
+              selectItem,
             }) => (
               <Dropdown
                 isOpen={isOpen}
@@ -267,60 +277,40 @@ export default class extends Component {
               >
                 <Selector {...getToggleButtonProps({ refKey: 'innerRef' })}>
                   <SelectorName>спален</SelectorName>
-                  <SelectorValue>{`${bedrooms} и более`}</SelectorValue>
+                  <SelectorValue>{selectedItem.label}</SelectorValue>
                 </Selector>
                 {isOpen && (
-                <Options
-                  isResetButtonActive={bedrooms !== '2'}
-                  resetButtonCallback={() => this.setState({ bedrooms: '2' })}
-                  withSaveButton
-                  getToggleButtonProps={getToggleButtonProps}
-                  getMenuProps={getMenuProps}
-                >
-                  <RadioButton
-                    name="two"
-                    text="От 2"
-                    value={2}
-                    checked={bedrooms === '2'}
-                    handleChange={e => this.setState({ bedrooms: e.target.value })
-                      }
-                  />
-                  <RadioButton
-                    name="three"
-                    text="От 3"
-                    value={3}
-                    checked={bedrooms === '3'}
-                    handleChange={e => this.setState({ bedrooms: e.target.value })
-                      }
-                  />
-                  <RadioButton
-                    name="four"
-                    text="От 4"
-                    value={4}
-                    checked={bedrooms === '4'}
-                    handleChange={e => this.setState({ bedrooms: e.target.value })
-                      }
-                  />
-                  <RadioButton
-                    name="five"
-                    text="5 и более"
-                    value={5}
-                    checked={bedrooms === '5'}
-                    handleChange={e => this.setState({ bedrooms: e.target.value })
-                      }
-                  />
-                </Options>
+                  <Options
+                    getToggleButtonProps={getToggleButtonProps}
+                    getMenuProps={getMenuProps}
+                    isResetButtonActive={bedrooms !== '2'}
+                    resetButtonCallback={() => selectItem(bedroomsOptions[0])}
+                  >
+                    {bedroomsOptions.map((item, index) => (
+                      <Option
+                        {...getItemProps({
+                          key: item.value,
+                          index,
+                          item,
+                        })}
+                        selected={selectedItem.value === item.value}
+                      >
+                        {item.label}
+                      </Option>
+                    ))}
+                  </Options>
                 )}
               </Dropdown>
             )}
           </Downshift>
         </Form>
         <Search
-          onClick={() => navigate(
-            `/zagorodnaya/arenda/${kindsTranslit[kind]}`,
-            'countryProperties.rent',
-            this.formateData(),
-          )
+          onClick={() =>
+            navigate(
+              `/zagorodnaya/arenda/${kindsTranslit[kind]}`,
+              'countryProperties.rent',
+              this.formateData(),
+            )
           }
         />
       </Wrapper>

@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
+import Helmet from 'react-helmet';
+import { getStoredState } from 'redux-persist';
 
 import media from '../styles/media';
 
@@ -59,11 +61,11 @@ class Favorites extends React.Component {
     this.state = { isLoaded: false };
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    const { state: prevState } = prevProps;
     const { state, actions } = this.props;
-    const { rehydrated } = this.context;
 
-    if (rehydrated && !this.state.isLoaded) {
+    if (prevState.favorites !== state.favorites && !this.state.isLoaded) {
       load({ state, actions });
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ isLoaded: true });
@@ -74,14 +76,16 @@ class Favorites extends React.Component {
     const {
       state: { favorites },
     } = this.props;
+
     return (
       <Container>
         <Wrapper>
+          <Helmet title="Избранное" />
           <Title>Избранное</Title>
           <Col md="10" mdOffset="1">
             <Row>
-              {favorites.length > 0
-                && favorites.map(({ id, dealType }) => (
+              {favorites.length > 0 &&
+                favorites.map(({ id, dealType }) => (
                   <Col xs="12" sm="6" md="6" lg="4">
                     <Card dealType={dealType} key={id} id={id} showLocation />
                   </Col>

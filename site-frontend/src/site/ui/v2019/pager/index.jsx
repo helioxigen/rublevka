@@ -25,11 +25,16 @@
  */
 
 import React, { Component } from 'react';
+import { Link } from 'react-router';
+import styled from 'styled-components';
+
 import Page from './page';
 
-import { Link } from 'react-router';
-
-import styled from 'styled-components';
+const Wrapper = styled.nav`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const StLink = styled(Link)`
   display: block;
@@ -50,6 +55,15 @@ export const StLink = styled(Link)`
     color: #fff;
   }
   display: ${p => p.isDisabled && 'none'};
+`;
+
+const PageSeparator = styled.div`
+  display: inline-block;
+  font-size: 18px;
+  line-height: 24px;
+  text-align: center;
+
+  color: #232323;
 `;
 
 /**
@@ -216,11 +230,10 @@ export default (styles = {}) =>
     }
 
     render() {
-      const titles = ::this.getTitles;
       const { current, total, visiblePages, baseUrl } = this.props;
 
       return (
-        <nav className={styles.navigation}>
+        <Wrapper>
           {this.props.loadMore && (
             <StLink
               to={`${baseUrl}?page=${current + 2}`}
@@ -255,11 +268,7 @@ export default (styles = {}) =>
             1
           </Page>
 
-          {current > 2 && total > 4 && (
-            <div styles={styles} className={styles.separator}>
-              ...
-            </div>
-          )}
+          {current > 2 && total > 4 && <PageSeparator>...</PageSeparator>}
 
           {/* {visiblePages > 3 ||
             (current === total - 1 &&
@@ -289,9 +298,7 @@ export default (styles = {}) =>
 
           {current < total - visiblePages && (
             <span>
-              <div styles={styles} className={styles.separator}>
-                ...
-              </div>
+              <PageSeparator>...</PageSeparator>
               <Page
                 to={`${baseUrl}?page=${total}`}
                 styles={styles}
@@ -314,7 +321,7 @@ export default (styles = {}) =>
             isDisabled={this.isNextDisabled()}
             onClick={this.handleNextPage}
           />
-        </nav>
+        </Wrapper>
       );
     }
   };

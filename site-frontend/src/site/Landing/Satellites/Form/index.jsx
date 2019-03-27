@@ -57,7 +57,8 @@ const Tab = styled.button`
     color: #ffffff;
     text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.35);
     
-    border-bottom: ${({ selected }) => (selected ? '3px solid #ffffff' : 'none')};
+    border-bottom: ${({ selected }) =>
+      selected ? '3px solid #ffffff' : 'none'};
   `}
 
   ${media.lg`
@@ -70,15 +71,20 @@ const Tab = styled.button`
   `}
 `;
 
-const Divider = styled.hr`
-  margin: 0;
+const Divider = styled.div`
+  min-height: 1px;
+  min-width: 100%;
   margin-top: -1px;
-  background: linear-gradient(
-    90deg,
-    #eeeeee 0%,
-    rgba(255, 255, 255, 0.05) 100%
-  );
   margin-bottom: 25px;
+  background: #d8d8d8;
+
+  ${media.xs`
+    background: linear-gradient(
+      90deg,
+      #eeeeee 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+  `}
 `;
 
 export default class Form extends Component {

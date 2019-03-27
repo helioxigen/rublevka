@@ -1,16 +1,17 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import global from 'window-or-global';
 
-import StaticMask from 'core/components/ui/staticMask';
+import StaticMask from '../../core/components/ui/staticMask';
 
-import Footer from 'site/components/footer/index';
-import CallbackModal from 'site/request/CallbackModal';
+import Footer from './footer/index';
+import CallbackModal from '../request/CallbackModal';
 
-import UI from 'site/ui/v2019';
+import UI from '../ui/v2019';
+import media from '../styles/media';
 
-import styled from 'styled-components';
-import media from 'site/styles/media';
+import blackPattern from '../assets/images/black-pattern.svg';
 
 const {
   Icon,
@@ -24,9 +25,7 @@ const Wrapper = styled.footer`
   z-index: 2;
   padding: 6rem 0;
   background-size: 130%;
-  background: ${p =>
-      p.hasPattern && `url(${require('site/assets/images/black-pattern.svg')}) repeat`}
-    #303030;
+  background: ${p => p.hasPattern && `url(${blackPattern}) repeat`} #303030;
 
   ${media.sm`
     padding: 8rem 0 0.5rem;
@@ -59,8 +58,7 @@ const Divider = styled.hr`
 
 const DividerSatellites = styled.hr`
   margin: 32px 0px;
-  background: #d8d8d8;
-  opacity: 0.5;
+  border-color: rgba(216, 216, 216, 0.5);
 `;
 
 const AboutContainer = styled.div`
@@ -183,17 +181,17 @@ const LogoSatellites = styled(Icon)`
   fill: #666666;
 `;
 
-const CopySatellites = styled.p`
-  margin: 0;
-  margin-top: 12;
-  line-height: 16px;
-  font-size: 12px;
-  color: #666666;
-`;
+// const CopySatellites = styled.p`
+//   margin: 0;
+//   margin-top: 12;
+//   line-height: 16px;
+//   font-size: 12px;
+//   color: #666666;
+// `;
 
-const Bold = styled.span`
-  font-weight: bold;
-`;
+// const Bold = styled.span`
+//   font-weight: bold;
+// `;
 
 const DescriptionWhite = Description.extend`
   color: ${p => p.theme.brandWhite};
@@ -226,8 +224,13 @@ export default ({ params }) => {
             </ColLeft>
 
             <ColRight sm="4" md="7">
-              <Phone href={`tel:+${global.config.phones.country}`} id="comagicDTPhoneNumber">
-                <StaticMask pattern="+1 (111) 111-11-11">{global.config.phones.country}</StaticMask>
+              <Phone
+                href={`tel:+${global.config.phones.country}`}
+                id="comagicDTPhoneNumber"
+              >
+                <StaticMask pattern="+1 (111) 111-11-11">
+                  {global.config.phones.country}
+                </StaticMask>
               </Phone>
               <CallbackModal propertyCategory={params && params.category}>
                 <StButton size="sm" kind="primary">
@@ -252,7 +255,7 @@ export default ({ params }) => {
           <LogoSatellites icon={global.config.brand} />
         </Visibility>
 
-        <Col xs="8" xsOffset="2" >
+        <Col xs="8" xsOffset="2">
           <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
             <Footer.NavSatellites />
             <DividerSatellites />

@@ -2,17 +2,24 @@
 import React, { Component } from 'react';
 import CSSModules from 'react-css-modules';
 
-import UI from 'site/ui/v2019';
+import UI from '../../../../ui/v2019';
+
+import s from '../../../../styles/components/v2019/satellites/filter.css';
+import sUtils from '../../../../styles/utils.css';
+
+import {
+  CheckboxWrapper,
+  ControlsContainer,
+  CheckboxLabel,
+  Title,
+  FilterHeader,
+  IconReset,
+} from './styled';
+
 const {
   Checkbox,
   Grid: { Container },
 } = UI;
-
-import s from 'site/styles/components/v2019/satellites/filter.css';
-import sUtils from 'site/styles/utils';
-import st from 'site/styles/themes2019';
-
-import { CheckboxWrapper, ControlsContainer, CheckboxLabel, Title, FilterHeader, IconReset } from './styled';
 
 const styles = {
   ...s,
@@ -61,7 +68,9 @@ class Renovate extends Component {
             <Container fluid styleName="contentContainer">
               <FilterHeader>
                 <Title>Ремонт</Title>
-                {items.length > 0 && <IconReset onClick={this.onReset} icon="times" />}
+                {items.length > 0 && (
+                  <IconReset onClick={this.onReset} icon="times" />
+                )}
               </FilterHeader>
               <CheckboxWrapper>
                 <Checkbox

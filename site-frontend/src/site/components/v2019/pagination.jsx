@@ -1,19 +1,15 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import styled from 'styled-components';
 
-import UI from 'site/ui/v2019';
+import UI from '../../ui/v2019';
 
 const { Pager } = UI;
 
-export default class extends Component {
-  static propTypes = {
-    total: PropTypes.number,
-    offset: PropTypes.number,
-    limit: PropTypes.number,
-    onUpdate: PropTypes.func.isRequired,
-    resource: PropTypes.string.isRequired,
-    updatePagination: PropTypes.func.isRequired,
-  };
+const Wrapper = styled.div`
+  margin: 32px 0px;
+`;
 
+export default class extends Component {
   static defaultProps = {
     visiblePages: 3,
   };
@@ -52,15 +48,17 @@ export default class extends Component {
     const totalPages = Math.max(Math.ceil(total / limit));
 
     return (
-      <Pager
-        loadMore={loadMore}
-        current={currentPage}
-        total={totalPages}
-        visiblePages={visiblePages}
-        onPageChanged={this.handlePageChanged}
-        baseUrl={baseUrl}
-        dealType={dealType}
-      />
+      <Wrapper>
+        <Pager
+          loadMore={loadMore}
+          current={currentPage}
+          total={totalPages}
+          visiblePages={visiblePages}
+          onPageChanged={this.handlePageChanged}
+          baseUrl={baseUrl}
+          dealType={dealType}
+        />
+      </Wrapper>
     );
   }
 }

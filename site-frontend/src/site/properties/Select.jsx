@@ -7,7 +7,7 @@ const StSelect = styled.select`
   outline: none;
   float: right;
   width: auto;
-  text-align-last: right;
+  direction: rtl;
   appearance: none;
   background-color: transparent;
   border: none;
@@ -18,7 +18,10 @@ const StOption = styled.option`
 `;
 
 const Select = ({ selected, options = [], placeholder, onChange }) => (
-  <StSelect value={selected || 'placeholder'} onChange={e => onChange(e.target.value)}>
+  <StSelect
+    value={selected || 'placeholder'}
+    onChange={e => onChange(e.target.value)}
+  >
     <StOption value="placeholder" disabled>
       {placeholder}
     </StOption>

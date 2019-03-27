@@ -31,3 +31,22 @@ export const sellKinds = [
     name: 'Квартира',
   },
 ];
+
+export const bedroomsOptions = [
+  {
+    value: 2,
+    label: 'От 2',
+  },
+  {
+    value: 3,
+    label: 'От 3',
+  },
+  {
+    value: 4,
+    label: 'От 4',
+  },
+  {
+    value: 5,
+    label: '5 и более',
+  },
+];

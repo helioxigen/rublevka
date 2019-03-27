@@ -11,7 +11,7 @@ const PropertyPrice = ({ deal = {}, dealType, selectedCurrency = 'usd' }) => (
       value={(deal.multiCurrencyPrice || {})[selectedCurrency]}
       maximumSignificantDigits={12}
     />
-    {dealType === 'rent' ? '/ месяц' : ''}
+    {dealType === 'rent' ? ' / месяц' : ''}
   </span>
 );
 

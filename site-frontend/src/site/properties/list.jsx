@@ -32,9 +32,6 @@ import Filter from '../countryProperties/v2019/list/filter';
 import OrderBy from './orderBy';
 import NotFound from './notFound';
 
-// styles
-import s from '../styles/list.css';
-
 // helpers
 import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from '../../core/helpers/shouldLoad';
 import {
@@ -341,18 +338,16 @@ class List extends Component {
         {hasItems && (
           <Container fluid>
             <Row sm="center">
-              <Col sm="6" className={s.paginationWrapper}>
-                <section>
-                  <Pagination
-                    total={pagination.total}
-                    offset={pagination.offset}
-                    limit={pagination.limit}
-                    resource={this.resource}
-                    updatePagination={this.props.actions.updatePagination}
-                    baseUrl={location.pathname}
-                    isScrollToTop
-                  />
-                </section>
+              <Col mdOffset="4" lgOffset="3" md="8" lg="9">
+                <Pagination
+                  total={pagination.total}
+                  offset={pagination.offset}
+                  limit={pagination.limit}
+                  resource={this.resource}
+                  updatePagination={this.props.actions.updatePagination}
+                  baseUrl={location.pathname}
+                  isScrollToTop
+                />
               </Col>
             </Row>
           </Container>

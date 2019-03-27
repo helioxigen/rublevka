@@ -1,4 +1,4 @@
-import * as types from 'core/constants/pagination';
+import * as types from '../constants/pagination';
 
 import { handleActions } from 'redux-actions';
 
@@ -6,10 +6,10 @@ const initialState = {};
 
 export default handleActions(
   {
-    [types.UPDATE_PAGINATION]: (state, { kind, pagination }) => ({
+    [types.UPDATE_PAGINATION]: (state, { resource, pagination }) => ({
       ...state,
-      [kind]: {
-        ...state[kind],
+      [resource]: {
+        ...state[resource],
         ...pagination,
       },
     }),

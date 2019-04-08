@@ -14,7 +14,7 @@ pipeline:
     volumes:
       - /tmp/cache:/cache
     when:
-      branch: [master]
+      branch: [master, develop]
       event: [push]
 
   build-firebase:
@@ -127,6 +127,13 @@ pipeline:
       branch: [master]
       event: [push]
 
+  telegram-notification:
+    image: jessynt/drone-telegram
+    secrets: [telegram_access_token, telegram_chat_id]
+    when:
+      branch: [master, develop]
+      event: [push]
+
   rebuild-cache:
     image: drillster/drone-volume-cache
     rebuild: true
@@ -138,7 +145,7 @@ pipeline:
     volumes:
       - /tmp/cache:/cache
     when:
-      branch: [master]
+      branch: [master, develop]
       event: [push]
 
 branches: [master, develop]

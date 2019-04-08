@@ -18,7 +18,7 @@ $container-lg: resolve(1140px + $grid-gutter-width);
   padding-right: resolve($grid-gutter-width/2);
   padding-left: resolve($grid-gutter-width/2);
 
-  @if $type == static {
+  @if $type==static {
     @media (min-width: $screen-sm) {
       width: $container-sm;
     }
@@ -52,42 +52,54 @@ $container-lg: resolve(1140px + $grid-gutter-width);
 
   /* need for sassy-mixin*/
   /* stylelint-disable function-whitespace-after */
-  @if $media == xs {
+  @if $media==xs {
     flex: 0 0 auto;
-    flex-basis: resolve($columns / $grid-columns * 100) %;
-    max-width: resolve($columns / $grid-columns * 100) %;
-  } @else if $media == sm {
+    flex-basis: resolve($columns / $grid-columns * 100)%;
+    max-width: resolve($columns / $grid-columns * 100)%;
+  }
+
+  @else if $media==sm {
     @media (min-width: $screen-sm) {
-      flex-basis: resolve($columns / $grid-columns * 100) %;
-      max-width: resolve($columns / $grid-columns * 100) %;
+      flex-basis: resolve($columns / $grid-columns * 100)%;
+      max-width: resolve($columns / $grid-columns * 100)%;
     }
-  } @else if $media == md {
+  }
+
+  @else if $media==md {
     @media (min-width: $screen-md) {
-      flex-basis: resolve($columns / $grid-columns * 100) %;
-      max-width: resolve($columns / $grid-columns * 100) %;
+      flex-basis: resolve($columns / $grid-columns * 100)%;
+      max-width: resolve($columns / $grid-columns * 100)%;
     }
-  } @else if $media == lg {
+  }
+
+  @else if $media==lg {
     @media (min-width: $screen-lg) {
-      flex-basis: resolve($columns / $grid-columns * 100) %;
-      max-width: resolve($columns / $grid-columns * 100) %;
+      flex-basis: resolve($columns / $grid-columns * 100)%;
+      max-width: resolve($columns / $grid-columns * 100)%;
     }
   }
 }
 
 @mixin make-offset($media, $columns) {
-  @if $media == xs {
-    margin-left: resolve($columns / $grid-columns * 100) %;
-  } @else if $media == sm {
+  @if $media==xs {
+    margin-left: resolve($columns / $grid-columns * 100)%;
+  }
+
+  @else if $media==sm {
     @media (min-width: $screen-sm) {
-      margin-left: resolve($columns / $grid-columns * 100) %;
+      margin-left: resolve($columns / $grid-columns * 100)%;
     }
-  } @else if $media == md {
+  }
+
+  @else if $media==md {
     @media (min-width: $screen-md) {
-      margin-left: resolve($columns / $grid-columns * 100) %;
+      margin-left: resolve($columns / $grid-columns * 100)%;
     }
-  } @else if $media == lg {
+  }
+
+  @else if $media==lg {
     @media (min-width: $screen-lg) {
-      margin-left: resolve($columns / $grid-columns * 100) %;
+      margin-left: resolve($columns / $grid-columns * 100)%;
     }
   }
 }
@@ -151,6 +163,7 @@ $container-lg: resolve(1140px + $grid-gutter-width);
 
 .xs {
   @include alignment();
+
   @for $i from 1 to 12 {
     &-$i {
       @include make-column(xs, $i);
@@ -164,6 +177,7 @@ $container-lg: resolve(1140px + $grid-gutter-width);
 
 .sm {
   @include alignment();
+
   @for $i from 1 to 12 {
     &-$i {
       @include make-column(sm, $i);
@@ -177,6 +191,7 @@ $container-lg: resolve(1140px + $grid-gutter-width);
 
 .md {
   @include alignment();
+
   @for $i from 1 to 12 {
     &-$i {
       @include make-column(md, $i);
@@ -190,6 +205,7 @@ $container-lg: resolve(1140px + $grid-gutter-width);
 
 .lg {
   @include alignment();
+
   @for $i from 1 to 12 {
     &-$i {
       @include make-column(lg, $i);

@@ -1,3 +1,9 @@
+export const currencySymbols = {
+  eur: '€',
+  rub: '₽',
+  usd: '$',
+};
+
 export const rentKinds = [
   {
     value: 'house',

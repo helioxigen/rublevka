@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
-
-import { dealTypes } from 'constants/properties/dictionaries';
-import { prices } from './options';
-
 import { connect } from 'react-redux';
 
+import { dealTypes } from '../../../../constants/properties/dictionaries';
+import { prices } from './options';
+
 // actions
-import {
-  updateDisplayOption,
-  resetDisplayOption,
-} from 'displayOptions/actions';
+import { updateDisplayOption } from '../../../../displayOptions/actions';
 
-import SelectGroup from 'core/components/v2019/ui/select/selectGroup';
+import SelectGroup from '../../../../core/components/v2019/ui/select/selectGroup';
 
-import UI from 'ui/v2019';
+import UI from '../../../../ui/v2019';
 
 import {
   ControlsContainer,
@@ -31,37 +27,17 @@ const {
 } = UI;
 
 class Price extends Component {
-  constructor(props) {
-    super(props);
-
-    this.onUpdate = this.onUpdate.bind(this);
-    this.toggleSelect = this.toggleSelect.bind(this);
-    this.onReset = this.onReset.bind(this);
-
-    this.state = { isOpen: false, currencyTag: 'usd' };
-  }
-
-  componentDidMount() {
-    const { selected = {}, dealType } = this.props;
-    const key = dealTypes[dealType];
-    const { currencyPrice } = selected[key] || {};
-
-    if (currencyPrice) {
-      if (currencyPrice === `${key}Offer.multiCurrencyPrice.usd`) {
-        this.onChangeCurrency('usd');
-      } else if (currencyPrice === `${key}Offer.multiCurrencyPrice.rub`) {
-        this.onChangeCurrency('rub');
-      }
-    }
-  }
-
-  onUpdate(ref, value) {
-    const { dealType, selected = {} } = this.props;
+  onUpdate = (ref, value) => {
+    const {
+      dealType,
+      selected = {},
+      displayOptions: { currency: selectedCurrency },
+    } = this.props;
     const price = selected[dealTypes[dealType]] || {};
     const stateRef = ref === 'min' ? 'max' : 'min';
-    const currency = `${dealTypes[dealType]}Offer.multiCurrencyPrice.${
-      this.state.currencyTag
-    }`;
+    const currency = `${
+      dealTypes[dealType]
+    }Offer.multiCurrencyPrice.${selectedCurrency}`;
 
     const options = {
       [stateRef]: price[stateRef],
@@ -70,54 +46,30 @@ class Price extends Component {
     };
 
     this.props.updateFilter(dealTypes[dealType], options);
-  }
-
-  toggleSelect() {
-    if (!this.state.isOpen) {
-      document.addEventListener('click', this.toggleSelect, false);
-    } else {
-      document.removeEventListener('click', this.toggleSelect, false);
-    }
-    this.setState(prevState => ({
-      isOpen: !prevState.isOpen,
-    }));
-  }
+  };
 
   handleCurrencyButtonClick(currency) {
-    const { state } = this.props;
-    const selected = state.displayOptions.currency;
+    const { dispatch } = this.props;
 
-    if (selected === currency) {
-      this.props.dispatch(resetDisplayOption('currency'));
-    } else {
-      this.props.dispatch(updateDisplayOption('currency', currency));
-    }
-
-    this.setState(prevState => ({
-      isOpen: !prevState.isOpen,
-    }));
+    dispatch(updateDisplayOption('currency', currency));
   }
 
-  onChangeCurrency(currency) {
-    this.setState({
-      currencyTag: currency,
-    });
-  }
-
-  onReset() {
+  onReset = () => {
     const { dealType } = this.props;
 
     this.props.updateFilter(dealTypes[dealType], {});
-  }
+  };
 
   render() {
-    const { selected = {}, dealType } = this.props;
+    const {
+      selected = {},
+      dealType,
+      displayOptions: { currency },
+    } = this.props;
     const key = dealTypes[dealType];
     const price = selected[key] || {};
 
-    // const current = state.displayOptions.currency;
-
-    const dealPrices = prices[this.state.currencyTag][key] || [];
+    const dealPrices = prices[currency][key] || [];
 
     return (
       <Wrapper>
@@ -136,16 +88,25 @@ class Price extends Component {
             />
             <CheckboxWrapper>
               <RadioButton
-                checked={this.state.currencyTag === 'usd'}
-                name="house"
-                handleChange={() => this.onChangeCurrency('usd')}
+                name="currency"
                 text="Доллары ($)"
+                value="usd"
+                checked={currency === 'usd'}
+                handleChange={() => this.handleCurrencyButtonClick('usd')}
               />
               <RadioButton
-                checked={this.state.currencyTag === 'rub'}
-                name="house"
-                handleChange={() => this.onChangeCurrency('rub')}
+                name="currency"
                 text="Рубли (₽)"
+                value="rub"
+                checked={currency === 'rub'}
+                handleChange={() => this.handleCurrencyButtonClick('rub')}
+              />
+              <RadioButton
+                name="currency"
+                text="Евро (€)"
+                value="eur"
+                checked={currency === 'eur'}
+                handleChange={() => this.handleCurrencyButtonClick('eur')}
               />
             </CheckboxWrapper>
           </ControlsContainer>
@@ -155,8 +116,6 @@ class Price extends Component {
   }
 }
 
-const pickState = ({ displayOptions }) => ({
-  state: { displayOptions },
-});
+const pickState = ({ displayOptions }) => ({ displayOptions });
 
 export default connect(pickState)(Price);

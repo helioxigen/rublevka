@@ -6,6 +6,10 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Downshift from 'downshift';
 
+import { connect } from 'react-redux';
+
+import { updateDisplayOption } from '../../../displayOptions/actions';
+
 import { kindsTranslit } from '../../../constants/properties/dictionaries';
 
 import { prices } from '../../../countryProperties/v2019/list/filter/options';
@@ -25,7 +29,11 @@ import {
   Search,
 } from './styled';
 import Select from './Select';
-import { rentKinds as kinds, bedroomsOptions } from './constants';
+import {
+  rentKinds as kinds,
+  bedroomsOptions,
+  currencySymbols,
+} from './constants';
 
 const { RadioButton } = UI;
 
@@ -80,23 +88,17 @@ const SelectWrapper = styled.div`
   `}
 `;
 
-export default class extends Component {
+class Rent extends Component {
   state = {
     priceTo: null,
     priceFrom: null,
-    currency: 'usd',
     bedrooms: bedroomsOptions[0].value,
     kind: kinds[0].value,
   };
 
   formateData = () => {
-    const {
-      priceTo = {},
-      priceFrom = {},
-      currency,
-      bedrooms,
-      kind = {},
-    } = this.state;
+    const { currency } = this.props;
+    const { priceTo = {}, priceFrom = {}, bedrooms, kind = {} } = this.state;
 
     return {
       rent: {
@@ -110,8 +112,9 @@ export default class extends Component {
   };
 
   generateCostPhrase = () => {
-    const { priceTo, priceFrom, currency } = this.state;
-    const currencySymbol = currency === 'rub' ? '₽' : '$';
+    const { currency } = this.props;
+    const { priceTo, priceFrom } = this.state;
+    const currencySymbol = currencySymbols[currency];
 
     if (priceFrom && !priceTo) {
       return `От ${priceFrom.label} ${currencySymbol}`;
@@ -127,9 +130,9 @@ export default class extends Component {
   };
 
   render() {
-    const { priceTo, priceFrom, bedrooms, currency, kind } = this.state;
-    const { navigate } = this.props;
-    const priceResetButtonActive = priceTo || priceFrom || currency !== 'usd';
+    const { priceTo, priceFrom, bedrooms, kind } = this.state;
+    const { navigate, dispatch, currency } = this.props;
+    const priceResetButtonActive = priceTo || priceFrom;
     const rentPrices = prices[currency].rent.map(item => ({
       value: item.value,
       label: item.label.slice(0, -5),
@@ -201,7 +204,6 @@ export default class extends Component {
                       this.setState({
                         priceFrom: null,
                         priceTo: null,
-                        currency: 'usd',
                       })
                     }
                     withSaveButton
@@ -235,21 +237,36 @@ export default class extends Component {
                       </SelectWrapper>
                     </InputsBlock>
                     <RadioButton
-                      name="usd"
+                      name="currency"
                       text="Доллары ($)"
                       value="usd"
                       checked={currency === 'usd'}
                       handleChange={e =>
-                        this.setState({ currency: e.target.value })
+                        dispatch(
+                          updateDisplayOption('currency', e.target.value),
+                        )
                       }
                     />
                     <RadioButton
-                      name="rub"
+                      name="currency"
                       text="Рубли (₽)"
                       value="rub"
                       checked={currency === 'rub'}
                       handleChange={e =>
-                        this.setState({ currency: e.target.value })
+                        dispatch(
+                          updateDisplayOption('currency', e.target.value),
+                        )
+                      }
+                    />
+                    <RadioButton
+                      name="currency"
+                      text="Евро (€)"
+                      value="eur"
+                      checked={currency === 'eur'}
+                      handleChange={e =>
+                        dispatch(
+                          updateDisplayOption('currency', e.target.value),
+                        )
                       }
                     />
                   </Options>
@@ -317,3 +334,5 @@ export default class extends Component {
     );
   }
 }
+
+export default connect()(Rent);

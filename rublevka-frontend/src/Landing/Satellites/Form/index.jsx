@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+import { connect } from 'react-redux';
+
 import Sell from './Sell';
 import PropertyNumber from './PropertyNumber';
 import Rent from './Rent';
@@ -87,7 +89,7 @@ const Divider = styled.div`
   `}
 `;
 
-export default class Form extends Component {
+class Form extends Component {
   state = { selectedTab: 'sell' };
 
   navigate = (link, type, values) => {
@@ -98,6 +100,9 @@ export default class Form extends Component {
   };
 
   render() {
+    const {
+      displayOptions: { currency },
+    } = this.props;
     const { selectedTab } = this.state;
 
     return (
@@ -133,8 +138,12 @@ export default class Form extends Component {
           {selectedTab === 'number' && (
             <PropertyNumber navigate={this.navigate} />
           )}
-          {selectedTab === 'sell' && <Sell navigate={this.navigate} />}
-          {selectedTab === 'rent' && <Rent navigate={this.navigate} />}
+          {selectedTab === 'sell' && (
+            <Sell currency={currency} navigate={this.navigate} />
+          )}
+          {selectedTab === 'rent' && (
+            <Rent currency={currency} navigate={this.navigate} />
+          )}
           {selectedTab === 'settlements' && (
             <Settlements navigate={this.navigate} />
           )}
@@ -143,3 +152,11 @@ export default class Form extends Component {
     );
   }
 }
+
+const pickState = (state) => {
+  const { displayOptions } = state;
+
+  return { displayOptions };
+};
+
+export default connect(pickState)(Form);

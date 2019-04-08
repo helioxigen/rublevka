@@ -1,0 +1,146 @@
+@import './responsive-utils';
+@import './variables';
+
+.filterContainer {
+  padding: 2rem 0;
+
+  background: $brand-white;
+
+  @include responsive(sm) {
+    padding: 3rem 0;
+  }
+}
+
+.orderByContainer {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+
+  @include responsive(sm) {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+}
+
+.orderBySatellites {
+  padding-bottom: 2.5rem;
+
+  @include responsive(sm) {
+    padding-bottom: 3rem;
+  }
+}
+
+.paginationWrapper {
+  margin: 4rem 0;
+}
+
+.paginationWrapperPlace {
+  margin: 2rem 0 4rem;
+}
+
+.listContainer {
+  padding: 0 1.5rem;
+
+  @include responsive(sm) {
+    padding: 0;
+  }
+}
+
+.container {
+  padding: 6rem 0;
+
+  background: $brand-white;
+  border-top: 1px solid $grey;
+}
+
+.heading {
+  margin: 0;
+
+  font-size: 2.2rem;
+  font-weight: 300;
+}
+
+.description {
+  margin: 0;
+  margin-top: 2.5rem;
+
+  color: $dove-gray;
+  line-height: 2.2rem;
+}
+
+.extraPadding {
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+
+  @include responsive(sm) {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.pushedTop5 {
+  margin-top: 5rem;
+}
+
+.resetExtraPadding {
+  @include responsive(sm) {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.extraPadding3 {
+  @include responsive(sm) {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+
+  @include responsive(md) {
+    padding-right: 3rem;
+    padding-left: 3rem;
+  }
+}
+
+.pushed10_0 {
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+}
+
+.settlementMap {
+  position: relative;
+  min-height: 49rem;
+
+  @include responsive(sm) {
+    min-height: 30rem;
+  }
+}
+
+@media only screen and (max-device-width: 480px) {
+  body {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+}
+
+.button {
+  width: 50%;
+
+  background: #f3f3f3;
+  color: #7c7c7c;
+
+  font-size: 1.4rem;
+
+  border: 1px solid #e7e7e7;
+  border-radius: 0;
+
+  padding: 1.7rem 0;
+
+  &:hover {
+    background: #f3f3f3;
+    color: #7c7c7c;
+  }
+
+  &:focus {
+    background: #f3f3f3;
+    color: #7c7c7c;
+  }
+}

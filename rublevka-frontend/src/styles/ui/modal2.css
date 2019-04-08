@@ -1,0 +1,113 @@
+@import '../responsive-utils';
+@import '../variables';
+
+$size-xlg: 100rem;
+$size-lg: 90rem;
+$size-md: 75rem;
+$size-sm: 53rem;
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+
+  overflow: hidden;
+  overflow-y: scroll;
+
+  text-align: left;
+
+  background: $brand-white;
+
+  pointer-events: auto;
+
+  @include responsive(sm) {
+    top: 8.1rem;
+
+    animation: fadeIn 0.3s;
+  }
+}
+
+.content {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.close {
+  position: absolute;
+  top: 2.2rem;
+  right: 2.3rem;
+  z-index: 10;
+
+  padding: 0;
+
+  border: 0;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background: transparent;
+  }
+
+  @include responsive(sm) {
+    right: 3rem;
+  }
+}
+
+.icon {
+  width: 3rem;
+  height: 3rem;
+
+  fill: $brand-black;
+
+  transition: background 0.3s;
+
+  &:hover {
+    fill: color($brand-primary blackness(10%));
+  }
+}
+
+.xlg {
+  @include responsive(md) {
+    width: $size-xlg;
+  }
+}
+
+.lg {
+  @include responsive(sm) {
+    width: $size-lg;
+  }
+}
+
+.md {
+  @include responsive(sm) {
+    width: $size-md;
+  }
+}
+
+.sm {
+  width: 100%;
+
+  @include responsive(sm) {
+    width: $size-sm;
+  }
+}
+
+.fullWidth {
+  width: 100%;
+  height: 100%;
+
+  border-radius: 0;
+}

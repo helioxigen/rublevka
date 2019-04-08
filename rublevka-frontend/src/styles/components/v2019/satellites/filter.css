@@ -1,0 +1,588 @@
+@import '../../../responsive-utils';
+@import '../../../variables';
+
+$brand-primary: #63608e;
+$brand-disabled: #827fb3;
+$brand-primary-hover: #53507e;
+$brand-primary-focus: #4c4975;
+$purple: #6c6994;
+
+$grey: #efefef;
+
+$light-purple: #dcdde9;
+
+.wrapper {
+  padding: 3rem 0;
+
+  background: $brand-white;
+
+  @include responsive(sm) {
+    padding-bottom: 1rem;
+  }
+
+  @include responsive(md) {
+    padding: 4.5rem 0 2.5rem;
+  }
+}
+
+.fixed {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.overlay {
+  opacity: 0;
+
+  &.overlayActive {
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 998;
+
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 1;
+
+    transition: opacity 0.35s linear;
+  }
+}
+
+.desktopContainer {
+  position: fixed;
+  top: 0;
+  left: -50%;
+  bottom: 0;
+  z-index: 999;
+
+  overflow-y: scroll;
+
+  width: 50%;
+  padding: 9rem 1rem;
+
+  background: $brand-white;
+
+  transition: 0.6s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.desktopContainerActive {
+  &.desktopContainer {
+    left: 0;
+  }
+}
+
+.tabContentContainer {
+  composes: fixed;
+
+  padding-bottom: 6.5rem;
+  overflow-y: scroll;
+
+  background: $brand-white;
+}
+
+.btnContainer {
+  display: flex;
+  width: 100%;
+
+  border-bottom: 1px solid $purple;
+}
+
+.btnContainerMd {
+  position: relative;
+
+  padding-top: 0.2rem;
+
+  text-align: center;
+
+  border-bottom: 1px solid $grey-darker;
+}
+
+.iconContainer {
+  position: relative;
+
+  display: inline-block;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-right: 1.5rem;
+
+  vertical-align: top;
+
+  background: #f5f5f5;
+  border-radius: 50%;
+
+  @include responsive(sm) {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  @include responsive(md) {
+    display: block;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin: 0 auto 1rem;
+
+    background: rgba(255, 255, 255, 0.07);
+  }
+}
+
+.tabContainer {
+  composes: resetIndent from 'styles/utils';
+  padding: 3rem 0;
+
+  @include responsive(sm) {
+    padding: 3rem 1rem;
+  }
+
+  @include responsive(md) {
+    padding: 3rem 0;
+  }
+}
+
+.kindContainer {
+  padding: 0.5rem 1.5rem 2.5rem;
+
+  @include responsive(sm) {
+    padding: 3rem 0.5rem 1rem;
+  }
+
+  @include responsive(md) {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+}
+
+.contentContainer {
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+
+.sliderContainer {
+  position: relative;
+
+  margin-top: 1.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 3rem;
+
+  @include responsive(sm) {
+    margin-top: 2rem;
+
+    padding-top: 1.5rem;
+  }
+
+  @include responsive(md) {
+    max-width: 42.3rem;
+    margin-top: 0;
+    padding-top: 1rem;
+    padding-bottom: 2.3rem;
+  }
+}
+
+.selectContainer {
+  white-space: nowrap;
+  padding: 0;
+
+  margin-top: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.checkboxContainer {
+  padding: 2rem;
+
+  text-align: left;
+
+  @include responsive(sm) {
+    padding: 3rem;
+  }
+
+  @include responsive(md) {
+    padding: 1rem 3rem;
+  }
+}
+
+.counter {
+  margin-left: 1rem;
+  padding: 0.5rem 1rem;
+
+  font-size: 1.8rem;
+  line-height: 1;
+
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+
+  @include responsive(md) {
+    display: none;
+  }
+}
+
+.labelLg {
+  display: none;
+  min-width: 16.5rem;
+  padding: 2.1rem 1rem;
+
+  line-height: 1;
+  text-align: center;
+
+  user-select: none;
+
+  @include responsive(sm) {
+    display: block;
+
+    color: $brand-white;
+    font-size: 2.4rem;
+  }
+}
+
+.labelSm {
+  display: block;
+
+  font-size: 1.6rem;
+  font-weight: 600;
+
+  user-select: none;
+
+  @include responsive(sm) {
+    display: none;
+  }
+}
+
+.labelMd {
+  display: block;
+
+  margin-top: 3rem;
+
+  font-size: 1.6rem;
+  font-weight: 600;
+
+  user-select: none;
+
+  @include responsive(sm) {
+    font-size: 2rem;
+    font-weight: 500;
+  }
+
+  @include responsive(md) {
+    margin-top: 0.7rem;
+
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 1.6rem;
+    font-weight: 400;
+  }
+}
+
+.textSm {
+  position: relative;
+  top: 1px;
+}
+
+/* btn */
+
+.btnTimes {
+  min-width: 4rem;
+  max-width: 4rem;
+  min-height: 4rem;
+  max-height: 4rem;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  padding: 0;
+  padding-right: 0.8rem;
+  padding-left: 0.8rem;
+
+  background: transparent;
+  border: none;
+  border-radius: 50% !important;
+
+  &:hover,
+  &:focus {
+    background: transparent;
+  }
+
+  @include responsive(sm) {
+    min-width: 5rem;
+    max-width: 5rem;
+    min-height: 5rem;
+    max-height: 5rem;
+    margin-right: 1.5rem;
+    padding-left: 1rem;
+  }
+}
+
+.btnTimesSm {
+  margin-left: 0.7rem;
+  padding: 0;
+
+  background: transparent;
+  border: none;
+
+  &:hover,
+  &:focus {
+    background: transparent;
+  }
+}
+
+.floatBtn {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 9999;
+
+  width: calc(100% - 4rem);
+  padding: 1.8rem 0;
+
+  border-radius: 10rem;
+
+  &:hover {
+    z-index: 9999;
+  }
+
+  @include responsive(sm) {
+    right: 3rem;
+    left: 3rem;
+
+    width: calc(100% - 6rem);
+    padding: 2rem 0;
+
+    font-size: 2rem;
+  }
+
+  @include responsive(md) {
+    z-index: 5;
+    left: -44rem;
+    width: 36rem;
+    padding: 1.8rem 0;
+
+    font-size: 1.6rem;
+
+    transition: 0.6s cubic-bezier(0.86, 0, 0.07, 1);
+  }
+}
+
+.floatBtnActive {
+  left: 2rem;
+}
+
+/* icon */
+
+.iconTimesMd {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 0.7rem;
+
+  vertical-align: middle;
+
+  fill: $brand-white;
+}
+
+.iconTimesSm {
+  width: 1.5rem;
+  height: 1.5rem;
+
+  fill: $brand-black;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  stroke-opacity: 0;
+  transform: translate(-50%, -50%);
+
+  @include responsive(md) {
+    fill: $brand-white;
+  }
+}
+
+.road {
+  composes: icon;
+
+  width: 1.7rem;
+  height: 1.7rem;
+
+  stroke-opacity: 1;
+}
+
+.compass {
+  composes: icon;
+
+  width: 2.2rem;
+  height: 2.2rem;
+
+  @include responsive(sm) {
+    width: 2.9rem;
+    height: 2.9rem;
+  }
+
+  @include responsive(md) {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+}
+
+.house {
+  composes: icon;
+
+  width: 2.2rem;
+  height: 2.1rem;
+
+  @include responsive(sm) {
+    width: 2.9rem;
+    height: 2.8rem;
+  }
+
+  @include responsive(md) {
+    width: 2.2rem;
+    height: 2.1rem;
+  }
+}
+
+.dollar {
+  composes: icon;
+
+  width: 2.4rem;
+  height: 2.4rem;
+
+  @include responsive(sm) {
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+
+  @include responsive(md) {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+}
+
+.triangle {
+  composes: icon;
+
+  width: 2.1rem;
+  height: 2.3rem;
+
+  @include responsive(sm) {
+    width: 2.8rem;
+    height: 3.1rem;
+  }
+
+  @include responsive(md) {
+    width: 2.1rem;
+    height: 2.3rem;
+  }
+}
+
+.routes {
+  composes: icon;
+
+  width: 2.2rem;
+  height: 1.9rem;
+
+  @include responsive(sm) {
+    width: 2.7rem;
+    height: 2.3rem;
+  }
+
+  @include responsive(md) {
+    width: 2.2rem;
+    height: 1.9rem;
+  }
+}
+
+.renovate {
+  composes: icon;
+
+  width: 2.1rem;
+  height: 2.1rem;
+
+  @include responsive(sm) {
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+
+  @include responsive(md) {
+    width: 2.1rem;
+    height: 2.1rem;
+  }
+}
+
+.marker {
+  composes: icon;
+
+  width: 1.5rem;
+  height: 2.1rem;
+
+  @include responsive(sm) {
+    width: 2rem;
+    height: 2.8rem;
+  }
+
+  @include responsive(md) {
+    width: 1.5rem;
+    height: 2.1rem;
+  }
+}
+
+.iconArrow {
+  width: 1.6rem;
+  height: 1.2rem;
+  margin-right: 0.7rem;
+
+  fill: $brand-white;
+  transform: rotate(90deg);
+
+  @include responsive(sm) {
+    width: 2rem;
+    height: 1.6rem;
+    margin-right: 1rem;
+  }
+}
+
+.dividerBottom {
+  margin-bottom: 3.5rem;
+  padding-bottom: 2.3rem;
+
+  &:after {
+    content: '';
+    position: absolute;
+    right: 50%;
+    bottom: 0;
+    left: 50%;
+
+    width: 100vw;
+    height: 1px;
+    margin-right: -50vw;
+    margin-left: -50vw;
+
+    background: $grey;
+  }
+
+  @include responsive(sm) {
+    margin-bottom: 5.7rem;
+    padding-bottom: 6rem;
+  }
+
+  @include responsive(md) {
+    margin-bottom: 0;
+    padding-bottom: 2.3rem;
+
+    &:after {
+      display: none;
+    }
+  }
+}
+
+.displayInlineBlock {
+  display: inline-block;
+  width: 100%;
+
+  text-align: left;
+
+  @include responsive(md) {
+    text-align: center;
+  }
+}

@@ -1,0 +1,171 @@
+@import '../../variables';
+@import '../../responsive-utils';
+
+.requestContainer {
+  position: relative;
+  background: $brand-white;
+  margin: 0 -1.5rem;
+  padding-top: 3rem;
+
+  &:after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    background: $grey;
+    height: 1px;
+  }
+}
+
+.title {
+  margin: 0;
+  margin-bottom: 1.3rem;
+  font-weight: 500;
+}
+
+.text {
+  margin: 0;
+
+  color: $boulder;
+  font-size: 1.6rem;
+}
+
+.ranged {
+  display: inline-block;
+  width: 50%;
+
+  &:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  &:last-child {
+    margin-left: -1px;
+
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+.textGrey {
+  margin: 0;
+
+  color: $star-dust;
+  font-size: 1.4rem;
+}
+
+.textGreySm {
+  margin-bottom: 0;
+
+  color: $boulder;
+  font-size: $font-size-md;
+  font-weight: 300;
+}
+
+.select {
+  width: 100%;
+}
+
+.btnGroup {
+  width: 100%;
+  margin-bottom: 1.7rem;
+}
+
+.btnLg {
+  width: 50%;
+  padding: 1.6rem 2.4rem;
+
+  font-size: 1.4rem;
+
+  &:hover,
+  &:focus {
+    background: $body-bg;
+  }
+
+  &.disabled {
+    background: $body-bg;
+    opacity: 1;
+  }
+
+  &:first-child {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+
+    &:hover {
+      z-index: 3;
+    }
+  }
+}
+
+.btn {
+  padding: 1rem 0 0.2rem;
+
+  color: $brand-black;
+  font-size: 1.4rem;
+
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed $brand-black;
+  border-radius: 0;
+
+  &:hover,
+  &:focus {
+    background: transparent;
+  }
+}
+
+.iconLogo {
+  width: 4rem;
+  height: 3.5rem;
+
+  fill: $brand-primary;
+}
+
+.requestMore {
+  display: none;
+
+  &.isOpen {
+    display: block;
+  }
+}
+
+/* utils */
+
+.positionRelative {
+  position: relative;
+}
+
+.zIndex4 {
+  z-index: 4;
+}
+
+.zIndex3 {
+  z-index: 3;
+}
+
+.pushedTop1_5 {
+  margin-top: 1.5rem;
+}
+
+.pushedTop2_3 {
+  margin-top: 2.3rem;
+}
+
+.pushedTop3 {
+  margin-top: 3rem;
+}
+
+.pushedTop3_5 {
+  margin-top: 3.5rem;
+}
+
+.paddingBt1 {
+  padding-bottom: 1rem;
+}
+
+.paddingTop7 {
+  @include responsive(sm) {
+    padding-top: 7rem;
+  }
+}

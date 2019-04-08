@@ -1,0 +1,91 @@
+@import './responsive-utils';
+@import './variables';
+
+.btnDeleteAll {
+  padding: 0;
+
+  border: 0;
+
+  &:hover,
+  &:focus {
+    color: #000000;
+
+    background: transparent;
+  }
+}
+
+.btnInner {
+  text-align: left;
+  text-transform: none;
+
+  border: none;
+  border-radius: 0;
+
+  &:hover,
+  &:focus,
+  &.active {
+    color: $brand-black;
+
+    background: $body-bg;
+  }
+
+  &:last-child {
+    border-bottom-right-radius: 0.4rem;
+    border-bottom-left-radius: 0.4rem;
+  }
+}
+
+.btnTimes {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.5rem;
+  z-index: 10;
+
+  margin-top: 0;
+  margin-left: 1.5rem;
+  padding: 1rem;
+
+  background: transparent;
+  border: none;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background: transparent;
+  }
+}
+
+.iconTimes {
+  width: 1.6rem;
+  height: 1.6rem;
+
+  fill: $star-dust;
+
+  transition: fill 0.3s;
+}
+
+.btnCurrency {
+  padding: 1.5rem;
+
+  background: $brand-white;
+
+  &:focus {
+    background: $brand-white;
+  }
+
+  &:hover,
+  &.btnCurrencyActive {
+    background: transparent;
+  }
+}
+
+.btnCurrency.active {
+  background: $grey;
+}
+
+.iconCurrency {
+  width: 1.4rem;
+  height: 1.5rem;
+
+  fill: $brand-black;
+}

@@ -31,7 +31,7 @@ pipeline:
   deploy-rublevka-frontend-dev:
     image: docker/compose:1.22.0
     commands:
-      - cd site-frontend
+      - cd rublevka-frontend
       - docker-compose -f docker-compose-dev.yml build --build-arg BUILD_ID=$DRONE_BUILD_NUMBER
       - docker-compose -f docker-compose-dev.yml up -d
     volumes:
@@ -47,7 +47,7 @@ pipeline:
   deploy-rublevka-frontend-prod:
     image: docker/compose:1.22.0
     commands:
-      - cd site-frontend
+      - cd rublevka-frontend
       - docker-compose build --build-arg BUILD_ID=$DRONE_BUILD_NUMBER
       - docker-compose up -d
     volumes:

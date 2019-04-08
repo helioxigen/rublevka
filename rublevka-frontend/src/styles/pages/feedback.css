@@ -1,0 +1,52 @@
+@import '../variables';
+@import '../responsive-utils';
+.feedbackContainer {
+  padding: 5rem 1.5rem 7rem;
+  @include responsive(sm) {
+    padding: 5rem 1.5rem 7rem;
+  }
+}
+
+.mapContainer {
+  position: relative;
+  width: 100%;
+  min-height: 24rem;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  @include responsive(sm) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+  }
+}
+
+.card {
+  background: $brand-white;
+  padding: 1rem 1.5rem;
+  line-height: 1;
+  font-size: 1.6rem;
+  white-space: nowrap;
+  width: 100%;
+  @include responsive(sm) {
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    padding: 1rem 3rem;
+    box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.fullWidth {
+  width: 100%;
+  transition: 0.25s;
+}
+
+.address {
+  white-space: normal;
+  line-height: 2.5rem;
+}

@@ -1,0 +1,286 @@
+@import '../variables';
+@import '../responsive-utils';
+
+.cardContainer {
+  .card,
+  .cardAgent {
+    border-bottom: 1px solid $grey;
+
+    @include responsive(sm) {
+      border-bottom: none;
+    }
+  }
+
+  &:last-child {
+    .card,
+    .cardAgent {
+      margin-bottom: 1rem;
+
+      border-bottom: none;
+    }
+  }
+}
+
+.card {
+  position: relative;
+
+  margin-bottom: 3rem;
+  padding: 1.5rem 1.5rem 4.5rem;
+
+  @include responsive(sm) {
+    min-height: 58rem;
+    padding-bottom: 2rem;
+
+    &:after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 7.5rem;
+      left: 0;
+
+      height: 74px;
+
+      box-shadow: inset 0 -7rem 5.5rem -1.5rem rgba(255, 255, 255, 1);
+    }
+  }
+
+  @include responsive(md) {
+    min-height: 59.5rem;
+    padding: 3.5rem 1.5rem 2.5rem;
+
+    cursor: pointer;
+
+    &:after {
+      bottom: 2rem;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      box-shadow: 0 2px 4.9rem 0 rgba(0, 0, 0, 0.15);
+      opacity: 0;
+
+      transition: opacity 0.3s;
+    }
+
+    &:hover,
+    &.active {
+      &:before {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.cardAgent {
+  position: relative;
+
+  margin-bottom: 3rem;
+  padding: 1.5rem 1.5rem 4.5rem;
+
+  @include responsive(sm) {
+    min-height: 37rem;
+    padding-bottom: 2rem;
+  }
+
+  @include responsive(md) {
+    min-height: 40rem;
+    padding: 3.5rem 1.5rem 2.5rem;
+  }
+}
+
+.textShow {
+  @include responsive(sm) {
+    &:after {
+      display: none;
+    }
+  }
+}
+
+.image {
+  width: 12.9rem;
+  height: 12.9rem;
+
+  background: $brand-white;
+
+  @include responsive(sm) {
+    width: 17rem;
+    min-width: 17rem;
+    height: 17rem;
+  }
+
+  @include responsive(md) {
+    width: 20.4rem;
+    min-width: 20.4rem;
+    height: 20.4rem;
+  }
+}
+
+.titleXLg {
+  margin: 0;
+
+  font-size: 3rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.titleLg {
+  margin: 0;
+
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1;
+
+  @include responsive(sm) {
+    font-size: 2.4rem;
+  }
+}
+
+.titleMd {
+  margin: 0;
+  margin-top: 2rem;
+
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.titleSm {
+  margin: 0;
+  margin-top: 2rem;
+
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.textGrey {
+  margin: 0;
+  margin-top: 1.3rem;
+
+  color: $star-dust;
+  font-size: 1.4rem;
+}
+
+.text {
+  margin: 0;
+  overflow: hidden;
+
+  font-size: 1.6rem;
+  line-height: 3.2rem;
+
+  @include responsive(sm) {
+    padding: 0 2rem;
+  }
+
+  @include responsive(md) {
+    padding: 0 1rem;
+  }
+}
+
+.textSm {
+  font-size: 1.6rem;
+  line-height: 3.2rem;
+}
+
+.modal {
+  top: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: 0;
+
+  @include responsive(md) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+
+    width: 90rem;
+    height: auto;
+    max-height: 87.8vh;
+
+    border-radius: 0;
+  }
+
+  @include responsive(lg) {
+    width: 107rem;
+  }
+}
+
+.modalContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  min-height: 100%;
+  padding: 8.7rem 4.5rem 0;
+
+  background: $brand-white;
+
+  @include responsive(md) {
+    min-height: 0;
+    height: 100%;
+    overflow-y: scroll;
+  }
+}
+
+.descriptionContainer {
+  width: 100%;
+  margin-left: 8.5rem;
+}
+
+.btn {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+
+  padding: 2rem 3.5rem;
+
+  font-size: 1.6rem;
+
+  border: 1px solid $brand-primary;
+  border-radius: 6rem;
+  transform: translateX(-50%);
+
+  &:hover,
+  &:focus {
+    background: transparent;
+    border-color: color($brand-primary blackness(10%));
+  }
+
+  @include responsive(sm) {
+    display: inline-block;
+  }
+
+  @include responsive(md) {
+    display: none;
+  }
+}
+
+.heightSm13_5Md15 {
+  @include responsive(sm) {
+    max-height: 13.5rem;
+    overflow: hidden;
+  }
+
+  @include responsive(md) {
+    max-height: 15rem;
+  }
+}
+
+.resetPadding {
+  padding: 0;
+}
+
+.paddingBottomSm8 {
+  @include responsive(sm) {
+    padding-bottom: 8rem;
+  }
+}

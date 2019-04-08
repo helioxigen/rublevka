@@ -75,153 +75,78 @@ const PageSeparator = styled.div`
   color: #232323;
 `;
 
-/**
- * ## Constants
- */
-const BASE_SHIFT = 0;
-const TITLE_SHIFT = 1;
-const TITLES = {
-  first: 'First',
-  prev: '<',
-  prevSet: '...',
-  nextSet: '...',
-  next: '>',
-  last: 'Last',
-};
-
-function range(start, end) {
-  const res = [];
-
-  for (let i = start; i < end; i++) {
-    res.push(i);
-  }
-
-  return res;
-}
-
 export default (styles = {}) =>
   class extends Component {
-    constructor(props) {
-      super(props);
-
-      this.handlePreviousPage = this.handlePreviousPage.bind(this);
-      this.handleFirstPage = this.handleFirstPage.bind(this);
-      this.handleLastPage = this.handleLastPage.bind(this);
-      this.handleNextPage = this.handleNextPage.bind(this);
-    }
-
-    handleFirstPage() {
+    handleFirstPage = () => {
       if (this.isPrevDisabled()) return;
-      this.handlePageChanged(BASE_SHIFT);
-    }
+      this.handlePageChanged(1);
+    };
 
-    handlePreviousPage() {
+    handlePreviousPage = () => {
       if (this.isPrevDisabled()) return;
 
-      if (this.props.current === 1) {
-        this.handlePageChanged(BASE_SHIFT);
-      } else {
-        this.handlePageChanged(this.props.current - TITLE_SHIFT);
-      }
-    }
+      this.handlePageChanged(this.props.current - 1);
+    };
 
-    handleNextPage() {
+    handleNextPage = () => {
       if (this.isNextDisabled()) return;
-      this.handlePageChanged(this.props.current + TITLE_SHIFT);
-    }
+      this.handlePageChanged(this.props.current + 1);
+    };
 
-    handleLastPage() {
+    handleLastPage = () => {
       if (this.isNextDisabled()) return;
-      this.handlePageChanged(this.props.total - TITLE_SHIFT);
-    }
+      this.handlePageChanged(this.props.total);
+    };
 
-    handleMorePrevPages() {
-      const blocks = this.calcBlocks();
-      this.handlePageChanged(blocks.current * blocks.size - TITLE_SHIFT);
-    }
-
-    handleMoreNextPages() {
-      const blocks = this.calcBlocks();
-      this.handlePageChanged((blocks.current + TITLE_SHIFT) * blocks.size);
-    }
-
-    handlePageChanged(el) {
+    handlePageChanged = (el) => {
       const handler = this.props.onPageChanged;
 
       if (handler) handler(el);
-    }
+    };
 
-    calcBlocks() {
-      const { total, visiblePages } = this.props;
-      const current = this.props.current + TITLE_SHIFT;
-      const blockSize = visiblePages;
-      const blocks = Math.ceil(total / blockSize);
-      const currentBlock = Math.ceil(current / blockSize) - TITLE_SHIFT;
+    isPrevDisabled = () => {
+      const { current } = this.props;
+      return current === 1;
+    };
 
-      return {
-        total: blocks,
-        current: currentBlock,
-        size: blockSize,
-      };
-    }
-
-    isPrevDisabled() {
-      return this.props.current <= BASE_SHIFT || this.props.current === 0;
-    }
-
-    isNextDisabled() {
-      return (
-        this.props.current >= this.props.total - TITLE_SHIFT ||
-        this.props.current + 1 === this.props.total
-      );
-    }
-
-    isPrevMoreHidden() {
-      const blocks = this.calcBlocks();
-
-      return blocks.total === TITLE_SHIFT || blocks.current === BASE_SHIFT;
-    }
-
-    isNextMoreHidden() {
-      const blocks = this.calcBlocks();
-      return (
-        blocks.total === TITLE_SHIFT ||
-        blocks.current === blocks.total - TITLE_SHIFT
-      );
-    }
+    isNextDisabled = () => {
+      const { current, total } = this.props;
+      return current === total;
+    };
 
     handlePrevUrl() {
       const { current, baseUrl } = this.props;
-      if (current === 1) {
+      if (current === 2) {
         return baseUrl;
       }
-      return `${baseUrl}?page=${current}`;
+      return `${baseUrl}?page=${current - 1}`;
     }
 
     visibleRange() {
-      const blocks = this.calcBlocks();
-      const start = blocks.current * blocks.size;
-      const delta = this.props.total - start;
-      const end = start + (delta > blocks.size ? blocks.size : delta);
+      const { total, current } = this.props;
 
-      if (blocks.current === 0) {
-        return [start + TITLE_SHIFT + 1, end + TITLE_SHIFT];
+      if (total > 4) {
+        if (current === total) {
+          return [current - 2, current - 1];
+        } else if (current + 1 === total) {
+          return [current - 1, current];
+        } else if (current > 2) {
+          return [current - 1, current, current + 1];
+        }
+
+        return [2, 3];
+      } else if (total === 1 || total === 2) {
+        return [];
+      } else if (total === 3) {
+        return [2];
+      } else if (total === 4) {
+        return [2, 3];
       }
-      return [start + TITLE_SHIFT, end + TITLE_SHIFT];
     }
 
-    getTitles(key) {
-      const { titles = {} } = this.props;
-
-      return titles[key] || TITLES[key];
-    }
-
-    renderPages([first, second]) {
-      return range(first, second).map(el => {
-        const current = el - TITLE_SHIFT;
-
-        const onClick = this.handlePageChanged.bind(this, current);
-        const isActive = this.props.current === current;
+    renderPages = visibleRange =>
+      visibleRange.map((el) => {
+        const isActive = this.props.current === el;
 
         return (
           <Page
@@ -230,26 +155,19 @@ export default (styles = {}) =>
             key={el}
             isActive={isActive}
             className={styles.btn}
-            onClick={onClick}
+            onClick={() => this.handlePageChanged(el)}
           >
             {el}
           </Page>
         );
       });
-    }
 
     render() {
-      const {
-        current,
-        total,
-        visiblePages,
-        baseUrl,
-        onPageChanged,
-      } = this.props;
+      const { current, total, baseUrl, onPageChanged } = this.props;
 
       return (
         <Wrapper>
-          {current + 1 < total && (
+          {current < total && (
             <LoadMore current={current} handlePageChanged={onPageChanged}>
               Загрузить ещё
             </LoadMore>
@@ -277,52 +195,29 @@ export default (styles = {}) =>
               1
             </Page>
 
-            {current > 2 && total > 4 && <PageSeparator>...</PageSeparator>}
-
-            {/* {visiblePages > 3 ||
-            (current === total - 1 &&
-              <Page
-                styles={styles}
-                className={styles.btn}
-                key="prev-more"
-                isHidden={this.isPrevMoreHidden()}
-                onClick={this.handleMorePrevPages}
-              >
-                {titles('prevSet')}
-              </Page>)} */}
+            {current > 3 && total > 4 && <PageSeparator>...</PageSeparator>}
 
             {this.renderPages(this.visibleRange())}
 
-            {/* {visiblePages > 3 ||
-            (current === 0 &&
+            {total > 4 && total - current > 2 && (
+              <PageSeparator>...</PageSeparator>
+            )}
+
+            {total !== 1 && (
               <Page
+                to={`${baseUrl}?page=${total}`}
                 styles={styles}
                 className={styles.btn}
-                key="next-more"
-                isHidden={this.isNextMoreHidden()}
-                onClick={this.handleMoreNextPages}
+                key="last-page"
+                isActive={this.isNextDisabled()}
+                onClick={this.handleLastPage}
               >
-                {titles('nextSet')}
-              </Page>)} */}
-
-            {current < total - visiblePages && (
-              <span style={{ display: 'flex' }}>
-                <PageSeparator>...</PageSeparator>
-                <Page
-                  to={`${baseUrl}?page=${total}`}
-                  styles={styles}
-                  className={styles.btn}
-                  key="last-page"
-                  isDisabled={this.isNextDisabled()}
-                  onClick={this.handleLastPage}
-                >
-                  {total}
-                </Page>
-              </span>
+                {total}
+              </Page>
             )}
 
             <Page
-              to={`${baseUrl}?page=${current + 2}`}
+              to={`${baseUrl}?page=${current + 1}`}
               rel="next"
               styles={styles}
               className={styles.btnNav}

@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import { Link } from 'react-router';
 
-export default props => {
+export default (props) => {
   const {
     isHidden,
     isDisabled,

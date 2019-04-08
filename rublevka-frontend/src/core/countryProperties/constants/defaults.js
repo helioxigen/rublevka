@@ -26,7 +26,7 @@ const defaultParamsByGroup = {
       salePrice: '0..',
     },
     pagination: {
-      limit: 22,
+      limit: 24,
     },
     filterNot: { isSaleDisabled: true },
   },
@@ -38,7 +38,7 @@ const defaultParamsByGroup = {
       rentPrice: '0..',
     },
     pagination: {
-      limit: 22,
+      limit: 24,
     },
     filterNot: {
       isRentDisabled: true,

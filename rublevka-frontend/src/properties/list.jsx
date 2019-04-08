@@ -33,7 +33,6 @@ import OrderBy from './orderBy';
 import NotFound from './notFound';
 
 // helpers
-import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from '../core/helpers/shouldLoad';
 import {
   categories,
   dealTypes,
@@ -58,7 +57,7 @@ class List extends Component {
 
     const params = {
       pagination: {
-        offset: 22 * (props.location.query.page - 1),
+        offset: 24 * (props.location.query.page - 1),
       },
     };
 
@@ -86,7 +85,7 @@ class List extends Component {
 
     const paginationParams = {
       pagination: {
-        offset: 22 * (location.query.page - 1),
+        offset: 24 * (location.query.page - 1),
       },
     };
 
@@ -130,17 +129,6 @@ class List extends Component {
       );
     }
 
-    const isKindUpdated = !isEqual(
-      this.props.params.kind,
-      nextProps.params.kind,
-    );
-
-    if (isKindUpdated) {
-      this.props.actions.updateFilter(this.resource, {
-        kind: [kinds[nextProps.params.kind]],
-      });
-    }
-
     const oldFilters = this.props.state.filters[this.resource];
     const newFilters = nextProps.state.filters[this.resource];
 
@@ -148,13 +136,13 @@ class List extends Component {
     const newOrder = nextProps.state.order[this.resource];
 
     if (
-      isKindUpdated ||
+      isGroupUpdated ||
       !isEqual(oldFilters, newFilters) ||
       !isEqual(newOrder, oldOrder)
     ) {
       const params = {
         pagination: {
-          offset: 22 * (nextProps.location.query.page - 1),
+          offset: 24 * (nextProps.location.query.page - 1),
         },
       };
 
@@ -173,7 +161,7 @@ class List extends Component {
   updatePagination = (newPage, append) => {
     const paginationParams = {
       pagination: {
-        offset: 22 * newPage,
+        offset: 24 * (newPage - 1),
       },
     };
 
@@ -353,7 +341,7 @@ class List extends Component {
 }
 
 // redux connectors
-const pickState = state => {
+const pickState = (state) => {
   const { countryProperties, filters, pagination, order } = state;
 
   return {
@@ -366,7 +354,7 @@ const pickState = state => {
   };
 };
 
-const pickActions = dispatch => {
+const pickActions = (dispatch) => {
   const actions = {
     loadCountryProperties,
     ...FilterActions,

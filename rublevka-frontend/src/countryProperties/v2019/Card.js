@@ -53,7 +53,7 @@ const Image = styled.img`
 `;
 
 const Slider = styled.div`
-  display: flex;
+  display: none;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -61,6 +61,10 @@ const Slider = styled.div`
   right: 0;
   background-color: transparent;
   z-index: 1;
+
+  ${LinkWrapper}:hover & {
+    display: flex;
+  }
 `;
 
 const Slide = styled.div`
@@ -216,7 +220,7 @@ class Card extends Component {
     const {
       data: { images = [] },
     } = this.props;
-    const { selectedImage } = this.state;
+    const { selectedImage, showSlider } = this.state;
     const publicImages = images.filter(({ isPublic }) => !!isPublic);
 
     if (publicImages.length) {

@@ -60,6 +60,15 @@ class Favorites extends React.Component {
     this.state = { isLoaded: false };
   }
 
+  componentWillMount() {
+    const { state, actions } = this.props;
+
+    if (state.favorites.length !== 0 && !this.state.isLoaded) {
+      load({ state, actions });
+      this.setState({ isLoaded: true });
+    }
+  }
+
   componentDidUpdate() {
     const { state, actions } = this.props;
 

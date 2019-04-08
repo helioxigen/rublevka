@@ -203,6 +203,10 @@ const FavoriteIcon = styled(Icon)`
   stroke: #ffffff;
   stroke-width: 2px;
   fill: ${p => (p.isActive ? '#F44336' : 'rgba(0,0,0, 0.3)')};
+
+  &:hover {
+    fill: ${p => (p.isActive ? '#F44336' : 'rgba(0,0,0, 0.5)')};
+  }
 `;
 
 class Card extends Component {
@@ -288,7 +292,7 @@ class Card extends Component {
               item.id === Number.parseInt(id, 10) &&
               item.dealType === this.props.dealType,
           )}
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault();
             actions.toggleFavorite(
               Number.parseInt(id, 10),
@@ -344,7 +348,7 @@ const pickState = (state, { id }) => {
   };
 };
 
-const pickActions = dispatch => {
+const pickActions = (dispatch) => {
   const actions = {
     toggleFavorite,
   };

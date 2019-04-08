@@ -2,25 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import { YMaps, Map as YMap, Placemark } from 'react-yandex-maps';
 
+import InputMask from 'react-input-mask';
 import Helmet from 'react-helmet';
-import { helmet } from 'site/config/seo';
+import { helmet } from '../config/seo';
 
-import { offices } from 'site/feedback/constants';
+import StaticMask from '../../core/components/ui/staticMask';
 
-import StaticMask from 'core/components/ui/staticMask';
-
-import media from 'site/styles/media';
-import UI from 'site/ui';
+import media from '../styles/media';
+import UI from '../ui';
 import callIcon from './call.png';
 
 const isRublevka = global.config.domain === 'rublevka.ru';
-const isRiga = global.config.domain === 'riga.ru';
 
 const {
   Grid: { Container, Col },
 } = UI;
-
-const office = offices.zhukovka;
 
 const Wrapper = styled.section`
   background-color: #fafafa;
@@ -146,7 +142,7 @@ const RequestForm = styled.form`
   align-items: center;
 `;
 
-const Input = styled.input`
+const Input = styled(InputMask)`
   width: 100%;
   padding: 0px 15px;
   padding-top: 17px;
@@ -158,7 +154,6 @@ const Input = styled.input`
 
   line-height: 18px;
   font-size: 15px;
-  letter-spacing: 0.535714px;
   text-transform: uppercase;
   font-weight: bold;
 
@@ -180,7 +175,6 @@ const TextInput = styled.textarea`
 
   line-height: 18px;
   font-size: 15px;
-  letter-spacing: 0.535714px;
   text-transform: uppercase;
   font-weight: bold;
 
@@ -194,7 +188,6 @@ const SendBtn = styled.button`
   padding: 21px 32px 17px 32px;
   line-height: 18px;
   font-size: 15px;
-  letter-spacing: 0.47px;
   text-transform: uppercase;
   background: #47b34c;
   border-radius: 8px;
@@ -235,7 +228,10 @@ export default () => (
     <Container>
       <TextContainer>
         <Heading>Есть вопросы?</Heading>
-        <TimeText>Вы можете задать их в будние дни с 10:00 до 20:00 по телефону горячей линии:</TimeText>
+        <TimeText>
+          Вы можете задать их в будние дни с 10:00 до 20:00 по телефону горячей
+          линии:
+        </TimeText>
         <CallLink href={`tel:+${isRublevka ? '74954323322' : '74954321313'}`}>
           <CallIcon src={callIcon} />
           <Phone>
@@ -249,7 +245,7 @@ export default () => (
       <Col md="4" mdOffset="4">
         <RequestForm>
           <Input type="text" placeholder="Имя" />
-          <Input type="text" placeholder="Телефон" />
+          <Input type="tel" mask="+9 (999) 999-99-99" placeholder="телефон" />
           <TextInput placeholder="Текст" />
           <SendBtn>Отправить</SendBtn>
         </RequestForm>

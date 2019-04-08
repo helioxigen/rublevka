@@ -32,7 +32,10 @@ const store = createStore(
 
 const history = syncHistoryWithStore(browserHistory, store);
 const routerRender = applyRouterMiddleware(
-  useScroll((prevRouterProps, { routes }) => !routes.some(route => route.ignoreScrollBehavior)),
+  useScroll(
+    (prevRouterProps, { routes }) =>
+      !routes.some(route => route.ignoreScrollBehavior),
+  ),
 );
 
 class App extends Component {
@@ -51,7 +54,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    persistStore(store, { whitelist: ['favorites'] }, () => {
+    persistStore(store, { whitelist: ['favorites', 'displayOptions'] }, () => {
       this.setState({ rehydrated: true });
     });
   }

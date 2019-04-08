@@ -6,43 +6,53 @@ import { connect } from 'react-redux';
 import { Element, Link } from 'react-scroll';
 
 // actions
-import { loadSettlementsByLetter } from 'core/settlements/actions/list/load';
-import * as PaginationActions from 'core/actions/pagination';
+import { loadSettlementsByLetter } from '../../../../core/settlements/actions/list/load';
+import * as PaginationActions from '../../../../core/actions/pagination';
 
 import Helmet from './Helmet';
-import Header from './Header';
+import Hero from './Hero';
 import Section from './Section';
 
 // helpers
-import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from 'core/helpers/shouldLoad';
+import { isPaginationOrFiltersOrOrderByUpdated as isUpdated } from '../../../../core/helpers/shouldLoad';
 
 // constants
-import { resourceName } from 'core/settlements/constants/defaults';
+import { resourceName } from '../../../../core/settlements/constants/defaults';
 
-import media from 'site/styles/media';
-import UI from 'site/ui';
+import media from '../../../styles/media';
+import UI from '../../../ui';
 
-const { Grid: { Container, Col } } = UI;
+const {
+  Grid: { Container, Col },
+} = UI;
 
 const group = 'byLetter';
 const resource = `${resourceName}.${group}`;
 
-const NavContainer = styled.ul`
+const NavWrapper = styled.nav`
   display: none;
   position: absolute;
+  visibility: hidden;
   top: 0;
+  bottom: 0;
   right: -13px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  padding-top: 48px;
 
   ${media.xs`
     display: block;
   `}
+`;
+
+const NavContainer = styled.ul`
+  position: sticky;
+  visibility: visible;
+  top: 0;
+  margin: 0;
+  padding: 48px 0px;
+  list-style: none;
 
   ${media.md`
-    padding-top: 56px;
+    top: 30px;
+    padding: 56px 0px;
   `}
 `;
 
@@ -71,7 +81,7 @@ const Letter = styled.li`
   }
 
   &:last-child {
-    &::after { 
+    &::after {
       content: '';
     }
   }
@@ -85,6 +95,7 @@ const load = ({ state, dispatch, location = {} }, params = {}) => {
       ...params.pagination,
     },
     filter: {
+      state: 'public',
       ...state.filters[resource],
       ...params.filters,
     },
@@ -118,15 +129,30 @@ class SettlementsContainer extends Component {
       <section>
         <Helmet pagination={pagination} location={location} />
 
-        <Header />
+        <Hero />
         <Container>
           <Col mdOffset="1" xs="12" md="10" style={{ position: 'relative' }}>
             {hasItems &&
-              Object.entries(idsByLetter).map(([letter, ids]) => <Element name={`anchor-${letter}`}><Section letter={letter} ids={ids} /></Element>)}
-            <NavContainer>
-              {hasItems &&
-                Object.keys(idsByLetter).map(letter => <Letter><Link to={`anchor-${letter}`} smooth offset={-20}>{letter}</Link></Letter>)}
-            </NavContainer>
+              Object.entries(idsByLetter).map(([letter, ids]) => (
+                <Element name={`anchor-${letter}`}>
+                  <Section letter={letter} ids={ids} />
+                </Element>
+              ))}
+            <NavWrapper>
+              <NavContainer>
+                {hasItems &&
+                  Object.keys(idsByLetter).map(
+                    (letter, index) =>
+                      index % 2 === 0 && (
+                        <Letter>
+                          <Link to={`anchor-${letter}`} smooth offset={-20}>
+                            {letter}
+                          </Link>
+                        </Letter>
+                      ),
+                  )}
+              </NavContainer>
+            </NavWrapper>
           </Col>
         </Container>
       </section>

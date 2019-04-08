@@ -151,9 +151,7 @@ class List extends Component {
   }
 
   renderFilter() {
-    const {
-      actions, dealType, state, onTypeChange,
-    } = this.props;
+    const { actions, dealType, state, onTypeChange } = this.props;
     const pagination = state.pagination[this.resource] || {};
 
     return (
@@ -190,11 +188,13 @@ class List extends Component {
 
   render() {
     const { data, dealType } = this.props;
-    const { ids = [], isFetching } = this.props.state.countryProperties[this.group] || {};
+    const { ids = [], isFetching } =
+      this.props.state.countryProperties[this.group] || {};
 
     const pagination = this.props.state.pagination[this.resource] || {};
 
-    const { saleProperties = {}, rentProperties = {} } = this.props.statistics || {};
+    const { saleProperties = {}, rentProperties = {} } =
+      this.props.statistics || {};
     const resaleTotal = saleProperties.resale;
     const rentTotal = rentProperties.total;
 
@@ -208,10 +208,7 @@ class List extends Component {
               <HeaderContainer>
                 <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
                   <Title>
-                    {dealTypesTranslateOther[dealType]}
-                    {' '}
-недвижимость в пос.
-                    {' '}
+                    {dealTypesTranslateOther[dealType]} недвижимость в пос.{' '}
                     {data.name}
                   </Title>
                 </Visibility>
@@ -261,9 +258,9 @@ class List extends Component {
           )}
 
           {hasItems && (
-            <Container fluid>
+            <Container>
               <Row xs="center">
-                <Col xs="12">
+                <Col mdOffset="4" md="8" lgOffset="3" lg="9">
                   <LoadMore
                     size="lg"
                     total={pagination.total}
@@ -288,9 +285,7 @@ class List extends Component {
 
 // redux connectors
 const pickState = (state) => {
-  const {
-    countryProperties, filters, pagination, order,
-  } = state;
+  const { countryProperties, filters, pagination, order } = state;
 
   return {
     state: {

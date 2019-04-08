@@ -76,10 +76,6 @@ class List extends Component {
     this.group = dealTypes[props.params.dealType];
     this.resource = `countryProperties.${this.group}`;
 
-    this.toggleResourceName = this.toggleResourceName.bind(this);
-    this.toggleView = this.toggleView.bind(this);
-    this.onClose = this.onClose.bind(this);
-    this.toggleResourceName = this.toggleResourceName.bind(this);
     this.toggleView = this.toggleView.bind(this);
     this.onClose = this.onClose.bind(this);
     this.resetFilter = this.resetFilter.bind(this);
@@ -107,6 +103,8 @@ class List extends Component {
         dealType: dealTypes[params.dealType],
       }),
     );
+
+    if (typeof window !== 'undefined') window.scrollTo(0, 0);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -114,16 +112,8 @@ class List extends Component {
       this.props.params.dealType,
       nextProps.params.dealType,
     );
-    const isCategoryUpdated = !isEqual(
-      this.props.params.category,
-      nextProps.params.category,
-    );
-    const isKindUpdated = !isEqual(
-      this.props.params.kind,
-      nextProps.params.kind,
-    );
 
-    if (isGroupUpdated || isCategoryUpdated) {
+    if (isGroupUpdated) {
       this.group = dealTypes[nextProps.params.dealType];
       this.setState({
         resource: categories[nextProps.params.category],
@@ -140,16 +130,27 @@ class List extends Component {
       );
     }
 
+    const isKindUpdated = !isEqual(
+      this.props.params.kind,
+      nextProps.params.kind,
+    );
+
     if (isKindUpdated) {
       this.props.actions.updateFilter(this.resource, {
         kind: [kinds[nextProps.params.kind]],
       });
     }
 
+    const oldFilters = this.props.state.filters[this.resource];
+    const newFilters = nextProps.state.filters[this.resource];
+
+    const oldOrder = this.props.state.order[this.resource];
+    const newOrder = nextProps.state.order[this.resource];
+
     if (
-      isUpdated(this.resource, this.props, nextProps)
-      || isGroupUpdated
-      || isCategoryUpdated
+      isKindUpdated ||
+      !isEqual(oldFilters, newFilters) ||
+      !isEqual(newOrder, oldOrder)
     ) {
       const params = {
         pagination: {
@@ -162,8 +163,6 @@ class List extends Component {
   }
 
   onClose() {
-    this.toggleResourceName('resource', categories[this.props.params.category]);
-
     this.setState({ isViewOpen: false });
   }
 
@@ -171,23 +170,24 @@ class List extends Component {
     this.setState(prevState => ({ isViewOpen: !prevState.isViewOpen }));
   }
 
-  toggleResourceName(key, value) {
-    this.setState({ [key]: value, isViewOpen: true }, () => {
-      this.group = dealTypes[this.state.dealType];
-      this.resource = `${this.state.resource}Properties.${this.group}`;
+  updatePagination = (newPage, append) => {
+    const paginationParams = {
+      pagination: {
+        offset: 22 * newPage,
+      },
+    };
 
-      this.load(this.props);
-    });
-  }
+    this.load(this.props, paginationParams, append);
+  };
 
-  load({ state, dispatch }, params = {}) {
+  load({ state, dispatch }, params = {}, append = false) {
     const options = {
       pagination: { ...state.pagination[this.resource], ...params.pagination },
       filter: { ...state.filters[this.resource], ...params.filter },
       orderBy: { ...state.order[this.resource], ...params.orderBy },
     };
 
-    dispatch(loadCountryProperties(options, this.group));
+    dispatch(loadCountryProperties(options, this.group, { append }));
   }
 
   resetFilter() {
@@ -230,7 +230,6 @@ class List extends Component {
         actions={actions} // TODO: use FilterHelper instead of passing actions
         state={state.filters[this.resource]} // TODO: refactor this because FilterHelper provides
         dealType={this.state.dealType} // TODO: check it's ok?
-        toggleResourceName={this.toggleResourceName}
         isViewOpen={this.state.isViewOpen}
         toggle={this.toggleView}
         onClose={this.onClose}
@@ -281,11 +280,8 @@ class List extends Component {
             <Breadcrumbs dealType={dealType} kind={kind} />
             <HeaderContainer>
               <Title>
-                {dealTypesTranslateOther[dealType]}
-                {' '}
-                {params.kind ? accusativeKinds[kind] : 'недвижимость'}
-                {' '}
-на
+                {dealTypesTranslateOther[dealType]}{' '}
+                {params.kind ? accusativeKinds[kind] : 'недвижимость'} на
                 Рублёвке
               </Title>
               <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
@@ -336,15 +332,14 @@ class List extends Component {
         )}
 
         {hasItems && (
-          <Container fluid>
+          <Container>
             <Row sm="center">
               <Col mdOffset="4" lgOffset="3" md="8" lg="9">
                 <Pagination
+                  updatePagination={this.updatePagination}
                   total={pagination.total}
                   offset={pagination.offset}
                   limit={pagination.limit}
-                  resource={this.resource}
-                  updatePagination={this.props.actions.updatePagination}
                   baseUrl={location.pathname}
                   isScrollToTop
                 />
@@ -359,9 +354,7 @@ class List extends Component {
 
 // redux connectors
 const pickState = (state) => {
-  const {
-    countryProperties, filters, pagination, order,
-  } = state;
+  const { countryProperties, filters, pagination, order } = state;
 
   return {
     state: {

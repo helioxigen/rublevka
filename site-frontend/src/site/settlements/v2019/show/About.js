@@ -1,6 +1,6 @@
 import React from 'react';
 import Breadcrumbs from '../Breadcrumbs';
-import { Wrapper as WrapperBase, Header } from '../list/Header';
+import { Wrapper as WrapperBase, Header } from '../list/Hero';
 
 import UI from '../../../ui';
 import media from '../../../styles/media';

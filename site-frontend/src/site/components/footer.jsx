@@ -3,6 +3,9 @@ import styled from 'styled-components';
 
 import global from 'window-or-global';
 
+import { connect } from 'react-redux';
+import { updateDisplayOption } from '../displayOptions/actions';
+
 import StaticMask from '../../core/components/ui/staticMask';
 
 import Footer from './footer/index';
@@ -16,9 +19,23 @@ import blackPattern from '../assets/images/black-pattern.svg';
 const {
   Icon,
   Grid: { Container, Row, Col },
-  Visibility,
   Button,
 } = UI;
+
+const currencies = [
+  {
+    value: 'eur',
+    label: 'EUR – €',
+  },
+  {
+    value: 'usd',
+    label: 'USD – $',
+  },
+  {
+    value: 'rub',
+    label: 'RUB – ₽',
+  },
+];
 
 const Wrapper = styled.footer`
   position: relative;
@@ -175,6 +192,25 @@ const Break = styled.br`
   `};
 `;
 
+const InnerWrapper = styled.div`
+  margin: 0 -15px;
+
+  ${media.md`
+    margin: 0;
+  `}
+`;
+
+const BottomBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  ${media.xs`
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  `}
+`;
+
 const LogoSatellites = styled(Icon)`
   width: 131px;
   height: 20px;
@@ -193,13 +229,41 @@ const LogoSatellites = styled(Icon)`
 //   font-weight: bold;
 // `;
 
+const ValueSelector = styled.select`
+  margin: 0;
+  margin-bottom: 32px;
+  order: 0;
+  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.0001);
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  cursor: pointer;
+
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 18px;
+  text-transform: uppercase;
+  color: #232323;
+
+  appearance: none;
+
+  ${media.xs`
+    margin-bottom: 0;
+    order: unset;
+  `}
+`;
+
 const DescriptionWhite = Description.extend`
   color: ${p => p.theme.brandWhite};
 `;
 
 const isJQ = global.config.domain === 'jq.estate';
 
-export default ({ params }) => {
+const FooterContainer = ({
+  displayOptions: { currency },
+  dispatch,
+  params,
+}) => {
   if (isJQ) {
     return (
       <Wrapper hasPattern={isJQ}>
@@ -249,20 +313,36 @@ export default ({ params }) => {
   return (
     <WrapperSatellites>
       <Container>
-        <Visibility xs="block" sm="block" md="block" lg="hidden">
-          <Footer.NavSatellites />
-          <DividerSatellites />
-          <LogoSatellites icon={global.config.brand} />
-        </Visibility>
-
-        <Col xs="8" xsOffset="2">
-          <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
+        <Col lg="8" lgOffset="2">
+          <InnerWrapper>
             <Footer.NavSatellites />
             <DividerSatellites />
-            <LogoSatellites icon={global.config.brand} />
-          </Visibility>
+            <BottomBlock>
+              <LogoSatellites icon={global.config.brand} />
+              <ValueSelector
+                value={currency}
+                onChange={e =>
+                  dispatch(updateDisplayOption('currency', e.target.value))
+                }
+              >
+                {currencies.map(el => (
+                  <option selected={currency === el.value} value={el.value}>
+                    {el.label}
+                  </option>
+                ))}
+              </ValueSelector>
+            </BottomBlock>
+          </InnerWrapper>
         </Col>
       </Container>
     </WrapperSatellites>
   );
 };
+
+const pickState = (state) => {
+  const { displayOptions } = state;
+
+  return { displayOptions };
+};
+
+export default connect(pickState)(FooterContainer);

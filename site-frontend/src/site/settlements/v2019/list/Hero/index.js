@@ -59,22 +59,16 @@ export const FormWrapper = styled.div`
   `}
 `;
 
-export default class Banner extends Component {
-  state = {};
-
-  render() {
-    return (
-      <Wrapper>
-        <Container>
-          <Breadcrumbs />
-          <Header>Посёлки на Рублёвке</Header>
-          <Col mdOffset="1" xs="12" md="10">
-            <FormWrapper>
-              <Form />
-            </FormWrapper>
-          </Col>
-        </Container>
-      </Wrapper>
-    );
-  }
-}
+export default () => (
+  <Wrapper>
+    <Container>
+      <Breadcrumbs />
+      <Header>Посёлки на Рублёвке</Header>
+      <Col mdOffset="1" xs="12" md="10">
+        <FormWrapper>
+          <Form />
+        </FormWrapper>
+      </Col>
+    </Container>
+  </Wrapper>
+);

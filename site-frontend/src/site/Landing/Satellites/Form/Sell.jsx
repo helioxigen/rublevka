@@ -37,11 +37,13 @@ const PriceTitle = styled.p`
   margin: 0;
   line-height: 18px;
   font-size: 15px;
+  font-weight: 500;
   text-transform: uppercase;
 
   color: #232323;
 
   ${media.xs`
+    margin-top: 8px;
     display: block;
   `}
 `;
@@ -57,6 +59,12 @@ const InputsBlock = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+  `}
+`;
+
+const AreaBlock = InputsBlock.extend`
+  ${media.xs`
+    margin-bottom: 8px;
   `}
 `;
 
@@ -378,7 +386,7 @@ export default class extends Component {
                       getMenuProps={getMenuProps}
                     >
                       <PriceTitle>Площадь:</PriceTitle>
-                      <InputsBlock>
+                      <AreaBlock>
                         <SelectWrapper>
                           <Select
                             placeholder="ОТ"
@@ -410,7 +418,7 @@ export default class extends Component {
                             type="to"
                           />
                         </SelectWrapper>
-                      </InputsBlock>
+                      </AreaBlock>
                     </Options>
                   )}
                 </Dropdown>

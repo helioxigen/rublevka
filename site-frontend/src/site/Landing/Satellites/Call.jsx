@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import media from 'site/styles/media';
+import InputMask from 'react-input-mask';
 
-import CallbackModal from 'site/request/CallbackModal';
-import UI from 'site/ui';
+import media from '../../styles/media';
+
+import CallbackModal from '../../request/v2019/CallbackModal';
+import UI from '../../ui';
+
 const {
   Grid: { Container, Col },
   Button,
@@ -106,7 +109,7 @@ const CallbackForm = styled.div`
   `}
 `;
 
-const Input = styled.input`
+const Input = styled(InputMask)`
   width: 100%;
   padding: 0px 15px;
   padding-top: 17px;
@@ -132,14 +135,19 @@ export default () => (
       <Col xs="12" lg="10">
         <Heading>Хотите продать дом?</Heading>
         <Body>
-          Просто оставьте заявку. Наш агент свяжется с вами и поможет всё организовать: проведёт
-          фотосессию, создаст рекламную кампанию, покажет дом и подготовит сделку.
+          Просто оставьте заявку. Наш агент свяжется с вами и поможет всё
+          организовать: проведёт фотосессию, создаст рекламную кампанию, покажет
+          дом и подготовит сделку.
         </Body>
         <Visibility lg="hidden">
           <Col xs="12" sm="6">
             <CallbackForm>
               <Input type="text" placeholder="Имя" />
-              <Input type="text" placeholder="Номер телефона" />
+              <Input
+                type="tel"
+                mask="+9 (999) 999-99-99"
+                placeholder="телефон"
+              />
               <CallbackBtn kind="success">Оставить заявку</CallbackBtn>
             </CallbackForm>
           </Col>

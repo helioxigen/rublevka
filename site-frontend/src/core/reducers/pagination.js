@@ -1,6 +1,5 @@
-import * as types from '../constants/pagination';
-
 import { handleActions } from 'redux-actions';
+import * as types from '../constants/pagination';
 
 const initialState = {};
 

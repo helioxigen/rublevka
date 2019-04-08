@@ -29,11 +29,18 @@ import { Link } from 'react-router';
 import styled from 'styled-components';
 
 import Page from './page';
+import LoadMore from './LoadMore';
 
-const Wrapper = styled.nav`
+const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
+  flex-direction: column;
+`;
+
+const Pagination = styled.nav`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const StLink = styled(Link)`
@@ -58,10 +65,12 @@ export const StLink = styled(Link)`
 `;
 
 const PageSeparator = styled.div`
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
   font-size: 18px;
-  line-height: 24px;
-  text-align: center;
 
   color: #232323;
 `;
@@ -230,47 +239,47 @@ export default (styles = {}) =>
     }
 
     render() {
-      const { current, total, visiblePages, baseUrl } = this.props;
+      const {
+        current,
+        total,
+        visiblePages,
+        baseUrl,
+        onPageChanged,
+      } = this.props;
 
       return (
         <Wrapper>
-          {this.props.loadMore && (
-            <StLink
-              to={`${baseUrl}?page=${current + 2}`}
-              rel="next"
-              styles={styles}
-              className={styles.loadMore}
-              isDisabled={this.isNextDisabled()}
-              onClick={this.handleNextPage}
-            >
-              Следующая страница
-            </StLink>
+          {current + 1 < total && (
+            <LoadMore current={current} handlePageChanged={onPageChanged}>
+              Загрузить ещё
+            </LoadMore>
           )}
 
-          <Page
-            to={this.handlePrevUrl()}
-            rel="prev"
-            styles={styles}
-            className={styles.btnNav}
-            key="prev-page"
-            isDisabled={this.isPrevDisabled()}
-            onClick={this.handlePreviousPage}
-          />
+          <Pagination>
+            <Page
+              to={this.handlePrevUrl()}
+              rel="prev"
+              styles={styles}
+              className={styles.btnNav}
+              key="prev-page"
+              isDisabled={this.isPrevDisabled()}
+              onClick={this.handlePreviousPage}
+            />
 
-          <Page
-            to={baseUrl}
-            styles={styles}
-            className={styles.btn}
-            key="first-page"
-            isActive={this.isPrevDisabled()}
-            onClick={this.handleFirstPage}
-          >
-            1
-          </Page>
+            <Page
+              to={baseUrl}
+              styles={styles}
+              className={styles.btn}
+              key="first-page"
+              isActive={this.isPrevDisabled()}
+              onClick={this.handleFirstPage}
+            >
+              1
+            </Page>
 
-          {current > 2 && total > 4 && <PageSeparator>...</PageSeparator>}
+            {current > 2 && total > 4 && <PageSeparator>...</PageSeparator>}
 
-          {/* {visiblePages > 3 ||
+            {/* {visiblePages > 3 ||
             (current === total - 1 &&
               <Page
                 styles={styles}
@@ -282,9 +291,9 @@ export default (styles = {}) =>
                 {titles('prevSet')}
               </Page>)} */}
 
-          {this.renderPages(this.visibleRange())}
+            {this.renderPages(this.visibleRange())}
 
-          {/* {visiblePages > 3 ||
+            {/* {visiblePages > 3 ||
             (current === 0 &&
               <Page
                 styles={styles}
@@ -296,31 +305,32 @@ export default (styles = {}) =>
                 {titles('nextSet')}
               </Page>)} */}
 
-          {current < total - visiblePages && (
-            <span>
-              <PageSeparator>...</PageSeparator>
-              <Page
-                to={`${baseUrl}?page=${total}`}
-                styles={styles}
-                className={styles.btn}
-                key="last-page"
-                isDisabled={this.isNextDisabled()}
-                onClick={this.handleLastPage}
-              >
-                {total}
-              </Page>
-            </span>
-          )}
+            {current < total - visiblePages && (
+              <span style={{ display: 'flex' }}>
+                <PageSeparator>...</PageSeparator>
+                <Page
+                  to={`${baseUrl}?page=${total}`}
+                  styles={styles}
+                  className={styles.btn}
+                  key="last-page"
+                  isDisabled={this.isNextDisabled()}
+                  onClick={this.handleLastPage}
+                >
+                  {total}
+                </Page>
+              </span>
+            )}
 
-          <Page
-            to={`${baseUrl}?page=${current + 2}`}
-            rel="next"
-            styles={styles}
-            className={styles.btnNav}
-            key="next-page"
-            isDisabled={this.isNextDisabled()}
-            onClick={this.handleNextPage}
-          />
+            <Page
+              to={`${baseUrl}?page=${current + 2}`}
+              rel="next"
+              styles={styles}
+              className={styles.btnNav}
+              key="next-page"
+              isDisabled={this.isNextDisabled()}
+              onClick={this.handleNextPage}
+            />
+          </Pagination>
         </Wrapper>
       );
     }

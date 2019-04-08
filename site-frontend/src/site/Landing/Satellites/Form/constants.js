@@ -34,6 +34,10 @@ export const sellKinds = [
 
 export const bedroomsOptions = [
   {
+    value: null,
+    label: 'Любое',
+  },
+  {
     value: 2,
     label: 'От 2',
   },
@@ -47,6 +51,6 @@ export const bedroomsOptions = [
   },
   {
     value: 5,
-    label: '5 и более',
+    label: 'От 5',
   },
 ];

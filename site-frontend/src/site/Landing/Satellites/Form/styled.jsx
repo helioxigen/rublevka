@@ -118,7 +118,8 @@ export const Dropdown = styled.div`
     padding: ${({ isOpen }) => (isOpen ? '0px' : '1.5px')};
 
     &:first-child {
-      border-right: ${({ isOpen }) => (isOpen ? '1.5px solid #f44336' : '1px solid #eaeaea')};
+      border-right: ${({ isOpen }) =>
+        isOpen ? '1.5px solid #f44336' : '1px solid #eaeaea'};
       border-radius: 12px 0px 0px 12px;
       flex-basis: 33.3333333%;
     }
@@ -128,7 +129,8 @@ export const Dropdown = styled.div`
     }
 
     &:last-child {
-      border-left: ${({ isOpen }) => (isOpen ? '1.5px solid #f44336' : '1px solid #eaeaea')};
+      border-left: ${({ isOpen }) =>
+        isOpen ? '1.5px solid #f44336' : '1px solid #eaeaea'};
       border-radius: 0px 12px 12px 0px;
       padding-left: ${({ isOpen }) => (isOpen ? '1px' : '1.5px')};
     }
@@ -295,7 +297,7 @@ export const SearchContainer = styled.button`
   margin-bottom: 80px;
   padding: 19px 0px;
   background: #f44336;
-  border-radius: 8px;
+  border-radius: 12px;
   border: none;
   display: flex;
   justify-content: center;
@@ -306,8 +308,10 @@ export const SearchContainer = styled.button`
   ${media.md`
     margin: 0;
     padding: 0;
-    flex-basis: 16.777777%;
+    flex-grow: 0;
+    justify-content: flex-start;
     margin-left: 8px;
+    width: 138px;
   `}
 `;
 
@@ -318,6 +322,7 @@ export const SearchIcon = styled.span`
   background-image: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cmask id='mask0' mask-type='alpha' maskUnits='userSpaceOnUse' x='3' y='4' width='21' height='22'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M17.1617 17.5H18.0833L23.905 23.3333L22.1667 25.0717L16.3333 19.25V18.3283L16.0183 18.0017C14.6883 19.145 12.9617 19.8333 11.0833 19.8333C6.895 19.8333 3.5 16.4383 3.5 12.25C3.5 8.06166 6.895 4.66666 11.0833 4.66666C15.2717 4.66666 18.6667 8.06166 18.6667 12.25C18.6667 14.1283 17.9783 15.855 16.835 17.185L17.1617 17.5ZM5.83333 12.25C5.83333 15.155 8.17833 17.5 11.0833 17.5C13.9883 17.5 16.3333 15.155 16.3333 12.25C16.3333 9.34499 13.9883 6.99999 11.0833 6.99999C8.17833 6.99999 5.83333 9.34499 5.83333 12.25Z' fill='white'/%3E%3C/mask%3E%3Cg mask='url(%23mask0)'%3E%3Crect y='1.16666' width='28' height='28' fill='white'/%3E%3C/g%3E%3C/svg%3E%0A");
 
   ${media.md`
+    margin-left: 18px;
     display: block;
   `}
 `;
@@ -334,8 +339,11 @@ export const Text = styled.p`
   margin-left: 5px;
 
   ${media.md`
-    font-size: 17px;
-    font-weight: normal;
+    margin-left: 8px;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 500;
+    text-transform: capitalize;
   `}
 `;
 

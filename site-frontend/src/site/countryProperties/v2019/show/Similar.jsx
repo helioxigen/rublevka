@@ -6,21 +6,22 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Card from '../Card';
-import media from 'site/styles/media';
-import UI from 'site/ui';
+import media from '../../../styles/media';
+import UI from '../../../ui';
 
 import dotIcon from './img/dot.png';
 import dotActiveIcon from './img/dot-active.png';
 
 // actions
-import loadProperties from 'core/countryProperties/actions/list/load';
+import loadProperties from '../../../../core/countryProperties/actions/list/load';
 
 // constants
-import { resourceName } from 'core/countryProperties/constants/defaults';
-import { dealTypes } from 'site/constants/properties/dictionaries';
+import { resourceName } from '../../../../core/countryProperties/constants/defaults';
+import { dealTypes } from '../../../constants/properties/dictionaries';
 
 const {
-  Grid: { Row: BaseRow, Col }, Visibility: VisibilityBase,
+  Grid: { Row: BaseRow, Col },
+  Visibility,
 } = UI;
 
 const Wrapper = styled.div`
@@ -57,10 +58,6 @@ const Title = styled.h3`
   ${media.md`
     margin-bottom: 12px;
   `}
-`;
-
-const Visibility = styled(VisibilityBase)`
-  width: 100%;
 `;
 
 const Carousel = styled(ReactSwipe)`
@@ -102,7 +99,6 @@ const DotButton = styled.button`
   padding: 2.5px;
   border: none;
   background: none;
-
 `;
 
 const DotIcon = styled.img`
@@ -148,8 +144,11 @@ class Similar extends Component {
         <Wrapper>
           <Title>Похожие объекты</Title>
           <Carousel
+            // eslint-disable-next-line no-return-assign
             innerRef={el => (this.carousel = el)}
-            swipeOptions={{ callback: index => this.setState({ currentSlide: index }) }}
+            swipeOptions={{
+              callback: index => this.setState({ currentSlide: index }),
+            }}
           >
             {ids.map(id => (
               <MobileCard key={id}>
@@ -157,7 +156,7 @@ class Similar extends Component {
               </MobileCard>
             ))}
           </Carousel>
-          <Visibility xs="hidden">
+          <Visibility xs="hidden" sm="block" md="block" lg="block">
             <Row>
               {ids.map(id => (
                 <Col key={id} xs="8" sm="6" md="4">
@@ -168,8 +167,14 @@ class Similar extends Component {
           </Visibility>
           <DotsContainer>
             {ids.map((id, index) => (
-              <DotButton key={`dot-${id}`} onClick={() => this.carousel.slide(index, 300)}>
-                <DotIcon alt={id} src={index === currentSlide ? dotActiveIcon : dotIcon} />
+              <DotButton
+                key={`dot-${id}`}
+                onClick={() => this.carousel.slide(index, 300)}
+              >
+                <DotIcon
+                  alt={id}
+                  src={index === currentSlide ? dotActiveIcon : dotIcon}
+                />
               </DotButton>
             ))}
           </DotsContainer>
@@ -180,7 +185,6 @@ class Similar extends Component {
     return <Wrapper />;
   }
 }
-
 
 const pickState = (state) => {
   const { countryProperties } = state;

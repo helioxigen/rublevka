@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import styled from 'styled-components';
+import ReactSwipe from 'react-swipe';
 
 import global from 'window-or-global';
 import { bindActionCreators } from 'redux';
@@ -22,7 +23,7 @@ import {
   kindsTranslit,
 } from '../../constants/properties/dictionaries';
 
-const { Icon, CountIndicator } = UI;
+const { Icon, CountIndicator, Visibility } = UI;
 
 const LinkWrapper = styled(Link)`
   display: block;
@@ -39,17 +40,92 @@ const LinkWrapper = styled(Link)`
   }
 `;
 
+const ImageContainer = styled.section`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
+
 const Image = styled.img`
   width: 100%;
   height: 220px;
+`;
+
+const Slider = styled.div`
+  display: flex;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: transparent;
+  z-index: 1;
+`;
+
+const Slide = styled.div`
+  padding: 10px 1px;
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-end;
+
+  &:first-child {
+    padding-left: 10px;
+  }
+
+  &:last-child {
+    padding-right: 10px;
+  }
+`;
+
+const SlideIndicator = styled.div`
+  width: 100%;
+  height: 3px;
+  border-radius: 2px;
+  background-color: #eeeeee;
+  opacity: 0.5;
+
+  ${({ selected }) =>
+    selected &&
+    `
+    background-color: #f44336;
+    opacity: 1;
+  `};
+`;
+
+const MobileIndicators = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const MobileIndicator = styled.div`
+  margin: 0px 2.5px;
+  width: 6px;
+  height: 6px;
+  border-radius: 5px;
+  background: #ffffff;
+  opacity: 0.75;
+
+  ${({ selected }) =>
+    selected &&
+    `
+    width: 8px;
+    height: 8px;
+    opacity: 1;
+  `};
 `;
 
 const Id = styled.p`
   margin: 0;
   padding: 5px;
   position: absolute;
-  top: 20px;
+  top: 15px;
   left: 0;
+  z-index: 2;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 4px;
   border-top-left-radius: 0;
@@ -58,7 +134,6 @@ const Id = styled.p`
   line-height: 18px;
   font-size: 15px;
   font-weight: 500;
-  letter-spacing: 0.535714px;
 
   color: #ffffff;
 
@@ -116,11 +191,13 @@ const StIcon = styled(Icon)`
 
 const FavoriteIcon = styled(Icon)`
   margin: 0;
+  padding: 15px;
   position: absolute;
-  top: 20px;
-  right: 15px;
-  width: 24px;
-  height: 22px;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  width: 54px;
+  height: 52px;
   display: block;
   stroke: #ffffff;
   stroke-width: 2px;
@@ -128,17 +205,60 @@ const FavoriteIcon = styled(Icon)`
 `;
 
 class Card extends Component {
-  renderPhoto = (data) => {
-    const { images = [] } = data;
+  state = { selectedImage: 0 };
+
+  renderPhoto = () => {
+    const {
+      data: { images = [] },
+    } = this.props;
+    const { selectedImage } = this.state;
     const publicImages = images.filter(({ isPublic }) => !!isPublic);
 
     if (publicImages.length) {
       return (
-        <Image
-          src={`${global.config.cloudfront || cloudfront}/${
-            publicImages[0].id
-          }-thumbnail-512`}
-        />
+        <ImageContainer>
+          <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
+            {publicImages.length > 1 && (
+              <Slider onMouseLeave={() => this.setState({ selectedImage: 0 })}>
+                {images.slice(0, 6).map((el, index) => (
+                  <Slide
+                    onMouseOver={() => this.setState({ selectedImage: index })}
+                  >
+                    <SlideIndicator selected={selectedImage === index} />
+                  </Slide>
+                ))}
+              </Slider>
+            )}
+            <Image
+              src={`${global.config.cloudfront || cloudfront}/${
+                publicImages[selectedImage].id
+              }-thumbnail-512`}
+            />
+          </Visibility>
+          <Visibility xs="block" sm="block" md="block" lg="hidden">
+            <ReactSwipe
+              swipeOptions={{
+                callback: index => this.setState({ selectedImage: index }),
+              }}
+            >
+              {images.slice(0, 6).map(image => (
+                <Image
+                  src={`${global.config.cloudfront || cloudfront}/${
+                    image.id
+                  }-thumbnail-512`}
+                />
+              ))}
+            </ReactSwipe>
+            <MobileIndicators>
+              {publicImages.length > 1 &&
+                images
+                  .slice(0, 6)
+                  .map((el, index) => (
+                    <MobileIndicator selected={selectedImage === index} />
+                  ))}
+            </MobileIndicators>
+          </Visibility>
+        </ImageContainer>
       );
     }
     if (typeof window !== 'undefined') {
@@ -149,9 +269,7 @@ class Card extends Component {
   };
 
   render() {
-    const {
-      data = {}, favorites, id, actions,
-    } = this.props;
+    const { data = {}, favorites, id, actions } = this.props;
     const dealType = dealTypes[this.props.dealType];
     const { specification = {}, landDetails = {} } = data;
     const deal = data[`${dealType}Offer`] || {};
@@ -162,14 +280,12 @@ class Card extends Component {
           data.id
         }`}
       >
-        <Id>
-№
-          {data.id}
-        </Id>
+        <Id>№{data.id}</Id>
         <FavoriteIcon
           isActive={favorites.some(
-            item => item.id === Number.parseInt(id, 10)
-              && item.dealType === this.props.dealType,
+            item =>
+              item.id === Number.parseInt(id, 10) &&
+              item.dealType === this.props.dealType,
           )}
           onClick={(e) => {
             e.preventDefault();
@@ -180,11 +296,10 @@ class Card extends Component {
           }}
           icon="favorite"
         />
-        {this.renderPhoto(data)}
+        {this.renderPhoto()}
         <TitleWrapper>
           {' '}
-          <Title data={data} dealType={dealType} />
-          {' '}
+          <Title data={data} dealType={dealType} />{' '}
         </TitleWrapper>
         <Summary>
           {landDetails.area && (

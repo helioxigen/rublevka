@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { FormattedNumber } from 'react-intl';
+import InputMask from 'react-input-mask';
 
 import media from '../../../styles/media';
 import UI from '../../../ui';
@@ -52,7 +53,6 @@ const SmallPrice = styled.p`
   line-height: 18px;
   font-size: 15px;
   font-weight: 500;
-  letter-spacing: 0.352941px;
 
   color: rgba(35, 35, 35, 0.5);
 `;
@@ -65,7 +65,6 @@ const Divider = styled.div`
 `;
 
 // const Author = styled.div`
-//   padding-right: 80px;
 //   display: flex;
 //   align-items: center;
 //   margin-bottom: 8px;
@@ -74,7 +73,7 @@ const Divider = styled.div`
 // const Avatar = styled.img`
 //   width: 80px;
 //   height: 80px;
-//   border-radius: 40px;
+//   border-radius: 50%;
 //   margin-right: 10px;
 //   background-color: #eeeeee;
 // `;
@@ -89,7 +88,6 @@ const Divider = styled.div`
 //   line-height: 18px;
 //   font-size: 15px;
 //   font-weight: 500;
-//   letter-spacing: 0.45px;
 //   text-transform: uppercase;
 //   color: #232323;
 // `;
@@ -100,7 +98,6 @@ const Divider = styled.div`
 //   line-height: 18px;
 //   font-size: 15px;
 //   font-weight: 500;
-//   letter-spacing: 0.352941px;
 //   color: rgba(35, 35, 35, 0.5);
 // `;
 
@@ -112,7 +109,7 @@ const CallbackForm = styled.form`
   align-items: center;
 `;
 
-const Input = styled.input`
+const Input = styled(InputMask)`
   width: 100%;
   padding: 0px 15px;
   padding-top: 17px;
@@ -124,7 +121,6 @@ const Input = styled.input`
 
   line-height: 18px;
   font-size: 15px;
-  letter-spacing: 0.535714px;
   text-transform: uppercase;
   font-weight: bold;
 
@@ -138,7 +134,6 @@ const Callback = styled.button`
   padding: 21px 32px 17px 32px;
   line-height: 18px;
   font-size: 15px;
-  letter-spacing: 0.47px;
   text-transform: uppercase;
   background: #47b34c;
   border-radius: 8px;
@@ -157,7 +152,6 @@ const Agreement = styled.p`
   line-height: 20px;
   font-size: 14px;
   text-align: center;
-  letter-spacing: 0.1px;
 
   color: #232323;
 `;
@@ -169,7 +163,6 @@ const Link = styled.a`
   line-height: 20px;
   font-size: 14px;
   text-align: center;
-  letter-spacing: 0.1px;
 `;
 
 const FavoriteWrapper = styled.div`
@@ -224,17 +217,21 @@ export default ({
           / сот.
         </SmallPrice>
       )}
-      {/* <Author>
-            {!!data.photo && <Avatar src={`${global.config.cloudfront || cloudfront}/${data.photo.id}`} alt="Фотография агента" />}
-            <TextBlock>
-              <Name>{data.firstName} {data.lastName}</Name>
-              <Position>Агент загородной недвижимости</Position>
-            </TextBlock>
-          </Author> */}
+      {/*    <Divider />
+      <Author>
+        <Avatar
+          src="https://images.jqestate.ru/STF108-510e198b-256"
+          alt="Фотография агента"
+        />
+        <TextBlock>
+          <Name>Елена Зверева</Name>
+          <Position>Агент загородной недвижимости</Position>
+        </TextBlock>
+      </Author> */}
     </Visibility>
     <CallbackForm>
       <Input type="text" placeholder="Имя" />
-      <Input type="text" placeholder="Номер телефона" />
+      <Input type="tel" mask="+9 (999) 999-99-99" placeholder="телефон" />
       <Visibility md="hidden" lg="hidden">
         <Callback>Отправить</Callback>
       </Visibility>

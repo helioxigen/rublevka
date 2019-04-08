@@ -81,7 +81,9 @@ class Filter extends Component {
       [key]: value,
     };
 
-    this.props.actions.updatePagination(this.props.resourceName, { offset: 0 });
+    this.props.actions.updatePagination(this.props.resourceName, {
+      offset: 0,
+    });
     this.props.actions.updateFilter(this.props.resourceName, values);
   }
 
@@ -194,10 +196,7 @@ class Filter extends Component {
               disabled={!count}
               isViewOpen={isViewOpen}
             >
-              {count ? 'Показать' : 'Нет'}
-              {' '}
-              <FormattedNumber value={count} />
-              {' '}
+              {count ? 'Показать' : 'Нет'} <FormattedNumber value={count} />{' '}
               <CountIndicator
                 count={count}
                 declensionForms={['объект', 'объекта', 'объектов']}
@@ -241,10 +240,7 @@ class Filter extends Component {
               onClick={this.toggle}
               style={{ display: isViewOpen ? 'block' : 'none' }}
             >
-              {count ? 'Показать' : 'Нет'}
-              {' '}
-              <FormattedNumber value={count} />
-              {' '}
+              {count ? 'Показать' : 'Нет'} <FormattedNumber value={count} />{' '}
               <CountIndicator
                 count={count}
                 declensionForms={['объект', 'объекта', 'объектов']}

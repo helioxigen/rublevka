@@ -94,10 +94,11 @@ class Property extends Component {
   }
 
   render() {
+    const { state, kind, id, actions } = this.props;
     const {
-      state, kind, id, actions,
-    } = this.props;
-    const { favorites = [] } = state;
+      favorites = [],
+      displayOptions: { currency },
+    } = state;
     const dealType = dealTypes[this.props.dealType];
 
     const property = state.countryProperties[id] || {};
@@ -124,8 +125,9 @@ class Property extends Component {
       longitude: parseFloat(lng),
     };
 
-    const { currency } = data[`${dealType}Offer`] || {};
-    const { price } = data[`${dealType}Offer`] || {};
+    const { [currency]: price } = (
+      data[`${dealType}Offer`] || {}
+    ).multiCurrencyPrice || {};
     const priceForBlock = price / landDetails.area;
 
     const priceData = {
@@ -135,7 +137,8 @@ class Property extends Component {
     };
 
     // eslint-disable-next-line max-len
-    const displaySummary = landDetails.area || specification.area || specification.bedrooms;
+    const displaySummary =
+      landDetails.area || specification.area || specification.bedrooms;
 
     return (
       <div className="property">
@@ -148,22 +151,24 @@ class Property extends Component {
               <Wrapper>
                 <Header data={data} propertyId={id} dealType={dealType} />
                 <Media
-                  toggleFavorite={() => actions.toggleFavorite(
-                    Number.parseInt(id, 10),
-                    this.props.dealType,
-                  )
+                  toggleFavorite={() =>
+                    actions.toggleFavorite(
+                      Number.parseInt(id, 10),
+                      this.props.dealType,
+                    )
                   }
                   isFavorite={favorites.some(
-                    item => item.id === Number.parseInt(id, 10)
-                      && item.dealType === this.props.dealType,
+                    item =>
+                      item.id === Number.parseInt(id, 10) &&
+                      item.dealType === this.props.dealType,
                   )}
                   images={images}
                   propertyId={id}
                 />
                 {displaySummary && <Summary data={data} />}
                 {/* <Description data={data} /> */}
-                {(!!specification.area
-                  || Object.keys(communication).length !== 0) && (
+                {(!!specification.area ||
+                  Object.keys(communication).length !== 0) && (
                   <Info data={data} />
                 )}
                 {Object.keys(specification.layouts || {}).length !== 0 && (
@@ -172,10 +177,11 @@ class Property extends Component {
                 <Visibility sm="hidden" md="hidden" lg="hidden">
                   {!!price && (
                     <CallForm
-                      toggleFavorite={() => actions.toggleFavorite(
-                        Number.parseInt(id, 10),
-                        this.props.dealType,
-                      )
+                      toggleFavorite={() =>
+                        actions.toggleFavorite(
+                          Number.parseInt(id, 10),
+                          this.props.dealType,
+                        )
                       }
                       priceData={priceData}
                       kind={data.kind}
@@ -191,10 +197,11 @@ class Property extends Component {
               <FormVisibility xs="hidden" sm="hidden" md="hidden">
                 {!!price && (
                   <CallForm
-                    toggleFavorite={() => actions.toggleFavorite(
-                      Number.parseInt(id, 10),
-                      this.props.dealType,
-                    )
+                    toggleFavorite={() =>
+                      actions.toggleFavorite(
+                        Number.parseInt(id, 10),
+                        this.props.dealType,
+                      )
                     }
                     priceData={priceData}
                     kind={data.kind}
@@ -212,12 +219,13 @@ class Property extends Component {
 }
 
 const pickState = (state) => {
-  const { countryProperties, favorites } = state;
+  const { countryProperties, favorites, displayOptions } = state;
 
   return {
     state: {
       countryProperties,
       favorites,
+      displayOptions,
     },
   };
 };

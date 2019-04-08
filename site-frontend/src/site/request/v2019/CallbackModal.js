@@ -5,16 +5,14 @@ import {
   enableBodyScroll,
   clearAllBodyScrollLocks,
 } from 'body-scroll-lock';
+import InputMask from 'react-input-mask';
 
 import Portal from 'react-portal';
 
 import media from '../../styles/media';
 import UI from '../../ui';
 
-const {
-  Icon,
-  Form: { Input },
-} = UI;
+const { Icon } = UI;
 
 const ModalCover = styled.div`
   position: fixed;
@@ -94,7 +92,7 @@ const CallForm = styled.form`
   `}
 `;
 
-const StInput = styled(Input)`
+const StInput = styled(InputMask)`
   margin: 4px 0px;
   padding: 16px 15px 14px 15px;
   border: 1px solid #d9d9d9;
@@ -203,7 +201,6 @@ export default class extends Component {
       isRequestSended: false,
       name: null,
       phone: null,
-      phonePlaceholder: 'телефон',
     });
   };
 
@@ -212,13 +209,7 @@ export default class extends Component {
   };
 
   render() {
-    const {
-      name,
-      phone,
-      isModalOpen,
-      isRequestSended,
-      phonePlaceholder,
-    } = this.state;
+    const { name, phone, isModalOpen, isRequestSended } = this.state;
     const { children } = this.props;
 
     return (
@@ -252,22 +243,23 @@ export default class extends Component {
                   />
                   <StInput
                     type="tel"
-                    mask="+1 (111) 111-11-11"
-                    placeholder={phonePlaceholder}
+                    mask="+9 (999) 999-99-99"
+                    placeholder="телефон"
                     value={phone}
                     onChange={e => this.setState({ phone: e.target.value })}
-                    onFocus={() => this.setState({ phonePlaceholder: '+_ (___) ___-__-__' })
-                    }
-                    onBlur={() => this.setState({ phonePlaceholder: 'телефон' })
-                    }
                   />
-                  <SubmitBtn onClick={this.sendRequest}>
+                  <SubmitBtn
+                    type="submit"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      this.sendRequest();
+                    }}
+                  >
                     Оставить заявку
                   </SubmitBtn>
                 </CallForm>
                 <AgreementText>
-                  Отправляя заявку, вы соглашаетесь с нашей
-                  {' '}
+                  Отправляя заявку, вы соглашаетесь с нашей{' '}
                   <AgreementLink
                     href="/static/privacy-policy.pdf"
                     target="_blank"

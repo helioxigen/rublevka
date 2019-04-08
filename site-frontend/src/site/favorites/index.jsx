@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 import Helmet from 'react-helmet';
-import { getStoredState } from 'redux-persist';
 
 import media from '../styles/media';
 
@@ -61,11 +60,10 @@ class Favorites extends React.Component {
     this.state = { isLoaded: false };
   }
 
-  componentDidUpdate(prevProps) {
-    const { state: prevState } = prevProps;
+  componentDidUpdate() {
     const { state, actions } = this.props;
 
-    if (prevState.favorites !== state.favorites && !this.state.isLoaded) {
+    if (state.favorites.length !== 0 && !this.state.isLoaded) {
       load({ state, actions });
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ isLoaded: true });

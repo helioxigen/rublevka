@@ -1,1 +1,0 @@
-docker run --rm -v /c/Users/Asus/Documents/Projects/work/jqestate/doc/rest_api:/local openapitools/openapi-generator-cli generate -i /local/swagger.yaml -g python-flask -o /local/out/

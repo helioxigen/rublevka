@@ -1,379 +1,376 @@
 openapi: 3.0.0
 info:
-  title: "Swagger jqestate"
-  description: "This is the api of jqestate."
-  version: "0.0.1"
+  title: 'Rublevka API'
+  description: 'REST API of rublevka.ru'
+  version: '1.0.0'
 servers:
-  - url: http://localhost:5000/v1
+  - url: https://api.jqestate.ru
 paths:
-  /properties/country:
+  /v1/properties/country:
     get:
       tags:
-        - "country properties"
-      summary: "Returns list of country properties"
-      description: ""
-      operationId: "getCountryProperty"
+        - 'country properties'
+      summary: 'Returns list of country properties'
+      description: ''
+      operationId: 'getCountryProperty'
       parameters:
         - $ref: '#/components/parameters/limitParam'
         - $ref: '#/components/parameters/offsetParam'
       responses:
-        "200":
-          description: "successful operation"
+        '200':
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginationWrapper"
+                $ref: '#/components/schemas/PaginationWrapper'
     post:
       tags:
-        - "country property"
-      summary: "Create new country property"
-      description: ""
-      operationId: "createCountryProperty"
+        - 'country property'
+      summary: 'Create new country property'
+      description: ''
+      operationId: 'createCountryProperty'
       requestBody:
-        description: "Country property values"
+        description: 'Country property values'
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PostPutCountryProperty'
       responses:
-        "200":
-          description: "successful operation"
+        '200':
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GetCountryProperty"
-        "404":
-          description: "not found"
-  /properties/country/{id}:
+                $ref: '#/components/schemas/GetCountryProperty'
+        '404':
+          description: 'not found'
+  /v1/properties/country/{id}:
     get:
       tags:
-        - "country property"
-      summary: "Return property with same id in same country"
-      description: ""
-      operationId: "getPropertyInCountry"
+        - 'country property'
+      summary: 'Return property with same id in same country'
+      description: ''
+      operationId: 'getPropertyInCountry'
       parameters:
         - in: path
           name: id
           required: true
-          description: "Id of country property"
+          description: 'Id of country property'
           schema:
             type: integer
             format: int64
             minimum: 1
       responses:
-        "200":
-          description: "successful operation"
+        '200':
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GetCountryProperty"
-        "404":
-          description: "Not found"
+                $ref: '#/components/schemas/GetCountryProperty'
+        '404':
+          description: 'Not found'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiErrorResponse"
+                $ref: '#/components/schemas/ApiErrorResponse'
     put:
       tags:
-        - "country property"
-      summary: "Update country property"
-      description: ""
-      operationId: "updateCountryProperty"
+        - 'country property'
+      summary: 'Update country property'
+      description: ''
+      operationId: 'updateCountryProperty'
       parameters:
         - in: path
           name: id
           required: true
-          description: "Id of country property"
+          description: 'Id of country property'
           schema:
             type: integer
             format: int64
             minimum: 1
       requestBody:
-        description: "Country property values"
+        description: 'Country property values'
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PostPutCountryProperty'
       responses:
-        "200":
-          description: "successful operation"
+        '200':
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GetCountryProperty"
-        "201":
-          description: "created new"
+                $ref: '#/components/schemas/GetCountryProperty'
+        '201':
+          description: 'created new'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GetCountryProperty"
+                $ref: '#/components/schemas/GetCountryProperty'
     delete:
       tags:
-        - "country property"
-      summary: "Delete country property"
-      description: ""
-      operationId: "deleteCountryProperty"
+        - 'country property'
+      summary: 'Archive country property'
+      description: ''
+      operationId: 'deleteCountryProperty'
       parameters:
         - in: path
           name: id
           required: true
-          description: "Id of country property"
+          description: 'Id of country property'
           schema:
             type: integer
             format: int64
             minimum: 1
       responses:
-        "200":
-          description: "successful operation"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GetCountryProperty"
-        "404":
-          description: "not found"
-  /places/countries:
+        '200':
+          description: 'successful operation'
+        '404':
+          description: 'not found'
+  /v1/places/countries:
     get:
       tags:
-        - "places"
-      summary: "Return countries"
-      description: ""
-      operationId: "getCountries"
+        - 'places'
+      summary: 'Return countries'
+      description: ''
+      operationId: 'getCountries'
       parameters:
         - $ref: '#/components/parameters/limitParam'
         - $ref: '#/components/parameters/offsetParam'
       responses:
-        "200":
-          description: "successful operation"
+        '200':
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginationWrapper"
-  /places/regions:
+                $ref: '#/components/schemas/PaginationWrapper'
+  /v1/places/regions:
     get:
       tags:
-        - "places"
-      summary: "Return regions"
-      description: ""
-      operationId: "getRegions"
+        - 'places'
+      summary: 'Return regions'
+      description: ''
+      operationId: 'getRegions'
       parameters:
         - $ref: '#/components/parameters/limitParam'
         - $ref: '#/components/parameters/offsetParam'
       responses:
-        "200":
-          description: "successful operation"
+        '200':
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginationWrapper"
-  /places/districts:
+                $ref: '#/components/schemas/PaginationWrapper'
+  /v1/places/districts:
     get:
       tags:
-        - "places"
-      summary: "Return districts"
-      description: ""
-      operationId: "getDistricts"
+        - 'places'
+      summary: 'Return districts'
+      description: ''
+      operationId: 'getDistricts'
       parameters:
         - $ref: '#/components/parameters/limitParam'
         - $ref: '#/components/parameters/offsetParam'
       responses:
-        "200":
-          description: "successful operation"
+        '200':
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginationWrapper"
-  /places/localities:
+                $ref: '#/components/schemas/PaginationWrapper'
+  /v1/places/localities:
     get:
       tags:
-        - "places"
-      summary: "Return localities"
-      description: ""
-      operationId: "getLocalities"
+        - 'places'
+      summary: 'Return localities'
+      description: ''
+      operationId: 'getLocalities'
       parameters:
         - $ref: '#/components/parameters/limitParam'
         - $ref: '#/components/parameters/offsetParam'
       responses:
-        "200":
-          description: "successful operation"
+        '200':
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginationWrapper"
-  /places/sub_localities:
+                $ref: '#/components/schemas/PaginationWrapper'
+  /v1/places/sub_localities:
     get:
       tags:
-        - "places"
-      summary: "Return sub_localities"
-      description: ""
-      operationId: "getSubLocalities"
+        - 'places'
+      summary: 'Return sub_localities'
+      description: ''
+      operationId: 'getSubLocalities'
       parameters:
         - $ref: '#/components/parameters/limitParam'
         - $ref: '#/components/parameters/offsetParam'
       responses:
-        "200":
-          description: "successful operation"
+        '200':
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginationWrapper"
-  /places/routes:
+                $ref: '#/components/schemas/PaginationWrapper'
+  /v1/places/routes:
     get:
       tags:
-        - "places"
-      summary: "Return routes"
-      description: ""
-      operationId: "getRoutes"
+        - 'places'
+      summary: 'Return routes'
+      description: ''
+      operationId: 'getRoutes'
       parameters:
         - $ref: '#/components/parameters/limitParam'
         - $ref: '#/components/parameters/offsetParam'
       responses:
-        "200":
-          description: "successful operation"
+        '200':
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaginationWrapper"
+                $ref: '#/components/schemas/PaginationWrapper'
 
-  /places/countries/{id}:
+  /v1/places/countries/{id}:
     get:
       tags:
-        - "place"
-      summary: "Return countries"
-      description: ""
-      operationId: "getCountry"
+        - 'place'
+      summary: 'Return countries'
+      description: ''
+      operationId: 'getCountry'
       parameters:
         - in: path
           name: id
           required: true
-          description: "Id of country"
+          description: 'Id of country'
           schema:
             type: integer
             format: int64
             minimum: 1
       responses:
-        "200":
-          description: "successful operation"
+        '200':
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Country"
-  /places/regions/{id}:
+                $ref: '#/components/schemas/Country'
+  /v1/places/regions/{id}:
     get:
       tags:
-        - "place"
-      summary: "Return regions"
-      description: ""
-      operationId: "getRegion"
+        - 'place'
+      summary: 'Return regions'
+      description: ''
+      operationId: 'getRegion'
       parameters:
         - in: path
           name: id
           required: true
-          description: "Id of region"
+          description: 'Id of region'
           schema:
             type: integer
             format: int64
             minimum: 1
       responses:
-        "200":
-          description: "successful operation"
+        '200':
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Region"
-  /places/districts/{id}:
+                $ref: '#/components/schemas/Region'
+  /v1/places/districts/{id}:
     get:
       tags:
-        - "place"
-      summary: "Return districts"
-      description: ""
-      operationId: "getDistrict"
+        - 'place'
+      summary: 'Return districts'
+      description: ''
+      operationId: 'getDistrict'
       parameters:
         - in: path
           name: id
           required: true
-          description: "Id of district"
+          description: 'Id of district'
           schema:
             type: integer
             format: int64
             minimum: 1
       responses:
-        "200":
-          description: "successful operation"
+        '200':
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/District"
-  /places/localities/{id}:
+                $ref: '#/components/schemas/District'
+  /v1/places/localities/{id}:
     get:
       tags:
-        - "place"
-      summary: "Return localities"
-      description: ""
-      operationId: "getLocality"
+        - 'place'
+      summary: 'Return localities'
+      description: ''
+      operationId: 'getLocality'
       parameters:
         - in: path
           name: id
           required: true
-          description: "Id of locality"
+          description: 'Id of locality'
           schema:
             type: integer
             format: int64
             minimum: 1
       responses:
-        "200":
-          description: "successful operation"
+        '200':
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Locality"
-  /places/sub_localities/{id}:
+                $ref: '#/components/schemas/Locality'
+  /v1/places/sub_localities/{id}:
     get:
       tags:
-        - "place"
-      summary: "Return sub_localities"
-      description: ""
-      operationId: "getSubLocality"
+        - 'place'
+      summary: 'Return sub_localities'
+      description: ''
+      operationId: 'getSubLocality'
       parameters:
         - in: path
           name: id
           required: true
-          description: "Id of sub locality"
+          description: 'Id of sub locality'
           schema:
             type: integer
             format: int64
             minimum: 1
       responses:
-        "200":
-          description: "successful operation"
+        '200':
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Locality"
-  /places/routes/{id}:
+                $ref: '#/components/schemas/Locality'
+  /v1/places/routes/{id}:
     get:
       tags:
-        - "place"
-      summary: "Return routes"
-      description: ""
-      operationId: "getRoute"
+        - 'place'
+      summary: 'Return routes'
+      description: ''
+      operationId: 'getRoute'
       parameters:
         - in: path
           name: id
           required: true
-          description: "Id of routes"
+          description: 'Id of routes'
           schema:
             type: integer
             format: int64
             minimum: 1
       responses:
-        "200":
-          description: "successful operation"
+        '200':
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Route"
+                $ref: '#/components/schemas/Route'
+
 components:
   schemas:
     PaginationWrapper:
@@ -383,13 +380,13 @@ components:
           type: array
           items:
             oneOf:
-              - $ref: "#/components/schemas/GetCountryProperty"
-              - $ref: "#/components/schemas/Country"
-              - $ref: "#/components/schemas/Region"
-              - $ref: "#/components/schemas/District"
-              - $ref: "#/components/schemas/Locality"
-              - $ref: "#/components/schemas/SubLocality"
-              - $ref: "#/components/schemas/Route"
+              - $ref: '#/components/schemas/GetCountryProperty'
+              - $ref: '#/components/schemas/Country'
+              - $ref: '#/components/schemas/Region'
+              - $ref: '#/components/schemas/District'
+              - $ref: '#/components/schemas/Locality'
+              - $ref: '#/components/schemas/SubLocality'
+              - $ref: '#/components/schemas/Route'
         pagination:
           $ref: '#/components/schemas/Pagination'
     GetCountryProperty:
@@ -408,20 +405,29 @@ components:
           type: string
           format: datatime
         communication:
-          $ref: "#/components/schemas/Communication"
+          $ref: '#/components/schemas/Communication'
         location:
-          $ref: "#/components/schemas/Location"
+          $ref: '#/components/schemas/Location'
         specification:
-          $ref: "#/components/schemas/Specification"
+          $ref: '#/components/schemas/Specification'
         externalId:
           type: string
         rentOffer:
-          $ref: "#/components/schemas/RentOffer"
+          $ref: '#/components/schemas/RentOffer'
         saleOffer:
-          $ref: "#/components/schemas/SaleOffer"
+          $ref: '#/components/schemas/SaleOffer'
         state:
           type: string
-          enum: ["draft", "public", "postponed", "sold", "rented", "private", "deleted"]
+          enum:
+            [
+              'draft',
+              'public',
+              'postponed',
+              'sold',
+              'rented',
+              'private',
+              'deleted',
+            ]
         clientLeadId:
           type: integer
           format: int64
@@ -453,7 +459,7 @@ components:
             reason:
               type: string
         responsibleUser:
-          $ref: "#/components/schemas/StaffUser"
+          $ref: '#/components/schemas/StaffUser'
         removalOrderId:
           type: integer
         updatedByUserId:
@@ -471,11 +477,11 @@ components:
         images:
           type: array
           items:
-            $ref: "#/components/schemas/Image"
+            $ref: '#/components/schemas/Image'
         layoutImages:
           type: array
           items:
-            $ref: "#/components/schemas/Image"
+            $ref: '#/components/schemas/Image'
         landDetails:
           type: object
           properties:
@@ -504,10 +510,10 @@ components:
           properties:
             latitude:
               type: string
-              description: "Широта"
+              description: 'Широта'
             longitude:
               type: string
-              description: "Долгота"
+              description: 'Долгота'
             settlementId:
               type: integer
               minimum: 1
@@ -516,18 +522,27 @@ components:
             house:
               type: string
         communication:
-          $ref: "#/components/schemas/Communication"
+          $ref: '#/components/schemas/Communication'
         specification:
-          $ref: "#/components/schemas/Specification"
+          $ref: '#/components/schemas/Specification'
         externalId:
           type: string
         rentOffer:
-          $ref: "#/components/schemas/RentOffer"
+          $ref: '#/components/schemas/RentOffer'
         saleOffer:
-          $ref: "#/components/schemas/SaleOffer"
+          $ref: '#/components/schemas/SaleOffer'
         state:
           type: string
-          enum: ["draft", "public", "postponed", "sold", "rented", "private", "deleted"]
+          enum:
+            [
+              'draft',
+              'public',
+              'postponed',
+              'sold',
+              'rented',
+              'private',
+              'deleted',
+            ]
         clientLeadId:
           type: integer
           format: int64
@@ -559,7 +574,7 @@ components:
             reason:
               type: string
         responsibleUser:
-          $ref: "#/components/schemas/StaffUser"
+          $ref: '#/components/schemas/StaffUser'
         removalOrderId:
           type: integer
         updatedByUserId:
@@ -577,11 +592,11 @@ components:
         images:
           type: array
           items:
-            $ref: "#/components/schemas/Image"
+            $ref: '#/components/schemas/Image'
         layoutImages:
           type: array
           items:
-            $ref: "#/components/schemas/Image"
+            $ref: '#/components/schemas/Image'
         landDetails:
           type: object
           properties:
@@ -619,20 +634,37 @@ components:
           type: number
         elevators:
           type: integer
-          description: "Колличество ливтов"
+          description: 'Колличество ливтов'
         balconies:
           type: integer
-          description: "Количество балконов"
+          description: 'Количество балконов'
         roofMaterial:
           type: string
-          enum: ["steel", "soft_tile", "copper", "metal_tile", "slate", "tile", "rooftop"]
+          enum:
+            [
+              'steel',
+              'soft_tile',
+              'copper',
+              'metal_tile',
+              'slate',
+              'tile',
+              'rooftop',
+            ]
         legacyLayouts:
           type: array
           items:
-            $ref: "#/components/schemas/Layout"
+            $ref: '#/components/schemas/Layout'
         renovate:
           type: string
-          enum: ['design', 'rough_finish', 'full_construction', 'partly_turnkey', 'for_finishing', 'raw']
+          enum:
+            [
+              'design',
+              'rough_finish',
+              'full_construction',
+              'partly_turnkey',
+              'for_finishing',
+              'raw',
+            ]
         layouts:
           type: object
           properties:
@@ -672,7 +704,8 @@ components:
           type: boolean
         wallMaterial:
           type: string
-          enum: ['blue_max', 'wood', 'brick', 'block', 'monolith', 'canadian_sip']
+          enum:
+            ['blue_max', 'wood', 'brick', 'block', 'monolith', 'canadian_sip']
         condition:
           type: string
           enum: ['great', 'good', 'normal', 'bad']
@@ -713,7 +746,7 @@ components:
         agentFee:
           type: number
         multiCurrencyPrice:
-          $ref: "#/components/schemas/MultiCurrencyPrice"
+          $ref: '#/components/schemas/MultiCurrencyPrice'
         currency:
           type: string
           description: Валюта продажи
@@ -728,7 +761,7 @@ components:
         period:
           type: string
           nullable: true
-          enum: ["day", "month", "year"]
+          enum: ['day', 'month', 'year']
     SaleOffer:
       type: object
       properties:
@@ -743,7 +776,7 @@ components:
         kind:
           type: string
         multiCurrencyPrice:
-          $ref: "#/components/schemas/MultiCurrencyPrice"
+          $ref: '#/components/schemas/MultiCurrencyPrice'
         isBargain:
           type: boolean
         isResale:
@@ -788,10 +821,10 @@ components:
       properties:
         latitude:
           type: string
-          description: "Долгота"
+          description: 'Долгота'
         longitude:
           type: string
-          description: "Широта"
+          description: 'Широта'
         countryId:
           type: integer
           format: int64
@@ -1098,5 +1131,5 @@ components:
         default: 32
 
 externalDocs:
-  description: "Find out more about Swagger"
-  url: "http://swagger.io"
+  description: 'Find out more about Swagger'
+  url: 'http://swagger.io'

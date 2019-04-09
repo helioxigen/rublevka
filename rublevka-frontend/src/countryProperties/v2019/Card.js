@@ -219,19 +219,22 @@ class Card extends Component {
   renderPhoto = () => {
     const {
       data: { images = [] },
+      favorites,
+      id,
+      actions,
     } = this.props;
     const { selectedImage, showSlider } = this.state;
     const publicImages = images.filter(({ isPublic }) => !!isPublic);
 
     if (publicImages.length) {
       return (
-        <ImageContainer>
+        <ImageContainer onMouseLeave={() => this.setState({ selectedImage: 0 })}>
           <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
             {publicImages.length > 1 && (
-              <Slider onMouseLeave={() => this.setState({ selectedImage: 0 })}>
+              <Slider>
                 {images.slice(0, 6).map((el, index) => (
                   <Slide
-                    onMouseOver={() => this.setState({ selectedImage: index })}
+                    onMouseEnter={() => this.setState({ selectedImage: index })}
                   >
                     <SlideIndicator selected={selectedImage === index} />
                   </Slide>
@@ -243,8 +246,38 @@ class Card extends Component {
                 publicImages[selectedImage].id
               }-thumbnail-512`}
             />
+            <FavoriteIcon
+              isActive={favorites.some(
+                item =>
+                  item.id === Number.parseInt(id, 10) &&
+                  item.dealType === this.props.dealType,
+              )}
+              onClick={(e) => {
+                e.preventDefault();
+                actions.toggleFavorite(
+                  Number.parseInt(id, 10),
+                  this.props.dealType,
+                );
+              }}
+              icon="favorite"
+            />
           </Visibility>
           <Visibility xs="block" sm="block" md="block" lg="hidden">
+            <FavoriteIcon
+              isActive={favorites.some(
+                item =>
+                  item.id === Number.parseInt(id, 10) &&
+                  item.dealType === this.props.dealType,
+              )}
+              onClick={(e) => {
+                e.preventDefault();
+                actions.toggleFavorite(
+                  Number.parseInt(id, 10),
+                  this.props.dealType,
+                );
+              }}
+              icon="favorite"
+            />
             <ReactSwipe
               swipeOptions={{
                 callback: index => this.setState({ selectedImage: index }),
@@ -278,7 +311,7 @@ class Card extends Component {
   };
 
   render() {
-    const { data = {}, favorites, id, actions } = this.props;
+    const { data = {}, id } = this.props;
     const dealType = dealTypes[this.props.dealType];
     const { specification = {}, landDetails = {} } = data;
     const deal = data[`${dealType}Offer`] || {};
@@ -290,21 +323,6 @@ class Card extends Component {
         }`}
       >
         <Id>№{data.id}</Id>
-        <FavoriteIcon
-          isActive={favorites.some(
-            item =>
-              item.id === Number.parseInt(id, 10) &&
-              item.dealType === this.props.dealType,
-          )}
-          onClick={(e) => {
-            e.preventDefault();
-            actions.toggleFavorite(
-              Number.parseInt(id, 10),
-              this.props.dealType,
-            );
-          }}
-          icon="favorite"
-        />
         {this.renderPhoto()}
         <TitleWrapper>
           {' '}

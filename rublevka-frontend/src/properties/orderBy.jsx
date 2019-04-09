@@ -41,7 +41,7 @@ class OrderBy extends Component {
     this.props.actions.resetOrder(this.props.resourceName);
   };
 
-  update = field => {
+  update = (field) => {
     const { resourceName, state = {} } = this.props;
     const predicate = state.predicate === 'asc' ? 'desc' : 'asc';
 
@@ -49,7 +49,7 @@ class OrderBy extends Component {
     this.props.actions.updateOrder(resourceName, field, predicate);
   };
 
-  renderButton = field => {
+  renderButton = (field) => {
     const { state = {} } = this.props;
     const isActive = state.field === field;
 
@@ -81,7 +81,7 @@ class OrderBy extends Component {
           <Select
             options={newFields}
             onChange={this.update}
-            placeholder="▾ Сортировать"
+            placeholder="Сортировать"
             selected={state.field}
           />
         </Visibility>

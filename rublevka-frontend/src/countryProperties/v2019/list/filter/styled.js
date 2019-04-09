@@ -12,6 +12,7 @@ export const ResetText = styled.span`
 
 export const Text = styled.span`
   font-size: 16px;
+  font-weight: 500;
   color: #f44336;
 
   ${media.sm`

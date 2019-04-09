@@ -18,12 +18,13 @@
   border-radius: 20px;
 
   &:hover {
-    color: #8f8f8f;
+    background-color: #FCD0CD;
   }
 
   &:focus,
   &.active {
-    background-color: #f5f5f5;
+    background-color: #F8A19A;
+    color: #fff;
     outline: none;
   }
 
@@ -36,6 +37,7 @@
   }
 
   &.active {
+
     &:hover,
     &:focus {
       outline: none;

@@ -201,9 +201,8 @@ const FavoriteIcon = styled(Icon)`
   top: 0;
   right: 0;
   z-index: 2;
-  width: 54px;
-  height: 52px;
-  display: block;
+  width: 52px;
+  height: 54px;
   stroke: #ffffff;
   stroke-width: 2px;
   fill: ${p => (p.isActive ? '#F44336' : 'rgba(0,0,0, 0.3)')};
@@ -211,6 +210,13 @@ const FavoriteIcon = styled(Icon)`
   &:hover {
     fill: ${p => (p.isActive ? '#F44336' : 'rgba(0,0,0, 0.5)')};
   }
+
+  ${media.md`
+    display: none;
+    ${LinkWrapper}:hover & {
+      display: block;
+    }
+  `}
 `;
 
 class Card extends Component {
@@ -228,7 +234,9 @@ class Card extends Component {
 
     if (publicImages.length) {
       return (
-        <ImageContainer onMouseLeave={() => this.setState({ selectedImage: 0 })}>
+        <ImageContainer
+          onMouseLeave={() => this.setState({ selectedImage: 0 })}
+        >
           <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
             {publicImages.length > 1 && (
               <Slider>

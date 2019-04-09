@@ -211,7 +211,9 @@ const FavoriteIcon = styled(Icon)`
     fill: ${p => (p.isActive ? '#F44336' : 'rgba(0,0,0, 0.5)')};
   }
 
-  ${media.md`
+  ${p =>
+    !p.isActive &&
+    media.md`
     display: none;
     ${LinkWrapper}:hover & {
       display: block;

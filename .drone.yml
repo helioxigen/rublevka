@@ -137,29 +137,15 @@ pipeline:
     format: markdown
     message: >
       {{#success build.status}}
-      ✅ Build #{{build.number}} of `{{repo.name}}` succeeded.
+      ✅ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` succeeded.
 
-
-      📝 Commit by {{commit.author}} on `{{commit.branch}}`:
-
-      ```
-      {{commit.message}}
-      ```
-
-
-      🌐 {{ build.link }}
+      ```{{commit.message}}```
+      📝 Commit [{{truncate commit.sha 5}}]({{commit.link}})@{{commit.branch}} by {{commit.author}}
       {{else}}
-      ❌ Build #{{build.number}} of `{{repo.name}}` failed.
+      ❌ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` failed.
 
-
-      📝 Commit by {{commit.author}} on `{{commit.branch}}`:
-
-      ```
-      {{commit.message}}
-      ```
-
-
-      🌐 {{ build.link }}
+      ```{{commit.message}}```
+      📝 Commit [{{truncate commit.sha 5}}]({{commit.link}})@{{commit.branch}} by {{commit.author}}
       {{/success}}
     when:
       status: [success, failure]

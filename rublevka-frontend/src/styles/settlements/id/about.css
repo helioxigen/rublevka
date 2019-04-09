@@ -1,0 +1,254 @@
+@import '../../responsive-utils';
+@import '../../variables';
+
+.mainContainer {
+  margin: 0 -1.5rem;
+
+  color: $brand-black;
+  text-align: left;
+
+  background-size: cover;
+  background-position: center;
+}
+
+.contentContainer {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+
+  padding: 3rem 3rem 5rem;
+}
+
+.nav {
+  text-align: left;
+
+  display: none;
+
+  @include responsive(sm) {
+    display: block;
+  }
+}
+
+.navItem {
+  color: $brand-white;
+  font-size: 1.3rem;
+  text-decoration: none;
+}
+
+.iconArrow {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin: 0 1rem;
+
+  vertical-align: middle;
+
+  fill: $brand-white;
+  transform: rotate(-90deg);
+}
+
+.button {
+  padding: 1.8rem 6rem;
+
+  color: $brand-white;
+  font-size: 1.6rem;
+
+  background: $brand-success-hover;
+
+  border: none;
+  border-radius: 10rem;
+
+  &:hover,
+  &:focus {
+    background: $brand-success-focus;
+    color: $brand-white;
+  }
+}
+
+.flexContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+
+  text-align: center;
+
+  margin-top: 2rem;
+
+  @include responsive(sm) {
+    flex-wrap: nowrap;
+
+    margin-top: 0;
+  }
+}
+
+.flexRight {
+  @include responsive(sm) {
+    justify-content: flex-start;
+
+    text-align: right;
+  }
+}
+
+.flexLeft {
+  @include responsive(sm) {
+    justify-content: flex-end;
+
+    text-align: left;
+  }
+}
+
+.image {
+  display: inline-block;
+  width: 100%;
+  max-width: 13.7rem;
+  height: 13.7rem;
+
+  background: transparent center center no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+
+  @include responsive(sm) {
+    max-width: 20.4rem;
+    height: 20.4rem;
+    margin-right: 7.5rem;
+  }
+}
+
+.imagePlaceholder {
+  @include responsive(sm) {
+    margin-right: 7.5rem;
+  }
+}
+
+.title {
+  margin: 0;
+  margin-bottom: 1rem;
+
+  font-size: 3.2rem;
+  font-weight: 500;
+  line-height: 1.25;
+
+  color: $brand-white;
+}
+
+.subTitle {
+  margin: 0;
+  margin-top: 2rem;
+
+  font-weight: 300;
+  color: $brand-white;
+
+  @include responsive(sm) {
+    margin-top: 1rem;
+  }
+
+  @include responsive(md) {
+    margin-top: 0;
+  }
+}
+
+.contacts {
+  margin-top: 5rem;
+  float: right;
+
+  color: $brand-white;
+}
+
+.list {
+  position: relative;
+
+  margin: 0;
+  margin-bottom: 4rem;
+  padding: 0;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  @include responsive(sm) {
+    display: inline-block;
+    margin-right: 3rem;
+    margin-bottom: 0;
+  }
+
+  @include responsive(md) {
+    margin-right: 5rem;
+  }
+}
+
+.listTitle {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.listItem {
+  margin-top: 0.9rem;
+
+  color: #898989;
+  font-size: 1.4rem;
+  font-weight: 400;
+
+  @include responsive(sm) {
+    font-size: 1.6rem;
+  }
+}
+
+.iconArrowDown {
+  position: absolute;
+  top: 50%;
+  right: 2.3rem;
+
+  width: 2rem;
+  height: 2rem;
+  margin-left: 2rem;
+  padding: 0.3rem;
+  padding-bottom: 0.2rem;
+
+  line-height: 1;
+
+  fill: $brand-white;
+  border: 1px solid $brand-white;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.paddingBottom9 {
+  padding-bottom: 4rem;
+
+  @include responsive(sm) {
+    padding-bottom: 9rem;
+  }
+}
+
+.textRight {
+  @include responsive(md) {
+    text-align: right;
+  }
+}
+
+.dividerTopXs {
+  position: relative;
+
+  padding-top: 4rem;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 1.5rem;
+    left: 1.5rem;
+
+    height: 1px;
+
+    background: #e5e5e5;
+  }
+
+  @include responsive(sm) {
+    padding-top: 0;
+
+    &:after {
+      display: none;
+    }
+  }
+}

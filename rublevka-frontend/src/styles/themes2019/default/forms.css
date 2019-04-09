@@ -1,0 +1,24 @@
+@import '../../responsive-utils';
+@import './variables';
+
+.background {
+  background: $grey-blue;
+}
+
+.subscribeOverlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.button {
+  border-radius: 10rem;
+  background: $brand-primary;
+}
+
+.settlementForm {
+  margin-top: 6rem;
+  padding: 4rem 3rem;
+
+  background: $grey-blue;
+
+  width: 100%;
+}

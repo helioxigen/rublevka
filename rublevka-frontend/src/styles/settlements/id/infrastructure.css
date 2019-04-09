@@ -1,0 +1,21 @@
+@import '../../responsive-utils';
+@import '../../variables';
+
+.mainContainer {
+  margin: 0 -1.5rem;
+  padding: 6.5rem 0 7rem;
+
+  background: $brand-white;
+}
+
+.title {
+  margin: 0;
+
+  font-size: 3rem;
+}
+
+.item {
+  color: #262626;
+  font-size: 1.6rem;
+  line-height: 4rem;
+}

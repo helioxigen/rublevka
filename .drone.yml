@@ -14,7 +14,7 @@ pipeline:
     volumes:
       - /tmp/cache:/cache
     when:
-      branch: [master]
+      branch: [master, develop]
       event: [push]
 
   build-firebase:
@@ -31,7 +31,7 @@ pipeline:
   deploy-rublevka-frontend-dev:
     image: docker/compose:1.22.0
     commands:
-      - cd site-frontend
+      - cd rublevka-frontend
       - docker-compose -f docker-compose-dev.yml build --build-arg BUILD_ID=$DRONE_BUILD_NUMBER
       - docker-compose -f docker-compose-dev.yml up -d
     volumes:
@@ -47,7 +47,7 @@ pipeline:
   deploy-rublevka-frontend-prod:
     image: docker/compose:1.22.0
     commands:
-      - cd site-frontend
+      - cd rublevka-frontend
       - docker-compose build --build-arg BUILD_ID=$DRONE_BUILD_NUMBER
       - docker-compose up -d
     volumes:
@@ -127,6 +127,29 @@ pipeline:
       branch: [master]
       event: [push]
 
+  telegram-notification:
+    image: appleboy/drone-telegram
+    secrets:
+      - source: telegram_access_token
+        target: telegram_token
+      - source: telegram_chat_id
+        target: telegram_to
+    format: markdown
+    message: >
+      {{#success build.status}}
+      ✅ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` succeeded.
+
+      - {{commit.message}} ([{{truncate commit.sha 5}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
+      {{else}}
+      ❌ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` failed.
+
+      - {{commit.message}} ([{{truncate commit.sha 5}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
+      {{/success}}
+    when:
+      status: [success, failure]
+      branch: [master, develop]
+      event: [push]
+
   rebuild-cache:
     image: drillster/drone-volume-cache
     rebuild: true
@@ -138,7 +161,7 @@ pipeline:
     volumes:
       - /tmp/cache:/cache
     when:
-      branch: [master]
+      branch: [master, develop]
       event: [push]
 
 branches: [master, develop]

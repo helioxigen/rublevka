@@ -86,7 +86,7 @@ const PhoneIcon = styled(Icon)`
   fill: #fff;
 `;
 
-export default ({ priceData: { currency, price, priceForBlock }, kind }) => (
+export default ({ dealType, priceData: { currency, price, priceForBlock }, kind }) => (
   <CallBlock>
     <TextBlock>
       <Price>
@@ -96,6 +96,7 @@ export default ({ priceData: { currency, price, priceForBlock }, kind }) => (
           value={price}
           maximumSignificantDigits={12}
         />
+        {dealType === 'rent' ? ' / месяц' : ''}
       </Price>
       {kind === 'land' && (
         <SmallPrice>

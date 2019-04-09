@@ -188,6 +188,7 @@ export default ({
   priceData: { currency, price, priceForBlock },
   kind,
   toggleFavorite,
+  dealType,
 }) => (
   <Wrapper>
     <Visibility md="hidden" lg="hidden">
@@ -205,6 +206,7 @@ export default ({
           value={price}
           maximumSignificantDigits={12}
         />
+        {dealType === 'rent' ? ' / месяц' : ''}
       </Price>
       {kind === 'land' && (
         <SmallPrice>

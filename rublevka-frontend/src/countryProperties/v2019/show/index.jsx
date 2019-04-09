@@ -196,6 +196,7 @@ class Property extends Component {
               <FormVisibility xs="hidden" sm="hidden" md="hidden">
                 {!!price && (
                   <CallForm
+                    dealType={dealType}
                     toggleFavorite={() =>
                       actions.toggleFavorite(
                         Number.parseInt(id, 10),
@@ -209,8 +210,8 @@ class Property extends Component {
               </FormVisibility>
             </Col>
           </Row>
-          <Similar id={data.id} dealType={this.props.dealType} />
-          {!!price && <CallBlock priceData={priceData} kind={data.kind} />}
+          <Similar id={data.id} dealType={dealType} />
+          {!!price && <CallBlock dealType={dealType} priceData={priceData} kind={data.kind} />}
         </Container>
       </div>
     );

@@ -121,6 +121,7 @@ export const DesktopContainer = styled.div`
   ${media.sm`
     padding-bottom: 8rem;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    background: #fff;
   `}
 
   ${media.md`
@@ -130,6 +131,7 @@ export const DesktopContainer = styled.div`
     width: 100%;
     overflow: visible;
     box-shadow: none;
+    background: #fafafa;
   `}
 `;
 
@@ -199,7 +201,8 @@ export const ButtonPrimary = styled(DefaultBtn)`
       padding: 19px 0;
 
       font-size: 15px;
-      font-weight: 500;
+      letter-spacing: 0.2125px;
+      font-weight: bold;
       line-height: 18px;
       transition: 0.6s cubic-bezier(0.86, 0, 0.07, 1);
     `}

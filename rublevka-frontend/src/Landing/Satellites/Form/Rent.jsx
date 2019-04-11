@@ -123,7 +123,9 @@ class Rent extends Component {
       return `До ${priceTo.label} ${currencySymbol}`;
     }
     if (priceFrom && priceTo) {
-      return `От ${priceFrom.label} до ${priceTo.label} ${currencySymbol}`;
+      return `От ${priceFrom.label.slice(0, -4)} до ${
+        priceTo.label
+      } ${currencySymbol}`;
     }
 
     return 'Любая';

@@ -120,6 +120,8 @@ export const DesktopContainer = styled.div`
 
   ${media.sm`
     padding-bottom: 8rem;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    background: #fff;
   `}
 
   ${media.md`
@@ -128,6 +130,8 @@ export const DesktopContainer = styled.div`
     padding-top: 3px;
     width: 100%;
     overflow: visible;
+    box-shadow: none;
+    background: #fafafa;
   `}
 `;
 
@@ -194,9 +198,12 @@ export const ButtonPrimary = styled(DefaultBtn)`
       left: ${p => (p.isViewOpen ? '3rem' : '-50%')};
 
       width: calc(50% - 6rem);
-      padding: 2rem 0;
+      padding: 19px 0;
 
-      font-size: 2rem;
+      font-size: 15px;
+      letter-spacing: 0.2125px;
+      font-weight: bold;
+      line-height: 18px;
       transition: 0.6s cubic-bezier(0.86, 0, 0.07, 1);
     `}
   }
@@ -222,4 +229,14 @@ export const BtnGroupHead = styled(BtnGroup)`
       left: ${p => (p.isViewOpen ? 0 : '-50%')}
     `}
   }
+`;
+
+export const Cover = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 998;
+  background: rgba(0, 0, 0, 0.15);
 `;

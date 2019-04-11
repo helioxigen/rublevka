@@ -1,4 +1,3 @@
-const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
 const { join } = require('path');
@@ -20,7 +19,7 @@ const metadata = {
   contentType: 'text/xml',
 };
 
-exports.handler = functions.pubsub.topic('update-xml').onPublish(() => admin
+module.exports = () => admin
   .firestore()
   .collection('properties')
   .get()
@@ -30,7 +29,9 @@ exports.handler = functions.pubsub.topic('update-xml').onPublish(() => admin
     const idsParts = splitEvery(API_PAGE_SIZE, ids);
 
     const promises = idsParts.map(part => getItemsFromAPI(part.join(',')));
-    const filename = `feed_${Math.random().toString(36).slice(2)}.xml`;
+    const filename = `feed_${Math.random()
+      .toString(36)
+      .slice(2)}.xml`;
 
     return Promise.all(promises)
       .then(data => data.map(response => response.items))
@@ -49,4 +50,4 @@ exports.handler = functions.pubsub.topic('update-xml').onPublish(() => admin
         destination: 'cian-feed.xml',
         metadata,
       }));
-  }));
+  });

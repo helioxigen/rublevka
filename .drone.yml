@@ -85,6 +85,8 @@ pipeline:
         target: react_app_yandex_metrika_id
       - source: react_app_sentry_dsn_staff_rublevka_ru
         target: react_app_sentry_dsn
+      - source: react_app_firebase_functions_url
+        target: react_app_firebase_functions_url
     when:
       branch: [master]
       event: [push]
@@ -139,9 +141,11 @@ pipeline:
       {{#success build.status}}
       ✅ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` succeeded.
 
+
       - {{commit.message}} ([{{truncate commit.sha 5}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
       {{else}}
       ❌ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` failed.
+
 
       - {{commit.message}} ([{{truncate commit.sha 5}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
       {{/success}}

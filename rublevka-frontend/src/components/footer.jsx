@@ -232,7 +232,7 @@ const LogoSatellites = styled(Icon)`
 const ValueSelector = styled.select`
   margin: 0;
   margin-bottom: 32px;
-  order: 0;
+  order: -1;
   padding: 12px 15px;
   background: rgba(255, 255, 255, 0.0001);
   border: 1px solid #d9d9d9;
@@ -339,7 +339,7 @@ const FooterContainer = ({
   );
 };
 
-const pickState = state => {
+const pickState = (state) => {
   const { displayOptions } = state;
 
   return { displayOptions };

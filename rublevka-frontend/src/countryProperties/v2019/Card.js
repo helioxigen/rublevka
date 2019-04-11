@@ -231,7 +231,7 @@ class Card extends Component {
       id,
       actions,
     } = this.props;
-    const { selectedImage, showSlider } = this.state;
+    const { selectedImage } = this.state;
     const publicImages = images.filter(({ isPublic }) => !!isPublic);
 
     if (publicImages.length) {
@@ -242,7 +242,7 @@ class Card extends Component {
           <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
             {publicImages.length > 1 && (
               <Slider>
-                {images.slice(0, 6).map((el, index) => (
+                {publicImages.slice(0, 6).map((el, index) => (
                   <Slide
                     onMouseEnter={() => this.setState({ selectedImage: index })}
                   >
@@ -303,7 +303,7 @@ class Card extends Component {
             </ReactSwipe>
             <MobileIndicators>
               {publicImages.length > 1 &&
-                images
+                publicImages
                   .slice(0, 6)
                   .map((el, index) => (
                     <MobileIndicator selected={selectedImage === index} />

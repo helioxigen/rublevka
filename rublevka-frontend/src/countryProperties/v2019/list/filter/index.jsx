@@ -166,6 +166,7 @@ class Filter extends Component {
         </Visibility>
         {/* tablet */}
         <Visibility xs="hidden" sm="hidden" md="block" lg="hidden">
+          {isViewOpen && <S.Cover onClick={this.toggle} />}
           <S.ButtonFilter onClick={this.toggle}>
             <S.IconFilter icon="filter" />
             <S.Text>Фильтр</S.Text>

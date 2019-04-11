@@ -9,8 +9,9 @@ pipeline:
     mount:
       - .yarn-cache
       - ./staff-frontend/node_modules
-      - ./export-app-firebase/node_modules
       - ./export-app-frontend/node_modules
+      - ./rublevka-frontend/node_modules
+      - ./firebase-functions/node_modules
     volumes:
       - /tmp/cache:/cache
     when:
@@ -22,7 +23,7 @@ pipeline:
     commands:
       - yarn config set cache-folder $(pwd)/.yarn-cache
       - yarn add firebase-tools
-      - cd export-app-firebase
+      - cd firebase-functions
       - yarn --ignore-engines
     when:
       branch: [master]
@@ -160,8 +161,9 @@ pipeline:
     mount:
       - .yarn-cache
       - ./staff-frontend/node_modules
-      - ./export-app-firebase/node_modules
       - ./export-app-frontend/node_modules
+      - ./rublevka-frontend/node_modules
+      - ./firebase-functions/node_modules
     volumes:
       - /tmp/cache:/cache
     when:

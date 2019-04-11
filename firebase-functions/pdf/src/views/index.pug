@@ -1,0 +1,60 @@
+html
+  head
+    title= title
+    link(rel='stylesheet', href='../css/style.css')
+    script(src="https://api-maps.yandex.ru/2.1/?lang=ru_RU")
+    script.
+      longitude="#{longitude}";
+      latitude="#{latitude}";
+    script(src="../scripts/map.js")
+  body
+    .custom-wrapper
+      .container
+        .full-width.custom-title-wrapper
+          h1.container.title Продажа #{pluralizedKind} в посёлке «#{location.settlementName}»
+        .img-wrapper
+          .full-width
+            img.main-img(src=overviewImgUrl)
+          span.price= price
+        .info
+          if(landDetails.area)
+            .info-item <span class="cappital-number">#{landDetails.area}</span> #{pluralize(landDetails.area, 'соток', 'сотка', 'сотки', 'соток')}
+          if(specification.area)
+            .info-item <span class="cappital-number">#{specification.area}</span> м<sup>2</sup>
+          if(specification.layouts.living_room)
+            .info-item <span class="cappital-number">#{specification.layouts.living_room}</span> #{pluralize(specification.layouts.living_room, 'спален', 'спальня', 'спальни', 'спален') }
+        .address= address
+
+    each img, index in layoutUrls
+      .custom-wrapper
+        .container
+          .custom-layout-title-wrapper.full-width
+            h2.container.layout-title План #{pluralize(index, 'первого', 'второго', 'третьего', 'четвертого')} этажа
+          .full-width
+            img.layout-img(src=img)
+          if(specification.legacyLayouts[index])
+            h2.layout-info-title Помещения на этаже
+            .layout-info
+                each room in specification.legacyLayouts[index].items
+                  div.layout-info-item= room
+
+
+    each gallery in imgUrls
+      .wrapper
+        .container
+          .gallery.full-width
+            each imgUrl in gallery
+              img.gallery-img(src=imgUrl)
+
+    .wrapper
+      .container
+        .location
+          h2.title Расположение
+          span.city-name Поселок «#{location.settlementName}»
+          span.city-address= address
+        .map-container
+          #map
+
+
+
+

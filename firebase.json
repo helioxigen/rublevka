@@ -28,6 +28,6 @@
     "indexes": "firestore.indexes.json"
   },
   "functions": {
-    "source": "export-app-firebase"
+    "source": "firebase-functions"
   }
 }

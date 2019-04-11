@@ -1,0 +1,25 @@
+{
+  "name": "pdf-app-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "express": "^4.16.4",
+    "lodash.chunk": "^4.2.0",
+    "node-fetch": "^2.3.0",
+    "pluralize-ru": "^1.0.1",
+    "pug": "^2.0.3",
+    "puppeteer": "^1.14.0"
+  },
+  "scripts": {
+    "start": "nodemon src/server.js"
+  },
+  "devDependencies": {
+    "firebase-tools": "^6.4.0",
+    "nodemon": "^1.18.10"
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,7 +1,7 @@
 /* eslint-disable react/style-prop-object */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { FormattedNumber } from 'react-intl';
@@ -13,6 +13,35 @@ import { states } from './constants/dictionaries';
 
 import placeholder from './img/placeholder.png';
 
+const Buttons = styled.div`
+  display: none;
+  position: absolute;
+  bottom: -0;
+  background: #fff;
+  left: 0;
+  right: 0;
+  padding: 16px 10px;
+  box-shadow: 0 -25px 20px 0 #fbfbfb;
+  border-top: 1px solid #eee;
+`;
+
+const ButtonLink = styled(RouterLink)`
+  padding: 6px 12px;
+  box-sizing: border-box;
+  border-radius: 18px;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-right: 10px;
+  background-color: #3174f6;
+  color: #fff;
+  line-height: 1;
+  font-size: 14px;
+
+  &:hover {
+    background-color: #2158c3;
+  }
+`;
+
 const Link = styled.a`
   display: block;
   width: 100%;
@@ -21,10 +50,13 @@ const Link = styled.a`
   background: #ffffff;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
   border-radius: 4px;
-  overflow: hidden;
 
   &:hover {
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+
+    ${Buttons} {
+      display: block;
+    }
   }
 `;
 
@@ -135,7 +167,8 @@ function Price({ saleOffer, rentOffer }) {
             currency={rentOffer.currency}
             value={rentOffer.price}
             maximumSignificantDigits={12}
-          />{' '}
+          />
+          {' '}
           в мес
         </>
       )}
@@ -176,6 +209,17 @@ class Card extends Component {
         <State state={data.state}>{states[data.state].title}</State>
 
         {this.renderPhoto(data)}
+
+        <Buttons>
+          <ButtonLink
+            as="a"
+            href={`${process.env.REACT_APP_FIREBASE_FUNCTIONS_URL}/pdf/${
+              data.id
+            }`}
+          >
+            pdf
+          </ButtonLink>
+        </Buttons>
 
         <TitleWrapper>
           <BodyBigBold>{location.settlementName}</BodyBigBold>

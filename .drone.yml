@@ -155,12 +155,12 @@ pipeline:
       ✅ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` succeeded.
 
 
-      - {{commit.message}} ([{{truncate commit.sha 5}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
+      - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
       {{else}}
       ❌ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` failed.
 
 
-      - {{commit.message}} ([{{truncate commit.sha 5}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
+      - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
       {{/success}}
     when:
       status: [success, failure]

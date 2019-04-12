@@ -12,6 +12,7 @@
     "lodash": "^4.17.11",
     "normalize.css": "^8.0.1",
     "pluralize-ru": "^1.0.1",
+    "query-string": "^6.4.2",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-dropzone": "^8.0.3",

@@ -31,7 +31,7 @@ export const initialElementScheme = {
 const defaultParamsByGroup = {
   all: {
     pagination: {
-      limit: 48,
+      limit: 24,
     },
   },
   sale: {

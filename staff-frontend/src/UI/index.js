@@ -18,6 +18,8 @@ export {
 } from './Typography';
 export { default as theme } from './theme';
 
+export { default as Pager } from './Pager';
+
 export const Main = styled.main`
   font-family: 'FSElliotPro', sans-serif;
   height: 100%;

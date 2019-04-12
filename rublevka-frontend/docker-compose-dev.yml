@@ -15,8 +15,8 @@ services:
         - REACT_APP_FACEBOOK_PIXEL_ID
         - REACT_APP_TARGETIX_PIXEL_ID
         - BUILD_ID
-    ports:
-      - '127.0.0.1:7070:8080'
+    # ports:
+    #   - '127.0.0.1:7070:8080'
     networks:
       master_network:
         aliases:

@@ -321,7 +321,7 @@ class Card extends Component {
   };
 
   render() {
-    const { data = {}, id } = this.props;
+    const { data = {} } = this.props;
     const dealType = dealTypes[this.props.dealType];
     const { specification = {}, landDetails = {} } = data;
     const deal = data[`${dealType}Offer`] || {};
@@ -335,7 +335,6 @@ class Card extends Component {
         <Id>№{data.id}</Id>
         {this.renderPhoto()}
         <TitleWrapper>
-          {' '}
           <Title data={data} dealType={dealType} />{' '}
         </TitleWrapper>
         <Summary>

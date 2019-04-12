@@ -71,6 +71,8 @@ pipeline:
         target: react_app_google_analytics_id
       - source: react_app_yandex_metrika_id_rublevka_ru
         target: react_app_yandex_metrika_id
+      - source: react_app_uis_id_rublevka_ru
+        target: react_app_uis_id
     when:
       branch: [master]
       event: [push]

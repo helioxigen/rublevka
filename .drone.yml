@@ -19,6 +19,7 @@ pipeline:
       event: [push]
 
   build-firebase:
+    group: prebuild
     image: node:8.15.0
     commands:
       - yarn config set cache-folder $(pwd)/.yarn-cache
@@ -30,6 +31,7 @@ pipeline:
       event: [push]
 
   deploy-rublevka-frontend-dev:
+    group: build
     image: docker/compose:1.22.0
     commands:
       - cd rublevka-frontend
@@ -46,6 +48,7 @@ pipeline:
       event: [push]
 
   deploy-rublevka-frontend-prod:
+    group: build
     image: docker/compose:1.22.0
     commands:
       - cd rublevka-frontend
@@ -73,6 +76,7 @@ pipeline:
       event: [push]
 
   build-staff-frontend-prod:
+    group: build
     image: node:8.15.0
     commands:
       - yarn config set cache-folder $(pwd)/.yarn-cache
@@ -93,6 +97,7 @@ pipeline:
       event: [push]
 
   build-export-app-frontend-prod:
+    group: build
     image: node:8.15.0
     commands:
       - yarn config set cache-folder $(pwd)/.yarn-cache

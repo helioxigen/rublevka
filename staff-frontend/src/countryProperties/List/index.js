@@ -12,6 +12,7 @@ import loadList from '../actions/loadList';
 import { resourceName } from '../constants/defaults';
 import Card from '../Card';
 import Filter from './Filter';
+import Pagination from './Pagination';
 
 import {
   Layout, Title, Input, HollowButton as OrigButton,
@@ -59,6 +60,18 @@ function List(props) {
     dispatch(resetFilter(resource));
   }
 
+  function loadMore(newPage, withAppend) {
+    dispatch(
+      loadList(
+        { filter, pagination: { ...pagination, offset: (newPage - 1) * 24 } },
+        group,
+        {
+          append: withAppend,
+        },
+      ),
+    );
+  }
+
   React.useEffect(
     () => {
       load({ filter, pagination, dispatch });
@@ -104,7 +117,7 @@ function List(props) {
               />
             </div>
             <div className="col-sm-9">
-              {isFetching ? (
+              {isFetching && ids.length === 0 ? (
                 'Загружается...'
               ) : (
                 <div className="row">
@@ -118,6 +131,18 @@ function List(props) {
             </div>
           </div>
         </section>
+
+        {(!isFetching || ids.length === 0) && (
+          <div className="col-sm-offset-3 col-sm-9">
+            <Pagination
+              loadMore={loadMore}
+              total={pagination.total}
+              offset={pagination.offset}
+              limit={pagination.limit}
+              isScrollToTop
+            />
+          </div>
+        )}
       </Layout>
     </Grid>
   );

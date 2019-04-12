@@ -53,6 +53,10 @@ class Filter extends Component {
   }
 
   componentDidMount() {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', this.handleResize);
+    }
+
     if (typeof document !== 'undefined') {
       if (document.body.offsetWidth < 767) {
         this.targetElement = this.modalMobile;
@@ -63,8 +67,18 @@ class Filter extends Component {
   }
 
   componentWillUnmount() {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.handleResize);
+    }
     clearAllBodyScrollLocks();
   }
+
+  handleResize = () => {
+    const { isViewOpen } = this.props;
+    if (window.outerWidth > 768 && isViewOpen) {
+      clearAllBodyScrollLocks();
+    }
+  };
 
   toggle() {
     if (this.props.isViewOpen) {

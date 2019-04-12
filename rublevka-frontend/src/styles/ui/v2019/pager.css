@@ -21,10 +21,9 @@
     background-color: #FCD0CD;
   }
 
-  &:focus,
-  &.active {
+  &:focus {
     background-color: #F8A19A;
-    color: #fff;
+    color: #232323;
     outline: none;
   }
 

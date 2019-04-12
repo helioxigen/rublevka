@@ -196,7 +196,16 @@ class Sell extends Component {
       <Wrapper>
         <Form>
           <Downshift
-            onChange={item => this.setState({ kind: item.value })}
+            onChange={(item) => {
+              this.setState({
+                kind: item.value,
+                priceTo: null,
+                priceFrom: null,
+                areaFrom: null,
+                areaTo: null,
+              });
+              this.bedroomsSelector.selectItem(bedroomsOptions[0]);
+            }}
             itemToString={item => `${item}`}
             initialSelectedItem={kinds[0]}
           >
@@ -330,6 +339,7 @@ class Sell extends Component {
           </Downshift>
           {kind !== 'land' ? (
             <Downshift
+              ref={el => (this.bedroomsSelector = el)}
               onChange={item => this.setState({ bedrooms: item.value })}
               itemToString={item => (item || {}).label}
               initialSelectedItem={bedroomsOptions[0]}

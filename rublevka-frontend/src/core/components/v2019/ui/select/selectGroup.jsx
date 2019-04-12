@@ -1,59 +1,96 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-import UI from 'ui/v2019';
-const { Select, Visibility } = UI;
+import UI from '../../../../../ui/v2019';
+import media from '../../../../../styles/media';
+import s from '../../../../../styles/ui/v2019/selectGroup.css';
+// import sSelect from '../../../../../styles/ui/v2019/select.css';
 
-import s from 'styles/ui/v2019/selectGroup';
-import sSelect from 'styles/ui/v2019/select';
+const { /* Select, */ Visibility } = UI;
 
-class SelectGroup extends Component {
-  render() {
-    const { selected = {}, options = [] } = this.props;
+const Select = styled.select`
+  width: 45%;
+  padding: 1.7rem 1.5rem;
 
-    const optionsReverse = [...options].reverse();
+  font-size: 1.4rem;
+  color: #636363;
 
-    const optionsDecrease = options.filter(
-      item => item.value >= (selected.min || 0),
-    );
+  background: #ffffff;
+  border: 1px solid #d8d8d8;
+  box-shadow: none;
+  appearance: none;
 
-    const optionsIncrease = options.filter(
-      item => item.value <= (selected.max || optionsReverse[0].value),
-    );
+  &:focus {
+    outline: none;
+  }
 
-    return (
-      <div className={s.selectContainer}>
-        <Visibility lg="hidden">
-          <select
-            className={s.select}
-            value={selected.min || 'placeholder'}
-            onChange={e => this.props.onUpdate('min', e.target.value)}
-          >
-            <option value="placeholder" disabled>
-              от
-            </option>
-            {optionsIncrease.map(option => (
-              <option value={option.value}>{option.label}</option>
-            ))}
-          </select>
+  ${media.md`
+    width: 50%;
+    font-weight: 500;
+    font-size: 1.5rem;
+    padding: 1.1rem 1.2rem;
+    display: inline-block;
+    vertical-align: top;
+    border-color: #d9d9d9;
+    border-radius: .4rem;
 
-          <span className={s.dash}>-</span>
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
 
-          <select
-            className={s.select}
-            value={selected.max || 'placeholder'}
-            onChange={e => this.props.onUpdate('max', e.target.value)}
-          >
-            <option value="placeholder" disabled>
-              до
-            </option>
-            {optionsDecrease.map(option => (
-              <option value={option.value}>{option.label}</option>
-            ))}
-          </select>
-        </Visibility>
+    &:hover, &:focus {
+      cursor: pointer;
+      border-color: #999;
+    }
+  `}
 
-        <Visibility
+  & option[disabled] {
+    display: none;
+  }
+`;
+
+export default (props) => {
+  const { selected = {}, options = [] } = props;
+
+  const optionsReverse = [...options].reverse();
+
+  const optionsDecrease = options.filter(
+    item => item.value >= (selected.min || 0),
+  );
+
+  const optionsIncrease = options.filter(
+    item => item.value <= (selected.max || optionsReverse[0].value),
+  );
+
+  return (
+    <div className={s.selectContainer}>
+      <Visibility>
+        <Select
+          value={selected.min || 'placeholder'}
+          onChange={e => props.onUpdate('min', e.target.value)}
+        >
+          <option value="placeholder" disabled>
+            от
+          </option>
+          {optionsIncrease.map(option => (
+            <option value={option.value}>{option.label}</option>
+          ))}
+        </Select>
+
+        <span className={s.dash}>-</span>
+
+        <Select
+          value={selected.max || 'placeholder'}
+          onChange={e => props.onUpdate('max', e.target.value)}
+        >
+          <option value="placeholder" disabled>
+            до
+          </option>
+          {optionsDecrease.map(option => (
+            <option value={option.value}>{option.label}</option>
+          ))}
+        </Select>
+      </Visibility>
+
+      {/* <Visibility
           xs="hidden"
           sm="hidden"
           md="hidden"
@@ -66,7 +103,7 @@ class SelectGroup extends Component {
                 value={selected.min}
                 placeholder={'от'}
                 options={optionsIncrease}
-                onChange={value => this.props.onUpdate('min', value)}
+                onChange={value => props.onUpdate('min', value)}
                 disableReset
               />
             </div>
@@ -77,15 +114,12 @@ class SelectGroup extends Component {
                 value={selected.max}
                 placeholder={'до'}
                 options={optionsDecrease}
-                onChange={value => this.props.onUpdate('max', value)}
+                onChange={value => props.onUpdate('max', value)}
                 disableReset
               />
             </div>
           </div>
-        </Visibility>
-      </div>
-    );
-  }
-}
-
-export default SelectGroup;
+        </Visibility> */}
+    </div>
+  );
+};

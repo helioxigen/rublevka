@@ -11,12 +11,10 @@ services:
         - APP
         - APP_ENV
         - HOST
-        - REACT_APP_ROISTAT_ID
-        - REACT_APP_FACEBOOK_PIXEL_ID
-        - REACT_APP_TARGETIX_PIXEL_ID
+        - REACT_APP_SENTRY_DSN
         - BUILD_ID
-    ports:
-      - '127.0.0.1:7069:8080'
+    # ports:
+    #   - '127.0.0.1:7070:8080'
     networks:
       master_network:
         aliases:

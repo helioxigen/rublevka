@@ -43,6 +43,9 @@ pipeline:
       - APP=rublevka
       - APP_ENV=development
       - HOST=dev.rublevka.ru
+    secrets:
+      - source: react_app_sentry_dsn_rublevka_ru
+        target: react_app_sentry_dsn
     when:
       branch: [develop]
       event: [push]
@@ -61,16 +64,20 @@ pipeline:
       - APP_ENV=production
       - HOST=rublevka.ru
     secrets:
-      - source: react_app_roistat_id_rublevka_ru
-        target: react_app_roistat_id
-      - source: react_app_targetix_pixel_id_rublevka_ru
-        target: react_app_targetix_pixel_id
+      - source: react_app_sentry_dsn_rublevka_ru
+        target: react_app_sentry_dsn
       - source: react_app_facebook_pixel_id_rublevka_ru
         target: react_app_facebook_pixel_id
+      - source: react_app_targetix_pixel_id_rublevka_ru
+        target: react_app_targetix_pixel_id
+      - source: react_app_roistat_id_rublevka_ru
+        target: react_app_roistat_id
       - source: react_app_google_analytics_id_rublevka_ru
         target: react_app_google_analytics_id
       - source: react_app_yandex_metrika_id_rublevka_ru
         target: react_app_yandex_metrika_id
+      - source: react_app_uis_id_rublevka_ru
+        target: react_app_uis_id
     when:
       branch: [master]
       event: [push]
@@ -148,12 +155,12 @@ pipeline:
       ✅ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` succeeded.
 
 
-      - {{commit.message}} ([{{truncate commit.sha 5}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
+      - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
       {{else}}
       ❌ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` failed.
 
 
-      - {{commit.message}} ([{{truncate commit.sha 5}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
+      - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
       {{/success}}
     when:
       status: [success, failure]

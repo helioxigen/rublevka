@@ -63,7 +63,6 @@ const requiredParams = {
     APP_ENV,
     NODE_ENV,
     BUILD_ID,
-    PORT,
     REACT_APP_SENTRY_DSN,
   },
   production: {
@@ -71,7 +70,6 @@ const requiredParams = {
     APP_ENV,
     NODE_ENV,
     BUILD_ID,
-    PORT,
     REACT_APP_SENTRY_DSN,
     REACT_APP_FACEBOOK_PIXEL_ID,
     REACT_APP_TARGETIX_PIXEL_ID,

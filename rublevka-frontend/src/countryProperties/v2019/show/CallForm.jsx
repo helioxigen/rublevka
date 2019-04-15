@@ -8,6 +8,7 @@ import InputMask from 'react-input-mask';
 import media from '../../../styles/media';
 import UI from '../../../ui';
 import { WrapperBase, Title as TitleBase } from './styled';
+import agentAvatar from './img/avatar.jpg';
 
 const { Visibility, Icon } = UI;
 
@@ -64,42 +65,43 @@ const Divider = styled.div`
   background-color: #eeeeee;
 `;
 
-// const Author = styled.div`
-//   display: flex;
-//   align-items: center;
-//   margin-bottom: 8px;
-// `;
+const Agent = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+`;
 
-// const Avatar = styled.img`
-//   width: 80px;
-//   height: 80px;
-//   border-radius: 50%;
-//   margin-right: 10px;
-//   background-color: #eeeeee;
-// `;
+const Avatar = styled.img`
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-color: #eeeeee;
+`;
 
-// const TextBlock = styled.div`
-//   display: flex;
-//   flex-direction: column;
-// `;
+const TextBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
-// const Name = styled.p`
-//   margin: 0;
-//   line-height: 18px;
-//   font-size: 15px;
-//   font-weight: 500;
-//   text-transform: uppercase;
-//   color: #232323;
-// `;
+const Name = styled.p`
+  margin: 0;
+  line-height: 18px;
+  font-size: 15px;
+  letter-spacing: 0.45px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #232323;
+`;
 
-// const Position = styled.p`
-//   margin: 0;
-//   margin-top: 4px;
-//   line-height: 18px;
-//   font-size: 15px;
-//   font-weight: 500;
-//   color: rgba(35, 35, 35, 0.5);
-// `;
+const Position = styled.p`
+  margin: 0;
+  margin-top: 4px;
+  line-height: 18px;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(35, 35, 35, 0.5);
+`;
 
 const CallbackForm = styled.form`
   margin-top: 4px;
@@ -219,17 +221,17 @@ export default ({
           / сот.
         </SmallPrice>
       )}
-      {/*    <Divider />
-      <Author>
+      <Divider />
+      <Agent>
         <Avatar
-          src="https://images.jqestate.ru/STF108-510e198b-256"
+          src={agentAvatar}
           alt="Фотография агента"
         />
         <TextBlock>
           <Name>Елена Зверева</Name>
           <Position>Агент загородной недвижимости</Position>
         </TextBlock>
-      </Author> */}
+      </Agent>
     </Visibility>
     <CallbackForm>
       <Input type="text" placeholder="Имя" />

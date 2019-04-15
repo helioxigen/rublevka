@@ -5,10 +5,10 @@ const cors = require('cors');
 const express = require('express');
 const path = require('path');
 const chunk = require('lodash.chunk');
+const pluralize = require('pluralize-ru');
 
 const apiRequests = require('./api');
-const { parseAddress, kinds, pluralizedKinds } = require('./utils');
-const pluralize = require('pluralize-ru');
+const { parseAddress, pluralizedKinds } = require('./utils');
 
 const app = express();
 
@@ -37,7 +37,7 @@ app.get('/html/:id', (req, res) => {
         .map(imgJson => apiRequests.getImgUrl(imgJson.id, 1024));
 
       const parsedUrls = chunk(urls.slice(1), 2);
-      const location = json.location;
+      const { location } = json;
 
       const price = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -67,7 +67,7 @@ app.get('/html/:id', (req, res) => {
     });
 });
 
-app.get('/pdf/:id', (req, res) => {
+app.get('/:id', (req, res) => {
   (async () => {
     const browser = await puppeteer.launch({
       args: chromium.args,
@@ -77,9 +77,14 @@ app.get('/pdf/:id', (req, res) => {
     });
 
     const page = await browser.newPage();
-    await page.goto(`https://us-central1-rublevka-export-384da.cloudfunctions.net/pdf/html/${req.params.id}`, {
-      waitUntil: 'networkidle2',
-    });
+    await page.goto(
+      `https://us-central1-rublevka-export-384da.cloudfunctions.net/pdf/html/${
+        req.params.id
+      }`,
+      {
+        waitUntil: 'networkidle2',
+      },
+    );
     const buffer = await page.pdf({
       format: 'A4',
       printBackground: true,
@@ -90,6 +95,5 @@ app.get('/pdf/:id', (req, res) => {
     browser.close();
   })();
 });
-
 
 module.exports = app;

@@ -74,7 +74,8 @@ const Agent = styled.div`
 const Avatar = styled.img`
   width: 80px;
   height: 80px;
-  border-radius: 50%;
+  border-radius: 40px;
+  object-fit: cover;
   margin-right: 10px;
   background-color: #eeeeee;
 `;
@@ -223,10 +224,7 @@ export default ({
       )}
       <Divider />
       <Agent>
-        <Avatar
-          src={agentAvatar}
-          alt="Фотография агента"
-        />
+        <Avatar src={agentAvatar} alt="Фотография агента" />
         <TextBlock>
           <Name>Елена Зверева</Name>
           <Position>Агент загородной недвижимости</Position>

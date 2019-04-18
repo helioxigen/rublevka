@@ -30,7 +30,7 @@ export const HeaderBody = styled(Body)`
 `;
 
 export const Cover = styled.div`
-  display: ${p => (p.active ? 'block' : 'none')};
+  display: block;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -41,7 +41,7 @@ export const Cover = styled.div`
   height: 100vh;
   background: rgba(0, 0, 0, 0.1);
   content: ' ';
-  pointer-events: ${p => (p.active ? 'auto' : 'none')};
+  pointer-events: auto;
 
   ${media.md`
     display: none;
@@ -119,6 +119,11 @@ export const Nav = styled(Navbar.Container)`
     `
       transform: translate3d(0, 0, 0);
   `};
+
+  ${media.sm`
+    left: unset;
+    max-width: 310px;
+  `}
 
   ${media.md`
     display: flex;

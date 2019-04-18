@@ -82,6 +82,10 @@ const Body = styled.p`
   `}
 `;
 
+const BodySlim = styled(Body)`
+  font-weight: normal;
+`;
+
 const CallForm = styled.form`
   margin: 20px 0px;
   display: flex;
@@ -250,7 +254,7 @@ export default class extends Component {
                   />
                   <SubmitBtn
                     type="submit"
-                    onClick={e => {
+                    onClick={(e) => {
                       e.preventDefault();
                       this.sendRequest();
                     }}
@@ -275,10 +279,10 @@ export default class extends Component {
                   <CloseIcon icon="close-button" />
                 </CloseButton>
                 <Header>Заявка отправлена</Header>
-                <Body>
+                <BodySlim>
                   Наш менеджер свяжется с вами в течение рабочего дня с 11 до
                   18.
-                </Body>
+                </BodySlim>
               </Modal>
             )}
           </ModalCover>

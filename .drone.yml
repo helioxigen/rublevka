@@ -27,7 +27,7 @@ pipeline:
       - cd firebase-functions
       - yarn --ignore-engines
     when:
-      branch: [master]
+      branch: [develop, master]
       event: [push]
 
   deploy-rublevka-frontend-dev:

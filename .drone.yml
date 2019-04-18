@@ -163,14 +163,18 @@ pipeline:
       branch: [master]
       event: [push]
 
-  deploy-firebase-dev:
-    image: node:8.15.0
-    commands:
-      - yarn firebase deploy --token "$FIREBASE_TOKEN" --only hosting:staff-dev-rublevka-ru
-    secrets: [firebase_token]
-    when:
-      branch: [develop]
-      event: [push]
+  # FIXME
+  # Error: An unexpected error has occurred
+  # https://drone.sputnikproduction.com/rublevka-ru/jqestate/22/1/6
+  #
+  # deploy-firebase-dev:
+  #   image: node:8.15.0
+  #   commands:
+  #     - yarn firebase deploy --token "$FIREBASE_TOKEN" --only hosting:staff-dev-rublevka-ru
+  #   secrets: [firebase_token]
+  #   when:
+  #     branch: [develop]
+  #     event: [push]
 
   telegram-notification:
     image: appleboy/drone-telegram

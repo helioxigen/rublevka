@@ -163,7 +163,8 @@ const Input = styled(InputMask)`
 `;
 
 const TextInput = styled.textarea`
-  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
   min-height: 112px;
   padding: 0px 15px;
   padding-top: 17px;

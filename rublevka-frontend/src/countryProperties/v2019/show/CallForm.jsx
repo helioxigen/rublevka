@@ -130,6 +130,10 @@ const Input = styled(InputMask)`
   &::-webkit-placeholder {
     color: #aaaaaa;
   }
+
+  ${media.md`
+    padding: 17px 15px;
+  `}
 `;
 
 const Callback = styled.button`
@@ -234,12 +238,14 @@ export default ({
     <CallbackForm>
       <Input type="text" placeholder="Имя" />
       <Input type="tel" mask="+9 (999) 999-99-99" placeholder="телефон" />
-      <Visibility md="hidden" lg="hidden">
-        <Callback>Отправить</Callback>
-      </Visibility>
-      <Visibility xs="hidden">
-        <Callback>забронировать просмотр</Callback>
-      </Visibility>
+      <Callback>
+        <Visibility md="hidden" lg="hidden">
+          Отправить
+        </Visibility>
+        <Visibility xs="hidden" lg="block">
+          забронировать просмотр
+        </Visibility>
+      </Callback>
     </CallbackForm>
     <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
       <Divider />

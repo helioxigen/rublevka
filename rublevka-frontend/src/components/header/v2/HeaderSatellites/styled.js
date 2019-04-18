@@ -96,10 +96,9 @@ export const Nav = styled(Navbar.Container)`
   position: fixed;
   top: 0;
   right: 0;
-  left: 30%;
   bottom: 0;
   z-index: 5;
-  width: 100%;
+  max-width: 300px;
   padding: 0 20px;
   white-space: nowrap;
   transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
@@ -120,8 +119,8 @@ export const Nav = styled(Navbar.Container)`
       transform: translate3d(0, 0, 0);
   `};
 
-  ${media.sm`
-    left: unset;
+  ${media.xs`
+    min-width: 310px;
     max-width: 310px;
   `}
 
@@ -132,7 +131,8 @@ export const Nav = styled(Navbar.Container)`
     flex-direction: row;
     position: static;
     left: 0;
-    width: auto;
+    min-width: 100%;
+    max-width: 100%;
     min-height: 100%;
     max-height: 100%;
     background: transparent;

@@ -422,8 +422,8 @@ export const FavoriteCounter = styled.span`
 `;
 
 export const FavoriteIcon = styled(Icon)`
-  width: 24px;
-  height: 22px;
+  width: 27px;
+  height: 25px;
   stroke-width: 2px;
   fill: transparent;
   stroke: #212121;

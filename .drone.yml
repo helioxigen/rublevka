@@ -97,8 +97,10 @@ pipeline:
         target: react_app_sentry_dsn
       - source: react_app_firebase_functions_url
         target: react_app_firebase_functions_url
+      - source: react_app_cem_token_staff_dev_rublevka_ru
+        target: react_app_cem_token
     when:
-      branch: [master]
+      branch: [develop]
       event: [push]
 
   build-staff-frontend-prod:

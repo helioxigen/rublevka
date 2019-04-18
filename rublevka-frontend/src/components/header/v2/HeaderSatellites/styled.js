@@ -228,14 +228,14 @@ export const StyledLinkSat = styled(Navbar.Link)`
 export const Phone = styled.a`
   line-height: 18px;
   font-size: 15px;
-  font-weight: bold;
+  font-weight: 500;
   color: #fff;
 
   ${media.md`
     position: relative;
     font-size: 18px;
+    line-height: 22px;
     margin-right: 16px;
-    width: inherit;
     padding-right: 0;
     color: ${p => (p.inverted ? p.theme.brandWhite : p.theme.brandBlack)};
   `};

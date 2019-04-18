@@ -9,6 +9,7 @@
           "rublevka-export-384da"
         ],
         "staff-frontend": [
+          "staff-dev-rublevka-ru",
           "staff-rublevka-ru"
         ]
       }

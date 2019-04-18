@@ -82,6 +82,25 @@ pipeline:
       branch: [master]
       event: [push]
 
+  build-staff-frontend-dev:
+    group: build
+    image: node:8.15.0
+    commands:
+      - yarn config set cache-folder $(pwd)/.yarn-cache
+      - cd staff-frontend
+      - yarn --ignore-engines
+      - yarn build
+    secrets:
+      - source: react_app_env_staff_dev_rublevka_ru
+        target: react_app_env
+      - source: react_app_sentry_dsn_staff_rublevka_ru
+        target: react_app_sentry_dsn
+      - source: react_app_firebase_functions_url
+        target: react_app_firebase_functions_url
+    when:
+      branch: [master]
+      event: [push]
+
   build-staff-frontend-prod:
     group: build
     image: node:8.15.0

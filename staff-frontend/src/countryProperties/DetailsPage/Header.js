@@ -6,25 +6,36 @@ import {
   MainTitle,
   PointIcon,
   TitleAddress,
+  SelectControl,
 } from './styled';
-import Select from '../../UI/Select';
-import { kinds } from '../constants/dictionaries';
-import { selectStatusData, selectTypeData } from './schema';
+import { kinds, states, dictionaryToOptions } from '../constants/dictionaries';
 import pointIcon from './img/point-icon.svg';
 import { BodyBig } from '../../UI';
 
-export default function Header({ isEditMode, property }) {
+const stateOptions = Object.entries(states).map(([key, value]) => ({
+  value: key,
+  label: value.title,
+}));
+
+export default function Header({ isEditMode, property, onUpdate }) {
+  const { kind, state, location } = property;
+  const { settlementName, localityName, mkadDistance } = location;
+  const update = (key, value) =>
+    onUpdate({
+      ...property,
+      [key]: value,
+    });
+
   if (!isEditMode) {
     return (
       <>
         <MainTitle>
-          {kinds[property.kind]} в посёлке {property.location.settlementName}
+          {kinds[kind]} в посёлке {settlementName}
         </MainTitle>
         <TitleAddress>
           <PointIcon src={pointIcon} />
           <BodyBig>
-            {property.location.localityName}, {property.location.mkadDistance}{' '}
-            км от МКАД
+            {localityName}, {mkadDistance} км от МКАД
           </BodyBig>
         </TitleAddress>
       </>
@@ -43,10 +54,18 @@ export default function Header({ isEditMode, property }) {
       </Row>
       <MainStatusBar>
         <Col xs={4}>
-          <Select selectData={selectTypeData} selected={1} />
+          <SelectControl
+            options={dictionaryToOptions(kinds)}
+            selected={kind}
+            onChange={value => update('kind', value)}
+          />
         </Col>
         <Col xs={8}>
-          <Select selectData={selectStatusData} selected={3} />
+          <SelectControl
+            options={stateOptions}
+            selected={state}
+            onChange={value => update('state', value)}
+          />
         </Col>
       </MainStatusBar>
     </>

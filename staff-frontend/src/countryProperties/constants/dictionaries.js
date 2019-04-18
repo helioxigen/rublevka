@@ -1,3 +1,5 @@
+export const undef = 'Не указано';
+
 export const offerKinds = {
   purchase: 'Покупка',
   rent: 'Аренда',
@@ -33,10 +35,10 @@ export const kinds = {
 };
 
 export const conditions = {
-  great: 'Отличное',
-  good: 'Хорошее',
-  normal: 'Нормальное',
-  bad: 'Плохое',
+  great: '⭐ Отличное',
+  good: '👍 Хорошее',
+  normal: '👌 Нормальное',
+  bad: '👎 Плохое',
 };
 
 export const saleKinds = {
@@ -52,8 +54,9 @@ export const feeKinds = {
 };
 
 export const currencies = {
-  rub: 'руб',
-  usd: '$',
+  RUB: 'руб',
+  USD: '$',
+  EUR: '€',
 };
 
 export const categories = {
@@ -101,13 +104,13 @@ export const roofMaterials = {
   rooftop: 'Эксплуатируемая кровля',
 };
 
-export const waterSupply = {
+export const waterSupplyKind = {
   purification: 'Очистные сооружения',
   central: 'Центральное водоснабжение',
   well: 'Скважина',
 };
 
-export const gasSupply = {
+export const gasSupplyKind = {
   without_gas: 'Без газа',
   gas_holder: 'Газгольдер',
   near_border: 'На границе',
@@ -115,7 +118,7 @@ export const gasSupply = {
   diesel: 'Дизель',
 };
 
-export const sewerageSupply = {
+export const sewerageSupplyKind = {
   central: 'Центральная канализация',
   septic: 'Септик',
 };

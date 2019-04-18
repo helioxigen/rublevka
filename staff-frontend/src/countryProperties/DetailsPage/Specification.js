@@ -8,18 +8,37 @@ import {
   PropertyBigValue,
   PropertyTitle,
   PropertyValue,
+  SelectControl,
 } from './styled';
-import Select from '../../UI/Select';
 import { Body } from '../../UI';
 import {
-  conditions,
+  binarySelect,
   roofMaterials,
   wallMaterials,
+  dictionaryToOptions,
 } from '../constants/dictionaries';
 import SelectBubble from '../../UI/SelectBubble';
-import { selectBinaryData, selectRoofData, selectWallData } from './schema';
 
-const ConstructiveSection = ({ enableEditMode, isEditMode, property }) => {
+const ConstructiveSection = ({
+  enableEditMode,
+  isEditMode,
+  property,
+  onUpdate,
+}) => {
+  const { specification } = property;
+  const {
+    wallMaterial,
+    builtYear,
+    roofMaterial,
+    withVentilation,
+    withConditioning,
+  } = specification;
+  const update = (key, value) =>
+    onUpdate({
+      ...property,
+      specification: { ...specification, [key]: value },
+    });
+
   if (!isEditMode) {
     return (
       <Row>
@@ -31,43 +50,31 @@ const ConstructiveSection = ({ enableEditMode, isEditMode, property }) => {
             <Property xs={4}>
               <PropertyTitle>Стены</PropertyTitle>
               <PropertyValue>
-                <Body>
-                  {wallMaterials[property.specification.wallMaterial] ||
-                    'Не указано'}
-                </Body>
+                <Body>{wallMaterials[wallMaterial] || 'Не указано'}</Body>
               </PropertyValue>
             </Property>
             <Property xs={4}>
               <PropertyTitle>Кондиционирование</PropertyTitle>
               <PropertyValue>
-                <Body>
-                  {conditions[property.specification.condition] || 'Не указано'}
-                </Body>
+                <Body>{binarySelect[withConditioning]}</Body>
               </PropertyValue>
             </Property>
             <Property xs={4}>
               <PropertyTitle>Год постройки</PropertyTitle>
               <PropertyValue>
-                <Body>{property.specification.builtYear || 'Не указано'}</Body>
+                <Body>{builtYear || 'Не указано'}</Body>
               </PropertyValue>
             </Property>
             <Property xs={4}>
               <PropertyTitle>Крыша</PropertyTitle>
               <PropertyValue>
-                <Body>
-                  {roofMaterials[property.specification.roofMaterial] ||
-                    'Не указано'}
-                </Body>
+                <Body>{roofMaterials[roofMaterial] || 'Не указано'}</Body>
               </PropertyValue>
             </Property>
             <Property xs={4}>
               <PropertyTitle>Вентиляция</PropertyTitle>
               <PropertyValue>
-                <Body>
-                  {property.specification.withVentilation
-                    ? 'Есть'
-                    : 'Отсутствует'}
-                </Body>
+                <Body>{binarySelect[withVentilation]}</Body>
               </PropertyValue>
             </Property>
             <Col xs={12}>
@@ -87,27 +94,38 @@ const ConstructiveSection = ({ enableEditMode, isEditMode, property }) => {
       <Col xsOffset={1} xs={2}>
         <PropertyTitle>Год постройки</PropertyTitle>
         <EditPropertyInput
-          defaultValue={property.specification.builtYear}
+          defaultValue={builtYear}
           placeholder="Год"
+          onSubmit={value => update('builtYear', value)}
         />
       </Col>
       <Col xsOffset={1} xs={3}>
         <PropertyTitle>Стены</PropertyTitle>
         <SelectBubble
-          selected={property.specification.wallMaterial}
-          selectData={selectWallData}
+          selected={wallMaterial}
+          options={dictionaryToOptions(wallMaterials)}
+          onChange={value => update('wallMaterial', value)}
         />
         <PropertyTitle>Крыша</PropertyTitle>
         <SelectBubble
-          selected={property.specification.roofMaterial}
-          selectData={selectRoofData}
+          selected={roofMaterial}
+          options={dictionaryToOptions(roofMaterials)}
+          onChange={value => update('roofMaterial', value)}
         />
       </Col>
       <Col xs={3}>
         <PropertyTitle>Кондиционирование</PropertyTitle>
-        <Select selectData={selectBinaryData} selected={1} filled />
+        <SelectControl
+          options={dictionaryToOptions(binarySelect)}
+          selected={withConditioning}
+          onChange={value => update('withConditioning', value)}
+        />
         <PropertyTitle>Вентиляция</PropertyTitle>
-        <Select selectData={selectBinaryData} selected={1} filled />
+        <SelectControl
+          options={dictionaryToOptions(binarySelect)}
+          selected={withVentilation}
+          onChange={value => update('withVentilation', value)}
+        />
       </Col>
     </EditPropertyRow>
   );

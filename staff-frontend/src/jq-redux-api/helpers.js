@@ -74,7 +74,7 @@ export function recursiveJSONToQS(object, prevKey) {
       .join('&');
   }
 
-  return null;
+  return '';
 }
 
 export function recursiveCleanUp(input) {

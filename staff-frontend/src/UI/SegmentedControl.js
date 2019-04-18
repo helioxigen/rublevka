@@ -60,13 +60,17 @@ const Button = styled.button`
 // `;
 
 export default ({
-  selected, options = [], onChange, isFullWidth,
+  selected,
+  options = [],
+  onChange,
+  isFullWidth,
+  className,
 }) => (
-  <Switcher>
+  <Switcher className={className}>
     {options.map(({ label, value }) => (
       <Button
         type="button"
-        selected={selected === value}
+        selected={String(selected) === String(value)}
         key={value}
         onClick={() => onChange(value)}
         isFullWidth={isFullWidth}

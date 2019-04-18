@@ -2,25 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Body, theme } from '.';
 
-const emotionData = [
-  {
-    name: '👎 Плохое',
-    value: 'bad',
-  },
-  {
-    name: '👌 Нормальное',
-    value: 'normal',
-  },
-  {
-    name: '👍 Хорошее',
-    value: 'good',
-  },
-  {
-    name: '⭐ Отличное',
-    value: 'great',
-  },
-];
-
 const SelectBubble = styled.div`
   display: flex;
   justify-content: start;
@@ -34,7 +15,7 @@ const SelectBubbleItem = styled.div`
   box-sizing: border-box;
   border-radius: 18px;
   border: ${({ selected }) =>
-    selected ? `1px solid ${theme.blue}` : 'inherit'};
+    (selected ? `1px solid ${theme.blue}` : 'inherit')};
   cursor: pointer;
   white-space: nowrap;
   margin-right: 10px;
@@ -48,14 +29,15 @@ const SelectBubbleItem = styled.div`
 
 const SelectBubbleTitle = styled(Body)``;
 
-export default ({ selected = '' }) => (
+export default ({ selected = '', options, onChange }) => (
   <SelectBubble>
-    {emotionData.map(selectDataItem => (
+    {options.map(({ label, value }) => (
       <SelectBubbleItem
-        selected={selected.toString() === selectDataItem.value.toString()}
-        key={selectDataItem.name}
+        selected={selected === value}
+        key={value}
+        onClick={() => onChange(value)}
       >
-        <SelectBubbleTitle>{selectDataItem.name}</SelectBubbleTitle>
+        <SelectBubbleTitle>{label}</SelectBubbleTitle>
       </SelectBubbleItem>
     ))}
   </SelectBubble>

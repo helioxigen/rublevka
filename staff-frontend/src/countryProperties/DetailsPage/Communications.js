@@ -9,22 +9,33 @@ import {
   PropertySubTitle,
   PropertyTitle,
   PropertyValue,
+  SelectControl,
 } from './styled';
-import Select from '../../UI/Select';
 import { Body } from '../../UI';
 import {
-  gasSupply,
-  sewerageSupply,
-  waterSupply,
+  gasSupplyKind,
+  sewerageSupplyKind,
+  waterSupplyKind,
+  dictionaryToOptions,
 } from '../constants/dictionaries';
 import SelectBubble from '../../UI/SelectBubble';
-import {
-  selectGasData,
-  selectSewageData,
-  selectSewageWaterSupply,
-} from './schema';
 
-const CommunicationSection = ({ enableEditMode, isEditMode, property }) => {
+const CommunicationSection = ({
+  enableEditMode,
+  isEditMode,
+  property,
+  onUpdate,
+}) => {
+  const { communication } = property;
+  const {
+    powerSupply, waterSupply, gasSupply, sewerageSupply,
+  } = communication;
+  const update = (key, value) =>
+    onUpdate({
+      ...property,
+      communication: { ...communication, [key]: value },
+    });
+
   if (!isEditMode) {
     return (
       <Row>
@@ -36,34 +47,26 @@ const CommunicationSection = ({ enableEditMode, isEditMode, property }) => {
             <Property xs={6}>
               <PropertyTitle>Электричество</PropertyTitle>
               <PropertyValue>
-                <Body>
-                  {property.communication.powerSupply || 'Не указано'} кВт
-                </Body>
+                <Body>{powerSupply || 'Не указано'} кВт</Body>
               </PropertyValue>
             </Property>
             <Property xs={6}>
               <PropertyTitle>Водоснабжение</PropertyTitle>
               <PropertyValue>
-                <Body>
-                  {waterSupply[property.communication.waterSupply] ||
-                    'Не указано'}
-                </Body>
+                <Body>{waterSupplyKind[waterSupply] || 'Не указано'}</Body>
               </PropertyValue>
             </Property>
             <Property xs={6}>
               <PropertyTitle>Газ</PropertyTitle>
               <PropertyValue>
-                <Body>
-                  {gasSupply[property.communication.gasSupply] || 'Не указано'}
-                </Body>
+                <Body>{gasSupplyKind[gasSupply] || 'Не указано'}</Body>
               </PropertyValue>
             </Property>
             <Property xs={6}>
               <PropertyTitle>Канализация</PropertyTitle>
               <PropertyValue>
                 <Body>
-                  {sewerageSupply[property.communication.sewerageSupply] ||
-                    'Не указано'}
+                  {sewerageSupplyKind[sewerageSupply] || 'Не указано'}
                 </Body>
               </PropertyValue>
             </Property>
@@ -75,6 +78,7 @@ const CommunicationSection = ({ enableEditMode, isEditMode, property }) => {
       </Row>
     );
   }
+
   return (
     <EditPropertyRow>
       <Col xs={2}>
@@ -83,8 +87,9 @@ const CommunicationSection = ({ enableEditMode, isEditMode, property }) => {
       <Col xsOffset={1} xs={2}>
         <PropertyTitle>Электричество</PropertyTitle>
         <EditPropertyInput
-          defaultValue={property.communication.powerSupply}
+          defaultValue={powerSupply}
           placeholder="Электр-во,кВт"
+          onSubmit={value => update('powerSupply', value)}
         />
       </Col>
       <Col xsOffset={1} xs={6}>
@@ -92,20 +97,23 @@ const CommunicationSection = ({ enableEditMode, isEditMode, property }) => {
           Газ <PropertySubTitle>Опционально</PropertySubTitle>
         </PropertyTitle>
         <SelectBubble
-          selected={property.communication.gasSupply}
+          options={dictionaryToOptions(gasSupplyKind)}
+          selected={gasSupply}
+          onChange={value => update('gasSupply', value)}
           unselectable
-          selectData={selectGasData}
         />
         <PropertyTitle>Канализация</PropertyTitle>
-        <Select
-          selectData={selectSewageData}
-          selected={property.communication.sewerageSupply}
+        <SelectControl
+          options={dictionaryToOptions(sewerageSupplyKind)}
+          selected={sewerageSupply}
+          onChange={value => update('sewerageSupply', value)}
           filled
         />
         <PropertyTitle>Водоснабжение</PropertyTitle>
-        <Select
-          selectData={selectSewageWaterSupply}
-          selected={property.communication.waterSupply}
+        <SelectControl
+          options={dictionaryToOptions(waterSupplyKind)}
+          onChange={value => update('waterSupply', value)}
+          selected={waterSupply}
           filled
         />
       </Col>

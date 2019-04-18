@@ -42,7 +42,7 @@ const ButtonLink = styled(RouterLink)`
   }
 `;
 
-const Link = styled.a`
+const Link = styled(RouterLink)`
   display: block;
   width: 100%;
   position: relative;
@@ -203,8 +203,7 @@ class Card extends Component {
     } = data;
 
     return (
-      // <Link to={`/country-properties/${data.id}`}>
-      <Link href={`https://cem.jq.estate/properties/country/${data.id}/about`}>
+      <Link to={`/country-properties/${data.id}`}>
         <Id>{`№ ${data.id}`}</Id>
         <State state={data.state}>{states[data.state].title}</State>
 

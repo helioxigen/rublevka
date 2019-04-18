@@ -12,6 +12,7 @@ import load from '../actions/load';
 import { initialElementScheme } from '../constants/defaults';
 import { kinds } from '../constants/dictionaries';
 
+import Header from './Header';
 import Photos from './Photos';
 import Offers from './Offers';
 import House from './House';
@@ -22,7 +23,7 @@ import Layouts from './Layouts';
 import Land from './Land';
 import Parking from './Parking';
 import Location from './Location';
-import Header from './Header';
+import update from '../actions/update';
 
 const infoMode = {
   isEditPhoto: false,
@@ -68,6 +69,13 @@ class PropertyDetailsPage extends React.PureComponent {
     dispatch(load(propertyId));
   };
 
+  saveData = async (data) => {
+    const { match, dispatch, data: currData } = this.props;
+    const { id: propertyId } = match.params;
+    await dispatch(update(propertyId, data));
+    dispatch(load(propertyId, currData));
+  };
+
   handleEscKey = (event) => {
     if (event.keyCode === 27) {
       this.setState({
@@ -92,73 +100,81 @@ class PropertyDetailsPage extends React.PureComponent {
 
     const { data: property = {}, match } = this.props;
     const { id: propertyId } = match.params;
+    const { location = {} } = property;
 
     // return <pre>{JSON.stringify(this.props, null, 2)}</pre>;
-
     return (
       <Grid>
         <Helmet>
           <title>
-            {`${kinds[property.kind]} в посёлке ${
-              property.location.settlementName
-            }`}
+            {`${kinds[property.kind]} в посёлке ${location.settlementName}`}
           </title>
         </Helmet>
-
         <Layout>
-          <Header isEditMode={isEditPhoto} property={property} />
+          <Header
+            isEditMode={isEditPhoto}
+            property={property}
+            onUpdate={value => this.saveData(value)}
+          />
           <Photos
-            data={property}
+            property={property}
             enableEditMode={() => this.setState({ isEditPhoto: true })}
             isEditMode={isEditPhoto}
           />
           <Offers
             isEditMode={isEditConditions}
             enableEditMode={() => this.setState({ isEditConditions: true })}
-            // currentPrice={currentPrice}
             property={property}
+            onUpdate={value => this.saveData(value)}
             id={propertyId}
           />
           <Separator big />
           <House
             isEditMode={isEditHouse}
             property={property}
+            onUpdate={value => this.saveData(value)}
             enableHouseEditMode={() => this.setState({ isEditHouse: true })}
           />
           <Separator big />
           <Condition
             isEditMode={isEditCondition}
             property={property}
+            onUpdate={value => this.saveData(value)}
             enableEditMode={() => this.setState({ isEditCondition: true })}
           />
           <Separator big />
           <Specification
             isEditMode={isEditConstructive}
             property={property}
+            onUpdate={value => this.saveData(value)}
             enableEditMode={() => this.setState({ isEditConstructive: true })}
           />
           <Separator big />
           <Communications
             isEditMode={isEditCommunications}
             property={property}
+            onUpdate={value => this.saveData(value)}
             enableEditMode={() => this.setState({ isEditCommunications: true })}
           />
           <Separator big />
           <Layouts
             isEditMode={isEditLayout}
             property={property}
+            onUpdate={value => this.saveData(value)}
             enableEditMode={() => this.setState({ isEditLayout: true })}
           />
           <Separator big />
           <Land
             isEditMode={isEditPlot}
             property={property}
+            onUpdate={value => this.saveData(value)}
             enableEditMode={() => this.setState({ isEditPlot: true })}
           />
           <Separator big />
           <Parking
             isEditMode={isEditParking}
             property={property}
+            onUpdate={value => this.saveData(value)}
             enableEditMode={() => this.setState({ isEditParking: true })}
           />
           <Separator big />

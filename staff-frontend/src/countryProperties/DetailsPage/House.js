@@ -8,12 +8,34 @@ import {
   PropertyTitle,
   PropertyValue,
   SubTitle,
+  SelectControl,
 } from './styled';
 import { Body } from '../../UI';
-import Select from '../../UI/Select';
-import { selectBinaryExistData, selectFixedValueData } from './schema';
+import { selectFixedValueData } from './schema';
 
-const HouseSection = ({ enableHouseEditMode, isEditMode, property }) => {
+const HouseSection = ({
+  enableHouseEditMode,
+  isEditMode,
+  property,
+  onUpdate,
+}) => {
+  const { specification } = property;
+  const {
+    area,
+    bedrooms,
+    loggias,
+    ceilingHeight,
+    rooms,
+    balconies,
+    wcs,
+    elevators,
+  } = specification;
+  const update = (key, value) =>
+    onUpdate({
+      ...property,
+      specification: { ...specification, [key]: value },
+    });
+
   if (!isEditMode) {
     return (
       <>
@@ -26,51 +48,49 @@ const HouseSection = ({ enableHouseEditMode, isEditMode, property }) => {
           <Property xs={3}>
             <PropertyTitle>Площадь дома</PropertyTitle>
             <PropertyValue>
-              <Body>{property.specification.area} м²</Body>
+              <Body>{area ? `${area} м²` : 'Не указано'}</Body>
             </PropertyValue>
           </Property>
           <Property xs={3}>
             <PropertyTitle>Спален</PropertyTitle>
             <PropertyValue>
-              <Body>{property.specification.bedrooms || 'Не указано'}</Body>
+              <Body>{bedrooms || 'Не указано'}</Body>
             </PropertyValue>
           </Property>
           <Property xs={3}>
             <PropertyTitle>Лоджий</PropertyTitle>
             <PropertyValue>
-              <Body>{property.specification.loggias || 'Не указано'}</Body>
+              <Body>{loggias || 'Не указано'}</Body>
             </PropertyValue>
           </Property>
           <Property xs={3}>
             <PropertyTitle>Высота потолков</PropertyTitle>
             <PropertyValue>
-              <Body>
-                {property.specification.ceilingHeight || 'Не указано'}
-              </Body>
+              <Body>{ceilingHeight || 'Не указано'}</Body>
             </PropertyValue>
           </Property>
           <Property xs={3}>
             <PropertyTitle>Комнат</PropertyTitle>
             <PropertyValue>
-              <Body>{property.specification.rooms || 'Не указано'}</Body>
+              <Body>{rooms || 'Не указано'}</Body>
             </PropertyValue>
           </Property>
           <Property xs={3}>
             <PropertyTitle>Балконов</PropertyTitle>
             <PropertyValue>
-              <Body>{property.specification.balconies || 'Не указано'}</Body>
+              <Body>{balconies || 'Не указано'}</Body>
             </PropertyValue>
           </Property>
           <Property xs={3}>
             <PropertyTitle>Санузлов</PropertyTitle>
             <PropertyValue>
-              <Body>{property.specification.wcs || 'Не указано'}</Body>
+              <Body>{wcs || 'Не указано'}</Body>
             </PropertyValue>
           </Property>
           <Property xs={3}>
             <PropertyTitle>Лифт</PropertyTitle>
             <PropertyValue>
-              <Body>{property.specification.elevators || 'Не указано'}</Body>
+              <Body>{elevators || 'Не указано'}</Body>
             </PropertyValue>
           </Property>
         </Row>
@@ -82,6 +102,7 @@ const HouseSection = ({ enableHouseEditMode, isEditMode, property }) => {
       </>
     );
   }
+
   return (
     <EditPropertyRow>
       <Col xs={2}>
@@ -90,51 +111,55 @@ const HouseSection = ({ enableHouseEditMode, isEditMode, property }) => {
       <Col xsOffset={1} xs={2}>
         <PropertyTitle>Площадь дома</PropertyTitle>
         <EditPropertyInput
-          defaultValue={property.specification.area}
+          defaultValue={area}
           placeholder="Площадь, м"
+          onSubmit={value => update('area', value)}
         />
         <PropertyTitle>Высота потолков</PropertyTitle>
         <EditPropertyInput
-          defaultValue={property.specification.ceilingHeight}
+          defaultValue={ceilingHeight}
           placeholder="Высота, м"
+          onSubmit={value => update('ceilingHeight', value)}
         />
         <PropertyTitle>Комнат</PropertyTitle>
         <EditPropertyInput
-          defaultValue={property.specification.rooms}
+          defaultValue={rooms}
           placeholder="Комнат, шт."
+          onSubmit={value => update('rooms', value)}
         />
         <PropertyTitle>Спален</PropertyTitle>
         <EditPropertyInput
-          defaultValue={property.specification.bedrooms}
+          defaultValue={bedrooms}
           placeholder="Спален, шт."
+          onSubmit={value => update('bedrooms', value)}
         />
       </Col>
       <Col xsOffset={1} xs={3}>
         <PropertyTitle>Лоджий</PropertyTitle>
-        <Select
-          selectData={selectFixedValueData}
-          selected={property.specification.loggias}
-          filled
+        <SelectControl
+          selected={loggias}
+          options={selectFixedValueData}
+          onChange={value => update('loggias', value)}
         />
         <PropertyTitle>Балконов</PropertyTitle>
-        <Select
-          selectData={selectFixedValueData}
-          selected={property.specification.balconies}
-          filled
+        <SelectControl
+          options={selectFixedValueData}
+          selected={balconies}
+          onChange={value => update('balconies', value)}
         />
         <PropertyTitle>Санузлов</PropertyTitle>
-        <Select
-          selectData={selectFixedValueData}
-          selected={property.specification.wcs}
-          filled
+        <SelectControl
+          options={selectFixedValueData}
+          selected={wcs}
+          onChange={value => update('wcs', value)}
         />
       </Col>
       <Col xs={3}>
         <PropertyTitle>Лифт</PropertyTitle>
-        <Select
-          selectData={selectBinaryExistData}
-          selected={property.specification.elevators}
-          filled
+        <SelectControl
+          options={selectFixedValueData}
+          selected={elevators}
+          onChange={value => update('elevators', value)}
         />
       </Col>
     </EditPropertyRow>

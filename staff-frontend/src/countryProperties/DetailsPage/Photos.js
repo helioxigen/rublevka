@@ -21,11 +21,11 @@ import {
 import addPhotoIcon from './img/add-photo-icon.svg';
 import dropdownPhotoIcon from './img/dropdown-photo-icon.svg';
 
-const PhotoSection = ({ data, enableEditMode, isEditMode }) => {
+const PhotoSection = ({ property, enableEditMode, isEditMode }) => {
   const [isViewAll, toggleViewAll] = React.useState(false);
 
   if (!isEditMode) {
-    const images = isViewAll ? data.images : data.images.slice(0, 2);
+    const images = isViewAll ? property.images : property.images.slice(0, 2);
 
     return (
       <>
@@ -35,7 +35,7 @@ const PhotoSection = ({ data, enableEditMode, isEditMode }) => {
           ))}
         </Photos>
         <PhotoEditTools>
-          {data.images.length > 2 && (
+          {property.images.length > 2 && (
             <PhotoEditTool onClick={() => toggleViewAll(true)}>
               Посмотреть все фотографии
               <AddPhotoIcon src={addPhotoIcon} />

@@ -123,3 +123,147 @@ export const mapParams = ({
     },
   };
 };
+
+function parseBoolean(value) {
+  if (value === true || String(value).toLowerCase() === 'true' || value === 1) {
+    return true;
+  }
+  return false;
+}
+
+function transformOutputImage(image) {
+  const { id, isPublic } = image;
+  return { id, isPublic };
+}
+
+function transformOutputLocation(location) {
+  const {
+    districtName,
+    house,
+    latitude,
+    localityName,
+    longitude,
+    mkadDistance,
+    routeName,
+    settlementId,
+    settlementName,
+    street,
+  } = location;
+  return {
+    districtName,
+    house,
+    latitude,
+    localityName,
+    longitude,
+    mkadDistance,
+    routeName,
+    settlementId,
+    settlementName,
+    street,
+  };
+}
+
+function transformOutputRentOffer(offer) {
+  const {
+    agentFee,
+    currency,
+    deposit,
+    isAllowedChildren,
+    isAllowedPets,
+    isDisabled,
+    period,
+    price,
+  } = offer || {};
+  return {
+    agentFee,
+    currency,
+    deposit,
+    isAllowedChildren: parseBoolean(isAllowedChildren),
+    isAllowedPets: parseBoolean(isAllowedPets),
+    isDisabled: parseBoolean(isDisabled),
+    period,
+    price,
+  };
+}
+
+function transformOutputSaleOffer(offer) {
+  const {
+    agentFee,
+    currency,
+    isAgentFixed,
+    agentFixedPrice,
+    isBargain,
+    isDisabled,
+    isInstallment,
+    isMortgage,
+    isResale,
+    kind,
+    price,
+  } = offer || {};
+  return {
+    agentFee,
+    currency,
+    isAgentFixed: parseBoolean(isAgentFixed),
+    agentFixedPrice,
+    isBargain: parseBoolean(isBargain),
+    isDisabled: parseBoolean(isDisabled),
+    isInstallment: parseBoolean(isInstallment),
+    isMortgage: parseBoolean(isMortgage),
+    isResale: parseBoolean(isResale),
+    kind,
+    price,
+  };
+}
+
+function transfortOutputSpecification(specification) {
+  const {
+    area,
+    rooms,
+    bedrooms,
+    ceilingHeight,
+    withConditioning,
+    withVentilation,
+  } = specification;
+  return {
+    ...specification,
+    area: parseFloat(area),
+    rooms: parseFloat(rooms),
+    bedrooms: parseFloat(bedrooms),
+    ceilingHeight: parseFloat(ceilingHeight),
+    withConditioning: parseBoolean(withConditioning),
+    withVentilation: parseBoolean(withVentilation),
+  };
+}
+
+export function transformOutputValues(property) {
+  const {
+    additionalDetails,
+    category,
+    communication,
+    equipment,
+    images,
+    kind,
+    landDetails,
+    layoutImages,
+    location,
+    rentOffer,
+    saleOffer,
+    specification,
+    state,
+  } = property;
+  return {
+    additionalDetails,
+    category,
+    communication,
+    equipment,
+    images: images.map(image => transformOutputImage(image)),
+    kind,
+    landDetails,
+    layoutImages,
+    location: transformOutputLocation(location),
+    rentOffer: transformOutputRentOffer(rentOffer),
+    saleOffer: transformOutputSaleOffer(saleOffer),
+    specification: transfortOutputSpecification(specification),
+    state,
+  };
+}

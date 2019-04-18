@@ -19,7 +19,7 @@ export default function Checkbox({
     <Block title={title} hasValue={currentValue.length > 0} remove={remove}>
       <Tags
         options={options}
-        selected={currentValue}
+        currentValue={currentValue}
         onChange={value => onChange(value)}
       />
     </Block>

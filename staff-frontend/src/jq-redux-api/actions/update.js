@@ -17,12 +17,9 @@ export const updateElementFailed = (type, id, errors) => ({
   errors,
 });
 
-export const updateElement = (resource, id, data) => {
+export function updateElement(resource, id, data) {
   if (!resource) throwFormattedError('required', resource);
   if (!id) throwFormattedError('required', id);
-
-  return put(`${resource}/${id}`, data).then(
-    () => Promise.resolve(data),
-    ({ body: { errors } }) => Promise.reject(errors),
-  );
-};
+  const res = put(`${resource}/${id}`, data);
+  return res;
+}

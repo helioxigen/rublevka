@@ -20,6 +20,10 @@ export { default as theme } from './theme';
 
 export { default as Pager } from './Pager';
 
+export { default as Input } from './Input';
+
+export { default as Tags } from './Tags';
+
 export const Main = styled.main`
   font-family: 'FSElliotPro', sans-serif;
   height: 100%;
@@ -40,36 +44,6 @@ const LogoContainer = styled(Link)`
 const LogoImage = styled.img`
   max-width: 100%;
   height: 24px;
-`;
-
-export const Input = styled.input`
-  outline: none;
-  width: 100%;
-  display: block;
-  transition: border-bottom 0.3s ease-in-out;
-  border: none;
-  border-bottom: 1px solid ${({ errors }) => (errors ? theme.red : theme.alto)};
-  padding: 10px 0px;
-  font-family: 'FSElliotPro';
-  color: #333;
-  font-size: 20px;
-  background-color: transparent;
-
-  &:focus {
-    border-bottom: 2px solid
-      ${({ errors }) => (errors ? theme.red : theme.blue)};
-  }
-
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  
-  &::placeholder {
-    opacity: .25;
-  }
-}
 `;
 
 export const Button = styled.button`

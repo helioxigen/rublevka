@@ -14,13 +14,25 @@ import {
   PropertyTitle,
   PropertyValue,
   SearchIcon,
-  Separator,
   SubTitle,
 } from './styled';
 import { Body, BodyBig, BodyBold } from '../../UI';
 import searchIcon from './img/search-icon.svg';
 
 const LocationSection = ({ enableEditMode, isEditMode, property }) => {
+  const { location } = property;
+  const {
+    localityName,
+    settlementName,
+    mkadDistance,
+    routeName,
+    street,
+    house,
+    cadastralNumber,
+    latitude,
+    longitude,
+  } = location;
+
   if (!isEditMode) {
     return (
       <>
@@ -32,43 +44,34 @@ const LocationSection = ({ enableEditMode, isEditMode, property }) => {
         <Row>
           <Property xs={4}>
             <PropertyTitle>Населенный пункт</PropertyTitle>
-            <PropertyBigValue>
-              {property.location.localityName}
-            </PropertyBigValue>
+            <PropertyBigValue>{localityName || '—'}</PropertyBigValue>
           </Property>
           <Property xs={5}>
             <PropertyTitle>Поселок</PropertyTitle>
-            <PropertyBigValue>
-              {property.location.settlementName}
-            </PropertyBigValue>
+            <PropertyBigValue>{settlementName || '—'}</PropertyBigValue>
             <PropertyValue>
               <BodyBold>От МКАД:&nbsp;</BodyBold>
-              <Body>
-                {property.location.mkadDistance}
-                {' '}
-км
-              </Body>
+              <Body>{mkadDistance ? `${mkadDistance} км` : '—'}</Body>
             </PropertyValue>
           </Property>
           <Property xs={3}>
             <PropertyTitle>Шоссе</PropertyTitle>
-            <PropertyBigValue>{property.location.routeName}</PropertyBigValue>
+            <PropertyBigValue>{routeName || '—'}</PropertyBigValue>
           </Property>
         </Row>
-        <Separator big />
         <Row>
           <Property xs={4}>
             <PropertyTitle>Улица</PropertyTitle>
-            <BodyBig>{property.location.street || 'Не указано'}</BodyBig>
+            <BodyBig>{street || '—'}</BodyBig>
           </Property>
           <Property xs={5}>
             <PropertyTitle>Номер участка</PropertyTitle>
-            <BodyBig>{property.location.house}</BodyBig>
+            <BodyBig>{house || '—'}</BodyBig>
           </Property>
-          {property.location.cadastralNumber && (
+          {cadastralNumber && (
             <Property xs={3}>
               <PropertyTitle>Кадастровый номер</PropertyTitle>
-              <BodyBig>{property.location.cadastralNumber}</BodyBig>
+              <BodyBig>{cadastralNumber || '—'}</BodyBig>
             </Property>
           )}
         </Row>
@@ -79,10 +82,7 @@ const LocationSection = ({ enableEditMode, isEditMode, property }) => {
             center={[55.754734, 37.583314]}
             zoom={10}
           >
-            <Marker
-              lat={+property.location.latitude}
-              lon={+property.location.longitude}
-            />
+            <Marker lat={+latitude} lon={+longitude} />
           </YandexMap>
         </MapWrapper>
         <EditButton onClick={enableEditMode}>Редактировать</EditButton>
@@ -102,28 +102,23 @@ const LocationSection = ({ enableEditMode, isEditMode, property }) => {
           </PlotInputContainer>
           <Col xs={3}>
             <PropertyTitle>Населенный пункт</PropertyTitle>
-            <PlotLocationInfo>&mdash;</PlotLocationInfo>
-            <PlotLocationInput
-              defaultValue={property.location.street}
-              placeholder="Улица"
-            />
+            <PlotLocationInfo>{localityName || '—'}</PlotLocationInfo>
+            <PlotLocationInput defaultValue={street} placeholder="Улица" />
           </Col>
           <Col xsOffset={1} xs={3}>
             <PropertyTitle>Поселок</PropertyTitle>
-            <PlotLocationInfo>&mdash;</PlotLocationInfo>
+            <PlotLocationInfo>{settlementName || '—'}</PlotLocationInfo>
             <PlotLocationInput
-              defaultValue={`${property.location.latitude}, ${
-                property.location.longitude
-              }`}
+              defaultValue={`${latitude}, ${longitude}`}
               placeholder="Номер участка"
             />
           </Col>
           <Col xsOffset={1} xs={4}>
             <PropertyTitle>Шоссе</PropertyTitle>
-            <PlotLocationInfo>&mdash;</PlotLocationInfo>
-            {property.location.cadastralNumber && (
+            <PlotLocationInfo>{routeName || '—'}</PlotLocationInfo>
+            {cadastralNumber && (
               <PlotLocationInput
-                defaultValue={property.location.cadastralNumber}
+                defaultValue={cadastralNumber}
                 placeholder="Кадастровый номер"
               />
             )}

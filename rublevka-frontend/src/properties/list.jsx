@@ -319,7 +319,7 @@ class List extends Component {
           </Visibility>
         )}
 
-        {hasItems && (
+        {hasItems && pagination.total > 24 && (
           <Container>
             <Row sm="center">
               <Col mdOffset="4" lgOffset="3" md="8" lg="9">

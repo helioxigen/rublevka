@@ -1,19 +1,18 @@
-import header from './header';
-import button from './button';
-import slider from './slider';
-import checkbox from './checkbox';
-import footer from './footer';
-import filter from './filter';
-import dropdown from './dropdown';
-import modal from './modal';
-import loading from './loading';
-import pager from './pager';
-import settlement from './settlement';
-import property from './property';
-import landing from './landing';
-import filterSatellites from './filterSatellites';
-import typography from './typography';
-import forms from './forms';
+import header from './header.css';
+import button from './button.css';
+import slider from './slider.css';
+import checkbox from './checkbox.css';
+import footer from './footer.css';
+import filter from './filter.css';
+import dropdown from './dropdown.css';
+import modal from './modal.css';
+import loading from './loading.css';
+import settlement from './settlement.css';
+import property from './property.css';
+import landing from './landing.css';
+import filterSatellites from './filterSatellites.css';
+import typography from './typography.css';
+import forms from './forms.css';
 
 export default {
   visibility: {},
@@ -33,7 +32,6 @@ export default {
   dropdown,
   modal,
   loading,
-  pager,
   landing,
   settlement,
   property,

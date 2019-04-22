@@ -65,6 +65,6 @@ export const HeaderContainer = styled.div`
 
 export const HeaderWrapper = styled.div`
   ${media.md`
-    padding-left: 14px;
+    padding-left: 8px;
   `}
 `;

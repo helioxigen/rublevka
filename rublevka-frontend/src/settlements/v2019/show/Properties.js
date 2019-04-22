@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import React, { Component } from 'react';
+import styled from 'styled-components';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -44,6 +45,18 @@ const {
   Grid: { Container, Row, Col },
   LoadMore,
 } = UI;
+
+const FilterContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 15px;
+  flex-basis: 20%;
+`;
+
+const CardsContainer = styled.div`
+  padding-left: 15px;
+  padding-right: 10px;
+  flex-basis: 80%;
+`;
 
 const HeaderWrapper = HeaderWrapperBase.extend`
   margin-bottom: 32px;
@@ -239,6 +252,22 @@ class List extends Component {
                       ) : (
                         this.renderCards()
                       )}
+                      {hasItems && (
+                        <Row xs="center">
+                          <Col xs="12">
+                            <LoadMore
+                              size="lg"
+                              total={pagination.total}
+                              offset={pagination.offset}
+                              limit={pagination.limit}
+                              resource={this.resource}
+                              updatePagination={this.props.actions.updatePagination}
+                            >
+                              Загрузить ещё
+                            </LoadMore>
+                          </Col>
+                        </Row>
+                      )}
                     </Row>
                   </Col>
                 </Row>
@@ -246,7 +275,25 @@ class List extends Component {
             </Visibility>
             <Visibility xs="block" sm="block" md="block" lg="hidden">
               <Container>
-                <Row>{this.renderCards()}</Row>
+                <Row>
+                  {this.renderCards()}
+                  {hasItems && (
+                    <Row xs="center">
+                      <Col xs="12">
+                        <LoadMore
+                          size="lg"
+                          total={pagination.total}
+                          offset={pagination.offset}
+                          limit={pagination.limit}
+                          resource={this.resource}
+                          updatePagination={this.props.actions.updatePagination}
+                        >
+                          Загрузить ещё
+                        </LoadMore>
+                      </Col>
+                    </Row>
+                  )}
+                </Row>
               </Container>
             </Visibility>
           </div>
@@ -255,25 +302,6 @@ class List extends Component {
             <Visibility xs="block" sm="block" md="block" lg="hidden">
               <NotFound resetFilter={this.resetFilter} />
             </Visibility>
-          )}
-
-          {hasItems && (
-            <Container>
-              <Row xs="center">
-                <Col mdOffset="4" md="8" lgOffset="3" lg="9">
-                  <LoadMore
-                    size="lg"
-                    total={pagination.total}
-                    offset={pagination.offset}
-                    limit={pagination.limit}
-                    resource={this.resource}
-                    updatePagination={this.props.actions.updatePagination}
-                  >
-                    Загрузить ещё
-                  </LoadMore>
-                </Col>
-              </Row>
-            </Container>
           )}
         </section>
       );

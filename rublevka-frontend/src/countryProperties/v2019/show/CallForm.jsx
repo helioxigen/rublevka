@@ -72,7 +72,8 @@ const Agent = styled.div`
 `;
 
 const Avatar = styled.img`
-  width: 80px;
+  min-width: 80px;
+  max-width: 80px;
   height: 80px;
   border-radius: 40px;
   object-fit: cover;

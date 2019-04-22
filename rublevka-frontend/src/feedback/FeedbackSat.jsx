@@ -11,6 +11,7 @@ import StaticMask from '../core/components/ui/staticMask';
 import media from '../styles/media';
 import UI from '../ui';
 import callIcon from './call.png';
+import flagIcon from '../assets/icons/flag.png';
 
 const isRublevka = global.config.domain === 'rublevka.ru';
 
@@ -217,57 +218,76 @@ const MapContainer = styled.div`
   `}
 `;
 
-export default () => (
-  <Wrapper>
-    <Helmet
-      title={helmet.pages.feedback.title}
-      meta={[
-        { name: 'description', content: helmet.pages.feedback.description },
-        { name: 'keywords', content: helmet.pages.feedback.keywords },
-      ]}
-    />
-    <Container>
-      <TextContainer>
-        <Heading>Есть вопросы?</Heading>
-        <TimeText>
-          Вы можете задать их в будние дни с 10:00 до 20:00 по телефону горячей
-          линии:
-        </TimeText>
-        <CallLink href={`tel:+${isRublevka ? '74954323322' : '74954321313'}`}>
-          <CallIcon src={callIcon} />
-          <Phone>
-            <StaticMask pattern="+1 (111) 111-11-11">
-              {isRublevka ? '74954323322' : '74954321313'}
-            </StaticMask>
-          </Phone>
-        </CallLink>
-      </TextContainer>
-      <FormTitle>Или задайте вопрос через форму ниже:</FormTitle>
-      <Col md="4" mdOffset="4">
-        <RequestForm>
-          <Input type="text" placeholder="Имя" />
-          <Input type="tel" mask="+9 (999) 999-99-99" placeholder="телефон" />
-          <TextInput placeholder="Текст" />
-          <SendBtn>Отправить</SendBtn>
-        </RequestForm>
-      </Col>
-      <TextContainer>
-        <Heading>Как нас найти</Heading>
-        <Body>Наш офис находится по адресу:</Body>
-        <BoldText>Рублёво-Успенское шоссе, Жуковка, 44А</BoldText>
-      </TextContainer>
-      <MapContainer>
-        <YMaps>
-          <YMap
-            instanceRef={ref => ref && ref.behaviors.disable('scrollZoom')}
-            defaultState={{ center: [55.734871, 37.249479], zoom: 15 }}
-            width="100%"
-            height="100%"
+export default () => {
+  const size = (typeof window !== 'undefined' && window.outerWidth < 992) ? 48 : 64;
+
+  return (
+    <Wrapper>
+      <Helmet
+        title={helmet.pages.feedback.title}
+        meta={[
+          { name: 'description', content: helmet.pages.feedback.description },
+          { name: 'keywords', content: helmet.pages.feedback.keywords },
+        ]}
+      />
+      <Container>
+        <TextContainer>
+          <Heading>Есть вопросы?</Heading>
+          <TimeText>
+            Вы можете задать их в будние дни с 10:00 до 20:00 по телефону
+            горячей линии:
+          </TimeText>
+          <CallLink
+            href={`tel:+${isRublevka ? '74954323322' : '74954321313'}`}
           >
-            <Placemark geometry={[55.734871, 37.249479]} />
-          </YMap>
-        </YMaps>
-      </MapContainer>
-    </Container>
-  </Wrapper>
-);
+            <CallIcon src={callIcon} />
+            <Phone>
+              <StaticMask pattern="+1 (111) 111-11-11">
+                {isRublevka ? '74954323322' : '74954321313'}
+              </StaticMask>
+            </Phone>
+          </CallLink>
+        </TextContainer>
+        <FormTitle>Или задайте вопрос через форму ниже:</FormTitle>
+        <Col md="4" mdOffset="4">
+          <RequestForm>
+            <Input type="text" placeholder="Имя" />
+            <Input
+              type="tel"
+              mask="+9 (999) 999-99-99"
+              placeholder="телефон"
+            />
+            <TextInput placeholder="Текст" />
+            <SendBtn>Отправить</SendBtn>
+          </RequestForm>
+        </Col>
+        <TextContainer>
+          <Heading>Как нас найти</Heading>
+          <Body>Наш офис находится по адресу:</Body>
+          <BoldText>Рублёво-Успенское шоссе, Жуковка, 44А</BoldText>
+        </TextContainer>
+        <MapContainer>
+          <YMaps>
+            <YMap
+              instanceRef={ref => ref && ref.behaviors.disable('scrollZoom')}
+              defaultState={{ center: [55.734871, 37.249479], zoom: 15 }}
+              width="100%"
+              height="100%"
+              modules={['layout.Image']}
+            >
+              <Placemark
+                geometry={[55.734871, 37.249479]}
+                options={{
+                  iconLayout: 'default#image',
+                  iconImageHref: flagIcon,
+                  iconImageSize: [size, size], // размер иконки
+                  iconImageOffset: [(-1 * size) / 2, (-1 * size) / 2], // позиция иконки
+                }}
+              />
+            </YMap>
+          </YMaps>
+        </MapContainer>
+      </Container>
+    </Wrapper>
+  );
+}

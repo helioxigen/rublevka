@@ -3,7 +3,7 @@ import Downshift from 'downshift';
 import styled from 'styled-components';
 import { isEqual } from 'lodash';
 
-const itemToString = item => {
+const itemToString = (item) => {
   if (item) {
     return item.label;
   }
@@ -28,7 +28,7 @@ const Input = styled.input`
   font-weight: 500;
   color: #232323;
 
-  &::-webkit-placeholder {
+  &::-webkit-input-placeholder {
     color: #aaa;
   }
 
@@ -77,7 +77,7 @@ export default class Select extends React.Component {
     }
   }
 
-  getItems = inputValue => {
+  getItems = (inputValue) => {
     const { items, type = 'from', bound } = this.props;
 
     if (type === 'from') {
@@ -146,7 +146,7 @@ export default class Select extends React.Component {
 
                   closeMenu();
                 },
-                onKeyDown: e => {
+                onKeyDown: (e) => {
                   if (
                     inputValue === (selectedItem || {}).label &&
                     e.keyCode === 8

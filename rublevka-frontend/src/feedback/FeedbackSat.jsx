@@ -158,7 +158,7 @@ const Input = styled(InputMask)`
   text-transform: uppercase;
   font-weight: bold;
 
-  &::-webkit-placeholder {
+  &::-webkit-input-placeholder {
     color: #aaaaaa;
   }
 `;
@@ -180,7 +180,7 @@ const TextInput = styled.textarea`
   text-transform: uppercase;
   font-weight: bold;
 
-  &::-webkit-placeholder {
+  &::-webkit-input-placeholder {
     color: #aaaaaa;
   }
 `;

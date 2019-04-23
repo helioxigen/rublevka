@@ -110,7 +110,7 @@ const StInput = styled(InputMask)`
   text-transform: uppercase;
   color: #232323;
 
-  &::-webkit-placeholder {
+  &::-webkit-input-placeholder {
     color: #aaa;
   }
 `;

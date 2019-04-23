@@ -111,13 +111,15 @@ const CallbackForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  ${media.md`
+    margin-bottom: 0px;
+  `}
 `;
 
 const Input = styled(InputMask)`
   width: 100%;
-  padding: 0px 15px;
-  padding-top: 17px;
-  padding-bottom: 20px;
+  padding: 16px 15px 14px;
   margin-top: 8px;
   border: 1px solid #d9d9d9;
   border-radius: 8px;
@@ -128,12 +130,12 @@ const Input = styled(InputMask)`
   text-transform: uppercase;
   font-weight: bold;
 
-  &::-webkit-placeholder {
+  &::-webkit-input-placeholder {
     color: #aaaaaa;
   }
 
   ${media.md`
-    padding: 17px 15px;
+    padding: 17px 15px 15px;
   `}
 `;
 

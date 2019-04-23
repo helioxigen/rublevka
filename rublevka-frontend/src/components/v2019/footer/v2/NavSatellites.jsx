@@ -3,8 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
 
-import UI from 'ui';
-import media from 'styles/media';
+import UI from '../../../../ui/v2019';
+import media from '../../../../styles/media';
 
 const {
   Grid: { Row, Col },

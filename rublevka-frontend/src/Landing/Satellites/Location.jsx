@@ -5,14 +5,14 @@ import { YMaps, Map as YMap, Placemark } from 'react-yandex-maps';
 import flagIcon from '../../assets/icons/flag.png';
 
 import media from '../../styles/media';
-import UI from '../../ui';
+import UI from '../../ui/v2019';
 
 const {
   Grid: { Container },
 } = UI;
 
 const Wrapper = styled.div`
-  margin: 0 -15px;
+  margin: 0 -10px;
   margin-top: 40px;
 
   ${media.xs`
@@ -98,7 +98,8 @@ const MapContainer = styled.div`
 `;
 
 export default () => {
-  const size = (typeof window !== 'undefined' && window.outerWidth < 992) ? 48 : 64;
+  const size =
+    typeof window !== 'undefined' && window.outerWidth < 992 ? 48 : 64;
 
   return (
     <Container>
@@ -132,4 +133,4 @@ export default () => {
       </Wrapper>
     </Container>
   );
-}
+};

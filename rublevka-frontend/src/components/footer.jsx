@@ -193,7 +193,7 @@ const Break = styled.br`
 `;
 
 const InnerWrapper = styled.div`
-  margin: 0 -15px;
+  margin: 0 -10px;
 
   ${media.md`
     margin: 0;

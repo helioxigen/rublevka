@@ -9,7 +9,7 @@ import { helmet } from '../config/seo';
 import StaticMask from '../core/components/ui/staticMask';
 
 import media from '../styles/media';
-import UI from '../ui';
+import UI from '../ui/v2019';
 import callIcon from './call.png';
 import flagIcon from '../assets/icons/flag.png';
 
@@ -219,7 +219,8 @@ const MapContainer = styled.div`
 `;
 
 export default () => {
-  const size = (typeof window !== 'undefined' && window.outerWidth < 992) ? 48 : 64;
+  const size =
+    typeof window !== 'undefined' && window.outerWidth < 992 ? 48 : 64;
 
   return (
     <Wrapper>
@@ -237,9 +238,7 @@ export default () => {
             Вы можете задать их в будние дни с 10:00 до 20:00 по телефону
             горячей линии:
           </TimeText>
-          <CallLink
-            href={`tel:+${isRublevka ? '74954323322' : '74954321313'}`}
-          >
+          <CallLink href={`tel:+${isRublevka ? '74954323322' : '74954321313'}`}>
             <CallIcon src={callIcon} />
             <Phone>
               <StaticMask pattern="+1 (111) 111-11-11">
@@ -252,11 +251,7 @@ export default () => {
         <Col md="4" mdOffset="4">
           <RequestForm>
             <Input type="text" placeholder="Имя" />
-            <Input
-              type="tel"
-              mask="+9 (999) 999-99-99"
-              placeholder="телефон"
-            />
+            <Input type="tel" mask="+9 (999) 999-99-99" placeholder="телефон" />
             <TextInput placeholder="Текст" />
             <SendBtn>Отправить</SendBtn>
           </RequestForm>
@@ -290,4 +285,4 @@ export default () => {
       </Container>
     </Wrapper>
   );
-}
+};

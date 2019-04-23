@@ -19,8 +19,6 @@ import {
   IconReset,
 } from './styled';
 
-import { Wrapper } from '../../../v2/List/Filter/styled';
-
 const {
   Grid: { Container },
   RadioButton,
@@ -72,8 +70,8 @@ class Price extends Component {
     const dealPrices = prices[currency][key] || [];
 
     return (
-      <Wrapper>
-        <Container fluid styleName="contentContainer">
+      <section>
+        <Container fluid>
           <FilterHeader>
             <Title>Цена</Title>
             {Object.keys(price).length > 0 && (
@@ -111,7 +109,7 @@ class Price extends Component {
             </CheckboxWrapper>
           </ControlsContainer>
         </Container>
-      </Wrapper>
+      </section>
     );
   }
 }

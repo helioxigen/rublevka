@@ -1,22 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import UI from '../../../../../ui/v2019';
+// import UI from '../../../../../ui/v2019';
 import media from '../../../../../styles/media';
 import s from '../../../../../styles/ui/v2019/selectGroup.css';
 // import sSelect from '../../../../../styles/ui/v2019/select.css';
 
-const { /* Select, */ Visibility } = UI;
-
 const Select = styled.select`
-  width: 45%;
-  padding: 1.7rem 1.5rem;
+  padding: 20px 15px;
+  width: 50%;
 
-  font-size: 1.4rem;
+  font-size: 13px;
   color: #636363;
 
   background: #ffffff;
-  border: 1px solid #d8d8d8;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
   box-shadow: none;
   appearance: none;
 
@@ -25,7 +25,6 @@ const Select = styled.select`
   }
 
   ${media.md`
-    width: 50%;
     font-weight: 500;
     font-size: 1.5rem;
     padding: 1.1rem 1.2rem;
@@ -62,33 +61,31 @@ export default (props) => {
 
   return (
     <div className={s.selectContainer}>
-      <Visibility>
-        <Select
-          value={selected.min || 'placeholder'}
-          onChange={e => props.onUpdate('min', e.target.value)}
-        >
-          <option value="placeholder" disabled>
-            от
-          </option>
-          {optionsIncrease.map(option => (
-            <option value={option.value}>{option.label}</option>
-          ))}
-        </Select>
+      <Select
+        value={selected.min || 'placeholder'}
+        onChange={e => props.onUpdate('min', e.target.value)}
+      >
+        <option value="placeholder" disabled>
+          от
+        </option>
+        {optionsIncrease.map(option => (
+          <option value={option.value}>{option.label}</option>
+        ))}
+      </Select>
 
-        <span className={s.dash}>-</span>
+      <span className={s.dash}>-</span>
 
-        <Select
-          value={selected.max || 'placeholder'}
-          onChange={e => props.onUpdate('max', e.target.value)}
-        >
-          <option value="placeholder" disabled>
-            до
-          </option>
-          {optionsDecrease.map(option => (
-            <option value={option.value}>{option.label}</option>
-          ))}
-        </Select>
-      </Visibility>
+      <Select
+        value={selected.max || 'placeholder'}
+        onChange={e => props.onUpdate('max', e.target.value)}
+      >
+        <option value="placeholder" disabled>
+          до
+        </option>
+        {optionsDecrease.map(option => (
+          <option value={option.value}>{option.label}</option>
+        ))}
+      </Select>
 
       {/* <Visibility
           xs="hidden"

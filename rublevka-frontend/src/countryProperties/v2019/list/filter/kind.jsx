@@ -49,47 +49,49 @@ class Kind extends Component {
     const items = selected[key] || [];
 
     return (
-      <ControlsContainer>
-        <Container fluid styleName="contentContainer">
+      <section>
+        <Container fluid>
           <FilterHeader>
             <Title>Тип объекта</Title>
             {items.length > 0 && (
               <IconReset onClick={this.onReset} icon="times" />
             )}
           </FilterHeader>
-          <CheckboxWrapper>
-            <RadioButton
-              checked={items.includes('house')}
-              name="house"
-              handleChange={() => this.onUpdate('house')}
-              text="Дом"
-            />
-
-            <RadioButton
-              checked={items.includes('townhouse')}
-              name="townhouse"
-              handleChange={() => this.onUpdate('townhouse')}
-              text="Таунхаус"
-            />
-
-            {dealType !== 'arenda' && (
+          <ControlsContainer>
+            <CheckboxWrapper>
               <RadioButton
-                checked={items.includes('land')}
-                name="land"
-                handleChange={() => this.onUpdate('land')}
-                text="Участок"
+                checked={items.includes('house')}
+                name="house"
+                handleChange={() => this.onUpdate('house')}
+                text="Дом"
               />
-            )}
 
-            <RadioButton
-              checked={items.includes('flat')}
-              name="flat"
-              handleChange={() => this.onUpdate('flat')}
-              text="Квартира"
-            />
-          </CheckboxWrapper>
+              <RadioButton
+                checked={items.includes('townhouse')}
+                name="townhouse"
+                handleChange={() => this.onUpdate('townhouse')}
+                text="Таунхаус"
+              />
+
+              {dealType !== 'arenda' && (
+                <RadioButton
+                  checked={items.includes('land')}
+                  name="land"
+                  handleChange={() => this.onUpdate('land')}
+                  text="Участок"
+                />
+              )}
+
+              <RadioButton
+                checked={items.includes('flat')}
+                name="flat"
+                handleChange={() => this.onUpdate('flat')}
+                text="Квартира"
+              />
+            </CheckboxWrapper>
+          </ControlsContainer>
         </Container>
-      </ControlsContainer>
+      </section>
     );
   }
 }

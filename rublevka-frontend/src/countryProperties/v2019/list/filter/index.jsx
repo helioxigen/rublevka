@@ -248,7 +248,7 @@ class Filter extends Component {
               </S.ButtonReset>
             </S.BtnGroupHead>
 
-            <div>{this.renderFilters()}</div>
+            <S.MobileContainer>{this.renderFilters()}</S.MobileContainer>
             <S.ButtonPrimary
               block
               size="lg"

@@ -119,7 +119,7 @@ export const DesktopContainer = styled.div`
   transition: 0.6s cubic-bezier(0.86, 0, 0.07, 1);
 
   ${media.sm`
-    padding-bottom: 8rem;
+    padding: 60px 20px 80px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
     background: #fff;
   `}
@@ -181,24 +181,22 @@ export const ButtonPrimary = styled(DefaultBtn)`
     color: #ffffff;
     border-radius: 8px;
     z-index: 9999;
-    left: 1.5rem;
-    right: 1.5rem;
-    bottom: 2rem;
-    padding: 1.8rem 0;
-    width: calc(100% - 5rem);
-    padding: 1.8rem 0;
+    left: 15px;
+    right: 15px;
+    bottom: 24px;
+    padding: 19px 0px;
     text-transform: uppercase;
+    width: calc(100% - 30px);
 
     &:hover {
       box-shadow: 0px 2px 4px;
     }
 
     ${media.sm`
-      right ${p => (p.isViewOpen ? '3rem' : '0')};
-      left: ${p => (p.isViewOpen ? '3rem' : '-50%')};
+      right ${p => (p.isViewOpen ? 'calc(50% + 30px)' : '0')};
+      left: ${p => (p.isViewOpen ? '30px' : '-50%')};
 
-      width: calc(50% - 6rem);
-      padding: 19px 0;
+      width: calc(50% - 60px);
 
       font-size: 15px;
       letter-spacing: 0.2125px;
@@ -222,8 +220,7 @@ export const BtnGroupHead = styled(BtnGroup)`
     width: 100%;
 
     ${media.sm`
-      padding-left: 10px;
-      padding-right: 25px;
+      padding: 0px 20px;
       width: 50%;
       transition: 0.6s cubic-bezier(0.86, 0, 0.07, 1);
       left: ${p => (p.isViewOpen ? 0 : '-50%')}
@@ -239,4 +236,8 @@ export const Cover = styled.div`
   right: 0;
   z-index: 998;
   background: rgba(0, 0, 0, 0.15);
+`;
+
+export const MobileContainer = styled.div`
+  padding: 18px 5px 0px;
 `;

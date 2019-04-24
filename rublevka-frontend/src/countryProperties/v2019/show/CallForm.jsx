@@ -141,7 +141,7 @@ const Input = styled(InputMask)`
 
 const Callback = styled.button`
   margin-top: 16px;
-  padding: 21px 32px 17px 32px;
+  padding: 21px 32px 17px;
   line-height: 18px;
   font-size: 15px;
   text-transform: uppercase;
@@ -153,6 +153,7 @@ const Callback = styled.button`
   color: #ffffff;
 
   ${media.md`
+    padding: 21px 0px 17px;
     width: 100%;
   `}
 `;

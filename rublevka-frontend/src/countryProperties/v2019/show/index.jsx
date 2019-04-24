@@ -144,36 +144,59 @@ class Property extends Component {
             <Col xs="12" lg="10" lgOffset="1">
               <Breadcrumbs data={data} dealType={dealType} />
             </Col>
-            <Col xs="12" md="8" lg="7" lgOffset="1">
-              <Wrapper>
-                <Header data={data} propertyId={id} dealType={dealType} />
-                <Media
-                  toggleFavorite={() =>
-                    actions.toggleFavorite(
-                      Number.parseInt(id, 10),
-                      this.props.dealType,
-                    )
-                  }
-                  isFavorite={favorites.some(
-                    item =>
-                      item.id === Number.parseInt(id, 10) &&
-                      item.dealType === this.props.dealType,
+            <Col xs="12" lg="10" lgOffset="1">
+              <Row>
+              <Col xs="12" md="8">
+                <Wrapper>
+                  <Header data={data} propertyId={id} dealType={dealType} />
+                  <Media
+                    toggleFavorite={() =>
+                      actions.toggleFavorite(
+                        Number.parseInt(id, 10),
+                        this.props.dealType,
+                      )
+                    }
+                    isFavorite={favorites.some(
+                      item =>
+                        item.id === Number.parseInt(id, 10) &&
+                        item.dealType === this.props.dealType,
+                    )}
+                    images={images}
+                    propertyId={id}
+                  />
+                  {displaySummary && <Summary data={data} />}
+                  {/* <Description data={data} /> */}
+                  {(!!specification.area ||
+                    Object.keys(communication).length !== 0) && (
+                    <Info data={data} />
                   )}
-                  images={images}
-                  propertyId={id}
-                />
-                {displaySummary && <Summary data={data} />}
-                {/* <Description data={data} /> */}
-                {(!!specification.area ||
-                  Object.keys(communication).length !== 0) && (
-                  <Info data={data} />
-                )}
-                {Object.keys(specification.layouts || {}).length !== 0 && (
-                  <Layout kind={data.kind} layout={specification.layouts} />
-                )}
-                <Visibility sm="hidden" md="hidden" lg="hidden">
+                  {Object.keys(specification.layouts || {}).length !== 0 && (
+                    <Layout kind={data.kind} layout={specification.layouts} />
+                  )}
+                  <Visibility sm="hidden" md="hidden" lg="hidden">
+                    {!!price && (
+                      <CallForm
+                        toggleFavorite={() =>
+                          actions.toggleFavorite(
+                            Number.parseInt(id, 10),
+                            this.props.dealType,
+                          )
+                        }
+                        priceData={priceData}
+                        kind={data.kind}
+                      />
+                    )}
+                  </Visibility>
+                  {isPositionAvailable && (
+                    <Location markerPosition={markerPosition} />
+                  )}
+                </Wrapper>
+              </Col>
+              <Col md="4">
+                <FormVisibility xs="hidden" sm="hidden" md="hidden">
                   {!!price && (
                     <CallForm
+                      dealType={dealType}
                       toggleFavorite={() =>
                         actions.toggleFavorite(
                           Number.parseInt(id, 10),
@@ -184,28 +207,9 @@ class Property extends Component {
                       kind={data.kind}
                     />
                   )}
-                </Visibility>
-                {isPositionAvailable && (
-                  <Location markerPosition={markerPosition} />
-                )}
-              </Wrapper>
-            </Col>
-            <Col md="4" lg="3">
-              <FormVisibility xs="hidden" sm="hidden" md="hidden">
-                {!!price && (
-                  <CallForm
-                    dealType={dealType}
-                    toggleFavorite={() =>
-                      actions.toggleFavorite(
-                        Number.parseInt(id, 10),
-                        this.props.dealType,
-                      )
-                    }
-                    priceData={priceData}
-                    kind={data.kind}
-                  />
-                )}
-              </FormVisibility>
+                </FormVisibility>
+              </Col>
+              </Row>
             </Col>
           </Row>
           <Similar id={data.id} dealType={dealType} />

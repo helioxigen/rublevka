@@ -242,10 +242,8 @@ class List extends Component {
             <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
               <Container>
                 <Row>
-                  <Col md="4" lg="3">
-                    {this.renderFilter()}
-                  </Col>
-                  <Col md="8" lg="9">
+                  <FilterContainer>{this.renderFilter()}</FilterContainer>
+                  <CardsContainer>
                     <Row>
                       {!isFetching && !ids.length ? (
                         <NotFound resetFilter={this.resetFilter} />
@@ -261,7 +259,9 @@ class List extends Component {
                               offset={pagination.offset}
                               limit={pagination.limit}
                               resource={this.resource}
-                              updatePagination={this.props.actions.updatePagination}
+                              updatePagination={
+                                this.props.actions.updatePagination
+                              }
                             >
                               Загрузить ещё
                             </LoadMore>
@@ -269,7 +269,7 @@ class List extends Component {
                         </Row>
                       )}
                     </Row>
-                  </Col>
+                  </CardsContainer>
                 </Row>
               </Container>
             </Visibility>

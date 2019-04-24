@@ -35,7 +35,7 @@ const Img = styled.img`
   `}
 
   ${media.md`
-    height: 100%;
+    height: 640px;
   `}
 `;
 
@@ -126,7 +126,6 @@ const FindBtn = styled(Button)`
 
   ${media.md`
     margin-top: 36px;
-    margin-bottom: 44px;
   `}
 `;
 

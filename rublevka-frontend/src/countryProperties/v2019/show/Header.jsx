@@ -3,26 +3,20 @@ import styled from 'styled-components';
 
 import Title from './Title';
 
-import media from 'styles/media';
-import UI from 'ui';
+import media from '../../../styles/media';
+import UI from '../../../ui/v2019';
 
 const { Icon } = UI;
 
 const Header = styled.div`
-  margin-top: 8px;
-  margin-bottom: 16px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 8px 10px 16px;
 
   ${media.xs`
-    margin-top: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 8px 5px 16px;
   `}
 
   ${media.sm`
-    margin-left: -3px;
-    margin-right: -3px;
+    margin: 10px 0px 16px;
   `}
 
   ${media.md`

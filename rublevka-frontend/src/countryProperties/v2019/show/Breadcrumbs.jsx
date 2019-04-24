@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
 
-import UI from '../../../ui';
+import UI from '../../../ui/v2019';
 
 import { nameToSlug } from '../../../core/helpers/nameToSlug';
 import {
@@ -14,6 +14,7 @@ import media from '../../../styles/media';
 const { Icon } = UI;
 
 const Wrapper = styled.nav`
+  margin: 0px 5px;
   padding-top: 18px;
 
   ${media.xs`

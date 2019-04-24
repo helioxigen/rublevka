@@ -18,7 +18,7 @@ import * as analyticsEvents from '../../../core/analytics/constants';
 import { dealTypes } from '../../../constants/properties/dictionaries';
 
 // UI
-import UI from '../../../ui';
+import UI from '../../../ui/v2019';
 import media from '../../../styles/media';
 
 // components
@@ -41,11 +41,7 @@ const {
 } = UI;
 
 const Wrapper = styled.div`
-  margin: 0 -10px;
-
-  ${media.xs`
-    margin: 0 -5px;
-  `}
+  margin: 0 -5px;
 
   ${media.md`
     padding: 24px 20px;
@@ -144,9 +140,11 @@ class Property extends Component {
         <Helmet data={data} kind={kind} dealType={this.props.dealType} />
 
         <Container>
-          <Breadcrumbs data={data} dealType={dealType} />
           <Row>
-            <Col xs="12" md="8">
+            <Col xs="12" lg="10" lgOffset="1">
+              <Breadcrumbs data={data} dealType={dealType} />
+            </Col>
+            <Col xs="12" md="8" lg="7" lgOffset="1">
               <Wrapper>
                 <Header data={data} propertyId={id} dealType={dealType} />
                 <Media
@@ -192,7 +190,7 @@ class Property extends Component {
                 )}
               </Wrapper>
             </Col>
-            <Col md="4">
+            <Col md="4" lg="3">
               <FormVisibility xs="hidden" sm="hidden" md="hidden">
                 {!!price && (
                   <CallForm
@@ -211,14 +209,20 @@ class Property extends Component {
             </Col>
           </Row>
           <Similar id={data.id} dealType={dealType} />
-          {!!price && <CallBlock dealType={dealType} priceData={priceData} kind={data.kind} />}
+          {!!price && (
+            <CallBlock
+              dealType={dealType}
+              priceData={priceData}
+              kind={data.kind}
+            />
+          )}
         </Container>
       </div>
     );
   }
 }
 
-const pickState = state => {
+const pickState = (state) => {
   const { countryProperties, favorites, displayOptions } = state;
 
   return {
@@ -230,7 +234,7 @@ const pickState = state => {
   };
 };
 
-const pickActions = dispatch => {
+const pickActions = (dispatch) => {
   const actions = {
     loadProperty,
     setSharedRetargetingKey,

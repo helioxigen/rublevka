@@ -36,7 +36,7 @@ export const Cover = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 3;
+  z-index: 4;
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.1);
@@ -333,26 +333,6 @@ export const CallbackBtn = styled(Button)`
       border: 1px solid ${p => (p.inverted ? '#fff' : '#00b44b')};;
       color: ${p => (p.inverted ? '#252525' : '#fff')};;
     }
-  `};
-`;
-
-export const Overlay = styled.div`
-  opacity: 0;
-  ${p =>
-    p.active &&
-    `
-    content: '';
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 4;
-    background: rgba(0, 0, 0, .2);
-    opacity: 1;
-    transition: opacity .35s linear;
-  `} ${media.md`
-    display: none;
   `};
 `;
 

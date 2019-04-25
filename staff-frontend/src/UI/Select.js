@@ -49,27 +49,36 @@ const SelectItem = styled.div`
 
 const SelectName = styled(Body)``;
 
-export default ({ selectData = [], selected = '', filled }) => (
+export default ({
+  options = [], currentValue = '', filled, onChange,
+}) => (
   <Select>
-    {selectData.map(selectDataItem => (
+    {options.map(selectDataItem => (
       <SelectItem
         selected={
-          selected
-            ? selected.toString() === selectDataItem.value.toString()
-            : selectDataItem.value === '0' || selectDataItem.value === false
+          currentValue
+            ? currentValue.toString() === selectDataItem.value.toString()
+            : selectDataItem.value === '0'
+              || selectDataItem.value === false
+              || selectDataItem.value === 'false'
         }
-        key={selectDataItem.name}
+        key={selectDataItem.label}
         filled={filled}
+        onClick={() => {
+          onChange(selectDataItem.value);
+        }}
       >
         <SelectName
           selected={
-            selected
-              ? selected.toString() === selectDataItem.value.toString()
-              : selectDataItem.value === '0' || selectDataItem.value === false
+            currentValue
+              ? currentValue.toString() === selectDataItem.value.toString()
+              : selectDataItem.value === '0'
+                || selectDataItem.value === false
+                || selectDataItem.value === 'false'
           }
           filled={filled}
         >
-          {selectDataItem.name}
+          {selectDataItem.label}
         </SelectName>
       </SelectItem>
     ))}

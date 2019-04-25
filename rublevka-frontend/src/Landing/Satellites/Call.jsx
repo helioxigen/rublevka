@@ -6,7 +6,7 @@ import InputMask from 'react-input-mask';
 import media from '../../styles/media';
 
 import CallbackModal from '../../request/v2019/CallbackModal';
-import UI from '../../ui';
+import UI from '../../ui/v2019';
 
 const {
   Grid: { Container, Col },

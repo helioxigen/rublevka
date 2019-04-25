@@ -94,7 +94,7 @@ class Header extends Component {
     return (
       <HeaderBody active={this.state.active}>
         <Wrapper isLanding={isLanding} inverted={inverted}>
-          <Cover onClick={this.toggleMenu} active={this.state.active} />
+          {this.state.active && <Cover onClick={this.toggleMenu} />}
           <Visibility lg="hidden">
             <Container>
               <NavPanel isLanding={isLanding}>
@@ -119,6 +119,7 @@ class Header extends Component {
 
           <Container>
             <Col xs="12">
+              {this.state.active && <Cover onClick={this.toggleMenu} />}
               <Nav isVisible active={this.state.active} inverted={inverted}>
                 <Menu left>
                   <Visibility xs="hidden" sm="hidden" md="hidden">
@@ -200,7 +201,7 @@ class Header extends Component {
 }
 
 // redux connectors
-const pickState = state => {
+const pickState = (state) => {
   const { stats, favorites } = state;
 
   return {
@@ -211,7 +212,7 @@ const pickState = state => {
   };
 };
 
-const pickActions = dispatch => {
+const pickActions = (dispatch) => {
   const actions = {
     loadStatistics,
   };

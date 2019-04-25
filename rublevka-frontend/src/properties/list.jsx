@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -49,6 +50,18 @@ const {
   Visibility,
   Grid: { Container, Row, Col },
 } = UI;
+
+const FilterContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 15px;
+  flex-basis: 20%;
+`;
+
+const CardsContainer = styled.div`
+  padding-left: 15px;
+  padding-right: 10px;
+  flex-basis: 80%;
+`;
 
 // component
 class List extends Component {
@@ -290,24 +303,50 @@ class List extends Component {
             <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
               <Container>
                 <Row>
-                  <Col md="4" lg="3">
+                  <FilterContainer>
                     {this.renderFilter()}
-                  </Col>
-                  <Col md="8" lg="9">
+                  </FilterContainer>
+                  <CardsContainer>
                     <Row>
                       {!isFetching && !ids.length ? (
                         <NotFound resetFilter={this.resetFilter} />
                       ) : (
                         this.renderCards()
                       )}
+                      {!isFetching && hasItems && pagination.total > 24 && (
+                        <Col xs="12">
+                          <Pagination
+                            updatePagination={this.updatePagination}
+                            total={pagination.total}
+                            offset={pagination.offset}
+                            limit={pagination.limit}
+                            baseUrl={location.pathname}
+                            isScrollToTop
+                          />
+                        </Col>
+                      )}
                     </Row>
-                  </Col>
+                  </CardsContainer>
                 </Row>
               </Container>
             </Visibility>
             <Visibility xs="block" sm="block" md="block" lg="hidden">
               <Container>
-                <Row>{this.renderCards()}</Row>
+                <Row>
+                  {this.renderCards()}
+                  {hasItems && pagination.total > 24 && (
+                    <Col xs="12">
+                      <Pagination
+                        updatePagination={this.updatePagination}
+                        total={pagination.total}
+                        offset={pagination.offset}
+                        limit={pagination.limit}
+                        baseUrl={location.pathname}
+                        isScrollToTop
+                      />
+                    </Col>
+                  )}
+                </Row>
               </Container>
             </Visibility>
           </div>
@@ -317,23 +356,6 @@ class List extends Component {
           <Visibility xs="block" sm="block" md="block" lg="hidden">
             <NotFound resetFilter={this.resetFilter} />
           </Visibility>
-        )}
-
-        {hasItems && (
-          <Container>
-            <Row sm="center">
-              <Col mdOffset="4" lgOffset="3" md="8" lg="9">
-                <Pagination
-                  updatePagination={this.updatePagination}
-                  total={pagination.total}
-                  offset={pagination.offset}
-                  limit={pagination.limit}
-                  baseUrl={location.pathname}
-                  isScrollToTop
-                />
-              </Col>
-            </Row>
-          </Container>
         )}
       </section>
     );

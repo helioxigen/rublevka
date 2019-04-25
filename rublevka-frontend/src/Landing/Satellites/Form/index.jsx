@@ -8,14 +8,14 @@ import PropertyNumber from './PropertyNumber';
 import Rent from './Rent';
 import Settlements from './Settlements';
 import media from '../../../styles/media';
-import UI from '../../../ui';
+import UI from '../../../ui/v2019';
 
 const {
   Grid: { Col },
 } = UI;
 
 const Wrapper = styled.div`
-  margin: 0 -15px;
+  margin: 0 -10px;
   ${media.xs`
     margin: 0;
   `}

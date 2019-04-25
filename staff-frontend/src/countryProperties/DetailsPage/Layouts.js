@@ -10,17 +10,30 @@ import {
   PropertyOptionWrapper,
   PropertyTitle,
   PropertyValue,
+  SelectControl,
 } from './styled';
 import propertyOptionIcon from './img/property-option-icon.svg';
 import { Body } from '../../UI';
 import { mainLayouts } from '../constants/dictionaries';
-import Select from '../../UI/Select';
 import { selectFixedValueData } from './schema';
 
-const LayoutSection = ({ enableEditMode, isEditMode, property }) => {
+const LayoutSection = ({
+  enableEditMode, isEditMode, property, onUpdate,
+}) => {
+  const { specification } = property;
+  const { layouts } = specification;
+  const update = (key, value) =>
+    onUpdate({
+      ...property,
+      specification: {
+        ...specification,
+        layouts: { ...layouts, [key]: value },
+      },
+    });
+
   if (!isEditMode) {
-    if (property.specification.layouts) {
-      const propertyOptions = Object.keys(property.specification.layouts);
+    if (layouts) {
+      const propertyOptions = Object.keys(layouts);
 
       return (
         <>
@@ -36,8 +49,8 @@ const LayoutSection = ({ enableEditMode, isEditMode, property }) => {
                 <PropertyValue>
                   <Body>
                     {mainLayouts[propertyOptionItem]}{' '}
-                    {property.specification.layouts[propertyOptionItem] > 1 &&
-                      `(${property.specification.layouts[propertyOptionItem]})`}
+                    {property.specification.layouts[propertyOptionItem] > 1
+                      && `(${property.specification.layouts[propertyOptionItem]})`}
                   </Body>
                 </PropertyValue>
               </PropertyOption>
@@ -60,67 +73,84 @@ const LayoutSection = ({ enableEditMode, isEditMode, property }) => {
       </Col>
       <Col xsOffset={1} xs={2}>
         <PropertyTitle>Гостиных</PropertyTitle>
-        <Select
-          selectData={selectFixedValueData}
-          selected={property.specification.layouts.living_room}
+        <SelectControl
+          options={selectFixedValueData}
+          selected={layouts.living_room}
+          onChange={value => update('living_room', value)}
           filled
         />
         <PropertyTitle>Кабинетов</PropertyTitle>
-        <Select
-          selectData={selectFixedValueData}
-          selected={property.specification.layouts.office}
+        <SelectControl
+          options={selectFixedValueData}
+          selected={layouts.office}
+          onChange={value => update('office', value)}
           filled
         />
         <PropertyTitle>Игровых</PropertyTitle>
-        <Select
-          selectData={selectFixedValueData}
-          selected={property.specification.layouts.game_room}
+        <SelectControl
+          options={selectFixedValueData}
+          selected={layouts.game_room}
+          onChange={value => update('game_room', value)}
           filled
         />
         <PropertyTitle>Мансард</PropertyTitle>
-        <Select
-          selectData={selectFixedValueData}
-          selected={property.specification.layouts.loft}
+        <SelectControl
+          options={selectFixedValueData}
+          selected={layouts.loft}
+          onChange={value => update('loft', value)}
           filled
         />
       </Col>
       <Col xsOffset={1} xs={2}>
         <PropertyTitle>Технических помещений</PropertyTitle>
-        <Select
-          selectData={selectFixedValueData}
-          selected={property.specification.layouts.technical_room}
+        <SelectControl
+          options={selectFixedValueData}
+          selected={layouts.technical_room}
+          onChange={value => update('technical_room', value)}
           filled
         />
         <PropertyTitle>Хозяйственных помещений</PropertyTitle>
-        <Select
-          selectData={selectFixedValueData}
-          selected={property.specification.layouts.utility_room}
+        <SelectControl
+          options={selectFixedValueData}
+          selected={layouts.utility_room}
+          onChange={value => update('utility_room', value)}
           filled
         />
         <PropertyTitle>Кухонь</PropertyTitle>
-        <Select
-          selectData={selectFixedValueData}
-          selected={property.specification.layouts.kitchen}
+        <SelectControl
+          options={selectFixedValueData}
+          selected={layouts.kitchen}
+          onChange={value => update('kitchen', value)}
           filled
         />
         <PropertyTitle>СПА-зон</PropertyTitle>
-        <Select
-          selectData={selectFixedValueData}
-          selected={property.specification.layouts.spa_zone}
+        <SelectControl
+          options={selectFixedValueData}
+          selected={layouts.spa_zone}
+          onChange={value => update('spa_zone', value)}
           filled
         />
       </Col>
       <Col xsOffset={1} xs={2}>
         <PropertyTitle>Столовых</PropertyTitle>
-        <Select
-          selectData={selectFixedValueData}
-          selected={property.specification.layouts.dining_room}
+        <SelectControl
+          options={selectFixedValueData}
+          selected={layouts.dining_room}
+          onChange={value => update('dining_room', value)}
           filled
         />
         <PropertyTitle>Гардеробных</PropertyTitle>
-        <Select
-          selectData={selectFixedValueData}
-          selected={property.specification.layouts.dressing_room}
+        <SelectControl
+          options={selectFixedValueData}
+          selected={layouts.dressing_room}
+          onChange={value => update('dressing_room', value)}
+          filled
+        />
+        <PropertyTitle>Кладовых</PropertyTitle>
+        <SelectControl
+          options={selectFixedValueData}
+          selected={layouts.storage}
+          onChange={value => update('storage', value)}
           filled
         />
       </Col>

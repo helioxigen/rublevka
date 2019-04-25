@@ -37,7 +37,6 @@ const loadProperties = (queryParams, group, options = {}) => (dispatch) => {
           options.append,
         ),
       );
-
       return Promise.resolve(items);
     },
     (errors) => {

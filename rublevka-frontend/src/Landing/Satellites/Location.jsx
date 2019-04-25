@@ -2,15 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import { YMaps, Map as YMap, Placemark } from 'react-yandex-maps';
 
-import media from 'styles/media';
+import flagIcon from '../../assets/icons/flag.png';
 
-import UI from 'ui';
+import media from '../../styles/media';
+import UI from '../../ui/v2019';
+
 const {
   Grid: { Container },
 } = UI;
 
 const Wrapper = styled.div`
-  margin: 0 -15px;
+  margin: 0 -10px;
   margin-top: 40px;
 
   ${media.xs`
@@ -95,26 +97,40 @@ const MapContainer = styled.div`
   `}
 `;
 
-export default () => (
-  <Container>
-    <Wrapper>
-      <TextContainer>
-        <Heading>Как нас найти</Heading>
-        <Body>Наш офис находится по адресу:</Body>
-        <BoldText>Рублёво-Успенское шоссе, Жуковка, 44А</BoldText>
-      </TextContainer>
-      <MapContainer>
-        <YMaps>
-          <YMap
-            instanceRef={ref => ref && ref.behaviors.disable('scrollZoom')}
-            defaultState={{ center: [55.734871, 37.249479], zoom: 15 }}
-            width="100%"
-            height="100%"
-          >
-            <Placemark geometry={[55.734871, 37.249479]} />
-          </YMap>
-        </YMaps>
-      </MapContainer>
-    </Wrapper>
-  </Container>
-);
+export default () => {
+  const size =
+    typeof window !== 'undefined' && window.outerWidth < 992 ? 48 : 64;
+
+  return (
+    <Container>
+      <Wrapper>
+        <TextContainer>
+          <Heading>Как нас найти</Heading>
+          <Body>Наш офис находится по адресу:</Body>
+          <BoldText>Рублёво-Успенское шоссе, Жуковка, 44А</BoldText>
+        </TextContainer>
+        <MapContainer>
+          <YMaps>
+            <YMap
+              instanceRef={ref => ref && ref.behaviors.disable('scrollZoom')}
+              defaultState={{ center: [55.734871, 37.249479], zoom: 15 }}
+              width="100%"
+              height="100%"
+              modules={['layout.Image']}
+            >
+              <Placemark
+                geometry={[55.734871, 37.249479]}
+                options={{
+                  iconLayout: 'default#image',
+                  iconImageHref: flagIcon,
+                  iconImageSize: [size, size], // размер иконки
+                  iconImageOffset: [(-1 * size) / 2, (-1 * size) / 2], // позиция иконки
+                }}
+              />
+            </YMap>
+          </YMaps>
+        </MapContainer>
+      </Wrapper>
+    </Container>
+  );
+};

@@ -24,7 +24,7 @@ const SelectBubbleItem = styled.div`
   white-space: nowrap;
   margin-right: 10px;
   background-color: ${({ selected }) =>
-    selected ? theme.blue : theme.buttonGray};
+    (selected ? theme.blue : theme.buttonGray)};
 
   &:last-child {
     margin-right: 0;
@@ -39,7 +39,7 @@ const CloseIcon = styled.img`
   width: 8px;
   height: 8px;
   display: ${({ selected, unselectable }) =>
-    selected && unselectable ? 'block' : 'none'};
+    (selected && unselectable ? 'block' : 'none')};
   margin-left: 7px;
 `;
 
@@ -50,26 +50,31 @@ export default class extends React.PureComponent {
 
   render() {
     const {
-      selectData,
+      options,
       selected = '',
       unselectable = 0,
       onCloseClick,
+      onChange,
     } = this.props;
     const { expand } = this.state;
-    const dataLength = selectData.length;
+    const dataLength = options.length;
     return (
       <SelectBubble>
-        {selectData.map((selectDataItem, i) => {
-          const isSelected =
-            selected.toString() === selectDataItem.value.toString();
+        {options.map((selectDataItem, i) => {
+          const { value } = selectDataItem;
+          const isSelected = String(selected) === String(value);
           if (i > 1 && !expand) {
             return null;
           }
 
           return (
-            <SelectBubbleItem selected={isSelected} key={selectDataItem.name}>
+            <SelectBubbleItem
+              selected={isSelected}
+              key={selectDataItem.label}
+              onClick={() => onChange(value)}
+            >
               <SelectBubbleTitle selected={isSelected}>
-                {selectDataItem.name}
+                {selectDataItem.label}
               </SelectBubbleTitle>
               <CloseIcon
                 src={closeIcon}
@@ -81,10 +86,8 @@ export default class extends React.PureComponent {
           );
         })}
         {dataLength > 2 && !expand && (
-          <SelectBubbleItem>
-            <SelectBubbleTitle onClick={() => this.setState({ expand: true })}>
-              +{dataLength - 2}
-            </SelectBubbleTitle>
+          <SelectBubbleItem onClick={() => this.setState({ expand: true })}>
+            <SelectBubbleTitle>+{dataLength - 2}</SelectBubbleTitle>
           </SelectBubbleItem>
         )}
       </SelectBubble>

@@ -50,6 +50,10 @@ class Filter extends Component {
   }
 
   componentDidMount() {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', this.handleResize);
+    }
+
     if (typeof document !== 'undefined') {
       if (document.body.offsetWidth < 767) {
         this.targetElement = this.modalMobile;
@@ -62,6 +66,13 @@ class Filter extends Component {
   componentWillUnmount() {
     clearAllBodyScrollLocks();
   }
+
+  handleResize = () => {
+    const { isViewOpen } = this.props;
+    if (window.outerWidth > 768 && isViewOpen) {
+      clearAllBodyScrollLocks();
+    }
+  };
 
   toggle() {
     if (this.props.isViewOpen) {
@@ -162,6 +173,7 @@ class Filter extends Component {
         </Visibility>
         {/* tablet */}
         <Visibility xs="hidden" sm="hidden" md="block" lg="hidden">
+          {isViewOpen && <S.Cover onClick={this.toggle} />}
           <S.ButtonFilter onClick={this.toggle}>
             <S.IconFilter icon="filter" />
             <S.Text>Фильтр</S.Text>
@@ -229,7 +241,7 @@ class Filter extends Component {
               </S.ButtonReset>
             </S.BtnGroupHead>
 
-            <div>{this.renderFilters()}</div>
+            <S.MobileContainer>{this.renderFilters()}</S.MobileContainer>
             <S.ButtonPrimary
               block
               size="lg"

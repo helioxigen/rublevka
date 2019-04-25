@@ -7,12 +7,22 @@ import {
   PropertyBigValue,
   PropertyTitle,
   PropertyValue,
+  SelectControl,
 } from './styled';
 import { Body } from '../../UI';
-import Select from '../../UI/Select';
 import { selectFixedValueData } from './schema';
 
-const ParkingSection = ({ enableEditMode, isEditMode, property }) => {
+const ParkingSection = ({
+  enableEditMode, isEditMode, property, onUpdate,
+}) => {
+  const { additionalDetails } = property;
+  const { garageArea, parkingArea } = additionalDetails;
+  const update = (key, value) =>
+    onUpdate({
+      ...property,
+      additionalDetails: { ...additionalDetails, [key]: value },
+    });
+
   if (!isEditMode) {
     return (
       <Row>
@@ -24,17 +34,13 @@ const ParkingSection = ({ enableEditMode, isEditMode, property }) => {
             <Property xs={6}>
               <PropertyTitle>Машиномест в гараже</PropertyTitle>
               <PropertyValue>
-                <Body>
-                  {property.additionalDetails.garageArea || 'Не указано'}
-                </Body>
+                <Body>{garageArea || 'Не указано'}</Body>
               </PropertyValue>
             </Property>
             <Property xs={6}>
               <PropertyTitle>Машиномест на парковке</PropertyTitle>
               <PropertyValue>
-                <Body>
-                  {property.additionalDetails.parkingArea || 'Не указано'}
-                </Body>
+                <Body>{parkingArea || 'Не указано'}</Body>
               </PropertyValue>
             </Property>
             <Col xs={12}>
@@ -52,16 +58,16 @@ const ParkingSection = ({ enableEditMode, isEditMode, property }) => {
       </Col>
       <Col xsOffset={1} xs={9}>
         <PropertyTitle>Машиномест в гараже</PropertyTitle>
-        <Select
-          selectData={selectFixedValueData}
-          selected={property.additionalDetails.garageArea}
-          filled
+        <SelectControl
+          options={selectFixedValueData}
+          selected={garageArea}
+          onChange={value => update('garageArea', value)}
         />
         <PropertyTitle>Машиномест на парковке</PropertyTitle>
-        <Select
-          selectData={selectFixedValueData}
-          selected={property.additionalDetails.parkingArea}
-          filled
+        <SelectControl
+          options={selectFixedValueData}
+          selected={parkingArea}
+          onChange={value => update('parkingArea', value)}
         />
       </Col>
     </EditPropertyRow>

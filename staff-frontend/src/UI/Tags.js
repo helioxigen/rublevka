@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { theme } from '.';
+import closeIcon from './images/close-icon.svg';
 
 const Buttons = styled.div`
   display: flex;
@@ -35,17 +36,38 @@ const Button = styled.button`
   }
 `;
 
-export default ({ selected = [], options = [], onChange }) => (
+const CloseIcon = styled.img`
+  width: 8px;
+  height: 8px;
+  margin-left: 7px;
+`;
+
+export default ({
+  currentValue = [],
+  options = [],
+  onChange,
+  isRemovable = false,
+}) => (
   <Buttons>
-    {options.map(({ label, value }) => (
-      <Button
-        type="button"
-        selected={selected.includes(value)}
-        key={value}
-        onClick={() => onChange(value)}
-      >
-        {label}
-      </Button>
-    ))}
+    {options.map(({ label, value }) => {
+      const isSelected = currentValue.includes(value);
+      return (
+        <Button
+          type="button"
+          selected={isSelected}
+          key={value}
+          onClick={() => {
+            if (isRemovable) {
+              onChange(isSelected ? null : value);
+            } else {
+              onChange(value);
+            }
+          }}
+        >
+          {label}
+          {isRemovable && isSelected && <CloseIcon src={closeIcon} />}
+        </Button>
+      );
+    })}
   </Buttons>
 );

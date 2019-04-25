@@ -4,7 +4,11 @@
 .selectContainer {
   display: inline-block;
   white-space: nowrap;
-  width: 100%;
+  width: calc(100% - 12px);
+
+  @include responsive(md) {
+    width: 100%;
+  }
 }
 
 .flexWrapper {

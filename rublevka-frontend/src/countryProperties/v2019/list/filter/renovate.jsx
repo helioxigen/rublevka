@@ -1,11 +1,6 @@
-/* eslint-disable camelcase */
 import React, { Component } from 'react';
-import CSSModules from 'react-css-modules';
 
 import UI from '../../../../ui/v2019';
-
-import s from '../../../../styles/components/v2019/satellites/filter.css';
-import sUtils from '../../../../styles/utils.css';
 
 import {
   CheckboxWrapper,
@@ -20,15 +15,6 @@ const {
   Checkbox,
   Grid: { Container },
 } = UI;
-
-const styles = {
-  ...s,
-  ...sUtils,
-};
-
-const cssOptions = {
-  allowMultiple: true,
-};
 
 const key = 'renovate';
 
@@ -63,15 +49,15 @@ class Renovate extends Component {
 
     if (!kind.includes('land')) {
       return (
-        <div>
-          <ControlsContainer>
-            <Container fluid styleName="contentContainer">
-              <FilterHeader>
-                <Title>Ремонт</Title>
-                {items.length > 0 && (
-                  <IconReset onClick={this.onReset} icon="times" />
-                )}
-              </FilterHeader>
+        <section>
+          <Container fluid styleName="contentContainer">
+            <FilterHeader>
+              <Title>Ремонт</Title>
+              {items.length > 0 && (
+                <IconReset onClick={this.onReset} icon="times" />
+              )}
+            </FilterHeader>
+            <ControlsContainer>
               <CheckboxWrapper>
                 <Checkbox
                   checked={items.includes('full_construction')}
@@ -95,9 +81,9 @@ class Renovate extends Component {
                   <CheckboxLabel>Черновая отделка</CheckboxLabel>
                 </Checkbox>
               </CheckboxWrapper>
-            </Container>
-          </ControlsContainer>
-        </div>
+            </ControlsContainer>
+          </Container>
+        </section>
       );
     }
 
@@ -105,4 +91,4 @@ class Renovate extends Component {
   }
 }
 
-export default CSSModules(Renovate, styles, cssOptions);
+export default Renovate;

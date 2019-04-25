@@ -1,7 +1,15 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { Col, Row } from 'react-flexbox-grid';
-import { Body, BodyBig, Input, Label, theme, Title, Title2 } from '../../UI';
+import {
+  Body, BodyBig, Input, Label, theme, Title, Title2,
+} from '../../UI';
+
+import SegmentedControl from '../../UI/SegmentedControl';
+
+export const SelectControl = styled(SegmentedControl)`
+  margin-bottom: 20px;
+`;
 
 export const MainTitle = styled(Title)`
   margin-bottom: 10px;
@@ -74,11 +82,13 @@ export const PropertyOptionWrapper = styled(Row)`
   margin-bottom: 15.5px;
 `;
 
-export const SeparatorLine = styled(Col)`
+export const SeparatorLine = styled.hr`
   height: 1px;
+  border: 0;
   width: 100%;
   background-color: ${theme.alto};
-  margin-bottom: ${props => (props.big ? '70px' : '32px')};
+  margin-top: ${props => (props.big ? 44 : 12)}px;
+  margin-bottom: ${props => (props.big ? 66 : 52)}px;
 `;
 
 export const PointIcon = styled.img`
@@ -144,14 +154,14 @@ export const Photos = styled.div`
   margin-bottom: 25px;
   display: flex;
   ${({ isViewAll }) =>
-    !isViewAll
+    (!isViewAll
       ? css`
           flex-wrap: no-wrap;
           overflow-x: scroll;
         `
       : css`
           flex-wrap: wrap;
-        `};
+        `)};
 `;
 
 export const Photo = styled.img`
@@ -264,8 +274,4 @@ export const PlotInputContainer = styled(Col)`
   margin-bottom: 35px;
 `;
 
-export const Separator = ({ big = false }) => (
-  <Col>
-    <SeparatorLine xs={12} big={big ? 1 : 0} />
-  </Col>
-);
+export const Separator = ({ big = false }) => <SeparatorLine big={big} />;

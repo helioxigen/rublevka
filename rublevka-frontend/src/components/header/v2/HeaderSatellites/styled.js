@@ -30,18 +30,18 @@ export const HeaderBody = styled(Body)`
 `;
 
 export const Cover = styled.div`
-  display: ${p => (p.active ? 'block' : 'none')};
+  display: block;
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 3;
+  z-index: 4;
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.1);
   content: ' ';
-  pointer-events: ${p => (p.active ? 'auto' : 'none')};
+  pointer-events: auto;
 
   ${media.md`
     display: none;
@@ -96,10 +96,9 @@ export const Nav = styled(Navbar.Container)`
   position: fixed;
   top: 0;
   right: 0;
-  left: 30%;
   bottom: 0;
   z-index: 5;
-  width: 100%;
+  max-width: 300px;
   padding: 0 20px;
   white-space: nowrap;
   transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
@@ -120,6 +119,11 @@ export const Nav = styled(Navbar.Container)`
       transform: translate3d(0, 0, 0);
   `};
 
+  ${media.xs`
+    min-width: 310px;
+    max-width: 310px;
+  `}
+
   ${media.md`
     display: flex;
     align-items: center;
@@ -127,7 +131,8 @@ export const Nav = styled(Navbar.Container)`
     flex-direction: row;
     position: static;
     left: 0;
-    width: auto;
+    min-width: 100%;
+    max-width: 100%;
     min-height: 100%;
     max-height: 100%;
     background: transparent;
@@ -228,14 +233,14 @@ export const StyledLinkSat = styled(Navbar.Link)`
 export const Phone = styled.a`
   line-height: 18px;
   font-size: 15px;
-  font-weight: bold;
+  font-weight: 500;
   color: #fff;
 
   ${media.md`
     position: relative;
     font-size: 18px;
+    line-height: 22px;
     margin-right: 16px;
-    width: inherit;
     padding-right: 0;
     color: ${p => (p.inverted ? p.theme.brandWhite : p.theme.brandBlack)};
   `};
@@ -331,26 +336,6 @@ export const CallbackBtn = styled(Button)`
   `};
 `;
 
-export const Overlay = styled.div`
-  opacity: 0;
-  ${p =>
-    p.active &&
-    `
-    content: '';
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 4;
-    background: rgba(0, 0, 0, .2);
-    opacity: 1;
-    transition: opacity .35s linear;
-  `} ${media.md`
-    display: none;
-  `};
-`;
-
 export const MobileButtons = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -417,8 +402,8 @@ export const FavoriteCounter = styled.span`
 `;
 
 export const FavoriteIcon = styled(Icon)`
-  width: 24px;
-  height: 22px;
+  width: 27px;
+  height: 25px;
   stroke-width: 2px;
   fill: transparent;
   stroke: #212121;

@@ -10,11 +10,34 @@ import {
   SubTitle,
 } from './styled';
 import { Body } from '../../UI';
-import { landscapeKinds } from '../constants/dictionaries';
-import SelectBubble from '../../UI/SelectBubble';
-import { selectPlotData, selectReliefData, selectTreesData } from './schema';
+import Tags from '../../UI/Tags';
+import {
+  undef,
+  landscapeKinds,
+  dictionaryToOptions,
+} from '../constants/dictionaries';
 
-const PlotSection = ({ enableEditMode, isEditMode, property }) => {
+function createLandscapeKindLabels(list) {
+  return list.map((value, index) => (
+    <Body key={list[index]}>
+      {index > 0 && ', '}
+      {landscapeKinds[list[index]]}
+    </Body>
+  ));
+}
+
+const PlotSection = ({
+  enableEditMode, isEditMode, property, onUpdate,
+}) => {
+  const { landDetails } = property;
+  const { area, landscapeKind = [] } = landDetails;
+  const numLandscapeKinds = Object.keys(landscapeKind).length;
+  const update = (key, value) =>
+    onUpdate({
+      ...property,
+      landDetails: { ...landDetails, [key]: value },
+    });
+
   if (!isEditMode) {
     return (
       <>
@@ -27,25 +50,17 @@ const PlotSection = ({ enableEditMode, isEditMode, property }) => {
           <Property xs={5}>
             <PropertyTitle>Площадь</PropertyTitle>
             <PropertyValue>
-              <Body>{property.landDetails.area || 'Не указано'} сот.</Body>
+              <Body>{area ? `${area} сот.` : undef}</Body>
             </PropertyValue>
           </Property>
           <Property xs={5}>
             <PropertyTitle>Тип участка</PropertyTitle>
             <PropertyValue>
-              {property.landDetails.landscapeKind &&
-                property.landDetails.landscapeKind.map(
-                  (landscapeKindIte, index) => (
-                    <Body key={property.landDetails.landscapeKind[index]}>
-                      {index > 0 && ','}
-                      {
-                        landscapeKinds[
-                          property.landDetails.landscapeKind[index]
-                        ]
-                      }
-                    </Body>
-                  ),
-                )}
+              {numLandscapeKinds ? (
+                createLandscapeKindLabels(landscapeKind)
+              ) : (
+                <Body>{undef}</Body>
+              )}
             </PropertyValue>
           </Property>
         </Row>
@@ -65,17 +80,19 @@ const PlotSection = ({ enableEditMode, isEditMode, property }) => {
       <Col xsOffset={1} xs={2}>
         <PropertyTitle>Площадь</PropertyTitle>
         <EditPropertyInput
-          defaultValue={property.landDetails.area}
+          defaultValue={area}
           placeholder="Площадь, сот."
+          onSubmit={value => update('area', value)}
         />
       </Col>
       <Col xsOffset={1} xs={6}>
-        <PropertyTitle>Участок</PropertyTitle>
-        <SelectBubble selected={1} selectData={selectPlotData} />
-        <PropertyTitle>Деревья</PropertyTitle>
-        <SelectBubble selected={1} selectData={selectTreesData} />
-        <PropertyTitle>Рельеф</PropertyTitle>
-        <SelectBubble selected={1} selectData={selectReliefData} />
+        <PropertyTitle>Тип участка</PropertyTitle>
+        <Tags
+          options={dictionaryToOptions(landscapeKinds)}
+          currentValue={landscapeKind}
+          // FIXME на самом деле тут должен быть необязательный мультивыбор
+          onChange={value => update('landscapeKind', [value])}
+        />
       </Col>
     </EditPropertyRow>
   );

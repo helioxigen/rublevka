@@ -1,30 +1,16 @@
 import React, { Component } from 'react';
-import CSSModules from 'react-css-modules';
 
-import SelectGroup from 'core/components/v2019/ui/select/selectGroup';
-
-import UI from 'ui/v2019';
-const {
-  Grid: { Container },
-} = UI;
-
-import s from 'styles/components/satellites/filter.css';
-import sSlider from 'styles/ui/slider.css';
-import sUtils from 'styles/utils.css';
+import SelectGroup from '../../../../core/components/v2019/ui/select/selectGroup';
 
 import { Title, ControlsContainer, FilterHeader, IconReset } from './styled';
 
-const styles = {
-  ...s,
-  ...sUtils,
-  ...sSlider,
-};
+import { areas, landAreas } from '../../../../constants/leads/options';
 
-import { areas, landAreas } from 'constants/leads/options';
+import UI from '../../../../ui/v2019';
 
-const cssOptions = {
-  allowMultiple: true,
-};
+const {
+  Grid: { Container },
+} = UI;
 
 class Square extends Component {
   onUpdate(ref, value, key) {
@@ -51,7 +37,7 @@ class Square extends Component {
     return (
       <section>
         {!(kind.includes('land') && kind.length === 1) && (
-          <Container fluid styleName="contentContainer">
+          <Container fluid>
             <FilterHeader>
               <Title>
                 Площадь&nbsp;
@@ -76,7 +62,7 @@ class Square extends Component {
           </Container>
         )}
         {!kind.includes('flat') && (
-          <Container fluid styleName="contentContainer">
+          <Container fluid>
             <FilterHeader>
               <Title>Площадь участка (сот.)</Title>
               {Object.keys(landArea).length > 0 && (
@@ -100,4 +86,4 @@ class Square extends Component {
   }
 }
 
-export default CSSModules(Square, styles, cssOptions);
+export default Square;

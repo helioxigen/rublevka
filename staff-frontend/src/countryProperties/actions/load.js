@@ -8,8 +8,10 @@ import {
 import * as types from '../constants/actions';
 import { apiPath, initialElementScheme } from '../constants/defaults';
 
-const load = id => (dispatch) => {
-  dispatch(loadElementStarted(types.LOAD, id, initialElementScheme));
+const load = (id, currentData) => (dispatch) => {
+  dispatch(
+    loadElementStarted(types.LOAD, id, currentData || initialElementScheme),
+  );
 
   return loadElement(apiPath, id).then(
     (data) => {

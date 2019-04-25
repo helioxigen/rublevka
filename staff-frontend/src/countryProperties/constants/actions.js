@@ -1,6 +1,5 @@
 export const LOAD_LIST = '@@core/countryProperties.loadList.started';
-export const LOAD_LIST_SUCCEEDED =
-  '@@core/countryProperties.loadList.succeeded';
+export const LOAD_LIST_SUCCEEDED = '@@core/countryProperties.loadList.succeeded';
 export const LOAD_LIST_FAILED = '@@core/countryProperties.loadList.failed';
 
 export const LOAD = '@@core/countryProperties.show.started';

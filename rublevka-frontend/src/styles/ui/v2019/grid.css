@@ -1,5 +1,5 @@
 $grid-columns: 12;
-$grid-gutter-width: 30px;
+$grid-gutter-width: 20px;
 
 $screen-xs: 480px;
 $screen-sm: 768px;
@@ -29,7 +29,7 @@ $container-lg: resolve(1140px + $grid-gutter-width);
 
     @media (min-width: $screen-lg) {
       width: auto;
-      max-width: 1340px;
+      max-width: 1360px;
     }
   }
 }

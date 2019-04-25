@@ -72,7 +72,8 @@ const Agent = styled.div`
 `;
 
 const Avatar = styled.img`
-  width: 80px;
+  min-width: 80px;
+  max-width: 80px;
   height: 80px;
   border-radius: 40px;
   object-fit: cover;
@@ -110,13 +111,15 @@ const CallbackForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  ${media.md`
+    margin-bottom: 0px;
+  `}
 `;
 
 const Input = styled(InputMask)`
   width: 100%;
-  padding: 0px 15px;
-  padding-top: 17px;
-  padding-bottom: 20px;
+  padding: 16px 15px 14px;
   margin-top: 8px;
   border: 1px solid #d9d9d9;
   border-radius: 8px;
@@ -127,14 +130,18 @@ const Input = styled(InputMask)`
   text-transform: uppercase;
   font-weight: bold;
 
-  &::-webkit-placeholder {
+  &::-webkit-input-placeholder {
     color: #aaaaaa;
   }
+
+  ${media.md`
+    padding: 17px 15px 15px;
+  `}
 `;
 
 const Callback = styled.button`
   margin-top: 16px;
-  padding: 21px 32px 17px 32px;
+  padding: 21px 32px 17px;
   line-height: 18px;
   font-size: 15px;
   text-transform: uppercase;
@@ -146,6 +153,7 @@ const Callback = styled.button`
   color: #ffffff;
 
   ${media.md`
+    padding: 21px 0px 17px;
     width: 100%;
   `}
 `;
@@ -234,12 +242,14 @@ export default ({
     <CallbackForm>
       <Input type="text" placeholder="Имя" />
       <Input type="tel" mask="+9 (999) 999-99-99" placeholder="телефон" />
-      <Visibility md="hidden" lg="hidden">
-        <Callback>Отправить</Callback>
-      </Visibility>
-      <Visibility xs="hidden">
-        <Callback>забронировать просмотр</Callback>
-      </Visibility>
+      <Callback>
+        <Visibility md="hidden" lg="hidden">
+          Отправить
+        </Visibility>
+        <Visibility xs="hidden" lg="block">
+          забронировать просмотр
+        </Visibility>
+      </Callback>
     </CallbackForm>
     <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
       <Divider />

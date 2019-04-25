@@ -1,17 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import media from 'styles/media';
-
 import { Link } from 'react-router';
-import UI from 'ui';
+
+import media from '../../styles/media';
+import UI from '../../ui/v2019';
+
 const {
   Grid: { Container, Row, Col },
   Button,
 } = UI;
 
 const ImgCol = styled(Col)`
-  margin: 0 -15px;
+  margin: 0 -10px;
   order: 2;
 
   ${media.xs`
@@ -24,7 +25,7 @@ const ImgCol = styled(Col)`
 `;
 
 const Img = styled.img`
-  width: calc(100% + 30px);
+  width: calc(100% + 20px);
   height: 300px;
   object-fit: cover;
 
@@ -34,12 +35,12 @@ const Img = styled.img`
   `}
 
   ${media.md`
-    height: 100%;
+    height: 640px;
   `}
 `;
 
 const Wrapper = styled.div`
-  margin: 0 -15px;
+  margin: 0 -10px;
   padding: 40px 15px;
   background: linear-gradient(
     27.88deg,
@@ -125,7 +126,6 @@ const FindBtn = styled(Button)`
 
   ${media.md`
     margin-top: 36px;
-    margin-bottom: 44px;
   `}
 `;
 

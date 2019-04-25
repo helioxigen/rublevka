@@ -5,15 +5,15 @@ import { Body, theme } from '.';
 const currencies = [
   {
     symbol: '₽',
-    value: 1,
+    value: 'RUB',
   },
   {
     symbol: '$',
-    value: 2,
+    value: 'USD',
   },
   {
     symbol: '€',
-    value: 3,
+    value: 'EUR',
   },
 ];
 
@@ -43,18 +43,21 @@ const Currency = styled(Body)`
   line-height: ${({ isRuble }) => (isRuble ? 'initial' : 'inherit')};
 `;
 
-export default ({ selected = '' }) => (
+export default ({ selected = '', onChange }) => (
   <Switcher>
-    {currencies.map(SwitcherDataItem => (
+    {currencies.map(item => (
       <SwitcherItem
-        selected={selected.toString() === SwitcherDataItem.symbol.toString()}
-        key={SwitcherDataItem.symbol}
+        selected={selected.toString() === item.value.toString()}
+        key={item.symbol}
+        onClick={() => {
+          onChange(item.value);
+        }}
       >
         <Currency
-          selected={selected.toString() === SwitcherDataItem.symbol.toString()}
-          isRuble={SwitcherDataItem.symbol === '₽'}
+          selected={selected.toString() === item.value.toString()}
+          isRuble={item.value === 'RUB'}
         >
-          {SwitcherDataItem.symbol}
+          {item.symbol}
         </Currency>
       </SwitcherItem>
     ))}

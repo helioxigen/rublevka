@@ -42,7 +42,8 @@ const ButtonLink = styled(RouterLink)`
   }
 `;
 
-const Link = styled(RouterLink)`
+// const Link = styled(RouterLink)`
+const Link = styled.a`
   display: block;
   width: 100%;
   position: relative;
@@ -167,8 +168,7 @@ function Price({ saleOffer, rentOffer }) {
             currency={rentOffer.currency}
             value={rentOffer.price}
             maximumSignificantDigits={12}
-          />
-          {' '}
+          />{' '}
           в мес
         </>
       )}
@@ -203,7 +203,8 @@ class Card extends Component {
     } = data;
 
     return (
-      <Link to={`/country-properties/${data.id}`}>
+      // <Link to={`/country-properties/${data.id}`}>
+      <Link href={`https://cem.jq.estate/properties/country/${data.id}/about`}>
         <Id>{`№ ${data.id}`}</Id>
         <State state={data.state}>{states[data.state].title}</State>
 

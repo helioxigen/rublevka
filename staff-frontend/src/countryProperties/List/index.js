@@ -72,12 +72,9 @@ function List(props) {
     );
   }
 
-  React.useEffect(
-    () => {
-      load({ filter, pagination, dispatch });
-    },
-    [filter],
-  );
+  React.useEffect(() => {
+    load({ filter, pagination, dispatch });
+  }, [filter]);
 
   return (
     <Grid>
@@ -85,8 +82,7 @@ function List(props) {
 
       <Layout>
         <Title>
-          Загородные объекты
-          {' '}
+          Загородные объекты{' '}
           {pagination.total && (
             <>
               (<FormattedNumber value={pagination.total} />)
@@ -98,9 +94,7 @@ function List(props) {
           <Input
             type="text"
             placeholder="Поиск по ID"
-            onChange={e =>
-              update('id', e.target.value.replace(/ /g, '').split(','))
-            }
+            onChange={value => update('id', value.replace(/ /g, '').split(','))}
           />
           <Button>Найти</Button>
         </Header>

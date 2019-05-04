@@ -89,7 +89,10 @@ export default class Input extends React.PureComponent {
 
   onChange = (e) => {
     const { value } = e.target;
-    this.setState({ inputValue: value });
+
+    this.setState({ inputValue: value }, () => {
+      this.props.onChange(value);
+    });
   };
 
   submit = () => {

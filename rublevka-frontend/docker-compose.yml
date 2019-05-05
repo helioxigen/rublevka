@@ -19,8 +19,6 @@ services:
         - REACT_APP_UIS_ID
         - BUILD_ID
         - HOST
-    # ports:
-    #   - '127.0.0.1:7070:8080'
     networks:
       master_network:
         aliases:

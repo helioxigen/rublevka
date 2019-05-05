@@ -13,8 +13,6 @@ services:
         - HOST
         - REACT_APP_SENTRY_DSN
         - BUILD_ID
-    # ports:
-    #   - '127.0.0.1:7070:8080'
     networks:
       master_network:
         aliases:

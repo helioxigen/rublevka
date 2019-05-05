@@ -1,219 +1,263 @@
+---
+kind: pipeline
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
 clone:
-  git:
+  disable: true
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/cache
+  - name: docker_daemon
+    host:
+      path: /var/run/docker.sock
+
+steps:
+  - name: git
+    pull: default
     image: plugins/git
 
-pipeline:
-  restore-cache:
+  - name: restore-cache
+    pull: default
     image: drillster/drone-volume-cache
-    restore: true
-    mount:
-      - .yarn-cache
-      - ./staff-frontend/node_modules
-      - ./export-app-frontend/node_modules
-      - ./rublevka-frontend/node_modules
-      - ./firebase-functions/node_modules
+    settings:
+      mount:
+        - .yarn-cache
+        - ./staff-frontend/node_modules
+        - ./export-app-frontend/node_modules
+        - ./firebase-functions/node_modules
+      restore: true
     volumes:
-      - /tmp/cache:/cache
+      - name: cache
+        path: /cache
     when:
-      branch: [master, develop]
-      event: [push]
+      branch:
+        - master
+        - develop
+      event:
+        - push
 
-  build-firebase:
-    group: prebuild
+  - name: build-firebase
+    pull: default
     image: node:8.15.0
     commands:
       - yarn config set cache-folder $(pwd)/.yarn-cache
       - yarn add firebase-tools
       - cd firebase-functions
       - yarn --ignore-engines
+    depends_on:
+      - restore-cache
     when:
-      branch: [develop, master]
-      event: [push]
+      branch:
+        - develop
+        - master
+      event:
+        - push
 
-  deploy-rublevka-frontend-dev:
-    group: build
+  - name: deploy-rublevka-frontend-dev
+    pull: default
     image: docker/compose:1.22.0
     commands:
       - cd rublevka-frontend
       - docker-compose -f docker-compose-dev.yml build --build-arg BUILD_ID=$DRONE_BUILD_NUMBER
       - docker-compose -f docker-compose-dev.yml up -d
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - restore-cache
     environment:
-      - APP=rublevka
-      - APP_ENV=development
-      - HOST=dev.rublevka.ru
-    secrets:
-      - source: react_app_sentry_dsn_rublevka_ru
-        target: react_app_sentry_dsn
+      APP: rublevka
+      APP_ENV: development
+      HOST: dev.rublevka.ru
+      REACT_APP_SENTRY_DSN:
+        from_secret: react_app_sentry_dsn_rublevka_ru
+    volumes:
+      - name: docker_daemon
+        path: /var/run/docker.sock
     when:
-      branch: [develop]
-      event: [push]
+      branch:
+        - develop
+      event:
+        - push
 
-  deploy-rublevka-frontend-prod:
-    group: build
+  - name: deploy-rublevka-frontend-prod
+    pull: default
     image: docker/compose:1.22.0
     commands:
       - cd rublevka-frontend
       - docker-compose build --build-arg BUILD_ID=$DRONE_BUILD_NUMBER
       - docker-compose up -d
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - restore-cache
     environment:
-      - APP=rublevka
-      - APP_ENV=production
-      - HOST=rublevka.ru
-    secrets:
-      - source: react_app_sentry_dsn_rublevka_ru
-        target: react_app_sentry_dsn
-      - source: react_app_facebook_pixel_id_rublevka_ru
-        target: react_app_facebook_pixel_id
-      - source: react_app_targetix_pixel_id_rublevka_ru
-        target: react_app_targetix_pixel_id
-      - source: react_app_roistat_id_rublevka_ru
-        target: react_app_roistat_id
-      - source: react_app_google_analytics_id_rublevka_ru
-        target: react_app_google_analytics_id
-      - source: react_app_yandex_metrika_id_rublevka_ru
-        target: react_app_yandex_metrika_id
-      - source: react_app_uis_id_rublevka_ru
-        target: react_app_uis_id
+      APP: rublevka
+      APP_ENV: production
+      HOST: rublevka.ru
+      REACT_APP_FACEBOOK_PIXEL_ID:
+        from_secret: react_app_facebook_pixel_id_rublevka_ru
+      REACT_APP_GOOGLE_ANALYTICS_ID:
+        from_secret: react_app_google_analytics_id_rublevka_ru
+      REACT_APP_ROISTAT_ID:
+        from_secret: react_app_roistat_id_rublevka_ru
+      REACT_APP_SENTRY_DSN:
+        from_secret: react_app_sentry_dsn_rublevka_ru
+      REACT_APP_TARGETIX_PIXEL_ID:
+        from_secret: react_app_targetix_pixel_id_rublevka_ru
+      REACT_APP_UIS_ID:
+        from_secret: react_app_uis_id_rublevka_ru
+      REACT_APP_YANDEX_METRIKA_ID:
+        from_secret: react_app_yandex_metrika_id_rublevka_ru
+    volumes:
+      - name: docker_daemon
+        path: /var/run/docker.sock
     when:
-      branch: [master]
-      event: [push]
+      branch:
+        - master
+      event:
+        - push
 
-  build-staff-frontend-dev:
-    group: build
+  - name: build-staff-frontend-dev
+    pull: default
     image: node:8.15.0
     commands:
       - yarn config set cache-folder $(pwd)/.yarn-cache
       - cd staff-frontend
       - yarn --ignore-engines
       - yarn build
-    secrets:
-      - source: react_app_env_staff_dev_rublevka_ru
-        target: react_app_env
-      - source: react_app_sentry_dsn_staff_rublevka_ru
-        target: react_app_sentry_dsn
-      - source: react_app_firebase_functions_url
-        target: react_app_firebase_functions_url
-      - source: react_app_cem_token_staff_dev_rublevka_ru
-        target: react_app_cem_token
+    depends_on:
+      - restore-cache
+    environment:
+      REACT_APP_CEM_TOKEN:
+        from_secret: react_app_cem_token_staff_dev_rublevka_ru
+      REACT_APP_ENV:
+        from_secret: react_app_env_staff_dev_rublevka_ru
+      REACT_APP_FIREBASE_FUNCTIONS_URL:
+        from_secret: react_app_firebase_functions_url
+      REACT_APP_SENTRY_DSN:
+        from_secret: react_app_sentry_dsn_staff_rublevka_ru
     when:
-      branch: [develop]
-      event: [push]
+      branch:
+        - develop
+      event:
+        - push
 
-  build-staff-frontend-prod:
-    group: build
+  - name: build-staff-frontend-prod
+    pull: default
     image: node:8.15.0
     commands:
       - yarn config set cache-folder $(pwd)/.yarn-cache
       - cd staff-frontend
       - yarn --ignore-engines
       - yarn build
-    secrets:
-      - source: react_app_env_staff_rublevka_ru
-        target: react_app_env
-      - source: react_app_yandex_metrika_id_staff_rublevka_ru
-        target: react_app_yandex_metrika_id
-      - source: react_app_sentry_dsn_staff_rublevka_ru
-        target: react_app_sentry_dsn
-      - source: react_app_firebase_functions_url
-        target: react_app_firebase_functions_url
+    depends_on:
+      - restore-cache
+    environment:
+      REACT_APP_ENV:
+        from_secret: react_app_env_staff_rublevka_ru
+      REACT_APP_FIREBASE_FUNCTIONS_URL:
+        from_secret: react_app_firebase_functions_url
+      REACT_APP_SENTRY_DSN:
+        from_secret: react_app_sentry_dsn_staff_rublevka_ru
+      REACT_APP_YANDEX_METRIKA_ID:
+        from_secret: react_app_yandex_metrika_id_staff_rublevka_ru
     when:
-      branch: [master]
-      event: [push]
+      branch:
+        - master
+      event:
+        - push
 
-  build-export-app-frontend-prod:
-    group: build
+  - name: build-export-app-frontend-prod
+    pull: default
     image: node:8.15.0
     commands:
       - yarn config set cache-folder $(pwd)/.yarn-cache
       - cd export-app-frontend
       - yarn --ignore-engines
       - yarn build
-    secrets:
-      [
-        react_app_firebase_api_key,
-        react_app_firebase_auth_domain,
-        react_app_firebase_project_id,
-      ]
+    depends_on:
+      - restore-cache
+    environment:
+      REACT_APP_FIREBASE_API_KEY:
+        from_secret: react_app_firebase_api_key
+      REACT_APP_FIREBASE_AUTH_DOMAIN:
+        from_secret: react_app_firebase_auth_domain
+      REACT_APP_FIREBASE_PROJECT_ID:
+        from_secret: react_app_firebase_project_id
     when:
-      branch: [master]
-      event: [push]
+      branch:
+        - master
+      event:
+        - push
 
-  # deploy-backend-dev:
-  #   image: docker/compose:1.22.0
-  #   commands:
-  #     - cd backend
-  #     - docker-compose -f devops/docker-compose-dev.yml build
-  #     - docker-compose -f devops/docker-compose-dev.yml up -d
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #   when:
-  #     branch: [develop]
-  #     event: [push]
-
-  deploy-firebase-prod:
+  - name: deploy-firebase-prod
+    pull: default
     image: node:8.15.0
     commands:
-      - yarn firebase deploy --token "$FIREBASE_TOKEN" --except hosting:rublevka-frontend-dev
-    secrets: [firebase_token]
+      - 'yarn firebase deploy --token "$FIREBASE_TOKEN" --except hosting:rublevka-frontend-dev'
+    depends_on:
+      - build-staff-frontend-prod
+      - build-export-app-frontend-prod
+    environment:
+      FIREBASE_TOKEN:
+        from_secret: firebase_token
     when:
-      branch: [master]
-      event: [push]
+      branch:
+        - master
+      event:
+        - push
 
-  # FIXME
-  # Error: An unexpected error has occurred
-  # https://drone.sputnikproduction.com/rublevka-ru/jqestate/22/1/6
-  #
-  # deploy-firebase-dev:
-  #   image: node:8.15.0
-  #   commands:
-  #     - yarn firebase deploy --token "$FIREBASE_TOKEN" --only hosting:staff-dev-rublevka-ru
-  #   secrets: [firebase_token]
-  #   when:
-  #     branch: [develop]
-  #     event: [push]
-
-  telegram-notification:
+  - name: telegram-notification
+    pull: default
     image: appleboy/drone-telegram
-    secrets:
-      - source: telegram_access_token
-        target: telegram_token
-      - source: telegram_chat_id
-        target: telegram_to
-    format: markdown
-    message: >
-      {{#success build.status}}
-      ✅ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` succeeded.
-
-
-      - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
-      {{else}}
-      ❌ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` failed.
-
-
-      - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
-      {{/success}}
+    settings:
+      format: markdown
+      message: >
+        {{#success build.status}}
+        ✅ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` succeeded.
+        - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
+        {{else}}
+        ❌ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` failed.
+        - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
+        {{/success}}
+    environment:
+      TELEGRAM_TO:
+        from_secret: telegram_chat_id
+      TELEGRAM_TOKEN:
+        from_secret: telegram_access_token
     when:
-      status: [success, failure]
-      branch: [master, develop]
-      event: [push]
+      branch:
+        - master
+        - develop
+      event:
+        - push
+      status:
+        - success
+        - failure
 
-  rebuild-cache:
+  - name: rebuild-cache
+    pull: default
     image: drillster/drone-volume-cache
-    rebuild: true
-    mount:
-      - .yarn-cache
-      - ./staff-frontend/node_modules
-      - ./export-app-frontend/node_modules
-      - ./rublevka-frontend/node_modules
-      - ./firebase-functions/node_modules
+    settings:
+      mount:
+        - .yarn-cache
+        - ./staff-frontend/node_modules
+        - ./export-app-frontend/node_modules
+        - ./firebase-functions/node_modules
+      rebuild: true
     volumes:
-      - /tmp/cache:/cache
+      - name: cache
+        path: /cache
     when:
-      branch: [master, develop]
-      event: [push]
+      branch:
+        - master
+        - develop
+      event:
+        - push
 
-branches: [master, develop]
+trigger:
+  branch:
+    - master
+    - develop

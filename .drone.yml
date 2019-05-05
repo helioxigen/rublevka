@@ -22,25 +22,25 @@ steps:
     pull: default
     image: plugins/git
 
-  - name: restore-cache
-    pull: default
-    image: drillster/drone-volume-cache
-    settings:
-      mount:
-        - .yarn-cache
-        - ./staff-frontend/node_modules
-        - ./export-app-frontend/node_modules
-        - ./firebase-functions/node_modules
-      restore: true
-    volumes:
-      - name: cache
-        path: /cache
-    when:
-      branch:
-        - master
-        - develop
-      event:
-        - push
+  # - name: restore-cache
+  #   pull: default
+  #   image: drillster/drone-volume-cache
+  #   settings:
+  #     mount:
+  #       - .yarn-cache
+  #       - ./staff-frontend/node_modules
+  #       - ./export-app-frontend/node_modules
+  #       - ./firebase-functions/node_modules
+  #     restore: true
+  #   volumes:
+  #     - name: cache
+  #       path: /cache
+  #   when:
+  #     branch:
+  #       - master
+  #       - develop
+  #     event:
+  #       - push
 
   - name: build-firebase
     pull: default
@@ -237,25 +237,25 @@ steps:
         - success
         - failure
 
-  - name: rebuild-cache
-    pull: default
-    image: drillster/drone-volume-cache
-    settings:
-      mount:
-        - .yarn-cache
-        - ./staff-frontend/node_modules
-        - ./export-app-frontend/node_modules
-        - ./firebase-functions/node_modules
-      rebuild: true
-    volumes:
-      - name: cache
-        path: /cache
-    when:
-      branch:
-        - master
-        - develop
-      event:
-        - push
+  # - name: rebuild-cache
+  #   pull: default
+  #   image: drillster/drone-volume-cache
+  #   settings:
+  #     mount:
+  #       - .yarn-cache
+  #       - ./staff-frontend/node_modules
+  #       - ./export-app-frontend/node_modules
+  #       - ./firebase-functions/node_modules
+  #     rebuild: true
+  #   volumes:
+  #     - name: cache
+  #       path: /cache
+  #   when:
+  #     branch:
+  #       - master
+  #       - develop
+  #     event:
+  #       - push
 
 trigger:
   branch:

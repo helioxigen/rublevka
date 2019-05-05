@@ -50,8 +50,8 @@ steps:
       - yarn add firebase-tools
       - cd firebase-functions
       - yarn --ignore-engines
-    depends_on:
-      - restore-cache
+    # depends_on:
+    #   - restore-cache
     when:
       branch:
         - develop
@@ -66,8 +66,8 @@ steps:
       - cd rublevka-frontend
       - docker-compose -f docker-compose-dev.yml build --build-arg BUILD_ID=$DRONE_BUILD_NUMBER
       - docker-compose -f docker-compose-dev.yml up -d
-    depends_on:
-      - restore-cache
+    # depends_on:
+    #   - restore-cache
     environment:
       APP: rublevka
       APP_ENV: development
@@ -90,8 +90,8 @@ steps:
       - cd rublevka-frontend
       - docker-compose build --build-arg BUILD_ID=$DRONE_BUILD_NUMBER
       - docker-compose up -d
-    depends_on:
-      - restore-cache
+    # depends_on:
+    #   - restore-cache
     environment:
       APP: rublevka
       APP_ENV: production
@@ -127,8 +127,8 @@ steps:
       - cd staff-frontend
       - yarn --ignore-engines
       - yarn build
-    depends_on:
-      - restore-cache
+    # depends_on:
+    #   - restore-cache
     environment:
       REACT_APP_CEM_TOKEN:
         from_secret: react_app_cem_token_staff_dev_rublevka_ru
@@ -152,8 +152,8 @@ steps:
       - cd staff-frontend
       - yarn --ignore-engines
       - yarn build
-    depends_on:
-      - restore-cache
+    # depends_on:
+    #   - restore-cache
     environment:
       REACT_APP_ENV:
         from_secret: react_app_env_staff_rublevka_ru
@@ -177,8 +177,8 @@ steps:
       - cd export-app-frontend
       - yarn --ignore-engines
       - yarn build
-    depends_on:
-      - restore-cache
+    # depends_on:
+    #   - restore-cache
     environment:
       REACT_APP_FIREBASE_API_KEY:
         from_secret: react_app_firebase_api_key

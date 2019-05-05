@@ -63,9 +63,9 @@ steps:
     pull: default
     image: docker/compose:1.22.0
     commands:
-      - cd rublevka-frontend
-      - docker-compose -f docker-compose-dev.yml build --build-arg BUILD_ID=$DRONE_BUILD_NUMBER
-      - docker-compose -f docker-compose-dev.yml up -d
+      - export BUILD_ID=$DRONE_BUILD_NUMBER
+      - docker-compose -f rublevka-frontend/docker-compose-dev.yml build
+      - docker-compose -f rublevka-frontend/docker-compose-dev.yml up -d
     # depends_on:
     #   - restore-cache
     environment:
@@ -87,9 +87,9 @@ steps:
     pull: default
     image: docker/compose:1.22.0
     commands:
-      - cd rublevka-frontend
-      - docker-compose build --build-arg BUILD_ID=$DRONE_BUILD_NUMBER
-      - docker-compose up -d
+      - export BUILD_ID=$DRONE_BUILD_NUMBER
+      - docker-compose -f rublevka-frontend/docker-compose.yml build
+      - docker-compose -f rublevka-frontend/docker-compose.yml up -d
     # depends_on:
     #   - restore-cache
     environment:
@@ -196,7 +196,7 @@ steps:
     pull: default
     image: node:8.15.0
     commands:
-      - 'yarn firebase deploy --token "$FIREBASE_TOKEN" --except hosting:rublevka-frontend-dev'
+      - yarn firebase deploy --token "$FIREBASE_TOKEN"
     depends_on:
       - build-staff-frontend-prod
       - build-export-app-frontend-prod
@@ -209,34 +209,33 @@ steps:
       event:
         - push
 
-  - name: telegram-notification
-    pull: default
-    image: appleboy/drone-telegram
-    settings:
-      format: markdown
-      message: >
-        {{#success build.status}}
-        ✅ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` succeeded.
-        - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
-        {{else}}
-        ❌ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` failed.
-        - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
-        {{/success}}
-    environment:
-      TELEGRAM_TO:
-        from_secret: telegram_chat_id
-      TELEGRAM_TOKEN:
-        from_secret: telegram_access_token
-    when:
-      branch:
-        - master
-        - develop
-      event:
-        - push
-      status:
-        - success
-        - failure
-
+  # - name: telegram-notification
+  #   pull: default
+  #   image: appleboy/drone-telegram
+  #   settings:
+  #     format: markdown
+  #     message: >
+  #       {{#success build.status}}
+  #       ✅ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` succeeded.
+  #       - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
+  #       {{else}}
+  #       ❌ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` failed.
+  #       - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
+  #       {{/success}}
+  #   environment:
+  #     TELEGRAM_TO:
+  #       from_secret: telegram_chat_id
+  #     TELEGRAM_TOKEN:
+  #       from_secret: telegram_access_token
+  #   when:
+  #     branch:
+  #       - master
+  #       - develop
+  #     event:
+  #       - push
+  #     status:
+  #       - success
+  #       - failure
   # - name: rebuild-cache
   #   pull: default
   #   image: drillster/drone-volume-cache

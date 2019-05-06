@@ -2,11 +2,6 @@
 kind: pipeline
 name: prepare
 
-trigger:
-  branch:
-    - master
-    - develop
-
 clone:
   disable: true
 
@@ -40,20 +35,17 @@ steps:
       event:
         - push
 
----
-kind: pipeline
-name: build
-
-depends_on:
-  - prepare
-
 trigger:
   branch:
     - master
     - develop
 
+---
+kind: pipeline
+name: build
+
 clone:
-  disable: true
+  depth: 1
 
 volumes:
   - name: cache
@@ -228,18 +220,17 @@ steps:
       event:
         - push
 
----
-kind: pipeline
-name: after
-
 depends_on:
   - prepare
-  - build
 
 trigger:
   branch:
     - master
     - develop
+
+---
+kind: pipeline
+name: after
 
 clone:
   disable: true
@@ -297,3 +288,11 @@ steps:
         - develop
       event:
         - push
+
+depends_on:
+  - build
+
+trigger:
+  branch:
+    - master
+    - develop

@@ -1,6 +1,6 @@
 FROM node:10.15-alpine
 
-HEALTHCHECK CMD curl --fail http://localhost:8080/ || exit 1
+HEALTHCHECK CMD curl --fail http://localhost:80/ || exit 1
 
 RUN apk add --no-cache curl
 RUN mkdir /app

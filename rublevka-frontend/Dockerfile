@@ -1,6 +1,6 @@
 FROM node:10.15-alpine
 
-HEALTHCHECK CMD curl --fail http://localhost:8080/ || exit 1
+HEALTHCHECK CMD curl --fail http://localhost:80/ || exit 1
 
 RUN apk add --no-cache curl
 RUN mkdir /app
@@ -31,6 +31,7 @@ ENV REACT_APP_YANDEX_METRIKA_ID=$REACT_APP_YANDEX_METRIKA_ID
 ENV REACT_APP_UIS_ID=$REACT_APP_UIS_ID
 ENV BUILD_ID=$BUILD_ID
 ENV HOST=$HOST
+ENV PORT=80
 
 RUN yarn --ignore-engines
 RUN NODE_ENV=production HOST=$HOST APP_ENV=$APP_ENV yarn build

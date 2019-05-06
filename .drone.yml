@@ -64,8 +64,6 @@ steps:
       - yarn add firebase-tools
       - cd firebase-functions
       - yarn --ignore-engines
-    depends_on:
-      - restore-cache
     when:
       branch:
         - develop
@@ -137,8 +135,6 @@ steps:
       - cd staff-frontend
       - yarn --ignore-engines
       - yarn build
-    depends_on:
-      - restore-cache
     environment:
       REACT_APP_CEM_TOKEN:
         from_secret: react_app_cem_token_staff_dev_rublevka_ru
@@ -162,8 +158,6 @@ steps:
       - cd staff-frontend
       - yarn --ignore-engines
       - yarn build
-    depends_on:
-      - restore-cache
     environment:
       REACT_APP_ENV:
         from_secret: react_app_env_staff_rublevka_ru
@@ -187,8 +181,6 @@ steps:
       - cd export-app-frontend
       - yarn --ignore-engines
       - yarn build
-    depends_on:
-      - restore-cache
     environment:
       REACT_APP_FIREBASE_API_KEY:
         from_secret: react_app_firebase_api_key
@@ -219,6 +211,9 @@ steps:
         - master
       event:
         - push
+
+depends_on:
+  - prepare
 
 trigger:
   branch:
@@ -285,6 +280,10 @@ steps:
         - develop
       event:
         - push
+
+depends_on:
+  - prepare
+  - build
 
 trigger:
   branch:

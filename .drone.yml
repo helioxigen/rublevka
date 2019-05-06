@@ -22,25 +22,22 @@ steps:
     pull: default
     image: plugins/git
 
-  # - name: restore-cache
-  #   pull: default
-  #   image: drillster/drone-volume-cache
-  #   settings:
-  #     mount:
-  #       - .yarn-cache
-  #       - ./staff-frontend/node_modules
-  #       - ./export-app-frontend/node_modules
-  #       - ./firebase-functions/node_modules
-  #     restore: true
-  #   volumes:
-  #     - name: cache
-  #       path: /cache
-  #   when:
-  #     branch:
-  #       - master
-  #       - develop
-  #     event:
-  #       - push
+  - name: restore-cache
+    pull: default
+    image: drillster/drone-volume-cache
+    settings:
+      mount:
+        - .yarn-cache
+      restore: true
+    volumes:
+      - name: cache
+        path: /cache
+    when:
+      branch:
+        - master
+        - develop
+      event:
+        - push
 
   - name: build-firebase
     pull: default
@@ -50,8 +47,8 @@ steps:
       - yarn add firebase-tools
       - cd firebase-functions
       - yarn --ignore-engines
-    # depends_on:
-    #   - restore-cache
+    depends_on:
+      - restore-cache
     when:
       branch:
         - develop
@@ -66,8 +63,6 @@ steps:
       - export BUILD_ID=$DRONE_BUILD_NUMBER
       - docker-compose -f rublevka-frontend/docker-compose-dev.yml build
       - docker-compose -f rublevka-frontend/docker-compose-dev.yml up -d
-    # depends_on:
-    #   - restore-cache
     environment:
       APP: rublevka
       APP_ENV: development
@@ -90,8 +85,6 @@ steps:
       - export BUILD_ID=$DRONE_BUILD_NUMBER
       - docker-compose -f rublevka-frontend/docker-compose.yml build
       - docker-compose -f rublevka-frontend/docker-compose.yml up -d
-    # depends_on:
-    #   - restore-cache
     environment:
       APP: rublevka
       APP_ENV: production
@@ -127,8 +120,8 @@ steps:
       - cd staff-frontend
       - yarn --ignore-engines
       - yarn build
-    # depends_on:
-    #   - restore-cache
+    depends_on:
+      - restore-cache
     environment:
       REACT_APP_CEM_TOKEN:
         from_secret: react_app_cem_token_staff_dev_rublevka_ru
@@ -152,8 +145,8 @@ steps:
       - cd staff-frontend
       - yarn --ignore-engines
       - yarn build
-    # depends_on:
-    #   - restore-cache
+    depends_on:
+      - restore-cache
     environment:
       REACT_APP_ENV:
         from_secret: react_app_env_staff_rublevka_ru
@@ -177,8 +170,8 @@ steps:
       - cd export-app-frontend
       - yarn --ignore-engines
       - yarn build
-    # depends_on:
-    #   - restore-cache
+    depends_on:
+      - restore-cache
     environment:
       REACT_APP_FIREBASE_API_KEY:
         from_secret: react_app_firebase_api_key
@@ -210,52 +203,50 @@ steps:
       event:
         - push
 
-  # - name: telegram-notification
-  #   pull: default
-  #   image: appleboy/drone-telegram
-  #   settings:
-  #     format: markdown
-  #     message: >
-  #       {{#success build.status}}
-  #       ✅ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` succeeded.
-  #       - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
-  #       {{else}}
-  #       ❌ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` failed.
-  #       - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
-  #       {{/success}}
-  #   environment:
-  #     TELEGRAM_TO:
-  #       from_secret: telegram_chat_id
-  #     TELEGRAM_TOKEN:
-  #       from_secret: telegram_access_token
-  #   when:
-  #     branch:
-  #       - master
-  #       - develop
-  #     event:
-  #       - push
-  #     status:
-  #       - success
-  #       - failure
-  # - name: rebuild-cache
-  #   pull: default
-  #   image: drillster/drone-volume-cache
-  #   settings:
-  #     mount:
-  #       - .yarn-cache
-  #       - ./staff-frontend/node_modules
-  #       - ./export-app-frontend/node_modules
-  #       - ./firebase-functions/node_modules
-  #     rebuild: true
-  #   volumes:
-  #     - name: cache
-  #       path: /cache
-  #   when:
-  #     branch:
-  #       - master
-  #       - develop
-  #     event:
-  #       - push
+  - name: telegram-notification
+    pull: default
+    image: appleboy/drone-telegram
+    settings:
+      format: markdown
+      message: >
+        {{#success build.status}}
+        ✅ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` succeeded.
+        - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
+        {{else}}
+        ❌ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` failed.
+        - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
+        {{/success}}
+    environment:
+      TELEGRAM_TO:
+        from_secret: telegram_chat_id
+      TELEGRAM_TOKEN:
+        from_secret: telegram_access_token
+    when:
+      branch:
+        - master
+        - develop
+      event:
+        - push
+      status:
+        - success
+        - failure
+
+  - name: rebuild-cache
+    pull: default
+    image: drillster/drone-volume-cache
+    settings:
+      mount:
+        - .yarn-cache
+      rebuild: true
+    volumes:
+      - name: cache
+        path: /cache
+    when:
+      branch:
+        - master
+        - develop
+      event:
+        - push
 
 trigger:
   branch:

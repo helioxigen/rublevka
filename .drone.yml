@@ -220,9 +220,6 @@ steps:
       event:
         - push
 
-depends_on:
-  - prepare
-
 trigger:
   branch:
     - master
@@ -288,9 +285,6 @@ steps:
         - develop
       event:
         - push
-
-depends_on:
-  - build
 
 trigger:
   branch:

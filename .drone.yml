@@ -1,6 +1,6 @@
 ---
 kind: pipeline
-name: default
+name: prepare
 
 platform:
   os: linux
@@ -38,6 +38,30 @@ steps:
         - develop
       event:
         - push
+
+trigger:
+  branch:
+    - master
+    - develop
+
+---
+kind: pipeline
+name: build
+
+platform:
+  os: linux
+  arch: amd64
+
+clone:
+  disable: true
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/cache
+  - name: docker_daemon
+    host:
+      path: /var/run/docker.sock
 
   - name: build-firebase
     pull: default
@@ -203,6 +227,30 @@ steps:
       event:
         - push
 
+trigger:
+  branch:
+    - master
+    - develop
+
+---
+kind: pipeline
+name: after
+
+platform:
+  os: linux
+  arch: amd64
+
+clone:
+  disable: true
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/cache
+  - name: docker_daemon
+    host:
+      path: /var/run/docker.sock
+
   - name: telegram-notification
     pull: default
     image: appleboy/drone-telegram
@@ -247,6 +295,10 @@ steps:
         - develop
       event:
         - push
+
+depends_on:
+  - prepare
+  - build
 
 trigger:
   branch:

@@ -14,10 +14,6 @@ volumes:
       path: /var/run/docker.sock
 
 steps:
-  - name: git
-    pull: default
-    image: plugins/git
-
   - name: restore-cache
     pull: default
     image: drillster/drone-volume-cache

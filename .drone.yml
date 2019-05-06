@@ -2,9 +2,10 @@
 kind: pipeline
 name: prepare
 
-platform:
-  os: linux
-  arch: amd64
+trigger:
+  branch:
+    - master
+    - develop
 
 clone:
   disable: true
@@ -39,18 +40,17 @@ steps:
       event:
         - push
 
-trigger:
-  branch:
-    - master
-    - develop
-
 ---
 kind: pipeline
 name: build
 
-platform:
-  os: linux
-  arch: amd64
+depends_on:
+  - prepare
+
+trigger:
+  branch:
+    - master
+    - develop
 
 clone:
   disable: true
@@ -63,6 +63,7 @@ volumes:
     host:
       path: /var/run/docker.sock
 
+steps:
   - name: build-firebase
     pull: default
     image: node:8.15.0
@@ -227,18 +228,18 @@ volumes:
       event:
         - push
 
-trigger:
-  branch:
-    - master
-    - develop
-
 ---
 kind: pipeline
 name: after
 
-platform:
-  os: linux
-  arch: amd64
+depends_on:
+  - prepare
+  - build
+
+trigger:
+  branch:
+    - master
+    - develop
 
 clone:
   disable: true
@@ -251,6 +252,7 @@ volumes:
     host:
       path: /var/run/docker.sock
 
+steps:
   - name: telegram-notification
     pull: default
     image: appleboy/drone-telegram
@@ -295,12 +297,3 @@ volumes:
         - develop
       event:
         - push
-
-depends_on:
-  - prepare
-  - build
-
-trigger:
-  branch:
-    - master
-    - develop

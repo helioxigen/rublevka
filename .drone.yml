@@ -19,7 +19,7 @@ steps:
     image: drillster/drone-volume-cache
     settings:
       mount:
-        - .yarn-cache
+        - $(pwd)/.yarn-cache
       restore: true
     volumes:
       - name: cache
@@ -265,7 +265,7 @@ steps:
     image: drillster/drone-volume-cache
     settings:
       mount:
-        - .yarn-cache
+        - $(pwd)/.yarn-cache
       rebuild: true
     volumes:
       - name: cache

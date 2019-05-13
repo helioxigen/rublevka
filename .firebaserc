@@ -5,11 +5,14 @@
   "targets": {
     "rublevka-export-384da": {
       "hosting": {
-        "export-app": [
+        "export-rublevka-ru": [
           "rublevka-export-384da"
         ],
-        "staff-frontend": [
+        "staff-rublevka-ru": [
           "staff-rublevka-ru"
+        ],
+        "staff-dev-rublevka-ru": [
+          "staff-dev-rublevka-ru"
         ]
       }
     }

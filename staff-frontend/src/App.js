@@ -1,23 +1,27 @@
 import React from 'react';
 import * as Sentry from '@sentry/browser';
-
+import { persistStore } from 'redux-persist';
 import Helmet from 'react-helmet';
 import {
   BrowserRouter, Route, Switch, Redirect,
 } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { Provider, ReactReduxContext } from 'react-redux';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import styled from 'styled-components';
-
 import ruIntlLocale from 'react-intl/locale-data/ru';
-
-import store from './store';
+import { ToastProvider } from 'react-toast-notifications';
+import { store } from './store';
 import { Main, Title, Layout } from './UI';
 import Auth from './auth/LoginPage';
 import Property from './countryProperties/DetailsPage';
 import Properties from './countryProperties/List';
+import { loadCurrentUser } from './users/load';
+import { setToken } from './jq-redux-api/api';
+import SplashScreen from './SplashScreen';
 
 addLocaleData(ruIntlLocale);
+
+const isLoggedin = () => !!store.getState().auth.token;
 
 const MainContainer = styled(Main)`
   display: flex;
@@ -27,8 +31,25 @@ const MainContainer = styled(Main)`
 
 class App extends React.PureComponent {
   state = {
-    isAuthorized: true, // FIXME
     error: null,
+    isRehydrated: false,
+  };
+
+  componentWillMount() {
+    this.loadPersistStore();
+  }
+
+  loadPersistStore = () => {
+    persistStore(store, { whitelist: ['auth'] }, () => {
+      const { auth } = store.getState();
+      const { token } = auth;
+
+      if (token) {
+        setToken(token);
+        store.dispatch(loadCurrentUser());
+      }
+      this.setState({ isRehydrated: true });
+    });
   };
 
   componentDidCatch(error, errorInfo) {
@@ -45,56 +66,78 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const { isAuthorized, error } = this.state;
+    const { error, isRehydrated } = this.state;
+
+    if (!isRehydrated) {
+      return (
+        <BrowserRouter>
+          <Route path="*">
+            <SplashScreen />
+          </Route>
+        </BrowserRouter>
+      );
+    }
 
     return (
       <>
         <Helmet titleTemplate="%s — staff.rublevka.ru" />
-
-        <Provider store={store}>
-          <IntlProvider locale="ru">
-            <BrowserRouter>
-              {isAuthorized ? (
-                <MainContainer>
-                  {error ? (
-                    <>
-                      <Layout>
-                        <div className="container-fluid">
-                          <Title>Произошла ошибка</Title>
-                          <pre>{JSON.stringify(error, null, 2)}</pre>
-                        </div>
-                      </Layout>
-                    </>
-                  ) : (
-                    <Switch>
-                      <Route
-                        exact
-                        path="/login"
-                        component={() => <Redirect to="/country-properties" />}
-                      />
-
-                      <Route
-                        path="/country-properties/:id"
-                        component={Property}
-                      />
-                      <Route
-                        path="/country-properties"
-                        component={Properties}
-                      />
-
-                      <Route
-                        path="*"
-                        component={() => <Redirect to="/country-properties" />}
-                      />
-                    </Switch>
-                  )}
-                </MainContainer>
-              ) : (
-                <Auth />
-              )}
-            </BrowserRouter>
-          </IntlProvider>
-        </Provider>
+        <ToastProvider>
+          <Provider store={store}>
+            <IntlProvider locale="ru">
+              <ReactReduxContext.Consumer>
+                {() => (
+                  <BrowserRouter>
+                    {!isLoggedin() ? (
+                      <>
+                        <Route path="/login">
+                          <Auth />
+                        </Route>
+                        <Route
+                          path="*"
+                          component={() => <Redirect to="/login" />}
+                        />
+                      </>
+                    ) : (
+                      <MainContainer>
+                        {error ? (
+                          <>
+                            <Layout>
+                              <div className="container-fluid">
+                                <Title>Произошла ошибка</Title>
+                                <pre>{JSON.stringify(error, null, 2)}</pre>
+                              </div>
+                            </Layout>
+                          </>
+                        ) : (
+                          <Switch>
+                            <Route
+                              path="/country-properties/:id/:action"
+                              component={Property}
+                            />
+                            <Route
+                              path="/country-properties/:id"
+                              component={Property}
+                            />
+                            <Route
+                              path="/country-properties"
+                              component={Properties}
+                            />
+                            <Route
+                              path="*"
+                              component={() => (
+                                <Redirect to="/country-properties" />
+                              )}
+                            />
+                          </Switch>
+                        )}
+                      </MainContainer>
+                    )}
+                  </BrowserRouter>
+                )}
+              </ReactReduxContext.Consumer>
+            </IntlProvider>
+          </Provider>
+        </ToastProvider>
       </>
     );
   }

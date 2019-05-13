@@ -19,7 +19,7 @@ steps:
     image: drillster/drone-volume-cache
     settings:
       mount:
-        - .yarn-cache
+        - $(pwd)/.yarn-cache
       restore: true
     volumes:
       - name: cache
@@ -67,7 +67,7 @@ steps:
       event:
         - push
 
-  - name: deploy-rublevka-frontend-dev
+  - name: deploy-rublevka-riga-frontend-dev
     pull: default
     image: docker/compose:1.22.0
     commands:
@@ -75,7 +75,6 @@ steps:
       - docker-compose -f rublevka-frontend/docker-compose-dev.yml build
       - docker-compose -f rublevka-frontend/docker-compose-dev.yml up -d
     environment:
-      APP: rublevka
       APP_ENV: development
       HOST: dev.rublevka.ru
       REACT_APP_SENTRY_DSN:
@@ -89,7 +88,7 @@ steps:
       event:
         - push
 
-  - name: deploy-rublevka-frontend-prod
+  - name: deploy-rublevka-riga-frontend-prod
     pull: default
     image: docker/compose:1.22.0
     commands:
@@ -97,9 +96,7 @@ steps:
       - docker-compose -f rublevka-frontend/docker-compose.yml build
       - docker-compose -f rublevka-frontend/docker-compose.yml up -d
     environment:
-      APP: rublevka
       APP_ENV: production
-      HOST: rublevka.ru
       REACT_APP_FACEBOOK_PIXEL_ID:
         from_secret: react_app_facebook_pixel_id_rublevka_ru
       REACT_APP_GOOGLE_ANALYTICS_ID:
@@ -265,7 +262,7 @@ steps:
     image: drillster/drone-volume-cache
     settings:
       mount:
-        - .yarn-cache
+        - $(pwd)/.yarn-cache
       rebuild: true
     volumes:
       - name: cache
@@ -285,3 +282,6 @@ trigger:
   branch:
     - master
     - develop
+  status:
+    - success
+    - failure

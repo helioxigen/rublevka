@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import global from 'window-or-global';
 
-import media from 'styles/media';
+import media from '../../../../styles/media';
 
-import UI from 'ui';
+import UI from '../../../../ui';
+
+const isRiga = global.config.domain === 'riga.ru';
 
 const {
   Icon,
@@ -20,7 +21,7 @@ const Logo = styled(Brand)`
 `;
 
 const StIcon = styled(Icon)`
-  width: 131px;
+  width: ${isRiga ? 63 : 131}px;
   height: 20px;
   fill: ${p => p.theme.brandBlack};
   ${media.xs`

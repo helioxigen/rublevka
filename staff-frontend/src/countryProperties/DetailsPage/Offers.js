@@ -1,5 +1,6 @@
 /* eslint-disable react/style-prop-object */
 import React from 'react';
+import styled from 'styled-components';
 import { Row, Col } from 'react-flexbox-grid';
 import { FormattedNumber } from 'react-intl';
 import {
@@ -17,20 +18,33 @@ import {
 } from './styled';
 
 import Tags from '../../UI/Tags';
-// import SelectBubble from '../../UI/SelectBubble';
 
-import { BodyBig, Body } from '../../UI';
+import { BodyBig, Body, theme } from '../../UI';
 import {
   resaleKinds,
   saleKinds,
   feeKinds,
-  // states,
   periods,
   binarySelect,
   dictionaryToOptions,
   currencies,
+  deposits,
 } from '../constants/dictionaries';
 import Switcher from '../../UI/Switcher';
+
+const Reset = styled.button`
+  margin: 0;
+  line-height: 28px;
+  font-size: 18px;
+  color: ${theme.gray};
+  text-align: left;
+
+  border: 0;
+  background: none;
+  padding: 0;
+  align-self: baseline;
+  cursor: pointer;
+`;
 
 function BooleanValue({ value, children }) {
   return (
@@ -118,16 +132,21 @@ function Offer({
 }
 
 function preparePrice(value) {
-  return value.replace(/\s/g, '');
+  if (!value) {
+    return 0;
+  }
+  if (typeof value === 'string') {
+    return value.replace(/\s/g, '');
+  }
+  return value;
 }
 
-export default function ConditionsSection({
+const ConditionsSection = ({
   enableEditMode,
   isEditMode,
   property,
   onUpdate,
-  // id,
-}) {
+}) => {
   const {
     saleOffer,
     rentOffer,
@@ -136,40 +155,89 @@ export default function ConditionsSection({
     state,
     kind,
   } = property;
-  const { agentFixedPrice: saleAgentFixedPrice } = saleOffer;
-  const saleIsAgentFixed = !!saleAgentFixedPrice;
-  const updateSale = (key, value) => {
-    console.log('update sale', key, value);
-    onUpdate({
+
+  const update = (value) => {
+    onUpdate(value);
+  };
+
+  const updateKey = (offerKey, key, value) => {
+    update({
       ...property,
-      saleOffer: {
-        ...saleOffer,
-        [key]: value,
-      },
+      [offerKey]: { ...property[offerKey], [key]: value },
     });
   };
-  const updateAgentFee = (isFixed, agentFee, agentFixedPrice) => {
+
+  const updateSale = (key, value) => {
+    updateKey('saleOffer', key, value);
+  };
+
+  const updateRent = (key, value) => {
+    updateKey('rentOffer', key, value);
+  };
+
+  const clearSale = () => {
+    update({
+      ...property,
+      saleOffer: null,
+    });
+  };
+
+  const clearRent = () => {
+    update({
+      ...property,
+      rentOffer: null,
+    });
+  };
+
+  const updateAgentFee = (offerKind, isFixed, agentFee, agentFixedPrice) => {
     if (isFixed) {
-      onUpdate({
+      update({
         ...property,
-        saleOffer: {
-          ...saleOffer,
+        [offerKind]: {
+          ...property[offerKind],
           agentFee,
           isAgentFixed: true,
           agentFixedPrice,
         },
       });
     } else {
-      onUpdate({
+      update({
         ...property,
-        saleOffer: {
-          ...saleOffer,
+        [offerKind]: {
+          ...property[offerKind],
           agentFee,
           isAgentFixed: false,
           agentFixedPrice: null,
         },
       });
     }
+  };
+
+  const updateSaleAgentFee = (isFixed, agentFee, agentFixedPrice) => {
+    updateAgentFee('saleOffer', isFixed, agentFee, agentFixedPrice);
+  };
+
+  const updateRentAgentFee = (isFixed, agentFee, agentFixedPrice) => {
+    updateAgentFee('rentOffer', isFixed, agentFee, agentFixedPrice);
+  };
+
+  const updatePrice = (offerKind, priceValue = 0, currencyValue = 'RUB') => {
+    update({
+      ...property,
+      [offerKind]: {
+        ...property[offerKind],
+        price: preparePrice(priceValue),
+        currency: currencyValue,
+      },
+    });
+  };
+
+  const updateSalePrce = (priceValue, currencyValue) => {
+    updatePrice('saleOffer', priceValue, currencyValue);
+  };
+
+  const updateRentPrce = (priceValue, currencyValue) => {
+    updatePrice('rentOffer', priceValue, currencyValue);
   };
 
   if (!isEditMode) {
@@ -255,151 +323,288 @@ export default function ConditionsSection({
 
   return (
     <>
-      <EditPropertyRow>
-        <Col xs={2}>
-          <SubTitle>Продажа</SubTitle>
-        </Col>
-        <Col xsOffset={1} xs={2}>
-          <EditPropertyInput
-            isCurrency
-            defaultValue={saleOffer.price}
-            onSubmit={value => updateSale('price', preparePrice(value))}
-            placeholder={`Цена${
-              saleOffer.currency ? `, ${currencies[saleOffer.currency]}` : ''
-            }`}
-          />
-          <Switcher
-            selected={saleOffer.currency}
-            onChange={value => updateSale('currency', value)}
-          />
-        </Col>
-
-        <Col xsOffset={1} xs={3}>
-          <PropertyTitle>
-            Сделка
-            <PropertySubTitle>Опционально</PropertySubTitle>
-          </PropertyTitle>
-          <Tags
-            options={dictionaryToOptions(saleKinds)}
-            currentValue={saleOffer.kind}
-            onChange={value => updateSale('kind', value)}
-            isRemovable
-          />
-          <PropertyTitle>Тип продажи</PropertyTitle>
-          <SelectControl
-            options={dictionaryToOptions(resaleKinds)}
-            selected={saleOffer.isResale}
-            onChange={value => updateSale('isResale', value)}
-          />
-          <PropertyTitle>Комиссия</PropertyTitle>
-          <SelectControl
-            options={dictionaryToOptions(feeKinds)}
-            selected={saleIsAgentFixed ? 'fixed' : 'percent'}
-            onChange={(value) => {
-              updateAgentFee(
-                value === 'fixed',
-                saleOffer.agentFee,
-                saleAgentFixedPrice || { currency: 'RUB', price: 0 },
-              );
-            }}
-          />
-          {saleIsAgentFixed ? (
-            <>
-              <EditPropertyInput
-                isCurrency
-                defaultValue={saleAgentFixedPrice.price}
-                placeholder={`Сумма${
-                  saleAgentFixedPrice.currency
-                    ? `, ${currencies[saleAgentFixedPrice.currency]}`
-                    : ''
-                }`}
-                onSubmit={(value) => {
-                  updateAgentFee(true, saleOffer.agentFee, {
-                    ...saleAgentFixedPrice,
-                    price: preparePrice(value),
-                  });
-                }}
-              />
-              <Switcher
-                selected={saleAgentFixedPrice.currency}
-                onChange={(value) => {
-                  updateAgentFee(true, saleOffer.agentFee, {
-                    ...saleAgentFixedPrice,
-                    currency: value,
-                  });
-                }}
-              />
-            </>
-          ) : (
-            <EditPropertyInput
-              defaultValue={property.saleOffer.agentFee}
-              placeholder="Процент, %"
-            />
-          )}
-        </Col>
-
-        <Col xs={3}>
-          <PropertyTitle>Рассрочка</PropertyTitle>
-          <SelectControl
-            options={dictionaryToOptions(binarySelect)}
-            selected={property.saleOffer.isInstallment}
-            onChange={value => updateSale('isInstallment', value)}
-          />
-          <PropertyTitle>Ипотека</PropertyTitle>
-          <SelectControl
-            options={dictionaryToOptions(binarySelect)}
-            selected={property.saleOffer.isMortgage}
-            onChange={value => updateSale('isMortgage', value)}
-          />
-          <PropertyTitle>Торг</PropertyTitle>
-          <SelectControl
-            options={dictionaryToOptions(binarySelect)}
-            selected={property.saleOffer.isBargain}
-            onChange={value => updateSale('isBargain', value)}
-          />
-        </Col>
-      </EditPropertyRow>
-
-      {/* <EditPropertyRow>
-        <Col xs={2}>
-          <SubTitle>Аренда</SubTitle>
-        </Col>
-        <Col xsOffset={1} xs={2}>
-          <EditPropertyInput placeholder="Цена, Руб" />
-          <Switcher selected={currencies[property.saleOffer.currency]} />
-        </Col>
-        <Col xsOffset={1} xs={3}>
-          <PropertyTitle>
-            Залог
-            <PropertySubTitle>Опционально</PropertySubTitle>
-          </PropertyTitle>
-          <SelectBubble
-            selected={1}
-            unselectable
-            selectData={selectMonthData}
-          />
-          <PropertyTitle>Период аренды</PropertyTitle>
-          <SegmentedControl
-            selectData={selectRentTimeData}
-            selected={1}
-            filled
-          />
-          <PropertyTitle>Комиссия</PropertyTitle>
-          <SegmentedControl
-            selectData={selectCommissionData}
-            selected={1}
-            filled
-          />
-          <EditPropertyInput placeholder="Сумма, $" />
-          <Switcher selected={currencies[property.saleOffer.currency]} />
-        </Col>
-        <Col xs={3}>
-          <PropertyTitle>С детьми</PropertyTitle>
-          <SegmentedControl selectData={selectBinaryData} selected={1} filled />
-          <PropertyTitle>С животными</PropertyTitle>
-          <SegmentedControl selectData={selectBinaryData} selected={1} filled />
-        </Col>
-      </EditPropertyRow> */}
+      <SaleOfferEdit
+        property={property}
+        update={updateSale}
+        updateAgentFee={updateSaleAgentFee}
+        updatePrice={updateSalePrce}
+        clear={clearSale}
+      />
+      <Separator />
+      <RentOfferEdit
+        property={property}
+        update={updateRent}
+        updateAgentFee={updateRentAgentFee}
+        updatePrice={updateRentPrce}
+        clear={clearRent}
+      />
     </>
   );
-}
+};
+
+export default ConditionsSection;
+
+const SaleOfferEdit = ({
+  property,
+  update,
+  updateAgentFee,
+  clear,
+  updatePrice,
+}) => {
+  const { saleOffer = {} } = property;
+  const {
+    price,
+    currency,
+    // kind,
+    isResale,
+    agentFixedPrice,
+    agentFee,
+    isInstallment,
+    // isMortgage,
+    isBargain,
+  } = saleOffer;
+  const isAgentFixed = !!agentFixedPrice;
+
+  return (
+    <EditPropertyRow>
+      <Col xs={2}>
+        <SubTitle>Продажа</SubTitle>
+        <Reset onClick={() => clear()}>Сбросить</Reset>
+      </Col>
+      <Col xsOffset={1} xs={2}>
+        <EditPropertyInput
+          isCurrency
+          defaultValue={price}
+          onSubmit={(value) => {
+            updatePrice(value, currency);
+          }}
+          placeholder={`Цена${currency ? `, ${currencies[currency]}` : ''}`}
+        />
+        <Switcher
+          selected={currency}
+          onChange={value => updatePrice(price, value)}
+        />
+      </Col>
+
+      <Col xsOffset={1} xs={3}>
+        {/* <PropertyTitle>
+          Сделка
+          <PropertySubTitle>Опционально</PropertySubTitle>
+        </PropertyTitle>
+        <Tags
+          options={dictionaryToOptions(saleKinds)}
+          currentValue={kind}
+          onChange={value => update('kind', value)}
+          isRemovable
+        /> */}
+        <PropertyTitle>Тип продажи</PropertyTitle>
+        <SelectControl
+          options={dictionaryToOptions(resaleKinds)}
+          selected={isResale}
+          onChange={value => update('isResale', value)}
+        />
+
+        <PropertyTitle>Комиссия</PropertyTitle>
+        <SelectControl
+          options={dictionaryToOptions(feeKinds)}
+          selected={isAgentFixed ? 'fixed' : 'percent'}
+          onChange={(value) => {
+            updateAgentFee(
+              value === 'fixed',
+              agentFee,
+              agentFixedPrice || { currency: 'RUB', price: 0 },
+            );
+          }}
+        />
+        {isAgentFixed ? (
+          <>
+            <EditPropertyInput
+              isCurrency
+              defaultValue={agentFixedPrice.price}
+              placeholder={`Сумма${
+                agentFixedPrice.currency
+                  ? `, ${currencies[agentFixedPrice.currency]}`
+                  : ''
+              }`}
+              onSubmit={(value) => {
+                updateAgentFee(true, saleOffer.agentFee, {
+                  ...agentFixedPrice,
+                  price: preparePrice(value),
+                });
+              }}
+            />
+            <Switcher
+              selected={agentFixedPrice.currency}
+              onChange={(value) => {
+                updateAgentFee(true, saleOffer.agentFee, {
+                  ...agentFixedPrice,
+                  currency: value,
+                });
+              }}
+            />
+          </>
+        ) : (
+          <EditPropertyInput
+            defaultValue={agentFee}
+            placeholder="Процент, %"
+            onSubmit={(value) => {
+              updateAgentFee(false, value);
+            }}
+          />
+        )}
+      </Col>
+
+      <Col xs={3}>
+        <PropertyTitle>Рассрочка</PropertyTitle>
+        <SelectControl
+          options={dictionaryToOptions(binarySelect)}
+          selected={isInstallment}
+          onChange={value => update('isInstallment', value)}
+        />
+        {/* <PropertyTitle>Ипотека</PropertyTitle>
+        <SelectControl
+          options={dictionaryToOptions(binarySelect)}
+          selected={isMortgage}
+          onChange={value => update('isMortgage', value)}
+        /> */}
+        <PropertyTitle>Торг</PropertyTitle>
+        <SelectControl
+          options={dictionaryToOptions(binarySelect)}
+          selected={isBargain}
+          onChange={value => update('isBargain', value)}
+        />
+      </Col>
+    </EditPropertyRow>
+  );
+};
+
+const RentOfferEdit = ({
+  property,
+  update,
+  updateAgentFee,
+  clear,
+  updatePrice,
+}) => {
+  const { rentOffer = {} } = property;
+  const {
+    price = '',
+    currency,
+    agentFee,
+    deposit,
+    period,
+    isAllowedChildren,
+    isAllowedPets,
+  } = rentOffer;
+  const { agentFixedPrice } = rentOffer;
+  const isAgentFixed = !!agentFixedPrice;
+
+  return (
+    <EditPropertyRow>
+      <Col xs={2}>
+        <SubTitle>Аренда</SubTitle>
+        <Reset onClick={() => clear()}>Сбросить</Reset>
+      </Col>
+
+      <Col xsOffset={1} xs={2}>
+        <EditPropertyInput
+          isCurrency
+          defaultValue={price}
+          onSubmit={(value) => {
+            updatePrice(value, currency);
+          }}
+          placeholder={`Цена${currency ? `, ${currencies[currency]}` : ''}`}
+        />
+        <Switcher
+          selected={currency}
+          onChange={value => updatePrice(price, value)}
+        />
+      </Col>
+
+      <Col xsOffset={1} xs={3}>
+        <PropertyTitle>
+          Залог
+          <PropertySubTitle>Опционально</PropertySubTitle>
+        </PropertyTitle>
+        <Tags
+          options={dictionaryToOptions(deposits)}
+          currentValue={String(deposit)}
+          onChange={value => update('deposit', value)}
+          isRemovable
+        />
+
+        <PropertyTitle>Период аренды</PropertyTitle>
+        <Tags
+          options={dictionaryToOptions(periods)}
+          currentValue={String(period)}
+          onChange={value => update('period', value)}
+          isRemovable
+        />
+
+        <PropertyTitle>Комиссия</PropertyTitle>
+        <SelectControl
+          options={dictionaryToOptions(feeKinds)}
+          selected={isAgentFixed ? 'fixed' : 'percent'}
+          onChange={(value) => {
+            updateAgentFee(
+              value === 'fixed',
+              rentOffer.agentFee,
+              agentFixedPrice || { currency: 'RUB', price: 0 },
+            );
+          }}
+        />
+        {isAgentFixed ? (
+          <>
+            <EditPropertyInput
+              isCurrency
+              defaultValue={agentFixedPrice.price}
+              placeholder={`Сумма${
+                agentFixedPrice.currency
+                  ? `, ${currencies[agentFixedPrice.currency]}`
+                  : ''
+              }`}
+              onSubmit={(value) => {
+                updateAgentFee(true, rentOffer.agentFee, {
+                  ...agentFixedPrice,
+                  price: preparePrice(value),
+                });
+              }}
+            />
+            <Switcher
+              selected={agentFixedPrice.currency}
+              onChange={(value) => {
+                updateAgentFee(true, rentOffer.agentFee, {
+                  ...agentFixedPrice,
+                  currency: value,
+                });
+              }}
+            />
+          </>
+        ) : (
+          <EditPropertyInput
+            defaultValue={agentFee}
+            placeholder="Процент, %"
+            onSubmit={(value) => {
+              updateAgentFee(false, value);
+            }}
+          />
+        )}
+      </Col>
+
+      <Col xs={3}>
+        <PropertyTitle>С детьми</PropertyTitle>
+        <SelectControl
+          options={dictionaryToOptions(binarySelect)}
+          selected={isAllowedChildren}
+          onChange={value => update('isAllowedChildren', value)}
+        />
+
+        <PropertyTitle>С животными</PropertyTitle>
+        <SelectControl
+          options={dictionaryToOptions(binarySelect)}
+          selected={isAllowedPets}
+          onChange={value => update('isAllowedPets', value)}
+        />
+      </Col>
+    </EditPropertyRow>
+  );
+};

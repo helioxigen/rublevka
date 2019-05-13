@@ -31,13 +31,13 @@ export const kinds = {
   house: 'Дом',
   townhouse: 'Таунхаус',
   land: 'Участок',
-  // flat: 'Квартира',
+  flat: 'Квартира',
 };
 
 export const conditions = {
   great: '⭐ Отличное',
   good: '👍 Хорошее',
-  normal: '👌 Нормальное',
+  // normal: '👌 Нормальное',
   bad: '👎 Плохое',
 };
 
@@ -70,7 +70,7 @@ export const deposits = {
   2: '2 месяца',
   3: '3 месяца',
   6: '6 месяцев',
-  12: '12 месяцев',
+  // 12: '12 месяцев',
 };
 
 export const periods = {
@@ -105,21 +105,21 @@ export const roofMaterials = {
 };
 
 export const waterSupplyKind = {
-  purification: 'Очистные сооружения',
-  central: 'Центральное водоснабжение',
+  central: 'Центральное',
+  // purification: 'Очистные сооружения',
   well: 'Скважина',
 };
 
 export const gasSupplyKind = {
+  mains: 'Магистральный',
   without_gas: 'Без газа',
   gas_holder: 'Газгольдер',
   near_border: 'На границе',
-  mains: 'Магистральный газ',
   diesel: 'Дизель',
 };
 
 export const sewerageSupplyKind = {
-  central: 'Центральная канализация',
+  central: 'Центральная',
   septic: 'Септик',
 };
 
@@ -137,12 +137,12 @@ export const furnitureKinds = {
 };
 
 export const renovateKinds = {
-  rough_finish: 'Черновая отделка',
-  for_finishing: 'Под чистовую отделку',
-  full_construction: 'Под ключ',
-  partly_turnkey: 'Частично под ключ',
-  design: 'Дизайнерский',
   raw: 'Коробка',
+  rough_finish: 'Черновая',
+  for_finishing: 'Чистовая',
+  full_construction: 'Под ключ',
+  // partly_turnkey: 'Частично под ключ',
+  // design: 'Дизайнерский',
 };
 
 export const equipment = {

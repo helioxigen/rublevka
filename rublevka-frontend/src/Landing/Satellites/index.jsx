@@ -37,7 +37,7 @@ import media from '../../styles/media';
 
 // import s from '../../styles/landing/satellites/list';
 
-import bgImage from './bg.jpg';
+import bgImage from './img/bg.jpg';
 
 const {
   Grid: { Container },

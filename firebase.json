@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "target": "export-app",
+      "target": "export-rublevka-ru",
       "public": "export-app-frontend/build",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
@@ -12,7 +12,18 @@
       ]
     },
     {
-      "target": "staff-frontend",
+      "target": "staff-rublevka-ru",
+      "public": "staff-frontend/build",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "target": "staff-dev-rublevka-ru",
       "public": "staff-frontend/build",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [

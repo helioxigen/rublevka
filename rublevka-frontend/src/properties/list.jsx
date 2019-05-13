@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import global from 'window-or-global';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -62,6 +63,8 @@ const CardsContainer = styled.div`
   padding-right: 10px;
   flex-basis: 80%;
 `;
+
+const isRiga = global.config.domain === 'riga.ru';
 
 // component
 class List extends Component {
@@ -283,7 +286,7 @@ class List extends Component {
               <Title>
                 {dealTypesTranslateOther[dealType]}{' '}
                 {params.kind ? accusativeKinds[kind] : 'недвижимость'} на
-                Рублёвке
+                {isRiga ? ' Новой Риге' : ' Рублёвке'}
               </Title>
               <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
                 {this.renderOrderBy()}

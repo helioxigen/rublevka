@@ -19,10 +19,8 @@ export const createElement = (resource, data) => {
   if (!resource) throwFormattedError('required', resource);
 
   return post(resource, data).then(
-    ({ headers }) => {
-      const locationParts = headers.location.split('/');
-      const id = locationParts[locationParts.length - 1];
-
+    async (result) => {
+      const { id } = result;
       return Promise.resolve({ id });
     },
     ({ body: { errors } }) => Promise.reject(errors),

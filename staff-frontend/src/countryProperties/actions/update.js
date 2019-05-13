@@ -14,10 +14,10 @@ export default (id, data) => (dispatch) => {
   return updateElement(apiPath, id, transformOutputValues(data))
     .then((resp) => {
       dispatch(updateElementSucceeded(types.UPDATE_SUCCEEDED, id));
-      return resp;
+      return Promise.resolve(resp);
     })
-    .catch((errors) => {
+    .catch(async (errors) => {
       dispatch(updateElementFailed(types.UPDATE_FAILED, id, errors));
-      return { errors };
+      return Promise.reject(errors);
     });
 };

@@ -6,11 +6,11 @@ import {
   Property,
   PropertyBigValue,
   PropertyTitle,
+  PropertySubTitle,
   PropertyValue,
   SelectControl,
 } from './styled';
-import { Body } from '../../UI';
-import SelectEmotion from '../../UI/SelectEmotion';
+import { Body, Tags } from '../../UI';
 import {
   furnitureKinds,
   renovateKinds,
@@ -86,9 +86,13 @@ const ConditionSection = ({
           options={dictionaryToOptions(renovateKinds)}
           onChange={value => update('renovate', value)}
         />
-        <PropertyTitle>Состояние</PropertyTitle>
-        <SelectEmotion
-          selected={condition}
+        <PropertyTitle>
+          Состояние
+          <PropertySubTitle>Опционально</PropertySubTitle>
+        </PropertyTitle>
+        <Tags
+          isRemovable
+          currentValue={condition}
           options={dictionaryToOptions(conditions)}
           onChange={value => update('condition', value)}
         />

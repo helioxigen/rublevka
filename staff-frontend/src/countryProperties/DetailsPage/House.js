@@ -23,10 +23,10 @@ const HouseSection = ({
   const {
     area,
     bedrooms,
-    loggias,
+    // loggias,
     ceilingHeight,
     rooms,
-    balconies,
+    // balconies,
     wcs,
     elevators,
   } = specification;
@@ -57,12 +57,12 @@ const HouseSection = ({
               <Body>{bedrooms || 'Не указано'}</Body>
             </PropertyValue>
           </Property>
-          <Property xs={3}>
+          {/* <Property xs={3}>
             <PropertyTitle>Лоджий</PropertyTitle>
             <PropertyValue>
               <Body>{loggias || 'Не указано'}</Body>
             </PropertyValue>
-          </Property>
+          </Property> */}
           <Property xs={3}>
             <PropertyTitle>Высота потолков</PropertyTitle>
             <PropertyValue>
@@ -75,12 +75,12 @@ const HouseSection = ({
               <Body>{rooms || 'Не указано'}</Body>
             </PropertyValue>
           </Property>
-          <Property xs={3}>
+          {/* <Property xs={3}>
             <PropertyTitle>Балконов</PropertyTitle>
             <PropertyValue>
               <Body>{balconies || 'Не указано'}</Body>
             </PropertyValue>
-          </Property>
+          </Property> */}
           <Property xs={3}>
             <PropertyTitle>Санузлов</PropertyTitle>
             <PropertyValue>
@@ -135,18 +135,18 @@ const HouseSection = ({
         />
       </Col>
       <Col xsOffset={1} xs={3}>
-        <PropertyTitle>Лоджий</PropertyTitle>
+        {/* <PropertyTitle>Лоджий</PropertyTitle>
         <SelectControl
           selected={loggias}
           options={selectFixedValueData}
           onChange={value => update('loggias', value)}
-        />
-        <PropertyTitle>Балконов</PropertyTitle>
+        /> */}
+        {/* <PropertyTitle>Балконов</PropertyTitle>
         <SelectControl
           options={selectFixedValueData}
           selected={balconies}
           onChange={value => update('balconies', value)}
-        />
+        /> */}
         <PropertyTitle>Санузлов</PropertyTitle>
         <SelectControl
           options={selectFixedValueData}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import global from 'window-or-global';
 
 import UI from 'ui';
 import media from 'styles/media';
@@ -59,11 +60,13 @@ export const FormWrapper = styled.div`
   `}
 `;
 
+const isRiga = global.config.domain === 'riga.ru';
+
 export default () => (
   <Wrapper>
     <Container>
       <Breadcrumbs />
-      <Header>Посёлки на Рублёвке</Header>
+      <Header>Посёлки на {isRiga ? 'Новой Риге' : 'Рублёвке'}</Header>
       <Col mdOffset="1" xs="12" md="10">
         <FormWrapper>
           <Form />

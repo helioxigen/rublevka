@@ -1,5 +1,6 @@
 import React from 'react';
 
+import global from 'window-or-global';
 import styled from 'styled-components';
 
 import media from '../../styles/media';
@@ -29,10 +30,12 @@ const Header = styled.p`
   `}
 `;
 
+const isRiga = global.config.domain === 'riga.ru';
+
 export default () => (
   <Header>
     Начните поиск лучших
     <br />
-    домов на Рублёвке
+    домов на {isRiga ? 'Новой Риге' : 'Рублёвке'}
   </Header>
 );

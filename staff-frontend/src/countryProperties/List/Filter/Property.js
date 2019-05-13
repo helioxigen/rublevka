@@ -6,11 +6,10 @@ import {
 } from '../../constants/dictionaries';
 
 import Checkbox from './Checkbox';
-import Radio from './Radio';
 
 export function Kind({ currentValue, update, remove }) {
   return (
-    <Radio
+    <Checkbox
       title="Тип"
       currentValue={currentValue}
       remove={remove}

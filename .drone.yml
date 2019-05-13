@@ -67,7 +67,7 @@ steps:
       event:
         - push
 
-  - name: deploy-rublevka-frontend-dev
+  - name: deploy-rublevka-riga-frontend-dev
     pull: default
     image: docker/compose:1.22.0
     commands:
@@ -75,7 +75,6 @@ steps:
       - docker-compose -f rublevka-frontend/docker-compose-dev.yml build
       - docker-compose -f rublevka-frontend/docker-compose-dev.yml up -d
     environment:
-      APP: rublevka
       APP_ENV: development
       HOST: dev.rublevka.ru
       REACT_APP_SENTRY_DSN:
@@ -89,29 +88,7 @@ steps:
       event:
         - push
 
-  - name: deploy-riga-frontend-dev
-    pull: default
-    image: docker/compose:1.22.0
-    commands:
-      - export BUILD_ID=$DRONE_BUILD_NUMBER
-      - docker-compose -f rublevka-frontend/docker-compose-dev.yml build
-      - docker-compose -f rublevka-frontend/docker-compose-dev.yml up -d
-    environment:
-      APP: riga
-      APP_ENV: development
-      HOST: dev.riga.ru
-      REACT_APP_SENTRY_DSN:
-        from_secret: react_app_sentry_dsn_rublevka_ru
-    volumes:
-      - name: docker_daemon
-        path: /var/run/docker.sock
-    when:
-      branch:
-        - develop
-      event:
-        - push
-
-  - name: deploy-rublevka-frontend-prod
+  - name: deploy-rublevka-riga-frontend-prod
     pull: default
     image: docker/compose:1.22.0
     commands:
@@ -119,9 +96,7 @@ steps:
       - docker-compose -f rublevka-frontend/docker-compose.yml build
       - docker-compose -f rublevka-frontend/docker-compose.yml up -d
     environment:
-      APP: rublevka
       APP_ENV: production
-      HOST: rublevka.ru
       REACT_APP_FACEBOOK_PIXEL_ID:
         from_secret: react_app_facebook_pixel_id_rublevka_ru
       REACT_APP_GOOGLE_ANALYTICS_ID:

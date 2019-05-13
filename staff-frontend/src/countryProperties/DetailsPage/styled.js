@@ -75,7 +75,7 @@ export const SearchIcon = styled.img`
   display: block;
   position: absolute;
   top: 12px;
-  left: 0;
+  left: -24px;
 `;
 
 export const PropertyOptionWrapper = styled(Row)`
@@ -157,16 +157,11 @@ export const Photos = styled.div`
     (!isViewAll
       ? css`
           flex-wrap: no-wrap;
-          overflow-x: scroll;
+          overflow-x: auto;
         `
       : css`
           flex-wrap: wrap;
         `)};
-`;
-
-export const Photo = styled.img`
-  max-height: 256px;
-  display: block;
 `;
 
 export const EditButton = styled(BodyBigBlue)`

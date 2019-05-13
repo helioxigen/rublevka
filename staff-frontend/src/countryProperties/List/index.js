@@ -4,6 +4,7 @@ import { FormattedNumber } from 'react-intl';
 import { Grid } from 'react-flexbox-grid';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
+import { Link as RouterLink } from 'react-router-dom';
 
 import { updateFilter, resetFilter, removeFilter } from '../../filter/actions';
 import { resetPagination } from '../../pagination/actions';
@@ -13,9 +14,14 @@ import { resourceName } from '../constants/defaults';
 import Card from '../Card';
 import Filter from './Filter';
 import Pagination from './Pagination';
+import MainHeader from '../../Header';
 
 import {
-  Layout, Title, Input, HollowButton as OrigButton,
+  Layout,
+  Title,
+  Input,
+  HollowButton as OrigHollowButton,
+  Button as OrigButton,
 } from '../../UI';
 
 const Header = styled.header`
@@ -23,7 +29,15 @@ const Header = styled.header`
   margin: 24px 0;
 `;
 
-const Button = styled(OrigButton)`
+const CreateButton = styled(OrigButton)`
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  margin-bottom: 46px;
+  margin-top: 8px;
+`;
+
+const Button = styled(OrigHollowButton)`
   margin-left: 10px;
 `;
 
@@ -40,7 +54,6 @@ function List(props) {
   const {
     dispatch, countryProperties, filter, pagination = {},
   } = props;
-
   const { ids = [], isFetching } = countryProperties[group] || {};
 
   function load() {
@@ -79,7 +92,7 @@ function List(props) {
   return (
     <Grid>
       <Helmet title="Загородные объекты" />
-
+      <MainHeader />
       <Layout>
         <Title>
           Загородные объекты{' '}
@@ -102,6 +115,10 @@ function List(props) {
         <section>
           <div className="row">
             <div className="col-sm-3">
+              <CreateButton as={RouterLink} to="/country-properties/create">
+                Создать
+              </CreateButton>
+
               <Filter
                 resource={resource}
                 state={filter}

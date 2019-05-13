@@ -85,7 +85,7 @@ const Id = styled.p`
   color: #ffffff;
 `;
 
-const stateStyles = {
+export const stateStyles = {
   primary: '#1EAAF1',
   success: '#50AD55',
   warning: '#FDC02F',

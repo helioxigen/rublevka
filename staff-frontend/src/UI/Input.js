@@ -54,9 +54,23 @@ export default class Input extends React.PureComponent {
     this.setState({ inputValue: this.props.defaultValue });
   }
 
+  componentDidUpdate(prevProps) {
+    const { defaultValue } = this.props;
+    const { defaultValue: prevDefaultValue } = prevProps;
+
+    if (prevDefaultValue !== defaultValue) {
+      this.resetInput();
+    }
+  }
+
   componentWillUnmount() {
     this.removeKeyboardListener();
   }
+
+  resetInput = () => {
+    const { defaultValue } = this.props;
+    this.setState({ inputValue: defaultValue });
+  };
 
   onKeyDown = (event) => {
     if (event.keyCode === enterKeyCode) {
@@ -89,10 +103,12 @@ export default class Input extends React.PureComponent {
 
   onChange = (e) => {
     const { value } = e.target;
+    const { onChange: propsOnChange } = this.props;
+    this.setState({ inputValue: value });
 
-    this.setState({ inputValue: value }, () => {
-      this.props.onChange(value);
-    });
+    if (propsOnChange) {
+      propsOnChange(value);
+    }
   };
 
   submit = () => {

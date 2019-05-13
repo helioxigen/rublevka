@@ -1,20 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Helmet from 'react-helmet';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { Formik, Form, Field } from 'formik';
-import { isValidNumber, AsYouType } from 'libphonenumber-js';
 import {
   Main,
   Logo,
   Title,
   BodyBig,
-  Input as InputBase,
   ErrorMessage,
   Button as ButtonBase,
   theme,
 } from '../../UI';
-import ruFlag from './img/ru.png';
+import { login } from '../actions';
 
 const Header = styled.header`
   padding-top: 21px;
@@ -29,37 +28,34 @@ const Description = styled(BodyBig)`
   padding-top: 30px;
 `;
 
-const PhoneContainer = styled.div`
-  margin-top: 13px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`;
+const CustomField = styled(Field)`
+  outline: none;
+  display: block;
+  transition: border-bottom 0.3s ease-in-out;
+  border: none;
+  border-bottom: 1px solid ${({ errors }) => (errors ? theme.red : theme.alto)};
+  padding: 10px 0px;
+  font-family: 'FSElliotPro';
+  color: #333;
+  font-size: 20px;
+  background-color: transparent;
 
-const Phone = styled.p`
-  margin: 0;
-  font-size: 22px;
-  color: ${theme.blue};
-  text-align: left;
-`;
-
-const Pen = styled.a`
-  margin-left: 9px;
-  color: ${theme.blue};
-  text-decoration: none;
-  font-size: 0.85em;
-
-  &:hover {
-    cursor: pointer;
+  &:focus {
+    border-bottom: 2px solid
+      ${({ errors }) => (errors ? theme.red : theme.blue)};
   }
-`;
 
-const Input = styled(InputBase)`
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &::placeholder {
+    opacity: 0.25;
+  }
+
   margin-top: 44px;
-  background-image: url(${ruFlag});
-  background-repeat: no-repeat;
-  background-position: 0px 19px;
-  padding-left: 40px;
   width: calc(100% - 40px);
   margin-bottom: ${({ errors }) => (errors ? 8 : 24)}px;
 `;
@@ -70,88 +66,43 @@ const LogoWrapper = styled.div`
   justify-content: center;
 `;
 
-const CodeInput = styled(InputBase)`
-  margin-top: 44px;
-  margin-bottom: ${({ errors }) => (errors ? 8 : 24)}px;
-  letter-spacing: 15px;
-`;
-
 const Button = styled(ButtonBase)`
   margin-top: 26px;
   margin-bottom: 37px;
 `;
 
-const SendCode = styled.a`
-  font-size: 18px;
-  color: ${theme.blue};
-  text-decoration: none;
-
-  &:hover {
-    cursor: pointer;
-    text-decoration: underline;
+const validatePassword = (value) => {
+  if (!value) {
+    return 'Введите пароль';
   }
-`;
+  return null;
+};
 
-export default class extends React.Component {
-  state = { phone: '+7', codeSent: false };
+const validateEmail = (value) => {
+  if (!value) {
+    return 'Введите E-mail';
+  }
+  return null;
+};
+
+class LoginPage extends React.Component {
+  state = {};
+
+  setFieldValue = (key, value) => {
+    this.setState({ [key]: value });
+  };
 
   renderForm = () => {
-    const { phone, codeSent } = this.state;
-    if (codeSent) {
-      return (
-        <Col md={5}>
-          <Title>Войти</Title>
-          <Description>Введите код из смс</Description>
-          <PhoneContainer>
-            <Phone>{new AsYouType().input(phone)}</Phone>
-            <Pen onClick={() => this.setState({ codeSent: false })}>
-              <i className="fas fa-pen" />
-            </Pen>
-          </PhoneContainer>
-          <Formik
-            initialValues={{ code: '' }}
-            validate={values => {
-              if (!values.code) {
-                return { code: 'Введите код' };
-              }
+    const { dispatch, auth } = this.props;
+    const { errors: serverErrors = [] } = auth;
+    const emailError = serverErrors.some(el => el.code === 'invalid_email')
+      ? 'Неверный E-mail'
+      : null;
+    const passError = serverErrors.some(el => el.code === 'invalid_password')
+      ? 'Неверный пароль'
+      : null;
 
-              if (values.code.toString().length !== 6) {
-                return { code: 'Длина кода должна быть 6 символов' };
-              }
-
-              return {};
-            }}
-            onSubmit={() => alert('Sended')}
-          >
-            {({ isSubmitting }) => (
-              <Form>
-                <Field
-                  name="code"
-                  render={({ field, form: { touched, errors } }) => (
-                    <div>
-                      <CodeInput
-                        {...field}
-                        type="number"
-                        autoComplete="off"
-                        errors={touched[field.name] && errors[field.name]}
-                      />
-                      {touched[field.name] && errors[field.name] && (
-                        <ErrorMessage>{errors[field.name]}</ErrorMessage>
-                      )}
-                    </div>
-                  )}
-                />
-                <Button type="submit" disabled={isSubmitting}>
-                  Войти
-                </Button>
-              </Form>
-            )}
-          </Formik>
-          <SendCode>Отправить повторно</SendCode>
-        </Col>
-      );
-    }
-
+    // TODO разобраться, почему из инпута, вложенного в Field не приходит значение
     return (
       <Col md={5}>
         <Title>Войти</Title>
@@ -159,44 +110,33 @@ export default class extends React.Component {
           Войдите в свой аккаунт, чтобы получить доступ к объектам.
         </Description>
         <Formik
-          initialValues={{ phone }}
-          validate={values => {
-            if (!values.phone) {
-              return { phone: 'Необходимо ввести номер телефона' };
-            }
-
-            if (!isValidNumber(values.phone)) {
-              return { phone: 'Неверный номер телефона' };
-            }
-
-            return {};
+          onSubmit={(values) => {
+            const { email, password } = values;
+            dispatch(login({ email, password }));
           }}
-          onSubmit={values =>
-            this.setState({ codeSent: true, phone: values.phone })
-          }
         >
-          {({ isSubmitting }) => (
+          {({ errors }) => (
             <Form>
-              <Field
-                name="phone"
-                render={({ field, form: { touched, errors } }) => (
-                  <div>
-                    <Input
-                      {...field}
-                      value={new AsYouType().input(field.value)}
-                      type="tel"
-                      autoComplete="off"
-                      errors={touched[field.name] && errors[field.name]}
-                    />
-                    {touched[field.name] && errors[field.name] && (
-                      <ErrorMessage>{errors[field.name]}</ErrorMessage>
-                    )}
-                  </div>
-                )}
+              <CustomField
+                validate={validateEmail}
+                name="email"
+                type="email"
+                autoComplete="on"
+                placeholder="E-mail"
               />
-              <Button type="submit" disabled={isSubmitting}>
-                Далее
-              </Button>
+              {(errors.email || emailError) && (
+                <ErrorMessage>{errors.email || emailError}</ErrorMessage>
+              )}
+              <CustomField
+                validate={validatePassword}
+                name="password"
+                type="password"
+                placeholder="Пароль"
+              />
+              {(errors.password || passError) && (
+                <ErrorMessage>{errors.password || passError}</ErrorMessage>
+              )}
+              <Button type="submit">Войти</Button>
             </Form>
           )}
         </Formik>
@@ -228,3 +168,10 @@ export default class extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  const { auth } = state;
+  return { auth };
+};
+
+export default connect(mapStateToProps)(LoginPage);

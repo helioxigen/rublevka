@@ -125,6 +125,9 @@ export const mapParams = ({
 };
 
 function parseBoolean(value) {
+  if (typeof value === 'undefined') {
+    return value;
+  }
   if (value === true || String(value).toLowerCase() === 'true' || value === 1) {
     return true;
   }
@@ -138,32 +141,20 @@ function transformOutputImage(image) {
 
 function transformOutputLocation(location) {
   const {
-    districtName,
-    house,
-    latitude,
-    localityName,
-    longitude,
-    mkadDistance,
-    routeName,
-    settlementId,
-    settlementName,
-    street,
+    settlementId, street, house, cadastralNumber,
   } = location;
   return {
-    districtName,
-    house,
-    latitude,
-    localityName,
-    longitude,
-    mkadDistance,
-    routeName,
     settlementId,
-    settlementName,
     street,
+    house,
+    cadastralNumber,
   };
 }
 
 function transformOutputRentOffer(offer) {
+  if (!offer) {
+    return null;
+  }
   const {
     agentFee,
     currency,
@@ -173,7 +164,9 @@ function transformOutputRentOffer(offer) {
     isDisabled,
     period,
     price,
-  } = offer || {};
+    isAgentFixed,
+    agentFixedPrice,
+  } = offer;
   return {
     agentFee,
     currency,
@@ -182,11 +175,16 @@ function transformOutputRentOffer(offer) {
     isAllowedPets: parseBoolean(isAllowedPets),
     isDisabled: parseBoolean(isDisabled),
     period,
-    price,
+    price: parseFloat(price) || 0,
+    isAgentFixed,
+    agentFixedPrice,
   };
 }
 
 function transformOutputSaleOffer(offer) {
+  if (!offer) {
+    return null;
+  }
   const {
     agentFee,
     currency,
@@ -199,7 +197,7 @@ function transformOutputSaleOffer(offer) {
     isResale,
     kind,
     price,
-  } = offer || {};
+  } = offer;
   return {
     agentFee,
     currency,
@@ -210,8 +208,8 @@ function transformOutputSaleOffer(offer) {
     isInstallment: parseBoolean(isInstallment),
     isMortgage: parseBoolean(isMortgage),
     isResale: parseBoolean(isResale),
+    price: parseFloat(price) || 0,
     kind,
-    price,
   };
 }
 
@@ -234,6 +232,28 @@ function transfortOutputSpecification(specification) {
     withVentilation: parseBoolean(withVentilation),
   };
 }
+function transformOutputCommunication(communication) {
+  const { powerSupply } = communication;
+  return {
+    ...communication,
+    powerSupply: parseFloat(powerSupply) || 0,
+  };
+}
+
+export function isContainsInvalidPrice(value) {
+  const keys = Object.keys(value || {});
+  const numKeys = keys.length;
+  const requriedFields = ['price', 'currency'];
+  const isContainsRequiriedFields = requriedFields.every(
+    field => !!keys.includes(field),
+  );
+
+  if (!isContainsRequiriedFields && numKeys > 0) {
+    return true;
+  }
+
+  return false;
+}
 
 export function transformOutputValues(property) {
   const {
@@ -254,7 +274,7 @@ export function transformOutputValues(property) {
   return {
     additionalDetails,
     category,
-    communication,
+    communication: transformOutputCommunication(communication),
     equipment,
     images: images.map(image => transformOutputImage(image)),
     kind,

@@ -85,10 +85,10 @@ const CommunicationSection = ({
         <PropertyBigValue>Коммуникации</PropertyBigValue>
       </Col>
       <Col xsOffset={1} xs={2}>
-        <PropertyTitle>Электричество</PropertyTitle>
+        <PropertyTitle>Электричество, кВт</PropertyTitle>
         <EditPropertyInput
           defaultValue={powerSupply}
-          placeholder="Электр-во,кВт"
+          placeholder="Электр-во, кВт"
           onSubmit={value => update('powerSupply', value)}
         />
       </Col>

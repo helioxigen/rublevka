@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import global from 'window-or-global';
 
 import { Link } from 'react-router';
 
 import media from '../../styles/media';
 import UI from '../../ui/v2019';
+
+import placeholderImg from './img/placeholder.jpg';
 
 const {
   Grid: { Container, Row, Col },
@@ -129,22 +132,24 @@ const FindBtn = styled(Button)`
   `}
 `;
 
+const isRiga = global.config.domain === 'riga.ru';
+
 export default () => (
   <Container>
     <Row>
       <ImgCol xs="12" md="5">
-        <Img
-          alt="Красивый домик"
-          src="https://images.unsplash.com/photo-1518733057094-95b53143d2a7"
-        />
+        <Img alt="Красивый домик" src={placeholderImg} />
       </ImgCol>
       <Col xs="12" md="7">
         <Wrapper>
-          <Heading>Лучшие предложения на Рублёвке</Heading>
+          <Heading>
+            Лучшие предложения на {isRiga ? 'Новой Риге' : 'Рублёвке'}
+          </Heading>
           <Body>
-            Рублёвка.ру — это только актуальные предложения на рынке, опыт
-            экспертов и забота о клиенте. Мы создаём сервис для поиска, подбора
-            и покупки недвижимости: удобный, быстрый и интуитивно понятный.
+            {isRiga ? 'Рига.ру' : 'Рублёвка.ру'} — это только актуальные
+            предложения на рынке, опыт экспертов и забота о клиенте. Мы создаём
+            сервис для поиска, подбора и покупки недвижимости: удобный, быстрый
+            и интуитивно понятный.
           </Body>
           <Link to="/zagorodnaya/prodaja">
             <FindBtn kind="danger">подробнее</FindBtn>

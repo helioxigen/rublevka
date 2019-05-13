@@ -16,6 +16,8 @@ import media from '../styles/media';
 
 import blackPattern from '../assets/images/black-pattern.svg';
 
+const isRiga = global.config.domain === 'riga.ru';
+
 const {
   Icon,
   Grid: { Container, Row, Col },
@@ -212,7 +214,7 @@ const BottomBlock = styled.div`
 `;
 
 const LogoSatellites = styled(Icon)`
-  width: 131px;
+  width: ${isRiga ? 63 : 131}px;
   height: 20px;
   fill: #666666;
 `;

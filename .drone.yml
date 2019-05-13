@@ -89,6 +89,28 @@ steps:
       event:
         - push
 
+  - name: deploy-riga-frontend-dev
+    pull: default
+    image: docker/compose:1.22.0
+    commands:
+      - export BUILD_ID=$DRONE_BUILD_NUMBER
+      - docker-compose -f rublevka-frontend/docker-compose-dev.yml build
+      - docker-compose -f rublevka-frontend/docker-compose-dev.yml up -d
+    environment:
+      APP: riga
+      APP_ENV: development
+      HOST: dev.riga.ru
+      REACT_APP_SENTRY_DSN:
+        from_secret: react_app_sentry_dsn_rublevka_ru
+    volumes:
+      - name: docker_daemon
+        path: /var/run/docker.sock
+    when:
+      branch:
+        - develop
+      event:
+        - push
+
   - name: deploy-rublevka-frontend-prod
     pull: default
     image: docker/compose:1.22.0
@@ -285,3 +307,6 @@ trigger:
   branch:
     - master
     - develop
+  status:
+    - success
+    - failure

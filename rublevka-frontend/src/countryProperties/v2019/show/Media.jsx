@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import ReactSwipe from 'react-swipe';
+import Slider from 'react-styled-carousel';
 import global from 'window-or-global';
 import {
   disableBodyScroll,
@@ -275,6 +276,12 @@ const PhotoNum = styled.div`
 const LayoutImagesButton = styled.button`
   background: #f44336;
 
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   border: 0;
   outline: none;
 `;
@@ -295,6 +302,7 @@ const calcTranslateOnIdx = ({ currentIdx, overall, hasLayoutImages }) => {
 
 const GalleryNav = styled.div`
   position: relative;
+  overflow: hidden;
 
   .container {
     display: flex;
@@ -329,6 +337,10 @@ const GalleryNav = styled.div`
   img:not([data-current='true']) {
     opacity: 0.5;
     cursor: pointer;
+
+    &:hover {
+      opacity: 0.75;
+    }
   }
 `;
 
@@ -496,7 +508,9 @@ export default class Media extends Component {
               </div>
             ))}
           </div>
-          {hasLayoutImages && <LayoutImagesButton />}
+          {hasLayoutImages && (
+            <LayoutImagesButton>планировки</LayoutImagesButton>
+          )}
         </GalleryNav>
       </div>
     );

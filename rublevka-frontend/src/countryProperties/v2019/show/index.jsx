@@ -161,7 +161,8 @@ class Property extends Component {
                         item.id === Number.parseInt(id, 10) &&
                         item.dealType === this.props.dealType,
                     )}
-                    images={images}
+                    images={images.filter(im => im.isPublic)}
+                    hasLayoutImages
                     propertyId={id}
                   />
                   {displaySummary && <Summary data={data} />}

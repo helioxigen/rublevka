@@ -3,6 +3,11 @@ import styled from 'styled-components';
 
 import media from '../../../styles/media';
 
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const Button = styled.button`
   padding: 19px 24px;
   margin-top: 16px;
@@ -47,13 +52,15 @@ export default () =>
 
       if (offset + limit < total) {
         return (
-          <Button
-            kind={this.props.kind}
-            size={this.props.size}
-            onClick={this.handlePageChanged}
-          >
-            {this.props.children}
-          </Button>
+          <Wrapper>
+            <Button
+              kind={this.props.kind}
+              size={this.props.size}
+              onClick={this.handlePageChanged}
+            >
+              {this.props.children}
+            </Button>
+          </Wrapper>
         );
       }
 

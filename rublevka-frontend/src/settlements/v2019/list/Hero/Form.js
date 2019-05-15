@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import global from 'window-or-global';
+import qs from 'qs';
 
 import Downshift from 'downshift';
 import { Link } from 'react-router';
@@ -125,12 +127,23 @@ class FormClass extends Component {
     }
   }
 
-  handleQueryChange = value => {
+  handleQueryChange = (value) => {
     this.setState({ name: value });
 
-    API.get(`/v1/search/similar?query=${value}&limit=5`).then(data =>
-      this.setState({ searchResults: data.body.items }),
-    );
+    const query = {
+      filter: {
+        name: `*${value}*`,
+        state: 'public',
+        'location.routeId': global.config.routes.map(el => el.id),
+      },
+      pagination: {
+        limit: 5,
+      },
+    };
+
+    API.get(
+      `/v1/places/settlements?${qs.stringify(query, { indices: false })}`,
+    ).then(data => this.setState({ searchResults: data.body.items }));
   };
 
   search = () => {
@@ -142,21 +155,15 @@ class FormClass extends Component {
     );
   };
 
-  renderSearchResult = data => {
-    if (data.objectKlass === 'settlement') {
-      return (
-        <DropdownLink
-          to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${
-            data.id
-          }`}
-        >
-          {data.name}
-        </DropdownLink>
-      );
-    }
-
-    return null;
-  };
+  renderSearchResult = data => (
+    <DropdownLink
+      to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${
+        data.id
+      }`}
+    >
+      {data.name}
+    </DropdownLink>
+  );
 
   closeDropdown = () => {
     setTimeout(() => this.setState({ isDropdownOpen: false }), 200);
@@ -181,16 +188,16 @@ class FormClass extends Component {
             />
             {isDropdownOpen && (
               <InputDropdown>
-                {name === '' || !searchResults
+                {name === '' || searchResults.length === 0
                   ? Object.keys(popularForRoute).map(id => (
-                      <DropdownLink
-                        to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
+                    <DropdownLink
+                      to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
                           popularForRoute[id],
                         )}_${id}`}
-                        key={id}
-                      >
-                        {popularForRoute[id]}
-                      </DropdownLink>
+                      key={id}
+                    >
+                      {popularForRoute[id]}
+                    </DropdownLink>
                     ))
                   : searchResults.map(this.renderSearchResult)}
               </InputDropdown>

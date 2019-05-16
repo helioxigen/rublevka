@@ -35,6 +35,7 @@ import Similar from './Similar';
 import CallBlock from './CallBlock';
 import CallForm from './CallForm';
 import GalleryPlaceholder from './GalleryPlaceholder';
+import Gallery from './Gallery';
 
 const {
   Grid: { Container, Col, Row },
@@ -155,7 +156,7 @@ class Property extends Component {
                     {publicImages.length === 0 ? (
                       <GalleryPlaceholder />
                     ) : (
-                      <Media
+                      <Gallery
                         toggleFavorite={() =>
                           actions.toggleFavorite(
                             Number.parseInt(id, 10),
@@ -167,7 +168,7 @@ class Property extends Component {
                             item.id === Number.parseInt(id, 10) &&
                             item.dealType === this.props.dealType,
                         )}
-                        images={images.filter(im => im.isPublic)}
+                        images={publicImages}
                         hasLayoutImages
                         propertyId={id}
                       />

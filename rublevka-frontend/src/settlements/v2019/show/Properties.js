@@ -50,6 +50,10 @@ const FilterContainer = styled.div`
   padding-left: 10px;
   padding-right: 15px;
   flex-basis: 20%;
+
+  ${media.md`
+    max-width: 20%;
+  `}
 `;
 
 const CardsContainer = styled.div`
@@ -251,22 +255,20 @@ class List extends Component {
                         this.renderCards()
                       )}
                       {hasItems && (
-                        <Row xs="center">
-                          <Col xs="12">
-                            <LoadMore
-                              size="lg"
-                              total={pagination.total}
-                              offset={pagination.offset}
-                              limit={pagination.limit}
-                              resource={this.resource}
-                              updatePagination={
-                                this.props.actions.updatePagination
-                              }
-                            >
-                              Загрузить ещё
-                            </LoadMore>
-                          </Col>
-                        </Row>
+                        <Col xs="12">
+                          <LoadMore
+                            size="lg"
+                            total={pagination.total}
+                            offset={pagination.offset}
+                            limit={pagination.limit}
+                            resource={this.resource}
+                            updatePagination={
+                              this.props.actions.updatePagination
+                            }
+                          >
+                            Загрузить ещё
+                          </LoadMore>
+                        </Col>
                       )}
                     </Row>
                   </CardsContainer>
@@ -278,20 +280,18 @@ class List extends Component {
                 <Row>
                   {this.renderCards()}
                   {hasItems && (
-                    <Row xs="center">
-                      <Col xs="12">
-                        <LoadMore
-                          size="lg"
-                          total={pagination.total}
-                          offset={pagination.offset}
-                          limit={pagination.limit}
-                          resource={this.resource}
-                          updatePagination={this.props.actions.updatePagination}
-                        >
-                          Загрузить ещё
-                        </LoadMore>
-                      </Col>
-                    </Row>
+                    <Col xs="12">
+                      <LoadMore
+                        size="lg"
+                        total={pagination.total}
+                        offset={pagination.offset}
+                        limit={pagination.limit}
+                        resource={this.resource}
+                        updatePagination={this.props.actions.updatePagination}
+                      >
+                        Загрузить ещё
+                      </LoadMore>
+                    </Col>
                   )}
                 </Row>
               </Container>

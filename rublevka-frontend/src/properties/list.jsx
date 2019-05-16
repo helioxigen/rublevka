@@ -22,6 +22,7 @@ import * as analyticsEvents from '../core/analytics/constants';
 
 // UI
 import UI from '../ui/v2019';
+import media from '../styles/media';
 
 import {
   Title,
@@ -56,6 +57,10 @@ const FilterContainer = styled.div`
   padding-left: 10px;
   padding-right: 15px;
   flex-basis: 20%;
+
+  ${media.md`
+    max-width: 20%;
+  `}
 `;
 
 const CardsContainer = styled.div`
@@ -306,9 +311,7 @@ class List extends Component {
             <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
               <Container>
                 <Row>
-                  <FilterContainer>
-                    {this.renderFilter()}
-                  </FilterContainer>
+                  <FilterContainer>{this.renderFilter()}</FilterContainer>
                   <CardsContainer>
                     <Row>
                       {!isFetching && !ids.length ? (

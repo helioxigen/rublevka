@@ -25,8 +25,7 @@ const GalleryNav = ({
           tabIndex={0}
           role="menuitem"
           className="gallery-nav-item"
-          onFocus={() => {}}
-          onClick={() => onImageClick(id)}
+          onClick={() => onImageClick(idx)}
         >
           <img
             key={id}
@@ -68,11 +67,12 @@ export default styled(GalleryNav)`
     top: 0;
   }
 
-  .image-container {
+  .gallery-nav-item {
     padding-right: 3px;
+    outline: none;
   }
 
-  .image-container,
+  .gallery-nav-item,
   ${LayoutImagesButton} {
     height: 60px;
 

@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import ReactSwipe from 'react-swipe';
-import Slider from 'react-styled-carousel';
 import global from 'window-or-global';
 import {
   disableBodyScroll,
@@ -11,7 +10,6 @@ import {
 } from 'body-scroll-lock';
 import { cloudfront } from '../../../core/config/resources';
 
-import cameraIcon from './img/camera.png';
 import media from '../../../styles/media';
 import UI from '../../../ui';
 

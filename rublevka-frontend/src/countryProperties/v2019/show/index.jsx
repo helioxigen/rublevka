@@ -154,7 +154,7 @@ class Property extends Component {
                   <Wrapper>
                     <Header data={data} propertyId={id} dealType={dealType} />
                     {publicImages.length === 0 ? (
-                      <GalleryPlaceholder />
+                      <GalleryPlaceholder propertyId={id} />
                     ) : (
                       <Gallery
                         toggleFavorite={() =>

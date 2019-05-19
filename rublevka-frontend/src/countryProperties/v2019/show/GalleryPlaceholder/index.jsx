@@ -13,7 +13,7 @@ const GalleryPlaceholder = ({ className, propertyId }) => (
         name: {
           placeholder: 'имя',
         },
-        tel: {
+        email: {
           type: 'email',
           placeholder: 'email',
         },

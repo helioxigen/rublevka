@@ -8,12 +8,15 @@ import {
   enableBodyScroll,
   clearAllBodyScrollLocks,
 } from 'body-scroll-lock';
-import { cloudfront } from '../../../core/config/resources';
+import { cloudfront } from '../../../../core/config/resources';
 
-import media from '../../../styles/media';
-import UI from '../../../ui';
+import media from '../../../../styles/media';
+import UI from '../../../../ui';
 import GalleryNav from './GalleryNav';
 import GalleryCount from './GalleryCount';
+import GalleryWrapper from './GalleryWrapper';
+import FullScreen from './FullScreen';
+import Controls from './Controls';
 
 const { Icon, Visibility } = UI;
 
@@ -173,26 +176,6 @@ const Wrapper = styled.div`
   }
 `;
 
-const PhotoPlaceholder = styled.div`
-  width: 100%;
-  height: 300px;
-  background-color: #eee;
-  content: ' ';
-
-  ${media.xs`
-    height: 400px;
-    border-radius: 4px;
-  `}
-
-  ${media.sm`
-    height: 480px;
-  `}
-
-  ${media.md`
-    height: 450px;
-  `}
-`;
-
 const Photo = styled.img`
   width: 100%;
   height: 300px;
@@ -250,42 +233,7 @@ const FavoriteIcon = styled(Icon)`
   `}
 `;
 
-const PhotoNum = styled.div`
-  position: absolute;
-  bottom: 20px;
-  left: 15px;
-  padding: 6px 8px;
-  display: flex;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 6px;
-
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.535714px;
-  color: white;
-  text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.35);
-
-  z-index: 2;
-
-  span:nth-child(2) {
-    margin: 0 2px;
-  }
-`;
-
-export class Gallery extends React.Component {
-  state = {
-    currentImageIdx: 0,
-  };
-
-  setCurrentImage = idx => this.setState({ currentImageIdx: idx });
-
-  render() {
-    return <section />;
-  }
-}
-
-export default class Media extends Component {
+export default class Gallery extends React.Component {
   state = {
     currentImageIdx: 0,
     isGalleryOpen: false,
@@ -298,17 +246,10 @@ export default class Media extends Component {
   getImageLink = (id, size, postfix = global.config.postfix) =>
     `${global.config.cloudfront || cloudfront}/${id}-${postfix}-${size}`;
 
-  setCurrentImageId = id => this.setState({ currentImageId: id });
-
-  handleNavImageClick = id => () => {
-    const { images } = this.props;
-
-    const idx = images.findIndex(im => im.id === id);
-
-    this.carousel.slide(idx);
-  };
-
   galleryCallback = idx => this.setState({ currentImageIdx: idx });
+
+  toggleGallery = () =>
+    this.setState({ isGalleryOpen: !this.state.isGalleryOpen });
 
   closeGallery = () => {
     enableBodyScroll(this.modal);
@@ -331,8 +272,6 @@ export default class Media extends Component {
       hasLayoutImages,
       images,
     } = this.props;
-    const currentImageId =
-      images[currentImageIdx] && images[currentImageIdx].id;
 
     return (
       <section>
@@ -353,19 +292,76 @@ export default class Media extends Component {
             ))}
           </MobilePhotos>
         </MobileGallery> */}
-        <Wrapper>
-          <Visibility xs="block" sm="hidden" md="hidden" lg="hidden">
-            {images.length !== 0 ? (
+        {isGalleryOpen && (
+          <FullScreen title="2-этажный дом, 700 м², №12345,  307 285 575 ₽">
+            <ReactSwipe
+              ref={el => (this.carousel = el)}
+              swipeOptions={{ callback: this.galleryCallback }}
+            >
+              {images.map(({ id }) => (
+                <Photo
+                  key={id}
+                  data-id={id}
+                  alt={id}
+                  onClick={this.toggleGallery}
+                  src={this.getImageLink(id, 1024)}
+                />
+              ))}
+            </ReactSwipe>
+            <Controls
+              onNextClick={() => this.carousel.next()}
+              onPrevClick={() => this.carousel.prev()}
+            />
+            <GalleryNav
+              currentImageIdx={currentImageIdx}
+              hasLayoutImages={hasLayoutImages}
+              images={images}
+              onImageClick={idx => this.carousel.slide(idx)}
+            />
+          </FullScreen>
+        )}
+        <GalleryWrapper
+          onNextClick={() => this.carousel.next()}
+          onPrevClick={() => this.carousel.prev()}
+        >
+          <ReactSwipe
+            ref={el => (this.carousel = el)}
+            swipeOptions={{ callback: this.galleryCallback }}
+          >
+            {images.map(({ id }) => (
               <Photo
-                src={`${global.config.cloudfront || cloudfront}/${
-                  images[0].id
-                }-${global.config.postfix}-1024`}
-                alt={images[0].id}
-                onClick={this.openGallery}
+                key={id}
+                data-id={id}
+                alt={id}
+                onClick={this.toggleGallery}
+                src={this.getImageLink(id, 1024)}
               />
-            ) : (
-              <PhotoPlaceholder />
-            )}
+            ))}
+          </ReactSwipe>
+          <GalleryCount
+            overall={images.length}
+            currentIndex={currentImageIdx + 1}
+          />
+          <Id>№ {propertyId}</Id>
+          <FavoriteIcon
+            isActive={isFavorite}
+            onClick={e => {
+              e.preventDefault();
+              e.stopPropagation();
+              toggleFavorite();
+            }}
+            icon="favorite"
+          />
+        </GalleryWrapper>
+        {/* <Wrapper>
+          <Visibility xs="block" sm="hidden" md="hidden" lg="hidden">
+            <Photo
+              src={`${global.config.cloudfront || cloudfront}/${images[0].id}-${
+                global.config.postfix
+              }-1024`}
+              alt={images[0].id}
+              onClick={this.openGallery}
+            />
           </Visibility>
           <Visibility xs="hidden" sm="block" md="block" lg="block">
             <PrevButton onClick={() => this.carousel.prev()}>
@@ -388,28 +384,12 @@ export default class Media extends Component {
               <ArrowIcon icon="carousel-right" />
             </NextButton>
           </Visibility>
-          <Id>№ {propertyId}</Id>
-          <FavoriteIcon
-            isActive={isFavorite}
-            onClick={e => {
-              e.preventDefault();
-              e.stopPropagation();
-              toggleFavorite();
-            }}
-            icon="favorite"
-          />
-          {images.length > 0 && (
-            <GalleryCount
-              currentIndex={currentImageIdx}
-              overall={images.length}
-            />
-          )}
-        </Wrapper>
+        </Wrapper> */}
         <GalleryNav
           currentImageIdx={currentImageIdx}
           hasLayoutImages={hasLayoutImages}
           images={images}
-          onImageClick={id => this.carousel.slide(id)}
+          onImageClick={idx => this.carousel.slide(idx)}
         />
       </section>
     );

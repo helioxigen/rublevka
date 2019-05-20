@@ -115,6 +115,25 @@ const StInput = styled(InputMask)`
   }
 `;
 
+const TextArea = styled.textarea`
+  margin: 4px 0px;
+  padding: 16px 15px 14px 15px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.75);
+  appearance: none;
+
+  font-weight: bold;
+  line-height: 18px;
+  font-size: 15px;
+  text-transform: uppercase;
+  color: #232323;
+
+  &::-webkit-input-placeholder {
+    color: #aaa;
+  }
+`;
+
 const SubmitBtn = styled.button`
   align-self: center;
   margin-top: 12px;
@@ -258,15 +277,24 @@ export default class extends React.Component {
                 <Body>{subheader}</Body>
                 <CallForm>
                   {Object.entries(fields).map(
-                    ([fieldName, { placeholder, type = 'text' }]) => (
-                      <StInput
-                        type={type}
-                        mask={type === 'tel' ? '+9 (999) 999-99-99' : undefined}
-                        placeholder={placeholder}
-                        value={values[fieldName]}
-                        onChange={this.handleValueChange(fieldName)}
-                      />
-                    ),
+                    ([fieldName, { placeholder, type = 'text' }]) =>
+                      type === 'textarea' ? (
+                        <TextArea
+                          placeholder={placeholder}
+                          value={values[fieldName]}
+                          onChange={this.handleValueChange(fieldName)}
+                        />
+                      ) : (
+                        <StInput
+                          type={type}
+                          mask={
+                            type === 'tel' ? '+9 (999) 999-99-99' : undefined
+                          }
+                          placeholder={placeholder}
+                          value={values[fieldName]}
+                          onChange={this.handleValueChange(fieldName)}
+                        />
+                      ),
                   )}
                   <SubmitBtn type="submit" onClick={this.handleSendRequest}>
                     Оставить заявку

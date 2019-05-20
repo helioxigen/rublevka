@@ -314,7 +314,6 @@ export default class Gallery extends React.Component {
             />
             <GalleryNav
               currentImageIdx={currentImageIdx}
-              hasLayoutImages={hasLayoutImages}
               images={images}
               onImageClick={idx => this.carousel.slide(idx)}
             />
@@ -324,20 +323,22 @@ export default class Gallery extends React.Component {
           onNextClick={() => this.carousel.next()}
           onPrevClick={() => this.carousel.prev()}
         >
-          <ReactSwipe
-            ref={el => (this.carousel = el)}
-            swipeOptions={{ callback: this.galleryCallback }}
-          >
-            {images.map(({ id }) => (
-              <Photo
-                key={id}
-                data-id={id}
-                alt={id}
-                onClick={this.toggleGallery}
-                src={this.getImageLink(id, 1024)}
-              />
-            ))}
-          </ReactSwipe>
+          <div style={{ maxHeight: 450, overflow: 'hidden' }}>
+            <ReactSwipe
+              ref={el => (this.carousel = el)}
+              swipeOptions={{ callback: this.galleryCallback }}
+            >
+              {images.map(({ id }) => (
+                <Photo
+                  key={id}
+                  data-id={id}
+                  alt={id}
+                  onClick={this.toggleGallery}
+                  src={this.getImageLink(id, 1024)}
+                />
+              ))}
+            </ReactSwipe>
+          </div>
           <GalleryCount
             overall={images.length}
             currentIndex={currentImageIdx + 1}
@@ -387,7 +388,7 @@ export default class Gallery extends React.Component {
         </Wrapper> */}
         <GalleryNav
           currentImageIdx={currentImageIdx}
-          hasLayoutImages={hasLayoutImages}
+          showLayoutButton={hasLayoutImages}
           images={images}
           onImageClick={idx => this.carousel.slide(idx)}
         />

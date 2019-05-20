@@ -1,13 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
 import { calcTranslateShift, getImageLink } from './utils';
+import UI from '../../../../ui/v2019';
+
+const { Icon } = UI;
+
+const LayoutIcon = styled(Icon).attrs({
+  icon: 'house-layout',
+})`
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+`;
+
+const LayoutImagesButton = styled.button`
+  background: #f44336;
+
+  color: white;
+
+  font-size: 13px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px 0;
+
+  border: 0;
+  outline: none;
+`;
 
 const GalleryNav = ({
   className,
   images = [],
   currentImageIdx,
   onImageClick,
-  hasLayoutImages,
+  showLayoutButton,
 }) => (
   <div className={className}>
     <div
@@ -16,7 +45,7 @@ const GalleryNav = ({
         transform: calcTranslateShift(
           currentImageIdx,
           images.length,
-          hasLayoutImages,
+          showLayoutButton,
         ),
       }}
     >
@@ -36,21 +65,14 @@ const GalleryNav = ({
         </a>
       ))}
     </div>
+    {showLayoutButton && (
+      <LayoutImagesButton>
+        <LayoutIcon />
+        планировки
+      </LayoutImagesButton>
+    )}
   </div>
 );
-
-const LayoutImagesButton = styled.button`
-  background: #f44336;
-
-  color: white;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  border: 0;
-  outline: none;
-`;
 
 export default styled(GalleryNav)`
   position: relative;

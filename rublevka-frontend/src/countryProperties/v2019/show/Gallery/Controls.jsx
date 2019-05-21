@@ -17,18 +17,19 @@ const ArrowIcon = styled(Icon)`
 const PrevButton = styled.button`
   outline: none;
   position: absolute;
-  bottom: 0;
-  top: 0;
-  left: 15px;
+  left: 50px;
   border: none;
   background: none;
   padding: 0;
   z-index: 2;
+
+  transform: translateX(50%);
+  top: 50%;
 `;
 
 const NextButton = styled(PrevButton)`
   left: unset;
-  right: 15px;
+  right: 50px;
 `;
 
 export default ({ onPrevClick, onNextClick }) => (

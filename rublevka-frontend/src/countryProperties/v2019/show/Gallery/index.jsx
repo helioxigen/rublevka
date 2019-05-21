@@ -17,6 +17,7 @@ import GalleryCount from './GalleryCount';
 import GalleryWrapper from './GalleryWrapper';
 import FullScreen from './FullScreen';
 import Controls from './Controls';
+import { getImageLink } from './utils';
 
 const { Icon, Visibility } = UI;
 
@@ -239,29 +240,10 @@ export default class Gallery extends React.Component {
     isGalleryOpen: false,
   };
 
-  componentWillUnmount() {
-    clearAllBodyScrollLocks();
-  }
-
-  getImageLink = (id, size, postfix = global.config.postfix) =>
-    `${global.config.cloudfront || cloudfront}/${id}-${postfix}-${size}`;
-
   galleryCallback = idx => this.setState({ currentImageIdx: idx });
 
   toggleGallery = () =>
     this.setState({ isGalleryOpen: !this.state.isGalleryOpen });
-
-  closeGallery = () => {
-    enableBodyScroll(this.modal);
-
-    this.setState({ isGalleryOpen: false });
-  };
-
-  openGallery = () => {
-    disableBodyScroll(this.modal);
-
-    this.setState({ isGalleryOpen: true });
-  };
 
   render() {
     const { isGalleryOpen, currentImageIdx } = this.state;
@@ -271,6 +253,7 @@ export default class Gallery extends React.Component {
       isFavorite,
       hasLayoutImages,
       images,
+      fullScreenTitle
     } = this.props;
 
     return (
@@ -293,31 +276,14 @@ export default class Gallery extends React.Component {
           </MobilePhotos>
         </MobileGallery> */}
         {isGalleryOpen && (
-          <FullScreen title="2-этажный дом, 700 м², №12345,  307 285 575 ₽">
-            <ReactSwipe
-              ref={el => (this.carousel = el)}
-              swipeOptions={{ callback: this.galleryCallback }}
-            >
-              {images.map(({ id }) => (
-                <Photo
-                  key={id}
-                  data-id={id}
-                  alt={id}
-                  onClick={this.toggleGallery}
-                  src={this.getImageLink(id, 1024)}
-                />
-              ))}
-            </ReactSwipe>
-            <Controls
-              onNextClick={() => this.carousel.next()}
-              onPrevClick={() => this.carousel.prev()}
-            />
-            <GalleryNav
-              currentImageIdx={currentImageIdx}
-              images={images}
-              onImageClick={idx => this.carousel.slide(idx)}
-            />
-          </FullScreen>
+          <FullScreen
+            initialSlide={currentImageIdx}
+            images={images}
+            title={fullScreenTitle}
+            onFavoriteClick={toggleFavorite}
+            isFavorite={isFavorite}
+            onClose={this.toggleGallery}
+          />
         )}
         <GalleryWrapper
           onNextClick={() => this.carousel.next()}
@@ -334,7 +300,7 @@ export default class Gallery extends React.Component {
                   data-id={id}
                   alt={id}
                   onClick={this.toggleGallery}
-                  src={this.getImageLink(id, 1024)}
+                  src={getImageLink(id, 1024)}
                 />
               ))}
             </ReactSwipe>

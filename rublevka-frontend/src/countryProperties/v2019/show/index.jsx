@@ -36,6 +36,7 @@ import CallBlock from './CallBlock';
 import CallForm from './CallForm';
 import GalleryPlaceholder from './GalleryPlaceholder';
 import Gallery from './Gallery';
+import { FormattedNumber } from 'react-intl';
 
 const {
   Grid: { Container, Col, Row },
@@ -157,6 +158,18 @@ class Property extends Component {
                       <GalleryPlaceholder propertyId={id} />
                     ) : (
                       <Gallery
+                        fullScreenTitle={
+                          <span>
+                            {data.specification.floors}-этажный дом,{' '}
+                            {data.specification.area} м², №{id},{' '}
+                            <FormattedNumber
+                              style="currency"
+                              currency={currency}
+                              value={price}
+                              maximumSignificantDigits={12}
+                            />
+                          </span>
+                        }
                         toggleFavorite={() =>
                           actions.toggleFavorite(
                             Number.parseInt(id, 10),

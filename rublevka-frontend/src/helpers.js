@@ -1,3 +1,6 @@
+import { cloudfront } from './core/config/resources';
+export { capitalize } from './config/utils';
+
 export const makeFilterRange = (min, max, multiplier = 1) => {
   const isMin =
     min === 'min' || typeof min === 'undefined' || typeof min === 'null';
@@ -145,3 +148,14 @@ export const formatByMinMax = (value = {}, postfix = '', prefix = '') => {
     }
   }
 };
+
+const getImageLink = id =>
+  `https:${global.config.cloudfront || cloudfront}/${id}-thumbnail-512`;
+
+export const ogMeta = (metaObj = {}) =>
+  Object.entries(metaObj)
+    .filter(([, content]) => !!content)
+    .map(([propertyName, content]) => ({
+      property: `og:${propertyName}`,
+      content: propertyName === 'image' ? getImageLink(content) : content,
+    }));

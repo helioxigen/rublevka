@@ -2,6 +2,7 @@ import global from 'window-or-global';
 import { getPrevNext, getTitlePostfix } from 'core/helpers/seo';
 import { prepositionalRoutesById } from 'core/places/constants/dictionaries';
 import { translitKinds } from 'constants/properties/dictionaries';
+import { ogMeta } from '../../../helpers';
 
 const {
   config: { domain },
@@ -9,14 +10,16 @@ const {
 } = global;
 const canonical = `https://${domain}/zagorodnaya/kottedzhnye-poselki`;
 
+const getTitle = queryPage =>
+  `Коттеджные посёлки в Московской области на ${domain}${getTitlePostfix(
+    queryPage,
+  )}`;
+
 export const list = {
   h1: 'Посёлки',
-  title: queryPage =>
-    `Коттеджные посёлки в Московской области на ${domain}${getTitlePostfix(
-      queryPage,
-    )}`,
+  title: getTitle,
 
-  meta: () => [
+  meta: queryPage => [
     {
       name: 'description',
       content: `Коттеджные посёлки в ${domain}. Лучшие предложения на ${domain}!`,
@@ -25,6 +28,10 @@ export const list = {
       name: 'keywords',
       content: `коттеджные посёлки, ${domain}, цена, стоимость, КП, Московская область, Подмосковье`,
     },
+    ...ogMeta({
+      title: getTitle(queryPage),
+      description: `Коттеджные посёлки в ${domain}. Лучшие предложения на ${domain}!`,
+    }),
   ],
   link: (queryPage, totalPages) => [
     {

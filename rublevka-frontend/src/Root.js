@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 import styled, { ThemeProvider } from 'styled-components';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import ru from 'react-intl/locale-data/ru';
@@ -13,6 +14,7 @@ import Footer from './components/footer';
 import theming from './styles/theming';
 import media from './styles/media';
 import sUtils from './styles/utils.css';
+import { ogMeta, capitalize } from './helpers';
 
 const isJQ = global.config.domain === 'jq.estate';
 
@@ -38,6 +40,14 @@ export default props => (
     <ThemeProvider theme={theming}>
       <Body className={sUtils.scroll}>
         <Main>
+          <Helmet
+            meta={ogMeta({
+              locale: 'ru_RU',
+              type: 'website',
+              site_name: capitalize(global.config.domain),
+              url: `https://${global.config.domain}${props.location.pathname}`,
+            })}
+          />
           {isJQ && <HeaderJQ {...props} />}
           {!isJQ && <HeaderSatellites {...props} />}
 

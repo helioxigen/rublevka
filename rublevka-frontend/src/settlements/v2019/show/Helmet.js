@@ -5,6 +5,7 @@ import Helmet from 'react-helmet';
 import { show as seo } from '../constants/seo';
 
 import { nameToSlug } from '../../../core/helpers/nameToSlug';
+import { ogMeta } from '../../../helpers';
 
 const routeIds = global.config.routes.map(item => item.id) || [];
 
@@ -47,6 +48,16 @@ export default ({ placeName, placeKind, data, dealType, kind }) => {
       },
     ];
     // ↑ fucking russian seo
+
+    const image = data.images[0];
+
+    meta.push(
+      ...ogMeta({
+        title,
+        description: seo.description(data.name, dealType, kind),
+        image: image && image.id,
+      }),
+    );
 
     meta.push(
       makeMetaElement('description', data.name, dealType, kind, placeKind),

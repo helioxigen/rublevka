@@ -84,7 +84,6 @@ const TitleWrapper = styled.h1`
   ${media.md`
     line-height: 32px;
     font-size: 24px;
-    margin-top: 8px;
     margin-bottom: 16px;
   `}
 `;

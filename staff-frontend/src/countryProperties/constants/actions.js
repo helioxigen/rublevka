@@ -13,3 +13,7 @@ export const CREATE_FAILED = '@@core/countryProperties.create.failed';
 export const UPDATE = '@@core/countryProperties.update.started';
 export const UPDATE_SUCCEEDED = '@@core/countryProperties.update.succeeded';
 export const UPDATE_FAILED = '@@core/countryProperties.update.failed';
+
+export const LOAD_LINKED_CONTACTS = 'properties.id.contacts.load.started';
+export const LOAD_LINKED_CONTACTS_SUCCESS = 'properties.id.contacts.load.succeeded';
+export const LOAD_LINKED_CONTACTS_FAIL = 'properties.id.contacts.load.failed';

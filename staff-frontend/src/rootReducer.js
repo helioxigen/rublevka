@@ -4,6 +4,8 @@ import filter from './filter/reducer';
 import pagination from './pagination/reducer';
 import auth from './auth/reducer';
 import users from './users/reducer';
+import comments from './comments/reducer';
+import contactsByPropertyId from './linkedContacts/contactsByPropertyIdReducer';
 
 export default combineReducers({
   countryProperties,
@@ -11,4 +13,6 @@ export default combineReducers({
   pagination,
   auth,
   users,
+  comments,
+  contactsByPropertyId,
 });

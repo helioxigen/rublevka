@@ -69,7 +69,8 @@ export default class Input extends React.PureComponent {
 
   resetInput = () => {
     const { defaultValue } = this.props;
-    this.setState({ inputValue: defaultValue });
+    const newValue = defaultValue || '';
+    this.setState({ inputValue: newValue });
   };
 
   onKeyDown = (event) => {

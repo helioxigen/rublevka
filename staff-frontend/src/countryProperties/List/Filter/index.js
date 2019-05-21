@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import intersection from 'lodash/intersection';
 
 import { State, Kind } from './Property';
 import {
   Currency, Price, Resale, DealType,
 } from './Offers';
 import {
-  MkadDistance, Route, Locality, Settlement,
+  MkadDistance, Route, Locality, Settlement, House,
 } from './Location';
 import {
   Area, Bedrooms, WallMaterial, Renovate, Furniture,
@@ -136,7 +137,6 @@ function Filter({ state = {}, ...props }) {
           update={value => update('mkadDistance', value)}
           remove={() => remove('mkadDistance')}
         />
-
         <Route
           currentValue={state.routeIds}
           update={value => update('routeIds', value)}
@@ -152,10 +152,14 @@ function Filter({ state = {}, ...props }) {
           update={value => update('settlementIds', value)}
           remove={() => remove('settlementIds')}
         />
-        {/* <House kind="" update={update} remove={remove} /> */}
+        <House
+          currentValue={state.house}
+          update={value => update('house', value)}
+          remove={() => remove('house')}
+        />
       </Section>
 
-      {(state.kind === 'house' || state.kind === 'townhouse') && (
+      {intersection(['house', 'townhouse'], state.kind).length > 0 && (
         <Section>
           <h2>Дом</h2>
           <Area

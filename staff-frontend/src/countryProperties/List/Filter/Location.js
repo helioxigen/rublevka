@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { mkadDistance } from '../../constants/dictionaries';
 import MinMax from './MinMax';
 import MultiSelect from './MultiSelect';
+import ValueInput from './ValueInput';
 
 const fetchData = async (done, route, usedIds, name = '') =>
   fetch(
@@ -93,6 +94,14 @@ export function MkadDistance({ currentValue, remove, update }) {
   );
 }
 
-export function House() {
-  // return <Input />;
+export function House({ currentValue, remove, update }) {
+  return (
+    <ValueInput
+      title="Номер участка"
+      placeholder="Любой"
+      currentValue={currentValue}
+      remove={remove}
+      update={update}
+    />
+  );
 }

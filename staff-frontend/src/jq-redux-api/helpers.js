@@ -123,3 +123,10 @@ export const makeFilterRange = (min, max, multiplier = 1) => {
 
   return from || to ? `${from}..${to}` : null;
 };
+
+export const extractIdFromLocation = location => {
+  const locationSplit = location.split('/');
+  const id = [...locationSplit].pop();
+
+  return id;
+};

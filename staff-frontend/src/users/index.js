@@ -1,3 +1,3 @@
-import { loadUser, loadCurrentUser } from './load';
+import { loadUser, loadCurrentUser } from './actions/load';
 
 export { loadUser, loadCurrentUser };

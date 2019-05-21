@@ -15,7 +15,7 @@ import { Main, Title, Layout } from './UI';
 import Auth from './auth/LoginPage';
 import Property from './countryProperties/DetailsPage';
 import Properties from './countryProperties/List';
-import { loadCurrentUser } from './users/load';
+import { loadCurrentUser } from './users/actions';
 import { setToken } from './jq-redux-api/api';
 import SplashScreen from './SplashScreen';
 
@@ -40,13 +40,13 @@ class App extends React.PureComponent {
   }
 
   loadPersistStore = () => {
-    persistStore(store, { whitelist: ['auth'] }, () => {
+    persistStore(store, { whitelist: ['auth'] }, async () => {
       const { auth } = store.getState();
       const { token } = auth;
 
       if (token) {
         setToken(token);
-        store.dispatch(loadCurrentUser());
+        await store.dispatch(loadCurrentUser());
       }
       this.setState({ isRehydrated: true });
     });

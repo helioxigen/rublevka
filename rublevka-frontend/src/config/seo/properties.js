@@ -241,6 +241,17 @@ export default {
       },
 
       description: (dealType, kind) => {
+        const { theme } = global.config;
+        const dicts = require('./data/list.descriptions.json');
+
+        if (theme in dicts) {
+          const themeDict = dicts[theme][dealType];
+
+          const description = themeDict[kind || 'root'];
+
+          if (description) return description;
+        }
+
         const dictionary = {
           sale: {
             title: 'Купить загородную недвижимость в Московской области',

@@ -17,7 +17,7 @@ const Title = ({ data, dealType, withOffer = false }) => {
 
   return (
     <div>
-      {withOffer && offerKinds[dealType]}{' '}
+      {withOffer && (kind === 'land' ? 'Участок' : offerKinds[dealType])}{' '}
       {withOffer ? pluralizedKinds[kind] : kinds[kind]}{' '}
       {kind === 'land' ? (
         <span>

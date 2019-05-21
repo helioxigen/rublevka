@@ -152,6 +152,19 @@ export default {
         return `${dictionary.dealType[dealType]} ${dictionary.kind[kind]}`;
       },
       title: (dealType, kind, queryPage) => {
+        const pagination = queryPage > 1 ? ` — cтраница ${queryPage}` : '';
+
+        const { theme } = global.config;
+        const dicts = require('./data/list.titles.json');
+
+        if (theme in dicts) {
+          const themeDict = dicts[theme][dealType];
+
+          const title = themeDict[kind || 'root'];
+
+          if (title) return title + pagination;
+        }
+
         const dictionary = {
           sale: {
             title: 'Продажа',
@@ -181,15 +194,11 @@ export default {
         if (!kind) {
           return `${
             dictionary[dealType].title
-          } загородной недвижимости в Московской области на ${domain}${
-            queryPage > 1 ? ` — cтраница ${queryPage}` : ''
-          }`;
+          } загородной недвижимости в Московской области на ${domain}${pagination}`;
         }
         return `${dictionary[dealType].titleWithCategory} ${
           dictionary[dealType][kind]
-        } в Московской области на ${domain}${
-          queryPage > 1 ? ` — cтраница ${queryPage}` : ''
-        }`;
+        } в Московской области на ${domain}${pagination}`;
       },
 
       titleH1: (dealType, kind) => {

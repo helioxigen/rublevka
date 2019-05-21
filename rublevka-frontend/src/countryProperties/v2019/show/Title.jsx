@@ -30,7 +30,7 @@ const Title = ({ data, dealType, withOffer = false }) => {
           declensionForms={['спальня', 'спальни', 'спален']}
         />
       )}
-      &nbsp;в пос. {location.settlementName}, {location.mkadDistance}&nbsp;км
+      &nbsp;в пос. {location.settlementName}
     </div>
   );
 };

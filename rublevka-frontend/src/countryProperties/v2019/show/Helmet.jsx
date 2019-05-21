@@ -6,6 +6,7 @@ import { helmet } from 'config/seo';
 
 import { formatPrice } from 'helpers';
 import { dealTypes, kindsTranslit } from 'constants/properties/dictionaries';
+import { ogMeta } from '../../../helpers';
 
 const routeIds = global.config.routes.map(item => item.id) || [];
 
@@ -36,20 +37,22 @@ export default ({ data, kind, ...props }) => {
     const { price, currency } = data[`${dealType}Offer`] || {};
     const formattedPrice = formatPrice(price, currency);
 
+    const description = helmet.properties.show.country.description(
+      dealType,
+      data.kind,
+      data.id,
+      data.location.settlementName,
+      data.location.mkadDistance,
+      data.specification.area,
+      formattedPrice,
+      data.location.routeName,
+      data.location.districtName,
+      data.location.regionName,
+    );
+
     meta.push({
       name: 'description',
-      content: helmet.properties.show.country.description(
-        dealType,
-        data.kind,
-        data.id,
-        data.location.settlementName,
-        data.location.mkadDistance,
-        data.specification.area,
-        formattedPrice,
-        data.location.routeName,
-        data.location.districtName,
-        data.location.regionName,
-      ),
+      content: description,
     });
 
     meta.push({
@@ -79,6 +82,16 @@ export default ({ data, kind, ...props }) => {
       props.dealType,
       kindsTranslit[data.kind],
       data.id,
+    );
+
+    const image = data.images.filter(im => im.isPublic)[0];
+
+    meta.push(
+      ...ogMeta({
+        title,
+        description,
+        image: image && image.id,
+      }),
     );
 
     return <Helmet title={title} meta={meta} link={link} />;

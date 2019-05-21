@@ -7,6 +7,7 @@ import {
   dealTypesTranslit,
   kindsTranslit,
 } from 'constants/properties/dictionaries';
+import { ogMeta } from '../helpers';
 
 export default ({ dealType, kind, pagination, query }) => {
   const seo = helmet.properties.list.country;
@@ -15,14 +16,21 @@ export default ({ dealType, kind, pagination, query }) => {
 
   const queryPage = Number(query.page);
 
+  const title = seo.title(dealType, kind, queryPage);
+  const description = seo.description(dealType, kind);
+
   const metaInfo = [
-    { name: 'description', content: seo.description(dealType, kind) },
+    { name: 'description', content: description },
     { name: 'keywords', content: seo.keywords(dealType, kind) },
+    ...ogMeta({
+      title,
+      description,
+    }),
   ];
 
   return (
     <Helmet
-      title={seo.title(dealType, kind, queryPage)}
+      title={title}
       meta={metaInfo}
       link={seo.link(
         dealTypesTranslit[dealType],

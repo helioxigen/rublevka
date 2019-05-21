@@ -34,8 +34,8 @@ const InfoBlock = styled.div`
   `}
 `;
 
-const Id = styled.p`
-  margin: 0;
+const Id = styled.span`
+  margin-bottom: 8px;
   line-height: 18px;
   font-size: 15px;
   letter-spacing: 0.535714px;
@@ -71,6 +71,9 @@ const TitleWrapper = styled.h1`
   line-height: 28px;
   font-size: 21px;
 
+  display: flex;
+  flex-direction: column-reverse;
+
   color: #000000;
 
   ${media.xs`
@@ -88,16 +91,9 @@ const TitleWrapper = styled.h1`
 
 export default ({ data, dealType, propertyId }) => (
   <Header>
-    <InfoBlock>
-      <Id>№ {propertyId}</Id>
-      {/* <Views>
-        <StIcon icon="eye" />
-        <Count>256</Count>
-      </Views> */}
-    </InfoBlock>
     <TitleWrapper>
-      {' '}
       <Title withOffer data={data} dealType={dealType} />{' '}
+      <Id>№ {propertyId}</Id>
     </TitleWrapper>
   </Header>
 );

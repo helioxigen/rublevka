@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import UI from '../../../../ui';
-import media from '../../../../styles/media';
+import UI from 'ui';
+import media from 'styles/media';
 import GalleryCount from './GalleryCount';
 
 const { Icon } = UI;

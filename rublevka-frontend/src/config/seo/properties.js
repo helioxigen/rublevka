@@ -1,4 +1,5 @@
 import global from 'window-or-global';
+import { joinStrings, capitalize, replaceEnd } from '../utils.js';
 
 const domain = global.config.domain;
 
@@ -462,6 +463,20 @@ export default {
             dictionary[dealType].title
           } недвижимости Московской области на ${domain}`;
         }
+
+        if (kind === 'land') {
+          return joinStrings(
+            capitalize(dictionary[dealType][kind]),
+            `ID ${id}`,
+            name && `в поселке «${name}»,`,
+            mkadDistance && `${mkadDistance}  км от МКАД,`,
+            area && `общей площадью ${area} м²,`,
+            `по цене ${price},`,
+            route && `${route} шоссе`,
+            `– агентство недвижимости ${domain}`,
+          );
+        }
+
         return `${dictionary[dealType].titleWithCategory} ${
           dictionary[dealType][kind]
         } ID ${id}${name ? ` в поселке «${name}»` : ''}${
@@ -512,12 +527,26 @@ export default {
 
         const { title } = dictionary[dealType];
 
+        const fixedRoute = replaceEnd(route, 'ое', 'ом');
+
+        if (kind === 'land') {
+          return joinStrings(
+            'Продажа участка',
+            `ID ${id}`,
+            `по цене ${price}`,
+            name && `в поселке «${name}»,`,
+            mkadDistance && `в ${mkadDistance} км от МКАД,`,
+            route && `на ${fixedRoute} направлении,`,
+            region,
+          );
+        }
+
         return `${title} ${
           dictionary[dealType][kind]
         } ID ${id} по цене ${price} ${name &&
           `в поселке «${name}»`} ${mkadDistance &&
-          `в ${mkadDistance} км от МКАД`} ${route &&
-          `на ${route} направлении`}${area &&
+          `в ${mkadDistance} км от МКАД`} ${fixedRoute &&
+          `на ${fixedRoute} направлении`}${area &&
           `, площадью ${area} м²`}${region && `, ${region}`} – ${domain}!`;
       },
       keywords: (name, dealType, kind, region, district, route, meta) => {

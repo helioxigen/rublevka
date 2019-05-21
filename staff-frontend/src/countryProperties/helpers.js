@@ -65,7 +65,8 @@ export const mapParams = ({
       offset,
     },
     orderBy: {
-      [orderBy.field]: orderBy.predicate,
+      // [orderBy.field]: orderBy.predicate,
+      ...orderBy,
     },
     filter: {
       state,

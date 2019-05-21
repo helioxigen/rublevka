@@ -7,12 +7,18 @@ import { connect } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { updateFilter, resetFilter, removeFilter } from '../../filter/actions';
+import {
+  updateSorting as updateSortingAction,
+  resetSorting as resetSortingAction,
+  removeSorting as removeSortingAction,
+} from '../../sorting/actions';
 import { resetPagination } from '../../pagination/actions';
 
 import loadList from '../actions/loadList';
 import { resourceName } from '../constants/defaults';
 import Card from '../Card';
 import Filter from './Filter';
+import Sort from './Sort';
 import Pagination from './Pagination';
 import MainHeader from '../../Header';
 
@@ -44,20 +50,30 @@ const Button = styled(OrigHollowButton)`
 const group = 'all';
 const resource = `${resourceName}.${group}`;
 
-const mapStateToProps = ({ countryProperties, filter, pagination }) => ({
+const mapStateToProps = ({
+  countryProperties,
+  filter,
+  pagination,
+  sorting,
+}) => ({
   countryProperties,
   filter: filter[resource],
+  sorting: sorting[resource],
   pagination: pagination[resource],
 });
 
 function List(props) {
   const {
-    dispatch, countryProperties, filter, pagination = {},
+    dispatch,
+    countryProperties,
+    filter,
+    pagination = {},
+    sorting: orderBy,
   } = props;
   const { ids = [], isFetching } = countryProperties[group] || {};
 
   function load() {
-    return dispatch(loadList({ filter, pagination }, group));
+    return dispatch(loadList({ filter, orderBy, pagination }, group));
   }
 
   function update(key, value) {
@@ -73,10 +89,27 @@ function List(props) {
     dispatch(resetFilter(resource));
   }
 
+  function updateSorting(key, value) {
+    dispatch(resetPagination(resource));
+    dispatch(updateSortingAction(resource, { [key]: value }));
+  }
+
+  function removeSorting(key, value) {
+    dispatch(removeSortingAction(resource, key, value));
+  }
+
+  function resetSorting() {
+    dispatch(resetSortingAction(resource));
+  }
+
   function loadMore(newPage, withAppend) {
     dispatch(
       loadList(
-        { filter, pagination: { ...pagination, offset: (newPage - 1) * 24 } },
+        {
+          filter,
+          orderBy,
+          pagination: { ...pagination, offset: (newPage - 1) * 24 },
+        },
         group,
         {
           append: withAppend,
@@ -85,9 +118,17 @@ function List(props) {
     );
   }
 
-  React.useEffect(() => {
-    load({ filter, pagination, dispatch });
-  }, [filter]);
+  React.useEffect(
+    () => {
+      load({
+        filter,
+        orderBy,
+        pagination,
+        dispatch,
+      });
+    },
+    [filter, orderBy],
+  );
 
   return (
     <Grid>
@@ -118,7 +159,12 @@ function List(props) {
               <CreateButton as={RouterLink} to="/country-properties/create">
                 Создать
               </CreateButton>
-
+              <Sort
+                state={orderBy}
+                update={updateSorting}
+                remove={removeSorting}
+                reset={resetSorting}
+              />
               <Filter
                 resource={resource}
                 state={filter}

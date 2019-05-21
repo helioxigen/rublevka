@@ -37,8 +37,6 @@ export default function ValueInput({
 }) {
   const hasValue = !!currentValue;
 
-  console.log('currentValue; value input', currentValue);
-
   return (
     <Block title={title} remove={remove} hasValue={hasValue}>
       <Input

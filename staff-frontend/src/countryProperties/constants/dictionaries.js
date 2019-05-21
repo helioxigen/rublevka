@@ -227,10 +227,10 @@ export const eventKinds = {
 export const orderBy = {
   'rentOffer.multiCurrencyPrice.usd': 'по цене аренды',
   'saleOffer.multiCurrencyPrice.usd': 'по цене продажи',
-  id: 'по ID',
-  'specification.area': 'по площади дома',
-  'landDetails.area': 'по площади участка',
-  'location.mkadDistance': 'по расстоянию от МКАД',
+  // id: 'по ID',
+  // 'specification.area': 'по площади дома',
+  // 'landDetails.area': 'по площади участка',
+  'location.mkadDistance': 'от МКАД',
   createdAt: 'по дате создания',
   updatedAt: 'по дате обновления',
 };

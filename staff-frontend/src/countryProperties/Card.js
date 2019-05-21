@@ -216,6 +216,7 @@ class Card extends Component {
             href={`${process.env.REACT_APP_FIREBASE_FUNCTIONS_URL}/pdf/${
               data.id
             }`}
+            target="_blank"
           >
             pdf
           </ButtonLink>

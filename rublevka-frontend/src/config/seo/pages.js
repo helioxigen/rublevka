@@ -1,8 +1,8 @@
 export default {
   feedback: {
-    title: 'Контакты',
+    title: 'Контактная информация - агентство недвижимости Rublevka.ru',
     description: '',
-    keywords: '',
+    keywords: 'Адреса и телефоны офисов агентства недвижимости Rublevka.ru',
   },
   request: {
     title: 'Оставить заявку',

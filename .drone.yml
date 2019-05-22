@@ -187,15 +187,25 @@ steps:
       event:
         - push
 
+  - name: deploy-firebase-dev
+    pull: default
+    image: node:8.15.0
+    commands:
+      - yarn firebase deploy --token "$FIREBASE_TOKEN" --only hosting:staff-dev-rublevka-ru
+    environment:
+      FIREBASE_TOKEN:
+        from_secret: firebase_token
+    when:
+      branch:
+        - develop
+      event:
+        - push
+
   - name: deploy-firebase-prod
     pull: default
     image: node:8.15.0
     commands:
       - yarn firebase deploy --token "$FIREBASE_TOKEN"
-    # depends_on:
-    #   - build-firebase
-    #   - build-staff-frontend-prod
-    #   - build-export-app-frontend-prod
     environment:
       FIREBASE_TOKEN:
         from_secret: firebase_token

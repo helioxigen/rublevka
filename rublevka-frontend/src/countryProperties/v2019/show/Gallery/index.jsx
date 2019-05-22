@@ -145,6 +145,7 @@ const FavoriteIcon = styled(Icon)`
 export default class Gallery extends React.Component {
   state = {
     currentImageIdx: 0,
+    isLayoutShown: false,
     isGalleryOpen: false,
   };
 
@@ -153,16 +154,25 @@ export default class Gallery extends React.Component {
   toggleGallery = () =>
     this.setState({ isGalleryOpen: !this.state.isGalleryOpen });
 
+  toggleLayoutGallery = () => {
+    this.setState(
+      { isLayoutShown: !this.state.isLayoutShown },
+      this.toggleGallery,
+    );
+  };
+
   render() {
-    const { isGalleryOpen, currentImageIdx } = this.state;
+    const { isGalleryOpen, currentImageIdx, isLayoutShown } = this.state;
     const {
       propertyId,
       toggleFavorite,
       isFavorite,
-      hasLayoutImages,
       images,
+      // ,
       fullScreenTitle,
     } = this.props;
+
+    const layoutImages = images.slice(2);
 
     return (
       <section>
@@ -185,8 +195,8 @@ export default class Gallery extends React.Component {
         </MobileGallery> */}
         <FullScreen
           isOpen={isGalleryOpen}
-          initialSlide={currentImageIdx}
-          images={images}
+          initialSlide={isLayoutShown ? 0 : currentImageIdx}
+          images={isLayoutShown ? layoutImages : images}
           title={fullScreenTitle}
           onFavoriteClick={toggleFavorite}
           isFavorite={isFavorite}
@@ -232,44 +242,15 @@ export default class Gallery extends React.Component {
             icon="favorite"
           />
         </GalleryWrapper>
-        {/* <Wrapper>
-          <Visibility xs="block" sm="hidden" md="hidden" lg="hidden">
-            <Photo
-              src={`${global.config.cloudfront || cloudfront}/${images[0].id}-${
-                global.config.postfix
-              }-1024`}
-              alt={images[0].id}
-              onClick={this.openGallery}
-            />
-          </Visibility>
-          <Visibility xs="hidden" sm="block" md="block" lg="block">
-            <PrevButton onClick={() => this.carousel.prev()}>
-              <ArrowIcon icon="carousel-left" />
-            </PrevButton>
-            <ReactSwipe
-              ref={el => (this.carousel = el)}
-              swipeOptions={{ callback: this.galleryCallback }}
-            >
-              {images.map(({ id }) => (
-                <Photo
-                  key={id}
-                  data-id={id}
-                  alt={id}
-                  src={this.getImageLink(id, 1024)}
-                />
-              ))}
-            </ReactSwipe>
-            <NextButton onClick={() => this.carousel.next()}>
-              <ArrowIcon icon="carousel-right" />
-            </NextButton>
-          </Visibility>
-        </Wrapper> */}
-        <GalleryNav
-          currentImageIdx={currentImageIdx}
-          showLayoutButton={hasLayoutImages}
-          images={images}
-          onImageClick={idx => this.carousel.slide(idx)}
-        />
+        {images.length > 1 && (
+          <GalleryNav
+            currentImageIdx={currentImageIdx}
+            showLayoutButton={layoutImages.length > 0}
+            images={images}
+            onImageClick={idx => this.carousel.slide(idx)}
+            onLayoutImagesClick={this.toggleLayoutGallery}
+          />
+        )}
       </section>
     );
   }

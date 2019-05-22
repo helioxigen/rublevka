@@ -144,13 +144,17 @@ export default class FullScreenGallery extends React.Component {
     currentImageIdx: this.props.initialSlide,
   };
 
-  componentDidMount() {
-    disableBodyScroll(this.wrapper);
+  componentDidUpdate(prevProps) {
+    if (prevProps.isOpen !== this.props.isOpen) {
+      this.toggleBodyScroll();
+    }
   }
 
-  componentWillUnmount() {
-    enableBodyScroll(this.wrapper);
-  }
+  toggleBodyScroll = () => {
+    return this.props.isOpen
+      ? disableBodyScroll(this.modal)
+      : enableBodyScroll(this.modal);
+  };
 
   galleryCallback = idx => this.setState({ currentImageIdx: idx });
 
@@ -167,8 +171,13 @@ export default class FullScreenGallery extends React.Component {
     } = this.props;
 
     return (
-      <Portal isOpened={isOpen} closeOnEsc closePortal={onClose}>
-        <Wrapper ref={el => (this.wrapper = el)}>
+      <Portal
+        isOpened={isOpen}
+        closeOnEsc
+        closePortal={onClose}
+        ref={el => (this.modal = el)}
+      >
+        <Wrapper>
           <Controls
             onNextClick={() => this.carousel.next()}
             onPrevClick={() => this.carousel.prev()}
@@ -229,11 +238,13 @@ export default class FullScreenGallery extends React.Component {
                 ))}
               </ReactSwipe>
             </div>
-            <GalleryNav
-              currentImageIdx={currentImageIdx}
-              images={images}
-              onImageClick={idx => this.carousel.slide(idx)}
-            />
+            {images.length > 1 && (
+              <GalleryNav
+                currentImageIdx={currentImageIdx}
+                images={images}
+                onImageClick={idx => this.carousel.slide(idx)}
+              />
+            )}
           </Container>
         </Wrapper>
       </Portal>

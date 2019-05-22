@@ -105,6 +105,7 @@ class Property extends Component {
     const {
       location = {},
       images = [],
+      layoutImages = [],
       landDetails = {},
       specification = {},
       communication = {},
@@ -182,7 +183,7 @@ class Property extends Component {
                             item.dealType === this.props.dealType,
                         )}
                         images={publicImages}
-                        hasLayoutImages
+                        layoutImages={layoutImages}
                         propertyId={id}
                       />
                     )}

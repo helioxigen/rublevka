@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { calcTranslateShift, getImageLink } from './utils';
 import UI from '../../../../ui/v2019';
 
@@ -36,12 +36,14 @@ const GalleryNav = ({
   images = [],
   currentImageIdx,
   onImageClick,
+  onLayoutImagesClick,
   showLayoutButton,
 }) => (
   <div className={className}>
     <div
       className="shaft"
       style={{
+        // transform: `translateX(-${currentImageIdx * 100}px)`,
         transform: calcTranslateShift(
           currentImageIdx,
           images.length,
@@ -64,9 +66,15 @@ const GalleryNav = ({
           />
         </a>
       ))}
+      {showLayoutButton && images.length < 6 && (
+        <LayoutImagesButton onClick={onLayoutImagesClick}>
+          <LayoutIcon />
+          планировки
+        </LayoutImagesButton>
+      )}
     </div>
-    {showLayoutButton && (
-      <LayoutImagesButton>
+    {showLayoutButton && images.length > 6 && (
+      <LayoutImagesButton onClick={onLayoutImagesClick}>
         <LayoutIcon />
         планировки
       </LayoutImagesButton>
@@ -81,9 +89,16 @@ export default styled(GalleryNav)`
   .shaft {
     display: flex;
     transition: transform 0.5s;
+
+    ${props =>
+      props.images.length < 7 &&
+      css`
+        display: flex;
+        justify-content: center;
+      `}
   }
 
-  ${LayoutImagesButton} {
+  & > ${LayoutImagesButton} {
     position: absolute;
     right: 0;
     top: 0;

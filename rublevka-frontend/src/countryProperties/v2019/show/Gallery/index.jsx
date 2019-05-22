@@ -14,7 +14,7 @@ import media from '../../../../styles/media';
 import UI from '../../../../ui';
 import GalleryNav from './GalleryNav';
 import GalleryCount from './GalleryCount';
-import GalleryWrapper from './GalleryWrapper';
+import GalleryWrapper, { ExpandButton } from './GalleryWrapper';
 import FullScreen from './FullScreen';
 import Controls from './Controls';
 import { getImageLink } from './utils';
@@ -83,98 +83,6 @@ const MobilePhoto = styled.img`
   width: 100%;
   height: 220px;
   object-fit: cover;
-`;
-
-const PrevButton = styled.button`
-  outline: none;
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  left: 15px;
-  border: none;
-  background: none;
-  padding: 0;
-  z-index: 2;
-`;
-
-const NextButton = styled(PrevButton)`
-  left: unset;
-  right: 15px;
-`;
-
-const ArrowIcon = styled(Icon)`
-  width: 15px;
-  height: 32px;
-  fill: #fff;
-
-  &:hover {
-    opacity: 1;
-  }
-`;
-
-const Wrapper = styled.div`
-  position: relative;
-  margin: 0 -5px;
-  min-height: 300px;
-
-  ${media.xs`
-    margin: 0;
-    margin-bottom: 8px;
-  `}
-
-  ${media.md`
-    margin: 4px 0px;
-  `}
-
-  &::before, &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 80px;
-    transition: opacity 0.5s;
-    opacity: 0;
-    z-index: 1;
-  }
-
-  &::before {
-    background: linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.4) 0%,
-      rgba(0, 0, 0, 0) 100%
-    );
-    left: 0;
-  }
-
-  &::after {
-    background: linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 0.4) 100%
-    );
-    right: 0;
-  }
-
-  ${PrevButton} {
-    opacity: 0;
-    transition: opacity 0.5s;
-  }
-
-  &:hover {
-    &::before,
-    &::after {
-      opacity: 1;
-    }
-
-    ${PrevButton} {
-      opacity: 1;
-    }
-  }
-
-  &:hover::before,
-  &:hover::after {
-    opacity: 1;
-  }
 `;
 
 const Photo = styled.img`
@@ -253,7 +161,7 @@ export default class Gallery extends React.Component {
       isFavorite,
       hasLayoutImages,
       images,
-      fullScreenTitle
+      fullScreenTitle,
     } = this.props;
 
     return (
@@ -275,16 +183,15 @@ export default class Gallery extends React.Component {
             ))}
           </MobilePhotos>
         </MobileGallery> */}
-        {isGalleryOpen && (
-          <FullScreen
-            initialSlide={currentImageIdx}
-            images={images}
-            title={fullScreenTitle}
-            onFavoriteClick={toggleFavorite}
-            isFavorite={isFavorite}
-            onClose={this.toggleGallery}
-          />
-        )}
+        <FullScreen
+          isOpen={isGalleryOpen}
+          initialSlide={currentImageIdx}
+          images={images}
+          title={fullScreenTitle}
+          onFavoriteClick={toggleFavorite}
+          isFavorite={isFavorite}
+          onClose={this.toggleGallery}
+        />
         <GalleryWrapper
           onNextClick={() => this.carousel.next()}
           onPrevClick={() => this.carousel.prev()}
@@ -305,6 +212,11 @@ export default class Gallery extends React.Component {
               ))}
             </ReactSwipe>
           </div>
+          <Visibility xs="hidden" sm="block" md="block" lg="block">
+            <ExpandButton onClick={this.toggleGallery}>
+              <Icon icon="arrows-expand" />
+            </ExpandButton>
+          </Visibility>
           <GalleryCount
             overall={images.length}
             currentIndex={currentImageIdx + 1}

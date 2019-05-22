@@ -19,18 +19,44 @@ const ArrowIcon = styled(Icon)`
 const PrevButton = styled.button`
   outline: none;
   position: absolute;
-  bottom: 0;
-  top: 0;
   left: 15px;
   border: none;
   background: none;
   padding: 0;
   z-index: 2;
+
+  top: 50%;
+  transform: translateY(-50%);
 `;
 
 const NextButton = styled(PrevButton)`
   left: unset;
   right: 15px;
+`;
+
+export const ExpandButton = styled.button`
+  width: 16px;
+  height: 16px;
+
+  cursor: pointer;
+
+  border: none;
+  outline: none;
+  background: none;
+
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 15;
+
+  svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    fill: #fff;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -50,6 +76,7 @@ const Wrapper = styled.div`
   &::before, &::after {
     content: '';
     position: absolute;
+    pointer-events: none;
     top: 0;
     bottom: 0;
     width: 80px;
@@ -76,6 +103,11 @@ const Wrapper = styled.div`
     right: 0;
   }
 
+  ${ExpandButton} {
+    opacity: 0;
+    pointer-events: none;
+  }
+
   ${PrevButton} {
     opacity: 0;
     transition: opacity 0.5s;
@@ -87,7 +119,7 @@ const Wrapper = styled.div`
       opacity: 1;
     }
 
-    ${PrevButton} {
+    ${PrevButton}, ${ExpandButton} {
       opacity: 1;
     }
   }

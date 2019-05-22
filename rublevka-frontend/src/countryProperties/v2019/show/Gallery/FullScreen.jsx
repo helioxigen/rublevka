@@ -129,12 +129,14 @@ const CloseButton = styled.button`
   padding: 0;
   border: none;
   background: none;
+  width: 24px;
+  height: 24px;
 `;
 
 const CloseIcon = styled(Icon)`
   fill: #656565;
-  width: 24px;
-  height: 24px;
+  width: 100%;
+  height: 100%;
 `;
 
 export default class FullScreenGallery extends React.Component {
@@ -159,76 +161,82 @@ export default class FullScreenGallery extends React.Component {
       images,
       initialSlide,
       isFavorite,
+      isOpen,
       onFavoriteClick,
       onClose,
     } = this.props;
 
     return (
-      <Wrapper ref={el => this.wrapper = el}>
-        <Controls
-          onNextClick={() => this.carousel.next()}
-          onPrevClick={() => this.carousel.prev()}
-        />
-        <Container>
-          <header>
-            <h3>{title}</h3>
-            <PopupModal
-              header="Оставить заявку"
-              subheader="Оставьте свою заявку и наш менеджер свяжется с вами в течение 5 минут."
-              successMessage="Наш менеджер свяжется с вами в течение рабочего дня с 11 до 18."
-              fields={{
-                name: {
-                  placeholder: 'имя',
-                },
-                phone: {
-                  type: 'phone',
-                  placeholder: 'телефон',
-                },
-                comment: {
-                  type: 'textarea',
-                  placeholder: 'комментарий',
-                },
-              }}
-              onSendRequest={values => values}
-            >
-              <Button>Оставить заявку</Button>
-            </PopupModal>
-            <Button grey onClick={onFavoriteClick}>
-              <FavoriteIcon checked={isFavorite} />
-              <span className="switched-text">
-                {isFavorite ? 'В избранном' : 'В избранное'}
-              </span>
-            </Button>
-            <CloseButton onClick={onClose}>
-              <CloseIcon icon="close-button" />
-            </CloseButton>
-          </header>
-          <div className="gallery-body">
-            <ReactSwipe
-              ref={el => (this.carousel = el)}
-              swipeOptions={{ callback: this.galleryCallback, startSlide: initialSlide }}
-            >
-              {images.map(({ id }) => (
-                <div className="photo-container">
-                  <Photo
-                    key={id}
-                    data-id={id}
-                    alt={id}
-                    style={{
-                      backgroundImage: `url(${getImageLink(id, 1024)})`,
-                    }}
-                  />
-                </div>
-              ))}
-            </ReactSwipe>
-          </div>
-          <GalleryNav
-            currentImageIdx={currentImageIdx}
-            images={images}
-            onImageClick={idx => this.carousel.slide(idx)}
+      <Portal isOpened={isOpen} closeOnEsc closePortal={onClose}>
+        <Wrapper ref={el => (this.wrapper = el)}>
+          <Controls
+            onNextClick={() => this.carousel.next()}
+            onPrevClick={() => this.carousel.prev()}
           />
-        </Container>
-      </Wrapper>
+          <Container>
+            <header>
+              <h3>{title}</h3>
+              <PopupModal
+                header="Оставить заявку"
+                subheader="Оставьте свою заявку и наш менеджер свяжется с вами в течение 5 минут."
+                successMessage="Наш менеджер свяжется с вами в течение рабочего дня с 11 до 18."
+                fields={{
+                  name: {
+                    placeholder: 'имя',
+                  },
+                  phone: {
+                    type: 'phone',
+                    placeholder: 'телефон',
+                  },
+                  comment: {
+                    type: 'textarea',
+                    placeholder: 'комментарий',
+                  },
+                }}
+                onSendRequest={values => values}
+              >
+                <Button>Оставить заявку</Button>
+              </PopupModal>
+              <Button grey onClick={onFavoriteClick}>
+                <FavoriteIcon checked={isFavorite} />
+                <span className="switched-text">
+                  {isFavorite ? 'В избранном' : 'В избранное'}
+                </span>
+              </Button>
+              <CloseButton onClick={onClose}>
+                <CloseIcon icon="close-button" />
+              </CloseButton>
+            </header>
+            <div className="gallery-body">
+              <ReactSwipe
+                ref={el => (this.carousel = el)}
+                swipeOptions={{
+                  callback: this.galleryCallback,
+                  startSlide: initialSlide,
+                }}
+              >
+                {images.map(({ id }) => (
+                  <div className="photo-container">
+                    <Photo
+                      key={id}
+                      data-id={id}
+                      alt={id}
+                      style={{
+                        backgroundImage: `url(${getImageLink(id, 1024)})`,
+                      }}
+                    />
+                  </div>
+                ))}
+              </ReactSwipe>
+            </div>
+            <GalleryNav
+              currentImageIdx={currentImageIdx}
+              images={images}
+              onImageClick={idx => this.carousel.slide(idx)}
+            />
+          </Container>
+        </Wrapper>
+      </Portal>
     );
   }
 }

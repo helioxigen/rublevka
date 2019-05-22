@@ -139,7 +139,7 @@ const CloseIcon = styled(Icon)`
 
 export default class FullScreenGallery extends React.Component {
   state = {
-    currentImageIdx: 0,
+    currentImageIdx: this.props.initialSlide,
   };
 
   componentDidMount() {
@@ -206,7 +206,7 @@ export default class FullScreenGallery extends React.Component {
           <div className="gallery-body">
             <ReactSwipe
               ref={el => (this.carousel = el)}
-              swipeOptions={{ callback: this.galleryCallback, initialSlide }}
+              swipeOptions={{ callback: this.galleryCallback, startSlide: initialSlide }}
             >
               {images.map(({ id }) => (
                 <div className="photo-container">

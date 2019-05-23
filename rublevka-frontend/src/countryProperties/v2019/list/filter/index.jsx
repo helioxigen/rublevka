@@ -26,6 +26,7 @@ import Areas from './areas';
 import Renovate from './renovate';
 import Distance from './distance';
 import * as S from './styled';
+import FilterGroup from './FilterGroup';
 
 const { Visibility, CountIndicator } = UI;
 
@@ -127,11 +128,38 @@ class Filter extends Component {
     return (
       <div>
         <Kind
-          selected={state}
+          selected={state ? state.kind : []}
           updateFilter={this.updateFilter}
           removeFilter={this.removeFilter}
           dealType={dealType}
         />
+        {/* <FilterGroup
+          title="Тип объекта"
+          values={state}
+          onChange={this.handleKindChange}
+          items={[
+            {
+              label: 'Все',
+              value: 'all',
+            },
+            {
+              label: 'Дом',
+              value: 'house',
+            },
+            {
+              label: 'Таунхаус',
+              value: 'townhouse',
+            },
+            {
+              label: 'Участок',
+              value: 'land',
+            },
+            {
+              label: 'Квартира',
+              value: 'flat',
+            },
+          ]}
+        /> */}
 
         <Price
           selected={state}

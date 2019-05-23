@@ -2,14 +2,15 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { calcTranslateShift, getImageLink } from './utils';
 import UI from '../../../../ui/v2019';
+import media from '../../../../styles/media';
 
 const { Icon } = UI;
 
 const LayoutIcon = styled(Icon).attrs({
   icon: 'house-layout',
 })`
-  width: 20px;
-  height: 20px;
+  width: 1.5em;
+  height: 1.5em;
   fill: #fff;
 `;
 
@@ -18,14 +19,18 @@ const LayoutImagesButton = styled.button`
 
   color: white;
 
-  font-size: 13px;
+  font-size: 2.5vw;
+
+  ${media.xs`
+    font-size: 13px;
+  `}
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 
-  padding: 10px 0;
+  padding: 0.8em 0;
 
   border: 0;
   outline: none;
@@ -40,17 +45,7 @@ const GalleryNav = ({
   showLayoutButton,
 }) => (
   <div className={className}>
-    <div
-      className="shaft"
-      style={{
-        // transform: `translateX(-${currentImageIdx * 100}px)`,
-        transform: calcTranslateShift(
-          currentImageIdx,
-          images.length,
-          showLayoutButton,
-        ),
-      }}
-    >
+    <div className="shaft">
       {images.map(({ id }, idx) => (
         <a
           tabIndex={0}
@@ -82,13 +77,33 @@ const GalleryNav = ({
   </div>
 );
 
+const shift = size => props =>
+  calcTranslateShift(
+    props.currentImageIdx,
+    props.images.length,
+    props.showLayoutButton,
+    size,
+  );
+
 export default styled(GalleryNav)`
   position: relative;
   overflow: hidden;
 
+  margin-top: 4px;
+
   .shaft {
     display: flex;
     transition: transform 0.5s;
+
+    transform: ${shift(5)};
+
+    @media screen and (min-width: 560px) {
+      transform: ${shift(6)};
+    }
+
+    ${media.sm`
+      transform: ${shift(7)};
+    `}
 
     ${props =>
       props.images.length < 7 &&
@@ -105,17 +120,42 @@ export default styled(GalleryNav)`
   }
 
   .gallery-nav-item {
-    padding-right: 3px;
     outline: none;
+
+    padding: 0 1.5px;
   }
 
   .gallery-nav-item,
   ${LayoutImagesButton} {
-    height: 60px;
+    height: 12vw;
 
     flex: 0 0 auto;
 
-    width: calc(1 / 7 * 100%);
+    width: calc(1 / 5 * 100%);
+
+    ${media.xs`
+      height: 60px;
+    `}
+
+    @media screen and (min-width: 560px) {
+      width: calc(1 / 6 * 100%);
+    }
+
+    ${media.sm`
+      width: calc(1 / 7 * 100%);
+    `}
+  }
+
+  ${LayoutImagesButton} {
+    width: calc(1 / 5 * 100% - 1.5px);
+
+    @media screen and (min-width: 560px) {
+      width: calc(1 / 6 * 100% - 1.5px);
+    }
+
+    ${media.sm`
+      width: calc(1 / 7 * 100% - 1.5px);
+    `}
   }
 
   img {

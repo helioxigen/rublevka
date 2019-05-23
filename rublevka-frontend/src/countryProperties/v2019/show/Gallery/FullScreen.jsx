@@ -71,7 +71,7 @@ const Wrapper = styled.aside`
   right: 0;
   bottom: 0;
 
-  z-index: 10;
+  z-index: 1000;
 
   padding: 0 50px;
   background: #232323;

@@ -161,7 +161,9 @@ class Property extends Component {
                       <Gallery
                         fullScreenTitle={
                           <span>
-                            {data.specification.floors}-этажный дом,{' '}
+                            {data.specification.floors
+                              ? `${data.specification.floors}-этажный дом,`
+                              : ''}
                             {data.specification.area} м², №{id},{' '}
                             <FormattedNumber
                               style="currency"

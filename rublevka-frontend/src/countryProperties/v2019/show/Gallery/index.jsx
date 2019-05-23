@@ -90,6 +90,8 @@ const Photo = styled.img`
   height: 300px;
   object-fit: cover;
 
+  pointer-events: none;
+
   ${media.xs`
     height: 400px;
   `}
@@ -100,6 +102,7 @@ const Photo = styled.img`
 
   ${media.md`
     height: 450px;
+    pointer-events: all;
   `}
 `;
 
@@ -161,6 +164,12 @@ export default class Gallery extends React.Component {
     );
   };
 
+  handleToggleFavorite = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.props.toggleFavorite();
+  };
+
   render() {
     const { isGalleryOpen, currentImageIdx, isLayoutShown } = this.state;
     const {
@@ -168,31 +177,12 @@ export default class Gallery extends React.Component {
       toggleFavorite,
       isFavorite,
       images,
-      // ,
+      layoutImages,
       fullScreenTitle,
     } = this.props;
 
-    const layoutImages = images.slice(2);
-
     return (
       <section>
-        {/* <MobileGallery visible={images.length !== 0 && isGalleryOpen}>
-          <Header>
-            <CloseButton onClick={this.closeGallery}>
-              <CloseIcon icon="close-button" />
-            </CloseButton>
-          </Header>
-          <MobilePhotos innerRef={el => (this.modal = el)}>
-            {images.map(({ id }) => (
-              <MobilePhoto
-                key={id}
-                src={`${global.config.cloudfront || cloudfront}/${id}-${
-                  global.config.postfix
-                }-1024`}
-              />
-            ))}
-          </MobilePhotos>
-        </MobileGallery> */}
         <FullScreen
           isOpen={isGalleryOpen}
           initialSlide={isLayoutShown ? 0 : currentImageIdx}
@@ -222,7 +212,7 @@ export default class Gallery extends React.Component {
               ))}
             </ReactSwipe>
           </div>
-          <Visibility xs="hidden" sm="block" md="block" lg="block">
+          <Visibility xs="hidden" sm="hidden" md="block" lg="block">
             <ExpandButton onClick={this.toggleGallery}>
               <Icon icon="arrows-expand" />
             </ExpandButton>
@@ -234,11 +224,7 @@ export default class Gallery extends React.Component {
           <Id>№ {propertyId}</Id>
           <FavoriteIcon
             isActive={isFavorite}
-            onClick={e => {
-              e.preventDefault();
-              e.stopPropagation();
-              toggleFavorite();
-            }}
+            onClick={this.handleToggleFavorite}
             icon="favorite"
           />
         </GalleryWrapper>

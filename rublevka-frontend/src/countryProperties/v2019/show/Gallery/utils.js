@@ -2,18 +2,25 @@ import global from 'window-or-global';
 import { cloudfront } from '../../../../core/config/resources';
 
 export const prefixZero = num => (num < 10 ? `0${num}` : num);
-export const calcTranslateShift = (currentIdx, overall, hasLayoutImages) => {
-  const size = hasLayoutImages ? 6 : 7;
+export const calcTranslateShift = (
+  currentIdx,
+  overall,
+  hasLayoutImages,
+  viewSize = 7,
+) => {
+  const size = hasLayoutImages ? viewSize - 1 : viewSize;
 
   const imagesLeft = overall - currentIdx - 1;
 
-  const offset = currentIdx - 3;
+  const offsetIdx = Math.floor(viewSize / 2);
+
+  const offset = currentIdx - offsetIdx;
 
   const startShift = offset < 0 ? 0 : offset;
 
-  const shift = imagesLeft < 3 ? overall - size : startShift;
+  const shift = imagesLeft < offsetIdx ? overall - size : startShift;
 
-  return `translateX(calc(-${shift}/7*100%))`;
+  return `translateX(calc(-${shift}/${viewSize}*100%))`;
 };
 
 export const getImageLink = (

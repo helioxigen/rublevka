@@ -83,6 +83,12 @@ const Wrapper = styled.div`
     transition: opacity 0.5s;
     opacity: 0;
     z-index: 1;
+
+    display: none;
+
+    ${media.md`
+      display: block;
+    `}
   }
 
   &::before {
@@ -103,14 +109,19 @@ const Wrapper = styled.div`
     right: 0;
   }
 
-  ${ExpandButton} {
-    opacity: 0;
+  /* ${ExpandButton} {
     pointer-events: none;
-  }
+  } */
 
-  ${PrevButton} {
+  ${PrevButton}, ${ExpandButton} {
     opacity: 0;
     transition: opacity 0.5s;
+
+    display: none;
+
+    ${media.md`
+      display: block;
+    `}
   }
 
   &:hover {

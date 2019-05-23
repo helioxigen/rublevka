@@ -10,7 +10,6 @@ import {
 } from 'body-scroll-lock';
 import { cloudfront } from '../../../core/config/resources';
 
-import cameraIcon from './img/camera.png';
 import media from '../../../styles/media';
 import UI from '../../../ui';
 
@@ -80,21 +79,6 @@ const MobilePhoto = styled.img`
   object-fit: cover;
 `;
 
-const Wrapper = styled.div`
-  position: relative;
-  margin: 0 -5px;
-  min-height: 300px;
-
-  ${media.xs`
-    margin: 0;
-    margin-bottom: 8px;
-  `}
-
-  ${media.md`
-    margin: 8px 0px;
-  `}
-`;
-
 const PrevButton = styled.button`
   outline: none;
   position: absolute;
@@ -116,9 +100,73 @@ const ArrowIcon = styled(Icon)`
   width: 15px;
   height: 32px;
   fill: #fff;
-  opacity: 0.5;
 
   &:hover {
+    opacity: 1;
+  }
+`;
+
+const Wrapper = styled.div`
+  position: relative;
+  margin: 0 -5px;
+  min-height: 300px;
+
+  ${media.xs`
+    margin: 0;
+    margin-bottom: 8px;
+  `}
+
+  ${media.md`
+    margin: 4px 0px;
+  `}
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    transition: opacity 0.5s;
+    opacity: 0;
+    z-index: 1;
+  }
+
+  &::before {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.4) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    left: 0;
+  }
+
+  &::after {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+    right: 0;
+  }
+
+  ${PrevButton} {
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  &:hover {
+    &::before,
+    &::after {
+      opacity: 1;
+    }
+
+    ${PrevButton} {
+      opacity: 1;
+    }
+  }
+
+  &:hover::before,
+  &:hover::after {
     opacity: 1;
   }
 `;
@@ -150,7 +198,6 @@ const Photo = styled.img`
 
   ${media.xs`
     height: 400px;
-    border-radius: 4px;
   `}
 
   ${media.sm`
@@ -204,38 +251,143 @@ const FavoriteIcon = styled(Icon)`
 const PhotoNum = styled.div`
   position: absolute;
   bottom: 20px;
-  right: 15px;
-  padding: 8px 12px;
+  left: 15px;
+  padding: 6px 8px;
   display: flex;
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 6px;
-`;
 
-const CameraIcon = styled.img`
-  width: 20px;
-  height: 16px;
-  margin-right: 8px;
-`;
-
-const PhotoCount = styled.p`
-  margin: 0;
-  line-height: 18px;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.535714px;
-
-  color: #ffffff;
-
+  color: white;
   text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.35);
+
+  z-index: 2;
+
+  span:nth-child(2) {
+    margin: 0 2px;
+  }
+`;
+
+const LayoutImagesButton = styled.button`
+  background: #f44336;
+
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 0;
+  outline: none;
+`;
+
+const calcTranslateOnIdx = ({ currentIdx, overall, hasLayoutImages }) => {
+  const size = hasLayoutImages ? 6 : 7;
+
+  const imagesLeft = overall - currentIdx - 1;
+
+  const offset = currentIdx - 3;
+
+  const startShift = offset < 0 ? 0 : offset;
+
+  const shift = imagesLeft < 3 ? overall - size : startShift;
+
+  return `calc(-${shift}/7*100%)`;
+};
+
+const GalleryNav = styled.div`
+  position: relative;
+  overflow: hidden;
+
+  .container {
+    display: flex;
+    transition: transform 0.5s;
+    transform: translateX(${calcTranslateOnIdx});
+  }
+
+  ${LayoutImagesButton} {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .image-container {
+    padding-right: 3px;
+  }
+
+  .image-container,
+  ${LayoutImagesButton} {
+    height: 60px;
+
+    flex: 0 0 auto;
+
+    width: calc(1 / 7 * 100%);
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
+  }
+
+  img:not([data-current='true']) {
+    opacity: 0.5;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.75;
+    }
+  }
 `;
 
 export default class Media extends Component {
-  state = { isGalleryOpen: false };
+  state = {
+    currentImageIdx: 0,
+    isGalleryOpen: false,
+  };
 
   componentWillUnmount() {
     clearAllBodyScrollLocks();
   }
+
+  getImageLink = (id, size, postfix = global.config.postfix) =>
+    `${global.config.cloudfront || cloudfront}/${id}-${postfix}-${size}`;
+
+  setCurrentImageId = id => this.setState({ currentImageId: id });
+
+  getNavImages = () => {
+    const { images } = this.props;
+    const { currentImageIdx } = this.state;
+
+    const size = 6;
+
+    const imagesLeft = images.length - currentImageIdx - 1;
+
+    if (imagesLeft < 3) {
+      return images.slice(images.length - size);
+    }
+
+    const offset = currentImageIdx - 3;
+
+    const start = offset < 0 ? 0 : offset;
+    const end = offset + size < size ? size : offset + size;
+
+    return images.slice(start, end);
+  };
+
+  zerofy = num => (num < 10 ? `0${num}` : num);
+
+  handleNavImageClick = id => () => {
+    const { images } = this.props;
+
+    const idx = images.findIndex(im => im.id === id);
+
+    this.carousel.slide(idx);
+  };
+
+  galleryCallback = idx => this.setState({ currentImageIdx: idx });
 
   closeGallery = () => {
     enableBodyScroll(this.modal);
@@ -250,16 +402,16 @@ export default class Media extends Component {
   };
 
   render() {
-    const { isGalleryOpen } = this.state;
-    const { propertyId, toggleFavorite, isFavorite } = this.props;
-    const publicImages = this.props.images.filter(({ isPublic }) => !!isPublic);
-
-    const images = publicImages.map(({ id }) => ({
-      id,
-      src: `${global.config.cloudfront || cloudfront}/${id}-${
-        global.config.postfix
-      }`,
-    }));
+    const { isGalleryOpen, currentImageIdx } = this.state;
+    const {
+      propertyId,
+      toggleFavorite,
+      isFavorite,
+      hasLayoutImages,
+      images,
+    } = this.props;
+    const currentImageId =
+      images[currentImageIdx] && images[currentImageIdx].id;
 
     return (
       <div>
@@ -299,14 +451,16 @@ export default class Media extends Component {
               <ArrowIcon icon="carousel-left" />
             </PrevButton>
             {images.length !== 0 ? (
-              <ReactSwipe ref={el => (this.carousel = el)}>
+              <ReactSwipe
+                ref={el => (this.carousel = el)}
+                swipeOptions={{ callback: this.galleryCallback }}
+              >
                 {images.map(({ id }) => (
                   <Photo
                     key={id}
+                    data-id={id}
                     alt={id}
-                    src={`${global.config.cloudfront || cloudfront}/${id}-${
-                      global.config.postfix
-                    }-1024`}
+                    src={this.getImageLink(id, 1024)}
                   />
                 ))}
               </ReactSwipe>
@@ -327,11 +481,35 @@ export default class Media extends Component {
             }}
             icon="favorite"
           />
-          <PhotoNum>
-            <CameraIcon alt="Camera Icon" src={cameraIcon} />
-            <PhotoCount>{images.length} фото</PhotoCount>
-          </PhotoNum>
+          {images.length > 0 && (
+            <PhotoNum>
+              {this.zerofy(currentImageIdx + 1)} / {this.zerofy(images.length)}
+            </PhotoNum>
+          )}
         </Wrapper>
+        <GalleryNav
+          currentIdx={currentImageIdx}
+          overall={images.length}
+          hasLayoutImages
+        >
+          <div className="container">
+            {images.map(({ id }) => (
+              <div className="image-container">
+                <img
+                  key={id}
+                  alt={id}
+                  data-current={id === currentImageId}
+                  src={`${global.config.cloudfront ||
+                    cloudfront}/${id}-thumbnail-512`}
+                  onClick={this.handleNavImageClick(id)}
+                />
+              </div>
+            ))}
+          </div>
+          {hasLayoutImages && (
+            <LayoutImagesButton>планировки</LayoutImagesButton>
+          )}
+        </GalleryNav>
       </div>
     );
   }

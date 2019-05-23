@@ -66,6 +66,17 @@ class Kind extends Component {
     return selected.includes(name) || selected.length === 0;
   };
 
+  handleOnlyClick = name => e => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const { router, dealType, updateFilter } = this.props;
+
+    updateFilter(key, [name]);
+
+    router.push(`/zagorodnaya/${dealType}/${kindsTranslit[name]}`);
+  };
+
   render() {
     const { selected = [], dealType } = this.props;
 
@@ -91,6 +102,7 @@ class Kind extends Component {
                 label="Дом"
                 name="house"
                 onChange={this.handleUpdate}
+                onOnlyClick={this.handleOnlyClick}
               />
 
               <Checkbox
@@ -98,6 +110,7 @@ class Kind extends Component {
                 name="townhouse"
                 onChange={this.handleUpdate}
                 label="Таунхаус"
+                onOnlyClick={this.handleOnlyClick}
               />
 
               {dealType !== 'arenda' && (
@@ -106,6 +119,7 @@ class Kind extends Component {
                   name="land"
                   onChange={this.handleUpdate}
                   label="Участок"
+                  onOnlyClick={this.handleOnlyClick}
                 />
               )}
 
@@ -114,6 +128,7 @@ class Kind extends Component {
                 name="flat"
                 onChange={this.handleUpdate}
                 label="Квартира"
+                onOnlyClick={this.handleOnlyClick}
               />
             </CheckboxWrapper>
           </ControlsContainer>

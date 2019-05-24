@@ -170,7 +170,7 @@ class Filter extends Component {
       </div>
     );
   }
-
+  
   render() {
     const { isViewOpen } = this.props;
 

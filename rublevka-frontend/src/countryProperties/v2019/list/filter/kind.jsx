@@ -51,12 +51,14 @@ class Kind extends Component {
 
     if (nextFilterValue.length === 1) {
       nextFilterValue.forEach(value =>
-        router.push(`/zagorodnaya/${dealType}/${kindsTranslit[value]}`),
+        router.push(
+          `/zagorodnaya/${dealType}/${kindsTranslit[value]}${location.search}`,
+        ),
       );
     }
 
     if (selected.length <= 1 && nextFilterValue.length !== 1) {
-      router.push(`/zagorodnaya/${dealType}`);
+      router.push(`/zagorodnaya/${dealType}${location.search}`);
     }
   };
 
@@ -74,7 +76,7 @@ class Kind extends Component {
 
     updateFilter(key, [name]);
 
-    router.push(`/zagorodnaya/${dealType}/${kindsTranslit[name]}`);
+    router.push(`/zagorodnaya/${dealType}/${kindsTranslit[name]}${location.search}`);
   };
 
   render() {

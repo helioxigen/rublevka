@@ -1,3 +1,5 @@
+import { history } from './App';
+
 export const makeFilterRange = (min, max, multiplier = 1) => {
   const isMin =
     min === 'min' || typeof min === 'undefined' || typeof min === 'null';
@@ -144,4 +146,22 @@ export const formatByMinMax = (value = {}, postfix = '', prefix = '') => {
       return `${prefix}${min} — ${prefix}${max}${postfix}`;
     }
   }
+};
+
+export const createQuery = (current, update) => {
+  const nextParams = {
+    ...current,
+    ...update,
+  };
+
+  const query = Object.entries(nextParams)
+    .filter(([, v]) => v !== null)
+    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+    .join('&');
+
+  return query ? `?${query}` : '';
+};
+
+export const pushQuery = (currentQuery, nextQuery) => {
+  history.push(`${location.pathname}${createQuery(currentQuery, nextQuery)}`);
 };

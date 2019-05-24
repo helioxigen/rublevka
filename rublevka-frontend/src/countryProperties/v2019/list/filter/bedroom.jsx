@@ -53,7 +53,7 @@ class Kind extends Component {
                   <RadioButton
                     checked={item.min === num}
                     name={num}
-                    handleChange={() => this.onUpdate(2)}
+                    handleChange={() => this.onUpdate(num)}
                     text={`${num}+`}
                   />
                 ))}

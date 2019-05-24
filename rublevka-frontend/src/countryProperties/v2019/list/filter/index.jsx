@@ -123,43 +123,17 @@ class Filter extends Component {
   }
 
   renderFilters() {
-    const { state, dealType } = this.props;
+    const { state = {}, dealType } = this.props;
+    const { kind = [] } = state;
 
     return (
       <div>
         <Kind
-          selected={state ? state.kind : []}
+          selected={kind}
           updateFilter={this.updateFilter}
           removeFilter={this.removeFilter}
           dealType={dealType}
         />
-        {/* <FilterGroup
-          title="Тип объекта"
-          values={state}
-          onChange={this.handleKindChange}
-          items={[
-            {
-              label: 'Все',
-              value: 'all',
-            },
-            {
-              label: 'Дом',
-              value: 'house',
-            },
-            {
-              label: 'Таунхаус',
-              value: 'townhouse',
-            },
-            {
-              label: 'Участок',
-              value: 'land',
-            },
-            {
-              label: 'Квартира',
-              value: 'flat',
-            },
-          ]}
-        /> */}
 
         <Price
           selected={state}
@@ -180,11 +154,13 @@ class Filter extends Component {
           removeFilter={this.removeFilter}
         />
 
-        <Renovate
-          selected={state}
-          updateFilter={this.updateFilter}
-          removeFilter={this.removeFilter}
-        />
+        {!kind.includes('land') && (
+          <Renovate
+            selected={state.renovate || []}
+            updateFilter={this.updateFilter}
+            removeFilter={this.removeFilter}
+          />
+        )}
 
         <Bedroom
           selected={state}

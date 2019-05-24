@@ -12,6 +12,7 @@ const FilterCheckbox = ({
   checked,
   onChange,
   onOnlyClick,
+  showOnly,
   name,
 }) => (
   <Checkbox
@@ -20,7 +21,7 @@ const FilterCheckbox = ({
     handleChange={() => onChange(name, checked)}
   >
     <CheckboxLabel>{label}</CheckboxLabel>
-    {onOnlyClick && (
+    {showOnly && (
       <a tabIndex={0} onClick={onOnlyClick(name)} role="button">
         Только
       </a>
@@ -30,11 +31,21 @@ const FilterCheckbox = ({
 
 export default styled(FilterCheckbox)`
   padding: 6px;
+  margin-left: -6px;
   transition: background-color 0.2s;
 
   a {
     color: #f44336;
     display: none;
+
+    position: absolute;
+    right: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(242, 242, 242, 1) 29%
+    );
+    padding-left: 14%;
 
     &:hover {
       text-decoration: underline;
@@ -43,6 +54,7 @@ export default styled(FilterCheckbox)`
 
   .label {
     justify-content: space-between;
+    position: relative;
   }
 
   &:hover {

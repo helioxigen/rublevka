@@ -17,9 +17,10 @@ const {
 export default ({
   title,
   onChange,
+  onOnlyClick,
   onReset,
   items,
-  values = {},
+  values = [],
   name,
   hasAll,
 }) => (
@@ -33,9 +34,12 @@ export default ({
         <CheckboxWrapper>
           {items.map(({ label, value }) => (
             <Checkbox
-              checked={(values[name] || []).includes(value)}
+              checked={values.includes(value)}
               label={label}
-              onChange={onChange}
+              name={value}
+              onChange={onChange(name)}
+              onOnlyClick={onOnlyClick(name)}
+              showOnly={values.length > 1}
             />
           ))}
         </CheckboxWrapper>

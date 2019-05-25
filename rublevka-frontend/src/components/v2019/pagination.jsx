@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import styled from 'styled-components';
 
 import UI from '../../ui/v2019';
-import { pushQuery } from '../../helpers';
 
 const { Pager } = UI;
 
@@ -12,12 +12,12 @@ const Wrapper = styled.div`
 
 export default class Pagination extends Component {
   handlePageChanged = (newPage, withAppend = false) => {
-    const { updatePagination, isScrollToTop, query } = this.props;
+    const { baseUrl, updatePagination, isScrollToTop } = this.props;
 
     if (isScrollToTop && !withAppend) {
       window.scrollTo(0, 0);
     } else {
-      pushQuery(query, { page: newPage });
+      browserHistory.push(`${baseUrl}?page=${newPage}`);
     }
 
     if (updatePagination) {
@@ -26,7 +26,7 @@ export default class Pagination extends Component {
   };
 
   render() {
-    const { total, offset, limit, dealType, baseUrl, query } = this.props;
+    const { total, offset, limit, dealType, baseUrl } = this.props;
     const currentPage = Math.floor(offset / limit) + 1;
     const totalPages = Math.ceil(total / limit);
 
@@ -38,7 +38,6 @@ export default class Pagination extends Component {
           onPageChanged={this.handlePageChanged}
           baseUrl={baseUrl}
           dealType={dealType}
-          query={query}
         />
       </Wrapper>
     );

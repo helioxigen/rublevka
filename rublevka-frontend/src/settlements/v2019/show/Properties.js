@@ -23,7 +23,6 @@ import UI from '../../../ui/v2019';
 
 // components
 import {
-  Title,
   HeaderContainer,
   HeaderWrapper as HeaderWrapperBase,
 } from '../../../countryProperties/v2019/list/styled';
@@ -68,6 +67,27 @@ const HeaderWrapper = HeaderWrapperBase.extend`
   ${media.md`
     margin-top: 32px;
     margin-bottom: 34px;
+  `}
+`;
+
+const Title = styled.h2`
+  margin: 0;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  line-height: 28px;
+  font-size: 21px;
+
+  color: #232323;
+
+  ${media.sm`
+    margin: 0;
+    font-size: 28px;
+    margin-top: 8px;
+  `}
+
+  ${media.md`
+    margin-top: 0px;
+    font-size: 32px;
   `}
 `;
 
@@ -312,7 +332,7 @@ class List extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { countryProperties, filters, pagination, order } = state;
 
   return {
@@ -325,7 +345,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadProperties,
     ...FilterActions,

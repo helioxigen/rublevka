@@ -23,6 +23,7 @@ import s from 'styles/about/list';
 import sUtils from 'styles/utils';
 
 import global from 'window-or-global';
+import { ogMeta } from '../helpers';
 
 const {
   Grid: { Container, Row, Col },
@@ -44,6 +45,10 @@ class About extends Component {
             meta={[
               { name: 'description', content: helmet.pages.about.description },
               { name: 'keywords', content: helmet.pages.about.keywords },
+              ...ogMeta({
+                title: helmet.pages.about.title,
+                description: helmet.pages.about.description,
+              }),
             ]}
           />
 

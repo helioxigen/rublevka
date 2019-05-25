@@ -17,7 +17,7 @@ const Title = ({ data, dealType, withOffer = false }) => {
 
   return (
     <div>
-      {withOffer && offerKinds[dealType]}{' '}
+      {withOffer && (kind === 'land' ? 'Участок' : offerKinds[dealType])}{' '}
       {withOffer ? pluralizedKinds[kind] : kinds[kind]}{' '}
       {kind === 'land' ? (
         <span>
@@ -30,7 +30,7 @@ const Title = ({ data, dealType, withOffer = false }) => {
           declensionForms={['спальня', 'спальни', 'спален']}
         />
       )}
-      &nbsp;в пос. {location.settlementName}, {location.mkadDistance}&nbsp;км
+      &nbsp;в пос. {location.settlementName}
     </div>
   );
 };

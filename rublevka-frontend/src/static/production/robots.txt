@@ -16,4 +16,5 @@ Disallow: /*from=adwords
 Disallow: /*gclid=
 Disallow: /buy/object/
 Disallow: /rent/object/
+Disallow: /favorites
 Sitemap: https://{HOST}/sitemap.xml

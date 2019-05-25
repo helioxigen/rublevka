@@ -30,7 +30,7 @@ const store = createStore(
   ),
 );
 
-const history = syncHistoryWithStore(browserHistory, store);
+export const history = syncHistoryWithStore(browserHistory, store);
 const routerRender = applyRouterMiddleware(
   useScroll(
     (prevRouterProps, { routes }) =>

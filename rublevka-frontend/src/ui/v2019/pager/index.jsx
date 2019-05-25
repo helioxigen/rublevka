@@ -30,7 +30,6 @@ import styled from 'styled-components';
 
 import Page from './page';
 import LoadMore from './LoadMore';
-import { createQuery } from '../../../helpers';
 
 const Wrapper = styled.div`
   display: flex;
@@ -99,7 +98,7 @@ export default (styles = {}) =>
       this.handlePageChanged(this.props.total);
     };
 
-    handlePageChanged = el => {
+    handlePageChanged = (el) => {
       const handler = this.props.onPageChanged;
 
       if (handler) handler(el);
@@ -118,9 +117,9 @@ export default (styles = {}) =>
     handlePrevUrl() {
       const { current, baseUrl } = this.props;
       if (current === 2) {
-        return this.getHref(baseUrl);
+        return baseUrl;
       }
-      return this.getHref(current - 1);
+      return `${baseUrl}?page=${current - 1}`;
     }
 
     visibleRange() {
@@ -145,16 +144,26 @@ export default (styles = {}) =>
       }
     }
 
-    getHref = (page) => {
-      const { query, baseUrl } = this.props;
+    renderPages = visibleRange =>
+      visibleRange.map((el) => {
+        const isActive = this.props.current === el;
 
-      const params = createQuery(query, { page: page > 1 ? page : null });
-
-      return `${baseUrl}${params}`;
-    };
+        return (
+          <Page
+            to={`${this.props.baseUrl}?page=${el}`}
+            styles={styles}
+            key={el}
+            isActive={isActive}
+            className={styles.btn}
+            onClick={() => this.handlePageChanged(el)}
+          >
+            {el}
+          </Page>
+        );
+      });
 
     render() {
-      const { current, total, baseUrl, onPageChanged, query } = this.props;
+      const { current, total, baseUrl, onPageChanged } = this.props;
 
       return (
         <Wrapper>
@@ -163,6 +172,7 @@ export default (styles = {}) =>
               Загрузить ещё
             </LoadMore>
           )}
+
           <Pagination>
             <Page
               to={this.handlePrevUrl()}
@@ -175,7 +185,7 @@ export default (styles = {}) =>
             />
 
             <Page
-              to={this.getHref(1)}
+              to={baseUrl}
               styles={styles}
               className={styles.btn}
               key="first-page"
@@ -187,18 +197,7 @@ export default (styles = {}) =>
 
             {current > 3 && total > 4 && <PageSeparator>...</PageSeparator>}
 
-            {this.visibleRange().map(num => (
-              <Page
-                to={this.getHref(num)}
-                styles={styles}
-                key={num}
-                isActive={this.props.current === num}
-                className={styles.btn}
-                onClick={() => this.handlePageChanged(num)}
-              >
-                {num}
-              </Page>
-            ))}
+            {this.renderPages(this.visibleRange())}
 
             {total > 4 && total - current > 2 && (
               <PageSeparator>...</PageSeparator>
@@ -206,7 +205,7 @@ export default (styles = {}) =>
 
             {total !== 1 && (
               <Page
-                to={this.getHref(total)}
+                to={`${baseUrl}?page=${total}`}
                 styles={styles}
                 className={styles.btn}
                 key="last-page"
@@ -218,7 +217,7 @@ export default (styles = {}) =>
             )}
 
             <Page
-              to={this.getHref(current + 1)}
+              to={`${baseUrl}?page=${current + 1}`}
               rel="next"
               styles={styles}
               className={styles.btnNav}

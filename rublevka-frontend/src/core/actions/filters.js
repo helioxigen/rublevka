@@ -1,14 +1,12 @@
-import { browserHistory } from 'react-router';
 import * as types from 'core/constants/filters';
 import sendAnalytics from './analytics';
-import { pushQuery } from '../../helpers';
 
 export const resetFilter = resource => ({
   type: types.CLEAR_FILTER,
   resource,
 });
 
-export const updateFilter = (resource, values) => (dispatch, getState) => {
+export const updateFilter = (resource, values) => dispatch => {
   dispatch(
     sendAnalytics(types.UPDATE_FILTER, {
       resource,
@@ -21,21 +19,6 @@ export const updateFilter = (resource, values) => (dispatch, getState) => {
     resource,
     values,
   });
-
-  const {
-    filters,
-    routing: {
-      locationBeforeTransitions: { query },
-    },
-  } = getState();
-
-  const resourceFilter = filters[resource];
-
-  if (resourceFilter) {
-    const filter = encodeURIComponent(JSON.stringify(resourceFilter));
-
-    pushQuery(query, { filter });
-  }
 };
 
 export const removeFilter = (resource, key, value) => ({

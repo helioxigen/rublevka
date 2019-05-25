@@ -1,6 +1,4 @@
 import { cloudfront } from './core/config/resources';
-import { history } from './App';
-
 export { capitalize } from './config/utils';
 
 export const makeFilterRange = (min, max, multiplier = 1) => {
@@ -161,21 +159,3 @@ export const ogMeta = (metaObj = {}) =>
       property: `og:${propertyName}`,
       content: propertyName === 'image' ? getImageLink(content) : content,
     }));
-
-export const createQuery = (current, update) => {
-  const nextParams = {
-    ...current,
-    ...update,
-  };
-
-  const query = Object.entries(nextParams)
-    .filter(([, v]) => v !== null)
-    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
-    .join('&');
-
-  return query ? `?${query}` : '';
-};
-
-export const pushQuery = (currentQuery, nextQuery) => {
-  history.push(`${location.pathname}${createQuery(currentQuery, nextQuery)}`);
-};

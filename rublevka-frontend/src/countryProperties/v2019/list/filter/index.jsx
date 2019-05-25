@@ -26,6 +26,7 @@ import Areas from './areas';
 import Renovate from './renovate';
 import Distance from './distance';
 import * as S from './styled';
+import FilterGroup from './FilterGroup';
 
 const { Visibility, CountIndicator } = UI;
 
@@ -122,12 +123,13 @@ class Filter extends Component {
   }
 
   renderFilters() {
-    const { state, dealType } = this.props;
+    const { state = {}, dealType } = this.props;
+    const { kind = [] } = state;
 
     return (
       <div>
         <Kind
-          selected={state}
+          selected={kind}
           updateFilter={this.updateFilter}
           removeFilter={this.removeFilter}
           dealType={dealType}
@@ -152,11 +154,13 @@ class Filter extends Component {
           removeFilter={this.removeFilter}
         />
 
-        <Renovate
-          selected={state}
-          updateFilter={this.updateFilter}
-          removeFilter={this.removeFilter}
-        />
+        {!kind.includes('land') && (
+          <Renovate
+            selected={state.renovate || []}
+            updateFilter={this.updateFilter}
+            removeFilter={this.removeFilter}
+          />
+        )}
 
         <Bedroom
           selected={state}
@@ -166,7 +170,7 @@ class Filter extends Component {
       </div>
     );
   }
-
+  
   render() {
     const { isViewOpen } = this.props;
 

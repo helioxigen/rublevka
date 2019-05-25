@@ -102,21 +102,27 @@ class List extends Component {
   }
 
   componentWillMount() {
-    const { params = {}, location, actions } = this.props;
+    const {
+      params = {},
+      location: {
+        query: { page, filter },
+      },
+      actions,
+    } = this.props;
 
-    const paginationParams = {
+    const loadParams = {
+      filter: filter ? JSON.parse(filter) : {},
       pagination: {
-        offset: 24 * (location.query.page - 1),
+        offset: 24 * (page - 1),
       },
     };
 
-    this.load(this.props, paginationParams);
+    this.load(this.props, loadParams);
 
-    if (params.kind) {
-      actions.updateFilter(this.resource, {
-        kind: [kinds[params.kind]],
-      });
-    }
+    actions.setFilter(this.resource, {
+      kind: params.kind ? [kinds[params.kind]] : [],
+      ...loadParams.filter,
+    });
 
     track(
       analyticsEvents.propertiesListOpened({
@@ -327,6 +333,7 @@ class List extends Component {
                             offset={pagination.offset}
                             limit={pagination.limit}
                             baseUrl={location.pathname}
+                            query={location.query}
                             isScrollToTop
                           />
                         </Col>
@@ -348,6 +355,7 @@ class List extends Component {
                         offset={pagination.offset}
                         limit={pagination.limit}
                         baseUrl={location.pathname}
+                        query={location.query}
                         isScrollToTop
                       />
                     </Col>
@@ -369,7 +377,7 @@ class List extends Component {
 }
 
 // redux connectors
-const pickState = (state) => {
+const pickState = state => {
   const { countryProperties, filters, pagination, order } = state;
 
   return {
@@ -382,7 +390,7 @@ const pickState = (state) => {
   };
 };
 
-const pickActions = (dispatch) => {
+const pickActions = dispatch => {
   const actions = {
     loadCountryProperties,
     ...FilterActions,

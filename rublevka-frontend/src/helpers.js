@@ -1,5 +1,5 @@
 import { cloudfront } from './core/config/resources';
-import { history } from './App';
+import { browserHistory } from 'react-router';
 
 export { capitalize } from './config/utils';
 
@@ -177,5 +177,5 @@ export const createQuery = (current, update) => {
 };
 
 export const pushQuery = (pathname, currentQuery, nextQuery) => {
-  history.push(`${pathname}${createQuery(currentQuery, nextQuery)}`);
+  browserHistory.push(`${pathname}${createQuery(currentQuery, nextQuery)}`);
 };

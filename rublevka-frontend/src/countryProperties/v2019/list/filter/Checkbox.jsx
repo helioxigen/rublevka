@@ -3,6 +3,7 @@ import React from 'react';
 import UI from '../../../../ui/v2019';
 import { CheckboxLabel } from './styled';
 import styled from 'styled-components';
+import media from '../../../../styles/media';
 
 const { Checkbox } = UI;
 
@@ -35,8 +36,10 @@ export default styled(FilterCheckbox)`
   transition: background-color 0.2s;
 
   a {
-    color: #f44336;
+    color: hsl(4, 90%, 58%);
     display: none;
+
+    outline: none;
 
     position: absolute;
     right: 0;
@@ -47,8 +50,14 @@ export default styled(FilterCheckbox)`
     );
     padding-left: 14%;
 
+    transition: color 0.2s;
+
     &:hover {
-      text-decoration: underline;
+      color: hsl(4, 90%, 45%);
+    }
+
+    &:active {
+      color: hsl(4, 90%, 39%);
     }
   }
 
@@ -60,9 +69,11 @@ export default styled(FilterCheckbox)`
   &:hover {
     background: #f2f2f2;
     border-radius: 2px;
+  }
 
-    a {
+  ${media.md`
+    &:hover a{
       display: block;
     }
-  }
+  `}
 `;

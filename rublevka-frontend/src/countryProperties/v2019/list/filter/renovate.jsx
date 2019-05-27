@@ -41,8 +41,16 @@ class Renovate extends Component {
     updateFilter(key, [name]);
   };
 
+  isChecked = name => {
+    const { selected = [] } = this.props;
+
+    return selected.includes(name) || selected.length === 0;
+  };
+
   render() {
     const { selected = [] } = this.props;
+
+    const isOnlyShown = selected.length > 1 || selected.length === 0;
 
     return (
       <section>
@@ -56,27 +64,33 @@ class Renovate extends Component {
           <ControlsContainer>
             <CheckboxWrapper>
               <Checkbox
-                checked={selected.includes('full_construction')}
+                checked={selected.length === 0}
+                label="Любой"
+                name="any"
+                onChange={this.handleReset}
+              />
+              <Checkbox
+                checked={this.isChecked('full_construction')}
                 label="Под ключ"
                 name="full_construction"
                 onChange={this.handleUpdate}
-                showOnly={selected.length > 1}
+                showOnly={isOnlyShown}
                 onOnlyClick={this.handleOnlyClick}
               />
               <Checkbox
-                checked={selected.includes('partly_turnkey')}
+                checked={this.isChecked('partly_turnkey')}
                 label="Частично под ключ"
                 name="partly_turnkey"
                 onChange={this.handleUpdate}
-                showOnly={selected.length > 1}
+                showOnly={isOnlyShown}
                 onOnlyClick={this.handleOnlyClick}
               />
               <Checkbox
-                checked={selected.includes('rough_finish')}
+                checked={this.isChecked('rough_finish')}
                 label="Черновая отделка"
                 name="rough_finish"
                 onChange={this.handleUpdate}
-                showOnly={selected.length > 1}
+                showOnly={isOnlyShown}
                 onOnlyClick={this.handleOnlyClick}
               />
             </CheckboxWrapper>

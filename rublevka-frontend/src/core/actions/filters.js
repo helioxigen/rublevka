@@ -8,7 +8,10 @@ export const resetFilter = resource => ({
   resource,
 });
 
-export const updateFilter = (resource, values) => (dispatch, getState) => {
+export const updateFilter = (resource, values, pushPath = '') => (
+  dispatch,
+  getState,
+) => {
   dispatch(
     sendAnalytics(types.UPDATE_FILTER, {
       resource,
@@ -34,7 +37,7 @@ export const updateFilter = (resource, values) => (dispatch, getState) => {
   if (resourceFilter) {
     const filter = encodeURIComponent(JSON.stringify(resourceFilter));
 
-    pushQuery(pathname, query, { filter });
+    pushQuery(pushPath || pathname, query, { filter });
   }
 };
 

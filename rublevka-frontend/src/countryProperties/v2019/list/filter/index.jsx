@@ -91,7 +91,7 @@ class Filter extends Component {
     }
   }
 
-  updateFilter(key, value) {
+  updateFilter(key, value, pushPath) {
     const values = {
       [key]: value,
     };
@@ -99,7 +99,7 @@ class Filter extends Component {
     this.props.actions.updatePagination(this.props.resourceName, {
       offset: 0,
     });
-    this.props.actions.updateFilter(this.props.resourceName, values);
+    this.props.actions.updateFilter(this.props.resourceName, values, pushPath);
   }
 
   resetFilter() {
@@ -125,6 +125,8 @@ class Filter extends Component {
   renderFilters() {
     const { state = {}, dealType } = this.props;
     const { kind = [] } = state;
+
+    const isOnly = kindType => kind.length > 0 && kind[0] === kindType;
 
     return (
       <div>
@@ -154,7 +156,7 @@ class Filter extends Component {
           removeFilter={this.removeFilter}
         />
 
-        {!kind.includes('land') && (
+        {!isOnly('land') && (
           <Renovate
             selected={state.renovate || []}
             updateFilter={this.updateFilter}
@@ -162,11 +164,13 @@ class Filter extends Component {
           />
         )}
 
-        <Bedroom
-          selected={state}
-          updateFilter={this.updateFilter}
-          removeFilter={this.removeFilter}
-        />
+        {!isOnly('land') && (
+          <Bedroom
+            selected={state}
+            updateFilter={this.updateFilter}
+            removeFilter={this.removeFilter}
+          />
+        )}
       </div>
     );
   }

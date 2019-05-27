@@ -36,34 +36,30 @@ class Kind extends Component {
     const { kind = [] } = selected;
     const item = selected[key] || { min: null };
 
-    if (!kind.includes('land')) {
-      return (
-        <section>
-          <Container fluid>
-            <FilterHeader>
-              <Title>СПАЛЕН</Title>
-              {item.min !== null && (
-                <IconReset onClick={this.onReset} icon="times" />
-              )}
-            </FilterHeader>
-            <ControlsContainer>
-              <CheckboxWrapper>
-                {[1, 2, 3, 4, 5].map(num => (
-                  <RadioButton
-                    checked={item.min === num}
-                    name={num}
-                    handleChange={() => this.onUpdate(num)}
-                    text={`${num}+`}
-                  />
-                ))}
-              </CheckboxWrapper>
-            </ControlsContainer>
-          </Container>
-        </section>
-      );
-    }
-
-    return <div />;
+    return (
+      <section>
+        <Container fluid>
+          <FilterHeader>
+            <Title>СПАЛЕН</Title>
+            {item.min !== null && (
+              <IconReset onClick={this.onReset} icon="times" />
+            )}
+          </FilterHeader>
+          <ControlsContainer>
+            <CheckboxWrapper>
+              {[1, 2, 3, 4, 5].map(num => (
+                <RadioButton
+                  checked={item.min === num}
+                  name={num}
+                  handleChange={() => this.onUpdate(num)}
+                  text={`${num}+`}
+                />
+              ))}
+            </CheckboxWrapper>
+          </ControlsContainer>
+        </Container>
+      </section>
+    );
   }
 }
 

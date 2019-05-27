@@ -33,13 +33,7 @@ class Kind extends Component {
   };
 
   handleUpdate = value => {
-    const {
-      dealType,
-      router,
-      routing: {
-        locationBeforeTransitions: { search },
-      },
-    } = this.props;
+    const { dealType } = this.props;
 
     let { selected = [] } = this.props;
 
@@ -51,19 +45,18 @@ class Kind extends Component {
       ? selected.filter(v => v !== value)
       : selected.concat(value);
 
-    this.props.updateFilter(key, nextFilterValue);
+    let pushPath = '';
 
     if (nextFilterValue.length === 1) {
-      nextFilterValue.forEach(value =>
-        router.push(
-          `/zagorodnaya/${dealType}/${kindsTranslit[value]}${search}`,
-        ),
-      );
+      pushPath = `/zagorodnaya/${dealType}/${
+        kindsTranslit[nextFilterValue[0]]
+      }`;
+    }
+    if (selected.length <= 1 && nextFilterValue.length !== 1) {
+      pushPath = `/zagorodnaya/${dealType}`;
     }
 
-    if (selected.length <= 1 && nextFilterValue.length !== 1) {
-      router.push(`/zagorodnaya/${dealType}${search}`);
-    }
+    this.props.updateFilter(key, nextFilterValue, pushPath);
   };
 
   isChecked = name => {

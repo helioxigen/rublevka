@@ -111,7 +111,7 @@ class List extends Component {
     } = this.props;
 
     const loadParams = {
-      filter: filter ? JSON.parse(filter) : {},
+      filter: filter ? JSON.parse(decodeURIComponent(filter)) : {},
       pagination: {
         offset: 24 * (page - 1),
       },

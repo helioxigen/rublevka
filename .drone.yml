@@ -66,6 +66,7 @@ steps:
         - master
       event:
         - push
+    depends_on: [ clone ]
 
   - name: deploy-rublevka-riga-frontend-dev
     pull: default
@@ -87,6 +88,9 @@ steps:
         - develop
       event:
         - push
+    node:
+      env: dev
+    depends_on: [ clone ]
 
   - name: deploy-rublevka-riga-frontend-prod
     pull: default
@@ -119,6 +123,8 @@ steps:
         - master
       event:
         - push
+    node:
+      env: prod
 
   - name: build-staff-frontend-dev
     pull: default
@@ -142,6 +148,9 @@ steps:
         - develop
       event:
         - push
+    node:
+      env: dev
+    depends_on: [ clone ]
 
   - name: build-staff-frontend-prod
     pull: default
@@ -165,6 +174,9 @@ steps:
         - master
       event:
         - push
+    node:
+      env: prod
+    depends_on: [ clone ]
 
   - name: build-export-app-frontend-prod
     pull: default
@@ -186,6 +198,9 @@ steps:
         - master
       event:
         - push
+    node:
+      env: prod
+    depends_on: [ clone ]
 
   - name: deploy-firebase-dev
     pull: default
@@ -214,6 +229,9 @@ steps:
         - master
       event:
         - push
+    node:
+      env: prod
+    depends_on: [ clone ]
 
 depends_on:
   - prepare

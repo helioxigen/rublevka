@@ -94,7 +94,7 @@ exports.createHouseObject = item => ({
       BargainTerms: [
         { Price: item[`${item.offerKind}Offer`].price },
         { Currency: item[`${item.offerKind}Offer`].currency.toLowerCase() },
-        { ClientFee: 0 },
+        { ClientFee: 50 },
         { AgentFee: 50 },
         {
           AgentBonus: [{ Value: 50 }, { PaymentType: 'percent' }],

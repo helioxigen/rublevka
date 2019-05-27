@@ -21,7 +21,6 @@ export default ({ dealType, kind, pagination, query }) => {
 
   const metaInfo = [
     { name: 'description', content: description },
-    { name: 'keywords', content: seo.keywords(dealType, kind) },
     ...ogMeta({
       title,
       description,

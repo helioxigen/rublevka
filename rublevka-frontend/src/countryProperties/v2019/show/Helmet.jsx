@@ -55,18 +55,6 @@ export default ({ data, kind, ...props }) => {
       content: description,
     });
 
-    meta.push({
-      name: 'keywords',
-      content: helmet.properties.show.country.keywords(
-        data.location.settlementName,
-        dealType,
-        data.kind,
-        data.location.regionName,
-        data.location.districtName,
-        data.location.routeName,
-      ),
-    });
-
     const title = helmet.properties.show.country.title(
       dealType,
       data.kind,

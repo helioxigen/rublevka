@@ -6,7 +6,7 @@ import { helmet } from 'config/seo';
 
 import { formatPrice } from 'helpers';
 import { dealTypes, kindsTranslit } from 'constants/properties/dictionaries';
-import { ogMeta } from '../../../helpers';
+import { ogMeta, getImageLink } from '../../../helpers';
 
 const routeIds = global.config.routes.map(item => item.id) || [];
 
@@ -78,7 +78,8 @@ export default ({ data, kind, ...props }) => {
       ...ogMeta({
         title,
         description,
-        image: image && image.id,
+        image: image && getImageLink(image.id),
+        'image:width': 1024,
       }),
     );
 

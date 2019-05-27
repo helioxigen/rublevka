@@ -172,6 +172,7 @@ steps:
     depends_on:
        - clone
        - build-firebase
+       - deploy-rublevka-riga-frontend-prod
 
 
   - name: build-export-app-frontend-prod
@@ -197,6 +198,7 @@ steps:
     depends_on:
        - clone
        - build-firebase
+       - deploy-rublevka-riga-frontend-prod
 
   - name: deploy-firebase-prod
     pull: default

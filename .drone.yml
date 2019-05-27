@@ -150,7 +150,7 @@ steps:
         - push
     node:
       env: dev
-    depends_on: [ clone ]
+    depends_on: [ clone, build-firebase ]
 
   - name: build-staff-frontend-prod
     pull: default
@@ -176,7 +176,7 @@ steps:
         - push
     node:
       env: prod
-    depends_on: [ clone ]
+    depends_on: [ clone, build-firebase ]
 
   - name: build-export-app-frontend-prod
     pull: default
@@ -200,7 +200,7 @@ steps:
         - push
     node:
       env: prod
-    depends_on: [ clone ]
+    depends_on: [ clone, build-firebase ]
 
   - name: deploy-firebase-dev
     pull: default
@@ -215,6 +215,7 @@ steps:
         - develop
       event:
         - push
+    depends_on: [ clone, build-staff-frontend-dev ]
 
   - name: deploy-firebase-prod
     pull: default
@@ -231,7 +232,11 @@ steps:
         - push
     node:
       env: prod
-    depends_on: [ clone ]
+    depends_on:
+      - clone
+      - build-firebase
+      - build-export-app-frontend-prod
+      - build-staff-frontend-prod
 
 depends_on:
   - prepare

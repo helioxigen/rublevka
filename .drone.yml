@@ -215,10 +215,10 @@ steps:
         - master
       event:
         - push
-     depends_on:
-       - clone
-       - build-export-app-frontend-prod
-       - build-staff-frontend-prod
+    depends_on:
+      - clone
+      - build-export-app-frontend-prod
+      - build-staff-frontend-prod
 
 depends_on:
   - prepare

@@ -9,10 +9,7 @@ export default ({ pagination, query }) => {
   const totalPages = Math.ceil(pagination.total / pagination.limit);
   const queryPage = Number(query.page);
 
-  const metaInfo = [
-    { name: 'description', content: seo.description },
-    { name: 'keywords', content: seo.keywords },
-  ];
+  const metaInfo = [{ name: 'description', content: seo.description }];
 
   return (
     <Helmet

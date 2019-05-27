@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import { show as seo } from '../constants/seo';
 
 import { nameToSlug } from '../../../core/helpers/nameToSlug';
-import { ogMeta } from '../../../helpers';
+import { ogMeta, getImageLink } from '../../../helpers';
 
 const routeIds = global.config.routes.map(item => item.id) || [];
 
@@ -55,7 +55,8 @@ export default ({ placeName, placeKind, data, dealType, kind }) => {
       ...ogMeta({
         title,
         description: seo.description(data.name, dealType, kind),
-        image: image && image.id,
+        image: image && getImageLink(image.id),
+        'image:width': 1024,
       }),
     );
 

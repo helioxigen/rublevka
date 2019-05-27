@@ -117,10 +117,6 @@ class Show extends Component {
                 name: 'description',
                 content: seo.description(data.name, location.street),
               },
-              {
-                name: 'keywords',
-                content: seo.keywords(data.name, location.street),
-              },
             ]}
           />
         )}

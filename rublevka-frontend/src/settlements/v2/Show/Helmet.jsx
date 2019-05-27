@@ -65,9 +65,6 @@ export default ({ placeName, placeKind, data, dealType, kind }) => {
         metaItem.description,
       ),
     );
-    meta.push(
-      makeMetaElement('keywords', data.name, dealType, kind, metaItem.keywords),
-    );
 
     const script = [
       {

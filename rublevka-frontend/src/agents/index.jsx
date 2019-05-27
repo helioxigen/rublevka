@@ -29,7 +29,6 @@ class Agents extends Component {
             title={helmet.pages.agents.title}
             meta={[
               { name: 'description', content: helmet.pages.agents.description },
-              { name: 'keywords', content: helmet.pages.agents.keywords },
             ]}
           />
 

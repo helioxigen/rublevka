@@ -141,7 +141,6 @@ class Landing extends Component {
           title={global.config.seo.title}
           meta={[
             { name: 'description', content: global.config.seo.description },
-            { name: 'keywords', content: global.config.seo.keywords },
           ]}
         />
 

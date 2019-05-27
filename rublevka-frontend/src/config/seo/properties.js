@@ -500,54 +500,33 @@ export default {
       ) => {
         if (meta) return meta;
 
-        const dictionary = {
-          sale: {
-            title: 'Купить',
-
-            townhouse: 'таунхаус',
-            penthouse: 'пентхаус',
-            apartment: 'апартаменты',
-            house: 'дом',
-            flat: 'квартиру',
-            land: 'участок',
-            office: 'офис',
-          },
-          rent: {
-            title: 'Снять',
-
-            townhouse: 'таунхаус',
-            penthouse: 'пентхаус',
-            apartment: 'апартаменты',
-            house: 'дом',
-            flat: 'квартиру',
-            land: 'участок',
-            office: 'офис',
-          },
+        const types = {
+          sale: 'Продажа',
+          rent: 'Аренда',
         };
 
-        const { title } = dictionary[dealType];
+        const kinds = {
+          townhouse: 'таунхауса',
+          penthouse: 'пентхауса',
+          apartment: 'апартаментов',
+          house: 'дома',
+          flat: 'квартиры',
+          land: 'участка',
+          office: 'офиса',
+        };
 
         const fixedRoute = replaceEnd(route, 'ое', 'ом');
 
-        if (kind === 'land') {
-          return joinStrings(
-            'Продажа участка',
-            `ID ${id}`,
-            `по цене ${price}`,
-            name && `в поселке «${name}»,`,
-            mkadDistance && `в ${mkadDistance} км от МКАД,`,
-            route && `на ${fixedRoute} направлении,`,
-            region,
-          );
-        }
-
-        return `${title} ${
-          dictionary[dealType][kind]
-        } ID ${id} по цене ${price} ${name &&
-          `в поселке «${name}»`} ${mkadDistance &&
-          `в ${mkadDistance} км от МКАД`} ${fixedRoute &&
-          `на ${fixedRoute} направлении`}${area &&
-          `, площадью ${area} м²`}${region && `, ${region}`} – ${domain}!`;
+        return joinStrings(
+          types[dealType],
+          kinds[kind],
+          `ID ${id}`,
+          `по цене ${price}`,
+          name && `в поселке «${name}»,`,
+          mkadDistance && `в ${mkadDistance} км от МКАД,`,
+          route && `на ${fixedRoute} направлении,`,
+          region,
+        );
       },
       keywords: (name, dealType, kind, region, district, route, meta) => {
         if (meta) return meta;

@@ -17,7 +17,6 @@ export default props => {
     const title = helmet.places[placeKind].show.title(data.name, dealType);
     const meta = [
       makeMetaElement('description', data.name, dealType, placeKind),
-      makeMetaElement('keywords', data.name, dealType, placeKind),
     ];
 
     if (

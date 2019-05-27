@@ -28,19 +28,6 @@ export default class extends Component {
           data.location.regionName,
         ),
       },
-      {
-        name: 'keywords',
-        content: helmet.properties.show.city.keywords(
-          data.location.settlementName,
-          dealType,
-          data.kind,
-          data.location.regionName,
-          data.location.districtName,
-          data.location.routeName,
-          data.id,
-          price,
-        ),
-      },
     ];
 
     const title = helmet.properties.show.city.title(

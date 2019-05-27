@@ -151,15 +151,17 @@ export const formatByMinMax = (value = {}, postfix = '', prefix = '') => {
   }
 };
 
-const getImageLink = id =>
-  `https:${global.config.cloudfront || cloudfront}/${id}-thumbnail-512`;
+export const getImageLink = id =>
+  `https:${global.config.cloudfront || cloudfront}/${id}-${
+    global.config.postfix
+  }-1024`;
 
 export const ogMeta = (metaObj = {}) =>
   Object.entries(metaObj)
     .filter(([, content]) => !!content)
     .map(([propertyName, content]) => ({
       property: `og:${propertyName}`,
-      content: propertyName === 'image' ? getImageLink(content) : content,
+      content,
     }));
 
 export const createQuery = (current, update) => {

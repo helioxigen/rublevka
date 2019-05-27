@@ -44,7 +44,6 @@ class About extends Component {
             title={helmet.pages.about.title}
             meta={[
               { name: 'description', content: helmet.pages.about.description },
-              { name: 'keywords', content: helmet.pages.about.keywords },
               ...ogMeta({
                 title: helmet.pages.about.title,
                 description: helmet.pages.about.description,

@@ -2,13 +2,8 @@
 @import '../../variables';
 
 .selectContainer {
-  display: inline-block;
+  display: flex;
   white-space: nowrap;
-  width: calc(100% - 12px);
-
-  @include responsive(md) {
-    width: 100%;
-  }
 }
 
 .flexWrapper {

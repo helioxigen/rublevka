@@ -69,18 +69,13 @@ class Kind extends Component {
     e.preventDefault();
     e.stopPropagation();
 
-    const {
-      router,
-      dealType,
-      updateFilter,
-      routing: {
-        locationBeforeTransitions: { search },
-      },
-    } = this.props;
+    const { dealType, updateFilter } = this.props;
 
-    updateFilter(key, [name]);
-
-    router.push(`/zagorodnaya/${dealType}/${kindsTranslit[name]}${search}`);
+    updateFilter(
+      key,
+      [name],
+      `/zagorodnaya/${dealType}/${kindsTranslit[name]}`,
+    );
   };
 
   render() {

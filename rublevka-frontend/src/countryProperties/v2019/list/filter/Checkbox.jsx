@@ -68,7 +68,7 @@ export default styled(FilterCheckbox)`
 
   &:hover {
     background: #f2f2f2;
-    border-radius: 2px;
+    border-radius: 4px;
   }
 
   ${media.md`

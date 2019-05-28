@@ -36,6 +36,9 @@ trigger:
     - master
     - develop
 
+node:
+  cluster: [dev, prod]
+
 ---
 kind: pipeline
 name: build-dev

@@ -89,7 +89,7 @@ steps:
       event:
         - push
     node:
-      env: dev
+      machine: server
     depends_on: [ clone ]
 
   - name: deploy-rublevka-riga-frontend-prod
@@ -149,7 +149,7 @@ steps:
       event:
         - push
     node:
-      env: dev
+      machine: server
     depends_on: [ clone, build-firebase ]
 
   - name: build-staff-frontend-prod
@@ -215,6 +215,8 @@ steps:
         - develop
       event:
         - push
+    node:
+      machine: server
     depends_on: [ clone, build-staff-frontend-dev ]
 
   - name: deploy-firebase-prod

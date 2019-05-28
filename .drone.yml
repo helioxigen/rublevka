@@ -38,6 +38,7 @@ trigger:
 
 node:
   common: common
+  cluster: dev
 
 ---
 kind: pipeline

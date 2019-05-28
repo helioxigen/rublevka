@@ -12,6 +12,7 @@ import media from '../styles/media';
 import UI from '../ui/v2019';
 import callIcon from './call.png';
 import flagIcon from '../assets/icons/flag.png';
+import { ogMeta } from '../helpers';
 
 const isRublevka = global.config.domain === 'rublevka.ru';
 
@@ -218,6 +219,8 @@ const MapContainer = styled.div`
   `}
 `;
 
+const { description, title } = helmet.pages.feedback;
+
 export default () => {
   const size =
     typeof window !== 'undefined' && window.outerWidth < 992 ? 48 : 64;
@@ -228,6 +231,10 @@ export default () => {
         title={helmet.pages.feedback.title}
         meta={[
           { name: 'description', content: helmet.pages.feedback.description },
+          ...ogMeta({
+            title,
+            description,
+          }),
         ]}
       />
       <Container>

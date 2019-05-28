@@ -33,6 +33,7 @@ import isEqual from 'lodash/isEqual';
 
 // ui
 import UI from 'ui';
+import { ogMeta } from '../../helpers';
 const {
   Loading,
   Grid: { Container, Row, Col },
@@ -107,16 +108,23 @@ class Show extends Component {
       lng: location.longitude,
     };
 
+    const title = seo.title(data.name, location.street);
+    const description = seo.description(data.name, location.street);
+
     return (
       <Container fluid>
         {seo && (
           <Helmet
-            title={seo.title(data.name, location.street)}
+            title={title}
             meta={[
               {
                 name: 'description',
                 content: seo.description(data.name, location.street),
               },
+              ...ogMeta({
+                title,
+                description,
+              }),
             ]}
           />
         )}

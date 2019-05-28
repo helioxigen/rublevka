@@ -15,6 +15,7 @@ import theming from './styles/theming';
 import media from './styles/media';
 import sUtils from './styles/utils.css';
 import { ogMeta, capitalize } from './helpers';
+import { HOST } from './core/config/apps';
 
 const isJQ = global.config.domain === 'jq.estate';
 
@@ -46,7 +47,7 @@ export default props => (
               type: 'website',
               site_name: capitalize(global.config.domain),
               url: `https://${global.config.domain}${props.location.pathname}`,
-              image: `https://${global.config.domain}${require('./assets/images/logo-512.jpg')}`,
+              image: `https://${HOST}${require('./assets/images/logo-512.jpg')}`,
             })}
           />
           {isJQ && <HeaderJQ {...props} />}

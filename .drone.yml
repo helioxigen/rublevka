@@ -31,9 +31,6 @@ steps:
       event:
         - push
 
-node:
-  machine: server
-
 trigger:
   branch:
     - master
@@ -41,10 +38,10 @@ trigger:
 
 ---
 kind: pipeline
-name: build
+name: build-dev
 
 node:
-  machine: server
+  cluster: dev
 
 clone:
   depth: 1
@@ -96,6 +93,88 @@ steps:
         - push
     depends_on: [ clone ]
 
+  - name: build-staff-frontend-dev
+    pull: default
+    image: node:8.15.0
+    commands:
+      - yarn config set cache-folder $(pwd)/.yarn-cache
+      - cd staff-frontend
+      - yarn --ignore-engines
+      - yarn build
+    environment:
+      REACT_APP_CEM_TOKEN:
+        from_secret: react_app_cem_token_staff_dev_rublevka_ru
+      REACT_APP_ENV:
+        from_secret: react_app_env_staff_dev_rublevka_ru
+      REACT_APP_FIREBASE_FUNCTIONS_URL:
+        from_secret: react_app_firebase_functions_url
+      REACT_APP_SENTRY_DSN:
+        from_secret: react_app_sentry_dsn_staff_rublevka_ru
+    when:
+      branch:
+        - develop
+      event:
+        - push
+    depends_on: [ clone, build-firebase ]
+
+  - name: deploy-firebase-dev
+    pull: default
+    image: node:8.15.0
+    commands:
+      - yarn firebase deploy --token "$FIREBASE_TOKEN" --only hosting:staff-dev-rublevka-ru
+    environment:
+      FIREBASE_TOKEN:
+        from_secret: firebase_token
+    when:
+      branch:
+        - develop
+      event:
+        - push
+    depends_on: [ clone, build-staff-frontend-dev ]
+
+depends_on:
+  - prepare
+
+trigger:
+  branch:
+    - develop
+
+
+---
+kind: pipeline
+name: build-prod
+
+node:
+  cluster: prod
+
+clone:
+  depth: 1
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/cache
+  - name: docker_daemon
+    host:
+      path: /var/run/docker.sock
+
+steps:
+  - name: build-firebase
+    pull: default
+    image: node:8.15.0
+    commands:
+      - yarn config set cache-folder $(pwd)/.yarn-cache
+      - yarn add firebase-tools
+      - cd firebase-functions
+      - yarn --ignore-engines
+    when:
+      branch:
+        - develop
+        - master
+      event:
+        - push
+    depends_on: [ clone ]
+
   - name: deploy-rublevka-riga-frontend-prod
     pull: default
     image: docker/compose:1.22.0
@@ -127,30 +206,6 @@ steps:
         - master
       event:
         - push
-
-  - name: build-staff-frontend-dev
-    pull: default
-    image: node:8.15.0
-    commands:
-      - yarn config set cache-folder $(pwd)/.yarn-cache
-      - cd staff-frontend
-      - yarn --ignore-engines
-      - yarn build
-    environment:
-      REACT_APP_CEM_TOKEN:
-        from_secret: react_app_cem_token_staff_dev_rublevka_ru
-      REACT_APP_ENV:
-        from_secret: react_app_env_staff_dev_rublevka_ru
-      REACT_APP_FIREBASE_FUNCTIONS_URL:
-        from_secret: react_app_firebase_functions_url
-      REACT_APP_SENTRY_DSN:
-        from_secret: react_app_sentry_dsn_staff_rublevka_ru
-    when:
-      branch:
-        - develop
-      event:
-        - push
-    depends_on: [ clone, build-firebase ]
 
   - name: build-staff-frontend-prod
     pull: default
@@ -198,21 +253,6 @@ steps:
         - push
     depends_on: [ clone, build-firebase ]
 
-  - name: deploy-firebase-dev
-    pull: default
-    image: node:8.15.0
-    commands:
-      - yarn firebase deploy --token "$FIREBASE_TOKEN" --only hosting:staff-dev-rublevka-ru
-    environment:
-      FIREBASE_TOKEN:
-        from_secret: firebase_token
-    when:
-      branch:
-        - develop
-      event:
-        - push
-    depends_on: [ clone, build-staff-frontend-dev ]
-
   - name: deploy-firebase-prod
     pull: default
     image: node:8.15.0
@@ -240,14 +280,10 @@ depends_on:
 trigger:
   branch:
     - master
-    - develop
 
 ---
 kind: pipeline
 name: after
-
-node:
-  machine: server
 
 clone:
   disable: true
@@ -317,5 +353,3 @@ trigger:
   status:
     - success
     - failure
-
-#foo

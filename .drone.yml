@@ -30,6 +30,8 @@ steps:
         - develop
       event:
         - push
+    node:
+      machine: server
 
 trigger:
   branch:
@@ -67,6 +69,8 @@ steps:
       event:
         - push
     depends_on: [ clone ]
+    node:
+      machine: server
 
   - name: deploy-rublevka-riga-frontend-dev
     pull: default

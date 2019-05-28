@@ -126,7 +126,7 @@ class Filter extends Component {
     const { state = {}, dealType } = this.props;
     const { kind = [] } = state;
 
-    const isOnly = kindType => kind.length > 0 && kind[0] === kindType;
+    const isOnly = kindType => kind.length === 1 && kind[0] === kindType;
 
     return (
       <div>

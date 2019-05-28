@@ -37,7 +37,7 @@ trigger:
     - develop
 
 node:
-  common: true
+  common: common
 
 ---
 kind: pipeline
@@ -292,7 +292,7 @@ clone:
   disable: true
 
 node:
-  common: true
+  common: common
 
 volumes:
   - name: cache

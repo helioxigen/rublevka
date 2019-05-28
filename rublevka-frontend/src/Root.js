@@ -47,7 +47,7 @@ export default props => (
               type: 'website',
               site_name: capitalize(global.config.domain),
               url: `https://${global.config.domain}${props.location.pathname}`,
-              image: `https://${HOST}/logo.jpg`,
+              image: `https://${HOST}/static/logo.jpg`,
             })}
           />
           {isJQ && <HeaderJQ {...props} />}

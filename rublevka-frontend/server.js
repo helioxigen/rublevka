@@ -374,10 +374,10 @@ app.use('/robots.txt', (req, res) =>
   fs.createReadStream(`./build/${HOST}/robots.txt`).pipe(res),
 );
 app.use('/favicon.png', (req, res) =>
-  fs.createReadStream(`./build/${HOST}/static/favicon.png`).pipe(res),
+  fs.createReadStream(`./build/${HOST}/favicon.png`).pipe(res),
 );
-app.use('/privacy-policy.pdf', (req, res) =>
-  fs.createReadStream(`./build/${HOST}/static/privacy-policy.pdf`).pipe(res),
+app.use('/static/privacy-policy.pdf', (req, res) =>
+  fs.createReadStream(`./build/${HOST}/privacy-policy.pdf`).pipe(res),
 );
 app.use('/logo.jpg', (req, res) =>
   fs.createReadStream(`./build/${HOST}/logo.jpg`).pipe(res),

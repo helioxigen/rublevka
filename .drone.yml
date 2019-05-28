@@ -37,7 +37,7 @@ trigger:
     - develop
 
 node:
-  cluster: [dev, prod]
+  common: true
 
 ---
 kind: pipeline
@@ -290,6 +290,9 @@ name: after
 
 clone:
   disable: true
+
+node:
+  common: true
 
 volumes:
   - name: cache

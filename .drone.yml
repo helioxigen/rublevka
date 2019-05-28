@@ -30,8 +30,9 @@ steps:
         - develop
       event:
         - push
-    node:
-      machine: server
+
+node:
+  machine: server
 
 trigger:
   branch:
@@ -41,6 +42,9 @@ trigger:
 ---
 kind: pipeline
 name: build
+
+node:
+  machine: server
 
 clone:
   depth: 1
@@ -69,8 +73,6 @@ steps:
       event:
         - push
     depends_on: [ clone ]
-    node:
-      machine: server
 
   - name: deploy-rublevka-riga-frontend-dev
     pull: default
@@ -92,8 +94,6 @@ steps:
         - develop
       event:
         - push
-    node:
-      machine: server
     depends_on: [ clone ]
 
   - name: deploy-rublevka-riga-frontend-prod
@@ -127,8 +127,6 @@ steps:
         - master
       event:
         - push
-    node:
-      env: prod
 
   - name: build-staff-frontend-dev
     pull: default
@@ -152,8 +150,6 @@ steps:
         - develop
       event:
         - push
-    node:
-      machine: server
     depends_on: [ clone, build-firebase ]
 
   - name: build-staff-frontend-prod
@@ -178,8 +174,6 @@ steps:
         - master
       event:
         - push
-    node:
-      env: prod
     depends_on: [ clone, build-firebase ]
 
   - name: build-export-app-frontend-prod
@@ -202,8 +196,6 @@ steps:
         - master
       event:
         - push
-    node:
-      env: prod
     depends_on: [ clone, build-firebase ]
 
   - name: deploy-firebase-dev
@@ -219,8 +211,6 @@ steps:
         - develop
       event:
         - push
-    node:
-      machine: server
     depends_on: [ clone, build-staff-frontend-dev ]
 
   - name: deploy-firebase-prod
@@ -255,6 +245,9 @@ trigger:
 ---
 kind: pipeline
 name: after
+
+node:
+  machine: server
 
 clone:
   disable: true

@@ -344,7 +344,8 @@ steps:
 
 depends_on:
   - prepare
-  - build
+  - build-dev
+  - build-prod
 
 trigger:
   branch:

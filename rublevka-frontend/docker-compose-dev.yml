@@ -9,7 +9,7 @@ services:
       context: .
       args:
         - APP=rublevka
-        - HOST=dev.rublevka.ru
+        - HOST=dev2.rublevka.ru
         - APP_ENV
         - REACT_APP_SENTRY_DSN
         - BUILD_ID

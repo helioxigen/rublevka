@@ -376,12 +376,6 @@ app.use('/robots.txt', (req, res) =>
 app.use('/favicon.png', (req, res) =>
   fs.createReadStream(`./build/${HOST}/favicon.png`).pipe(res),
 );
-app.use('/static/privacy-policy.pdf', (req, res) =>
-  fs.createReadStream(`./build/${HOST}/privacy-policy.pdf`).pipe(res),
-);
-app.use('/logo.jpg', (req, res) =>
-  fs.createReadStream(`./build/${HOST}/logo.jpg`).pipe(res),
-);
 
 // Renderer
 app.use(handleRender);

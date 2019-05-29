@@ -1,9 +1,12 @@
 ---
 kind: pipeline
-name: prepare
+name: prepare-dev
 
 clone:
   disable: true
+
+node:
+  cluster: dev
 
 volumes:
   - name: cache
@@ -33,22 +36,17 @@ steps:
 
 trigger:
   branch:
-    - master
     - develop
-
-node:
-  common: common
-  cluster: dev
 
 ---
 kind: pipeline
 name: build-dev
 
-node:
-  cluster: dev
-
 clone:
   depth: 1
+
+node:
+  cluster: dev
 
 volumes:
   - name: cache
@@ -70,7 +68,6 @@ steps:
     when:
       branch:
         - develop
-        - master
       event:
         - push
     depends_on: [ clone ]
@@ -137,153 +134,11 @@ steps:
     depends_on: [ clone, build-staff-frontend-dev ]
 
 depends_on:
-  - prepare
+  - prepare-dev
 
 trigger:
   branch:
     - develop
-
-
----
-kind: pipeline
-name: build-prod
-
-node:
-  cluster: prod
-
-clone:
-  depth: 1
-
-volumes:
-  - name: cache
-    host:
-      path: /tmp/cache
-  - name: docker_daemon
-    host:
-      path: /var/run/docker.sock
-
-steps:
-  - name: build-firebase
-    pull: default
-    image: node:8.15.0
-    commands:
-      - yarn config set cache-folder $(pwd)/.yarn-cache
-      - yarn add firebase-tools
-      - cd firebase-functions
-      - yarn --ignore-engines
-    when:
-      branch:
-        - develop
-        - master
-      event:
-        - push
-    depends_on: [ clone ]
-
-  - name: deploy-rublevka-riga-frontend-prod
-    pull: default
-    image: docker/compose:1.22.0
-    commands:
-      - export BUILD_ID=$DRONE_BUILD_NUMBER
-      - docker-compose -f rublevka-frontend/docker-compose.yml build
-      - docker-compose -f rublevka-frontend/docker-compose.yml up -d
-    environment:
-      APP_ENV: production
-      REACT_APP_FACEBOOK_PIXEL_ID:
-        from_secret: react_app_facebook_pixel_id_rublevka_ru
-      REACT_APP_GOOGLE_ANALYTICS_ID:
-        from_secret: react_app_google_analytics_id_rublevka_ru
-      REACT_APP_ROISTAT_ID:
-        from_secret: react_app_roistat_id_rublevka_ru
-      REACT_APP_SENTRY_DSN:
-        from_secret: react_app_sentry_dsn_rublevka_ru
-      REACT_APP_TARGETIX_PIXEL_ID:
-        from_secret: react_app_targetix_pixel_id_rublevka_ru
-      REACT_APP_UIS_ID:
-        from_secret: react_app_uis_id_rublevka_ru
-      REACT_APP_YANDEX_METRIKA_ID:
-        from_secret: react_app_yandex_metrika_id_rublevka_ru
-    volumes:
-      - name: docker_daemon
-        path: /var/run/docker.sock
-    when:
-      branch:
-        - master
-      event:
-        - push
-
-  - name: build-staff-frontend-prod
-    pull: default
-    image: node:8.15.0
-    commands:
-      - yarn config set cache-folder $(pwd)/.yarn-cache
-      - cd staff-frontend
-      - yarn --ignore-engines
-      - yarn build
-    environment:
-      REACT_APP_ENV:
-        from_secret: react_app_env_staff_rublevka_ru
-      REACT_APP_FIREBASE_FUNCTIONS_URL:
-        from_secret: react_app_firebase_functions_url
-      REACT_APP_SENTRY_DSN:
-        from_secret: react_app_sentry_dsn_staff_rublevka_ru
-      REACT_APP_YANDEX_METRIKA_ID:
-        from_secret: react_app_yandex_metrika_id_staff_rublevka_ru
-    when:
-      branch:
-        - master
-      event:
-        - push
-    depends_on: [ clone, build-firebase ]
-
-  - name: build-export-app-frontend-prod
-    pull: default
-    image: node:8.15.0
-    commands:
-      - yarn config set cache-folder $(pwd)/.yarn-cache
-      - cd export-app-frontend
-      - yarn --ignore-engines
-      - yarn build
-    environment:
-      REACT_APP_FIREBASE_API_KEY:
-        from_secret: react_app_firebase_api_key
-      REACT_APP_FIREBASE_AUTH_DOMAIN:
-        from_secret: react_app_firebase_auth_domain
-      REACT_APP_FIREBASE_PROJECT_ID:
-        from_secret: react_app_firebase_project_id
-    when:
-      branch:
-        - master
-      event:
-        - push
-    depends_on: [ clone, build-firebase ]
-
-  - name: deploy-firebase-prod
-    pull: default
-    image: node:8.15.0
-    commands:
-      - yarn firebase deploy --token "$FIREBASE_TOKEN"
-    environment:
-      FIREBASE_TOKEN:
-        from_secret: firebase_token
-    when:
-      branch:
-        - master
-      event:
-        - push
-    node:
-      env: prod
-    depends_on:
-      - clone
-      - build-firebase
-      - build-export-app-frontend-prod
-      - build-staff-frontend-prod
-
-depends_on:
-  - prepare
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -293,7 +148,7 @@ clone:
   disable: true
 
 node:
-  common: common
+  cluster: dev
 
 volumes:
   - name: cache
@@ -344,19 +199,16 @@ steps:
         path: /cache
     when:
       branch:
-        - master
         - develop
       event:
         - push
 
 depends_on:
-  - prepare
+  - prepare-dev
   - build-dev
-  - build-prod
 
 trigger:
   branch:
-    - master
     - develop
   status:
     - success

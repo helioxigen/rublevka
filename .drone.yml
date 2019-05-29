@@ -1,9 +1,12 @@
 ---
 kind: pipeline
-name: prepare
+name: prepare-dev
 
 clone:
   disable: true
+
+node:
+  cluster: dev
 
 volumes:
   - name: cache
@@ -33,12 +36,231 @@ steps:
 
 trigger:
   branch:
-    - master
     - develop
 
 ---
 kind: pipeline
-name: build
+name: build-dev
+
+clone:
+  depth: 1
+
+node:
+  cluster: dev
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/cache
+  - name: docker_daemon
+    host:
+      path: /var/run/docker.sock
+
+steps:
+  - name: build-firebase
+    pull: default
+    image: node:8.15.0
+    commands:
+      - yarn config set cache-folder $(pwd)/.yarn-cache
+      - yarn add firebase-tools
+      - cd firebase-functions
+      - yarn --ignore-engines
+    when:
+      branch:
+        - develop
+      event:
+        - push
+    depends_on: [ clone ]
+
+  - name: deploy-rublevka-riga-frontend-dev
+    pull: default
+    image: docker/compose:1.22.0
+    commands:
+      - export BUILD_ID=$DRONE_BUILD_NUMBER
+      - docker-compose -f rublevka-frontend/docker-compose-dev.yml build
+      - docker-compose -f rublevka-frontend/docker-compose-dev.yml up -d
+    environment:
+      APP_ENV: development
+      HOST: dev.rublevka.ru
+      REACT_APP_SENTRY_DSN:
+        from_secret: react_app_sentry_dsn_rublevka_ru
+    volumes:
+      - name: docker_daemon
+        path: /var/run/docker.sock
+    when:
+      branch:
+        - develop
+      event:
+        - push
+    depends_on: [ clone ]
+
+  - name: build-staff-frontend-dev
+    pull: default
+    image: node:8.15.0
+    commands:
+      - yarn config set cache-folder $(pwd)/.yarn-cache
+      - cd staff-frontend
+      - yarn --ignore-engines
+      - yarn build
+    environment:
+      REACT_APP_CEM_TOKEN:
+        from_secret: react_app_cem_token_staff_dev_rublevka_ru
+      REACT_APP_ENV:
+        from_secret: react_app_env_staff_dev_rublevka_ru
+      REACT_APP_FIREBASE_FUNCTIONS_URL:
+        from_secret: react_app_firebase_functions_url
+      REACT_APP_SENTRY_DSN:
+        from_secret: react_app_sentry_dsn_staff_rublevka_ru
+    when:
+      branch:
+        - develop
+      event:
+        - push
+    depends_on: [ clone, build-firebase ]
+
+  - name: deploy-firebase-dev
+    pull: default
+    image: node:8.15.0
+    commands:
+      - yarn firebase deploy --token "$FIREBASE_TOKEN" --only hosting:staff-dev-rublevka-ru
+    environment:
+      FIREBASE_TOKEN:
+        from_secret: firebase_token
+    when:
+      branch:
+        - develop
+      event:
+        - push
+    depends_on: [ clone, build-staff-frontend-dev ]
+
+depends_on:
+  - prepare-dev
+
+trigger:
+  branch:
+    - develop
+
+---
+kind: pipeline
+name: after
+
+clone:
+  disable: true
+
+node:
+  cluster: dev
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/cache
+  - name: docker_daemon
+    host:
+      path: /var/run/docker.sock
+
+steps:
+  - name: telegram-notification
+    pull: default
+    image: appleboy/drone-telegram
+    settings:
+      format: markdown
+      message: >
+        {{#success build.status}}
+        ✅ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` succeeded.
+        - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
+        {{else}}
+        ❌ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` failed.
+        - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
+        {{/success}}
+    environment:
+      TELEGRAM_TO:
+        from_secret: telegram_chat_id
+      TELEGRAM_TOKEN:
+        from_secret: telegram_access_token
+    when:
+      branch:
+        - master
+        - develop
+      event:
+        - push
+      status:
+        - success
+        - failure
+
+  - name: rebuild-cache
+    pull: default
+    image: drillster/drone-volume-cache
+    settings:
+      mount:
+        - $(pwd)/.yarn-cache
+      rebuild: true
+    volumes:
+      - name: cache
+        path: /cache
+    when:
+      branch:
+        - develop
+      event:
+        - push
+
+depends_on:
+  - prepare-dev
+  - build-dev
+
+trigger:
+  branch:
+    - develop
+  status:
+    - success
+    - failure
+
+
+# Production environment (Second prod node)
+---
+kind: pipeline
+name: prepare-prod-2
+
+node:
+  cluster: prod-2
+
+clone:
+  disable: true
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/cache
+  - name: docker_daemon
+    host:
+      path: /var/run/docker.sock
+
+steps:
+  - name: restore-cache
+    pull: default
+    image: drillster/drone-volume-cache
+    settings:
+      mount:
+        - $(pwd)/.yarn-cache
+      restore: true
+    volumes:
+      - name: cache
+        path: /cache
+    when:
+      branch:
+        - master
+      event:
+        - push
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: build-prod-2
+
+node:
+  cluster: prod-2
 
 clone:
   depth: 1
@@ -62,33 +284,11 @@ steps:
       - yarn --ignore-engines
     when:
       branch:
-        - develop
         - master
       event:
         - push
     depends_on:
        - clone
-
-  - name: deploy-rublevka-riga-frontend-dev
-    pull: default
-    image: docker/compose:1.22.0
-    commands:
-      - export BUILD_ID=$DRONE_BUILD_NUMBER
-      - docker-compose -f rublevka-frontend/docker-compose-dev.yml build
-      - docker-compose -f rublevka-frontend/docker-compose-dev.yml up -d
-    environment:
-      APP_ENV: development
-      HOST: dev.rublevka.ru
-      REACT_APP_SENTRY_DSN:
-        from_secret: react_app_sentry_dsn_rublevka_ru
-    volumes:
-      - name: docker_daemon
-        path: /var/run/docker.sock
-    when:
-      branch:
-        - develop
-      event:
-        - push
 
   - name: deploy-rublevka-riga-frontend-prod
     pull: default
@@ -124,29 +324,6 @@ steps:
     depends_on:
        - clone
 
-  - name: build-staff-frontend-dev
-    pull: default
-    image: node:8.15.0
-    commands:
-      - yarn config set cache-folder $(pwd)/.yarn-cache
-      - cd staff-frontend
-      - yarn --ignore-engines
-      - yarn build
-    environment:
-      REACT_APP_CEM_TOKEN:
-        from_secret: react_app_cem_token_staff_dev_rublevka_ru
-      REACT_APP_ENV:
-        from_secret: react_app_env_staff_dev_rublevka_ru
-      REACT_APP_FIREBASE_FUNCTIONS_URL:
-        from_secret: react_app_firebase_functions_url
-      REACT_APP_SENTRY_DSN:
-        from_secret: react_app_sentry_dsn_staff_rublevka_ru
-    when:
-      branch:
-        - develop
-      event:
-        - push
-
   - name: build-staff-frontend-prod
     pull: default
     image: node:8.15.0
@@ -172,7 +349,6 @@ steps:
     depends_on:
        - clone
        - build-firebase
-
 
   - name: build-export-app-frontend-prod
     pull: default
@@ -227,11 +403,13 @@ depends_on:
 trigger:
   branch:
     - master
-    - develop
 
 ---
 kind: pipeline
-name: after
+name: after-prod-2
+
+node:
+  cluster: prod-2
 
 clone:
   disable: true
@@ -266,7 +444,6 @@ steps:
     when:
       branch:
         - master
-        - develop
       event:
         - push
       status:
@@ -286,20 +463,16 @@ steps:
     when:
       branch:
         - master
-        - develop
       event:
         - push
 
 depends_on:
-  - prepare
-  - build
+  - prepare-prod-2
+  - build-prod-2
 
 trigger:
   branch:
     - master
-    - develop
   status:
     - success
     - failure
-
-#foo

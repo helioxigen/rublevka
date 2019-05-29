@@ -398,7 +398,7 @@ steps:
       - build-staff-frontend-prod
 
 depends_on:
-  - prepare
+  - prepare-prod-2
 
 trigger:
   branch:

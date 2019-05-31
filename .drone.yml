@@ -533,7 +533,7 @@ node:
   cluster: prod-3
 
 clone:
-  depth: 1
+  depth: 50
 
 volumes:
   - name: cache

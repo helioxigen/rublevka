@@ -298,7 +298,7 @@ steps:
       - docker-compose -f rublevka-frontend/docker-compose.yml build
       - docker-compose -f rublevka-frontend/docker-compose.yml up -d
       - docker-compose -f nginx/docker-compose.yml up -d
-      - "wget --header='Host: prod.rublevka.ru' -q nginx"
+#      - "wget --header='Host: prod.rublevka.ru' -q nginx"
     environment:
       APP_ENV: production
       REACT_APP_FACEBOOK_PIXEL_ID:
@@ -552,7 +552,7 @@ steps:
       - docker-compose -f rublevka-frontend/docker-compose.yml build
       - docker-compose -f rublevka-frontend/docker-compose.yml up -d
       - docker-compose -f nginx/docker-compose.yml up -d
-      - "wget --header='Host: prod.rublevka.ru' -q nginx"
+#      - "wget --header='Host: prod.rublevka.ru' -q nginx"
     environment:
       APP_ENV: production
       REACT_APP_FACEBOOK_PIXEL_ID:

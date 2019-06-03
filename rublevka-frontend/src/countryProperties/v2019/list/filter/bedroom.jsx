@@ -34,7 +34,7 @@ class Kind extends Component {
   render() {
     const { selected = {} } = this.props;
     const { kind = [] } = selected;
-    const item = selected[key] || { min: null };
+    const item = selected[key] || { min: 2 };
 
     return (
       <section>
@@ -47,12 +47,12 @@ class Kind extends Component {
           </FilterHeader>
           <ControlsContainer>
             <CheckboxWrapper>
-              {[1, 2, 3, 4, 5].map(num => (
+              {[2, 3, 4, 5].map(num => (
                 <RadioButton
                   checked={item.min === num}
                   name={num}
                   handleChange={() => this.onUpdate(num)}
-                  text={`${num}+`}
+                  text={num === 2 ? 'Любое' : `${num}+`}
                 />
               ))}
             </CheckboxWrapper>

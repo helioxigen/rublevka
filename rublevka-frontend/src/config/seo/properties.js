@@ -432,58 +432,24 @@ export default {
         if (meta) return meta;
 
         const dictionary = {
-          sale: {
-            title: 'Продажа',
-            titleWithCategory: 'Купить',
-
-            townhouse: 'таунхаус',
-            penthouse: 'пентхаус',
-            apartment: 'апартаменты',
-            house: 'дом',
-            flat: 'квартиру',
-            land: 'участок',
-            office: 'офис',
-          },
-          rent: {
-            title: 'Аренда',
-            titleWithCategory: 'Аренда',
-
-            townhouse: 'таунхауса',
-            penthouse: 'пентхауса',
-            apartment: 'апартаментов',
-            house: 'дома',
-            flat: 'квартиры',
-            land: 'участка',
-            office: 'офиса',
-          },
+          townhouse: 'таунхаус',
+          penthouse: 'пентхаус',
+          apartment: 'апартаменты',
+          house: 'дом',
+          flat: 'квартиру',
+          land: 'участок',
+          office: 'офис',
         };
 
-        if (!kind) {
-          return `${
-            dictionary[dealType].title
-          } недвижимости Московской области на ${domain}`;
-        }
-
-        if (kind === 'land') {
-          return joinStrings(
-            capitalize(dictionary[dealType][kind]),
-            `ID ${id}`,
-            name && `в поселке «${name}»,`,
-            mkadDistance && `${mkadDistance}  км от МКАД,`,
-            area && `общей площадью ${area} м²,`,
-            `по цене ${price},`,
-            route && `${route} шоссе`,
-            `– агентство недвижимости ${domain}`,
-          );
-        }
-
-        return `${dictionary[dealType].titleWithCategory} ${
-          dictionary[dealType][kind]
-        } ID ${id}${name ? ` в поселке «${name}»` : ''}${
-          mkadDistance ? `, ${mkadDistance} км от МКАД` : ''
-        }${area ? `, общей площадью ${area} м²` : ''}, по цене ${price}${
-          route ? `, ${route}` : ''
-        } на ${domain}`;
+        return joinStrings(
+          capitalize(dictionary[kind]),
+          `ID ${id}`,
+          name && `в поселке «${name}»,`,
+          mkadDistance && `${mkadDistance}  км от МКАД,`,
+          `по цене ${price},`,
+          route && `${route} шоссе`,
+          `– агентство недвижимости ${domain}`,
+        );
       },
       description: (
         dealType,

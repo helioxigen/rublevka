@@ -24,9 +24,9 @@ const CallBlock = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  z-index: 15000;
+  z-index: 3;
 
-  ${media.sm`
+  ${media.md`
     display: none;
   `}
 `;

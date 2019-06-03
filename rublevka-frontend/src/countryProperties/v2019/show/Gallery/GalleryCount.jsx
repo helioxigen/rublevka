@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { prefixZero } from './utils';
-import media from '../../../../styles/media';
 
 const GalleryCount = ({ className, currentIndex, overall }) => (
   <div className={className}>
@@ -12,13 +11,7 @@ const GalleryCount = ({ className, currentIndex, overall }) => (
 export default styled(GalleryCount)`
   position: absolute;
   bottom: 20px;
-  right: 15px;
-
-  ${media.md`
-    right: unset;
-    left: 15px;
-  `}
-
+  left: 15px;
   padding: 6px 8px;
   display: flex;
   align-items: center;

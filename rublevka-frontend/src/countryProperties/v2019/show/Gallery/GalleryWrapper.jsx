@@ -19,34 +19,19 @@ const ArrowIcon = styled(Icon)`
 const PrevButton = styled.button`
   outline: none;
   position: absolute;
-
-  width: 50px;
-
-  top: 0;
-  bottom: 0;
-
-  left: 0;
-
+  left: 15px;
   border: none;
   background: none;
   padding: 0;
   z-index: 2;
 
-  ${ArrowIcon} {
-    position: absolute;
-    left: 15px;
-    transform: translateY(-50%);
-    top: 50%;
-  }
+  top: 50%;
+  transform: translateY(-50%);
 `;
 
 const NextButton = styled(PrevButton)`
   left: unset;
-  right: 0;
-  ${ArrowIcon} {
-    left: unset;
-    right: 15px;
-  }
+  right: 15px;
 `;
 
 export const ExpandButton = styled.button`

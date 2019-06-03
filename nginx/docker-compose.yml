@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: nginx
+    image: nginx
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - '0.0.0.0:80:80'
+      - '0.0.0.0:443:443'
+    networks:
+      master_network:
+        aliases:
+          - nginx
+
+networks:
+  master_network:
+    external: true

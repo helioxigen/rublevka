@@ -215,19 +215,16 @@ trigger:
     - failure
 
 
-
-
-
 # Production environment (Second prod node)
 ---
 kind: pipeline
 name: prepare-prod-2
 
-clone:
-  disable: true
-
 node:
   cluster: prod-2
+
+clone:
+  disable: true
 
 volumes:
   - name: cache
@@ -262,11 +259,11 @@ trigger:
 kind: pipeline
 name: build-prod-2
 
-clone:
-  depth: 1
-
 node:
   cluster: prod-2
+
+clone:
+  depth: 1
 
 volumes:
   - name: cache
@@ -290,7 +287,8 @@ steps:
         - master
       event:
         - push
-    depends_on: [ clone ]
+    depends_on:
+       - clone
 
   - name: deploy-rublevka-riga-frontend-prod
     pull: default
@@ -299,6 +297,8 @@ steps:
       - export BUILD_ID=$DRONE_BUILD_NUMBER
       - docker-compose -f rublevka-frontend/docker-compose.yml build
       - docker-compose -f rublevka-frontend/docker-compose.yml up -d
+      - docker-compose -f nginx/docker-compose.yml build && docker-compose -f nginx/docker-compose.yml up -d
+#      - "wget --header='Host: prod.rublevka.ru' -q nginx"
     environment:
       APP_ENV: production
       REACT_APP_FACEBOOK_PIXEL_ID:
@@ -323,6 +323,8 @@ steps:
         - master
       event:
         - push
+    depends_on:
+       - clone
 
   - name: build-staff-frontend-prod
     pull: default
@@ -346,7 +348,9 @@ steps:
         - master
       event:
         - push
-    depends_on: [ clone, build-firebase ]
+    depends_on:
+       - clone
+       - build-firebase
 
   - name: build-export-app-frontend-prod
     pull: default
@@ -368,13 +372,20 @@ steps:
         - master
       event:
         - push
-    depends_on: [ clone, build-firebase ]
+    depends_on:
+       - clone
+       - build-firebase
+       - build-staff-frontend-prod
 
   - name: deploy-firebase-prod
     pull: default
     image: node:8.15.0
     commands:
       - yarn firebase deploy --token "$FIREBASE_TOKEN"
+    # depends_on:
+    #   - build-firebase
+    #   - build-staff-frontend-prod
+    #   - build-export-app-frontend-prod
     environment:
       FIREBASE_TOKEN:
         from_secret: firebase_token
@@ -385,7 +396,6 @@ steps:
         - push
     depends_on:
       - clone
-      - build-firebase
       - build-export-app-frontend-prod
       - build-staff-frontend-prod
 
@@ -400,11 +410,11 @@ trigger:
 kind: pipeline
 name: after-prod-2
 
-clone:
-  disable: true
-
 node:
   cluster: prod-2
+
+clone:
+  disable: true
 
 volumes:
   - name: cache
@@ -461,6 +471,189 @@ steps:
 depends_on:
   - prepare-prod-2
   - build-prod-2
+
+trigger:
+  branch:
+    - master
+  status:
+    - success
+    - failure
+
+
+
+
+# Production environment (Third prod node)
+---
+kind: pipeline
+name: prepare-prod-3
+
+node:
+  cluster: prod-3
+
+clone:
+  disable: true
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/cache
+  - name: docker_daemon
+    host:
+      path: /var/run/docker.sock
+
+steps:
+  - name: restore-cache
+    pull: default
+    image: drillster/drone-volume-cache
+    settings:
+      mount:
+        - $(pwd)/.yarn-cache
+      restore: true
+    volumes:
+      - name: cache
+        path: /cache
+    when:
+      branch:
+        - master
+      event:
+        - push
+
+trigger:
+  branch:
+    - master
+
+depends_on:
+  - build-prod-2
+
+---
+kind: pipeline
+name: build-prod-3
+
+node:
+  cluster: prod-3
+
+clone:
+  depth: 50
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/cache
+  - name: docker_daemon
+    host:
+      path: /var/run/docker.sock
+
+steps:
+  - name: deploy-rublevka-riga-frontend-prod
+    pull: default
+    image: docker/compose:1.22.0
+    commands:
+      - export BUILD_ID=$DRONE_BUILD_NUMBER
+      - docker-compose -f rublevka-frontend/docker-compose.yml build
+      - docker-compose -f rublevka-frontend/docker-compose.yml up -d
+      - docker-compose -f nginx/docker-compose.yml build && docker-compose -f nginx/docker-compose.yml up -d
+#      - "wget --header='Host: prod.rublevka.ru' -q nginx"
+    environment:
+      APP_ENV: production
+      REACT_APP_FACEBOOK_PIXEL_ID:
+        from_secret: react_app_facebook_pixel_id_rublevka_ru
+      REACT_APP_GOOGLE_ANALYTICS_ID:
+        from_secret: react_app_google_analytics_id_rublevka_ru
+      REACT_APP_ROISTAT_ID:
+        from_secret: react_app_roistat_id_rublevka_ru
+      REACT_APP_SENTRY_DSN:
+        from_secret: react_app_sentry_dsn_rublevka_ru
+      REACT_APP_TARGETIX_PIXEL_ID:
+        from_secret: react_app_targetix_pixel_id_rublevka_ru
+      REACT_APP_UIS_ID:
+        from_secret: react_app_uis_id_rublevka_ru
+      REACT_APP_YANDEX_METRIKA_ID:
+        from_secret: react_app_yandex_metrika_id_rublevka_ru
+    volumes:
+      - name: docker_daemon
+        path: /var/run/docker.sock
+    when:
+      branch:
+        - master
+      event:
+        - push
+    depends_on:
+       - clone
+
+depends_on:
+  - build-prod-2
+  - prepare-prod-3
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: after-prod-3
+
+node:
+  cluster: prod-3
+
+clone:
+  disable: true
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/cache
+  - name: docker_daemon
+    host:
+      path: /var/run/docker.sock
+
+steps:
+  - name: telegram-notification
+    pull: default
+    image: appleboy/drone-telegram
+    settings:
+      format: markdown
+      message: >
+        {{#success build.status}}
+        ✅ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` succeeded.
+        - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
+        {{else}}
+        ❌ Build [#{{build.number}}]({{build.link}}) of `{{repo.name}}` failed.
+        - {{commit.message}} ([{{truncate commit.sha 8}}]({{commit.link}})@{{commit.branch}} by {{commit.author}})
+        {{/success}}
+    environment:
+      TELEGRAM_TO:
+        from_secret: telegram_chat_id
+      TELEGRAM_TOKEN:
+        from_secret: telegram_access_token
+    when:
+      branch:
+        - master
+      event:
+        - push
+      status:
+        - success
+        - failure
+
+  - name: rebuild-cache
+    pull: default
+    image: drillster/drone-volume-cache
+    settings:
+      mount:
+        - $(pwd)/.yarn-cache
+      rebuild: true
+    volumes:
+      - name: cache
+        path: /cache
+    when:
+      branch:
+        - master
+      event:
+        - push
+
+depends_on:
+  - build-prod-2
+  - prepare-prod-3
+  - build-prod-3
 
 trigger:
   branch:

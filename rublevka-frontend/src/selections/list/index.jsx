@@ -162,10 +162,6 @@ class List extends Component {
                 name: 'description',
                 content: seo.description(dealTypes[dealType], params.kind),
               },
-              {
-                name: 'keywords',
-                content: seo.keywords(dealTypes[dealType], params.kind),
-              },
             ]}
           />
         )}

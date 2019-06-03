@@ -34,6 +34,7 @@ export const mapParams = ({
     settlementId,
     settlementIds,
     settlements = [],
+    house,
 
     recentlyUpdated,
 
@@ -64,7 +65,8 @@ export const mapParams = ({
       offset,
     },
     orderBy: {
-      [orderBy.field]: orderBy.predicate,
+      // [orderBy.field]: orderBy.predicate,
+      ...orderBy,
     },
     filter: {
       state,
@@ -84,7 +86,7 @@ export const mapParams = ({
         mkadDistance.min,
         mkadDistance.max,
       ),
-
+      'location.house': house,
       'landDetails.area': makeFilterRange(landArea.min, landArea.max),
       'landDetails.landscapeKind': landscapeKind,
 
@@ -270,6 +272,7 @@ export function transformOutputValues(property) {
     saleOffer,
     specification,
     state,
+    note,
   } = property;
   return {
     additionalDetails,
@@ -285,5 +288,6 @@ export function transformOutputValues(property) {
     saleOffer: transformOutputSaleOffer(saleOffer),
     specification: transfortOutputSpecification(specification),
     state,
+    note,
   };
 }

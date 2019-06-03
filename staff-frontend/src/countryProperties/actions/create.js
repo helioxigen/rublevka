@@ -14,12 +14,10 @@ export default data => (dispatch) => {
   return createElement(apiPath, transformOutputValues(data))
     .then((resp) => {
       dispatch(createElementSucceeded(types.CREATE_SUCCEEDED));
-      console.log('create succ', resp);
       return Promise.resolve(resp);
     })
     .catch((errors) => {
       dispatch(createElementFailed(types.CREATE_FAILED, errors));
-      console.log('create fail', errors);
       return Promise.reject(errors);
     });
 };

@@ -1,7 +1,7 @@
-import * as types from './constants';
-import { get } from '../jq-redux-api/api';
+import * as types from '../constants';
+import { get } from '../../jq-redux-api/api';
 
-import { logout } from '../auth/actions';
+import { logout } from '../../auth/actions';
 
 const loadIdStarted = id => ({
   type: types.LOAD_ID,
@@ -26,8 +26,8 @@ export const loadUser = id => (dispatch) => {
   dispatch(loadIdStarted(id));
 
   return get(`/v1/users/staff/${id}`).then(
-    ({ body }) => dispatch(loadIdSucceeded(id, body)),
-    ({ body }) => dispatch(loadIdFailed(id, body)),
+    data => dispatch(loadIdSucceeded(id, data)),
+    data => dispatch(loadIdFailed(id, data)),
   );
 };
 
@@ -42,9 +42,9 @@ const loadCurrentUserSucceeded = ({
 
 export const loadCurrentUser = () => dispatch =>
   get('/v1/users/me')
-    .then(({ body }) => {
-      dispatch(loadIdSucceeded(body.id, body));
-      return dispatch(loadCurrentUserSucceeded(body));
+    .then((result) => {
+      dispatch(loadIdSucceeded(result.id, result));
+      return dispatch(loadCurrentUserSucceeded(result));
     })
     .catch(({ status }) => {
       if (status >= 400 && status < 500) dispatch(logout());

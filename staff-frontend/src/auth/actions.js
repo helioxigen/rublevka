@@ -2,7 +2,7 @@ import * as types from './constants';
 import {
   get, post, del, setToken,
 } from '../jq-redux-api/api';
-import { loadIdSucceeded } from '../users/load';
+import { loadIdSucceeded } from '../users/actions';
 
 const loginStarted = () => ({
   type: types.LOGIN,
@@ -21,6 +21,7 @@ const loginSucceeded = ({ token }) => {
       });
     });
 };
+
 const loginFailed = ({ errors }) => ({
   type: types.LOGIN_FAIL,
   errors,

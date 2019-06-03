@@ -26,6 +26,9 @@ import Layouts from './Layouts';
 import Land from './Land';
 import Parking from './Parking';
 import Location from './Location';
+import Comments from './Comments';
+import LinkedContacts from './LinkedContacts';
+import MetaInfo from './MetaInfo';
 import update from '../actions/update';
 import create from '../actions/create';
 import waitImagesUpdate from '../actions/waitImagesUpdate';
@@ -380,6 +383,10 @@ class PropertyDetailsPage extends React.PureComponent {
             onUpdate={value => this.saveData(value)}
             enableEditMode={() => this.setState({ isEditLocation: true })}
           />
+          <LinkedContacts property={property} />
+          <Comments property={property} />
+          <Separator big />
+          <MetaInfo property={property} />
         </Layout>
       </Grid>
     );

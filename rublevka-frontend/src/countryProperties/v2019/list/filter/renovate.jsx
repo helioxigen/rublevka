@@ -5,89 +5,99 @@ import UI from '../../../../ui/v2019';
 import {
   CheckboxWrapper,
   ControlsContainer,
-  CheckboxLabel,
   Title,
   FilterHeader,
   IconReset,
 } from './styled';
+import Checkbox from './Checkbox';
 
 const {
-  Checkbox,
   Grid: { Container },
 } = UI;
 
 const key = 'renovate';
 
 class Renovate extends Component {
-  constructor(props) {
-    super(props);
+  handleUpdate = value => {
+    const { selected = [] } = this.props;
 
-    this.onReset = this.onReset.bind(this);
-  }
+    const nextFilterValue = selected.includes(value)
+      ? selected.filter(v => v !== value)
+      : selected.concat(value);
 
-  onUpdate(value) {
-    const { selected = {} } = this.props;
-    const items = selected[key] || [];
-    const index = items.indexOf(value);
+    this.props.updateFilter(key, nextFilterValue);
+  };
 
-    // TODO fix this (move to helpers?)
-    if (index === -1) {
-      this.props.updateFilter(key, [...items, value]);
-    } else {
-      this.props.updateFilter(key, items.filter((el, i) => i !== index));
-    }
-  }
-
-  onReset() {
+  handleReset = () => {
     this.props.updateFilter(key, []);
-  }
+  };
+
+  handleOnlyClick = name => e => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const { updateFilter } = this.props;
+
+    updateFilter(key, [name]);
+  };
+
+  isChecked = name => {
+    const { selected = [] } = this.props;
+
+    return selected.includes(name) || selected.length === 0;
+  };
 
   render() {
-    const { selected = {} } = this.props;
-    const { kind = [] } = selected;
-    const items = selected[key] || [];
+    const { selected = [] } = this.props;
 
-    if (!kind.includes('land')) {
-      return (
-        <section>
-          <Container fluid styleName="contentContainer">
-            <FilterHeader>
-              <Title>Ремонт</Title>
-              {items.length > 0 && (
-                <IconReset onClick={this.onReset} icon="times" />
-              )}
-            </FilterHeader>
-            <ControlsContainer>
-              <CheckboxWrapper>
-                <Checkbox
-                  checked={items.includes('full_construction')}
-                  referece="full_construction"
-                  handleChange={() => this.onUpdate('full_construction')}
-                >
-                  <CheckboxLabel>Под ключ</CheckboxLabel>
-                </Checkbox>
-                <Checkbox
-                  checked={items.includes('partly_turnkey')}
-                  referece="partly_turnkey"
-                  handleChange={() => this.onUpdate('partly_turnkey')}
-                >
-                  <CheckboxLabel>Частично под ключ</CheckboxLabel>
-                </Checkbox>
-                <Checkbox
-                  checked={items.includes('rough_finish')}
-                  referece="rough_finish"
-                  handleChange={() => this.onUpdate('rough_finish')}
-                >
-                  <CheckboxLabel>Черновая отделка</CheckboxLabel>
-                </Checkbox>
-              </CheckboxWrapper>
-            </ControlsContainer>
-          </Container>
-        </section>
-      );
-    }
+    const isOnlyShown = selected.length > 1 || selected.length === 0;
 
-    return <div />;
+    return (
+      <section>
+        <Container fluid styleName="contentContainer">
+          <FilterHeader>
+            <Title>Ремонт</Title>
+            {selected.length > 0 && (
+              <IconReset onClick={this.handleReset} icon="times" />
+            )}
+          </FilterHeader>
+          <ControlsContainer>
+            <CheckboxWrapper>
+              <Checkbox
+                checked={selected.length === 0}
+                label="Любой"
+                name="any"
+                onChange={this.handleReset}
+              />
+              <Checkbox
+                checked={this.isChecked('full_construction')}
+                label="Под ключ"
+                name="full_construction"
+                onChange={this.handleUpdate}
+                showOnly={isOnlyShown}
+                onOnlyClick={this.handleOnlyClick}
+              />
+              <Checkbox
+                checked={this.isChecked('partly_turnkey')}
+                label="Частично под ключ"
+                name="partly_turnkey"
+                onChange={this.handleUpdate}
+                showOnly={isOnlyShown}
+                onOnlyClick={this.handleOnlyClick}
+              />
+              <Checkbox
+                checked={this.isChecked('rough_finish')}
+                label="Черновая отделка"
+                name="rough_finish"
+                onChange={this.handleUpdate}
+                showOnly={isOnlyShown}
+                onOnlyClick={this.handleOnlyClick}
+              />
+            </CheckboxWrapper>
+          </ControlsContainer>
+        </Container>
+      </section>
+    );
   }
 }
 

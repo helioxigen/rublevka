@@ -34,7 +34,6 @@ export default () => (
       title={helmet.pages.feedback.title}
       meta={[
         { name: 'description', content: helmet.pages.feedback.description },
-        { name: 'keywords', content: helmet.pages.feedback.keywords },
       ]}
     />
 

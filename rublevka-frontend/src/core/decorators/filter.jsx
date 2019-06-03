@@ -8,7 +8,10 @@ import FilterActions from 'core/actions/filters';
 const isEvent = candidate =>
   !!(candidate && candidate.stopPropagation && candidate.preventDefault);
 
-const pickState = ({ filters, _filters }) => ({ filters: filters || _filters });
+const pickState = ({ filters, routing, _filters }) => ({
+  routing,
+  filters: filters || _filters,
+});
 
 const pickActions = dispatch => ({
   filtersActions: bindActionCreators(FilterActions, dispatch),

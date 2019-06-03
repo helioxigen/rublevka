@@ -1,4 +1,5 @@
 import global from 'window-or-global';
+import { joinStrings, capitalize, replaceEnd } from '../utils.js';
 
 const domain = global.config.domain;
 
@@ -152,6 +153,19 @@ export default {
         return `${dictionary.dealType[dealType]} ${dictionary.kind[kind]}`;
       },
       title: (dealType, kind, queryPage) => {
+        const pagination = queryPage > 1 ? ` — cтраница ${queryPage}` : '';
+
+        const { theme } = global.config;
+        const dicts = require('./data/list.titles.json');
+
+        if (theme in dicts) {
+          const themeDict = dicts[theme][dealType];
+
+          const title = themeDict[kind || 'root'];
+
+          if (title) return title + pagination;
+        }
+
         const dictionary = {
           sale: {
             title: 'Продажа',
@@ -181,15 +195,11 @@ export default {
         if (!kind) {
           return `${
             dictionary[dealType].title
-          } загородной недвижимости в Московской области на ${domain}${
-            queryPage > 1 ? ` — cтраница ${queryPage}` : ''
-          }`;
+          } загородной недвижимости в Московской области на ${domain}${pagination}`;
         }
         return `${dictionary[dealType].titleWithCategory} ${
           dictionary[dealType][kind]
-        } в Московской области на ${domain}${
-          queryPage > 1 ? ` — cтраница ${queryPage}` : ''
-        }`;
+        } в Московской области на ${domain}${pagination}`;
       },
 
       titleH1: (dealType, kind) => {
@@ -241,6 +251,17 @@ export default {
       },
 
       description: (dealType, kind) => {
+        const { theme } = global.config;
+        const dicts = require('./data/list.descriptions.json');
+
+        if (theme in dicts) {
+          const themeDict = dicts[theme][dealType];
+
+          const description = themeDict[kind || 'root'];
+
+          if (description) return description;
+        }
+
         const dictionary = {
           sale: {
             title: 'Купить загородную недвижимость в Московской области',
@@ -411,44 +432,24 @@ export default {
         if (meta) return meta;
 
         const dictionary = {
-          sale: {
-            title: 'Продажа',
-            titleWithCategory: 'Купить',
-
-            townhouse: 'таунхаус',
-            penthouse: 'пентхаус',
-            apartment: 'апартаменты',
-            house: 'дом',
-            flat: 'квартиру',
-            land: 'участок',
-            office: 'офис',
-          },
-          rent: {
-            title: 'Аренда',
-            titleWithCategory: 'Аренда',
-
-            townhouse: 'таунхауса',
-            penthouse: 'пентхауса',
-            apartment: 'апартаментов',
-            house: 'дома',
-            flat: 'квартиры',
-            land: 'участка',
-            office: 'офиса',
-          },
+          townhouse: 'таунхаус',
+          penthouse: 'пентхаус',
+          apartment: 'апартаменты',
+          house: 'дом',
+          flat: 'квартиру',
+          land: 'участок',
+          office: 'офис',
         };
 
-        if (!kind) {
-          return `${
-            dictionary[dealType].title
-          } недвижимости Московской области на ${domain}`;
-        }
-        return `${dictionary[dealType].titleWithCategory} ${
-          dictionary[dealType][kind]
-        } ID ${id}${name ? ` в поселке «${name}»` : ''}${
-          mkadDistance ? `, ${mkadDistance} км от МКАД` : ''
-        }${area ? `, общей площадью ${area} м²` : ''}, по цене ${price}${
-          route ? `, ${route}` : ''
-        } на ${domain}`;
+        return joinStrings(
+          capitalize(dictionary[kind]),
+          `ID ${id}`,
+          name && `в поселке «${name}»,`,
+          mkadDistance && `${mkadDistance}  км от МКАД,`,
+          `по цене ${price},`,
+          route && `${route} шоссе`,
+          `– агентство недвижимости ${domain}`,
+        );
       },
       description: (
         dealType,
@@ -465,40 +466,33 @@ export default {
       ) => {
         if (meta) return meta;
 
-        const dictionary = {
-          sale: {
-            title: 'Купить',
-
-            townhouse: 'таунхаус',
-            penthouse: 'пентхаус',
-            apartment: 'апартаменты',
-            house: 'дом',
-            flat: 'квартиру',
-            land: 'участок',
-            office: 'офис',
-          },
-          rent: {
-            title: 'Снять',
-
-            townhouse: 'таунхаус',
-            penthouse: 'пентхаус',
-            apartment: 'апартаменты',
-            house: 'дом',
-            flat: 'квартиру',
-            land: 'участок',
-            office: 'офис',
-          },
+        const types = {
+          sale: 'Продажа',
+          rent: 'Аренда',
         };
 
-        const { title } = dictionary[dealType];
+        const kinds = {
+          townhouse: 'таунхауса',
+          penthouse: 'пентхауса',
+          apartment: 'апартаментов',
+          house: 'дома',
+          flat: 'квартиры',
+          land: 'участка',
+          office: 'офиса',
+        };
 
-        return `${title} ${
-          dictionary[dealType][kind]
-        } ID ${id} по цене ${price} ${name &&
-          `в поселке «${name}»`} ${mkadDistance &&
-          `в ${mkadDistance} км от МКАД`} ${route &&
-          `на ${route} направлении`}${area &&
-          `, площадью ${area} м²`}${region && `, ${region}`} – ${domain}!`;
+        const fixedRoute = replaceEnd(route, 'ое', 'ом');
+
+        return joinStrings(
+          types[dealType],
+          kinds[kind],
+          `ID ${id}`,
+          `по цене ${price}`,
+          name && `в поселке «${name}»,`,
+          mkadDistance && `в ${mkadDistance} км от МКАД,`,
+          route && `на ${fixedRoute} направлении,`,
+          region,
+        );
       },
       keywords: (name, dealType, kind, region, district, route, meta) => {
         if (meta) return meta;

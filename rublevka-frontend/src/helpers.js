@@ -1,3 +1,8 @@
+import { cloudfront } from './core/config/resources';
+import { browserHistory } from 'react-router';
+
+export { capitalize } from './config/utils';
+
 export const makeFilterRange = (min, max, multiplier = 1) => {
   const isMin =
     min === 'min' || typeof min === 'undefined' || typeof min === 'null';
@@ -144,4 +149,35 @@ export const formatByMinMax = (value = {}, postfix = '', prefix = '') => {
       return `${prefix}${min} — ${prefix}${max}${postfix}`;
     }
   }
+};
+
+export const getImageLink = id =>
+  `https:${global.config.cloudfront || cloudfront}/${id}-${
+    global.config.postfix
+  }-1024`;
+
+export const ogMeta = (metaObj = {}) =>
+  Object.entries(metaObj)
+    .filter(([, content]) => !!content)
+    .map(([propertyName, content]) => ({
+      property: `og:${propertyName}`,
+      content,
+    }));
+
+export const createQuery = (current, update) => {
+  const nextParams = {
+    ...current,
+    ...update,
+  };
+
+  const query = Object.entries(nextParams)
+    .filter(([, v]) => v !== null)
+    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+    .join('&');
+
+  return query ? `?${query}` : '';
+};
+
+export const pushQuery = (pathname, currentQuery, nextQuery) => {
+  browserHistory.push(`${pathname}${createQuery(currentQuery, nextQuery)}`);
 };

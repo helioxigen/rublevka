@@ -60,7 +60,6 @@ export default ({ placeKind, placeName, data, dealType }) => {
     // ↑ fucking russian seo
 
     meta.push(makeMetaElement('description', data.name, dealType, placeKind));
-    meta.push(makeMetaElement('keywords', data.name, dealType, placeKind));
 
     return <Helmet title={title} meta={meta} link={link} />;
   }

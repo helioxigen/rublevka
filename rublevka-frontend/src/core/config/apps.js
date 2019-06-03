@@ -25,7 +25,10 @@ export const apps = {
       HOST: 'rublevka.ru',
     },
     development: {
-      HOST: 'dev.rublevka.ru',
+      HOST: 'dev2.rublevka.ru',
+    },
+    local: {
+      HOST: 'localhost:3000',
     },
   },
   riga: {

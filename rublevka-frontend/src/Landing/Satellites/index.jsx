@@ -38,6 +38,7 @@ import media from '../../styles/media';
 // import s from '../../styles/landing/satellites/list';
 
 import bgImage from './img/bg.jpg';
+import { ogMeta } from '../../helpers';
 
 const {
   Grid: { Container },
@@ -140,8 +141,11 @@ class Landing extends Component {
         <Helmet
           title={global.config.seo.title}
           meta={[
+            ...ogMeta({
+              title: global.config.seo.title,
+              description: global.config.seo.description,
+            }),
             { name: 'description', content: global.config.seo.description },
-            { name: 'keywords', content: global.config.seo.keywords },
           ]}
         />
 

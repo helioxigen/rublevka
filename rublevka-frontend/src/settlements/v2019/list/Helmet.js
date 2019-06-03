@@ -10,7 +10,7 @@ export default ({ pagination = {}, location = {} }) => {
   return (
     <Helmet
       title={seo.title(queryPage)}
-      meta={seo.meta()}
+      meta={seo.meta(queryPage)}
       link={seo.link(queryPage, totalPages)}
     />
   );

@@ -6,6 +6,7 @@ import { helmet } from 'config/seo';
 
 import { formatPrice } from 'helpers';
 import { dealTypes, kindsTranslit } from 'constants/properties/dictionaries';
+import { ogMeta, getImageLink } from '../../../helpers';
 
 const routeIds = global.config.routes.map(item => item.id) || [];
 
@@ -36,32 +37,22 @@ export default ({ data, kind, ...props }) => {
     const { price, currency } = data[`${dealType}Offer`] || {};
     const formattedPrice = formatPrice(price, currency);
 
-    meta.push({
-      name: 'description',
-      content: helmet.properties.show.country.description(
-        dealType,
-        data.kind,
-        data.id,
-        data.location.settlementName,
-        data.location.mkadDistance,
-        data.specification.area,
-        formattedPrice,
-        data.location.routeName,
-        data.location.districtName,
-        data.location.regionName,
-      ),
-    });
+    const description = helmet.properties.show.country.description(
+      dealType,
+      data.kind,
+      data.id,
+      data.location.settlementName,
+      data.location.mkadDistance,
+      data.specification.area,
+      formattedPrice,
+      data.location.routeName,
+      data.location.districtName,
+      data.location.regionName,
+    );
 
     meta.push({
-      name: 'keywords',
-      content: helmet.properties.show.country.keywords(
-        data.location.settlementName,
-        dealType,
-        data.kind,
-        data.location.regionName,
-        data.location.districtName,
-        data.location.routeName,
-      ),
+      name: 'description',
+      content: description,
     });
 
     const title = helmet.properties.show.country.title(
@@ -79,6 +70,17 @@ export default ({ data, kind, ...props }) => {
       props.dealType,
       kindsTranslit[data.kind],
       data.id,
+    );
+
+    const image = data.images.filter(im => im.isPublic)[0];
+
+    meta.push(
+      ...ogMeta({
+        title,
+        description,
+        image: image && getImageLink(image.id),
+        'image:width': 1024,
+      }),
     );
 
     return <Helmet title={title} meta={meta} link={link} />;

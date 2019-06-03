@@ -13,80 +13,129 @@ import {
 } from './styled';
 
 import UI from '../../../../ui/v2019';
+import Checkbox from './Checkbox';
 
 const {
   Grid: { Container },
-  RadioButton,
 } = UI;
 
 const key = 'kind';
 
 class Kind extends Component {
-  constructor(props) {
-    super(props);
+  options = ['house', 'townhouse', 'land', 'flat'];
 
-    this.onReset = this.onReset.bind(this);
-  }
-
-  onUpdate(value) {
-    const { dealType, router } = this.props;
-
-    this.props.updateFilter(key, [value]);
-
-    router.push(`/zagorodnaya/${dealType}/${kindsTranslit[value]}`);
-  }
-
-  onReset() {
-    const { dealType, router } = this.props;
-
-    this.props.updateFilter(key, []);
+  resetFilter = () => {
+    const { dealType, router, updateFilter } = this.props;
 
     router.push(`/zagorodnaya/${dealType}`);
-  }
+
+    updateFilter(key, []);
+  };
+
+  handleUpdate = value => {
+    const { dealType } = this.props;
+
+    let { selected = [] } = this.props;
+
+    if (selected.length === 0) {
+      selected = this.options;
+    }
+
+    const nextFilterValue = selected.includes(value)
+      ? selected.filter(v => v !== value)
+      : selected.concat(value);
+
+    let pushPath = '';
+
+    if (nextFilterValue.length === 1) {
+      pushPath = `/zagorodnaya/${dealType}/${
+        kindsTranslit[nextFilterValue[0]]
+      }`;
+    }
+    if (selected.length <= 1 && nextFilterValue.length !== 1) {
+      pushPath = `/zagorodnaya/${dealType}`;
+    }
+
+    this.props.updateFilter(key, nextFilterValue, pushPath);
+  };
+
+  isChecked = name => {
+    const { selected = [] } = this.props;
+
+    return selected.includes(name) || selected.length === 0;
+  };
+
+  handleOnlyClick = name => e => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const { dealType, updateFilter } = this.props;
+
+    updateFilter(
+      key,
+      [name],
+      `/zagorodnaya/${dealType}/${kindsTranslit[name]}`,
+    );
+  };
 
   render() {
-    const { selected = {}, dealType } = this.props;
-    const items = selected[key] || [];
+    const { selected = [], dealType } = this.props;
+
+    const isOnlyShown = selected.length > 1 || selected.length === 0;
 
     return (
       <section>
         <Container fluid>
           <FilterHeader>
             <Title>Тип объекта</Title>
-            {items.length > 0 && (
-              <IconReset onClick={this.onReset} icon="times" />
+            {selected.length > 0 && (
+              <IconReset onClick={this.resetFilter} icon="times" />
             )}
           </FilterHeader>
           <ControlsContainer>
             <CheckboxWrapper>
-              <RadioButton
-                checked={items.includes('house')}
+              <Checkbox
+                checked={selected.length === 0}
+                label="Все"
+                name="all"
+                onChange={this.resetFilter}
+              />
+              <Checkbox
+                checked={this.isChecked('house')}
+                label="Дом"
                 name="house"
-                handleChange={() => this.onUpdate('house')}
-                text="Дом"
+                onChange={this.handleUpdate}
+                showOnly={isOnlyShown}
+                onOnlyClick={this.handleOnlyClick}
               />
 
-              <RadioButton
-                checked={items.includes('townhouse')}
+              <Checkbox
+                checked={this.isChecked('townhouse')}
                 name="townhouse"
-                handleChange={() => this.onUpdate('townhouse')}
-                text="Таунхаус"
+                onChange={this.handleUpdate}
+                label="Таунхаус"
+                showOnly={isOnlyShown}
+                onOnlyClick={this.handleOnlyClick}
               />
 
               {dealType !== 'arenda' && (
-                <RadioButton
-                  checked={items.includes('land')}
+                <Checkbox
+                  checked={this.isChecked('land')}
                   name="land"
-                  handleChange={() => this.onUpdate('land')}
-                  text="Участок"
+                  onChange={this.handleUpdate}
+                  label="Участок"
+                  showOnly={isOnlyShown}
+                  onOnlyClick={this.handleOnlyClick}
                 />
               )}
 
-              <RadioButton
-                checked={items.includes('flat')}
+              <Checkbox
+                checked={this.isChecked('flat')}
                 name="flat"
-                handleChange={() => this.onUpdate('flat')}
-                text="Квартира"
+                onChange={this.handleUpdate}
+                label="Квартира"
+                showOnly={isOnlyShown}
+                onOnlyClick={this.handleOnlyClick}
               />
             </CheckboxWrapper>
           </ControlsContainer>

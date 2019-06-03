@@ -15,6 +15,7 @@ const {
 
 import s from 'styles/about/list';
 import sUtils from 'styles/utils';
+import { ogMeta } from '../helpers';
 
 class Agents extends Component {
   componentWillMount() {
@@ -29,7 +30,10 @@ class Agents extends Component {
             title={helmet.pages.agents.title}
             meta={[
               { name: 'description', content: helmet.pages.agents.description },
-              { name: 'keywords', content: helmet.pages.agents.keywords },
+              ...ogMeta({
+                title: helmet.pages.agents.title,
+                description: helmet.pages.agents.description,
+              }),
             ]}
           />
 

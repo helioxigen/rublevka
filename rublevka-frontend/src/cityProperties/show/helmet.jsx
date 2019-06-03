@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import { helmet } from 'config/seo';
 
-import { formatPrice } from 'helpers';
+import { formatPrice, ogMeta } from 'helpers';
 import { dealTypes } from 'constants/properties/dictionaries';
 
 export default class extends Component {
@@ -12,36 +12,19 @@ export default class extends Component {
     const currency = data[`${dealType}Offer`]
       ? data[`${dealType}Offer`].currency
       : '';
-    const meta = [
-      {
-        name: 'description',
-        content: helmet.properties.show.city.description(
-          dealType,
-          data.kind,
-          data.id,
-          data.location.settlementName,
-          data.location.mkadDistance,
-          data.specification.area,
-          price,
-          data.location.routeName,
-          data.location.districtName,
-          data.location.regionName,
-        ),
-      },
-      {
-        name: 'keywords',
-        content: helmet.properties.show.city.keywords(
-          data.location.settlementName,
-          dealType,
-          data.kind,
-          data.location.regionName,
-          data.location.districtName,
-          data.location.routeName,
-          data.id,
-          price,
-        ),
-      },
-    ];
+
+    const description = helmet.properties.show.city.description(
+      dealType,
+      data.kind,
+      data.id,
+      data.location.settlementName,
+      data.location.mkadDistance,
+      data.specification.area,
+      price,
+      data.location.routeName,
+      data.location.districtName,
+      data.location.regionName,
+    );
 
     const title = helmet.properties.show.city.title(
       dealTypes[dealType],
@@ -52,6 +35,17 @@ export default class extends Component {
       formatPrice(price, currency),
       data.location.subLocalityName,
     );
+
+    const meta = [
+      {
+        name: 'description',
+        content: description,
+      },
+      ...ogMeta({
+        title,
+        description,
+      }),
+    ];
 
     return (
       // title: (dealType, kind, id, settlement, mkadDistance, area, price, route) =>

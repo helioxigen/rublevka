@@ -131,14 +131,14 @@ function renderFullPage(renderProps, store) {
     meta,
     body: `
       <!doctype html>
-      <html>
+      <html lang="ru">
         <head>
+          <meta charset="utf-8">
           ${title}
           ${meta}
           ${link}
           <link href="/favicon.png" rel="icon" type="image/png">
           <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
-          <meta charset="utf-8">
           <link rel="stylesheet" href="/${vendorCss}" />
           <link rel="stylesheet" href="/${appCss}" />
           ${styles}
@@ -236,14 +236,15 @@ function getStatusCode(meta, cb) {
   const xml = `<root>${meta}</root>`;
 
   parseString(xml, (err, result) => {
-    const status = (result.root.meta
-      && result.root.meta.find(item => item.$.name === 'status-code')) || {
+    const status = (result.root.meta &&
+      result.root.meta.find(item => item.$.name === 'status-code')) || {
       $: { content: 200 }, // eslint-disable-line id-length
     };
 
-    const headers = (result.root.meta
-        && result.root.meta.filter(item => item.$.name === 'header'))
-      || [];
+    const headers =
+      (result.root.meta &&
+        result.root.meta.filter(item => item.$.name === 'header')) ||
+      [];
 
     cb({ status, headers });
   });
@@ -258,7 +259,7 @@ function sendResponse(res, status, metaHeaders, body) {
       if (metaHeaders.length) {
         const headers = {};
 
-        metaHeaders.forEach((item) => {
+        metaHeaders.forEach(item => {
           headers[item.$.header] = item.$.content;
         });
 
@@ -290,7 +291,7 @@ function handleRender(req, res) {
 
         // collect all data-loading promises
         const promises = renderProps.components
-          .map((component) => {
+          .map(component => {
             // component can be undefined, so we have to check
             if (component && typeof component.loadServer === 'function') {
               // TODO pass renderProps as second param
@@ -314,7 +315,7 @@ function handleRender(req, res) {
               sendResponse(res, status, headers, body);
             });
           })
-          .catch((e) => {
+          .catch(e => {
             res.sendStatus(404);
             console.log(e); // eslint-disable-line no-console
 
@@ -336,7 +337,7 @@ const metricsMiddleware = expressPromBundleMiddleware({ includeMethod: true });
 const minifierMiddleware = expressMinifier({ override: true });
 
 Sentry.init({ dsn: REACT_APP_SENTRY_DSN, environment: APP_ENV });
-Sentry.configureScope((scope) => {
+Sentry.configureScope(scope => {
   scope.setTag('version', BUILD_ID);
 });
 
@@ -370,9 +371,11 @@ app.use(minifierMiddleware);
 // static
 app.use('/static', express.static(`./build/${HOST}/static`, { maxAge: '1y' }));
 app.use('/robots.txt', (req, res) =>
-  fs.createReadStream(`./build/${HOST}/robots.txt`).pipe(res));
+  fs.createReadStream(`./build/${HOST}/robots.txt`).pipe(res),
+);
 app.use('/favicon.png', (req, res) =>
-  fs.createReadStream(`./build/${HOST}/favicon.png`).pipe(res));
+  fs.createReadStream(`./build/${HOST}/favicon.png`).pipe(res),
+);
 
 // Renderer
 app.use(handleRender);

@@ -661,5 +661,3 @@ trigger:
   status:
     - success
     - failure
-
-

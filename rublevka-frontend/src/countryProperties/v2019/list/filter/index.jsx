@@ -26,6 +26,7 @@ import Areas from './areas';
 import Renovate from './renovate';
 import Distance from './distance';
 import * as S from './styled';
+import FilterGroup from './FilterGroup';
 
 const { Visibility, CountIndicator } = UI;
 
@@ -90,7 +91,7 @@ class Filter extends Component {
     }
   }
 
-  updateFilter(key, value) {
+  updateFilter(key, value, pushPath) {
     const values = {
       [key]: value,
     };
@@ -98,7 +99,7 @@ class Filter extends Component {
     this.props.actions.updatePagination(this.props.resourceName, {
       offset: 0,
     });
-    this.props.actions.updateFilter(this.props.resourceName, values);
+    this.props.actions.updateFilter(this.props.resourceName, values, pushPath);
   }
 
   resetFilter() {
@@ -122,12 +123,15 @@ class Filter extends Component {
   }
 
   renderFilters() {
-    const { state, dealType } = this.props;
+    const { state = {}, dealType } = this.props;
+    const { kind = [] } = state;
+
+    const isOnly = kindType => kind.length === 1 && kind[0] === kindType;
 
     return (
       <div>
         <Kind
-          selected={state}
+          selected={kind}
           updateFilter={this.updateFilter}
           removeFilter={this.removeFilter}
           dealType={dealType}
@@ -152,17 +156,21 @@ class Filter extends Component {
           removeFilter={this.removeFilter}
         />
 
-        <Renovate
-          selected={state}
-          updateFilter={this.updateFilter}
-          removeFilter={this.removeFilter}
-        />
+        {!isOnly('land') && (
+          <Renovate
+            selected={state.renovate || []}
+            updateFilter={this.updateFilter}
+            removeFilter={this.removeFilter}
+          />
+        )}
 
-        <Bedroom
-          selected={state}
-          updateFilter={this.updateFilter}
-          removeFilter={this.removeFilter}
-        />
+        {!isOnly('land') && (
+          <Bedroom
+            selected={state}
+            updateFilter={this.updateFilter}
+            removeFilter={this.removeFilter}
+          />
+        )}
       </div>
     );
   }

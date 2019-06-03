@@ -18,10 +18,9 @@ import { mapParams } from '../helpers';
 
 const loadProperties = (queryParams, group, options = {}) => (dispatch) => {
   const defaultQueryParams = getDefaultsByGroup(group, options);
-  const params = recursiveCleanUp(
-    mapParams(mergeParams(defaultQueryParams, queryParams)),
-  );
-
+  const mergedParams = mergeParams(defaultQueryParams, queryParams);
+  const mappedParams = mapParams(mergedParams);
+  const params = recursiveCleanUp(mappedParams);
   const apiPath = getApiPathByGroup(group, options);
 
   dispatch(loadListStarted(types.LOAD_LIST, group, options.append, params));

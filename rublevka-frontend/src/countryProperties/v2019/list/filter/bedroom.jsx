@@ -47,12 +47,12 @@ class Kind extends Component {
           </FilterHeader>
           <ControlsContainer>
             <CheckboxWrapper>
-              {[1, 2, 3, 4, 5].map(num => (
+              {[null, 3, 4, 5].map(num => (
                 <RadioButton
                   checked={item.min === num}
                   name={num}
                   handleChange={() => this.onUpdate(num)}
-                  text={`${num}+`}
+                  text={num === null ? 'Любое' : `${num}+`}
                 />
               ))}
             </CheckboxWrapper>

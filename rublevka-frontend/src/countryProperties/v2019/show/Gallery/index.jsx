@@ -2,6 +2,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import ReactSwipe from 'react-swipe';
+import global from 'window-or-global';
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks,
+} from 'body-scroll-lock';
+import { cloudfront } from '../../../../core/config/resources';
 
 import media from '../../../../styles/media';
 import UI from '../../../../ui';
@@ -9,10 +16,74 @@ import GalleryNav from './GalleryNav';
 import GalleryCount from './GalleryCount';
 import GalleryWrapper, { ExpandButton } from './GalleryWrapper';
 import FullScreen from './FullScreen';
+import Controls from './Controls';
 import { getImageLink } from './utils';
-import GalleryNavScrollable from './GalleryNavScrollable';
 
 const { Icon, Visibility } = UI;
+
+const MobileGallery = styled.div`
+  display: none;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  bottom: 85px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background-color: #fafafa;
+
+  ${({ visible }) =>
+    visible &&
+    `
+    display: flex;
+    flex-direction: column;
+    pointer-events: auto;
+  `};
+
+  ${media.xs`
+    display: none;
+  `}
+`;
+
+const Header = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 15px;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+`;
+
+const CloseButton = styled.button`
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+`;
+
+const CloseIcon = styled(Icon)`
+  width: 24px;
+  height: 24px;
+  fill: rgba(8, 8, 8, 0.3);
+`;
+
+const MobilePhotos = styled.div`
+  padding: 64px 15px 10px 15px;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+`;
+
+const MobilePhoto = styled.img`
+  margin: 8px 0;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+`;
 
 const Photo = styled.img`
   width: 100%;
@@ -117,7 +188,6 @@ export default class Gallery extends React.Component {
           initialSlide={isLayoutShown ? 0 : currentImageIdx}
           images={isLayoutShown ? layoutImages : images}
           title={fullScreenTitle}
-          propertyId={propertyId}
           onFavoriteClick={toggleFavorite}
           isFavorite={isFavorite}
           onClose={this.toggleGallery}
@@ -162,15 +232,6 @@ export default class Gallery extends React.Component {
           <GalleryNav
             currentImageIdx={currentImageIdx}
             showLayoutButton={layoutImages.length > 0}
-            images={images}
-            onImageClick={idx => this.carousel.slide(idx)}
-            onLayoutImagesClick={this.toggleLayoutGallery}
-          />
-        )}
-        {images.length > 1 && (
-          <GalleryNavScrollable
-            currentImageIdx={currentImageIdx}
-            showLayoutButton
             images={images}
             onImageClick={idx => this.carousel.slide(idx)}
             onLayoutImagesClick={this.toggleLayoutGallery}

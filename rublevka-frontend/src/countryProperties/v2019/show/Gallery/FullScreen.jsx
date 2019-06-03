@@ -53,12 +53,6 @@ const Button = styled.button`
   svg {
     transition: 0.3s;
   }
-
-  display: none;
-
-  ${media.sm`
-    display: block;
-  `}
 `;
 
 const Photo = styled.span`
@@ -79,24 +73,13 @@ const Wrapper = styled.aside`
 
   z-index: 1000;
 
+  padding: 0 50px;
   background: #232323;
-
-  ${media.md`
-    padding: 0 50px;
-  `}
 `;
 
 const Container = styled.div`
   display: grid;
-  grid-template-rows: 33% auto 33%;
-
-  ${media.sm`
-    grid-template-rows: 15% auto 25%;
-  `}
-
-  ${media.md`
-    grid-template-rows: 15% auto 15%;
-  `}
+  grid-template-rows: 15% auto 15%;
 
   height: 100%;
 
@@ -106,44 +89,19 @@ const Container = styled.div`
     align-items: center;
     align-self: flex-start;
 
-    z-index: 50;
-
-    .desktop-title {
-      display: none;
-    }
-
-    ${media.md`
-      .desktop-title {
-        display: block;
-      }
-      .mobile-title {
-        display: none;
-      }
-    `}
-
-    padding: 16px 16px 0;
-
-    ${media.md`
-      padding-top: 18px 0 0;
-    `}
+    padding-top: 18px;
 
     h3 {
       margin: 0;
       flex: 1;
       font-size: 18px;
     }
-
-    .mobile-title {
-      font-size: 15px;
-    }
   }
 
   .gallery-body {
     overflow: hidden;
 
-    ${media.md`
-      padding: 0 50px;
-    `}
+    padding: 0 50px;
 
     .photo-container {
       position: relative;
@@ -162,9 +120,7 @@ const Container = styled.div`
     max-width: 700px;
     justify-self: center;
 
-    ${media.md`
-      padding-top: 16px;
-    `}
+    padding-top: 16px;
   }
 `;
 
@@ -175,17 +131,10 @@ const CloseButton = styled.button`
   background: none;
   width: 24px;
   height: 24px;
-
-  opacity: 0.3;
-  transition: 0.3s;
-
-  &:hover {
-    opacity: 1;
-  }
 `;
 
 const CloseIcon = styled(Icon)`
-  fill: white;
+  fill: #656565;
   width: 100%;
   height: 100%;
 `;
@@ -198,24 +147,8 @@ export default class FullScreenGallery extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.isOpen !== this.props.isOpen) {
       this.toggleBodyScroll();
-      this.toggleKeyListener();
     }
   }
-
-  arrowControl = event => {
-    if (event.key === 'ArrowLeft') {
-      this.carousel.prev();
-    }
-
-    if (event.key === 'ArrowRight') {
-      this.carousel.next();
-    }
-  };
-
-  toggleKeyListener = () =>
-    this.props.isOpen
-      ? document.addEventListener('keydown', this.arrowControl, false)
-      : document.removeEventListener('keydown', this.arrowControl, false);
 
   toggleBodyScroll = () => {
     return this.props.isOpen
@@ -235,7 +168,6 @@ export default class FullScreenGallery extends React.Component {
       isOpen,
       onFavoriteClick,
       onClose,
-      propertyId,
     } = this.props;
 
     return (
@@ -252,8 +184,7 @@ export default class FullScreenGallery extends React.Component {
           />
           <Container>
             <header>
-              <h3 className="desktop-title">{title}</h3>
-              <h3 className="mobile-title">№ {propertyId}</h3>
+              <h3>{title}</h3>
               <PopupModal
                 header="Оставить заявку"
                 subheader="Оставьте свою заявку и наш менеджер свяжется с вами в течение 5 минут."

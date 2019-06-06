@@ -92,7 +92,10 @@ export default class Gallery extends React.Component {
     this.setState({ isLayoutShown: false }, this.toggleGallery);
 
   toggleLayoutGallery = () => {
-    this.setState({ isLayoutShown: true }, this.toggleGallery);
+    this.setState(
+      { isLayoutShown: true },
+      this.toggleGallery,
+    );
   };
 
   handleToggleFavorite = e => {

@@ -196,6 +196,14 @@ export default class FullScreenGallery extends React.Component {
     currentImageIdx: this.props.initialSlide,
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.initialSlide !== this.state.currentImageIdx) {
+      this.setState({
+        currentImageIdx: nextProps.initialSlide,
+      });
+    }
+  }
+
   componentDidUpdate(prevProps) {
     if (prevProps.isOpen !== this.props.isOpen) {
       this.toggleBodyScroll();

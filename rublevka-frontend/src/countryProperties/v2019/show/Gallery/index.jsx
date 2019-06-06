@@ -170,7 +170,7 @@ export default class Gallery extends React.Component {
         {images.length > 1 && (
           <GalleryNavScrollable
             currentImageIdx={currentImageIdx}
-            showLayoutButton
+            showLayoutButton={layoutImages.length > 0}
             images={images}
             onImageClick={idx => this.carousel.slide(idx)}
             onLayoutImagesClick={this.toggleLayoutGallery}

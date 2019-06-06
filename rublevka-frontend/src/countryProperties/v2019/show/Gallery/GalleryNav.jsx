@@ -6,7 +6,7 @@ import media from '../../../../styles/media';
 
 const { Icon } = UI;
 
-const LayoutIcon = styled(Icon).attrs({
+export const LayoutIcon = styled(Icon).attrs({
   icon: 'house-layout',
 })`
   width: 1.5em;
@@ -14,7 +14,7 @@ const LayoutIcon = styled(Icon).attrs({
   fill: #fff;
 `;
 
-const LayoutImagesButton = styled.button`
+export const LayoutImagesButton = styled.button`
   background: #f44336;
 
   color: white;
@@ -89,6 +89,12 @@ export default styled(GalleryNav)`
   position: relative;
   overflow: hidden;
 
+  display: none;
+
+  ${media.md`
+    display: block;
+  `}
+
   margin-top: 4px;
 
   .shaft {
@@ -104,13 +110,6 @@ export default styled(GalleryNav)`
     ${media.sm`
       transform: ${shift(7)};
     `}
-
-    ${props =>
-      props.images.length < 7 &&
-      css`
-        display: flex;
-        justify-content: center;
-      `}
   }
 
   & > ${LayoutImagesButton} {
@@ -161,6 +160,7 @@ export default styled(GalleryNav)`
   img {
     height: 100%;
     width: 100%;
+    object-fit: cover;
   }
 
   img:not([data-current='true']) {

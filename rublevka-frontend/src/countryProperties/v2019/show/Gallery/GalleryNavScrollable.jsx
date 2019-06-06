@@ -47,7 +47,7 @@ class GalleryNavScrollable extends React.Component {
 
       const xPos = elementWidth * currentImageIdx;
 
-      const scrolledTo = xPos - elementWidth * 3;
+      const scrolledTo = xPos - (elementWidth * 2);
 
       if (this.container.scrollTo) {
         this.container.scrollTo({
@@ -111,7 +111,11 @@ class GalleryNavScrollable extends React.Component {
 const paddingOnLayout = props =>
   props.showLayoutButton &&
   css`
-    padding-right: 100px;
+    padding-right: 22vw;
+
+    ${media.sm`
+      padding-right: 100px;
+    `}
   `;
 
 export default styled(GalleryNavScrollable)`
@@ -153,7 +157,11 @@ export default styled(GalleryNavScrollable)`
 
     flex: 0 0 auto;
 
-    width: 100px;
+    width: 22vw;
+
+    ${media.sm`
+      width: 100px;
+    `}
 
     ${media.xs`
       height: 60px;

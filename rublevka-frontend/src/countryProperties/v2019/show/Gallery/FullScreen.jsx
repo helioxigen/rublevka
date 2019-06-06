@@ -9,6 +9,7 @@ import { getImageLink } from './utils';
 import PopupModal from '../PopupModal';
 import Controls from './Controls';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import GalleryNavScrollable from './GalleryNavScrollable';
 
 const { Icon } = UI;
 
@@ -195,6 +196,14 @@ export default class FullScreenGallery extends React.Component {
     currentImageIdx: this.props.initialSlide,
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.initialSlide !== this.state.currentImageIdx) {
+      this.setState({
+        currentImageIdx: nextProps.initialSlide,
+      });
+    }
+  }
+
   componentDidUpdate(prevProps) {
     if (prevProps.isOpen !== this.props.isOpen) {
       this.toggleBodyScroll();
@@ -312,6 +321,14 @@ export default class FullScreenGallery extends React.Component {
                 currentImageIdx={currentImageIdx}
                 images={images}
                 onImageClick={idx => this.carousel.slide(idx)}
+              />
+            )}
+            {images.length > 1 && (
+              <GalleryNavScrollable
+                currentImageIdx={currentImageIdx}
+                images={images}
+                onImageClick={idx => this.carousel.slide(idx)}
+                onLayoutImagesClick={this.toggleLayoutGallery}
               />
             )}
           </Container>

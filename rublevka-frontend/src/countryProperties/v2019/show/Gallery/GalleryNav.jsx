@@ -110,13 +110,6 @@ export default styled(GalleryNav)`
     ${media.sm`
       transform: ${shift(7)};
     `}
-
-    ${props =>
-      props.images.length < 7 &&
-      css`
-        display: flex;
-        justify-content: center;
-      `}
   }
 
   & > ${LayoutImagesButton} {

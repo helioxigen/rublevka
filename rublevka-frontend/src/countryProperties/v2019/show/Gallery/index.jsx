@@ -84,11 +84,16 @@ export default class Gallery extends React.Component {
   galleryCallback = idx => this.setState({ currentImageIdx: idx });
 
   toggleGallery = () =>
-    this.setState({ isGalleryOpen: !this.state.isGalleryOpen });
+    this.setState({
+      isGalleryOpen: !this.state.isGalleryOpen,
+    });
+
+  openPhotoGallery = () =>
+    this.setState({ isLayoutShown: false }, this.toggleGallery);
 
   toggleLayoutGallery = () => {
     this.setState(
-      { isLayoutShown: !this.state.isLayoutShown },
+      { isLayoutShown: true },
       this.toggleGallery,
     );
   };
@@ -136,14 +141,14 @@ export default class Gallery extends React.Component {
                   key={id}
                   data-id={id}
                   alt={id}
-                  onClick={this.toggleGallery}
+                  onClick={this.openPhotoGallery}
                   src={getImageLink(id, 1024)}
                 />
               ))}
             </ReactSwipe>
           </div>
           <Visibility xs="hidden" sm="hidden" md="block" lg="block">
-            <ExpandButton onClick={this.toggleGallery}>
+            <ExpandButton onClick={this.openPhotoGallery}>
               <Icon icon="arrows-expand" />
             </ExpandButton>
           </Visibility>

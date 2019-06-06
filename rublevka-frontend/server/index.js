@@ -163,6 +163,13 @@ app.use((req, res) =>
           applyMiddleware(thunk),
         );
 
+        if (
+          'id' in renderProps.params &&
+          renderProps.params.id.includes('.jpg')
+        ) {
+          return res.sendStatus(204);
+        }
+
         // collect all data-loading promises
         const promises = renderProps.components
           .filter(

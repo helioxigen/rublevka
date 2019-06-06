@@ -6,7 +6,7 @@
     "lint": "eslint ./src",
     "lint:css": "stylelint src/**/*.css",
     "start:dev": "cross-env APP_ENV=local NODE_ENV=development BABEL_DISABLE_CACHE=1 babel-node ./scripts/devServer.js",
-    "start": "NODE_PATH=./src babel-node server/index.js",
+    "start": "NODE_PATH=./src babel-node server.js",
     "build:sitemaps": "APP_ENV=production babel-node server/sitemap.js",
     "build:stats": "NODE_ENV=production APP_ENV=production BUILD_ID=1 babel-node $(npm bin)/webpack --config ./scripts/webpack.config.prod.js --profile --json > stats.json",
     "build": "$(yarn bin)/webpack --config ./scripts/webpack.config.babel.js && rm -rf ./build/$HOST && mv ./build/site ./build/$HOST && cp -r ./src/static/$HOST/* ./build/$HOST && cp ./src/static/$APP_ENV/robots.txt ./build/$HOST && sed -i.bak \"s/{HOST}/$HOST/g\" ./build/$HOST/robots.txt"

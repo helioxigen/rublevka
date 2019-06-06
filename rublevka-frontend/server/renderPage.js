@@ -18,10 +18,6 @@ const appJs = manifest['app.js'];
 const vendorCss = manifest['vendor.css'];
 const appCss = manifest['app.css'];
 
-const template = fs
-  .readFileSync(path.resolve(__dirname, './template.ejs'))
-  .toString();
-
 const {
   APP,
   NODE_ENV,
@@ -35,6 +31,12 @@ const {
   REACT_APP_YANDEX_METRIKA_ID,
   REACT_APP_UIS_ID,
 } = process.env;
+
+const template = fs
+  .readFileSync(path.resolve(__dirname, './template.ejs'))
+  .toString();
+
+const compilePage = _.template(template);
 
 export default function(renderProps, store) {
   const sheet = new ServerStyleSheet();
@@ -61,7 +63,7 @@ export default function(renderProps, store) {
 
   return {
     meta,
-    body: _.template(template)({
+    body: compilePage({
       preloadedState,
       stringifiedPreloadedState,
       html,

@@ -60,11 +60,11 @@ export default (
         ignoreScrollBehavior
       />
       <Route
-        path="/zagorodnaya/prodaja/:kind/:id"
+        path="/zagorodnaya/prodaja/:kind/:id(\\d+)"
         component={CountryPropertiesSat.Sale}
       />
       <Route
-        path="/zagorodnaya/arenda/:kind/:id"
+        path="/zagorodnaya/arenda/:kind/:id(\\d+)"
         component={CountryPropertiesSat.Rent}
       />
       <Route

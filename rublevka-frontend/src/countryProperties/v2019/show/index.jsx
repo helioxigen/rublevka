@@ -164,7 +164,7 @@ class Property extends Component {
                             {data.specification.floors
                               ? `${data.specification.floors}-этажный дом,`
                               : ''}
-                            {data.specification.area} м², №{id},{' '}
+                            {data.specification.area} м², № {id},{' '}
                             <FormattedNumber
                               style="currency"
                               currency={currency}

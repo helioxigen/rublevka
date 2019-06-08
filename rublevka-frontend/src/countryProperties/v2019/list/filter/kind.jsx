@@ -81,7 +81,10 @@ class Kind extends Component {
   render() {
     const { selected = [], dealType } = this.props;
 
-    const isOnlyShown = selected.length > 1 || selected.length === 0;
+    const isOnly = name => selected.length === 1 && selected[0] !== name;
+
+    const isOnlyShown = name =>
+      isOnly(name) || selected.length > 1 || selected.length === 0;
 
     return (
       <section>
@@ -105,7 +108,7 @@ class Kind extends Component {
                 label="Дом"
                 name="house"
                 onChange={this.handleUpdate}
-                showOnly={isOnlyShown}
+                showOnly={isOnlyShown('house')}
                 onOnlyClick={this.handleOnlyClick}
               />
 
@@ -114,7 +117,7 @@ class Kind extends Component {
                 name="townhouse"
                 onChange={this.handleUpdate}
                 label="Таунхаус"
-                showOnly={isOnlyShown}
+                showOnly={isOnlyShown('townhouse')}
                 onOnlyClick={this.handleOnlyClick}
               />
 
@@ -124,7 +127,7 @@ class Kind extends Component {
                   name="land"
                   onChange={this.handleUpdate}
                   label="Участок"
-                  showOnly={isOnlyShown}
+                  showOnly={isOnlyShown('land')}
                   onOnlyClick={this.handleOnlyClick}
                 />
               )}
@@ -134,7 +137,7 @@ class Kind extends Component {
                 name="flat"
                 onChange={this.handleUpdate}
                 label="Квартира"
-                showOnly={isOnlyShown}
+                showOnly={isOnlyShown('flat')}
                 onOnlyClick={this.handleOnlyClick}
               />
             </CheckboxWrapper>

@@ -83,6 +83,10 @@ export default class Gallery extends React.Component {
 
   galleryCallback = idx => this.setState({ currentImageIdx: idx });
 
+  changeSlide = idx => {
+    this.carousel.slide(idx, 0);
+  };
+
   toggleGallery = () =>
     this.setState({
       isGalleryOpen: !this.state.isGalleryOpen,
@@ -92,10 +96,7 @@ export default class Gallery extends React.Component {
     this.setState({ isLayoutShown: false }, this.toggleGallery);
 
   toggleLayoutGallery = () => {
-    this.setState(
-      { isLayoutShown: true },
-      this.toggleGallery,
-    );
+    this.setState({ isLayoutShown: true }, this.toggleGallery);
   };
 
   handleToggleFavorite = e => {
@@ -125,6 +126,7 @@ export default class Gallery extends React.Component {
           propertyId={propertyId}
           onFavoriteClick={toggleFavorite}
           isFavorite={isFavorite}
+          onSlideChange={this.changeSlide}
           onClose={this.toggleGallery}
         />
         <GalleryWrapper
@@ -134,15 +136,23 @@ export default class Gallery extends React.Component {
           <div style={{ maxHeight: 450, overflow: 'hidden' }}>
             <ReactSwipe
               ref={el => (this.carousel = el)}
-              swipeOptions={{ callback: this.galleryCallback }}
+              swipeOptions={{
+                callback: this.galleryCallback,
+              }}
             >
-              {images.map(({ id }) => (
+              {images.map(({ id }, idx) => (
                 <Photo
                   key={id}
                   data-id={id}
                   alt={id}
                   onClick={this.openPhotoGallery}
-                  src={getImageLink(id, 1024)}
+                  src={
+                    currentImageIdx - 1 === idx ||
+                    currentImageIdx + 1 === idx ||
+                    currentImageIdx === idx
+                      ? getImageLink(id, 1024)
+                      : undefined
+                  }
                 />
               ))}
             </ReactSwipe>

@@ -194,10 +194,8 @@ app.use((req, res) =>
             });
           })
           .catch(err => {
-            if (err) {
-              res.status(500).send(err);
-              console.error('[RENDER] Unhandled errors at promises: ', err);
-            }
+            res.sendStatus(404);
+            console.error('[RENDER] Unhandled errors at promises: ', err);
           });
       } else {
         console.log('[RENDER] Unhandled request: ', JSON.stringify(req)); // eslint-disable-line no-console

@@ -84,7 +84,9 @@ export default class Gallery extends React.Component {
   galleryCallback = idx => this.setState({ currentImageIdx: idx });
 
   changeSlide = idx => {
-    this.carousel.slide(idx, 0);
+    this.setState({
+      currentImageIdx: idx,
+    });
   };
 
   toggleGallery = () =>
@@ -134,28 +136,31 @@ export default class Gallery extends React.Component {
           onPrevClick={() => this.carousel.prev()}
         >
           <div style={{ maxHeight: 450, overflow: 'hidden' }}>
-            <ReactSwipe
-              ref={el => (this.carousel = el)}
-              swipeOptions={{
-                callback: this.galleryCallback,
-              }}
-            >
-              {images.map(({ id }, idx) => (
-                <Photo
-                  key={id}
-                  data-id={id}
-                  alt={id}
-                  onClick={this.openPhotoGallery}
-                  src={
-                    currentImageIdx - 1 === idx ||
-                    currentImageIdx + 1 === idx ||
-                    currentImageIdx === idx
-                      ? getImageLink(id, 1024)
-                      : undefined
-                  }
-                />
-              ))}
-            </ReactSwipe>
+            {!isGalleryOpen && (
+              <ReactSwipe
+                ref={el => (this.carousel = el)}
+                swipeOptions={{
+                  callback: this.galleryCallback,
+                  startSlide: currentImageIdx,
+                }}
+              >
+                {images.map(({ id }, idx) => (
+                  <Photo
+                    key={id}
+                    data-id={id}
+                    alt={id}
+                    onClick={this.openPhotoGallery}
+                    src={
+                      currentImageIdx - 1 === idx ||
+                      currentImageIdx + 1 === idx ||
+                      currentImageIdx === idx
+                        ? getImageLink(id, 1024)
+                        : undefined
+                    }
+                  />
+                ))}
+              </ReactSwipe>
+            )}
           </div>
           <Visibility xs="hidden" sm="hidden" md="block" lg="block">
             <ExpandButton onClick={this.openPhotoGallery}>

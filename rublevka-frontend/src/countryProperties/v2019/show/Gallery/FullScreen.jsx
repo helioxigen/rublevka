@@ -62,15 +62,6 @@ const Button = styled.button`
   `}
 `;
 
-const Photo = styled.span`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-`;
-
 const Wrapper = styled.aside`
   position: fixed;
   top: 0;
@@ -191,6 +182,14 @@ const CloseIcon = styled(Icon)`
   height: 100%;
 `;
 
+const Photo = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+
+  pointer-events: none;
+`;
+
 export default class FullScreenGallery extends React.Component {
   state = {
     currentImageIdx: this.props.initialSlide,
@@ -232,7 +231,10 @@ export default class FullScreenGallery extends React.Component {
       : enableBodyScroll(this.modal);
   };
 
-  galleryCallback = idx => this.setState({ currentImageIdx: idx });
+  galleryCallback = idx => {
+    this.setState({ currentImageIdx: idx });
+    this.props.onSlideChange(idx);
+  };
 
   render() {
     const { currentImageIdx } = this.state;
@@ -296,23 +298,29 @@ export default class FullScreenGallery extends React.Component {
             </header>
             <div className="gallery-body">
               <ReactSwipe
-                ref={el => (this.carousel = el)}
+                ref={el => {
+                  this.carousel = el;
+                }}
                 swipeOptions={{
                   callback: this.galleryCallback,
                   startSlide: initialSlide,
                 }}
               >
-                {images.map(({ id }) => (
-                  <div className="photo-container">
-                    <Photo
-                      key={id}
-                      data-id={id}
-                      alt={id}
-                      style={{
-                        backgroundImage: `url(${getImageLink(id, 1024)})`,
-                      }}
-                    />
-                  </div>
+                {images.map(({ id }, idx) => (
+                  <Photo
+                    key={id}
+                    data-id={id}
+                    alt={idx}
+                    data-idx={idx}
+                    onClick={this.openPhotoGallery}
+                    src={
+                      currentImageIdx - 1 === idx ||
+                      currentImageIdx + 1 === idx ||
+                      currentImageIdx === idx
+                        ? getImageLink(id, 1024)
+                        : undefined
+                    }
+                  />
                 ))}
               </ReactSwipe>
             </div>

@@ -57,7 +57,7 @@ const GalleryNav = ({
             key={id}
             alt={id}
             data-current={idx === currentImageIdx}
-            src={getImageLink(id, 512, 'thumbnail')}
+            src={getImageLink(id, 1024)}
           />
         </a>
       ))}

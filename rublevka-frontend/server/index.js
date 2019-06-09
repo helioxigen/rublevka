@@ -105,10 +105,12 @@ Sentry.configureScope(scope => {
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.errorHandler());
 
+const buildPath = relativeTo(`../build/${HOST}`);
+
 // TODO move to sitemap.js
 app.use('/sitemap.xml', (req, res) => {
   fs.readFile(
-    path.join(__dirname, 'build', HOST, 'sitemap.xml'),
+    buildPath('sitemap.xml'),
     'utf-8',
     (err, content) => {
       if (err && err.code === 'ENOENT') res.sendStatus(404);
@@ -122,8 +124,6 @@ app.use('/sitemap.xml', (req, res) => {
 const interval = 1000 * 60 * 60;
 generateSitemaps();
 setInterval(generateSitemaps, interval);
-
-const buildPath = relativeTo(`../build/${HOST}`);
 
 // metrics and other
 app.use('/healthz', (req, res) => res.sendStatus(200));

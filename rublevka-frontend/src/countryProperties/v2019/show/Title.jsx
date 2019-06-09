@@ -12,7 +12,7 @@ import UI from 'ui';
 
 const { CountIndicator } = UI;
 
-const Title = ({ data, dealType, withOffer = false }) => {
+const Title = ({ data, dealType, withOffer = false, cardTitle = false }) => {
   const { location = {}, landDetails = {}, specification = {}, kind } = data;
 
   return (
@@ -31,6 +31,7 @@ const Title = ({ data, dealType, withOffer = false }) => {
         />
       )}
       &nbsp;в пос. {location.settlementName}
+      {cardTitle && `, ${location.mkadDistance} км`}
     </div>
   );
 };

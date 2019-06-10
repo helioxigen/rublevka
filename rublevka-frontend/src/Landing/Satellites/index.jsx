@@ -56,10 +56,11 @@ const Wrapper = styled.section`
 `;
 
 const SearchSection = styled.section`
-  background: radial-gradient(247.49px at 51.29% 50%, #fafafa 0%, #f5f5f5 100%);
-  padding-top: 90px;
+  background: url(${bgImage}) top / 100vw 180px no-repeat;
+  padding-top: 80px;
 
   ${media.xs`
+    padding-top: 90px;
     display: flex;
     justify-content: center;
     flex-direction: column;

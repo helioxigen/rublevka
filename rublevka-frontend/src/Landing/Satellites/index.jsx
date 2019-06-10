@@ -39,6 +39,7 @@ import media from '../../styles/media';
 
 import bgImage from './img/bg.jpg';
 import { ogMeta } from '../../helpers';
+import FindByNumber from './FindByNumber';
 
 const {
   Grid: { Container },
@@ -173,6 +174,8 @@ class Landing extends Component {
             <Form actions={actions} history={history} />
           </Container>
         </SearchSection>
+
+        <FindByNumber actions={actions} history={history} />
 
         <Call />
 

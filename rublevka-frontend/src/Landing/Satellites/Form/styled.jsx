@@ -294,7 +294,6 @@ export const Option = styled.li`
 
 export const SearchContainer = styled.button`
   margin-top: 16px;
-  margin-bottom: 80px;
   padding: 19px 0px;
   background: #f44336;
   border-radius: 12px;
@@ -304,6 +303,10 @@ export const SearchContainer = styled.button`
   align-items: center;
   width: 100%;
   flex-grow: 1;
+
+  ${media.xs`
+    margin-bottom: 80px;  
+  `}
 
   ${media.md`
     margin: 0;
@@ -378,9 +381,9 @@ export const Options = ({
   </OptionsWrapper>
 );
 
-export const Search = ({ onClick }) => (
+export const Search = ({ onClick, label = 'найти' }) => (
   <SearchContainer onClick={onClick || null}>
     <SearchIcon alt="Search icon" />
-    <Text>найти</Text>
+    <Text>{label}</Text>
   </SearchContainer>
 );

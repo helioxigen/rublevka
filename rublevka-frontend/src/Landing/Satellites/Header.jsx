@@ -7,15 +7,17 @@ import media from '../../styles/media';
 
 const Header = styled.p`
   margin: 0;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   line-height: 36px;
-  font-size: 26px;
-  color: #000000;
+  font-size: 28px;
+  color: #fff;
   font-weight: bold;
 
   ${media.xs`
+    font-size: 26px;
     margin: 0;
     transform: translateY(-50px);
+    margin-bottom: 30px;
     line-height: 48px;
     font-size: 40px;
     color: #fff;

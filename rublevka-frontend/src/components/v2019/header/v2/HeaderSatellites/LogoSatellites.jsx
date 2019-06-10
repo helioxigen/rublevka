@@ -22,13 +22,7 @@ const Logo = styled(Brand)`
 const StIcon = styled(Icon)`
   width: 131px;
   height: 20px;
-  fill: ${p => p.theme.brandBlack};
-  ${media.xs`
-    fill: ${p => (p.isLanding ? p.theme.brandWhite : p.theme.brandBlack)};
-  `}
-  ${media.md`
-    fill: ${p => (p.inverted ? p.theme.brandWhite : p.theme.brandBlack)};
-  `};
+  fill: ${p => (p.isLanding ? p.theme.brandWhite : p.theme.brandBlack)};
 `;
 
 export default ({ isLanding, inverted }) => (

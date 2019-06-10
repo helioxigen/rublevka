@@ -6,7 +6,11 @@ export default class extends Component {
   state = { id: '' };
 
   render() {
-    const { navigate } = this.props;
+    const {
+      navigate,
+      placeholder = 'Введите номер объекта',
+      label,
+    } = this.props;
     const { id } = this.state;
 
     return (
@@ -15,11 +19,12 @@ export default class extends Component {
           <Input
             type="text"
             name="number"
-            placeholder="Введите номер объекта"
+            placeholder={placeholder}
             onChange={e => this.setState({ id: e.target.value })}
           />
         </Form>
         <Search
+          label={label}
           onClick={() =>
             navigate('/zagorodnaya/prodaja', 'countryProperties.sale', { id })
           }

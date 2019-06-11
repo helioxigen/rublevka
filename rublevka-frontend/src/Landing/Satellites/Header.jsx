@@ -7,7 +7,7 @@ import media from '../../styles/media';
 
 const Header = styled.p`
   margin: 0;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   line-height: 36px;
   font-size: 28px;
   color: #fff;

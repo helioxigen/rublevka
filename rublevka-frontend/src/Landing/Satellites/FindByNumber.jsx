@@ -149,10 +149,9 @@ const Input = styled(InputMask)`
 `;
 
 export default class FindByNumber extends React.Component {
-  navigate = (link, type, values) => {
-    const { actions, history } = this.props;
+  navigate = link => {
+    const { history } = this.props;
 
-    actions.updateFilter(type, values);
     history.push(link);
   };
 

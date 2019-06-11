@@ -23,10 +23,9 @@ const Logo = styled(Brand)`
 const StIcon = styled(Icon)`
   height: 18px;
   width: ${isRiga ? 63 : 131}px;
-  fill: ${p => p.theme.brandWhite};
+  fill: ${p => (p.isLanding ? p.theme.brandWhite : p.theme.brandBlack)};
   ${media.xs`
     height: 20px;
-    fill: ${p => (p.isLanding ? p.theme.brandWhite : p.theme.brandBlack)};
   `}
   ${media.md`
     fill: ${p => (p.inverted ? p.theme.brandWhite : p.theme.brandBlack)};

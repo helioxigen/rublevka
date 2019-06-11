@@ -45,11 +45,15 @@ const Tab = styled.button`
   background: none;
   color: #232323;
   margin-right: 25px;
+  margin-bottom: 0;
   opacity: ${({ selected }) => (selected ? 1 : 0.8)};
   padding-bottom: ${({ selected }) => (selected ? '10px' : '12px')};
   border-bottom: ${({ selected }) => (selected ? '2px solid #F44336' : 'none')};
 
+  ${({ objectNumber }) => objectNumber && 'display: none'};
+
   ${media.xs`
+    ${({ objectNumber }) => objectNumber && 'display: block'};
     margin: 0;
     margin-right: 30px;
     padding-bottom: ${({ selected }) => (selected ? '14px' : '17px')};
@@ -110,6 +114,7 @@ class Form extends Component {
         <Wrapper>
           <TabSelector>
             <Tab
+              objectNumber
               selected={selectedTab === 'number'}
               onClick={() => this.setState({ selectedTab: 'number' })}
             >

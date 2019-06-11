@@ -112,7 +112,7 @@ const CallbackForm = styled.div`
 const Input = styled(InputMask)`
   width: 100%;
   padding: 0px 15px;
-  padding-top: 17px;
+  padding-top: 20px;
   padding-bottom: 20px;
   margin-top: 8px;
   border: 1px solid #d9d9d9;

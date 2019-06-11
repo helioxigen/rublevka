@@ -52,6 +52,7 @@ export const Input = styled.input`
 
   line-height: 19px;
   font-size: 16px;
+  font-weight: bold;
 
   ::-webkit-input-placeholder {
     color: #aaaaaa;

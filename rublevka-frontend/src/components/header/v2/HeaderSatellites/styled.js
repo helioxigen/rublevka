@@ -90,6 +90,8 @@ export const NavPanel = styled.div`
   justify-content: space-between;
   padding-top: ${p => (p.inverted ? '22px' : '0')};
   min-height: ${p => (p.inverted ? '0px' : '48px')};
+
+  font-size: 18px;
 `;
 
 export const Nav = styled(Navbar.Container)`
@@ -148,11 +150,7 @@ export const Nav = styled(Navbar.Container)`
 export const HamburgerIcon = styled(Icon)`
   width: 22.77px;
   height: 16.53px;
-  fill: ${p => p.theme.brandBlack};
-
-  ${media.xs`
-    fill: ${p => (p.isLanding ? p.theme.brandWhite : p.theme.brandBlack)};
-  `}
+  fill: ${p => (p.isLanding ? p.theme.brandWhite : p.theme.brandBlack)};
 `;
 
 export const CloseButton = styled.button`
@@ -402,13 +400,14 @@ export const FavoriteCounter = styled.span`
 `;
 
 export const FavoriteIcon = styled(Icon)`
-  width: 27px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   stroke-width: 2px;
   fill: transparent;
-  stroke: #212121;
+  stroke: ${p => (p.inverted ? '#ffffff' : '#212121')};
 
   ${media.xs`
-    stroke: ${p => (p.inverted ? '#ffffff' : '#212121')};
+    width: 27px;
+    height: 25px;
   `}
 `;

@@ -29,6 +29,12 @@ const TabSelector = styled.div`
   display: flex;
   overflow-x: scroll;
 
+  justify-content: space-between;
+
+  ${media.xs`
+    justify-content: unset;
+  `}
+
   ::-webkit-scrollbar {
     display: none;
   }
@@ -39,19 +45,26 @@ const Tab = styled.button`
   white-space: nowrap;
   line-height: 19px;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 500;
   padding: 0;
   border: none;
   background: none;
+  margin: 0;
+  width: 26%;
   color: #232323;
-  margin-right: 25px;
-  opacity: ${({ selected }) => (selected ? 1 : 0.8)};
-  padding-bottom: ${({ selected }) => (selected ? '10px' : '12px')};
+  margin-bottom: 0;
+  opacity: ${({ selected }) => (selected ? 1 : 0.5)};
+  padding-bottom: ${({ selected }) => (selected ? '16px' : '18px')};
   border-bottom: ${({ selected }) => (selected ? '2px solid #F44336' : 'none')};
 
+  ${({ objectNumber }) => objectNumber && 'display: none'};
+
   ${media.xs`
+    ${({ objectNumber }) => objectNumber && 'display: block'};
+    width: auto;
     margin: 0;
     margin-right: 30px;
+    opacity: ${({ selected }) => (selected ? 1 : 0.8)};
     padding-bottom: ${({ selected }) => (selected ? '14px' : '17px')};
     line-height: 21px;
     font-size: 18px;
@@ -76,11 +89,12 @@ const Tab = styled.button`
 const Divider = styled.div`
   min-height: 1px;
   min-width: 100%;
-  margin-top: -1px;
-  margin-bottom: 25px;
   background: #d8d8d8;
 
+  margin: -1px -15px 25px;
+
   ${media.xs`
+    margin: -1px 0 25px;
     background: linear-gradient(
       90deg,
       #eeeeee 0%,
@@ -110,6 +124,7 @@ class Form extends Component {
         <Wrapper>
           <TabSelector>
             <Tab
+              objectNumber
               selected={selectedTab === 'number'}
               onClick={() => this.setState({ selectedTab: 'number' })}
             >
@@ -153,7 +168,7 @@ class Form extends Component {
   }
 }
 
-const pickState = (state) => {
+const pickState = state => {
   const { displayOptions } = state;
 
   return { displayOptions };

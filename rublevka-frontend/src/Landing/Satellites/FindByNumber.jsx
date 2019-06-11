@@ -7,6 +7,8 @@ import media from '../../styles/media';
 
 import CallbackModal from '../../request/v2019/CallbackModal';
 import UI from '../../ui/v2019';
+import { WrapperForm } from './Form/styled';
+import PropertyNumber from './Form/PropertyNumber';
 
 const {
   Grid: { Container, Col },
@@ -15,21 +17,33 @@ const {
 } = UI;
 
 const Wrapper = styled.div`
-  background: url(${require('./img/call.bg.jpg')}) center / cover no-repeat;
+  background: #f6f6f6;
+
+  margin: 40px -10px 0;
   padding: 32px 0;
-  margin: 0 -10px;
-  color: white;
 
   ${media.xs`
-    margin: 30px 0px;
-    padding: 80px 45px;
-    background: linear-gradient(115.53deg, #eeeeee 0%, rgba(238, 238, 238, 0.25) 100%);
-    color: #232323;
+    display: none;
   `}
 
-  ${media.md`
-    padding: 176px 114px;
-  `}
+  button {
+    margin: 0;
+  }
+
+  div:last-child {
+    flex-wrap: unset;
+
+    input {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    button {
+      flex: 1 0 35%;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
 `;
 
 const Heading = styled.h3`
@@ -37,6 +51,7 @@ const Heading = styled.h3`
   line-height: 32px;
   font-size: 24px;
   text-align: center;
+  color: #232323;
 
   ${media.xs`
     margin-bottom: 16px;
@@ -55,10 +70,11 @@ const Heading = styled.h3`
 const Body = styled.p`
   margin: 0;
   margin-top: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   line-height: 24px;
   font-size: 15px;
   text-align: center;
+  color: #232323;
 
   ${media.xs`
     margin: 0;
@@ -79,7 +95,7 @@ const CallbackBtn = styled(Button)`
   position: static;
   z-index: unset;
   margin-top: 16px;
-  padding: 20px 24px;
+  padding: 17px 24px 20px 24px;
   line-height: 18px;
   font-size: 15px;
   text-align: center;
@@ -115,7 +131,7 @@ const CallbackForm = styled.div`
 const Input = styled(InputMask)`
   width: 100%;
   padding: 0px 15px;
-  padding-top: 20px;
+  padding-top: 17px;
   padding-bottom: 20px;
   margin-top: 8px;
   border: 1px solid #d9d9d9;
@@ -132,35 +148,30 @@ const Input = styled(InputMask)`
   }
 `;
 
-export default () => (
-  <Container>
-    <Wrapper>
-      <Col xs="12" lg="10">
-        <Heading>Хотите продать дом?</Heading>
-        <Body>
-          Просто оставьте заявку. Наш агент свяжется с вами и поможет всё
-          организовать: проведёт фотосессию, создаст рекламную кампанию, покажет
-          дом и подготовит сделку.
-        </Body>
-        <Visibility lg="hidden">
-          <Col xs="12" sm="6">
-            <CallbackForm>
-              <Input type="text" placeholder="Имя" />
-              <Input
-                type="tel"
-                mask="+9 (999) 999-99-99"
-                placeholder="телефон"
-              />
-              <CallbackBtn kind="success">Оставить заявку</CallbackBtn>
-            </CallbackForm>
+export default class FindByNumber extends React.Component {
+  navigate = link => {
+    const { history } = this.props;
+
+    history.push(link);
+  };
+
+  render() {
+    return (
+      <Container>
+        <Wrapper>
+          <Col xs="12" lg="10">
+            <Heading>Знаете номер объекта?</Heading>
+            <Body>
+              Введите номер объекта в поле ниже и сразу перейдите к просмотру.
+            </Body>
+            <PropertyNumber
+              placeholder="НОМЕР ОБЪЕКТА"
+              label="ПОКАЗАТЬ"
+              navigate={this.navigate}
+            />
           </Col>
-        </Visibility>
-        <Visibility xs="hidden" sm="hidden" md="hidden">
-          <CallbackModal>
-            <CallbackBtn kind="success">Оставить заявку</CallbackBtn>
-          </CallbackModal>
-        </Visibility>
-      </Col>
-    </Wrapper>
-  </Container>
-);
+        </Wrapper>
+      </Container>
+    );
+  }
+}

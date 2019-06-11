@@ -177,6 +177,10 @@ class List extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.actions.resetFilter(this.resource, null, null);
+  }
+
   onClose() {
     this.setState({ isViewOpen: false });
   }

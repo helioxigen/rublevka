@@ -15,11 +15,16 @@ const {
 } = UI;
 
 const Wrapper = styled.div`
-  margin: 40px 0px;
+  background: url(${require('./img/call.bg.jpg')}) center / cover no-repeat;
+  padding: 32px 0;
+  margin: 0 -10px;
+  color: white;
+
   ${media.xs`
     margin: 30px 0px;
     padding: 80px 45px;
     background: linear-gradient(115.53deg, #eeeeee 0%, rgba(238, 238, 238, 0.25) 100%);
+    color: #232323;
   `}
 
   ${media.md`
@@ -32,7 +37,6 @@ const Heading = styled.h3`
   line-height: 32px;
   font-size: 24px;
   text-align: center;
-  color: #232323;
 
   ${media.xs`
     margin-bottom: 16px;
@@ -55,7 +59,6 @@ const Body = styled.p`
   line-height: 24px;
   font-size: 15px;
   text-align: center;
-  color: #232323;
 
   ${media.xs`
     margin: 0;

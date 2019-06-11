@@ -24,6 +24,7 @@ export default class extends Component {
           />
         </Form>
         <Search
+          green
           label={label}
           onClick={() => navigate(`/zagorodnaya/prodaja?filter=${encodeURIComponent(JSON.stringify({ id }))}`)}
         />

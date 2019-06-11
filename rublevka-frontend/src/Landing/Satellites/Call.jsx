@@ -79,7 +79,7 @@ const CallbackBtn = styled(Button)`
   position: static;
   z-index: unset;
   margin-top: 16px;
-  padding: 17px 24px 20px 24px;
+  padding: 20px 24px;
   line-height: 18px;
   font-size: 15px;
   text-align: center;

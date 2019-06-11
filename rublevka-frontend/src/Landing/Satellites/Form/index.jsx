@@ -45,7 +45,7 @@ const Tab = styled.button`
   white-space: nowrap;
   line-height: 19px;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 500;
   padding: 0;
   border: none;
   background: none;
@@ -53,8 +53,8 @@ const Tab = styled.button`
   width: 26%;
   color: #232323;
   margin-bottom: 0;
-  opacity: ${({ selected }) => (selected ? 1 : 0.8)};
-  padding-bottom: ${({ selected }) => (selected ? '14px' : '16px')};
+  opacity: ${({ selected }) => (selected ? 1 : 0.5)};
+  padding-bottom: ${({ selected }) => (selected ? '16px' : '18px')};
   border-bottom: ${({ selected }) => (selected ? '2px solid #F44336' : 'none')};
 
   ${({ objectNumber }) => objectNumber && 'display: none'};
@@ -64,6 +64,7 @@ const Tab = styled.button`
     width: auto;
     margin: 0;
     margin-right: 30px;
+    opacity: ${({ selected }) => (selected ? 1 : 0.8)};
     padding-bottom: ${({ selected }) => (selected ? '14px' : '17px')};
     line-height: 21px;
     font-size: 18px;
@@ -93,7 +94,7 @@ const Divider = styled.div`
   margin: -1px -15px 25px;
 
   ${media.xs`
-    margin: -1px -15px 0;
+    margin: -1px 0 25px;
     background: linear-gradient(
       90deg,
       #eeeeee 0%,

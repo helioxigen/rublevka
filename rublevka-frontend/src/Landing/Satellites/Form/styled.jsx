@@ -48,7 +48,7 @@ export const Input = styled.input`
   outline: none;
   padding: 18.5px 15px;
   margin: 0 4px;
-  margin-top: 8px;
+  margin-top: 9px;
 
   line-height: 19px;
   font-size: 16px;
@@ -296,7 +296,7 @@ export const Option = styled.li`
 export const SearchContainer = styled.button`
   margin-top: 16px;
   padding: 19px 0px;
-  background: #f44336;
+  background: ${({ green }) => (green ? '#47b34c' : '#f44336')};
   border-radius: 12px;
   border: none;
   display: flex;
@@ -382,8 +382,8 @@ export const Options = ({
   </OptionsWrapper>
 );
 
-export const Search = ({ onClick, label = 'найти' }) => (
-  <SearchContainer onClick={onClick || null}>
+export const Search = ({ onClick, green, label = 'найти' }) => (
+  <SearchContainer green={green} onClick={onClick || null}>
     <SearchIcon alt="Search icon" />
     <Text>{label}</Text>
   </SearchContainer>

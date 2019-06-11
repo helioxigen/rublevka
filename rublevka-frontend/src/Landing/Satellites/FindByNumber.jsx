@@ -19,7 +19,7 @@ const {
 const Wrapper = styled.div`
   background: #f6f6f6;
 
-  margin: 40px -10px;
+  margin: 40px -10px 0;
   padding: 32px 0;
 
   ${media.xs`

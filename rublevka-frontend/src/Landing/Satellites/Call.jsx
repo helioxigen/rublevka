@@ -7,6 +7,7 @@ import media from '../../styles/media';
 
 import CallbackModal from '../../request/v2019/CallbackModal';
 import UI from '../../ui/v2019';
+import uis from '../../uis';
 
 const {
   Grid: { Container, Col },
@@ -101,7 +102,7 @@ const CallbackBtn = styled(Button)`
   `}
 `;
 
-const CallbackForm = styled.div`
+const CallbackForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -132,35 +133,71 @@ const Input = styled(InputMask)`
   }
 `;
 
-export default () => (
-  <Container>
-    <Wrapper>
-      <Col xs="12" lg="10">
-        <Heading>Хотите продать дом?</Heading>
-        <Body>
-          Просто оставьте заявку. Наш агент свяжется с вами и поможет всё
-          организовать: проведёт фотосессию, создаст рекламную кампанию, покажет
-          дом и подготовит сделку.
-        </Body>
-        <Visibility lg="hidden">
-          <Col xs="12" sm="6">
-            <CallbackForm>
-              <Input type="text" placeholder="Имя" />
-              <Input
-                type="tel"
-                mask="+9 (999) 999-99-99"
-                placeholder="телефон"
-              />
-              <CallbackBtn kind="success">Оставить заявку</CallbackBtn>
-            </CallbackForm>
+export default class extends React.Component {
+  state = {
+    sent: false,
+    values: {},
+  };
+
+  handleValueChange = name => e => {
+    this.setState({
+      values: {
+        ...this.state.values,
+        [name]: e.target.value,
+      },
+    });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+
+    const {
+      values: { name, phone },
+    } = this.state;
+
+    uis.send(name, phone);
+    this.setState({ sent: true });
+  };
+
+  render() {
+    return (
+      <Container>
+        <Wrapper>
+          <Col xs="12" lg="10">
+            <Heading>Хотите продать дом?</Heading>
+            <Body>
+              Просто оставьте заявку. Наш агент свяжется с вами и поможет всё
+              организовать: проведёт фотосессию, создаст рекламную кампанию,
+              покажет дом и подготовит сделку.
+            </Body>
+            <Visibility lg="hidden">
+              <Col xs="12" sm="6">
+                <CallbackForm onSubmit={this.handleSubmit}>
+                  <Input
+                    type="text"
+                    placeholder="Имя"
+                    onChange={this.handleValueChange('name')}
+                  />
+                  <Input
+                    type="tel"
+                    mask="+9 (999) 999-99-99"
+                    placeholder="телефон"
+                    onChange={this.handleValueChange('phone')}
+                  />
+                  <CallbackBtn type="submit" kind="success">
+                    Оставить заявку
+                  </CallbackBtn>
+                </CallbackForm>
+              </Col>
+            </Visibility>
+            <Visibility xs="hidden" sm="hidden" md="hidden">
+              <CallbackModal>
+                <CallbackBtn kind="success">Оставить заявку</CallbackBtn>
+              </CallbackModal>
+            </Visibility>
           </Col>
-        </Visibility>
-        <Visibility xs="hidden" sm="hidden" md="hidden">
-          <CallbackModal>
-            <CallbackBtn kind="success">Оставить заявку</CallbackBtn>
-          </CallbackModal>
-        </Visibility>
-      </Col>
-    </Wrapper>
-  </Container>
-);
+        </Wrapper>
+      </Container>
+    );
+  }
+}

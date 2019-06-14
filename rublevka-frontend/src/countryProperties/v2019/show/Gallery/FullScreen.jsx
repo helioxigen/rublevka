@@ -10,6 +10,7 @@ import PopupModal from '../PopupModal';
 import Controls from './Controls';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import GalleryNavScrollable from './GalleryNavScrollable';
+import uis from '../../../../uis';
 
 const { Icon } = UI;
 
@@ -282,7 +283,9 @@ export default class FullScreenGallery extends React.Component {
                     placeholder: 'комментарий',
                   },
                 }}
-                onSendRequest={values => values}
+                onSendRequest={values =>
+                  uis.send(values.name, values.phone, values.comment)
+                }
               >
                 <Button>Оставить заявку</Button>
               </PopupModal>

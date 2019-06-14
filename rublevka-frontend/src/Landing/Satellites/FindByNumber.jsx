@@ -9,6 +9,7 @@ import CallbackModal from '../../request/v2019/CallbackModal';
 import UI from '../../ui/v2019';
 import { WrapperForm } from './Form/styled';
 import PropertyNumber from './Form/PropertyNumber';
+import PropertyNumberBlock from './Form/PropertyNumberBlock';
 
 const {
   Grid: { Container, Col },
@@ -164,7 +165,8 @@ export default class FindByNumber extends React.Component {
             <Body>
               Введите номер объекта в поле ниже и сразу перейдите к просмотру.
             </Body>
-            <PropertyNumber
+            <PropertyNumberBlock
+              outline
               placeholder="НОМЕР ОБЪЕКТА"
               label="ПОКАЗАТЬ"
               navigate={this.navigate}

@@ -11,6 +11,7 @@ import Portal from 'react-portal';
 
 import media from '../../styles/media';
 import UI from '../../ui';
+import uis from '../../uis';
 
 const { Icon } = UI;
 
@@ -209,6 +210,9 @@ export default class extends Component {
   };
 
   sendRequest = () => {
+    const { name, phone } = this.state;
+
+    uis.send(name, phone);
     this.setState({ isRequestSended: true });
   };
 
@@ -254,7 +258,7 @@ export default class extends Component {
                   />
                   <SubmitBtn
                     type="submit"
-                    onClick={(e) => {
+                    onClick={e => {
                       e.preventDefault();
                       this.sendRequest();
                     }}

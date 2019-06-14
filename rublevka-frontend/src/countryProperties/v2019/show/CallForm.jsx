@@ -9,6 +9,7 @@ import media from '../../../styles/media';
 import UI from '../../../ui';
 import { WrapperBase, Title as TitleBase } from './styled';
 import agentAvatar from './img/avatar.jpg';
+import uis from '../../../uis';
 
 const { Visibility, Icon } = UI;
 
@@ -195,76 +196,140 @@ const FavoriteIcon = styled(Icon)`
   margin-right: 8px;
 `;
 
-export default ({
-  priceData: { currency, price, priceForBlock },
-  kind,
-  toggleFavorite,
-  dealType,
-}) => (
-  <Wrapper>
-    <Visibility md="hidden" lg="hidden">
-      <Title>Обратный звонок</Title>
-      <Body>
-        Понравился дом? Оставьте заявку ниже и наш менеджер свяжется с вами в
-        течение дня.
-      </Body>
-    </Visibility>
-    <Visibility xs="hidden" sm="hidden">
-      <Price>
-        <FormattedNumber
-          style="currency"
-          currency={currency}
-          value={price}
-          maximumSignificantDigits={12}
-        />
-        {dealType === 'rent' ? ' / месяц' : ''}
-      </Price>
-      {kind === 'land' && (
-        <SmallPrice>
-          <FormattedNumber
-            style="currency"
-            currency={currency}
-            value={Math.round(priceForBlock)}
-            maximumSignificantDigits={12}
-          />{' '}
-          / сот.
-        </SmallPrice>
-      )}
-      <Divider />
-      <Agent>
-        <Avatar src={agentAvatar} alt="Фотография агента" />
-        <TextBlock>
-          <Name>Елена Зверева</Name>
-          <Position>Агент загородной недвижимости</Position>
-        </TextBlock>
-      </Agent>
-    </Visibility>
-    <CallbackForm>
-      <Input type="text" placeholder="Имя" />
-      <Input type="tel" mask="+9 (999) 999-99-99" placeholder="телефон" />
-      <Callback>
+const Header = styled.h3`
+  margin: 0;
+  margin-top: 20px;
+  font-weight: 500;
+  color: #232323;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: normal;
+  text-align: center;
+
+  ${media.xs`
+    margin: 0;
+    line-height: 29px;
+  `}
+`;
+
+export default class CallForm extends React.Component {
+  state = {
+    sent: false,
+    values: {},
+  };
+
+  handleValueChange = name => e => {
+    this.setState({
+      values: {
+        ...this.state.values,
+        [name]: e.target.value,
+      },
+    });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+
+    const { values: { name, phone } } = this.state;
+
+    uis.send(name, phone);
+    this.setState({ sent: true });
+  };
+
+  render() {
+    const { sent, values } = this.state;
+    const {
+      priceData: { currency, price, priceForBlock },
+      kind,
+      toggleFavorite,
+      dealType,
+    } = this.props;
+
+    return (
+      <Wrapper>
         <Visibility md="hidden" lg="hidden">
-          Отправить
+          <Title>Обратный звонок</Title>
+          <Body>
+            Понравился дом? Оставьте заявку ниже и наш менеджер свяжется с вами
+            в течение дня.
+          </Body>
         </Visibility>
-        <Visibility xs="hidden" lg="block">
-          забронировать просмотр
+        <Visibility xs="hidden" sm="hidden">
+          <Price>
+            <FormattedNumber
+              style="currency"
+              currency={currency}
+              value={price}
+              maximumSignificantDigits={12}
+            />
+            {dealType === 'rent' ? ' / месяц' : ''}
+          </Price>
+          {kind === 'land' && (
+            <SmallPrice>
+              <FormattedNumber
+                style="currency"
+                currency={currency}
+                value={Math.round(priceForBlock)}
+                maximumSignificantDigits={12}
+              />{' '}
+              / сот.
+            </SmallPrice>
+          )}
+          <Divider />
+          <Agent>
+            <Avatar src={agentAvatar} alt="Фотография агента" />
+            <TextBlock>
+              <Name>Елена Зверева</Name>
+              <Position>Агент загородной недвижимости</Position>
+            </TextBlock>
+          </Agent>
         </Visibility>
-      </Callback>
-    </CallbackForm>
-    <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
-      <Divider />
-      <FavoriteWrapper onClick={toggleFavorite}>
-        <FavoriteIcon icon="favorite" />В избранное
-      </FavoriteWrapper>
-    </Visibility>
-    <Visibility md="hidden" lg="hidden">
-      <Agreement>
-        Отправляя заявку, вы соглашаетесь с нашей{' '}
-        <Link href="/static/privacy-policy.pdf" target="_blank">
-          политикой конфиденциальности
-        </Link>
-        .
-      </Agreement>
-    </Visibility>
-  </Wrapper>
-);
+        {sent ? (
+          <div>
+            <Header>Заявка отправлена</Header>
+            {/* <BodySlim>{successMessage}</BodySlim> */}
+          </div>
+        ) : (
+          <CallbackForm onSubmit={this.handleSubmit}>
+            <Input
+              type="text"
+              placeholder="Имя"
+              value={values.name}
+              onChange={this.handleValueChange('name')}
+            />
+            <Input
+              type="tel"
+              mask="+9 (999) 999-99-99"
+              value={values.phone}
+              placeholder="телефон"
+              onChange={this.handleValueChange('phone')}
+            />
+            <Callback type="submit">
+              <Visibility md="hidden" lg="hidden">
+                Отправить
+              </Visibility>
+              <Visibility xs="hidden" lg="block">
+                забронировать просмотр
+              </Visibility>
+            </Callback>
+          </CallbackForm>
+        )}
+        <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
+          <Divider />
+          <FavoriteWrapper onClick={toggleFavorite}>
+            <FavoriteIcon icon="favorite" />В избранное
+          </FavoriteWrapper>
+        </Visibility>
+        <Visibility md="hidden" lg="hidden">
+          <Agreement>
+            Отправляя заявку, вы соглашаетесь с нашей{' '}
+            <Link href="/static/privacy-policy.pdf" target="_blank">
+              политикой конфиденциальности
+            </Link>
+            .
+          </Agreement>
+        </Visibility>
+      </Wrapper>
+    );
+  }
+}

@@ -284,7 +284,11 @@ export default class FullScreenGallery extends React.Component {
                   },
                 }}
                 onSendRequest={values =>
-                  uis.send(values.name, values.phone, values.comment)
+                  uis.send(
+                    values.name,
+                    values.phone.match(/\d+/g).join(''),
+                    values.comment,
+                  )
                 }
               >
                 <Button>Оставить заявку</Button>

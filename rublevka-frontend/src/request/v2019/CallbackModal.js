@@ -212,7 +212,7 @@ export default class extends Component {
   sendRequest = () => {
     const { name, phone } = this.state;
 
-    uis.send(name, phone);
+    uis.send(name, phone.match(/\d+/g).join(''));
     this.setState({ isRequestSended: true });
   };
 

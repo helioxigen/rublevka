@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from '../../../styles/media';
 
 import UI from '../../../ui';
@@ -8,15 +8,6 @@ import UI from '../../../ui';
 import greySearchIcon from './searchGrey.png';
 
 const { Icon } = UI;
-
-export const Wrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-
-  ${media.md`
-    flex-wrap: nowrap;
-  `}
-`;
 
 export const Form = styled.div`
   display: flex;
@@ -352,6 +343,25 @@ export const Text = styled.p`
   `}
 `;
 
+export const Wrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+
+  position: relative;
+
+  ${p => p.outline && css`
+    outline: 1px;
+    outline-color: #ccc;
+    ${SearchContainer} {
+      position: absolute;
+    }
+  `}
+
+  ${media.md`
+    flex-wrap: nowrap;
+  `}
+`;
+
 export const Options = ({
   children,
   getToggleButtonProps,
@@ -383,9 +393,10 @@ export const Options = ({
   </OptionsWrapper>
 );
 
-export const Search = ({ onClick, green, label = 'найти' }) => (
-  <SearchContainer green={green} onClick={onClick || null}>
+export const Search = ({ onClick, green, label = 'найти', type }) => (
+  <SearchContainer green={green} type={type} onClick={onClick || null}>
     <SearchIcon alt="Search icon" />
     <Text>{label}</Text>
   </SearchContainer>
 );
+

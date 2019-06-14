@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { connect } from 'react-redux';
 
@@ -25,21 +25,6 @@ const Wrapper = styled.div`
   `}
 `;
 
-const TabSelector = styled.div`
-  display: flex;
-  overflow-x: scroll;
-
-  justify-content: space-between;
-
-  ${media.xs`
-    justify-content: unset;
-  `}
-
-  ::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
 const Tab = styled.button`
   outline: none;
   white-space: nowrap;
@@ -50,40 +35,84 @@ const Tab = styled.button`
   border: none;
   background: none;
   margin: 0;
-  width: 26%;
   color: #232323;
   margin-bottom: 0;
   opacity: ${({ selected }) => (selected ? 1 : 0.5)};
-  padding-bottom: ${({ selected }) => (selected ? '16px' : '18px')};
-  border-bottom: ${({ selected }) => (selected ? '2px solid #F44336' : 'none')};
+  padding-bottom: 16px;
+
+  border-bottom: 2px solid transparent;
+
+  ${({ selected }) =>
+    !selected &&
+    css`
+      &:hover {
+        border-bottom-color: #f44336;
+      }
+    `}
 
   ${({ objectNumber }) => objectNumber && 'display: none'};
 
   ${media.xs`
     ${({ objectNumber }) => objectNumber && 'display: block'};
-    width: auto;
     margin: 0;
-    margin-right: 30px;
     opacity: ${({ selected }) => (selected ? 1 : 0.8)};
-    padding-bottom: ${({ selected }) => (selected ? '14px' : '17px')};
+    padding-bottom: 14px;
     line-height: 21px;
     font-size: 18px;
     font-weight: normal;
     color: #ffffff;
     text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.35);
     
-    border-bottom: ${({ selected }) =>
-      selected ? '3px solid #ffffff' : 'none'};
+    border-bottom: 3px solid transparent;
+
+    ${({ selected }) =>
+      !selected &&
+      css`
+        &:hover {
+          border-bottom-color: #ffffff;
+        }
+      `}
+
   `}
 
   ${media.lg`
-    padding-bottom: ${({ selected }) => (selected ? '16px' : '19px')};
-
-    &:hover {
-      border-bottom: 3px solid #ffffff;
-      padding-bottom: 16px;
-    }
+    padding-bottom: 16px;
   `}
+`;
+
+const TabUnderline = styled.span`
+  border-bottom: 2px solid #f44336;
+  position: absolute;
+
+  ${media.xs`
+    border-bottom: 3px solid #fff;
+  `}
+
+  transition: 0.3s;
+
+  height: 100%;
+`;
+
+const TabSelector = styled.div`
+  display: flex;
+  overflow-x: scroll;
+  position: relative;
+
+  max-width: 520px;
+
+  justify-content: space-between;
+
+  ${Tab}, ${TabUnderline} {
+    width: 26%;
+
+    ${media.xs`
+      width: 100px;    
+    `}
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Divider = styled.div`
@@ -104,7 +133,7 @@ const Divider = styled.div`
 `;
 
 class Form extends Component {
-  state = { selectedTab: 'sell' };
+  state = { selectedTab: 'sell', underlinePosition: 0 };
 
   navigate = (link, type, values) => {
     const { actions, history } = this.props;
@@ -113,38 +142,48 @@ class Form extends Component {
     history.push(link);
   };
 
+  handleSelectTab = name => e => {
+    const offset = e.target.offsetLeft;
+    const parentWidth = e.target.parentElement.offsetWidth;
+
+    const pos = (offset / parentWidth) * 100;
+
+    this.setState({ selectedTab: name, underlinePosition: pos });
+  };
+
   render() {
     const {
       displayOptions: { currency },
     } = this.props;
-    const { selectedTab } = this.state;
+    const { selectedTab, underlinePosition } = this.state;
 
     return (
       <Col mdOffset="1" xs="12" md="10">
         <Wrapper>
           <TabSelector>
+            <TabUnderline style={{ left: `${underlinePosition}%` }} />
             <Tab
               objectNumber
               selected={selectedTab === 'number'}
-              onClick={() => this.setState({ selectedTab: 'number' })}
+              onClick={this.handleSelectTab('number')}
             >
               № объекта
             </Tab>
             <Tab
               selected={selectedTab === 'sell'}
-              onClick={() => this.setState({ selectedTab: 'sell' })}
+              onClick={this.handleSelectTab('sell')}
             >
               Продажа
             </Tab>
             <Tab
               selected={selectedTab === 'rent'}
-              onClick={() => this.setState({ selectedTab: 'rent' })}
+              onClick={this.handleSelectTab('rent')}
             >
               Аренда
             </Tab>
             <Tab
               selected={selectedTab === 'settlements'}
-              onClick={() => this.setState({ selectedTab: 'settlements' })}
+              onClick={this.handleSelectTab('settlements')}
             >
               Посёлки
             </Tab>

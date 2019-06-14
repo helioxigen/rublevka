@@ -10,11 +10,12 @@ export default class extends Component {
       navigate,
       placeholder = 'Введите номер объекта',
       label,
+      outline,
     } = this.props;
     const { id } = this.state;
 
     return (
-      <Wrapper>
+      <Wrapper outline={outline}>
         <Form>
           <Input
             type="text"

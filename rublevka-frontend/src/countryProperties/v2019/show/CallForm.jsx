@@ -230,9 +230,11 @@ export default class CallForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const { values: { name, phone } } = this.state;
+    const {
+      values: { name, phone },
+    } = this.state;
 
-    uis.send(name, phone);
+    uis.send(name, phone.match(/\d+/g).join(''));
     this.setState({ sent: true });
   };
 

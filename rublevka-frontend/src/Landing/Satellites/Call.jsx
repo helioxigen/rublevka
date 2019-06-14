@@ -155,7 +155,7 @@ export default class extends React.Component {
       values: { name, phone },
     } = this.state;
 
-    uis.send(name, phone);
+    uis.send(name, phone.match(/\d+/g).join(''));
     this.setState({ sent: true });
   };
 

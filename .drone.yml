@@ -297,8 +297,8 @@ steps:
       - export BUILD_ID=$DRONE_BUILD_NUMBER
       - docker-compose -f rublevka-frontend/docker-compose.yml build
       - docker-compose -f rublevka-frontend/docker-compose.yml up -d
-      - docker-compose -f nginx/docker-compose.yml build && docker-compose -f nginx/docker-compose.yml up -d
-      - docker exec nginx /clear_cache.sh
+      - docker-compose -f nginx/docker-compose.yml down && docker-compose -f nginx/docker-compose.yml build && docker-compose -f nginx/docker-compose.yml up -d
+#      - docker exec nginx /clear_cache.sh
 #      - "wget --header='Host: prod.rublevka.ru' -q nginx"
     environment:
       APP_ENV: production
@@ -552,8 +552,8 @@ steps:
       - export BUILD_ID=$DRONE_BUILD_NUMBER
       - docker-compose -f rublevka-frontend/docker-compose.yml build
       - docker-compose -f rublevka-frontend/docker-compose.yml up -d
-      - docker-compose -f nginx/docker-compose.yml build && docker-compose -f nginx/docker-compose.yml up -d
-      - docker exec nginx /clear_cache.sh
+      - docker-compose -f nginx/docker-compose.yml down && docker-compose -f nginx/docker-compose.yml build && docker-compose -f nginx/docker-compose.yml up -d
+#      - docker exec nginx /clear_cache.sh
 #      - "wget --header='Host: prod.rublevka.ru' -q nginx"
     environment:
       APP_ENV: production

@@ -7,7 +7,6 @@ services:
     restart: always
     build:
       context: ./nginx
-      dockerfile: Dockerfile
     ports:
       - '0.0.0.0:80:80'
       - '0.0.0.0:443:443'

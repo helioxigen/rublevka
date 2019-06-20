@@ -40,12 +40,25 @@ const Tab = styled.button`
   opacity: ${({ selected }) => (selected ? 1 : 0.5)};
   padding-bottom: 16px;
 
-  border-bottom: 2px solid transparent;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    display: block;
+    height: 100%;
+    transition: 0.6s;
+    border-bottom: 2px solid transparent;
+    bottom: 0;
+    ${media.xs`
+      border-bottom: 3px solid transparent;
+    `}
+  }
 
   ${({ selected }) =>
     !selected &&
     css`
-      &:hover {
+      &:hover::before {
         border-bottom-color: #f44336;
       }
     `}
@@ -56,19 +69,17 @@ const Tab = styled.button`
     ${({ objectNumber }) => objectNumber && 'display: block'};
     margin: 0;
     opacity: ${({ selected }) => (selected ? 1 : 0.8)};
-    padding-bottom: 14px;
+    padding-bottom: 17px;
     line-height: 21px;
     font-size: 18px;
     font-weight: normal;
     color: #ffffff;
     text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.35);
-    
-    border-bottom: 3px solid transparent;
 
     ${({ selected }) =>
       !selected &&
       css`
-        &:hover {
+        &:hover::before {
           border-bottom-color: #ffffff;
         }
       `}
@@ -81,12 +92,24 @@ const Tab = styled.button`
 `;
 
 const TabUnderline = styled.span`
-  border-bottom: 2px solid #f44336;
   position: absolute;
 
+  display: ${({ mobile }) => (mobile ? 'block' : 'none')};
+
   ${media.xs`
-    border-bottom: 3px solid #fff;
+      display: ${({ mobile }) => (mobile ? 'none' : 'block')};
   `}
+
+  &::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-bottom: 2px solid #f44336;
+    ${media.xs`
+      border-bottom: 3px solid #fff;
+    `}
+  }
 
   transition: 0.3s;
 
@@ -98,17 +121,28 @@ const TabSelector = styled.div`
   overflow-x: scroll;
   position: relative;
 
-  max-width: 520px;
+  margin: 0 -25px;
 
-  justify-content: space-between;
+  max-width: 590px;
+
+  ${Tab}::before {
+    right: 25px;
+    left: 25px;
+  }
 
   ${Tab}, ${TabUnderline} {
-    width: 26%;
+    width: 33%;
+    padding-left: 25px;
+    padding-right: 25px;
 
     ${media.xs`
-      width: 100px;    
+      width: 25%;
     `}
   }
+
+  ${media.xs`
+    /* margin: 0 -4%; */
+  `}
 
   ::-webkit-scrollbar {
     display: none;
@@ -133,7 +167,7 @@ const Divider = styled.div`
 `;
 
 class Form extends Component {
-  state = { selectedTab: 'sell', underlinePosition: 0 };
+  state = { selectedTab: 'sell', selectedIndex: 1 };
 
   navigate = (link, type, values) => {
     const { actions, history } = this.props;
@@ -142,48 +176,50 @@ class Form extends Component {
     history.push(link);
   };
 
-  handleSelectTab = name => e => {
-    const offset = e.target.offsetLeft;
-    const parentWidth = e.target.parentElement.offsetWidth;
-
-    const pos = (offset / parentWidth) * 100;
-
-    this.setState({ selectedTab: name, underlinePosition: pos });
+  handleSelectTab = (name, idx) => e => {
+    this.setState({ selectedTab: name, selectedIndex: idx });
   };
 
   render() {
     const {
       displayOptions: { currency },
     } = this.props;
-    const { selectedTab, underlinePosition } = this.state;
+    const { selectedTab, selectedIndex } = this.state;
 
     return (
       <Col mdOffset="1" xs="12" md="10">
         <Wrapper>
           <TabSelector>
-            <TabUnderline style={{ left: `${underlinePosition}%` }} />
+            <TabUnderline
+              style={{ transform: `translateX(${selectedIndex * 100}%)` }}
+            />
+            <TabUnderline
+              mobile
+              style={{ transform: `translateX(${(selectedIndex - 1) * 100}%)` }}
+            />
             <Tab
               objectNumber
               selected={selectedTab === 'number'}
-              onClick={this.handleSelectTab('number')}
+              onClick={this.handleSelectTab('number', 0)}
             >
               № объекта
             </Tab>
             <Tab
+              ref={ref => (this.initialTab = ref)}
               selected={selectedTab === 'sell'}
-              onClick={this.handleSelectTab('sell')}
+              onClick={this.handleSelectTab('sell', 1)}
             >
               Продажа
             </Tab>
             <Tab
               selected={selectedTab === 'rent'}
-              onClick={this.handleSelectTab('rent')}
+              onClick={this.handleSelectTab('rent', 2)}
             >
               Аренда
             </Tab>
             <Tab
               selected={selectedTab === 'settlements'}
-              onClick={this.handleSelectTab('settlements')}
+              onClick={this.handleSelectTab('settlements', 3)}
             >
               Посёлки
             </Tab>

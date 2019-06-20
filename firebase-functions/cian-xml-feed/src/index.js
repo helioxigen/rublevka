@@ -49,5 +49,8 @@ module.exports = () => admin
       .then(() => fileStorage.upload(join(tmpdir, filename), {
         destination: 'cian-feed.xml',
         metadata,
-      }));
+      }))
+      .then(() => {
+        return true;
+      });
   });

@@ -64,7 +64,7 @@ exports.createLandObject = item => ({
         { Price: item[`${item.offerKind}Offer`].price },
         { Currency: item[`${item.offerKind}Offer`].currency.toLowerCase() },
         {
-          AgentBonus: [{ Value: 50 }, { PaymentType: 'percent' }],
+          AgentBonus: [{ Value: 0 }, { PaymentType: 'percent' }],
         },
       ],
     },

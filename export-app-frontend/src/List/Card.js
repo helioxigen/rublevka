@@ -24,6 +24,8 @@ import iconDelete from './img/icon-delete.svg';
 import iconClose from './img/icon-close.png';
 import placeholder from './img/placeholder.jpg';
 
+import roundLastNDigits from '../Utils/roundLastNDigits';
+
 export default class extends Component {
   state = {
     /* eslint-disable react/destructuring-assignment */
@@ -108,9 +110,11 @@ export default class extends Component {
           <Price>
             <FormattedNumber
               style="currency"
-              maximumSignificantDigits={1}
+              // maximumSignificantDigits={1}
+              maximumFractionDigits={0}
+              minimumFractionDigits={0}
               currency={currency}
-              value={price}
+              value={roundLastNDigits(price, 3)}
             />
           </Price>
         </Header>

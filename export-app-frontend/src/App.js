@@ -7,6 +7,7 @@ import Search from './Search';
 import List from './List';
 import Login from './Login';
 import Footer from './Footer';
+import ExportResults from './ExportResults'
 // import History from './History';
 
 import { FBRublevka } from './firebase';
@@ -128,6 +129,7 @@ class App extends Component {
             {!user.isLoggedIn && <Login firebaseInstance={FBRublevka} />}
             {user.admin && (
               <>
+                <ExportResults />
                 <Search user={user} />
                 <List {...this.state} />
               </>

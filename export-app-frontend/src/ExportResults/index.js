@@ -68,24 +68,37 @@ export default class ExportResults extends React.Component {
       }))
     }
 
-    render(){
-      const { isInfoLoading, isInfoVisible, info } = this.state;
-
-      let headingBarErrorsColor = 'green';
-      if (info != null && (this.state.info.errors.length > 0 || this.state.info.warnings.length > 0) ){
-        headingBarErrorsColor = 'orange';
+    getHeadingBarErrorsColor(info) {
+      if (info != null && (info.errors.length > 0 || info.warnings.length > 0) ){
+        return 'orange';
+      } else {
+        return 'green';
       }
-
-      let headingBarDateColor = 'green';
-      let mergedEvents = [];
+    }
+    
+    getHeadingBarDateColor(info) {
       if (info != null){
         let lastExportDifference = Date.now() / 1000 - this.state.info.createdAt.seconds;
         if (lastExportDifference > 10 * 60){
-          headingBarDateColor = 'orange';
+          return 'orange';
         }
-        mergedEvents = info.errors.map(x => ({...x, type: 'error'}) ).concat(info.warnings.map(x => ({...x, type: 'warning'}) ))
       }
+      return 'green';
+    }
 
+    getMergedEventsArray(info){
+      if (info != null){
+        return info.errors.map(x => ({...x, type: 'error'}) ).concat(info.warnings.map(x => ({...x, type: 'warning'}) ));
+      }
+      return [];
+    }
+
+    render(){
+      const { isInfoLoading, isInfoVisible, info } = this.state;
+
+      const headingBarErrorsColor = this.getHeadingBarErrorsColor(info)
+      const headingBarDateColor = this.getHeadingBarDateColor(info);
+      const mergedEvents = this.getMergedEventsArray(info);
 
       return (
           <Section>

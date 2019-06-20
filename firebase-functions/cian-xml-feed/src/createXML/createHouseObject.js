@@ -5,6 +5,7 @@ const {
   getImageLink,
   getPublishServices,
 } = require('./utils');
+const { preprocessObject } = require('./preprocessObject')
 
 const getCategory = (category) => {
   switch (category) {
@@ -28,23 +29,21 @@ const getOppositeOfferKind = (offerKind) => {
   }
 }
 
+//Structure of returned object
+// {
+//   "item": {},
+//   "warning": "String", (optional)
+//   "error": "String"    (optional)
+// }
 exports.createHouseObject = item => {
-  try{
-    //we need to validate that we have an object for presented offerKind
-    if (!item[`${item.offerKind}Offer`]){
-      //we don't have an object for this offerKind
-      //maybe we have it for opposite offerKind?
-      if (item[`${getOppositeOfferKind(item.offerKind)}Offer`]){
-        //yes, we have an object for opposite offerKind, so we will export this house to the feed with changed offerKind
-        item.offerKind = getOppositeOfferKind(item.offerKind);
-      } else {
-        //it looks like we don't have any deal objects
-        //let's skip this house
-        return null;
-      }
-    }
+  let resultObject = {
+    item: null
+  };
 
-    return ({
+  try{
+    preprocessObject(item, resultObject);
+
+    resultObject.item = {
       object: [
         {
           Category: `${getCategory(item.kind)}${upperCaseFirst(item.offerKind)}`,
@@ -137,10 +136,11 @@ exports.createHouseObject = item => {
           })),
         },
       ],
-    })
+    };
+
   } catch(ex){
-    //TODO: add some storage for houses that encountered processing error
-    //in case of error we also return null
-    return null;
+    resultObject.error = ex.toString();
   }
+
+  return resultObject;
 };

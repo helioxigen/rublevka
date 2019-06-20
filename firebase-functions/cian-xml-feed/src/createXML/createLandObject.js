@@ -5,76 +5,92 @@ const {
   getImageLink,
   getPublishServices,
 } = require('./utils');
+const { preprocessObject } = require('./preprocessObject')
 
-exports.createLandObject = item => ({
-  object: [
-    {
-      Category: `land${upperCaseFirst(item.offerKind)}`,
-    },
-    { ExternalId: `${item.id}-${item.offerKind}` },
-    { Description: getLandDescription(item) },
-    {
-      Phones: [
+
+exports.createLandObject = item => {
+  let resultObject = {
+    item: null
+  };
+
+  try {
+    preprocessObject(item, resultObject);
+
+    resultObject.item = {
+      object: [
         {
-          PhoneSchema: [{ CountryCode: '+7' }, { Number: '4954323444' }],
+          Category: `land${upperCaseFirst(item.offerKind)}`,
         },
-      ],
-    },
-    {
-      PublishTerms: [
+        { ExternalId: `${item.id}-${item.offerKind}` },
+        { Description: getLandDescription(item) },
         {
-          Terms: [
+          Phones: [
             {
-              PublishTermSchema: [
+              PhoneSchema: [{ CountryCode: '+7' }, { Number: '4954323444' }],
+            },
+          ],
+        },
+        {
+          PublishTerms: [
+            {
+              Terms: [
                 {
-                  Services: getPublishServices(item),
+                  PublishTermSchema: [
+                    {
+                      Services: getPublishServices(item),
+                    },
+                  ],
                 },
               ],
             },
           ],
         },
-      ],
-    },
-    {
-      Address: [
-        item.location.regionName,
-        `${item.location.districtName} район`,
-        item.location.localityName,
-        item.location.settlementName,
-      ].join(', '),
-    },
-    {
-      Highway: [
-        { Id: routeToRouteId[item.location.routeName] },
-        { Distance: item.location.mkadDistance },
-      ],
-    },
-    {
-      Coordinates: [
-        { Lat: item.location.latitude },
-        { Lng: item.location.longitude },
-      ],
-    },
-    {
-      Land: [{ Area: item.landDetails.area }, { AreaUnitType: 'sotka' }],
-    },
-    { IsInHiddenBase: false },
-    {
-      BargainTerms: [
-        { Price: item[`${item.offerKind}Offer`].price },
-        { Currency: item[`${item.offerKind}Offer`].currency.toLowerCase() },
         {
-          AgentBonus: [{ Value: 0 }, { PaymentType: 'percent' }],
+          Address: [
+            item.location.regionName,
+            `${item.location.districtName} район`,
+            item.location.localityName,
+            item.location.settlementName,
+          ].join(', '),
+        },
+        {
+          Highway: [
+            { Id: routeToRouteId[item.location.routeName] },
+            { Distance: item.location.mkadDistance },
+          ],
+        },
+        {
+          Coordinates: [
+            { Lat: item.location.latitude },
+            { Lng: item.location.longitude },
+          ],
+        },
+        {
+          Land: [{ Area: item.landDetails.area }, { AreaUnitType: 'sotka' }],
+        },
+        { IsInHiddenBase: false },
+        {
+          BargainTerms: [
+            { Price: item[`${item.offerKind}Offer`].price },
+            { Currency: item[`${item.offerKind}Offer`].currency.toLowerCase() },
+            {
+              AgentBonus: [{ Value: 0 }, { PaymentType: 'percent' }],
+            },
+          ],
+        },
+        {
+          Photos: item.images.map((img, index) => ({
+            PhotoSchema: [
+              { FullUrl: getImageLink(img.id) },
+              { IsDefault: index === 0 },
+            ],
+          })),
         },
       ],
-    },
-    {
-      Photos: item.images.map((img, index) => ({
-        PhotoSchema: [
-          { FullUrl: getImageLink(img.id) },
-          { IsDefault: index === 0 },
-        ],
-      })),
-    },
-  ],
-});
+    }
+  } catch(ex){
+    resultObject.error = ex.toString();
+  }
+
+  return resultObject;
+} 

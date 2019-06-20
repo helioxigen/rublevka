@@ -23,6 +23,8 @@ import { kinds } from '../List/dictionaries';
 import iconAdd from './icon-add.svg';
 import placeholder from '../List/img/placeholder.jpg';
 
+import roundLastNDigits from '../Utils/roundLastNDigits';
+
 const Header = styled(OrigHeader)`
   flex-basis: 30%;
 `;
@@ -136,9 +138,11 @@ class Card extends Component {
             {saleOffer && (
               <FormattedNumber
                 style="currency"
-                maximumSignificantDigits={1}
+                // maximumSignificantDigits={1}
+                maximumFractionDigits={0}
+                minimumFractionDigits={0}
                 currency={saleOffer.currency}
-                value={saleOffer.price}
+                value={roundLastNDigits(saleOffer.price, 3)}
               />
             )}
             <br />
@@ -146,9 +150,11 @@ class Card extends Component {
               <SubTitle>
                 <FormattedNumber
                   style="currency"
-                  maximumSignificantDigits={1}
+                  // maximumSignificantDigits={1}
+                  maximumFractionDigits={0}
+                  minimumFractionDigits={0}
                   currency={rentOffer.currency}
-                  value={rentOffer.price}
+                  value={roundLastNDigits(rentOffer.price, 3)}
                 />
                 {' в мес'}
               </SubTitle>

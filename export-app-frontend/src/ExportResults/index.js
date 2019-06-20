@@ -10,7 +10,6 @@ const Section = styled.section`
   box-shadow: 0px 0px 8px #eaeaea;
   border: 1px solid #eaeaea;
   border-radius: 4px;
-  min-height: 100px;
 `;
 
 const Heading = styled.h2`
@@ -21,9 +20,14 @@ const Heading = styled.h2`
   padding-bottom: 10px;
 `;
 
-const LoadingDiv = styled.div`
-  text-align: center;
-  padding: 24px;
+const HeadingBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const HeadingBarToggle = styled.div`
+  align-self: end;
 `;
 
 const InfoDiv = styled.div`
@@ -38,14 +42,11 @@ const ErrorsWarningsTable = styled.table`
 `;
 
 
-class ExportResults extends React.Component {
-    constructor(props){
-        super(props);
-
-        this.state = {
-            isInfoLoading: false,
-            info: {}
-        }
+export default class ExportResults extends React.Component {
+    state = {
+        isInfoLoading: true,
+        isInfoVisible: false,
+        info: {}
     }
 
     componentDidMount(){
@@ -53,10 +54,6 @@ class ExportResults extends React.Component {
     }
 
     async loadInfo(){
-      this.setState({
-        isInfoLoading: true
-      });
-
       let res = await getLastExportResultRecord();
 
       this.setState({
@@ -65,26 +62,61 @@ class ExportResults extends React.Component {
       })
     }
 
+    toggleVisibility = () => {
+      this.setState((state) => ({
+        isInfoVisible: !state.isInfoVisible
+      }))
+    }
+
     render(){
+      const { isInfoLoading, isInfoVisible, info } = this.state;
 
-        return (
-            <Section>
+      let headingBarErrorsColor = 'green';
+      if (Object.keys(info).length !== 0 && (this.state.info.errors.length > 0 || this.state.info.warnings.length > 0) ){
+        headingBarErrorsColor = 'orange';
+      }
+
+      let headingBarDateColor = 'green';
+      let mergedEvents = [];
+      if (Object.keys(info).length !== 0){
+        let lastExportDifference = Date.now() / 1000 - this.state.info.createdAt.seconds;
+        if (lastExportDifference > 10 * 60){
+          headingBarDateColor = 'orange';
+        }
+        mergedEvents = info.errors.map(x => ({...x, type: 'error'}) ).concat(info.warnings.map(x => ({...x, type: 'warning'}) ))
+      }
+
+
+      return (
+          <Section>
+              <HeadingBar>
                 <Heading>Статус последнего экспорта XML</Heading>
-                {this.state.isInfoLoading && (
-                    <LoadingDiv> Загрузка... </LoadingDiv>
-                )}
+                <div>
+                  {!isInfoLoading && (
+                    <div>
+                      <div style={{color: headingBarErrorsColor}}> 
+                        <b>{info.errors.length}</b> ошибок и <b>{info.warnings.length}</b> предупреждений
+                      </div>
+                      <div style={{color: headingBarDateColor}}>
+                        {info.createdAt.toDate().toLocaleString()}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <HeadingBarToggle>
+                  <button onClick={this.toggleVisibility}>
+                    {isInfoVisible ? 'Свернуть' : 'Развернуть'}
+                  </button>
+                  </HeadingBarToggle>
+              </HeadingBar>
 
-                {!this.state.isInfoLoading && Object.keys(this.state.info).length === 0 && (
-                  <LoadingDiv> Произошла ошибка при выполнении запроса </LoadingDiv>
-                )}
-
-                {!this.state.isInfoLoading && Object.keys(this.state.info).length !== 0 && (
+                {!isInfoLoading && isInfoVisible && Object.keys(info).length !== 0 && (
                   <InfoDiv>
-                    Дата выполнения последнего экспорта XML: {this.state.info.createdAt.toDate().toLocaleString()}
+                    Дата выполнения последнего экспорта XML: {info.createdAt.toDate().toLocaleString()}
                     <br/>
-                    Количество объектов в экспорте: {this.state.info.objectsCount}
+                    Количество объектов в экспорте: {info.objectsCount}
                     <br/>
-                    Во время экспорта произошло <b>{this.state.info.errors.length}</b> ошибок и <b>{this.state.info.warnings.length}</b> предупреждений.
+                    Во время экспорта произошло <b>{info.errors.length}</b> ошибок и <b>{info.warnings.length}</b> предупреждений.
                     <ErrorsWarningsTable>
                       <caption>Таблица ошибок и предупреждений</caption>
                       <thead>
@@ -95,7 +127,7 @@ class ExportResults extends React.Component {
                         </tr>
                       </thead>
                       <tbody>
-                        {this.state.info.errors.map(x => ({...x, type: 'error'}) ).concat(this.state.info.warnings.map(x => ({...x, type: 'warning'}) )).map(item => {
+                        {mergedEvents.map(item => {
                           return (<tr key={item.id}>
                             <td>{item.type}</td>
                             <td>{item.id}</td>
@@ -106,9 +138,8 @@ class ExportResults extends React.Component {
                     </ErrorsWarningsTable>
                   </InfoDiv>
                 )}
-            </Section>
-        )
+
+          </Section>
+      )
     }
 }
-
-export default ExportResults;

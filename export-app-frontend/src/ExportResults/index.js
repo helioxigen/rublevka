@@ -46,7 +46,7 @@ export default class ExportResults extends React.Component {
     state = {
         isInfoLoading: true,
         isInfoVisible: false,
-        info: {}
+        info: null
     }
 
     componentDidMount(){
@@ -72,13 +72,13 @@ export default class ExportResults extends React.Component {
       const { isInfoLoading, isInfoVisible, info } = this.state;
 
       let headingBarErrorsColor = 'green';
-      if (Object.keys(info).length !== 0 && (this.state.info.errors.length > 0 || this.state.info.warnings.length > 0) ){
+      if (info != null && (this.state.info.errors.length > 0 || this.state.info.warnings.length > 0) ){
         headingBarErrorsColor = 'orange';
       }
 
       let headingBarDateColor = 'green';
       let mergedEvents = [];
-      if (Object.keys(info).length !== 0){
+      if (info != null){
         let lastExportDifference = Date.now() / 1000 - this.state.info.createdAt.seconds;
         if (lastExportDifference > 10 * 60){
           headingBarDateColor = 'orange';
@@ -110,7 +110,7 @@ export default class ExportResults extends React.Component {
                   </HeadingBarToggle>
               </HeadingBar>
 
-                {!isInfoLoading && isInfoVisible && Object.keys(info).length !== 0 && (
+                {!isInfoLoading && isInfoVisible && info != null && (
                   <InfoDiv>
                     Дата выполнения последнего экспорта XML: {info.createdAt.toDate().toLocaleString()}
                     <br/>

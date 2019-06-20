@@ -8,6 +8,7 @@ import media from '../../styles/media';
 import CallbackModal from '../../request/v2019/CallbackModal';
 import UI from '../../ui/v2019';
 import uis from '../../uis';
+import CallbackForm from '../../ui/v2019/organisms/CallbackForm';
 
 const {
   Grid: { Container, Col },
@@ -102,37 +103,6 @@ const CallbackBtn = styled(Button)`
   `}
 `;
 
-const CallbackForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  ${media.sm`
-    margin-left: -15px;
-    align-items: flex-start;
-  `}
-`;
-
-const Input = styled(InputMask)`
-  width: 100%;
-  padding: 0px 15px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  margin-top: 8px;
-  border: 1px solid #d9d9d9;
-  border-radius: 8px;
-  appearance: none;
-
-  line-height: 18px;
-  font-size: 15px;
-  text-transform: uppercase;
-  font-weight: bold;
-
-  &::placeholder {
-    color: #aaaaaa;
-  }
-`;
-
 export default class extends React.Component {
   state = {
     sent: false,
@@ -172,22 +142,20 @@ export default class extends React.Component {
             </Body>
             <Visibility lg="hidden">
               <Col xs="12" sm="6">
-                <CallbackForm onSubmit={this.handleSubmit}>
-                  <Input
-                    type="text"
-                    placeholder="Имя"
-                    onChange={this.handleValueChange('name')}
-                  />
-                  <Input
-                    type="tel"
-                    mask="+9 (999) 999-99-99"
-                    placeholder="телефон"
-                    onChange={this.handleValueChange('phone')}
-                  />
-                  <CallbackBtn type="submit" kind="success">
-                    Оставить заявку
-                  </CallbackBtn>
-                </CallbackForm>
+                <CallbackForm
+                  fields={{
+                    name: {
+                      placeholder: 'Имя',
+                      required: true,
+                    },
+                    phone: {
+                      placeholder: 'Телефон',
+                      type: 'tel',
+                      required: true,
+                    },
+                  }}
+                  submitLabel="Оставить заявку"
+                />
               </Col>
             </Visibility>
             <Visibility xs="hidden" sm="hidden" md="hidden">

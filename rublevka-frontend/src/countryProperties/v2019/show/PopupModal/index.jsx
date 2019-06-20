@@ -11,6 +11,7 @@ import Portal from 'react-portal';
 
 import media from 'styles/media';
 import UI from 'ui';
+import CallbackForm from '../../../../ui/v2019/organisms/CallbackForm';
 
 const { Icon } = UI;
 
@@ -268,58 +269,49 @@ export default class extends React.Component {
           closePortal={this.closeModal}
         >
           <ModalCover onClick={this.closeModal}>
-            {!isRequestSended ? (
-              <Modal onClick={e => e.stopPropagation()}>
-                <CloseButton onClick={this.closeModal}>
-                  <CloseIcon icon="close-button" />
-                </CloseButton>
-                <Header>{header}</Header>
-                <Body>{subheader}</Body>
-                <CallForm>
-                  {Object.entries(fields).map(
-                    ([fieldName, { placeholder, type = 'text' }]) =>
-                      type === 'textarea' ? (
-                        <TextArea
-                          placeholder={placeholder}
-                          value={values[fieldName]}
-                          onChange={this.handleValueChange(fieldName)}
-                        />
-                      ) : (
-                        <StInput
-                          type={type}
-                          mask={
-                            type === 'tel' ? '+9 (999) 999-99-99' : undefined
-                          }
-                          placeholder={placeholder}
-                          value={values[fieldName]}
-                          onChange={this.handleValueChange(fieldName)}
-                        />
-                      ),
-                  )}
-                  <SubmitBtn type="submit" onClick={this.handleSendRequest}>
-                    Оставить заявку
-                  </SubmitBtn>
-                </CallForm>
-                <AgreementText>
-                  Отправляя заявку, вы соглашаетесь с нашей{' '}
-                  <AgreementLink
-                    href="/static/privacy-policy.pdf"
-                    target="_blank"
-                  >
-                    политикой конфиденциальности
-                  </AgreementLink>
-                  .
-                </AgreementText>
-              </Modal>
-            ) : (
-              <Modal onClick={e => e.stopPropagation()}>
-                <CloseButton onClick={this.closeModal}>
-                  <CloseIcon icon="close-button" />
-                </CloseButton>
-                <Header>Заявка отправлена</Header>
-                <BodySlim>{successMessage}</BodySlim>
-              </Modal>
-            )}
+            <Modal onClick={e => e.stopPropagation()}>
+              <CloseButton onClick={this.closeModal}>
+                <CloseIcon icon="close-button" />
+              </CloseButton>
+              <CallbackForm
+                header={
+                  <header>
+                    <Header>{header}</Header>
+                    <Body>{subheader}</Body>
+                  </header>
+                }
+                fields={{
+                  name: {
+                    placeholder: 'Имя',
+                    required: true,
+                  },
+                  phone: {
+                    placeholder: 'Телефон',
+                    type: 'tel',
+                    required: true,
+                  },
+                  comment: {
+                    placeholder: 'Комментарий',
+                    type: 'textarea',
+                  },
+                }}
+                submitLabel="Оставить заявку"
+                footer={
+                  <footer>
+                    <AgreementText>
+                      Отправляя заявку, вы соглашаетесь с нашей{' '}
+                      <AgreementLink
+                        href="/static/privacy-policy.pdf"
+                        target="_blank"
+                      >
+                        политикой конфиденциальности
+                      </AgreementLink>
+                      .
+                    </AgreementText>
+                  </footer>
+                }
+              />
+            </Modal>
           </ModalCover>
         </Portal>
       </div>

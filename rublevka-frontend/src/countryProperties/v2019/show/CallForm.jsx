@@ -10,6 +10,7 @@ import UI from '../../../ui';
 import { WrapperBase, Title as TitleBase } from './styled';
 import agentAvatar from './img/avatar.jpg';
 import uis from '../../../uis';
+import CallbackForm from '../../../ui/v2019/organisms/CallbackForm';
 
 const { Visibility, Icon } = UI;
 
@@ -106,7 +107,7 @@ const Position = styled.p`
   color: rgba(35, 35, 35, 0.5);
 `;
 
-const CallbackForm = styled.form`
+const CallbackFormOld = styled.form`
   margin-top: 4px;
   margin-bottom: 16px;
   display: flex;
@@ -286,36 +287,20 @@ export default class CallForm extends React.Component {
             </TextBlock>
           </Agent>
         </Visibility>
-        {sent ? (
-          <div>
-            <Header>Заявка отправлена</Header>
-            {/* <BodySlim>{successMessage}</BodySlim> */}
-          </div>
-        ) : (
-          <CallbackForm onSubmit={this.handleSubmit}>
-            <Input
-              type="text"
-              placeholder="Имя"
-              value={values.name}
-              onChange={this.handleValueChange('name')}
-            />
-            <Input
-              type="tel"
-              mask="+9 (999) 999-99-99"
-              value={values.phone}
-              placeholder="телефон"
-              onChange={this.handleValueChange('phone')}
-            />
-            <Callback type="submit">
-              <Visibility md="hidden" lg="hidden">
-                Отправить
-              </Visibility>
-              <Visibility xs="hidden" lg="block">
-                забронировать просмотр
-              </Visibility>
-            </Callback>
-          </CallbackForm>
-        )}
+        <CallbackForm
+          fields={{
+            name: {
+              placeholder: 'Имя',
+              required: true,
+            },
+            phone: {
+              placeholder: 'Телефон',
+              type: 'tel',
+              required: true,
+            },
+          }}
+          submitLabel="Забронировать просмотр"
+        />
         <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">
           <Divider />
           <FavoriteWrapper onClick={toggleFavorite}>

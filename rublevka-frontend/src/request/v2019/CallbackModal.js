@@ -12,6 +12,7 @@ import Portal from 'react-portal';
 import media from '../../styles/media';
 import UI from '../../ui';
 import uis from '../../uis';
+import Form from '../../ui/v2019/organisms/CallbackForm';
 
 const { Icon } = UI;
 
@@ -182,8 +183,6 @@ const CloseIcon = styled(Icon)`
 
 export default class extends Component {
   state = {
-    name: null,
-    phone: null,
     isModalOpen: false,
     isRequestSended: false,
   };
@@ -203,21 +202,11 @@ export default class extends Component {
 
     this.setState({
       isModalOpen: false,
-      isRequestSended: false,
-      name: null,
-      phone: null,
     });
   };
 
-  sendRequest = () => {
-    const { name, phone } = this.state;
-
-    uis.send(name, phone.match(/\d+/g).join(''));
-    this.setState({ isRequestSended: true });
-  };
-
   render() {
-    const { name, phone, isModalOpen, isRequestSended } = this.state;
+    const { isModalOpen, isRequestSended } = this.state;
     const { children } = this.props;
 
     return (
@@ -237,45 +226,43 @@ export default class extends Component {
                 <CloseButton onClick={this.closeModal}>
                   <CloseIcon icon="close-button" />
                 </CloseButton>
-                <Header>Обратный звонок</Header>
-                <Body>
-                  Оставьте свою заявку и наш менеджер свяжется с вами в течение
-                  5 минут.
-                </Body>
-                <CallForm>
-                  <StInput
-                    type="text"
-                    placeholder="имя"
-                    value={name}
-                    onChange={e => this.setState({ name: e.target.value })}
-                  />
-                  <StInput
-                    type="tel"
-                    mask="+9 (999) 999-99-99"
-                    placeholder="телефон"
-                    value={phone}
-                    onChange={e => this.setState({ phone: e.target.value })}
-                  />
-                  <SubmitBtn
-                    type="submit"
-                    onClick={e => {
-                      e.preventDefault();
-                      this.sendRequest();
-                    }}
-                  >
-                    Оставить заявку
-                  </SubmitBtn>
-                </CallForm>
-                <AgreementText>
-                  Отправляя заявку, вы соглашаетесь с нашей{' '}
-                  <AgreementLink
-                    href="/static/privacy-policy.pdf"
-                    target="_blank"
-                  >
-                    политикой конфиденциальности
-                  </AgreementLink>
-                  .
-                </AgreementText>
+                <Form
+                  header={
+                    <header>
+                      <Header>Обратный звонок</Header>
+                      <Body>
+                        Оставьте свою заявку и наш менеджер свяжется с вами в
+                        течение 5 минут.
+                      </Body>
+                    </header>
+                  }
+                  fields={{
+                    name: {
+                      placeholder: 'Имя',
+                      required: true,
+                    },
+                    phone: {
+                      placeholder: 'Телефон',
+                      type: 'tel',
+                      required: true,
+                    },
+                  }}
+                  submitLabel="Оставить заявку"
+                  footer={
+                    <footer>
+                      <AgreementText>
+                        Отправляя заявку, вы соглашаетесь с нашей{' '}
+                        <AgreementLink
+                          href="/static/privacy-policy.pdf"
+                          target="_blank"
+                        >
+                          политикой конфиденциальности
+                        </AgreementLink>
+                        .
+                      </AgreementText>
+                    </footer>
+                  }
+                />
               </Modal>
             ) : (
               <Modal onClick={e => e.stopPropagation()}>

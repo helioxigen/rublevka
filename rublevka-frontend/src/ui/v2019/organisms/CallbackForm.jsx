@@ -94,14 +94,13 @@ export default class extends React.Component {
     }
 
     uis
-      .send(name, phone.match(/\d+/g).join(''), comment)
+      .send(name, phone, comment)
       .then(() => this.setState({ status: FormStatus.Sent }))
       .catch(() => this.setState({ status: FormStatus.Fail }));
   };
 
-  handleChange = name => e => {
+  handleChange = name => value => {
     const { values, errorFields } = this.state;
-    const { value } = e.target;
 
     this.setState({
       errorFields: value ? errorFields.filter(n => n !== name) : errorFields,
@@ -111,6 +110,8 @@ export default class extends React.Component {
       },
     });
   };
+
+  handleInputChange = name => e => this.handleChange(e.target.value);
 
   getStatus = () => {
     const { status } = this.state;
@@ -138,7 +139,7 @@ export default class extends React.Component {
                 return (
                   <TextArea
                     placeholder={placeholder}
-                    onChange={this.handleChange(name)}
+                    onChange={this.handleInputChange(name)}
                     value={values[name]}
                   />
                 );
@@ -146,7 +147,6 @@ export default class extends React.Component {
                 return (
                   <PhoneInput
                     hasError={errorFields.includes(name)}
-                    value={values[name]}
                     onChange={this.handleChange(name)}
                   />
                 );
@@ -156,7 +156,7 @@ export default class extends React.Component {
                     hasError={errorFields.includes(name)}
                     type={type}
                     placeholder={placeholder}
-                    onChange={this.handleChange(name)}
+                    onChange={this.handleInputChange(name)}
                     value={values[name]}
                   />
                 );

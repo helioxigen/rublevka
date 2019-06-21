@@ -87,6 +87,12 @@ export default class extends React.Component {
       values: { name, phone, comment },
     } = this.state;
 
+    if (process.env.HOST === 'dev2.rublevka.ru') {
+      return Promise.resolve().then(() =>
+        this.setState({ status: FormStatus.Sent }),
+      );
+    }
+
     uis
       .send(name, phone.match(/\d+/g).join(''), comment)
       .then(() => this.setState({ status: FormStatus.Sent }))

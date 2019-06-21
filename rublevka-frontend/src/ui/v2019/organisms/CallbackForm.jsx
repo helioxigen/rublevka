@@ -87,7 +87,7 @@ export default class extends React.Component {
       values: { name, phone, comment },
     } = this.state;
 
-    if (process.env.HOST === 'dev2.rublevka.ru') {
+    if (process.env.APP_ENV === 'development') {
       return Promise.resolve().then(() =>
         this.setState({ status: FormStatus.Sent }),
       );

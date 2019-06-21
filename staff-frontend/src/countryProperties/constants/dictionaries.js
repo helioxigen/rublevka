@@ -53,10 +53,16 @@ export const feeKinds = {
   percent: 'процент',
 };
 
-export const currencies = {
+export const detailPageCurrencies = {
   RUB: 'руб',
   USD: '$',
   EUR: '€',
+};
+
+export const listCurrencies = {
+  rub: 'руб',
+  usd: '$',
+  eur: '€',
 };
 
 export const categories = {

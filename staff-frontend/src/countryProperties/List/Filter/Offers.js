@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   dictionaryToOptions,
-  currencies,
+  listCurrencies,
   prices,
   dealTypes,
   resaleKinds,
@@ -17,7 +17,7 @@ export function Currency({ currentValue, update, remove }) {
       currentValue={currentValue}
       remove={remove}
       update={value => update(value)}
-      options={dictionaryToOptions(currencies)}
+      options={dictionaryToOptions(listCurrencies)}
     />
   );
 }
@@ -35,7 +35,7 @@ export function Price({
       currentValue={currentValue}
       remove={remove}
       update={value => update(value)}
-      options={prices[currencyValue][dealTypeValue]}
+      options={prices[currencyValue.toLowerCase()][dealTypeValue]}
     />
   );
 }

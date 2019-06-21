@@ -27,7 +27,7 @@ import {
   periods,
   binarySelect,
   dictionaryToOptions,
-  currencies,
+  detailPageCurrencies,
   deposits,
 } from '../constants/dictionaries';
 import Switcher from '../../UI/Switcher';
@@ -378,7 +378,9 @@ const SaleOfferEdit = ({
           onSubmit={(value) => {
             updatePrice(value, currency);
           }}
-          placeholder={`Цена${currency ? `, ${currencies[currency]}` : ''}`}
+          placeholder={`Цена${
+            currency ? `, ${detailPageCurrencies[currency]}` : ''
+          }`}
         />
         <Switcher
           selected={currency}
@@ -423,7 +425,7 @@ const SaleOfferEdit = ({
               defaultValue={agentFixedPrice.price}
               placeholder={`Сумма${
                 agentFixedPrice.currency
-                  ? `, ${currencies[agentFixedPrice.currency]}`
+                  ? `, ${detailPageCurrencies[agentFixedPrice.currency]}`
                   : ''
               }`}
               onSubmit={(value) => {
@@ -512,7 +514,9 @@ const RentOfferEdit = ({
           onSubmit={(value) => {
             updatePrice(value, currency);
           }}
-          placeholder={`Цена${currency ? `, ${currencies[currency]}` : ''}`}
+          placeholder={`Цена${
+            currency ? `, ${detailPageCurrencies[currency]}` : ''
+          }`}
         />
         <Switcher
           selected={currency}
@@ -559,7 +563,7 @@ const RentOfferEdit = ({
               defaultValue={agentFixedPrice.price}
               placeholder={`Сумма${
                 agentFixedPrice.currency
-                  ? `, ${currencies[agentFixedPrice.currency]}`
+                  ? `, ${detailPageCurrencies[agentFixedPrice.currency]}`
                   : ''
               }`}
               onSubmit={(value) => {

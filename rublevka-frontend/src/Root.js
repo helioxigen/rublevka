@@ -27,6 +27,7 @@ const Main = styled.main`
 
 export const Wrapper = styled.div`
   background-color: #fafafa;
+  overflow: hidden;
   ${media.sm`
     padding-top: ${isJQ ? '2.5rem' : '0px'};
   `} ${media.md`

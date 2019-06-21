@@ -9,12 +9,11 @@ const Header = styled.p`
   margin: 0;
   margin-bottom: 42px;
   line-height: 36px;
-  font-size: 28px;
+  font-size: 24px;
   color: #fff;
   font-weight: bold;
 
   ${media.xs`
-    font-size: 26px;
     margin: 0;
     transform: translateY(-50px);
     margin-bottom: 30px;

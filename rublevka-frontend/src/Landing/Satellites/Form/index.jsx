@@ -30,7 +30,7 @@ const Tab = styled.button`
   white-space: nowrap;
   line-height: 19px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 700;
   padding: 0;
   border: none;
   background: none;

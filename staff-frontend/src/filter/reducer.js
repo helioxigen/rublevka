@@ -3,7 +3,11 @@ import cloneDeep from 'lodash/cloneDeep';
 
 import * as types from './constants';
 
-const initialState = {};
+const initialState = {
+  'countryProperties.all': {
+    currency: 'rub',
+  },
+};
 
 export default handleActions(
   {

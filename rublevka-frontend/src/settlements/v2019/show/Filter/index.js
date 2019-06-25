@@ -115,7 +115,7 @@ class Filter extends Component {
   }
 
   renderFilters() {
-    const { state, dealType, onTypeChange } = this.props;
+    const { state = {}, dealType, onTypeChange } = this.props;
 
     return (
       <div>
@@ -146,7 +146,7 @@ class Filter extends Component {
         />
 
         <Renovate
-          selected={state}
+          selected={state.renovate || []}
           updateFilter={this.updateFilter}
           removeFilter={this.removeFilter}
         />

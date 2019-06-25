@@ -16,13 +16,25 @@ export default handleActions(
       [resource]: {},
     }),
 
-    [types.UPDATE_FILTER]: (state, { resource, values }) => ({
-      ...state,
-      [resource]: {
-        ...state[resource],
-        ...values,
-      },
-    }),
+    [types.UPDATE_FILTER]: (state, { resource, values }) => {
+      if (values.currency) {
+        // we need to reset "sale" field in case of currency switching
+        const newState = cloneDeep(state);
+        newState[resource].currency = values.currency;
+        delete newState[resource].sale;
+
+        console.log('newState:', newState);
+        return newState;
+      }
+
+      return {
+        ...state,
+        [resource]: {
+          ...state[resource],
+          ...values,
+        },
+      };
+    },
 
     [types.REMOVE_FILTER]: (state, { resource, key, value }) => {
       if (value) {

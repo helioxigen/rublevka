@@ -25,7 +25,11 @@ const List = styled.ul`
     display: flex;
     align-items: center;
     list-style: none;
-    padding: 8px 13px;
+    cursor: pointer;
+    padding: 11px 9px;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
 
     span {
       white-space: nowrap;
@@ -59,6 +63,7 @@ class CountrySelector extends React.Component {
 
     this.setState({
       current: code,
+      isDropDownOpen: false,
     });
   };
 
@@ -75,15 +80,17 @@ class CountrySelector extends React.Component {
     const { className } = this.props;
 
     return (
-      <button type="button" className={className} onClick={this.toggleDropDown}>
-        <Flag code={current.toLowerCase()} />
-        <select onChange={this.handleSelectChange} value={current}>
-          {codes.map(({ dial_code, code }) => (
-            <option value={code}>
-              {countries[code]} {dial_code}
-            </option>
-          ))}
-        </select>
+      <div className={className}>
+        <button type="button" onClick={this.toggleDropDown}>
+          <Flag code={current.toLowerCase()} />
+          <select onChange={this.handleSelectChange} value={current}>
+            {codes.map(({ dial_code, code }) => (
+              <option value={code}>
+                {countries[code]} {dial_code}
+              </option>
+            ))}
+          </select>
+        </button>
         <List style={{ visibility: isDropDownOpen ? 'visible' : 'hidden' }}>
           {codes.map(({ dial_code, code }) => (
             <li
@@ -95,25 +102,35 @@ class CountrySelector extends React.Component {
             </li>
           ))}
         </List>
-      </button>
+      </div>
     );
   }
 }
 
 export default styled(CountrySelector)`
-  width: 40px;
-  height: 100%;
+  button {
+    position: absolute;
+    width: 42px;
+    height: 100%;
 
-  background: none;
-  border: none;
-  outline: none;
+    background: none;
+    border: none;
+    outline: none;
 
-  padding: 20px 0 16px 14px;
+    padding: 20px 0 16px 14px;
 
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
+  }
 
-  position: relative;
+  button::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 4px 4px 0 4px;
+    border-color: #aaaaaa transparent transparent transparent;
+  }
 
   select {
     opacity: 0;
@@ -126,19 +143,11 @@ export default styled(CountrySelector)`
   }
 
   ${List} {
+    width: 100%;
     display: none;
 
     ${media.sm`
       display: block;
     `}
-  }
-
-  ::after {
-    content: '';
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 4px 4px 0 4px;
-    border-color: #aaaaaa transparent transparent transparent;
   }
 `;

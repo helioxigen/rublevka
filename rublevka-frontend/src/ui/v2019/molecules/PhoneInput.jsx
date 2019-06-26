@@ -6,33 +6,37 @@ import styled from 'styled-components';
 class PhoneInput extends React.Component {
   state = {
     code: '+7',
-    phone: '',
+    subCode: '',
   };
 
-  handleChange = name => value => {
-    this.setState({ [name]: value }, this.stateCallback);
-  };
+  handleChangeCode = value => {
+    const [code, subCode] = value.split(' ');
 
-  stateCallback = () => {
-    const { code, phone } = this.state;
+    this.setState({
+      code,
+      subCode,
+    });
 
-    this.props.onChange(`${code} ${phone}`);
+    this.props.onChange('');
+
+    this.inputRef.focus();
   };
 
   render() {
-    const { phone } = this.state;
-    const { className, hasError } = this.props;
+    const { code, subCode } = this.state;
+    const { className, hasError, value, onChange } = this.props;
 
     return (
       <div className={className}>
-        <CountriesSelector onChange={this.handleChange('code')} />
+        <CountriesSelector onChange={this.handleChangeCode} />
         <Input
+          inputRef={ref => (this.inputRef = ref)}
           hasError={hasError}
           type="tel"
-          mask="(999) 999-99-99"
-          placeholder="(943) 235-56-34"
-          onChange={e => this.handleChange('phone')(e.target.value)}
-          value={phone}
+          mask={`${code} (${subCode || 999}) 999-99-99`}
+          alwaysShowMask
+          onChange={e => onChange(e.target.value)}
+          value={value}
         />
       </div>
     );
@@ -41,11 +45,6 @@ class PhoneInput extends React.Component {
 
 export default styled(PhoneInput)`
   position: relative;
-
-  ${CountriesSelector} {
-    position: absolute;
-    left: 0;
-  }
 
   ${Input} {
     width: 100%;

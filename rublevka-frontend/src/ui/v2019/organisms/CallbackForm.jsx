@@ -105,7 +105,7 @@ export default class extends React.Component {
     });
   };
 
-  handleInputChange = name => e => this.handleChange(e.target.value);
+  handleInputChange = name => e => this.handleChange(name)(e.target.value);
 
   getStatus = () => {
     const { status } = this.state;
@@ -142,6 +142,7 @@ export default class extends React.Component {
                   <PhoneInput
                     hasError={errorFields.includes(name)}
                     onChange={this.handleChange(name)}
+                    value={values[name]}
                   />
                 );
               default:

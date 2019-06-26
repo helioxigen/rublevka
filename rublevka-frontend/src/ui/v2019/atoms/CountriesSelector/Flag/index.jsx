@@ -10,21 +10,21 @@ const Flag = ({ className, code }) => (
 export default styled(Flag)`
   display: flex;
   align-items: center;
-  width: 30px;
+  width: 20px;
+  height: 15px;
 
   position: relative;
-
-  border-radius: 1px;
-  margin-right: 4px;
 
   .flag {
     background-image: url(${require('./spritesheet.png')});
     background-repeat: no-repeat;
     display: block;
 
-    transform: scale(0.15);
+    transform: scale(0.2);
     transform-origin: left;
     position: absolute;
+
+    border-radius: 5px;
 
     box-shadow: 0px 0px 4px 0px #888;
   }

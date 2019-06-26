@@ -12,15 +12,22 @@ class PhoneInput extends React.Component {
   handleChangeCode = value => {
     const [code, subCode] = value.split(' ');
 
-    this.setState({
-      code,
-      subCode,
-    });
+    this.setState(
+      {
+        code,
+        subCode,
+      },
+      this.codeChangeCallback,
+    );
+  };
 
+  codeChangeCallback = () => {
     this.props.onChange('');
 
     this.inputRef.focus();
   };
+
+  mask = (value = '') => value.replace(/9/g, '\\9');
 
   render() {
     const { code, subCode } = this.state;
@@ -33,8 +40,8 @@ class PhoneInput extends React.Component {
           inputRef={ref => (this.inputRef = ref)}
           hasError={hasError}
           type="tel"
-          mask={`${code} (${subCode || 999}) 999-99-99`}
-          alwaysShowMask
+          mask={`${this.mask(code)} (${this.mask(subCode) || 999}) 999-99-99`}
+          placeholder={`${code} (${subCode || 374}) 654-32-45`}
           onChange={e => onChange(e.target.value)}
           value={value}
         />
@@ -48,6 +55,6 @@ export default styled(PhoneInput)`
 
   ${Input} {
     width: 100%;
-    padding-left: 48px;
+    padding-left: 56px;
   }
 `;

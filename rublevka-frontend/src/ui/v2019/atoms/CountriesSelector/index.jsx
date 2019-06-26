@@ -16,6 +16,7 @@ const List = styled.ul`
   overflow-y: scroll;
 
   position: absolute;
+  z-index: 100;
   top: 100%;
   margin-top: 4px;
   left: 0;
@@ -26,13 +27,17 @@ const List = styled.ul`
     align-items: center;
     list-style: none;
     cursor: pointer;
-    padding: 11px 9px;
+    padding: 11px 10px;
 
-    text-overflow: ellipsis;
-    overflow: hidden;
+    ${Flag} {
+      width: 35px;
+      flex: 0 0 auto;
+    }
 
-    span {
+    span:nth-child(2) {
       white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
 
     span:last-child {
@@ -91,6 +96,9 @@ class CountrySelector extends React.Component {
             ))}
           </select>
         </button>
+        {isDropDownOpen && (
+          <div className="click-away-overlay" onClick={this.toggleDropDown} />
+        )}
         <List style={{ visibility: isDropDownOpen ? 'visible' : 'hidden' }}>
           {codes.map(({ dial_code, code }) => (
             <li
@@ -110,14 +118,13 @@ class CountrySelector extends React.Component {
 export default styled(CountrySelector)`
   button {
     position: absolute;
-    width: 42px;
     height: 100%;
 
     background: none;
     border: none;
     outline: none;
 
-    padding: 20px 0 16px 14px;
+    padding: 0 0 0 15px;
 
     display: flex;
     align-items: center;
@@ -130,16 +137,28 @@ export default styled(CountrySelector)`
     border-style: solid;
     border-width: 4px 4px 0 4px;
     border-color: #aaaaaa transparent transparent transparent;
+    margin-left: 3px;
   }
 
   select {
     opacity: 0;
     position: absolute;
-    width: 26px;
+    width: 100%;
+    height: 100%;
+    left: 0;
 
     ${media.sm`
       display: none;
     `}
+  }
+
+  .click-away-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
   }
 
   ${List} {

@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import media from '../../../styles/media';
+import Input from '../atoms/Input';
+import PhoneInput from '../molecules/PhoneInput';
 
 export default styled.form`
   display: flex;
@@ -11,6 +13,10 @@ export default styled.form`
 
   footer {
     margin-top: 12px;
+  }
+
+  & > ${Input}, ${PhoneInput} {
+    margin: 4px 0;
   }
 
   .error {

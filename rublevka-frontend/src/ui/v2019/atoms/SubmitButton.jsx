@@ -18,6 +18,8 @@ export default styled.button`
   display: flex;
   justify-content: center;
 
+  ${({ fullWidth }) => fullWidth && 'width: 100%;'}
+
   ${media.xs`
     margin-top: 8px;
   `}

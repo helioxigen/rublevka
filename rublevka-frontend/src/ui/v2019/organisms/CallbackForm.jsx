@@ -111,7 +111,7 @@ export default class extends React.Component {
     });
   };
 
-  handleInputChange = name => e => this.handleChange(e.target.value);
+  handleInputChange = name => e => this.handleChange(name)(e.target.value);
 
   getStatus = () => {
     const { status } = this.state;
@@ -125,7 +125,7 @@ export default class extends React.Component {
 
   render() {
     const { values, errorFields } = this.state;
-    const { fields, submitLabel, header, footer } = this.props;
+    const { fields, submitLabel, header, footer, fullWidth } = this.props;
 
     const status = this.getStatus();
 
@@ -148,6 +148,7 @@ export default class extends React.Component {
                   <PhoneInput
                     hasError={errorFields.includes(name)}
                     onChange={this.handleChange(name)}
+                    value={values[name]}
                   />
                 );
               default:
@@ -170,10 +171,12 @@ export default class extends React.Component {
           <p className="error">При отправке формы позникла ошибка</p>
         )}
         {status.Initial && (
-          <SubmitButton type="submit">{submitLabel}</SubmitButton>
+          <SubmitButton fullWidth={fullWidth} type="submit">
+            {submitLabel}
+          </SubmitButton>
         )}
         {status.Fail && (
-          <SubmitButton>
+          <SubmitButton fullWidth={fullWidth}>
             <RetryIcon />
             Попробовать еще
           </SubmitButton>

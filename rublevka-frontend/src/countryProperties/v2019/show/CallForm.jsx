@@ -299,6 +299,7 @@ export default class CallForm extends React.Component {
               required: true,
             },
           }}
+          fullWidth
           submitLabel="Забронировать просмотр"
         />
         <Visibility xs="hidden" sm="hidden" md="hidden" lg="block">

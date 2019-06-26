@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import Flag from './Flag';
+import media from '../../../../styles/media.js';
 
 const countries = require('./countries.json');
 const codes = require('./codes.json');
@@ -24,10 +26,6 @@ const List = styled.ul`
     align-items: center;
     list-style: none;
     padding: 8px 13px;
-
-    .flag {
-      width: 18px;
-    }
 
     span {
       white-space: nowrap;
@@ -64,24 +62,35 @@ class CountrySelector extends React.Component {
     });
   };
 
+  handleSelectChange = e => {
+    const { code, dial_code } = codes.find(
+      ({ code }) => code === e.target.value,
+    );
+
+    this.handleCountryChange(code, dial_code)();
+  };
+
   render() {
     const { current, isDropDownOpen } = this.state;
     const { className } = this.props;
 
     return (
       <button type="button" className={className} onClick={this.toggleDropDown}>
-        <span className="flag">
-          <img src={require(`./flags/${current.toLowerCase()}.png`)} />
-        </span>
-        <List style={{ display: isDropDownOpen ? 'block' : 'none' }}>
+        <Flag code={current.toLowerCase()} />
+        <select onChange={this.handleSelectChange} value={current}>
+          {codes.map(({ dial_code, code }) => (
+            <option value={code}>
+              {countries[code]} {dial_code}
+            </option>
+          ))}
+        </select>
+        <List style={{ visibility: isDropDownOpen ? 'visible' : 'hidden' }}>
           {codes.map(({ dial_code, code }) => (
             <li
               role="menuitem"
               onClick={this.handleCountryChange(code, dial_code)}
             >
-              <span className="flag">
-                <img src={require(`./flags/${code.toLowerCase()}.png`)} />
-              </span>
+              <Flag code={code.toLowerCase()} />
               {countries[code]} {dial_code}
             </li>
           ))}
@@ -90,16 +99,6 @@ class CountrySelector extends React.Component {
     );
   }
 }
-
-// const CountrySelector = ({ current = 'ru', className }) => (
-//   <button type="button" className={className}>
-//     <span
-//       style={{
-//         backgroundImage: `url(${require(`./flags/${current.toLowerCase()}.png`)})`,
-//       }}
-//     />
-//   </button>
-// );
 
 export default styled(CountrySelector)`
   width: 40px;
@@ -114,20 +113,24 @@ export default styled(CountrySelector)`
   display: flex;
   align-items: center;
 
-  .flag {
-    display: flex;
-    align-items: center;
-    width: 30px;
+  position: relative;
 
-    border-radius: 1px;
-    margin-right: 4px;
+  select {
+    opacity: 0;
+    position: absolute;
+    width: 26px;
 
-    background: center / contain no-repeat;
+    ${media.sm`
+      display: none;
+    `}
+  }
 
-    img {
-      width: 100%;
-      box-shadow: 0px 0px 1px 0px #888;
-    }
+  ${List} {
+    display: none;
+
+    ${media.sm`
+      display: block;
+    `}
   }
 
   ::after {

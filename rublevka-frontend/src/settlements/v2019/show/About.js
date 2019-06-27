@@ -10,14 +10,32 @@ const {
 } = UI;
 
 const Wrapper = WrapperBase.extend`
-  min-height: 256px;
+  height: 175px;
+
+  nav {
+    position: absolute;
+  }
+
+  > * {
+    height: 100%;
+  }
+
+  ${Header} {
+    padding: 0;
+
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
   ${media.xs`
-    min-height: 284px;
+    display: block;
+    height: 284px;
   `}
 
   ${media.md`
-    min-height: 358px;
+    height: 358px;
   `}
 `;
 

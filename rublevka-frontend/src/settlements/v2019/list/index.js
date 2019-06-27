@@ -129,7 +129,7 @@ class SettlementsContainer extends Component {
       <section>
         <Helmet pagination={pagination} location={location} />
 
-        <Hero />
+        <Hero settlements={state.settlements} />
         <Container>
           <Col mdOffset="1" xs="12" md="10" style={{ position: 'relative' }}>
             {hasItems &&

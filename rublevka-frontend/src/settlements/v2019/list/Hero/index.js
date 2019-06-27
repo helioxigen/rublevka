@@ -62,14 +62,14 @@ export const FormWrapper = styled.div`
 
 const isRiga = global.config.domain === 'riga.ru';
 
-export default () => (
+export default ({ settlements = {} }) => (
   <Wrapper>
     <Container>
       <Breadcrumbs />
       <Header>Посёлки на {isRiga ? 'Новой Риге' : 'Рублёвке'}</Header>
       <Col mdOffset="1" xs="12" md="10">
         <FormWrapper>
-          <Form />
+          <Form settlementsList={Object.values(settlements)} />
         </FormWrapper>
       </Col>
     </Container>

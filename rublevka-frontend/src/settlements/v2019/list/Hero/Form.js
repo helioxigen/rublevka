@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import global from 'window-or-global';
 import qs from 'qs';
 
+import Fuse from 'fuse.js';
+
 import Downshift from 'downshift';
 import { Link } from 'react-router';
 
@@ -127,23 +129,39 @@ class FormClass extends Component {
     }
   }
 
-  handleQueryChange = (value) => {
+  handleQueryChange = value => {
     this.setState({ name: value });
 
-    const query = {
-      filter: {
-        name: `*${value}*`,
-        state: 'public',
-        'location.routeId': global.config.routes.map(el => el.id),
-      },
-      pagination: {
-        limit: 5,
-      },
-    };
+    const fuse = new Fuse(this.props.settlementsList, {
+      shouldSort: true,
+      threshold: 0.6,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 1,
+      keys: ['data.name'],
+    });
 
-    API.get(
-      `/v1/places/settlements?${qs.stringify(query, { indices: false })}`,
-    ).then(data => this.setState({ searchResults: data.body.items }));
+    const result = fuse.search(value);
+
+    console.log(result);
+
+    this.setState({ searchResults: result.slice(0, 10) });
+
+    // const query = {
+    //   filter: {
+    //     name: `*${value}*`,
+    //     state: 'public',
+    //     'location.routeId': global.config.routes.map(el => el.id),
+    //   },
+    //   pagination: {
+    //     limit: 5,
+    //   },
+    // };
+
+    // API.get(
+    //   `/v1/places/settlements?${qs.stringify(query, { indices: false })}`,
+    // ).then(data => this.setState({ searchResults: data.body.items }));
   };
 
   search = () => {
@@ -154,16 +172,6 @@ class FormClass extends Component {
       updateFilter(resource, { name, mkadDistance: mkadDistance.value }),
     );
   };
-
-  renderSearchResult = data => (
-    <DropdownLink
-      to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(data.name)}_${
-        data.id
-      }`}
-    >
-      {data.name}
-    </DropdownLink>
-  );
 
   closeDropdown = () => {
     setTimeout(() => this.setState({ isDropdownOpen: false }), 200);
@@ -190,16 +198,24 @@ class FormClass extends Component {
               <InputDropdown>
                 {name === '' || searchResults.length === 0
                   ? Object.keys(popularForRoute).map(id => (
-                    <DropdownLink
-                      to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
+                      <DropdownLink
+                        to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
                           popularForRoute[id],
                         )}_${id}`}
-                      key={id}
-                    >
-                      {popularForRoute[id]}
-                    </DropdownLink>
+                        key={id}
+                      >
+                        {popularForRoute[id]}
+                      </DropdownLink>
                     ))
-                  : searchResults.map(this.renderSearchResult)}
+                  : searchResults.map(({ data }) => (
+                      <DropdownLink
+                        to={`/zagorodnaya/kottedzhnye-poselki/${nameToSlug(
+                          data.name,
+                        )}_${data.id}`}
+                      >
+                        {data.name}
+                      </DropdownLink>
+                    ))}
               </InputDropdown>
             )}
           </InputWrapper>

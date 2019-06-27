@@ -62,7 +62,7 @@ const CardsContainer = styled.div`
 `;
 
 const HeaderWrapper = HeaderWrapperBase.extend`
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 
   ${media.md`
     margin-top: 32px;

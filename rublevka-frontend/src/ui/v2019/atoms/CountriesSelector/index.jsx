@@ -4,7 +4,9 @@ import Flag from './Flag';
 import media from '../../../../styles/media.js';
 
 const countries = require('./countries.json');
-const codes = require('./codes.json');
+const codes = require('./codes.json').sort((a, b) =>
+  countries[a.code].localeCompare(countries[b.code]),
+);
 
 const List = styled.ul`
   background: #ffffff;
@@ -64,7 +66,7 @@ class CountrySelector extends React.Component {
   };
 
   handleCountryChange = (code, dialCode) => () => {
-    this.props.onChange(dialCode);
+    this.props.onChange(code, dialCode);
 
     this.setState({
       current: code,

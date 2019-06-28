@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { media } from '../../../utils';
+import { media } from '../../../../utils';
 
-const OptionsList = ({ className, getMenuProps, getItemProps, selectedItem, items }) => (
+const OptionsList = ({ className, getMenuProps, getItemProps, selectedItem = {}, items = [] }) => (
     <ul className={className} {...getMenuProps({ refKey: 'innerRef' })}>
         {items.map((item, index) => (
             <li
+                key={item.value}
                 {...getItemProps({
                     key: item.value,
                     index,

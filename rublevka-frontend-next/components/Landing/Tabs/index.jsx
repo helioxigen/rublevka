@@ -13,7 +13,12 @@ const Tabs = ({ className, tabs, children }) => {
                 <Underline style={{ transform: `translateX(${tabIndex * 100}%)` }} />
                 <Underline mobile style={{ transform: `translateX(${(tabIndex - 1) * 100}%)` }} />
                 {Object.entries(tabs).map(([name, title], idx) => (
-                    <Tab data-name={name} data-selected={selectedTab} onClick={() => changeTab([idx, name])}>
+                    <Tab
+                        key={name}
+                        data-name={name}
+                        data-selected={selectedTab === name}
+                        onClick={() => changeTab([idx, name])}
+                    >
                         {title}
                     </Tab>
                 ))}

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { media } from '../../../utils';
+import { media } from '../../../../utils';
 
 const DropdownToggle = ({ className, label, value, getToggleButtonProps }) => (
     <div className={className} {...getToggleButtonProps({ refKey: 'innerRef' })}>

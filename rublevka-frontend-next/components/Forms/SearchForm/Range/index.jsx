@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import RangeInput from './RangeInput';
-import { media } from '../../../utils';
+import { media } from '../../../../utils';
 
 const Range = ({ className, onChange, items, bound, initialValue }) => (
     <div className={className}>

@@ -4,21 +4,29 @@ import styled from 'styled-components';
 import Downshift from 'downshift';
 import DropdownToggle from './DropdownToggle';
 import Options from '../Options';
-import { media } from '../../../utils';
+import { media } from '../../../../utils';
 import Range from '../Range';
 
-const Dropdown = ({ className, onChange, label, items, withRange, onRangeChange }) => (
-    <Downshift onChange={item => onChange(item.value)} itemToString={item => `${item}`} initialSelectedItem={items[0]}>
-        {({ getToggleButtonProps, isOpen, selectedItem, getRootProps, getMenuProps, getItemProps, selectItem }) => (
-            <div className={className} data-open={isOpen} {...getRootProps({ refKey: 'innerRef' })}>
-                <DropdownToggle label={label} value={selectedItem.value} getToggleButtonProps={getToggleButtonProps} />
+const Dropdown = ({ className, onChange, label, placeholder, items = [], withRange }) => (
+    <Downshift
+        onChange={item => onChange(item.value)}
+        itemToString={item => `${item}`}
+        initialSelectedItem={{ value: null }}
+    >
+        {({ getToggleButtonProps, isOpen, selectedItem, getMenuProps, getItemProps, selectItem }) => (
+            <div className={className} data-open={isOpen}>
+                <DropdownToggle
+                    label={label}
+                    value={selectedItem.value || placeholder}
+                    getToggleButtonProps={getToggleButtonProps}
+                />
                 <Options.Menu
                     getToggleButtonProps={getToggleButtonProps}
                     getMenuProps={getMenuProps}
-                    isResetButtonActive={selectedItem !== items[0]}
-                    resetButtonCallback={() => selectItem(items[0])}
+                    isResetButtonActive={selectedItem.value !== null}
+                    resetButtonCallback={() => selectItem({ value: null })}
                 >
-                    {withRange && <Range onChange={onRangeChange} />}
+                    {withRange && <Range onChange={onChange} />}
                     {items && <Options.List getMenuProps={getMenuProps} getItemProps={getItemProps} items={items} />}
                 </Options.Menu>
             </div>
@@ -81,5 +89,13 @@ export default styled(Dropdown)`
       &:hover {
         cursor: pointer;
       }
+
+      ${Options.Menu} {
+          display: none;
+      }
+
+      &[data-open="true"] ${Options.Menu} {
+            display: block;
+        }
     `}
 `;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { media } from '../../../utils';
-import { Icon } from '../../UI/atoms';
+import { media } from '../../../../utils';
+import { Icon } from '../../../UI/atoms';
 
 const Options = ({ className, children, getToggleButtonProps, withSaveButton, isResetButtonActive, onReset }) => (
     <div className={className}>

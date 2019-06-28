@@ -1,7 +1,6 @@
 import React from 'react';
 import { LandingPage } from '../components/UI/templates';
 import Hero from '../components/Landing/Hero';
-import LandingBlock from '../components/UI/templates/LandingBlock';
 import Block from '../components/Landing/Block';
 import { Button } from '../components/UI/atoms';
 

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Header } from '../UI';
 import { app } from '../../utils';
 import Tabs from './Tabs';
+import { SearchForm } from '../Forms';
 // import Form from '../../../rublevka-frontend/src/Landing/Satellites/Form';
 
 const LandingHero = ({ className }) => (
@@ -13,7 +14,7 @@ const LandingHero = ({ className }) => (
             домов на {app.ifDomain('Рублёвке', 'Новой Риге')}
         </Header.Landing>
         {/* <Form /> */}
-        {/* <Tabs
+        <Tabs
             tabs={{
                 objectNumber: '№ объекта',
                 sell: 'Продажа',
@@ -21,8 +22,8 @@ const LandingHero = ({ className }) => (
                 settlements: 'Посёлки',
             }}
         >
-
-        </Tabs> */}
+            {type => <SearchForm type={type} />}
+        </Tabs>
     </section>
 );
 
@@ -31,6 +32,7 @@ export default styled(LandingHero)`
     height: 100vh;
 
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 `;

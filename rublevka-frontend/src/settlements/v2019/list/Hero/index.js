@@ -37,7 +37,6 @@ export const Header = styled.h1`
   `}
 
   ${media.md`
-    margin-top: 64px;
     line-height: 58px;
     font-size: 48px;
     text-shadow: 0px 0px 35px rgba(0, 0, 0, 0.59);

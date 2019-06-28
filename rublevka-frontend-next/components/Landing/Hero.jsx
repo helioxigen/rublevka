@@ -31,8 +31,16 @@ export default styled(LandingHero)`
     background-image: url('/static/landing/background.jpg');
     height: 100vh;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid: repeat(2, 1fr) 56px 1fr repeat(2, 1fr) / 10% 1fr repeat(2, 4fr) 1fr 10%;
+
+    ${Header.Landing} {
+        grid-row: 2;
+        grid-column: 2 / span 2;
+    }
+
+    ${Tabs} {
+        grid-row: 4;
+        grid-column: 3 / span 2;
+    }
 `;

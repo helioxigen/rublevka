@@ -10,9 +10,12 @@ export default styled.span`
         display: ${sc.ifProp('mobile', 'none', 'block')};
     `}
 
+    box-sizing: border-box;
+
     ::before {
         content: '';
         display: block;
+        box-sizing: border-box;
         width: 100%;
         height: 100%;
         border-bottom: 2px solid #f44336;

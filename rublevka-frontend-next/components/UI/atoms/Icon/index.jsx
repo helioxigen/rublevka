@@ -10,14 +10,14 @@ const Icon = ({ className, name }) => {
 
     return (
         <span className={className}>
-            <IconSVG />
+            <IconSVG viewBox="0 0 28 28" />
         </span>
     );
 };
 
 export default styled(Icon)`
-    width: 1em;
-    height: 1em;
+    width: 1.6em;
+    height: 1.6em;
 
     svg {
         width: 100%;

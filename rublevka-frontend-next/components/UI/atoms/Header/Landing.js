@@ -3,7 +3,6 @@ import media from '../../../../utils/media';
 
 export default styled.h2`
     margin: 0;
-    margin-bottom: 42px;
     line-height: 36px;
     font-size: 24px;
     color: #fff;

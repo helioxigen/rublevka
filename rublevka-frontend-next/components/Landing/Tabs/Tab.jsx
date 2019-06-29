@@ -22,7 +22,8 @@ export default styled.button`
         position: absolute;
         display: block;
         height: 100%;
-        transition: 0.6s;
+        width: 100%;
+        transition: 400ms;
         border-bottom: 2px solid transparent;
         bottom: 0;
 
@@ -45,15 +46,20 @@ export default styled.button`
         text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.35);
     `}
 
-    &[data-selected='true'] {
-        opacity: 1;
+    &[data-selected='true']::before {
+        border-bottom-color: #f44336;
+
+        ${media.xs`
+            border-bottom-color: #ffffff;
+        `}
+        transition-delay: 500ms;
     }
 
     &[data-selected='false']:hover::before {
         border-bottom-color: #f44336;
 
         ${media.xs`
-            border-bottom-color: #ffffff;
+            border-bottom-color: rgba(255, 255, 255, 0.5);
         `}
     }
 

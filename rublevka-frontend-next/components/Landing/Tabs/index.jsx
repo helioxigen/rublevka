@@ -1,23 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Tab from './Tab';
 import { media } from '../../../utils';
-import Underline from './Underline';
 
 const Tabs = ({ className, tabs, children }) => {
-    const [[tabIndex, selectedTab], changeTab] = useState([1, 'sell']);
+    const [selectedTab, changeTab] = useState('sell');
+    const tabsContainer = useRef(null);
+
+    const handleTabChange = name => e => {
+        const { offsetLeft, offsetWidth } = e.target;
+
+        const underline = document.createElement('span');
+
+        underline.className = 'underline';
+
+        underline.style.width = `${offsetWidth}px`;
+        underline.style.left = `${offsetLeft}px`;
+
+        tabsContainer.current.appendChild(underline);
+
+        changeTab(name);
+    };
+
+    useEffect(() => {
+        const underline = tabsContainer.current.querySelector(`.underline`);
+        if (!underline) return;
+
+        const nextTarget = tabsContainer.current.querySelector(`[data-name=${selectedTab}`);
+        underline.style.width = `${nextTarget.offsetWidth}px`;
+        underline.style.left = `${nextTarget.offsetLeft}px`;
+        underline.addEventListener('transitionend', e => e.target.remove());
+    }, [selectedTab]);
 
     return (
         <section className={className}>
-            <header>
-                <Underline style={{ transform: `translateX(${tabIndex * 100}%)` }} />
-                <Underline mobile style={{ transform: `translateX(${(tabIndex - 1) * 100}%)` }} />
-                {Object.entries(tabs).map(([name, title], idx) => (
+            <header ref={tabsContainer}>
+                {Object.entries(tabs).map(([name, title]) => (
                     <Tab
                         key={name}
                         data-name={name}
                         data-selected={selectedTab === name}
-                        onClick={() => changeTab([idx, name])}
+                        onClick={handleTabChange(name)}
                     >
                         {title}
                     </Tab>
@@ -30,29 +53,26 @@ const Tabs = ({ className, tabs, children }) => {
 };
 
 export default styled(Tabs)`
+    .underline {
+        position: absolute;
+        height: 2px;
+        background: #fff;
+        transition: 225ms ease;
+        bottom: 0;
+    }
+
+    ${Tab} {
+        transition-delay: 500ms;
+    }
+
     header {
         display: flex;
         overflow-x: scroll;
         position: relative;
 
-        margin: 0 -25px;
-
         max-width: 590px;
 
-        ${Tab}::before {
-            right: 25px;
-            left: 25px;
-        }
-
-        ${Tab}, ${Underline} {
-            width: 33%;
-            padding-left: 25px;
-            padding-right: 25px;
-
-            ${media.xs`
-                width: 25%;
-            `}
-        }
+        justify-content: space-between;
 
         ::-webkit-scrollbar {
             display: none;

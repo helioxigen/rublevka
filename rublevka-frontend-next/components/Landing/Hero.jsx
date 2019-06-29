@@ -13,10 +13,9 @@ const LandingHero = ({ className }) => (
             <br />
             домов на {app.ifDomain('Рублёвке', 'Новой Риге')}
         </Header.Landing>
-        {/* <Form /> */}
         <Tabs
             tabs={{
-                objectNumber: '№ объекта',
+                objectNumber: 'Номер объекта',
                 sell: 'Продажа',
                 rent: 'Аренда',
                 settlements: 'Посёлки',
@@ -28,7 +27,7 @@ const LandingHero = ({ className }) => (
 );
 
 export default styled(LandingHero)`
-    background-image: url('/static/landing/background.jpg');
+    background: url('/static/landing/background.jpg') center / 100%;
     height: 100vh;
 
     display: grid;

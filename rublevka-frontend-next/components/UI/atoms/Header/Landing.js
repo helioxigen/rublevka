@@ -10,7 +10,6 @@ export default styled.h2`
 
     ${media.xs`
         margin: 0;
-        margin-bottom: 30px;
         line-height: 48px;
         font-size: 40px;
         color: #fff;

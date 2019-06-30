@@ -50,25 +50,41 @@ const fields = {
     bedrooms: {
         title: 'Спален',
         placeholder: 'Любое количество',
-        type: 'from-range',
+        type: 'list',
         items: [
             {
                 value: 2,
-                name: '2+',
+                label: '2+',
             },
             {
                 value: 3,
-                name: '3+',
+                label: '3+',
             },
             {
                 value: 4,
-                name: '4+',
+                label: '4+',
             },
             {
                 value: 5,
-                name: '5+',
+                label: '5+',
             },
         ],
+    },
+    distance: {
+        title: 'От мкад',
+        placeholder: 'Любое',
+        type: 'range',
+        range: {
+            template: v => (v === 0 ? '0' : `${v} км`),
+        },
+    },
+    name: {
+        placeholder: 'Введите название посёлка',
+        type: 'text',
+    },
+    objectNumber: {
+        placeholder: 'Введите номер объекта',
+        type: 'text',
     },
 };
 
@@ -79,6 +95,12 @@ export default {
         },
         rent: {
             fields: ['kind', 'price', 'bedrooms'],
+        },
+        objectNumber: {
+            fields: ['objectNumber'],
+        },
+        settlements: {
+            fields: ['name', 'distance'],
         },
     },
     fields,

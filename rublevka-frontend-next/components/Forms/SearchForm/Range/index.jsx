@@ -40,7 +40,7 @@ const Range = ({ className, onChange, getItemProps, options: { multiplier = 1, t
             className="range-to"
             getItemProps={getItemProps}
             items={range(0, multiplier * 6, multiplier)
-                .filter(v => v > value.from)
+                .filter(v => v > (value.from || 0))
                 .map(num => ({
                     label: template(num),
                     value: { to: num },
@@ -82,6 +82,14 @@ export default styled(Range)`
 
     ${Input}:last-of-type:focus ~ .range-to {
         display: block;
+    }
+
+    .range-to {
+        text-align: right;
+    }
+
+    li {
+        padding: 8px 28px;
     }
 
     .line {

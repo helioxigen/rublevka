@@ -11,7 +11,7 @@ const OptionsList = ({ className, getItemProps, onItemClick, selectedItem = {}, 
                     key: item.label,
                     index,
                     item,
-                    refKey: 'innerRef',
+                    // refKey: 'innerRef',
                     onClick: onItemClick ? e => onItemClick(e, item) : undefined,
                 })}
                 data-selected={selectedItem.value === item.value}
@@ -38,7 +38,7 @@ export default styled(OptionsList)`
         font-size: 16px;
 
         text-transform: uppercase;
-        padding: 8px 28px;
+        padding: 8px 16px;
         color: #232323;
 
         &[data-selected='true'] {

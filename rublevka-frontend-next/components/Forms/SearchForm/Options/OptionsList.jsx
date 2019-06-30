@@ -2,20 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from '../../../../utils';
 
-const OptionsList = ({ className, getMenuProps, getItemProps, selectedItem = {}, items = [] }) => (
-    <ul className={className} {...getMenuProps({ refKey: 'innerRef' })}>
+const OptionsList = ({ className, getItemProps, onItemClick, selectedItem = {}, items = [] }) => (
+    <ul className={className}>
         {items.map((item, index) => (
             <li
-                key={item.value}
+                key={item.label + item.name}
                 {...getItemProps({
-                    key: item.value,
+                    key: item.label,
                     index,
                     item,
                     refKey: 'innerRef',
+                    onClick: onItemClick ? e => onItemClick(e, item) : undefined,
                 })}
-                selected={selectedItem.value === item.value}
+                data-selected={selectedItem.value === item.value}
             >
-                {item.name}
+                {item.label}
             </li>
         ))}
     </ul>
@@ -29,29 +30,23 @@ export default styled(OptionsList)`
     font-weight: 500;
 
     ${media.xs`
-        background-color: #fff;
-        padding: 16px 20px;
         box-sizing: border-box;
-        border-radius: 8px;
-        max-height: 300px;
-        border: 1px solid #d9d9d9;
     `}
 
     li {
-        line-height: 18px;
-        font-size: 15px;
-        font-weight: bold;
+        line-height: 20px;
+        font-size: 16px;
 
         text-transform: uppercase;
-        padding: 8px 0px;
+        padding: 8px 28px;
         color: #232323;
 
-        &[selected='true'] {
-            color: #f44336;
+        &[data-selected='true'] {
+            background: #f44336;
+            color: white;
         }
-
-        &:hover {
-            color: #f44336;
+        &:not([data-selected='true']):hover {
+            background: rgba(244, 67, 54, 0.25);
             cursor: pointer;
         }
     }

@@ -52,7 +52,6 @@ export default styled.button`
         ${media.xs`
             border-bottom-color: #ffffff;
         `}
-        transition-delay: 500ms;
     }
 
     &[data-selected='false']:hover::before {

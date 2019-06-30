@@ -2492,6 +2492,11 @@ eslint-config-prettier@^6.0.0:
   dependencies:
     get-stdin "^6.0.0"
 
+eslint-import-resolver-alias@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/eslint-import-resolver-alias/-/eslint-import-resolver-alias-1.1.2.tgz#297062890e31e4d6651eb5eba9534e1f6e68fc97"
+  integrity sha512-WdviM1Eu834zsfjHtcGHtGfcu+F30Od3V7I9Fi57uhBEwPkjDcii7/yW8jAT+gOhn4P/vOxxNAXbFAKsrrc15w==
+
 eslint-import-resolver-node@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/eslint-import-resolver-node/-/eslint-import-resolver-node-0.3.2.tgz#58f15fb839b8d0576ca980413476aab2472db66a"
@@ -3528,10 +3533,18 @@ jsonify@~0.0.0:
   resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
   integrity sha1-LHS27kHZPKUbe1qu6PUDYx0lKnM=
 
-jsx-ast-utils@^2.0.1, jsx-ast-utils@^2.1.0:
+jsx-ast-utils@^2.0.1:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/jsx-ast-utils/-/jsx-ast-utils-2.2.0.tgz#e2bade6d09c8ef9d5f6b9ff2ace67b2cdbc7e370"
   integrity sha512-yAmhGSzR7TsD0OQpu1AGLz8Bx84cxMqtgoJrufomY6BlveEDlREhvu1rea21936xbe5tlUh7IPda82m5ae0H8Q==
+  dependencies:
+    array-includes "^3.0.3"
+    object.assign "^4.1.0"
+
+jsx-ast-utils@^2.1.0:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/jsx-ast-utils/-/jsx-ast-utils-2.2.1.tgz#4d4973ebf8b9d2837ee91a8208cc66f3a2776cfb"
+  integrity sha512-v3FxCcAf20DayI+uxnCuw795+oOIkVu6EnJ1+kSzhqqTZHNkTZ7B66ZgLp4oLJ/gbA64cI0B7WRoHZMSRdyVRQ==
   dependencies:
     array-includes "^3.0.3"
     object.assign "^4.1.0"

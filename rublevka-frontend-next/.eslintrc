@@ -31,9 +31,7 @@
     },
     "settings": {
         "import/resolver": {
-            "node": {
-                "paths": ["utils", "components"]
-            }
+            "alias": [["@utils", "./utils"], ["@components", "./components"], ["@config", "./config"]]
         }
     }
 }

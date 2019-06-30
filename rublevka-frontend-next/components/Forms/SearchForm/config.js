@@ -2,38 +2,39 @@ const fields = {
     kind: {
         title: 'Тип объекта',
         placeholder: 'Любой',
+        type: 'list',
         main: true,
         items: {
             rent: [
                 {
                     value: 'house',
-                    name: 'Дом',
+                    label: 'Дом',
                 },
                 {
                     value: 'townhouse',
-                    name: 'Таунхаус',
+                    label: 'Таунхаус',
                 },
                 {
                     value: 'flat',
-                    name: 'Квартира',
+                    label: 'Квартира',
                 },
             ],
             sell: [
                 {
                     value: 'house',
-                    name: 'Дом',
+                    label: 'Дом',
                 },
                 {
                     value: 'land',
-                    name: 'Участок',
+                    label: 'Участок',
                 },
                 {
                     value: 'townhouse',
-                    name: 'Таунхаус',
+                    label: 'Таунхаус',
                 },
                 {
                     value: 'flat',
-                    name: 'Квартира',
+                    label: 'Квартира',
                 },
             ],
         },
@@ -41,26 +42,10 @@ const fields = {
     price: {
         title: 'Цена',
         placeholder: 'Любая',
-        type: 'price',
-        // currencySelector: true,
-        items: [
-            {
-                value: 0,
-                label: '0 ₽',
-            },
-            {
-                value: 50,
-                label: '3+',
-            },
-            {
-                value: 4,
-                label: '4+',
-            },
-            {
-                value: 5,
-                label: '5+',
-            },
-        ],
+        type: 'range',
+        range: {
+            template: v => (v === 0 ? '0' : `${v} млн`),
+        },
     },
     bedrooms: {
         title: 'Спален',
@@ -69,19 +54,19 @@ const fields = {
         items: [
             {
                 value: 2,
-                label: '2+',
+                name: '2+',
             },
             {
                 value: 3,
-                label: '3+',
+                name: '3+',
             },
             {
                 value: 4,
-                label: '4+',
+                name: '4+',
             },
             {
                 value: 5,
-                label: '5+',
+                name: '5+',
             },
         ],
     },

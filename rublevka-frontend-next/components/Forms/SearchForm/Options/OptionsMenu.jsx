@@ -3,10 +3,18 @@ import styled from 'styled-components';
 import { media } from '../../../../utils';
 import { Icon } from '../../../UI/atoms';
 
-const Options = ({ className, children, getToggleButtonProps, withSaveButton, isResetButtonActive, onReset }) => (
-    <div className={className}>
+const Options = ({
+    className,
+    children,
+    getToggleButtonProps,
+    getMenuProps,
+    withSaveButton,
+    isResetButtonActive,
+    onReset,
+}) => (
+    <div className={className} {...getMenuProps()}>
         <header>
-            <button className="close-btn" type="button" {...getToggleButtonProps({ refKey: 'innerRef' })}>
+            <button className="close-btn" type="button" {...getToggleButtonProps()}>
                 <Icon name="close-button" />
             </button>
             <button className="reset-btn" type="button" disabled={!isResetButtonActive} onClick={onReset}>
@@ -15,7 +23,7 @@ const Options = ({ className, children, getToggleButtonProps, withSaveButton, is
         </header>
         {children}
         {withSaveButton && (
-            <button type="button" className="save-btn" {...getToggleButtonProps({ refKey: 'innerRef' })}>
+            <button type="button" className="save-btn" {...getToggleButtonProps()}>
                 Применить
             </button>
         )}
@@ -35,14 +43,23 @@ export default styled(Options)`
     background-color: #fff;
     z-index: 3;
 
+    overflow: hidden;
+
+    cursor: default;
+
     ${media.xs`
         padding: 0;
         position: absolute;
-        top: 60px;
-    `}
-
-    ${media.md`
-        top: 71px;
+        top: 110%;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        width: 100%;
+        border-radius: 8px;
+        max-height: 300px;
+        padding: 16px 0;
+        border: 1px solid #d9d9d9;
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
     `}
 
     header {

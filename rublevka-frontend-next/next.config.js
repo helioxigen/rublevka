@@ -8,8 +8,9 @@ module.exports = {
             use: ['@svgr/webpack'],
         });
 
-        config.resolve.alias.components = path.join(__dirname, 'components');
-        config.resolve.alias.utils = path.join(__dirname, 'utils');
+        config.resolve.alias['@components'] = path.join(__dirname, 'components');
+        config.resolve.alias['@utils'] = path.join(__dirname, 'utils');
+        config.resolve.alias['@config'] = path.join(__dirname, 'config');
 
         return config;
     },

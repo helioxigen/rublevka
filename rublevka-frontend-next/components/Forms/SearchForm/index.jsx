@@ -5,13 +5,22 @@ import Dropdown from './Dropdown';
 import config from './config';
 import { IconButton } from '../../UI/molecules';
 import { media } from '../../../utils';
+import CurrencySelector from './Dropdown/CurrencySelector';
 
 const handleSubmit = e => {
     e.preventDefault();
 };
 
+const initialState = {
+    currency: {
+        label: '₽',
+        multiplier: 50,
+        value: 'rub',
+    },
+};
+
 const SearchForm = ({ className, type = 'sale' }) => {
-    const [values, changeValues] = useState({});
+    const [values, changeValues] = useState(initialState);
 
     const handleChange = (fieldName, isMain) => item => {
         const currentValues = isMain ? {} : values[type];
@@ -29,7 +38,11 @@ const SearchForm = ({ className, type = 'sale' }) => {
         <form className={className} onSubmit={handleSubmit}>
             <section className="form-body">
                 {config.types[type].fields.map(name => {
-                    const { title, placeholder, items, type: fieldType, main } = config.fields[name];
+                    const { title, placeholder, items = [], type: fieldType, main, range = {} } = config.fields[name];
+
+                    if (name === 'price') {
+                        range.multiplier = values.currency.multiplier;
+                    }
 
                     const itemsList = type in items ? items[type] : items;
 
@@ -40,9 +53,14 @@ const SearchForm = ({ className, type = 'sale' }) => {
                             placeholder={placeholder}
                             items={itemsList}
                             onChange={handleChange(name, main)}
-                            isRange={fieldType === 'range'}
+                            type={fieldType}
+                            range={range}
                             fieldName={name}
-                        />
+                        >
+                            {name === 'price' && (
+                                <CurrencySelector onChange={handleChange('currency')} initialValue={values.currency} />
+                            )}
+                        </Dropdown>
                     );
                 })}
             </section>

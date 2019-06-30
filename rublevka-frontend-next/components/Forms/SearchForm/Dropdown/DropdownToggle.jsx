@@ -3,26 +3,29 @@ import styled from 'styled-components';
 import { media } from '../../../../utils';
 
 const DropdownToggle = ({ className, label, value, getToggleButtonProps }) => (
-    <div className={className} {...getToggleButtonProps({ refKey: 'innerRef' })}>
-        <span className="display-label">{label}</span>
+    <div className={className} {...getToggleButtonProps()}>
+        {label && <span className="display-label">{label}</span>}
         <p className="display-value">{value}</p>
     </div>
 );
 
 export default styled(DropdownToggle)`
     padding: 10px 15px;
+    box-sizing: border-box;
     width: 100%;
+    height: 100%;
     font-weight: bold;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     border: none;
 
     ${media.md`
-        padding: 11.5px 18.5px;
+        padding: 0 16px;
     `}
 
     .display-label {
-        font-weight: bold;
+        font-weight: 700;
         line-height: 13px;
         font-size: 11px;
 
@@ -39,6 +42,7 @@ export default styled(DropdownToggle)`
         margin: 4px 0 0;
         line-height: 19px;
         font-size: 16px;
+        font-weight: 600;
 
         color: #232323;
 

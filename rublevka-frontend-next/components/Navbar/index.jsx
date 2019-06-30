@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Icon, Button } from '@components/UI';
@@ -63,6 +62,10 @@ export default styled(Navbar)`
     background: white;
 
     font-size: 15px;
+
+    &[data-inverted='false'] {
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+    }
 
     transition: 225ms;
 

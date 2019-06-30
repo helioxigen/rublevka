@@ -1,3 +1,5 @@
+import rublevka from './rublevka';
+
 export default {
     app: 'rublevka',
     currencies: [
@@ -17,4 +19,7 @@ export default {
             multiplier: 50,
         },
     ],
+    sites: {
+        rublevka,
+    },
 };

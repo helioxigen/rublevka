@@ -5,12 +5,12 @@ import styled from 'styled-components';
 // eslint-disable-next-line global-require
 const getIcon = name => require(`./assets/${name}.svg`).default;
 
-const Icon = ({ className, name }) => {
+const Icon = ({ className, name, viewBox }) => {
     const IconSVG = getIcon(name);
 
     return (
         <span className={className}>
-            <IconSVG viewBox="0 0 28 28" />
+            <IconSVG viewBox={viewBox} />
         </span>
     );
 };

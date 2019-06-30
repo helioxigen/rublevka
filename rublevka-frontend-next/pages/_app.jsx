@@ -1,6 +1,7 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import App, { Container } from 'next/app';
+import Navbar from '../components/Navbar';
 
 const GlobalStyles = createGlobalStyle`
     body {
@@ -26,6 +27,7 @@ export default class MyApp extends App {
         return (
             <Container>
                 <GlobalStyles />
+                <Navbar />
                 <Component {...pageProps} />
             </Container>
         );

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { sc } from '../../../utils';
 
 export default styled.button`
@@ -6,11 +6,22 @@ export default styled.button`
     border: 0;
 
     border-radius: 6px;
-    padding: 23px 24px;
+    padding: 1em;
 
-    font-size: 18px;
+    font-size: 1em;
     font-weight: 600;
 
     text-transform: uppercase;
     color: white;
+    cursor: pointer;
+
+    transition: 0.3s;
+
+    &:hover {
+        background: #00b44b;
+    }
+
+    &:active {
+        background: #00a745;
+    }
 `;

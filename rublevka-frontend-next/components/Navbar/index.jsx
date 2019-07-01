@@ -6,7 +6,7 @@ import config from '@config';
 import { app } from '@utils';
 
 const Navbar = ({ className, inverts }) => {
-    const [inverted, toggleInverted] = useState(true);
+    const [inverted, toggleInverted] = useState(inverts);
 
     const handleInvert = () => {
         const nextInverted = window.scrollY < 80;
@@ -26,7 +26,7 @@ const Navbar = ({ className, inverts }) => {
 
     return (
         <header className={className} data-inverted={inverted}>
-            <Container>
+            <Container as="div">
                 <nav>
                     <Link prefetch href="/">
                         <a className="logo">

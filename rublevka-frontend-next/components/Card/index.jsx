@@ -14,7 +14,7 @@ const Card = ({
     data,
     data: { id, images = [], landDetails = {}, specification = {}, location = {}, kind },
 }) => (
-    <Link to={`/zagorodnaya/${dict.translit(dealType)}/${dict.translit(kind)}/${id}`}>
+    <Link href={`/zagorodnaya/${dict.translit(dealType)}/${dict.translit(kind)}/${id}`}>
         <article className={className}>
             <header>
                 <span className="card-id">№{id}</span>
@@ -23,16 +23,18 @@ const Card = ({
                 {images.length > 0 && <Shortcuts images={images} />}
                 {images.length > 0 && <Gallery images={images} />}
             </header>
-            <h3>{itemTitle.generate(dealType, true, false, { landDetails, specification, location, kind })}</h3>
-            <Summary
-                values={[
-                    landDetails.area && `${Math.floor(landDetails.area)} сот`,
-                    specification.area && `${Math.floor(specification.area)} м²`,
-                    specification.bedrooms &&
-                        format.titleByNumber(specification.bedrooms, ['спальня', 'спальни', 'спален']),
-                ]}
-            />
-            <Price deal={data[`${dealType}Offer`]} dealType={dealType} />
+            <section className="card-body">
+                <h3>{itemTitle.generate(dealType, true, false, { landDetails, specification, location, kind })}</h3>
+                <Summary
+                    values={[
+                        landDetails.area && `${Math.floor(landDetails.area)} сот`,
+                        specification.area && `${Math.floor(specification.area)} м²`,
+                        specification.bedrooms &&
+                            format.titleByNumber(specification.bedrooms, ['спальня', 'спальни', 'спален']),
+                    ]}
+                />
+                <Price deal={data[`${dealType}Offer`]} dealType={dealType} />
+            </section>
         </article>
     </Link>
 );
@@ -45,6 +47,7 @@ export default styled(Card)`
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
     border-radius: 4px;
     overflow: hidden;
+    cursor: pointer;
 
     .card-id {
         top: 15px;
@@ -126,6 +129,7 @@ export default styled(Card)`
 
     h3 {
         margin-bottom: 5px;
+        font-weight: 600;
     }
 
     &:hover {

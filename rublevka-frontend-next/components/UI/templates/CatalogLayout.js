@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Breadcrumbs from '@components/Breadcrumbs';
+import { Filter, Breadcrumbs } from '@components';
 import { media } from '@utils';
 import { Header } from '../atoms';
 
@@ -21,11 +21,17 @@ export default styled.section`
         'nav nav nav nav'
         'header header header header' 90px
         'filter cards cards cards'
-        '. footer footer footer' 200px;
+        '. footer footer footer' 200px / 
+        20% auto
+        ;
         width: auto;
 
         padding-top: 28px;
     `}
+
+    ${Filter} {
+        padding-right: 24px;
+    }
 
     margin: 0 auto;
 

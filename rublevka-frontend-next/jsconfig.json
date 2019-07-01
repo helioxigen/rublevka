@@ -1,8 +1,9 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "target": "es2015",
         "jsx": "react",
+        "allowSyntheticDefaultImports": true,
         "checkJs": false,
         "baseUrl": ".",
         "paths": {

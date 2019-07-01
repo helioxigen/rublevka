@@ -11,7 +11,7 @@ const generate = (dealType, isCard, withOffer, { landDetails = {}, specification
         `в пос. ${location.settlementName},`,
         isCard && `${location.mkadDistance} км`,
     ]
-        .filter(v => !v)
+        .filter(v => !!v)
         .join(' ');
 };
 

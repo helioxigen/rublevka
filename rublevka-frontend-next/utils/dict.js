@@ -44,6 +44,15 @@ const dealTypes = {
     rent: ['Аренда', 'Арендовать'],
 };
 
+export const kinds = {
+    flat: ['Квартира', 'квартиры'],
+    apartment: ['Апартаменты', 'апартаментов'],
+    house: ['Дом', 'дома'],
+    townhouse: ['Таунхаус', 'таунхауса'],
+    penthouse: ['Пентхаус', 'пентхауса'],
+    land: ['Участок', 'участка'],
+};
+
 const translateDealType = dealType => {
     const [noun, verb] = dealTypes[dealType];
 
@@ -53,7 +62,17 @@ const translateDealType = dealType => {
     };
 };
 
+const translateKind = kindType => {
+    const [noun, genitive] = kinds[kindType];
+
+    return {
+        noun,
+        genitive,
+    };
+};
+
 export default {
     translit: word => dictionary[word],
     translateDealType,
+    translateKind,
 };

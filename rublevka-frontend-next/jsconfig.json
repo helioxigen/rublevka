@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es2016",
-        "jsx": "preserve",
+        "target": "es6",
+        "jsx": "react",
         "checkJs": false,
         "baseUrl": ".",
         "paths": {

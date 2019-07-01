@@ -6,7 +6,7 @@
     "license": "UNLICENSED",
     "private": true,
     "scripts": {
-        "dev": "node server.js",
+        "dev": "APP=rublevka APP_ENV=development node server.js",
         "build": "next build",
         "start": "NODE_ENV=production next start"
     },
@@ -20,6 +20,7 @@
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
         "react-redux": "^7.1.0",
+        "react-swipe": "^6.0.4",
         "redux": "^4.0.1",
         "redux-thunk": "^2.3.0",
         "reselect": "^4.0.0",

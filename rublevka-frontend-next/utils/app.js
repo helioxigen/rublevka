@@ -4,6 +4,16 @@ const isRublevka = config.app === 'rublevka';
 
 const ifDomain = (ifRublevka, ifRiga) => (isRublevka ? ifRublevka : ifRiga);
 
+/**
+ * @typedef SiteConfig
+ * @property {string} phone
+ * @property {string} phoneNumbers
+ * @property {string} imagePostfix
+ */
+
+/**
+ * @returns {SiteConfig}
+ */
 const getConfig = () => config.sites[config.app];
 
 export const PROPERTIES_FETCHED = 'List.Fetched';

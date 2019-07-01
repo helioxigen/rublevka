@@ -1,24 +1,28 @@
-import api from '../../api';
+import { createReducer } from '../../utils/store';
+import { LOAD_PROPERTIES_REQUEST, LOAD_PROPERTIES_SUCCESS, LOAD_PROPERTIES_ERROR } from './actions';
 
-export const LOAD_PROPERTIES_REQUEST = 'Properties.Load.Request';
-export const LOAD_PROPERTIES_SUCCESS = 'Properties.Load.Success';
-export const LOAD_PROPERTIES_ERROR = 'Properties.Load.Error';
-
-// export const fetchProperties = (pagination, filter) => async dispatch => {
-//     const { items } = await api.properties.getMany(pagination, filter);
-
-//     dispatch({ type: PROPERTIES_FETCHED, payload: { items } });
-// };
-
-export const fetchProperties = (pagination, filter) => ({
-    types: [LOAD_PROPERTIES_REQUEST, LOAD_PROPERTIES_SUCCESS, LOAD_PROPERTIES_ERROR],
-    shouldCall: state => !state.properties[pagination.offset],
-    call: () => api.properties.getMany(pagination, filter),
-    payload: {
-        pagination,
-        filter,
+export const propertiesInitialState = {
+    fetching: false,
+    items: [],
+    error: {
+        hasError: false,
+        message: '',
     },
-});
-// fetching('properties')(dispatch => {
+};
 
-// });
+export const propertiesReducer = createReducer({
+    [LOAD_PROPERTIES_REQUEST]: () => ({
+        fetching: true,
+    }),
+    [LOAD_PROPERTIES_SUCCESS]: ({ response: { items } }) => ({
+        fetching: false,
+        items,
+    }),
+    [LOAD_PROPERTIES_ERROR]: err => ({
+        fetching: false,
+        error: {
+            hasError: true,
+            message: err,
+        },
+    }),
+})(propertiesInitialState);

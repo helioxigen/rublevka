@@ -1,20 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { fetchProperties } from '../store/properties';
-// import api from '../api';
-import { Header, PageContainer, CatalogLayout } from '@components/UI';
-import { fetchProperties } from '../store/properties';
+import { Header, PageContainer, CatalogLayout, CardsGrid } from '@components/UI';
+import { Card } from '@components';
+import { fetchProperties } from '../store/properties/actions';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { dict, app } from '@utils';
-// import { PROPERTIES_FETCHED } from '@store/properties';
 
-const CatalogPage = ({ dealType, list }) => (
+const CatalogPage = ({ dealType, items = [] }) => (
     <PageContainer>
         <CatalogLayout>
             <Breadcrumbs dealType={dealType} />
             <Header.Catalog>
                 {dict.translateDealType(dealType).verb} недвижимость на {app.ifDomain('Рублёвке', 'Риге')}
             </Header.Catalog>
+            <CardsGrid>
+                {items.map(data => (
+                    <Card key={data.id} dealType={dealType} data={data} />
+                ))}
+            </CardsGrid>
         </CatalogLayout>
     </PageContainer>
 );
@@ -28,5 +31,5 @@ CatalogPage.getInitialProps = async ({ store, req }) => {
 };
 
 export default connect(state => ({
-    list: state.properties.list,
+    items: state.properties.items,
 }))(CatalogPage);

@@ -16,4 +16,9 @@ module.exports = {
 
         return config;
     },
+    publicRuntimeConfig: {
+        API_ENDPOINT: process.env.API_ENDPOINT,
+        APP: process.env.APP,
+        APP_ENV: process.env.APP_ENV,
+    },
 };

@@ -1,7 +1,10 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import App, { Container } from 'next/app';
+import { Provider } from 'react-redux';
+import withReduxStore from 'next-redux-wrapper';
 import Navbar from '../components/Navbar';
+import { makeStore } from '../store';
 
 const GlobalStyles = createGlobalStyle`
     body {
@@ -10,7 +13,7 @@ const GlobalStyles = createGlobalStyle`
     }
 `;
 
-export default class MyApp extends App {
+class MyApp extends App {
     static async getInitialProps({ Component, ctx }) {
         let pageProps = {};
 
@@ -18,18 +21,22 @@ export default class MyApp extends App {
             pageProps = await Component.getInitialProps(ctx);
         }
 
-        return { pageProps };
+        return { pageProps, url: ctx.pathname };
     }
 
     render() {
-        const { Component, pageProps } = this.props;
+        const { Component, pageProps, url, store } = this.props;
 
         return (
             <Container>
-                <GlobalStyles />
-                <Navbar />
-                <Component {...pageProps} />
+                <Provider store={store}>
+                    <GlobalStyles />
+                    {pageProps.statusCode !== 404 && <Navbar inverts={url === '/'} />}
+                    <Component {...pageProps} />
+                </Provider>
             </Container>
         );
     }
 }
+
+export default withReduxStore(makeStore)(MyApp);

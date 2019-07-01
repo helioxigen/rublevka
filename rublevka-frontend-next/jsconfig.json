@@ -1,15 +1,18 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2016",
-    "jsx": "preserve",
-    "checkJs": false,
-    "baseUrl": ".",
-    "paths": {
-      "@utils": ["./utils"],
-      "@config": ["./config"],
-      "@components/*": ["./components/*"]
-    }
-  },
-  "exclude": ["node_modules", "**/node_modules/*"]
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2016",
+        "jsx": "preserve",
+        "checkJs": false,
+        "baseUrl": ".",
+        "paths": {
+            "@utils": ["./utils"],
+            "@config": ["./config"],
+            "@components": ["./components"],
+            "@api/*": ["./api/*"],
+            "@components/*": ["./components/*"],
+            "@store": ["./store"]
+        }
+    },
+    "exclude": ["node_modules", "**/node_modules/*"]
 }

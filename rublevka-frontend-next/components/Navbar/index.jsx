@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Icon, Button } from '@components/UI';
+import { Icon, Button, PageContainer as Container } from '@components/UI';
 import styled from 'styled-components';
 import config from '@config';
 import { app } from '@utils';
 
-const Navbar = ({ className }) => {
+const Navbar = ({ className, inverts }) => {
     const [inverted, toggleInverted] = useState(true);
 
     const handleInvert = () => {
@@ -15,12 +15,18 @@ const Navbar = ({ className }) => {
     };
 
     useEffect(() => {
+        if (!inverts) return () => {};
+
         window.addEventListener('scroll', handleInvert);
-    }, []);
+
+        return () => {
+            window.removeEventListener('scroll', handleInvert);
+        };
+    }, [inverts]);
 
     return (
         <header className={className} data-inverted={inverted}>
-            <div className="container">
+            <Container>
                 <nav>
                     <Link prefetch href="/">
                         <a className="logo">
@@ -47,7 +53,7 @@ const Navbar = ({ className }) => {
                     <Button>Обратный звонок</Button>
                     <Icon className="favorite-icon" name="favorite" />
                 </div>
-            </div>
+            </Container>
         </header>
     );
 };
@@ -69,10 +75,7 @@ export default styled(Navbar)`
 
     transition: 225ms;
 
-    .container {
-        width: auto;
-        max-width: 1360px;
-        margin: 0 auto;
+    ${Container} {
         display: flex;
         justify-content: space-between;
         height: 100%;

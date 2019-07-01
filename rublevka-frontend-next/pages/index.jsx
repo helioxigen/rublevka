@@ -1,11 +1,11 @@
 import React from 'react';
-import { LandingPage } from '../components/UI/templates';
+import { LandingLayout } from '../components/UI/templates';
 import Hero from '../components/Landing/Hero';
 import Block from '../components/Landing/Block';
 import { Button } from '../components/UI/atoms';
 
 export default () => (
-    <LandingPage>
+    <LandingLayout>
         <Hero />
         <Block
             className="call-block"
@@ -24,5 +24,5 @@ export default () => (
         >
             <Button red>Подробнее</Button>
         </Block>
-    </LandingPage>
+    </LandingLayout>
 );

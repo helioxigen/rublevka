@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { Icon } from '@components/UI';
+import {} from '@components/Breadcrumbs';
 
 const Breadcrumb = ({ className, href, idx, title }) => (
     <li className={className} itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">

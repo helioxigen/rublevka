@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Hero from '../../Landing/Hero';
-import Block from '../../Landing/Block';
 import { Button } from '../atoms';
 
 export default styled.main`

@@ -5,34 +5,45 @@ import { CheckboxGroup } from '@components/UI';
 import Field from './Field';
 
 const Filter = ({ className }) => {
-    const [values, changeValues] = useState({
-        kind: [],
-    });
+    const [values, changeValues] = useState({});
 
-    const handleKindChange = (fieldName, checked, isOnly) => {
+    const handleCheckboxChange = fieldType => (fieldName, checked, isOnly, fields) => {
         if (isOnly)
             return changeValues({
-                kind: [fieldName],
+                ...values,
+                [fieldType]: [fieldName],
             });
 
         if (fieldName === 'all' && checked)
             return changeValues({
-                kind: [],
+                ...values,
+                [fieldType]: [],
             });
 
-        if (values.kind)
-            return changeValues({
-                kind: xor(values.kind.length === 0 ? ['house', 'townhouse', 'land', 'flat'] : values.kind, [fieldName]),
-            });
+        const currentVals = values[fieldType] || [];
+        const fullVals = Object.keys(fields).filter(f => f !== 'all');
+
+        return changeValues({
+            ...values,
+            [fieldType]: xor(currentVals.length === 0 ? fullVals : currentVals, [fieldName]),
+        });
     };
+
+    const handleResetField = fieldName => () =>
+        changeValues({
+            ...values,
+            [fieldName]: [],
+        });
+
+    const isResetShown = fieldType => (values[fieldType] || []).length > 0;
 
     return (
         <aside className={className}>
-            <Field title="Тип объекта">
+            <Field title="Тип объекта" showReset={isResetShown('kind')} onReset={handleResetField('kind')}>
                 <CheckboxGroup
                     emptyAsFull
                     values={values.kind}
-                    onChange={handleKindChange}
+                    onChange={handleCheckboxChange('kind')}
                     fields={{
                         all: 'Все',
                         house: 'Дом',
@@ -42,10 +53,27 @@ const Filter = ({ className }) => {
                     }}
                 />
             </Field>
+            <Field title="Ремонт" showReset={isResetShown('renovate')} onReset={handleResetField('renovate')}>
+                <CheckboxGroup
+                    emptyAsFull
+                    values={values.renovate}
+                    onChange={handleCheckboxChange('renovate')}
+                    fields={{
+                        all: 'Любой',
+                        full_construction: 'Под ключ',
+                        partly_turnkey: 'Частично под ключ',
+                        rough_finish: 'Черновая отделка',
+                    }}
+                />
+            </Field>
         </aside>
     );
 };
 
 export default styled(Filter)`
     grid-area: filter;
+
+    ${Field}:not(:last-child) {
+        margin-bottom: 40px;
+    }
 `;

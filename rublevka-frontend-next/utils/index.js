@@ -5,3 +5,4 @@ export { default as dict } from './dict';
 export { default as cdn } from './cdn';
 export { default as format } from './format';
 export { default as itemTitle } from './itemTitle';
+export { default as handlers } from './handlers';

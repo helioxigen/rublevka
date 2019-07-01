@@ -1,8 +1,0 @@
-pytest
-pytest-dependency
-mock
-
-## Optional packages
-# pytest-xdist
-# pytest-cov
-# coverage

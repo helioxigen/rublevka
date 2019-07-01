@@ -1,9 +1,0 @@
-six
-flask
-flask-cors
-flask-sqlalchemy
-psycopg2-binary
-sqlalchemy
-sqlalchemy-utils
-sqlalchemy-citext
-requests

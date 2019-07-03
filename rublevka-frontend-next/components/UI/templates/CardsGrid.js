@@ -14,4 +14,8 @@ export default styled.section`
     ${media.lg`
         grid-template-columns: 1fr 1fr 1fr;
     `}
+
+    transition: opacity 225ms;
+
+    opacity: ${({ fetching }) => (fetching ? 0.7 : 1)};
 `;

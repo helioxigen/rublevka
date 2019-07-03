@@ -8,6 +8,7 @@ export default {
         button: css`
             background: none;
             border: none;
+            font-size: inherit;
         `,
     },
 };

@@ -1,11 +1,12 @@
 import keyBy from 'lodash/keyBy';
 import { createReducer } from '../../utils/store';
-import { LOAD_PROPERTIES_REQUEST, LOAD_PROPERTIES_SUCCESS, LOAD_PROPERTIES_ERROR } from './actions';
+import { LOAD_PROPERTIES_REQUEST, LOAD_PROPERTIES_SUCCESS, LOAD_PROPERTIES_ERROR, CHANGE_SORT } from './actions';
 
 export const propertiesInitialState = {
     fetching: false,
     items: {},
     lists: {},
+    sort: 'price',
     pagination: {
         offset: 0,
         limit: 24,
@@ -41,5 +42,8 @@ export const propertiesReducer = createReducer({
             hasError: true,
             message: err,
         },
+    }),
+    [CHANGE_SORT]: ({ payload: { type } }) => ({
+        sort: type,
     }),
 })(propertiesInitialState);

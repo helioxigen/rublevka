@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import { Filter, Breadcrumbs } from '@components';
+import { Filter, Breadcrumbs, Sort } from '@components';
 import { media } from '@utils';
 import { Header } from '../atoms';
+import CardsGrid from './CardsGrid';
 
 export default styled.section`
     display: grid;
@@ -22,7 +23,7 @@ export default styled.section`
         'header header header header' 90px
         'filter cards cards cards'
         '. footer footer footer' 200px / 
-        20% auto
+        20% 1fr 1fr 1fr [end]
         ;
         width: auto;
 
@@ -39,7 +40,15 @@ export default styled.section`
         grid-area: nav;
     }
 
-    ${Header.Catalog} {
+    > header {
         grid-area: header;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    ${CardsGrid} {
+        grid-column: 2 / span end;
     }
 `;

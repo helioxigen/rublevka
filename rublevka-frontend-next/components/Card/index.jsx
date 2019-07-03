@@ -33,7 +33,7 @@ const Card = ({
                             format.titleByNumber(specification.bedrooms, ['спальня', 'спальни', 'спален']),
                     ]}
                 />
-                <Price deal={data[`${dealType}Offer`]} dealType={dealType} />
+                <Price deal={data[`${dealType}Offer`] || {}} dealType={dealType} />
             </section>
         </article>
     </Link>
@@ -122,7 +122,7 @@ export default styled(Card)`
             opacity: 0;
             transition: 0.3s;
         }
-        header:hover ${FavoriteButton} {
+        &:hover ${FavoriteButton} {
             opacity: 1;
         }
     `}

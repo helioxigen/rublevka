@@ -13,3 +13,12 @@ export const fetchProperties = (pagination, filter) => ({
         filter,
     },
 });
+
+export const CHANGE_SORT = 'Properties.Sort.Change';
+
+export const changeSort = type => ({
+    type: CHANGE_SORT,
+    payload: {
+        type,
+    },
+});

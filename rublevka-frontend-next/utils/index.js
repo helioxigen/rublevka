@@ -6,3 +6,4 @@ export { default as cdn } from './cdn';
 export { default as format } from './format';
 export { default as itemTitle } from './itemTitle';
 export { default as handlers } from './handlers';
+export { default as filter } from './filter';

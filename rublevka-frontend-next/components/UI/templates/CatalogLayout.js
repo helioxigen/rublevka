@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import { Filter, Breadcrumbs, Sort } from '@components';
+import { Filter, Breadcrumbs, Pagination } from '@components';
 import { media } from '@utils';
-import { Header } from '../atoms';
 import CardsGrid from './CardsGrid';
 
 export default styled.section`
@@ -11,7 +10,7 @@ export default styled.section`
         'header' 46px
         'triggers' 29px
         'cards'
-        'footer';
+        'pagination';
 
     grid-gap: 10px;
 
@@ -22,7 +21,7 @@ export default styled.section`
         'nav nav nav nav'
         'header header header header' 90px
         'filter cards cards cards'
-        '. footer footer footer' 200px / 
+        '. pagination pagination pagination' 200px / 
         20% 1fr 1fr 1fr [end]
         ;
         width: auto;
@@ -50,5 +49,11 @@ export default styled.section`
 
     ${CardsGrid} {
         grid-column: 2 / span end;
+    }
+
+    ${Pagination} {
+        grid-area: pagination;
+
+        align-self: center;
     }
 `;

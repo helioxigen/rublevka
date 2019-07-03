@@ -1,13 +1,17 @@
 import React from 'react';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
+import Head from 'next/head';
 import { Header, PageContainer, CatalogLayout, CardsGrid } from '@components/UI';
-import { Card, Breadcrumbs, Filter, Sort } from '@components';
+import { Card, Breadcrumbs, Filter, Sort, Pagination } from '@components';
 import { fetchProperties, changeSort } from '../store/properties/actions';
 import { dict, app } from '@utils';
 
-const CatalogPage = ({ dealType, list = [], sort, fetching, handleToggleSort }) => (
+const CatalogPage = ({ dealType, list = [], page, totalPages, sort, fetching, handleToggleSort }) => (
     <PageContainer>
+        <Head>
+            <meta name="og:image" content="http://image.com" />
+        </Head>
         <CatalogLayout>
             <Breadcrumbs dealType={dealType} />
             <header>
@@ -22,14 +26,23 @@ const CatalogPage = ({ dealType, list = [], sort, fetching, handleToggleSort }) 
                     <Card key={data.id} dealType={dealType} data={data} />
                 ))}
             </CardsGrid>
+            <Pagination count={totalPages} currentPage={page} />
         </CatalogLayout>
     </PageContainer>
 );
 
-CatalogPage.getInitialProps = async ({ store, req }) => {
-    await store.dispatch(fetchProperties({ limit: 24, offset: 0 }, {}));
+CatalogPage.getInitialProps = async ({
+    store,
+    req: {
+        params,
+        query: { page = 1, filter = {} },
+    },
+}) => {
+    const limit = 24;
 
-    const dealType = dict.translit(req.params.dealType);
+    await store.dispatch(fetchProperties({ limit, offset: page * limit - limit }, filter));
+
+    const dealType = dict.translit(params.dealType);
 
     return { dealType };
 };
@@ -41,6 +54,10 @@ export default connect(
         list: state.properties.lists[state.properties.pagination.offset],
         sort: state.properties.sort,
         fetching: state.properties.fetching,
+        page:
+            (state.properties.pagination.offset + state.properties.pagination.limit) /
+            state.properties.pagination.limit,
+        totalPages: Math.floor(state.properties.pagination.total / state.properties.pagination.limit),
     }),
     dispatch => ({
         handleToggleSort: type => dispatch(changeSort(type)),

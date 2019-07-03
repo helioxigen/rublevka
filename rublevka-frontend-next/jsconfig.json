@@ -10,7 +10,7 @@
             "@utils": ["./utils"],
             "@config": ["./config"],
             "@components": ["./components"],
-            "@api/*": ["./api/*"],
+            "@api": ["./api"],
             "@components/*": ["./components/*"],
             "@store": ["./store"]
         }

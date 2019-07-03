@@ -8,6 +8,7 @@ export const propertiesInitialState = {
     lists: {},
     sort: 'price',
     pagination: {
+        total: 0,
         offset: 0,
         limit: 24,
     },
@@ -21,7 +22,15 @@ export const propertiesReducer = createReducer({
     [LOAD_PROPERTIES_REQUEST]: () => ({
         fetching: true,
     }),
-    [LOAD_PROPERTIES_SUCCESS]: ({ response: { items }, pagination: { offset = 0 } }, state) => ({
+    [LOAD_PROPERTIES_SUCCESS]: (
+        {
+            response: {
+                items,
+                pagination: { total, offset },
+            },
+        },
+        state
+    ) => ({
         fetching: false,
         items: {
             ...state.items,
@@ -33,6 +42,7 @@ export const propertiesReducer = createReducer({
         },
         pagination: {
             ...state.pagination,
+            total,
             offset,
         },
     }),

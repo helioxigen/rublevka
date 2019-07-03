@@ -9,15 +9,18 @@ const Breadcrumb = ({ className, href, idx, title }) => (
             <a itemProp="item">
                 <span itemProp="name">{title}</span>
                 <meta itemProp="position" content={idx + 1} />
-                <Icon name="arrow-left" viewBox="0 0 6 10" />
             </a>
         </Link>
+        <Icon name="arrow-left" viewBox="0 0 6 10" />
     </li>
 );
 
 export default styled(Breadcrumb)`
     margin: 0;
     padding: 0;
+
+    display: flex;
+    align-items: center;
 
     a {
         line-height: 15px;
@@ -31,10 +34,10 @@ export default styled(Breadcrumb)`
     }
 
     ${Icon} {
-        width: 4px;
-        height: 8px;
+        width: 6px;
+        height: 15px;
         margin: 0 7px 0 10px;
-        fill: rgba(35, 35, 35, 0.5);
+        fill: #979797;
         display: none;
     }
 

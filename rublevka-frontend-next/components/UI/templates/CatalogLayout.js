@@ -27,7 +27,7 @@ export default styled.section`
         ;
         width: auto;
 
-        padding-top: 28px;
+        padding-top: 60px;
     `}
 
     ${Filter} {

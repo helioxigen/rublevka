@@ -20,5 +20,11 @@ const Breadcrumbs = ({ className, dealType, last = false }) => (
 );
 
 export default styled(Breadcrumbs)`
-    display: flex;
+    padding-top: 28px;
+    ol {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        list-style: none;
+    }
 `;

@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { Icon } from '@components/UI';
-import {} from '@components/Breadcrumbs';
 
 const Breadcrumb = ({ className, href, idx, title }) => (
     <li className={className} itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
@@ -10,7 +9,7 @@ const Breadcrumb = ({ className, href, idx, title }) => (
             <a itemProp="item">
                 <span itemProp="name">{title}</span>
                 <meta itemProp="position" content={idx + 1} />
-                <Icon name="arrow-left" />
+                <Icon name="arrow-left" viewBox="0 0 6 10" />
             </a>
         </Link>
     </li>
@@ -19,6 +18,17 @@ const Breadcrumb = ({ className, href, idx, title }) => (
 export default styled(Breadcrumb)`
     margin: 0;
     padding: 0;
+
+    a {
+        line-height: 15px;
+        font-size: 13px;
+        color: rgba(35, 35, 35, 0.5);
+        text-decoration: none;
+    }
+
+    &:hover a {
+        color: rgba(35, 35, 35, 1);
+    }
 
     ${Icon} {
         width: 4px;
@@ -29,6 +39,6 @@ export default styled(Breadcrumb)`
     }
 
     &:not(:last-child) ${Icon} {
-        display: block;
+        display: inline-block;
     }
 `;

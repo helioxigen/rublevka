@@ -5,6 +5,8 @@ import { propertiesInitialState, propertiesReducer } from './properties';
 import { apiCallMiddleware } from './middlewares';
 import { userReducer, userInitialState } from './user';
 
+export { updateFilterField } from './properties/actions';
+
 const initialState = {
     user: userInitialState,
     properties: propertiesInitialState,

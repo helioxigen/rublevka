@@ -1,7 +1,7 @@
 import range from 'lodash/range';
 import config from '@config';
 
-const templateRange = (rangeArr = [], templateFn) => rangeArr.map(value => ({ value, label: templateFn(value) }));
+const templateRange = (rangeArr = [], templateFn) => rangeArr.map(value => ({ value: value * 1000000, label: templateFn(value) }));
 
 const rentTpl = value => `${value} тыс/мес`;
 
@@ -23,8 +23,6 @@ const generic = (end, step, templateFn) =>
     templateRange(range(0, end + step, step), value => templateFn(value === end ? `${value}+` : value));
 
 export default {
-    template: {
-        prices,
-        generic,
-    },
+    generic,
+    prices,
 };

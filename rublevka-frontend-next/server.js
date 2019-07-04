@@ -14,7 +14,7 @@ app.prepare().then(() => {
     });
 
     server.get('/zagorodnaya/:dealType', (req, res) => {
-        return app.render(req, res, '/catalog', { dealType: req.params.id });
+        return app.render(req, res, '/catalog', { dealType: req.params.dealType, ...req.query });
     });
 
     server.get('/zagorodnaya/:dealType/:kind/:id', (req, res) => {

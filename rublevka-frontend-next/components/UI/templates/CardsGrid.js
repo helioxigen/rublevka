@@ -17,5 +17,5 @@ export default styled.section`
 
     transition: opacity 225ms;
 
-    opacity: ${({ fetching }) => (fetching ? 0.7 : 1)};
+    opacity: ${({ fetching }) => (fetching ? 0.65 : 1)};
 `;

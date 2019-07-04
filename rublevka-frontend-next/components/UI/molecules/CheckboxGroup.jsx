@@ -1,9 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+import xor from 'lodash/xor';
 import { Checkbox } from '../atoms';
 
 const CheckboxGroup = ({ className, fields, values = [], onChange, emptyAsFull }) => {
     const getChecked = fieldName => (!values.length && emptyAsFull) || values.includes(fieldName);
+    const fieldsList = Object.keys(fields).filter(f => f !== 'all');
+
+    const handleChange = fieldName => e => {
+        const { checked } = e.target;
+
+        if (fieldName === 'all' && checked) return onChange([]);
+
+        return onChange(xor(values.length === 0 ? fieldsList : values, [fieldName]));
+    };
+
+    const handleOnlyClick = fieldName => () => onChange([fieldName]);
 
     return (
         <div className={className}>
@@ -12,12 +24,12 @@ const CheckboxGroup = ({ className, fields, values = [], onChange, emptyAsFull }
                     key={fieldName}
                     label={label}
                     checked={getChecked(fieldName)}
-                    onChange={e => onChange(fieldName, e.target.checked, false, fields)}
+                    onChange={handleChange(fieldName)}
                     showOnly={
                         fieldName !== 'all' &&
                         (!(values.length === 1 && values.includes(fieldName)) || values.length === 0)
                     }
-                    onClickOnly={() => onChange(fieldName, true, true, fields)}
+                    onClickOnly={handleOnlyClick(fieldName)}
                 />
             ))}
         </div>

@@ -1,6 +1,12 @@
 import keyBy from 'lodash/keyBy';
 import { createReducer } from '../../utils/store';
-import { LOAD_PROPERTIES_REQUEST, LOAD_PROPERTIES_SUCCESS, LOAD_PROPERTIES_ERROR, CHANGE_SORT } from './actions';
+import {
+    LOAD_PROPERTIES_REQUEST,
+    LOAD_PROPERTIES_SUCCESS,
+    LOAD_PROPERTIES_ERROR,
+    CHANGE_SORT,
+    UPDATE_FILTER_FIELD,
+} from './actions';
 
 export const propertiesInitialState = {
     fetching: false,
@@ -12,6 +18,7 @@ export const propertiesInitialState = {
         offset: 0,
         limit: 24,
     },
+    filter: {},
     error: {
         hasError: false,
         message: '',
@@ -28,6 +35,7 @@ export const propertiesReducer = createReducer({
                 items,
                 pagination: { total, offset },
             },
+            filter,
         },
         state
     ) => ({
@@ -40,6 +48,7 @@ export const propertiesReducer = createReducer({
             ...state.lists,
             [offset]: items,
         },
+        filter,
         pagination: {
             ...state.pagination,
             total,
@@ -55,5 +64,11 @@ export const propertiesReducer = createReducer({
     }),
     [CHANGE_SORT]: ({ payload: { type } }) => ({
         sort: type,
+    }),
+    [UPDATE_FILTER_FIELD]: ({ payload: { fieldName, value } }, state) => ({
+        filter: {
+            ...state.filter,
+            [fieldName]: value,
+        },
     }),
 })(propertiesInitialState);

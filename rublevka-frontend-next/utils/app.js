@@ -9,6 +9,7 @@ const ifDomain = (ifRublevka, ifRiga) => (isRublevka ? ifRublevka : ifRiga);
  * @property {string} phone
  * @property {string} phoneNumbers
  * @property {string} imagePostfix
+ * @property {Array<number>} routes
  */
 
 /**
@@ -21,4 +22,5 @@ export const PROPERTIES_FETCHED = 'List.Fetched';
 export default {
     ifDomain,
     getConfig,
+    // getRouteIds,
 };

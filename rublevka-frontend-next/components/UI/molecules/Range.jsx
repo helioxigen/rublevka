@@ -16,7 +16,7 @@ const Range = ({ className, options, value: { from, to } = {}, onChange }) => {
             <Select
                 placeholder="до"
                 value={to}
-                onChange={value => onChange({ to: value })}
+                onChange={value => onChange({ to: value, from })}
                 options={options.filter(({ value }) => value >= (from || 1))}
             />
         </div>

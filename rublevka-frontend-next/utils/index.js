@@ -7,3 +7,5 @@ export { default as format } from './format';
 export { default as itemTitle } from './itemTitle';
 export { default as handlers } from './handlers';
 export { default as filter } from './filter';
+export { default as query } from './query';
+export { default as router } from './router';

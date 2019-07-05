@@ -4,7 +4,7 @@ import {
     LOAD_PROPERTIES_REQUEST,
     LOAD_PROPERTIES_SUCCESS,
     LOAD_PROPERTIES_ERROR,
-    CHANGE_SORT,
+    CHANGE_ORDER,
     UPDATE_FILTER_FIELD,
     LOAD_PROPERTY_SUCCESS,
 } from './actions';
@@ -13,7 +13,7 @@ export const propertiesInitialState = {
     fetching: false,
     items: {},
     lists: {},
-    sort: '',
+    orderBy: '',
     pagination: {
         total: 0,
         offset: 0,
@@ -37,6 +37,7 @@ export const propertiesReducer = createReducer({
                 pagination: { total, offset },
             },
             filter,
+            orderBy,
         },
         state
     ) => ({
@@ -50,6 +51,7 @@ export const propertiesReducer = createReducer({
             [offset]: items,
         },
         filter,
+        orderBy,
         pagination: {
             ...state.pagination,
             total,
@@ -69,8 +71,8 @@ export const propertiesReducer = createReducer({
             [id]: response,
         },
     }),
-    [CHANGE_SORT]: ({ payload: { type } }) => ({
-        sort: type,
+    [CHANGE_ORDER]: ({ payload: { type } }) => ({
+        orderBy: type,
     }),
     [UPDATE_FILTER_FIELD]: ({ payload: { fieldName, value } }, state) => ({
         filter: {

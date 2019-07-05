@@ -29,6 +29,37 @@ const pushFilter = filter => {
     );
 };
 
+const pushQuery = queryObj => {
+    const { page, filter, dealType } = Router.query;
+
+    const cleanQ = pickBy(queryObj, v => !isEmpty(v));
+
+    const query = pickBy(
+        {
+            page,
+            filter,
+            ...cleanQ,
+        },
+        v => !isEmpty(v)
+    );
+
+    Router.push(
+        {
+            pathname: '/catalog',
+            query: {
+                ...query,
+                dealType,
+            },
+        },
+        {
+            pathname: `/zagorodnaya/${dealType}`,
+            query,
+        },
+        { shallow: true }
+    );
+};
+
 export default {
     pushFilter,
+    pushQuery,
 };

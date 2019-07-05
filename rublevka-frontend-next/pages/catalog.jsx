@@ -4,19 +4,33 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Header, PageContainer, CatalogLayout, CardsGrid } from '@components/UI';
 import { Card, Breadcrumbs, Filter, Sort, Pagination } from '@components';
-import { fetchProperties, changeSort } from '@store';
+import { fetchProperties, changeOrderBy } from '@store';
 import { dict, app, filter as filterUtils } from '@utils';
 
-const CatalogPage = ({ dealType, list = [], page, totalPages, totalItems, sort, fetching, handleToggleSort }) => {
+const CatalogPage = ({
+    dealType,
+    list = [],
+    page,
+    user,
+    totalPages,
+    totalItems,
+    orderBy,
+    fetching,
+    handleToggleSort,
+}) => {
     const dispatch = useDispatch();
     const router = useRouter();
 
     useEffect(() => {
         const parsedFilter = JSON.parse(router.query.filter || '{}');
+        const { orderBy: orderByQuery } = router.query;
 
         const filterQuery = filterUtils.query.createFilterQuery(dealType, parsedFilter);
+        const orderQuery = filterUtils.query.orderToQuery(orderByQuery, dealType, user.currency);
 
-        dispatch(fetchProperties(router.query.page || page, filterQuery, parsedFilter));
+        dispatch(
+            fetchProperties(router.query.page || page, { ...filterQuery, ...orderQuery }, parsedFilter, orderByQuery)
+        );
     }, [router.query]);
 
     return (
@@ -30,7 +44,7 @@ const CatalogPage = ({ dealType, list = [], page, totalPages, totalItems, sort, 
                     <Header.Catalog>
                         {dict.translateDealType(dealType).verb} недвижимость на {app.ifDomain('Рублёвке', 'Риге')}
                     </Header.Catalog>
-                    <Sort total={totalItems} value={sort} onChange={handleToggleSort} />
+                    <Sort total={totalItems} value={orderBy} onChange={handleToggleSort} />
                 </header>
                 <Filter dealType={dealType} />
                 <CardsGrid fetching={fetching}>
@@ -44,14 +58,18 @@ const CatalogPage = ({ dealType, list = [], page, totalPages, totalItems, sort, 
     );
 };
 
-CatalogPage.getInitialProps = async ({ store, query: { dealType: dealTypeTranslit, page = 1, filter = '' } }) => {
+CatalogPage.getInitialProps = async ({
+    store,
+    query: { dealType: dealTypeTranslit, page = 1, filter = '', orderBy },
+}) => {
     const dealType = dict.translit.byWord(dealTypeTranslit);
 
     const parsedFilter = JSON.parse(filter || '{}');
 
     const filterQuery = filterUtils.query.createFilterQuery(dealType, parsedFilter);
+    const orderQuery = filterUtils.query.orderToQuery(orderBy, dealType);
 
-    await store.dispatch(fetchProperties(page, filterQuery, parsedFilter));
+    await store.dispatch(fetchProperties(page, { ...filterQuery, ...orderQuery }, parsedFilter, orderBy));
 
     return { dealType };
 };
@@ -61,15 +79,16 @@ CatalogPage.getInitialProps = async ({ store, query: { dealType: dealTypeTransli
 export default connect(
     state => ({
         list: state.properties.lists[state.properties.pagination.offset],
-        sort: state.properties.sort,
+        orderBy: state.properties.orderBy,
         fetching: state.properties.fetching,
         page:
             (state.properties.pagination.offset + state.properties.pagination.limit) /
             state.properties.pagination.limit,
         totalPages: Math.floor(state.properties.pagination.total / state.properties.pagination.limit),
         totalItems: state.properties.pagination.total,
+        user: state.user.currency,
     }),
     dispatch => ({
-        handleToggleSort: type => dispatch(changeSort(type)),
+        handleToggleSort: type => dispatch(changeOrderBy(type)),
     })
 )(CatalogPage);

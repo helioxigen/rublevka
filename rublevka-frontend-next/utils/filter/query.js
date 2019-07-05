@@ -82,9 +82,27 @@ const extractObject = (obj, keyName) => {
     });
 };
 
+const orderToQuery = (orderBy, dealType, currency = 'rub') => {
+    if (!orderBy) return {};
+
+    const [type, direction] = orderBy.split('.');
+
+    const getFieldName = () => {
+        if (type === 'price') return `${dealType}Offer.multiCurrencyPrice.${currency}`;
+        if (type === 'mkadDistance') return 'location.mkadDistance';
+    };
+
+    return {
+        orderBy: {
+            [getFieldName()]: direction,
+        },
+    };
+};
+
 export default {
     getDefaults,
     createFilterQuery,
     filterToQuery,
     filterFromQuery,
+    orderToQuery,
 };

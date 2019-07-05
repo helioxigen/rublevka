@@ -3,26 +3,22 @@ import styled from 'styled-components';
 import { CombinedSelect } from '@components/UI';
 import { sc } from '@utils';
 
-const Sort = ({ className, total = 0, currency, dealType, value = '', onChange }) => {
-    const [sort, changeSort] = useState(value);
-
-    return (
-        <div className={className}>
-            {total.toLocaleString('ru')} объектов отсортированы{' '}
-            <CombinedSelect
-                options={[
-                    ['', 'По умолчанию'],
-                    ['price.asc', 'По возрастанию цены'],
-                    ['price.desc', 'По убыванию цены'],
-                    ['mkadDistance.asc', 'По удалённости от МКАД'],
-                    ['mkadDistance.desc', 'По близости к МКАД'],
-                ]}
-                value={sort}
-                onChange={changeSort}
-            />
-        </div>
-    );
-};
+const Sort = ({ className, total = 0, value = '', onChange }) => (
+    <div className={className}>
+        {total.toLocaleString('ru')} объектов отсортированы{' '}
+        <CombinedSelect
+            options={[
+                ['', 'По умолчанию'],
+                ['price.asc', 'По возрастанию цены'],
+                ['price.desc', 'По убыванию цены'],
+                ['mkadDistance.asc', 'По удалённости от МКАД'],
+                ['mkadDistance.desc', 'По близости к МКАД'],
+            ]}
+            value={value}
+            onChange={onChange}
+        />
+    </div>
+);
 
 export default styled(Sort)`
     display: flex;

@@ -1,12 +1,9 @@
 import styled from 'styled-components';
 import { Header } from '../atoms';
+import { media } from '@utils';
 
 export default styled.main`
     display: flex;
-
-    display: grid;
-    grid: auto / 70% auto;
-    grid-gap: 0 20px;
 
     > article,
     > aside {
@@ -17,6 +14,8 @@ export default styled.main`
     }
 
     > article {
+        flex: 1 0 auto;
+        /* width: 700px; */
         padding: 24px 20px;
 
         ${Header.Item} {
@@ -25,11 +24,19 @@ export default styled.main`
     }
 
     > aside {
+        flex: 1 0 auto;
+        display: none;
+        margin-left: 20px;
+
+        ${media.lg`
+            display: block;
+        `}
+
         > * {
             padding: 24px 20px;
         }
 
-        header {
+        > header {
             display: flex;
             flex-direction: column;
             justify-content: center;

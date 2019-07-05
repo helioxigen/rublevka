@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { media } from '@utils';
+import { media, sc } from '@utils';
 
 export default styled.div`
     width: auto;
@@ -16,7 +16,7 @@ export default styled.div`
     `}
 
     ${media.lg`
-        max-width: 1360px;
+        max-width: ${sc.ifProp('item', 1130, 1360)}px;
         padding-top: 60px;        
     `}
 `;

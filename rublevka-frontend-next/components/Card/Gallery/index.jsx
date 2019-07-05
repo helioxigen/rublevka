@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ReactSwipe from 'react-swipe';
+// import ReactSwipe from 'react-swipe';
 import styled from 'styled-components';
 import { cdn } from '@utils';
 import Indicators from './Indicators';
@@ -9,7 +9,7 @@ const Gallery = ({ className, images }) => {
 
     return (
         <figure className={className}>
-            <ReactSwipe
+            {/* <ReactSwipe
                 swipeOptions={{
                     callback: idx => setSelectedImage(idx),
                 }}
@@ -17,7 +17,7 @@ const Gallery = ({ className, images }) => {
                 {images.slice(0, 6).map(image => (
                     <img key={image.id} alt={image.id} src={cdn.get.thumbnail(image.id)} />
                 ))}
-            </ReactSwipe>
+            </ReactSwipe> */}
             <Indicators currentIdx={selectedImage} size={images.length} />,
         </figure>
     );

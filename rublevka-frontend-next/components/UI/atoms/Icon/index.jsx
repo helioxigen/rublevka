@@ -1,16 +1,14 @@
+/* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
-// eslint-disable-next-line global-require
-const getIcon = name => require(`./assets/${name}.svg`).default;
-
-const Icon = ({ className, name, viewBox }) => {
-    const IconSVG = getIcon(name);
+const Icon = ({ className, name }) => {
+    const IconSVG = require(`./assets/${name}.svg`).default;
 
     return (
         <span className={className}>
-            <IconSVG viewBox={viewBox} />
+            <IconSVG />
         </span>
     );
 };

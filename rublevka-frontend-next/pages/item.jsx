@@ -1,14 +1,19 @@
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
-import { PageContainer, Header, Price, ProfileCard, IconButton } from '@components/UI';
-import { Breadcrumbs } from '@components';
+import { PageContainer, Header, Price, ProfileCard, IconButton, ItemLayout } from '@components/UI';
+import { Breadcrumbs, Carousel } from '@components';
 import { dict, itemTitle } from '@utils';
 import { fetchProperty } from '@store';
-import ItemLayout from '@components/UI/templates/ItemLayout';
 
-const CatalogItem = ({ dealType, id }) => {
-    const { location, landDetails, specification, kind, location: { settlementId, settlementName } = {}, ...item } =
-        useSelector(state => state.properties.items[id]) || {};
+const CatalogItem = ({ dealType, kind, id }) => {
+    const {
+        location,
+        landDetails,
+        specification,
+        location: { settlementId, settlementName } = {},
+        images = [],
+        ...item
+    } = useSelector(state => state.properties.items[id]) || {};
 
     const currency = useSelector(state => state.user.currency);
 
@@ -17,7 +22,7 @@ const CatalogItem = ({ dealType, id }) => {
     // console.log(item);
 
     return (
-        <PageContainer>
+        <PageContainer item>
             <Breadcrumbs
                 dealType={dealType}
                 last={[
@@ -30,6 +35,7 @@ const CatalogItem = ({ dealType, id }) => {
                     <Header.Item id={id}>
                         {itemTitle.generate(dealType, false, true, { location, landDetails, specification, kind })}
                     </Header.Item>
+                    <Carousel images={images.filter(i => i.isPublic)} />
                 </article>
                 <aside>
                     <header>

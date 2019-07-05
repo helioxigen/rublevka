@@ -9,11 +9,11 @@ const Price = ({ className, deal: { multiCurrencyPrice = {} }, dealType }) => {
     const price = multiCurrencyPrice[code];
 
     return (
-        <footer className={className}>
+        <p className={className}>
             {price && price.toLocaleString('ru')}
             {symbol}
             {dealType === 'rent' && ' / месяц'}
-        </footer>
+        </p>
     );
 };
 
@@ -21,4 +21,6 @@ export default styled(Price)`
     font-weight: 500;
 
     color: #232323;
+
+    margin: 0;
 `;

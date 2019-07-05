@@ -6,6 +6,7 @@ import {
     LOAD_PROPERTIES_ERROR,
     CHANGE_SORT,
     UPDATE_FILTER_FIELD,
+    LOAD_PROPERTY_SUCCESS,
 } from './actions';
 
 export const propertiesInitialState = {
@@ -60,6 +61,12 @@ export const propertiesReducer = createReducer({
         error: {
             hasError: true,
             message: err,
+        },
+    }),
+    [LOAD_PROPERTY_SUCCESS]: ({ response, id }, state) => ({
+        items: {
+            ...state.items,
+            [id]: response,
         },
     }),
     [CHANGE_SORT]: ({ payload: { type } }) => ({

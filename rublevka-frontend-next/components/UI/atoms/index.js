@@ -4,3 +4,5 @@ export { default as Icon } from './Icon';
 export { default as Checkbox } from './Checkbox';
 export { default as Select } from './Select';
 export { default as RadioButton } from './RadioButton';
+export { default as Price } from './Price';
+export { default as Avatar } from './Avatar';

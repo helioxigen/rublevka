@@ -8,7 +8,7 @@ const Breadcrumbs = ({ className, dealType, last = false }) => (
         <ol itemScope itemType="http://schema.org/BreadcrumbList">
             {[
                 ['/', 'Главная'],
-                [`/zagorodnaya/${dict.translit(dealType)}`, dict.translateDealType(dealType).noun],
+                [`/zagorodnaya/${dict.translit.byWord(dealType)}`, dict.translateDealType(dealType).noun],
                 last,
             ]
                 .filter(v => v)
@@ -20,7 +20,8 @@ const Breadcrumbs = ({ className, dealType, last = false }) => (
 );
 
 export default styled(Breadcrumbs)`
-    padding-top: 28px;
+    margin: 28px 0 16px;
+
     ol {
         padding: 0;
         margin: 0;

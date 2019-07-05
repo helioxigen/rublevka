@@ -3,10 +3,9 @@ import { Filter, Breadcrumbs, Pagination } from '@components';
 import { media } from '@utils';
 import CardsGrid from './CardsGrid';
 
-export default styled.section`
+export default styled.main`
     display: grid;
     grid-template:
-        'nav'
         'header' 46px
         'triggers' 29px
         'cards'
@@ -14,19 +13,14 @@ export default styled.section`
 
     grid-gap: 10px;
 
-    padding: 18px 10px 0;
-
     ${media.lg`
         grid-template:
-        'nav nav nav nav'
-        'header header header header' 90px
+        'header header header header' 70px
         'filter cards cards cards'
         '. pagination pagination pagination' 200px / 
         20% 1fr 1fr 1fr [end]
         ;
         width: auto;
-
-        padding-top: 60px;
     `}
 
     ${Filter} {

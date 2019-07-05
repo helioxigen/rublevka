@@ -1,3 +1,5 @@
+// import compact from 'lodash/compact';
+
 const transformToQuery = obj =>
     Object.entries(obj)
         .map(([key, value]) =>
@@ -5,6 +7,8 @@ const transformToQuery = obj =>
         )
         .reduce((acc, v) => acc.concat(v))
         .join('&');
+
+// const cleanRouterQuery = (...objs) => compact(objs).reduce((acc, ));
 
 export default {
     get: transformToQuery,

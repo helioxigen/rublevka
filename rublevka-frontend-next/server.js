@@ -18,7 +18,11 @@ app.prepare().then(() => {
     });
 
     server.get('/zagorodnaya/:dealType/:kind/:id', (req, res) => {
-        return app.render(req, res, '/posts', { id: req.params.id });
+        return app.render(req, res, '/item', {
+            dealType: req.params.dealType,
+            kind: req.params.kind,
+            id: req.params.id,
+        });
     });
 
     server.get('*', (req, res) => {

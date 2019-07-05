@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Icon, Button, PageContainer as Container } from '@components/UI';
 import styled from 'styled-components';
 import config from '@config';
-import { app } from '@utils';
+import { app, media } from '@utils';
 
-const Navbar = ({ className, inverts }) => {
-    const [inverted, toggleInverted] = useState(inverts);
+const Navbar = ({ className }) => {
+    const { pathname } = useRouter();
+
+    const isLanding = pathname === '/';
+
+    const [inverted, toggleInverted] = useState(isLanding);
 
     const handleInvert = () => {
         const nextInverted = window.scrollY < 80;
@@ -15,31 +20,42 @@ const Navbar = ({ className, inverts }) => {
     };
 
     useEffect(() => {
-        if (!inverts) return () => {};
+        if (!isLanding) return () => {};
 
         window.addEventListener('scroll', handleInvert);
 
         return () => {
+            toggleInverted(false);
             window.removeEventListener('scroll', handleInvert);
         };
-    }, [inverts]);
+    }, [pathname]);
+
+    useEffect(() => {
+        if (isLanding && !inverted) {
+            toggleInverted(true);
+        }
+
+        if (!isLanding && inverted) {
+            toggleInverted(false);
+        }
+    }, [pathname]);
 
     return (
         <header className={className} data-inverted={inverted}>
-            <Container as="div">
+            <div className="container">
                 <nav>
                     <Link prefetch href="/">
                         <a className="logo">
                             <Icon className="logo-icon" name={config.app} viewBox="0 0 448 67" />
                         </a>
                     </Link>
-                    <Link prefetch href="/zagorodnaya/prodaja">
+                    <Link prefetch href="/catalog?dealType=prodaja" as="/zagorodnaya/prodaja">
                         <a>Продажа</a>
                     </Link>
-                    <Link prefetch href="/zagorodnaya/arenda">
+                    <Link prefetch href="/catalog?dealType=arenda" as="/zagorodnaya/arenda">
                         <a>Аренда</a>
                     </Link>
-                    <Link prefetch href="/zagorodnaya/kottedzhnye-poselki">
+                    <Link prefetch href="/settlements" as="/zagorodnaya/kottedzhnye-poselki">
                         <a>Посёлки</a>
                     </Link>
                     <Link prefetch href="/contacts">
@@ -53,7 +69,7 @@ const Navbar = ({ className, inverts }) => {
                     <Button>Обратный звонок</Button>
                     <Icon className="favorite-icon" name="favorite" />
                 </div>
-            </Container>
+            </div>
         </header>
     );
 };
@@ -75,10 +91,25 @@ export default styled(Navbar)`
 
     transition: 225ms;
 
-    ${Container} {
+    .container {
         display: flex;
         justify-content: space-between;
         height: 100%;
+
+        margin: 0 auto;
+        width: auto;
+
+        ${media.sm`
+            max-width: 740px;
+        `}
+
+        ${media.md`
+            max-width: 960px;
+        `}
+
+        ${media.lg`
+            max-width: 1360px;
+        `}
     }
 
     .logo svg {

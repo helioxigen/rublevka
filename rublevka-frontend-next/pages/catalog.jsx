@@ -24,8 +24,8 @@ const CatalogPage = ({ dealType, list = [], page, totalPages, sort, fetching, ha
             <Head>
                 <meta name="og:image" content="http://image.com" />
             </Head>
+            <Breadcrumbs dealType={dealType} />
             <CatalogLayout>
-                <Breadcrumbs dealType={dealType} />
                 <header>
                     <Header.Catalog>
                         {dict.translateDealType(dealType).verb} недвижимость на {app.ifDomain('Рублёвке', 'Риге')}
@@ -44,18 +44,8 @@ const CatalogPage = ({ dealType, list = [], page, totalPages, sort, fetching, ha
     );
 };
 
-CatalogPage.getInitialProps = async ({
-    store,
-    req: {
-        params,
-        query: { page = 1, filter = '' },
-    },
-}) => {
-    const limit = 24;
-
-    const dealType = dict.translit(params.dealType);
-
-    // const parsedFilter = filterUtils.query.filterFromQuery(filter);
+CatalogPage.getInitialProps = async ({ store, query: { dealType: dealTypeTranslit, page = 1, filter = '' } }) => {
+    const dealType = dict.translit.byWord(dealTypeTranslit);
 
     const parsedFilter = JSON.parse(filter || '{}');
 

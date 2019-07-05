@@ -6,17 +6,6 @@ import isEmpty from 'lodash/isEmpty';
 const pushFilter = filter => {
     const { page, dealType } = Router.query;
 
-    // const url = {
-    //     path: '/catalog',
-    //     pathname: window.location.pathname,
-    //     query: {
-    //         ...(page ? { page } : {}),
-    //         ...filterUtils.query.filterToQuery(filter),
-    //     },
-    // };
-
-    // console.log(url, Router.query, Router, filterUtils.query.filterToQuery(filter));
-
     const cleanFilter = pickBy(filter, v => !isEmpty(v));
 
     const query = pickBy(
@@ -26,8 +15,6 @@ const pushFilter = filter => {
         },
         v => !isEmpty(v)
     );
-
-    console.log(query, Router);
 
     Router.push(
         {

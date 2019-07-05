@@ -3,6 +3,9 @@ function declOfNum(number, titles) {
     return titles[number % 100 > 4 && number % 100 < 20 ? 2 : cases[number % 10 < 5 ? number % 10 : 5]];
 }
 
+const prefixZero = num => (num < 10 ? `0${num}` : num);
+
 export default {
     titleByNumber: (number, titles) => number && `${number} ${declOfNum(number, titles)}`,
+    prefixZero,
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Slider from 'react-multi-carousel';
 import { cdn } from '@utils';
@@ -19,27 +19,176 @@ const responsive = {
     },
 };
 
-const Carousel = ({ className, images, controls: [left, right] }) => (
-    <Slider infinite responsive={responsive} customLeftArrow={left} customRightArrow={right} containerClass={className}>
-        {images.map(({ id }) => (
-            <img key={id} src={cdn.get.full(id)} alt={id} />
-        ))}
-    </Slider>
+const responsivePreview = {
+    desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 7,
+    },
+    tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 6,
+    },
+    mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 4,
+    },
+};
+
+const Carousel = React.forwardRef(
+    (
+        {
+            className,
+            images,
+            beforeChange,
+            afterChange,
+            additionalTransform,
+            preview = false,
+            previewIdx,
+            controls: [left, right] = [],
+        },
+        ref
+    ) => {
+        // const children = articles.map(article => <ArticleCard key={article.title} {...article} />);
+
+        // const images = articles.map(article => <Avatar key={article.title} src={article.imageUrl} />);
+
+        // const CustomDot = ({ index, onClick, active, carouselState: { currentSlide } }) => {
+        //     return (
+        //         <button
+        //             type="button"
+        //             onClick={e => {
+        //                 onClick();
+        //                 e.preventDefault();
+        //             }}
+        //             // className={classNames('custom-dot', {
+        //             //     'custom-dot--active': active,
+        //             // })}
+        //         >
+        //             {images.map(({ id }, idx) => (
+        //                 <figure data-active={active} data-idx={idx} data-preview={preview} key={id}>
+        //                     <img src={cdn.get.full(id)} alt={id} />
+        //                 </figure>
+        //             ))}
+        //         </button>
+        //     );
+        // };
+
+        // const handleIdxUpdate = ([preview, gallery]) => changeIdxs([preview || previewIdx, gallery || galleryIdx]);
+
+        // const children = (previeww = false) =>
+        //     images.map(({ id }, idx) => (
+        //         <figure data-idx={idx} data-preview={previeww} key={id}>
+        //             <img src={cdn.get.full(id)} alt={id} />
+        //         </figure>
+        //     ));
+
+        return (
+            <div className={className} data-preview={preview}>
+                <Slider
+                    ref={ref}
+                    beforeChange={beforeChange}
+                    // beforeChange={(nextSlide, { isSliding, onMove }) => {
+                    //     // changePreviewIdx()
+                    //     // handleIdxUpdate([previewRef.current.state.currentSlide + 1]);
+
+                    //     // if (isSliding || )
+
+                    //     // if (!galleryAllowed) return;
+
+                    //     if (galleryIdx === nextSlide) return;
+
+                    //     const previewEl = previewRef.current;
+
+                    //     if (!previewEl) return;
+
+                    //     setPreIdx(previewEl.state.currentSlide + 1);
+
+                    //     // previewEl.next();
+
+                    //     // setPrevAllowed(false);
+
+                    //     // previewRef.current && previewRef.current.goToSlide(previewRef.current.state.currentSlide + 1);
+                    // }}
+                    arrows={!preview}
+                    infinite
+                    responsive={preview ? responsivePreview : responsive}
+                    customLeftArrow={left}
+                    customRightArrow={right}
+                    containerClass="gallery-carousel"
+                    removeArrowOnDeviceType={['tablet', 'mobile']}
+                    focusOnSelect={preview}
+                    additionalTransfrom={additionalTransform}
+                >
+                    {images.map(({ id }, idx) => (
+                        <figure data-idx={idx} data-preview={preview} key={id}>
+                            <img src={cdn.get.full(id)} alt={id} />
+                        </figure>
+                    ))}
+                </Slider>
+                {/* <Slider
+                    ref={previewRef}
+                    // afterChange={() => setPrevAllowed(true)}
+                    beforeChange={(nextSlide, { currentSlide }) => {
+                        const diff = nextSlide - currentSlide;
+
+                        if (previewIdx === nextSlide) return;
+
+                        const galleryEl = galleryRef.current;
+
+                        if (!galleryEl) return;
+
+                        const nextGalleryIDx = galleryEl.state.currentSlide + diff;
+
+                        setGaIdx(nextGalleryIDx);
+
+                        // if (!previewAllowed) return;
+
+                        // setGalleryAllowed(false);
+
+                        // handleIdxUpdate([undefined, galleryRef.current.state.currentSlide + diff]);
+
+                        // galleryRef.current &&
+                        //     galleryRef.current.goToSlide(galleryRef.current.state.currentSlide + diff);
+                    }}
+                    infinite
+                    responsive={responsivePreview}
+                    customLeftArrow={left}
+                    customRightArrow={right}
+                    containerClass={className}
+                    removeArrowOnDeviceType={['tablet', 'mobile']}
+                    focusOnSelect
+                    additionalTransfrom={100 * 3}
+                    // showDots
+                    // customDot={<CustomDot />}
+                >
+                    {children(true)}
+                </Slider> */}
+            </div>
+        );
+    }
 );
 
 export default styled(Carousel)`
-    display: flex;
-    align-items: center;
-    overflow: hidden;
     position: relative;
+
+    .gallery-carousel {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+    }
+
+    figure {
+        margin: 0;
+    }
 
     ${CarouselControl} {
         opacity: 0;
         transition: opacity 225ms;
     }
 
-    &::before,
-    &::after {
+    &[data-preview='false']::before,
+    &[data-preview='false']::after {
         content: '';
         width: 80px;
         position: absolute;
@@ -166,6 +315,24 @@ export default styled(Carousel)`
         }
         .react-multi-carousel-track {
             overflow: visible !important;
+        }
+    }
+
+    &[data-preview='true'] {
+        .react-multi-carousel-item {
+            opacity: 0.5;
+            cursor: pointer;
+
+            &--active {
+                opacity: 1;
+                cursor: default;
+                pointer-events: none;
+
+                & + .react-multi-carousel-item {
+                    opacity: 0.5;
+                    cursor: pointer;
+                }
+            }
         }
     }
 `;

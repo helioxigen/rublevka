@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Icon, Button } from '../atoms';
+import { sc } from '@utils';
 
 const IconButton = ({ className, icon, red, children }) => (
-    <Button className={className} red={red}>
+    <Button data-icon={icon} className={className} red={red}>
         <Icon name={icon} />
         {children}
     </Button>
@@ -16,6 +17,6 @@ export default styled(IconButton)`
 
     ${Icon} {
         display: block;
-        margin-right: 0.5em;
+        ${p => (p.children ? 'margin-right: 0.5em' : 'padding: 0.5em')};
     }
 `;

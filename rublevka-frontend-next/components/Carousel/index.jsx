@@ -26,8 +26,8 @@ const Carousel = ({ className, images = [] }) => {
     return (
         <section className={className}>
             <Slider
-                customLeftArrow={<Icon className="slider-left" name="carousel-left" />}
-                customRightArrow={<Icon className="slider-right" name="carousel-right" />}
+                customLeftArrow={<Icon className="slider-left" name="arrow" mirror />}
+                customRightArrow={<Icon className="slider-right" name="arrow" />}
                 infinite
                 responsive={responsive}
                 ssr

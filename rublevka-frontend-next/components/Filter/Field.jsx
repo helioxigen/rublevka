@@ -23,7 +23,7 @@ const Field = ({ className, title, name, range, children, resetCheckFn }) => {
                 {title}{' '}
                 {isResetShown && (
                     <button onClick={handleReset} className="filter-reset" type="button">
-                        <Icon name="times" viewBox="0 0 21 15.125" />
+                        <Icon name="times" />
                     </button>
                 )}
             </header>

@@ -11,7 +11,7 @@ const Breadcrumb = ({ className, href, idx, title }) => (
                 <meta itemProp="position" content={idx + 1} />
             </a>
         </Link>
-        <Icon name="arrow-left" viewBox="0 0 6 10" />
+        <Icon name="arrow" />
     </li>
 );
 

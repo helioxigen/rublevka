@@ -46,7 +46,7 @@ const Navbar = ({ className }) => {
                 <nav>
                     <Link prefetch href="/">
                         <a className="logo">
-                            <Icon className="logo-icon" name={config.app} viewBox="0 0 448 67" />
+                            <Icon className="logo-icon" name={config.app} />
                         </a>
                     </Link>
                     <Link prefetch href="/catalog?dealType=prodaja" as="/zagorodnaya/prodaja">

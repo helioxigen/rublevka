@@ -23,7 +23,7 @@ const Pagination = ({ className, count, currentPage }) => {
         <div className={className}>
             <Button red>Загрузить ещё</Button>
             <div className="pages">
-                <Icon name="arrow-left" viewBox="0 0 6 10" />
+                <Icon name="arrow" mirror />
                 <PageLink page={1} current={currentPage === 1} />
                 {currentPage > 3 && <span className="eclipse">...</span>}
                 {range(start, end).map(num => (
@@ -31,7 +31,7 @@ const Pagination = ({ className, count, currentPage }) => {
                 ))}
                 {count > 4 && count - currentPage > 2 && <span className="eclipse">...</span>}
                 {count > 4 && <PageLink page={count} current={currentPage === count} />}
-                <Icon name="arrow-left" viewBox="0 0 6 10" />
+                <Icon name="arrow" />
             </div>
         </div>
     );
@@ -54,9 +54,5 @@ export default styled(Pagination)`
     .pages {
         display: flex;
         align-items: center;
-
-        ${Icon}:first-child {
-            transform: scaleX(-1);
-        }
     }
 `;

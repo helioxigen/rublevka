@@ -1,8 +1,8 @@
-import React, { createRef, useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Slider from 'react-multi-carousel';
-import { cdn, media } from '@utils';
-import { Icon } from '@components/UI';
+import { cdn } from '@utils';
+import CarouselControl from './CarouselControl';
 
 const responsive = {
     desktop: {
@@ -19,63 +19,56 @@ const responsive = {
     },
 };
 
-const Carousel = ({ className, images = [] }) => {
-    const swipeRef = createRef(null);
-    const [showSwipe, changeShowSwipe] = useState(false);
-
-    return (
-        <section className={className}>
-            <Slider
-                customLeftArrow={<Icon className="slider-left" name="arrow" mirror />}
-                customRightArrow={<Icon className="slider-right" name="arrow" />}
-                infinite
-                responsive={responsive}
-                ssr
-            >
-                {images.map(({ id }) => (
-                    <img key={id} src={cdn.get.full(id)} alt={id} />
-                ))}
-            </Slider>
-        </section>
-    );
-};
+const Carousel = ({ className, images, controls: [left, right] }) => (
+    <Slider infinite responsive={responsive} customLeftArrow={left} customRightArrow={right} containerClass={className}>
+        {images.map(({ id }) => (
+            <img key={id} src={cdn.get.full(id)} alt={id} />
+        ))}
+    </Slider>
+);
 
 export default styled(Carousel)`
-    width: 100%;
-    h1 {
-        width: 200px;
-        height: 200px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+
+    ${CarouselControl} {
+        opacity: 0;
+        transition: opacity 225ms;
     }
 
-    ${Icon} {
+    &::before,
+    &::after {
+        content: '';
+        width: 80px;
         position: absolute;
-        
-        svg {
-            stroke: white;
-            fill: white;
+        top: 0;
+        bottom: 0;
+
+        transition: opacity 0.5s;
+        opacity: 0;
+        z-index: 2;
+    }
+
+    &::before {
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%);
+        left: 0;
+    }
+
+    &::after {
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 100%);
+        right: 0;
+    }
+
+    &:hover {
+        &::before,
+        &::after,
+        ${CarouselControl} {
+            opacity: 1;
         }
     }
 
-    .slider-left {
-        left: 10px;
-    }
-
-    .slider-right {
-        right: 10px;
-    }
-
-    .swiper {
-        width: 700px;
-        /* height: 400px; */
-    }
-
-    .react-multi-carousel-list {
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-        position: relative;
-        width: 705px;
-    }
     .react-multi-carousel-track {
         list-style: none;
         padding: 0;
@@ -175,26 +168,4 @@ export default styled(Carousel)`
             overflow: visible !important;
         }
     }
-
-    img {
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-
-        pointer-events: none;
-
-        ${media.xs`
-            height: 400px;
-        `}
-
-        ${media.sm`
-            height: 480px;
-        `}
-
-        ${media.md`
-            height: 450px;
-            pointer-events: all;
-        `}
-    }
-
 `;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import { PageContainer, Header, Price, ProfileCard, IconButton, ItemLayout } from '@components/UI';
-import { Breadcrumbs, Carousel } from '@components';
+import { Breadcrumbs, Gallery } from '@components';
 import { dict, itemTitle } from '@utils';
 import { fetchProperty } from '@store';
 
@@ -35,7 +35,7 @@ const CatalogItem = ({ dealType, kind, id }) => {
                     <Header.Item id={id}>
                         {itemTitle.generate(dealType, false, true, { location, landDetails, specification, kind })}
                     </Header.Item>
-                    <Carousel images={images.filter(i => i.isPublic)} />
+                    <Gallery images={images.filter(i => i.isPublic)} />
                 </article>
                 <aside>
                     <header>

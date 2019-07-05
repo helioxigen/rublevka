@@ -1,81 +1,22 @@
-import React, { createRef, useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Slider from 'react-multi-carousel';
-import { cdn, media } from '@utils';
-import { Icon } from '@components/UI';
+import { cdn } from '@utils';
 
-const responsive = {
-    desktop: {
-        breakpoint: { max: 3000, min: 1024 },
-        items: 1,
-    },
-    tablet: {
-        breakpoint: { max: 1024, min: 464 },
-        items: 1,
-    },
-    mobile: {
-        breakpoint: { max: 464, min: 0 },
-        items: 1,
-    },
-};
-
-const Carousel = ({ className, images = [] }) => {
-    const swipeRef = createRef(null);
-    const [showSwipe, changeShowSwipe] = useState(false);
-
-    return (
-        <section className={className}>
-            <Slider
-                customLeftArrow={<Icon className="slider-left" name="arrow" mirror />}
-                customRightArrow={<Icon className="slider-right" name="arrow" />}
-                infinite
-                responsive={responsive}
-                ssr
-            >
-                {images.map(({ id }) => (
-                    <img key={id} src={cdn.get.full(id)} alt={id} />
-                ))}
-            </Slider>
-        </section>
-    );
-};
+const Carousel = ({ className, images }) => (
+    <Slider containerClass={className}>
+        {images.map(({ id }) => (
+            <img key={id} src={cdn.get.full(id)} alt={id} />
+        ))}
+    </Slider>
+);
 
 export default styled(Carousel)`
-    width: 100%;
-    h1 {
-        width: 200px;
-        height: 200px;
-    }
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
 
-    ${Icon} {
-        position: absolute;
-        
-        svg {
-            stroke: white;
-            fill: white;
-        }
-    }
-
-    .slider-left {
-        left: 10px;
-    }
-
-    .slider-right {
-        right: 10px;
-    }
-
-    .swiper {
-        width: 700px;
-        /* height: 400px; */
-    }
-
-    .react-multi-carousel-list {
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-        position: relative;
-        width: 705px;
-    }
     .react-multi-carousel-track {
         list-style: none;
         padding: 0;
@@ -175,26 +116,4 @@ export default styled(Carousel)`
             overflow: visible !important;
         }
     }
-
-    img {
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-
-        pointer-events: none;
-
-        ${media.xs`
-            height: 400px;
-        `}
-
-        ${media.sm`
-            height: 480px;
-        `}
-
-        ${media.md`
-            height: 450px;
-            pointer-events: all;
-        `}
-    }
-
 `;

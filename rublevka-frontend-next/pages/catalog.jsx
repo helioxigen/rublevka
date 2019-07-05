@@ -30,7 +30,7 @@ const CatalogPage = ({ dealType, list = [], page, totalPages, sort, fetching, ha
                     <Header.Catalog>
                         {dict.translateDealType(dealType).verb} недвижимость на {app.ifDomain('Рублёвке', 'Риге')}
                     </Header.Catalog>
-                    <Sort value={sort} onChange={handleToggleSort} />
+                    <Sort total= value={sort} onChange={handleToggleSort} />
                 </header>
                 <Filter dealType={dealType} />
                 <CardsGrid fetching={fetching}>

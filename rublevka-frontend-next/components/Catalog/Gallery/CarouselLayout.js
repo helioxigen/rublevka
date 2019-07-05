@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { media } from '@utils';
-import CarouselControl from '../Gallery/CarouselControl';
+import CarouselControl from './CarouselControl';
 
 export default styled.div`
     position: relative;

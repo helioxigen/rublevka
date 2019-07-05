@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Icon } from '@components/UI';
 import { sc } from '@utils';
 
@@ -10,18 +10,23 @@ const CarouselControl = ({ className, left, right, onClick }) => (
 );
 
 export default styled(CarouselControl)`
-    background: ${sc.ifProp(
-        'left',
-        'linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%)',
-        'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 100%)'
-    )};
-
     z-index: 3;
 
+    background: none;
     border: none;
     outline: none;
     height: 100%;
     width: 50px;
+
+    ${sc.ifProp(
+        'left',
+        css`
+            left: 0;
+        `,
+        css`
+            right: 0;
+        `
+    )}
 
     cursor: pointer;
 

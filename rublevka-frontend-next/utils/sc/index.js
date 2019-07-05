@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import { slick, theme } from './slick';
 
 const ifProp = (name, ifTrue, ifFalse) => props => (props[name] ? ifTrue : ifFalse);
 
@@ -28,4 +29,8 @@ export default {
         `,
     },
     calcTranslateShift,
+    slick: {
+        slick,
+        theme,
+    },
 };

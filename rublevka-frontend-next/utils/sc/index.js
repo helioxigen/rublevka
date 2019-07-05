@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css, keyframes } from 'styled-components';
 import { slick, theme } from './slick';
 
 const ifProp = (name, ifTrue, ifFalse) => props => (props[name] ? ifTrue : ifFalse);
@@ -32,5 +32,22 @@ export default {
     slick: {
         slick,
         theme,
+    },
+    keyframes: {
+        slideIn: keyframes`
+            0% {
+                transform: translateY(1rem);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0rem);
+                opacity: 1;
+            }
+            0% {
+                transform: translateY(1rem);
+                opacity: 0;
+            }
+        `,
     },
 };

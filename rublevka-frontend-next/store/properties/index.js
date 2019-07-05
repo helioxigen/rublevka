@@ -13,7 +13,7 @@ export const propertiesInitialState = {
     fetching: false,
     items: {},
     lists: {},
-    sort: 'price',
+    sort: '',
     pagination: {
         total: 0,
         offset: 0,

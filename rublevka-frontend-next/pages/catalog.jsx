@@ -4,10 +4,10 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Header, PageContainer, CatalogLayout, CardsGrid } from '@components/UI';
 import { Card, Breadcrumbs, Filter, Sort, Pagination } from '@components';
-import { fetchProperties, changeSort } from '../store/properties/actions';
+import { fetchProperties, changeSort } from '@store';
 import { dict, app, filter as filterUtils } from '@utils';
 
-const CatalogPage = ({ dealType, list = [], page, totalPages, sort, fetching, handleToggleSort, pagination }) => {
+const CatalogPage = ({ dealType, list = [], page, totalPages, totalItems, sort, fetching, handleToggleSort }) => {
     const dispatch = useDispatch();
     const router = useRouter();
 
@@ -30,7 +30,7 @@ const CatalogPage = ({ dealType, list = [], page, totalPages, sort, fetching, ha
                     <Header.Catalog>
                         {dict.translateDealType(dealType).verb} недвижимость на {app.ifDomain('Рублёвке', 'Риге')}
                     </Header.Catalog>
-                    <Sort total= value={sort} onChange={handleToggleSort} />
+                    <Sort total={totalItems} value={sort} onChange={handleToggleSort} />
                 </header>
                 <Filter dealType={dealType} />
                 <CardsGrid fetching={fetching}>
@@ -67,6 +67,7 @@ export default connect(
             (state.properties.pagination.offset + state.properties.pagination.limit) /
             state.properties.pagination.limit,
         totalPages: Math.floor(state.properties.pagination.total / state.properties.pagination.limit),
+        totalItems: state.properties.pagination.total,
     }),
     dispatch => ({
         handleToggleSort: type => dispatch(changeSort(type)),

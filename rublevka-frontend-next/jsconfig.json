@@ -8,6 +8,7 @@
         "baseUrl": ".",
         "paths": {
             "@utils": ["./utils"],
+            "@hooks": ["./utils/hooks"],
             "@config": ["./config"],
             "@components": ["./components"],
             "@api": ["./api"],

@@ -57,7 +57,7 @@ const Filter = ({ className, dealType }) => {
                 )}
             </Field>
             {!isOnly('land') && (
-                <Field title="Площадь дома (м²)" name="area" range>
+                <Field title="Площадь дома (м²)" name="specification.area" range>
                     {({ onChange, value }) => (
                         <Range
                             onChange={onChange}
@@ -67,7 +67,7 @@ const Filter = ({ className, dealType }) => {
                     )}
                 </Field>
             )}
-            <Field title="Площадь участка (сот.)" name="landArea" range>
+            <Field title="Площадь участка (сот.)" name="landDetails.area" range>
                 {({ value, onChange }) => (
                     <Range
                         onChange={onChange}
@@ -76,13 +76,13 @@ const Filter = ({ className, dealType }) => {
                     />
                 )}
             </Field>
-            <Field title="Расстояние от МКАД" name="distance" range>
+            <Field title="Расстояние от МКАД" name="location.mkadDistance" range>
                 {({ value, onChange }) => (
                     <Range onChange={onChange} value={value} options={filter.template.generic(30, 1, v => `${v} км`)} />
                 )}
             </Field>
             {!isOnly('land') && (
-                <Field title="Ремонт" name="renovate">
+                <Field title="Ремонт" name="specification.renovate">
                     {({ value, onChange }) => (
                         <CheckboxGroup
                             emptyAsFull
@@ -98,7 +98,7 @@ const Filter = ({ className, dealType }) => {
                     )}
                 </Field>
             )}
-            <Field title="Спален" name="bedrooms">
+            <Field title="Спален" name="specification.bedrooms">
                 {({ value, onChange }) => (
                     <RadioGroup
                         fields={{

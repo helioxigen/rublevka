@@ -11,8 +11,8 @@ const Sort = ({ className, total = 0, value = '', onChange }) => (
                 ['', 'По умолчанию'],
                 ['price.asc', 'По возрастанию цены'],
                 ['price.desc', 'По убыванию цены'],
-                ['mkadDistance.asc', 'По удалённости от МКАД'],
-                ['mkadDistance.desc', 'По близости к МКАД'],
+                ['mkadDistance.desc', 'По удалённости от МКАД'],
+                ['mkadDistance.asc', 'По близости к МКАД'],
             ]}
             value={value}
             onChange={onChange}

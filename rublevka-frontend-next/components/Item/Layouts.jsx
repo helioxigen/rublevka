@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { dict, format, media } from '@utils';
+import { dict, format } from '@utils';
 
 const Layouts = ({ className, layouts }) => (
     <div className={className}>

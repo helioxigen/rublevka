@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import { PageContainer, Header, Price, ProfileCard, IconButton, ItemLayout } from '@components/UI';
-import { Layout, Details, Summary, Section, Layouts } from '@components/Item';
+import { Layout, Details, Summary, Section, Layouts, Location } from '@components/Item';
 import { Breadcrumbs, Gallery } from '@components';
 import { dict, itemTitle, format } from '@utils';
 import { fetchProperty } from '@store';
@@ -75,6 +75,11 @@ const CatalogItem = ({ dealType, kind, id }) => {
                     {!isEmpty(specification.layouts) && (
                         <Section title={dict.translateKind(kind).noun}>
                             <Layouts layouts={specification.layouts} />
+                        </Section>
+                    )}
+                    {location.longitude && location.latitude && (
+                        <Section title="Объект на карте">
+                            <Location longitude={location.longitude} latitude={location.latitude} />
                         </Section>
                     )}
                 </article>

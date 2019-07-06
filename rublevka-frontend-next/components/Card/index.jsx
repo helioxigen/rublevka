@@ -1,12 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
+import { Price } from '@components/UI';
 import { dict, itemTitle, format, media } from '@utils';
 import FavoriteButton from './FavoriteButton';
 import Shortcuts from './Shortcuts';
 import Gallery from './Gallery';
 import Summary from './Summary';
-import { Price } from '@components/UI';
 
 const Card = ({
     className,

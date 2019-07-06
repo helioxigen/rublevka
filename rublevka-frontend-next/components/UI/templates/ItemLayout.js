@@ -30,6 +30,10 @@ export default styled.main`
 
         ${Section} {
             margin: 20px 0 32px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
     }
 

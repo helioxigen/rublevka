@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { CombinedSelect } from '@components/UI';
-import { sc } from '@utils';
 
 const Sort = ({ className, total = 0, value = '', onChange }) => (
     <div className={className}>

@@ -45,8 +45,6 @@ const Gallery = ({ className, images, layoutImages, propertyId }) => {
 };
 
 export default styled(Gallery)`
-    width: 700px;
-
     .expand-button {
         position: absolute;
         z-index: 5;

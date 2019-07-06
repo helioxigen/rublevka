@@ -17,7 +17,7 @@ export default styled.main`
 
     > article {
         flex: 1 0 auto;
-        /* width: 700px; */
+        width: 740px;
         padding: 24px 20px;
 
         ${Header.Item} {

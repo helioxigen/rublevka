@@ -13,28 +13,7 @@ const Layouts = ({ className, layouts }) => (
 );
 
 export default styled(Layouts)`
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: -8px;
-
-    ${media.xs`
-        margin-bottom: -12px;
-    `}
-
-    span {
-        flex: 1 0 calc(100% / 3);
-        max-width: calc(100% / 3);
-
-        &:nth-child(3n + 3) {
-            text-align: end;
-
-            &:not(:last-child) {
-                margin-bottom: 11px;
-
-                ${media.xs`
-                    margin-bottom: 15px;
-                `}
-            }
-        }
-    }
+    display: grid;
+    grid: auto / repeat(3, 1fr);
+    grid-gap: 20px;
 `;

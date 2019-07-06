@@ -7,8 +7,9 @@
     "private": true,
     "scripts": {
         "dev": "APP=rublevka APP_ENV=development node server.js",
-        "build": "next build",
-        "start": "NODE_ENV=production next start"
+        "start": "NODE_ENV=production next start",
+        "build": "APP=rublevka APP_ENV=production next build",
+        "now-build": "APP=rublevka APP_ENV=production next build"
     },
     "dependencies": {
         "downshift": "^3.2.10",

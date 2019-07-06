@@ -35,7 +35,13 @@ const Gallery = ({ className, images, layoutImages, propertyId }) => {
                 <Counter overall={images.length} currentIndex={currentIdx + 1} />
             </CarouselLayout>
             <GalleryNav
-                layoutButton={layoutImages.length > 0 && <IconButton icon="house-layout" />}
+                layoutButton={
+                    layoutImages.length > 0 && (
+                        <IconButton red className="layout-button" icon="house-layout">
+                            планировки
+                        </IconButton>
+                    )
+                }
                 currentIdx={currentIdx}
                 images={images}
                 onImageClick={idx => carousel.current.slide(idx)}
@@ -55,6 +61,25 @@ export default styled(Gallery)`
 
         transition: opacity 225ms;
         opacity: 0;
+    }
+
+    .layout-button {
+        border-radius: 0;
+
+        font-size: 2.5vw;
+        text-transform: lowercase;
+        font-weight: normal;
+
+        display: flex;
+        flex-direction: column;
+
+        span {
+            margin: 0 0 5px;
+        }
+
+        ${media.xs`
+            font-size: 13px;
+        `}
     }
 
     ${Counter} {

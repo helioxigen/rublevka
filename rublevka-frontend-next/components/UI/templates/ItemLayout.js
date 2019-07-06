@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import { Header, ItemSummary } from '../atoms';
-import { media } from '@utils';
+import { Section } from '@components/Item';
 import { Gallery } from '@components/Catalog';
+import { Header } from '../atoms';
+import { media } from '@utils';
 
 export default styled.main`
     display: flex;
@@ -27,7 +28,7 @@ export default styled.main`
             margin: 20px 0;
         }
 
-        ${ItemSummary} {
+        ${Section} {
             margin: 20px 0 32px;
         }
     }

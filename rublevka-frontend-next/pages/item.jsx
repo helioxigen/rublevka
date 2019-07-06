@@ -1,16 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
-import {
-    PageContainer,
-    Header,
-    Price,
-    ProfileCard,
-    IconButton,
-    ItemLayout,
-    ItemDetails,
-    ItemSummary,
-} from '@components/UI';
+import { PageContainer, Header, Price, ProfileCard, IconButton, ItemLayout } from '@components/UI';
+import { Layout, Details, Summary, Section, Layouts } from '@components/Item';
 import { Breadcrumbs, Gallery } from '@components';
 import { dict, itemTitle, format } from '@utils';
 import { fetchProperty } from '@store';
@@ -48,7 +40,7 @@ const CatalogItem = ({ dealType, kind, id }) => {
                         {itemTitle.generate(dealType, false, true, { location, landDetails, specification, kind })}
                     </Header.Item>
                     <Gallery layoutImages={layoutImages} images={images.filter(i => i.isPublic)} />
-                    <ItemSummary
+                    <Summary
                         values={[
                             landDetails.area && ['Участок', `${landDetails.area} сот`],
                             specification.area && ['Дом', `${specification.area} м²`],
@@ -58,25 +50,32 @@ const CatalogItem = ({ dealType, kind, id }) => {
                             ],
                         ]}
                     />
-                    <ItemDetails
-                        title="Общая информация"
-                        values={[
-                            ['Площадь участка', landDetails.area, 'сот.'],
-                            ['Площадь дома', specification.area, 'м²'],
-                            ['Тип дома', dict.details.get(specification.wallMaterial)],
-                            ['Ремонт', dict.details.get(specification.renovate)],
-                        ]}
-                    />
-                    {!isEmpty(communication) && (
-                        <ItemDetails
-                            title="Коммуникации"
+                    <Section title="Общая информация">
+                        <Details
                             values={[
-                                ['Тип газа', dict.details.get(communication.gasSupply)],
-                                ['Электричество', communication.powerSupply, 'кВт'],
-                                ['Канализация', dict.details.get(communication.sewerageSupply, 'ая')],
-                                ['Источник воды', dict.details.get(communication.waterSupply, 'ое')],
+                                ['Площадь участка', landDetails.area, 'сот.'],
+                                ['Площадь дома', specification.area, 'м²'],
+                                ['Тип дома', dict.details.get(specification.wallMaterial)],
+                                ['Ремонт', dict.details.get(specification.renovate)],
                             ]}
                         />
+                    </Section>
+                    {!isEmpty(communication) && (
+                        <Section title="Коммуникации">
+                            <Details
+                                values={[
+                                    ['Тип газа', dict.details.get(communication.gasSupply)],
+                                    ['Электричество', communication.powerSupply, 'кВт'],
+                                    ['Канализация', dict.details.get(communication.sewerageSupply, 'ая')],
+                                    ['Источник воды', dict.details.get(communication.waterSupply, 'ое')],
+                                ]}
+                            />
+                        </Section>
+                    )}
+                    {!isEmpty(specification.layouts) && (
+                        <Section title={dict.translateKind(kind).noun}>
+                            <Layouts layouts={specification.layouts} />
+                        </Section>
                     )}
                 </article>
                 <aside>

@@ -1,5 +1,5 @@
 import { css, keyframes } from 'styled-components';
-import { slick, theme } from './slick';
+import theme from './theme';
 
 const ifProp = (name, ifTrue, ifFalse) => props => (props[name] ? ifTrue : ifFalse);
 
@@ -28,11 +28,8 @@ export default {
             font-size: inherit;
         `,
     },
+    theme,
     calcTranslateShift,
-    slick: {
-        slick,
-        theme,
-    },
     keyframes: {
         slideIn: keyframes`
             0% {

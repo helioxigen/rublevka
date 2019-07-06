@@ -8,6 +8,7 @@ import { makeStore } from '../store';
 
 const GlobalStyles = createGlobalStyle`
     body {
+        color: #232323;
         background: #fafafa;
         margin: 0;
         font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { Header } from '../atoms';
+import { Header, ItemSummary } from '../atoms';
 import { media } from '@utils';
+import { Gallery } from '@components/Catalog';
 
 export default styled.main`
     display: flex;
@@ -20,6 +21,14 @@ export default styled.main`
 
         ${Header.Item} {
             margin-bottom: 20px;
+        }
+
+        ${Gallery} {
+            margin: 20px 0;
+        }
+
+        ${ItemSummary} {
+            margin: 20px 0 32px;
         }
     }
 

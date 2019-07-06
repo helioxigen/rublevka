@@ -1,4 +1,5 @@
 import translit from './translit';
+import details from './details';
 
 const dealTypes = {
     sale: ['Продажа', 'Купить'],
@@ -36,4 +37,5 @@ export default {
     translit,
     translateDealType,
     translateKind,
+    details,
 };

@@ -13,31 +13,39 @@ const Card = ({
     dealType,
     data,
     data: { id, images = [], landDetails = {}, specification = {}, location = {}, kind },
-}) => (
-    <Link href={`/zagorodnaya/${dict.translit.byWord(dealType)}/${dict.translit.byWord(kind)}/${id}`}>
-        <article className={className}>
-            <header>
-                <span className="card-id">№{id}</span>
-                <FavoriteButton id={id} dealType={dealType} />
+}) => {
+    const dealTypeT = dict.translit.byWord(dealType);
+    const kindT = dict.translit.byWord(kind);
 
-                {images.length > 0 && <Shortcuts images={images} />}
-                {images.length > 0 && <Gallery images={images} />}
-            </header>
-            <section className="card-body">
-                <h3>{itemTitle.generate(dealType, true, false, { landDetails, specification, location, kind })}</h3>
-                <Summary
-                    values={[
-                        landDetails.area && `${Math.floor(landDetails.area)} сот`,
-                        specification.area && `${Math.floor(specification.area)} м²`,
-                        specification.bedrooms &&
-                            format.titleByNumber(specification.bedrooms, ['спальня', 'спальни', 'спален']),
-                    ]}
-                />
-                <Price deal={data[`${dealType}Offer`] || {}} dealType={dealType} />
-            </section>
-        </article>
-    </Link>
-);
+    return (
+        <Link
+            href={`/item?dealType=${dealTypeT}&kind=${kindT}&id=${id}`}
+            as={`/zagorodnaya/${dealTypeT}/${kindT}/${id}`}
+        >
+            <article className={className}>
+                <header>
+                    <span className="card-id">№{id}</span>
+                    <FavoriteButton id={id} dealType={dealType} />
+
+                    {images.length > 0 && <Shortcuts images={images} />}
+                    {images.length > 0 && <Gallery images={images} />}
+                </header>
+                <section className="card-body">
+                    <h3>{itemTitle.generate(dealType, true, false, { landDetails, specification, location, kind })}</h3>
+                    <Summary
+                        values={[
+                            landDetails.area && `${Math.round(landDetails.area)} сот`,
+                            specification.area && `${Math.round(specification.area)} м²`,
+                            specification.bedrooms &&
+                                format.titleByNumber(specification.bedrooms, ['спальня', 'спальни', 'спален']),
+                        ]}
+                    />
+                    <Price deal={data[`${dealType}Offer`] || {}} dealType={dealType} />
+                </section>
+            </article>
+        </Link>
+    );
+};
 
 export default styled(Card)`
     width: 100%;

@@ -1,8 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { PageContainer, Header, Price, ProfileCard, IconButton, ItemLayout } from '@components/UI';
+import isEmpty from 'lodash/isEmpty';
+import {
+    PageContainer,
+    Header,
+    Price,
+    ProfileCard,
+    IconButton,
+    ItemLayout,
+    ItemDetails,
+    ItemSummary,
+} from '@components/UI';
 import { Breadcrumbs, Gallery } from '@components';
-import { dict, itemTitle } from '@utils';
+import { dict, itemTitle, format } from '@utils';
 import { fetchProperty } from '@store';
 
 const CatalogItem = ({ dealType, kind, id }) => {
@@ -10,6 +20,7 @@ const CatalogItem = ({ dealType, kind, id }) => {
         location,
         landDetails,
         specification,
+        communication,
         location: { settlementId, settlementName } = {},
         layoutImages = [],
         images = [],
@@ -18,7 +29,7 @@ const CatalogItem = ({ dealType, kind, id }) => {
 
     const currency = useSelector(state => state.user.currency);
 
-    const price = item[`${dealType}Offer`];
+    const price = item[`${dealType}Offer`] || {};
 
     // console.log(item);
 
@@ -37,6 +48,36 @@ const CatalogItem = ({ dealType, kind, id }) => {
                         {itemTitle.generate(dealType, false, true, { location, landDetails, specification, kind })}
                     </Header.Item>
                     <Gallery layoutImages={layoutImages} images={images.filter(i => i.isPublic)} />
+                    <ItemSummary
+                        values={[
+                            landDetails.area && ['Участок', `${landDetails.area} сот`],
+                            specification.area && ['Дом', `${specification.area} м²`],
+                            specification.bedrooms && [
+                                format.titleByNumber(specification.bedrooms, ['Спальня', 'Спальни', 'Спален'], true),
+                                specification.bedrooms,
+                            ],
+                        ]}
+                    />
+                    <ItemDetails
+                        title="Общая информация"
+                        values={[
+                            ['Площадь участка', landDetails.area, 'сот.'],
+                            ['Площадь дома', specification.area, 'м²'],
+                            ['Тип дома', dict.details.get(specification.wallMaterial)],
+                            ['Ремонт', dict.details.get(specification.renovate)],
+                        ]}
+                    />
+                    {!isEmpty(communication) && (
+                        <ItemDetails
+                            title="Коммуникации"
+                            values={[
+                                ['Тип газа', dict.details.get(communication.gasSupply)],
+                                ['Электричество', communication.powerSupply, 'кВт'],
+                                ['Канализация', dict.details.get(communication.sewerageSupply, 'ая')],
+                                ['Источник воды', dict.details.get(communication.waterSupply, 'ое')],
+                            ]}
+                        />
+                    )}
                 </article>
                 <aside>
                     <header>

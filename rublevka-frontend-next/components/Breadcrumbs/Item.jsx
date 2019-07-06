@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { Icon } from '@components/UI';
+import { sc } from '@utils';
 
 const Breadcrumb = ({ className, href, idx, title }) => (
     <li className={className} itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
@@ -22,15 +23,21 @@ export default styled(Breadcrumb)`
     display: flex;
     align-items: center;
 
+    &:nth-child(2):last-child a {
+        color: ${sc.theme.colors.darkGrey};
+        pointer-events: none;
+    }
+
     a {
         line-height: 15px;
         font-size: 13px;
-        color: rgba(35, 35, 35, 0.5);
+        color: ${sc.theme.colors.grey};
         text-decoration: none;
+        transition: 0.1s;
     }
 
     &:hover a {
-        color: rgba(35, 35, 35, 1);
+        color: ${sc.theme.colors.black};
     }
 
     ${Icon} {

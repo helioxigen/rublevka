@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Icon, Button, PageContainer as Container } from '@components/UI';
+import { Icon, Button } from '@components/UI';
 import styled from 'styled-components';
 import config from '@config';
 import { app, media } from '@utils';
@@ -14,6 +14,8 @@ const Navbar = ({ className }) => {
     const [inverted, toggleInverted] = useState(isLanding);
 
     const handleInvert = () => {
+        if (!isLanding) return;
+
         const nextInverted = window.scrollY < 80;
 
         toggleInverted(nextInverted);
@@ -25,18 +27,22 @@ const Navbar = ({ className }) => {
         window.addEventListener('scroll', handleInvert);
 
         return () => {
-            toggleInverted(false);
             window.removeEventListener('scroll', handleInvert);
+            toggleInverted(false);
         };
     }, [pathname]);
 
     useEffect(() => {
+        // if (!isLanding && !inverted) return;
+
         if (isLanding && !inverted) {
             toggleInverted(true);
+            console.log('TOGGLEQ', inverted);
         }
 
         if (!isLanding && inverted) {
             toggleInverted(false);
+            console.log('TOGGLE', inverted);
         }
     }, [pathname]);
 

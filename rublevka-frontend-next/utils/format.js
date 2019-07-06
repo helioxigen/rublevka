@@ -6,6 +6,7 @@ function declOfNum(number, titles) {
 const prefixZero = num => (num < 10 ? `0${num}` : num);
 
 export default {
-    titleByNumber: (number, titles) => number && `${number} ${declOfNum(number, titles)}`,
+    titleByNumber: (number, titles, onlyTitle) =>
+        number && (onlyTitle ? declOfNum(number, titles) : `${number} ${declOfNum(number, titles)}`),
     prefixZero,
 };

@@ -15,6 +15,8 @@ export default styled(ItemHeader)`
     display: flex;
     flex-direction: column-reverse;
 
+    margin: 0 0 16px;
+
     span {
         font-size: 15px;
         margin-bottom: 8px;

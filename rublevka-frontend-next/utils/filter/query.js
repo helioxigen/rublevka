@@ -67,8 +67,6 @@ const filterFromQuery = filter => {
         goodFilter[key] = fromQuery(key, value);
     });
 
-    console.log(goodFilter);
-
     return goodFilter;
 };
 

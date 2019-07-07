@@ -5,11 +5,13 @@ import { router } from '@utils';
 
 export const LOAD_PROPERTIES_REQUEST = 'Properties.Load.Request';
 export const LOAD_PROPERTIES_SUCCESS = 'Properties.Load.Success';
+export const LOAD_PROPERTIES_FROM_CACHE = 'Properties.Load.FromCache';
 export const LOAD_PROPERTIES_ERROR = 'Properties.Load.Error';
 
 export const fetchProperties = (pagination, filterQuery, userFilter, userOrder) => ({
     types: [LOAD_PROPERTIES_REQUEST, LOAD_PROPERTIES_SUCCESS, LOAD_PROPERTIES_ERROR],
-    // cacheKey: JSON.stringify(filterQuery),
+    cacheKey: JSON.stringify({ pagination, filterQuery }),
+    getCache: state => state.properties.cache,
     // shouldCall: state => !state.properties[],
     call: () => api.properties.getMany(pagination, filterQuery),
     payload: {

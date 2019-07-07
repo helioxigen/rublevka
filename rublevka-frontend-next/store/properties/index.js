@@ -19,6 +19,7 @@ export const propertiesInitialState = {
         offset: 0,
         limit: 24,
     },
+    cache: {},
     filter: {},
     error: {
         hasError: false,
@@ -38,6 +39,7 @@ export const propertiesReducer = createReducer({
             },
             filter,
             orderBy,
+            cacheKey,
         },
         state
     ) => ({
@@ -53,6 +55,18 @@ export const propertiesReducer = createReducer({
             ...state.pagination,
             total,
             offset,
+        },
+        cache: {
+            ...state.cache,
+            [cacheKey]: {
+                response: {
+                    items,
+                    pagination: { total, offset },
+                    filter,
+                    orderBy,
+                    cacheKey,
+                },
+            },
         },
     }),
     [LOAD_PROPERTIES_ERROR]: err => ({

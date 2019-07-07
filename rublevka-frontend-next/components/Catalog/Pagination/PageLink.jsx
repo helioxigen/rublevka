@@ -6,11 +6,10 @@ import { useRouter } from 'next/router';
 
 const PageLink = ({ className, page, current }) => {
     const {
-        query: { filter, dealType },
+        query: { dealType, page: pageQ, ...query },
     } = useRouter();
 
     const pageQuery = page !== 1 ? { page } : {};
-    const filterQuery = !isEmpty(filter) ? { filter } : {};
 
     return current ? (
         <span data-current="true" className={className}>
@@ -23,15 +22,17 @@ const PageLink = ({ className, page, current }) => {
                 path: '/catalog',
                 pathname: '/catalog',
                 query: {
+                    ...query,
+                    ...pageQuery,
                     page,
-                    ...filterQuery,
+                    dealType,
                 },
             }}
             as={{
-                pathname: `/zagorodnaya/${dealType}/`,
+                pathname: `/zagorodnaya/${dealType}`,
                 query: {
+                    ...query,
                     ...pageQuery,
-                    ...filterQuery,
                 },
             }}
         >

@@ -46,10 +46,7 @@ export const propertiesReducer = createReducer({
             ...state.items,
             ...keyBy(items, i => i.id),
         },
-        lists: {
-            ...state.lists,
-            [offset]: items,
-        },
+        list: items,
         filter,
         orderBy,
         pagination: {

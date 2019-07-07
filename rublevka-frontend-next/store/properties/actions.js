@@ -1,3 +1,5 @@
+import isEmpty from 'lodash/isEmpty';
+import pickBy from 'lodash/pickBy';
 import api from '@api';
 import { router } from '@utils';
 
@@ -7,7 +9,8 @@ export const LOAD_PROPERTIES_ERROR = 'Properties.Load.Error';
 
 export const fetchProperties = (pagination, filterQuery, userFilter, userOrder) => ({
     types: [LOAD_PROPERTIES_REQUEST, LOAD_PROPERTIES_SUCCESS, LOAD_PROPERTIES_ERROR],
-    shouldCall: state => !state.properties[pagination.offset],
+    // cacheKey: JSON.stringify(filterQuery),
+    // shouldCall: state => !state.properties[],
     call: () => api.properties.getMany(pagination, filterQuery),
     payload: {
         pagination,
@@ -53,5 +56,7 @@ export const updateFilterField = (fieldName, value) => (dispatch, getState) => {
 
     const { filter = {} } = getState().properties;
 
-    router.pushFilter(filter);
+    const nextFilter = pickBy(filter, v => !isEmpty(v));
+
+    router.pushQuery({ filter: isEmpty(nextFilter) ? '' : JSON.stringify(nextFilter) });
 };

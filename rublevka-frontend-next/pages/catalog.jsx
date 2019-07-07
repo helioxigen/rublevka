@@ -78,7 +78,7 @@ CatalogPage.getInitialProps = async ({
 
 export default connect(
     state => ({
-        list: state.properties.lists[state.properties.pagination.offset],
+        list: state.properties.list,
         orderBy: state.properties.orderBy,
         fetching: state.properties.fetching,
         page:

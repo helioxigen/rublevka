@@ -57,6 +57,7 @@ const SearchForm = ({ className, type = 'sale' }) => {
                     if (fieldType === 'text') {
                         return (
                             <TextInput
+                                key={name}
                                 placeholder={placeholder}
                                 value={values[type][name]}
                                 onChange={handleChange(name)}

@@ -1,11 +1,10 @@
 import { query } from '@utils';
+import config from '@config';
 
 require('isomorphic-fetch');
 
-const API_URL = `https://api.jqestate.ru/v1`;
-
 export const instance = (apiPath, params) =>
-    fetch(`${API_URL}/${apiPath}${params ? `?${query.get(params)}` : ''}`, {
+    fetch(`${config.resource.API_ENDPOINT}/${apiPath}${params ? `?${encodeURI(query.get(params))}` : ''}`, {
         method: 'GET',
     }).then(r => r.json());
 

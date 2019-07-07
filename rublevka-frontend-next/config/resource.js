@@ -1,10 +1,10 @@
 const envs = {
     production: {
-        API: process.env.API_URL || 'https://api.jqestate.ru',
+        API: process.env.API_URL || 'https://api.jqestate.ru/v1',
         CDN: 'https://images.jqestate.ru',
     },
     development: {
-        API: process.env.API_URL || 'https://api-dev.jqestate.ru',
+        API: process.env.API_URL || 'https://api-dev.jqestate.ru/v1',
         CDN: 'https://images.jqestate.ru',
     },
     local: {

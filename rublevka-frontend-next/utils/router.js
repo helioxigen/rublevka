@@ -30,15 +30,12 @@ const pushFilter = filter => {
 };
 
 const pushQuery = queryObj => {
-    const { page, filter, dealType } = Router.query;
-
-    const cleanQ = pickBy(queryObj, v => !isEmpty(v));
+    const { dealType, ...pageQuery } = Router.query;
 
     const query = pickBy(
         {
-            page,
-            filter,
-            ...cleanQ,
+            ...pageQuery,
+            ...queryObj,
         },
         v => !isEmpty(v)
     );

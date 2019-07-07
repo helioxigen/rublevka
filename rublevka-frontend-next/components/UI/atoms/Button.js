@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { sc } from '../../../utils';
 
 export default styled.button`
@@ -18,10 +18,10 @@ export default styled.button`
     transition: 0.3s;
 
     &:hover {
-        background: #00b44b;
+        background: ${sc.ifProp('red', '#ff2b1b', '#00b44b')};
     }
 
     &:active {
-        background: #00a745;
+        background: ${sc.ifProp('red', '#f92010', '#00a745')};
     }
 `;

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ReactSwipe from 'react-swipe';
 import { IconButton } from '@components/UI';
@@ -11,6 +11,13 @@ import GalleryNav from './GalleryNav';
 const Gallery = ({ className, images, layoutImages, propertyId }) => {
     const carousel = useRef(null);
     const [currentIdx, changeCurrentIdx] = useState(0);
+    const [fullyLoaded, changeFullyLoaded] = useState(false);
+
+    useEffect(() => {
+        if (currentIdx === images.length) {
+            changeFullyLoaded(true);
+        }
+    }, [currentIdx]);
 
     return (
         <section className={className}>
@@ -25,9 +32,15 @@ const Gallery = ({ className, images, layoutImages, propertyId }) => {
                         startSlide: currentIdx,
                     }}
                 >
-                    {images.map(({ id }) => (
+                    {images.map(({ id }, idx) => (
                         <a key={id} role="button" tabIndex={0}>
-                            <img data-id={id} alt={id} src={cdn.get.full(id, 1024)} />
+                            {(idx <= currentIdx + 6 || fullyLoaded) && (
+                                <img
+                                    data-id={id}
+                                    alt={id}
+                                    src={idx <= currentIdx + 1 ? cdn.get.full(id, 1024) : cdn.get.thumbnail(id, 512)}
+                                />
+                            )}
                         </a>
                     ))}
                 </ReactSwipe>

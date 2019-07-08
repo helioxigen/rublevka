@@ -18,16 +18,16 @@ export default styled(Icon)`
     width: 1.6em;
     height: 1.6em;
 
-    ${sc.ifProp(
-        'mirror',
-        css`
-            transform: scaleX(-1);
-        `
-    )}
-
     svg {
         width: 100%;
         height: 100%;
         display: block;
+
+        ${sc.ifProp(
+            'mirror',
+            css`
+                transform: scaleX(-1);
+            `
+        )}
     }
 `;

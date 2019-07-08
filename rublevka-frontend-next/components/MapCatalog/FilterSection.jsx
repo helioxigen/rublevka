@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { Icon, Switcher } from '@components/UI';
-import { page } from '@utils';
+import { page, sc } from '@utils';
 import { Filter } from '@components';
 
 const FilterBlock = ({ className }) => {
@@ -13,7 +13,7 @@ const FilterBlock = ({ className }) => {
     return (
         <section className={className}>
             <button type="button" className="back-button" onClick={() => page.goTo.catalog()}>
-                <Icon name="arrow" mirror /> Вернуться к выдаче
+                <Icon name="arrow-squared" /> Вернуться к выдаче
             </button>
             <Switcher
                 items={[['Продажа', 'prodaja'], ['Аренда', 'arenda']]}
@@ -47,27 +47,37 @@ export default styled(FilterBlock)`
         display: flex;
         justify-content: center;
         align-items: center;
+        position: relative;
 
         ${Icon} {
             position: absolute;
             left: 10%;
             transition: 0.3s;
+
+            font-size: 14px;
+
+            width: 1em;
+            height: 1em;
+
+            background: ${sc.theme.colors.lightGrey};
+            border-radius: 50%;
+            padding: 8px 9px 8px 7px;
         }
 
         &:hover {
             box-shadow: -1px 0px 3px black;
 
             ${Icon} {
-                transform: scaleX(-1) translateX(70%);
+                transform: translateX(-70%);
             }
         }
     }
 
-    > *:not(.back-button) {
+    /* > *:not(.back-button) {
         margin: 0 30px;
-    }
+    } */
 
-    ${Switcher} {
+    ${Switcher}, ${Filter} {
         margin: 24px 30px;
     }
 

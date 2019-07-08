@@ -6,8 +6,15 @@ import { apiCallMiddleware } from './middlewares';
 import { userReducer, userInitialState } from './user';
 import { mapInitialState, mapReducer } from './map';
 
-export { fetchMapProperties } from './map/actions';
-export { updateFilterField, fetchProperties, fetchProperty, changeOrderBy, setDealType } from './properties/actions';
+export { fetchMapPropertiesSubset, setDisplayedItemsIds } from './map/actions';
+export {
+    updateFilterField,
+    fetchProperties,
+    fetchProperty,
+    changeOrderBy,
+    setDealType,
+    setFilter,
+} from './properties/actions';
 
 const initialState = {
     user: userInitialState,

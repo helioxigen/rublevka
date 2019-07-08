@@ -32,13 +32,11 @@ class MyApp extends App {
 
         return (
             <Container>
-                <YMaps preload>
-                    <Provider store={store}>
-                        <GlobalStyles />
-                        {pageProps.statusCode !== 404 && <Navbar inverts={url === '/'} />}
-                        <Component {...pageProps} />
-                    </Provider>
-                </YMaps>
+                <Provider store={store}>
+                    <GlobalStyles />
+                    {pageProps.statusCode !== 404 && <Navbar inverts={url === '/'} />}
+                    <Component {...pageProps} />
+                </Provider>
             </Container>
         );
     }

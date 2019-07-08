@@ -18,8 +18,10 @@ export default {
         getOne: id => instance(`properties/country/${id}`),
         getMany: (page, query) =>
             instance('properties/country', { pagination: { limit, offset: page * limit - limit }, ...query }),
-        getAll: repeatList((query, offset) =>
-            instance('properties/country', { pagination: { limit: maxLimit, offset }, ...query })
-        ),
+        getChunk: (query, chunkIdx = 0, chunkSize = 256) =>
+            instance('properties/country', {
+                pagination: { limit: chunkSize, offset: chunkIdx * chunkSize },
+                ...query,
+            }),
     },
 };

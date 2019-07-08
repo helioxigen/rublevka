@@ -9,10 +9,10 @@ import { fetchProperty } from '@store';
 
 const CatalogItem = ({ dealType, kind, id }) => {
     const {
-        location,
-        landDetails,
-        specification,
-        communication,
+        location = {},
+        landDetails = {},
+        specification = {},
+        communication = {},
         location: { settlementId, settlementName } = {},
         layoutImages = [],
         images = [],

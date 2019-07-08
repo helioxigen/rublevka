@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { Icon } from '@components/UI';
-import { format } from '@utils';
+import { format, sc } from '@utils';
 import { Card } from '@components';
 
-const VisibleCards = ({ className, items }) => {
+const VisibleCards = ({ className, items, clusterId, onToggle }) => {
     const [open, toggle] = useState(true);
+
+    useEffect(onToggle, [open]);
+    useEffect(() => toggle(true), [clusterId]);
 
     return (
         <section data-open={open} className={className}>
-            <Icon name="arrow" onClick={toggle} />
+            <button type="button" className="toggle-view" onClick={() => toggle(!open)}>
+                <Icon name="arrow-squared" />
+            </button>
             <div className="cards-list">
                 <h4>Показано {format.titleByNumber(items.length, ['объект', 'объекта', 'объектов'])}</h4>
                 {items.map(data => (
@@ -29,6 +34,7 @@ export default styled(VisibleCards)`
     .cards-list {
         padding: 23px 20px;
         height: 100%;
+        box-sizing: border-box;
         overflow-y: scroll;
         overflow-x: hidden;
     }
@@ -45,25 +51,35 @@ export default styled(VisibleCards)`
 
     position: relative;
 
+    animation: ${sc.keyframes.slideRight} 225ms cubic-bezier(0, 0, 0.2, 1);
+
     transition: transform 225ms cubic-bezier(0, 0, 0.2, 1);
 
     &[data-open='false'] {
         transform: translateX(-100%);
 
-        > ${Icon} {
+        > .toggle-view ${Icon} svg {
             transform: scaleX(-1);
         }
     }
 
-    > ${Icon} {
+    .toggle-view {
         cursor: pointer;
         position: absolute;
         right: -22px;
         top: 16px;
+        height: 24px;
         background: #fafafa;
+
+        border: none;
 
         box-shadow: 5px 4px 5px 0px rgba(0, 0, 0, 0.15);
 
         border-radius: 2px;
+
+        svg,
+        svg path {
+            fill: #979797;
+        }
     }
 `;

@@ -1,6 +1,14 @@
 export function apiCallMiddleware({ dispatch, getState }) {
     return next => action => {
-        const { types, call, cacheKey, getCache, shouldCall = () => true, payload = {} } = action;
+        const {
+            types,
+            call,
+            cacheKey,
+            getCache,
+            shouldCheckCache = () => true,
+            shouldCall = () => true,
+            payload = {},
+        } = action;
 
         if (!types) {
             // Normal action: pass it on
@@ -21,19 +29,17 @@ export function apiCallMiddleware({ dispatch, getState }) {
 
         const [requestType, successType, failureType, cacheType] = types;
 
-        if (cacheKey && getCache && cacheType) {
-            const cached = getCache(getState())[cacheKey];
+        // if (cacheKey && getCache && cacheType && !shouldCheckCache()) {
+        //     const cached = getCache(getState())[cacheKey];
 
-            console.log(cached);
-
-            if (cached)
-                return dispatch(
-                    Object.assign({}, payload, {
-                        response: cached,
-                        type: cacheType,
-                    })
-                );
-        }
+        //     if (cached)
+        //         return dispatch(
+        //             Object.assign({}, payload, {
+        //                 response: cached,
+        //                 type: cacheType,
+        //             })
+        //         );
+        // }
 
         dispatch(
             Object.assign({}, payload, {

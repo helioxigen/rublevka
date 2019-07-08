@@ -14,11 +14,17 @@ const Card = ({
     data: { id, images = [], landDetails = {}, specification = {}, location = {}, kind },
 }) => {
     const {
-        query: { dealType },
+        query: { dealType: dealTypeT },
     } = useRouter();
 
+    const dealType = dict.translit.byWord(dealTypeT);
+
     return (
-        <Link to="/item" query={[{ dealType, kind: dict.translit.byWord(kind), id }]} path={[dealType, kind, id]}>
+        <Link
+            to="/item"
+            query={[{ dealType: dealTypeT, kind: dict.translit.byWord(kind), id }]}
+            path={[dealTypeT, dict.translit.byWord(kind), id]}
+        >
             <article className={className}>
                 <header>
                     <span className="card-id">№{id}</span>

@@ -4,12 +4,13 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { sc } from '@utils';
 
-const Icon = ({ className, name }) => {
+const Icon = ({ className, name, copy }) => {
     const IconSVG = require(`./assets/${name}.svg`).default;
 
     return (
         <span data-icon={name} className={className}>
             <IconSVG />
+            {copy && <IconSVG />}
         </span>
     );
 };

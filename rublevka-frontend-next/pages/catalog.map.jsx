@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { MapCatalogLayout } from '@components/UI';
 import { FilterSection, ViewCards, LayoutMap } from '@components/MapCatalog';
-import { changeOrderBy, fetchMapProperties } from '@store';
+import { changeOrderBy, fetchMapPropertiesSubset, setDisplayedItemsIds, setFilter } from '@store';
 import { dict, query as queryUtils, filter as filterUtils } from '@utils';
-import { useToggle } from '@hooks';
+import { useToggle, useRecalcWidth } from '@hooks';
 import { Navbar } from '@components';
 
 const HideNav = createGlobalStyle`
@@ -16,47 +16,71 @@ const HideNav = createGlobalStyle`
     }
 `;
 
-const MapCatalogPage = ({ dealType, filter }) => {
-    const [, toggleDidMount] = useToggle(false);
-    const dispatch = useDispatch();
-    const viewItems = [];
-    const mapItems = useSelector(state => state.map.list);
-    // const {
-    //     query: { filter },
-    // } = useRouter();
+const repeatBy = async (extractStepsFn, execOnStep) => {
+    const zeroRes = await execOnStep(0);
+
+    const stepsCount = extractStepsFn(zeroRes) - 1;
+
+    [...new Array(stepsCount)].forEach((_, idx) => setTimeout(() => execOnStep(idx + 1, stepsCount), 1000));
+};
+
+const MapCatalogPage = ({ displayedIds, clusterId, mapItems, dispatch }) => {
+    const router = useRouter();
+    const dealType = dict.translit.byWord(router.query.dealType);
+    const filter = filterUtils.query.parse(
+        router.query.filter,
+        router.query.kind && { kind: [dict.translit.byWord(router.query.kind)] }
+    );
+
+    dispatch(setFilter(filter));
+
+    const [asideRef, triggerCalc, asideWidth] = useRecalcWidth();
+
+    const [mapZoomDefault] = useState(true);
+
+    const displayedItems = displayedIds.map(id => mapItems.find(i => i.id === id));
 
     useEffect(() => {
-        dispatch(fetchMapProperties(queryUtils.convert({ filter }, dealType)));
-    }, [filter]);
+        dispatch(setDisplayedItemsIds([]));
+        // setDefaultZoom(true);
+    }, [router.query]);
 
     useEffect(() => {
-        toggleDidMount();
-    }, []);
-
-    // useEffect(() => {
-
-    // }, [router.query]);
+        repeatBy(
+            action => Math.ceil(action.response.pagination.total / action.response.pagination.limit),
+            (step, count) => dispatch(fetchMapPropertiesSubset(queryUtils.convert({ filter }, dealType), step, count))
+        );
+    }, [router.query]);
 
     return (
         <MapCatalogLayout>
             <HideNav />
-            <aside>
+            <aside ref={asideRef}>
                 <FilterSection />
-                {!viewItems && <ViewCards items={viewItems} />}
+                {displayedIds.length !== 0 && (
+                    <ViewCards clusterId={clusterId} items={displayedItems} onToggle={triggerCalc} />
+                )}
             </aside>
-            <LayoutMap items={mapItems} />
+            <LayoutMap
+                mapMarginLeft={asideWidth}
+                clusterId={clusterId}
+                isDefaultZoom={mapZoomDefault}
+                items={mapItems}
+            />
         </MapCatalogLayout>
     );
 };
 
 MapCatalogPage.getInitialProps = async ({ store, query: { dealType: dealTypeTranslit, filter: filterJson, kind } }) => {
-    const dealType = dict.translit.byWord(dealTypeTranslit);
+    // const dealType = dict.translit.byWord(dealTypeTranslit);
 
-    const filter = filterUtils.query.parse(filterJson, kind && { kind: [dict.translit.byWord(kind)] });
+    // const filter = filterUtils.query.parse(filterJson, kind && { kind: [dict.translit.byWord(kind)] });
 
-    // store.dispatch(fetchMapProperties(queryUtils.convert({ filter }, dealType)));
+    // // store.dispatch(fetchMapPropertiesSubset(queryUtils.convert({ filter }, dealType)));
 
-    return { dealType, filter };
+    return {};
+
+    // return { dealType, filter };
 };
 
 // createSelector()
@@ -67,8 +91,12 @@ export default connect(
         fetching: state.map.fetching,
         totalItems: state.map.total,
         user: state.user.currency,
+        displayedIds: state.map.displayedIds,
+        clusterId: state.map.clusterId,
+        mapItems: state.map.list,
     }),
     dispatch => ({
+        dispatch,
         handleToggleSort: type => dispatch(changeOrderBy(type)),
     })
 )(MapCatalogPage);

@@ -1,84 +1,144 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { Map, ZoomControl, Clusterer, Placemark } from 'react-yandex-maps';
+import { YMaps, Map, ZoomControl, ObjectManager } from 'react-yandex-maps';
+import TemplateProvider from './TemplateProvider';
+import { sc } from '@utils';
+import { setDisplayedItemsIds } from '@store';
+import { useRefCallback } from '@hooks';
 
-const LayoutMap = ({ className, items }) => {
-    const ymaps = useRef(null);
+const defaults = {
+    center: [55.7, 37.1],
+    zoom: 11,
+};
 
-    console.log(ymaps, ymaps.templateLayoutFactory);
+const LayoutMap = ({ className, mapMarginLeft, clasterFocused, items = [] }) => {
+    const [ymap, setYmap] = useState(null);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!ymap) return;
+
+        const currentZoom = ymap.getZoom();
+
+        if (!clasterFocused && currentZoom !== defaults.zoom) {
+            ymap.setCenter(defaults.center, defaults.zoom);
+        }
+    }, [clasterFocused, ymap]);
+
+    const [objectManager, setObjetManagerRef] = useState(null);
+
+    const handleObjectClick = e => {
+        const id = e.get('objectId');
+
+        const cluster = objectManager.clusters.getById(id);
+
+        console.log(cluster);
+
+        if (!cluster || !cluster.features.length) return;
+
+        console.log(cluster.features);
+
+        dispatch(setDisplayedItemsIds(cluster.features.map(f => f.id), cluster.id));
+    };
+
+    useEffect(() => {
+        if (!objectManager) return () => {};
+
+        console.log(objectManager);
+
+        objectManager.events.add('click', handleObjectClick);
+
+        return () => {
+            objectManager.events.remove('click', handleObjectClick);
+        };
+    }, [objectManager]);
 
     return (
-        <Map
-            className={className}
-            state={{
-                center: [55.73, 36.95],
-                zoom: 11,
-            }}
-            instanceRef={ymaps}
-            width="100%"
-            height="100%"
-        >
-            <ZoomControl
-                options={{
-                    position: {
-                        left: 'auto',
-                        right: 10,
-                        top: 108,
-                    },
+        <YMaps preload>
+            <Map
+                className={className}
+                defaultOptions={{
+                    maxZoom: 15,
                 }}
-            />
-            <Clusterer
-                options={{
-                    // preset: 'islands#redClusterIcons',
-                    minClusterSize: 1,
-                    gridSize: 128,
+                state={{
+                    margin: [0, 0, 0, mapMarginLeft],
+                    center: [55.7, 37.1],
+                    zoom: 11,
+                    // isDef{center: [55.7, 37.1],
+                    // zoom: 11,}
                 }}
-                properties={{
-                    clusterDisableClickZoom: true,
-                    // Используем макет "аккордеон"
-                    clusterBalloonContentLayout: 'cluster#balloonAccordion',
-                    // clusterIconLayout: ymaps.templateLayoutFactory.createClass(
-                    //     '<div class="clusterIcon">{{ properties.geoObjects.length }}</div>'
-                    // ),
-                    // Чтобы метка была кликабельной, переопределим ее активную область.
-                    clusterIconShape: {
-                        type: 'Rectangle',
-                        coordinates: [[0, 0], [20, 20]],
-                    },
-                }}
+                width="100%"
+                height="100%"
+                instanceRef={setYmap}
             >
-                {items
-                    .filter(i => i.location)
-                    .map(({ id, location }) => (
-                        <Placemark
-                            key={id}
-                            geometry={[location.latitude, location.longitude]}
-                            properties={{
-                                hintContent: 'Собственный значок метки',
-                                balloonContent: 'Это красивая метка',
-                                iconContent: 'islands#redCircleIcon',
-                                clusterDisableClickZoom: true,
-                                // Используем макет "карусель"
-                                clusterBalloonContentLayout: 'cluster#balloonCarousel',
-                                // Запрещаем зацикливание списка при постраничной навигации.
-                                clusterBalloonCycling: false,
-                                // Настройка внешнего вида панели навигации.
-                                // Элементами панели навигации будут маркеры.
-                                clusterBalloonPagerType: 'marker',
-                                // Количество элементов в панели.
-                                clusterBalloonPagerSize: 6,
-                            }}
+                <ZoomControl
+                    options={{
+                        position: {
+                            left: 'auto',
+                            right: 10,
+                            top: 108,
+                        },
+                    }}
+                />
+                <TemplateProvider>
+                    {({ template }) => (
+                        <ObjectManager
                             options={{
-                                iconLayout: 'default#image',
+                                clusterize: true,
+                                gridSize: 32,
+                                minClusterSize: 1,
+                                // clusterDisableClickZoom: true,
                             }}
+                            objects={{
+                                preset: 'islands#greenDotIcon',
+                            }}
+                            clusters={{
+                                // preset: 'islands#redClusterIcons',
+                                clusterIconLayout: template,
+                                clusterIconShape: {
+                                    type: 'Circle',
+                                    coordinates: [0, 0],
+                                    radius: 44,
+                                },
+                            }}
+                            instanceRef={setObjetManagerRef}
+                            features={items.map(({ location, id }) => ({
+                                type: 'Feature',
+                                id,
+                                geometry: {
+                                    type: 'Point',
+                                    coordinates: [location.latitude, location.longitude],
+                                },
+                            }))}
                         />
-                    ))}
-            </Clusterer>
-        </Map>
+                    )}
+                </TemplateProvider>
+            </Map>
+        </YMaps>
     );
 };
 
 export default styled(LayoutMap)`
     width: 100%;
     height: 100%;
+
+    .clusterIcon {
+        width: 44px;
+        height: 44px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border: 3px solid ${sc.theme.colors.red};
+        border-radius: 50%;
+        box-sizing: border-box;
+
+        background: linear-gradient(0deg, rgba(244, 67, 54, 0.1), rgba(244, 67, 54, 0.1)), rgba(255, 255, 255, 0.75);
+
+        &[data-cluster-id="${p => p.clusterId}"] {
+            background: white;
+        }
+    }
 `;

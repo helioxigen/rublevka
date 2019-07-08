@@ -26,7 +26,7 @@ const translateDealType = dealType => {
 };
 
 const translateKind = kindType => {
-    const [noun, genitive] = kinds[kindType];
+    const [noun, genitive] = kinds[kindType] || [];
 
     return {
         noun,

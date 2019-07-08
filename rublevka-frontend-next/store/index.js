@@ -4,17 +4,21 @@ import reduxThunk from 'redux-thunk';
 import { propertiesInitialState, propertiesReducer } from './properties';
 import { apiCallMiddleware } from './middlewares';
 import { userReducer, userInitialState } from './user';
+import { mapInitialState, mapReducer } from './map';
 
-export { updateFilterField, fetchProperties, fetchProperty, changeOrderBy } from './properties/actions';
+export { fetchMapProperties } from './map/actions';
+export { updateFilterField, fetchProperties, fetchProperty, changeOrderBy, setDealType } from './properties/actions';
 
 const initialState = {
     user: userInitialState,
     properties: propertiesInitialState,
+    map: mapInitialState,
 };
 
 const reducer = combineReducers({
     user: userReducer,
     properties: propertiesReducer,
+    map: mapReducer,
 });
 
 export const makeStore = (initState = initialState) => {

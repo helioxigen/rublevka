@@ -1,80 +1,51 @@
-import React, { useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import React from 'react';
+import { connect } from 'react-redux';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { Header, PageContainer, CatalogLayout, CardsGrid } from '@components/UI';
-import { Card, Breadcrumbs, Filter, Sort, Pagination } from '@components';
+import { Header, PageContainer, CatalogLayout, CardsGrid, Toolbar } from '@components/UI';
+import { Sort, Pagination, MapButton } from '@components/Catalog';
+import { Card, Breadcrumbs, Filter } from '@components';
 import { fetchProperties, changeOrderBy } from '@store';
-import { dict, app, filter as filterUtils } from '@utils';
+import { dict, app, query, filter as filterUtils } from '@utils';
 
-const CatalogPage = ({
-    dealType,
-    list = [],
-    page,
-    user,
-    totalPages,
-    totalItems,
-    orderBy,
-    fetching,
-    handleToggleSort,
-}) => {
-    const dispatch = useDispatch();
-    const router = useRouter();
-
-    useEffect(() => {
-        const parsedFilter = JSON.parse(router.query.filter || '{}');
-        const { orderBy: orderByQuery } = router.query;
-
-        const filterQuery = filterUtils.query.createFilterQuery(dealType, parsedFilter);
-        const orderQuery = filterUtils.query.orderToQuery(orderByQuery, dealType, user.currency);
-
-        dispatch(
-            fetchProperties(router.query.page || page, { ...filterQuery, ...orderQuery }, parsedFilter, orderByQuery)
-        );
-    }, [router.query]);
-
-    return (
-        <PageContainer>
-            <Head>
-                <meta name="og:image" content="http://image.com" />
-            </Head>
-            <Breadcrumbs dealType={dealType} />
-            <CatalogLayout>
-                <header>
-                    <Header.Catalog>
-                        {dict.translateDealType(dealType).verb} недвижимость на {app.ifDomain('Рублёвке', 'Риге')}
-                    </Header.Catalog>
-                    <Sort total={totalItems} value={orderBy} onChange={handleToggleSort} />
-                </header>
-                <Filter dealType={dealType} />
-                <CardsGrid fetching={fetching}>
-                    {list.map(data => (
-                        <Card key={data.id} dealType={dealType} data={data} />
-                    ))}
-                </CardsGrid>
-                <Pagination count={totalPages} currentPage={page} />
-            </CatalogLayout>
-        </PageContainer>
-    );
-};
+const CatalogPage = ({ dealType, list = [], page, totalPages, fetching }) => (
+    <PageContainer>
+        <Head>
+            <meta name="og:image" content="http://image.com" />
+        </Head>
+        <Breadcrumbs dealType={dealType} />
+        <CatalogLayout>
+            <header>
+                <Header.Catalog>
+                    {dict.translateDealType(dealType).verb} недвижимость на {app.ifDomain('Рублёвке', 'Риге')}
+                </Header.Catalog>
+                <Toolbar>
+                    <Sort />
+                    <MapButton />
+                </Toolbar>
+            </header>
+            <Filter dealType={dealType} />
+            <CardsGrid fetching={fetching}>
+                {list.map(data => (
+                    <Card key={data.id} dealType={dealType} data={data} />
+                ))}
+            </CardsGrid>
+            <Pagination count={totalPages} currentPage={page} />
+        </CatalogLayout>
+    </PageContainer>
+);
 
 CatalogPage.getInitialProps = async ({
     store,
-    query: { dealType: dealTypeTranslit, page = 1, filter = '', orderBy },
+    query: { dealType: dealTypeTranslit, page = 1, filter: filterJson, orderBy, kind },
 }) => {
     const dealType = dict.translit.byWord(dealTypeTranslit);
 
-    const parsedFilter = JSON.parse(filter || '{}');
+    const filter = filterUtils.query.parse(filterJson, kind && { kind: [dict.translit.byWord(kind)] });
 
-    const filterQuery = filterUtils.query.createFilterQuery(dealType, parsedFilter);
-    const orderQuery = filterUtils.query.orderToQuery(orderBy, dealType);
+    await store.dispatch(fetchProperties(page, query.convert({ filter, orderBy }, dealType), filter, orderBy));
 
-    await store.dispatch(fetchProperties(page, { ...filterQuery, ...orderQuery }, parsedFilter, orderBy));
-
-    return { dealType };
+    return { page, dealType };
 };
-
-// createSelector()
 
 export default connect(
     state => ({

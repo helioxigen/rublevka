@@ -7,9 +7,12 @@ import {
     CHANGE_ORDER,
     UPDATE_FILTER_FIELD,
     LOAD_PROPERTY_SUCCESS,
+    SET_DEAL_TYPE,
+    SET_FILTER,
 } from './actions';
 
 export const propertiesInitialState = {
+    dealType: '',
     fetching: false,
     items: {},
     lists: {},
@@ -28,6 +31,9 @@ export const propertiesInitialState = {
 };
 
 export const propertiesReducer = createReducer({
+    [SET_DEAL_TYPE]: ({ dealType }) => ({
+        dealType,
+    }),
     [LOAD_PROPERTIES_REQUEST]: () => ({
         fetching: true,
     }),
@@ -56,18 +62,6 @@ export const propertiesReducer = createReducer({
             total,
             offset,
         },
-        cache: {
-            ...state.cache,
-            [cacheKey]: {
-                response: {
-                    items,
-                    pagination: { total, offset },
-                    filter,
-                    orderBy,
-                    cacheKey,
-                },
-            },
-        },
     }),
     [LOAD_PROPERTIES_ERROR]: err => ({
         fetching: false,
@@ -84,6 +78,9 @@ export const propertiesReducer = createReducer({
     }),
     [CHANGE_ORDER]: ({ payload: { type } }) => ({
         orderBy: type,
+    }),
+    [SET_FILTER]: ({ payload: { filter } }) => ({
+        filter,
     }),
     [UPDATE_FILTER_FIELD]: ({ payload: { fieldName, value } }, state) => ({
         filter: {

@@ -7,6 +7,8 @@ import { Breadcrumbs, Gallery } from '@components';
 import { dict, itemTitle, format } from '@utils';
 import { fetchProperty } from '@store';
 
+
+
 const CatalogItem = ({ dealType, kind, id }) => {
     const {
         location,

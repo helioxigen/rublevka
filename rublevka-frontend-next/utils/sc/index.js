@@ -46,5 +46,13 @@ export default {
                 opacity: 0;
             }
         `,
+        slideRight: keyframes`
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        `,
     },
 };

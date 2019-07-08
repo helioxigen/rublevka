@@ -24,7 +24,7 @@ export function apiCallMiddleware({ dispatch, getState }) {
         if (cacheKey && getCache && cacheType) {
             const cached = getCache(getState())[cacheKey];
 
-            console.log(cached)
+            console.log(cached);
 
             if (cached)
                 return dispatch(

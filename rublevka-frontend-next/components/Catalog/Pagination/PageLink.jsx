@@ -1,15 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import isEmpty from 'lodash/isEmpty';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { Link } from '@components/UI';
 
 const PageLink = ({ className, page, current }) => {
     const {
-        query: { dealType, page: pageQ, ...query },
+        query: { kind, dealType, page: pageQ, ...query },
     } = useRouter();
 
-    const pageQuery = page !== 1 ? { page } : {};
+    const sharedQuery = {
+        ...query,
+        page: page !== 1 && page,
+    };
 
     return current ? (
         <span data-current="true" className={className}>
@@ -17,24 +19,16 @@ const PageLink = ({ className, page, current }) => {
         </span>
     ) : (
         <Link
-            shallow
-            href={{
-                path: '/catalog',
-                pathname: '/catalog',
-                query: {
-                    ...query,
-                    ...pageQuery,
+            to="/catalog"
+            query={[
+                {
+                    ...sharedQuery,
                     page,
                     dealType,
                 },
-            }}
-            as={{
-                pathname: `/zagorodnaya/${dealType}`,
-                query: {
-                    ...query,
-                    ...pageQuery,
-                },
-            }}
+                sharedQuery,
+            ]}
+            path={[dealType, kind]}
         >
             <a className={className}>{page}</a>
         </Link>

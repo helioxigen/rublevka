@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 import App, { Container } from 'next/app';
 import { Provider } from 'react-redux';
 import withReduxStore from 'next-redux-wrapper';
+import { YMaps } from 'react-yandex-maps';
 import Navbar from '../components/Navbar';
 import { makeStore } from '../store';
 
@@ -31,11 +32,13 @@ class MyApp extends App {
 
         return (
             <Container>
-                <Provider store={store}>
-                    <GlobalStyles />
-                    {pageProps.statusCode !== 404 && <Navbar inverts={url === '/'} />}
-                    <Component {...pageProps} />
-                </Provider>
+                <YMaps preload>
+                    <Provider store={store}>
+                        <GlobalStyles />
+                        {pageProps.statusCode !== 404 && <Navbar inverts={url === '/'} />}
+                        <Component {...pageProps} />
+                    </Provider>
+                </YMaps>
             </Container>
         );
     }

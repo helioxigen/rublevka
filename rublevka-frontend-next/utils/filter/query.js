@@ -1,5 +1,5 @@
 import app from '../app';
-import pick from 'lodash/pick';
+import compact from 'lodash/compact';
 import { fromQuery } from './fields';
 
 const defaults = {
@@ -48,7 +48,7 @@ const filterToQuery = filter => {
     return goodFilter;
 };
 
-const createFilterQuery = (dealType, filterObj) => ({
+const createFilterQuery = (filterObj, dealType) => ({
     filter: {
         ...defaults[dealType].filter,
         ...filterToQuery(filterObj),
@@ -70,37 +70,13 @@ const filterFromQuery = filter => {
     return goodFilter;
 };
 
-const extractObject = (obj, keyName) => {
-    const nextObj = {};
-
-    Object.entries(obj).forEach(([key, value]) => {
-        if (!key.startsWith(keyName)) return;
-
-        nextObj[keyName];
-    });
-};
-
-const orderToQuery = (orderBy, dealType, currency = 'rub') => {
-    if (!orderBy) return {};
-
-    const [type, direction] = orderBy.split('.');
-
-    const getFieldName = () => {
-        if (type === 'price') return `${dealType}Offer.multiCurrencyPrice.${currency}`;
-        if (type === 'mkadDistance') return 'location.mkadDistance';
-    };
-
-    return {
-        orderBy: {
-            [getFieldName()]: direction,
-        },
-    };
-};
+const parse = (filterJson = '{}', ...explicitFields) =>
+    Object.assign({}, JSON.parse(filterJson), ...compact(explicitFields));
 
 export default {
     getDefaults,
     createFilterQuery,
     filterToQuery,
     filterFromQuery,
-    orderToQuery,
+    parse,
 };

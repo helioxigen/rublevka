@@ -1,7 +1,7 @@
 import React from 'react';
-import Link from 'next/link';
 import styled from 'styled-components';
-import { Price } from '@components/UI';
+import { useRouter } from 'next/router';
+import { Price, Link } from '@components/UI';
 import { dict, itemTitle, format, media } from '@utils';
 import FavoriteButton from './FavoriteButton';
 import Shortcuts from './Shortcuts';
@@ -10,18 +10,15 @@ import Summary from './Summary';
 
 const Card = ({
     className,
-    dealType,
     data,
     data: { id, images = [], landDetails = {}, specification = {}, location = {}, kind },
 }) => {
-    const dealTypeT = dict.translit.byWord(dealType);
-    const kindT = dict.translit.byWord(kind);
+    const {
+        query: { dealType },
+    } = useRouter();
 
     return (
-        <Link
-            href={`/item?dealType=${dealTypeT}&kind=${kindT}&id=${id}`}
-            as={`/zagorodnaya/${dealTypeT}/${kindT}/${id}`}
-        >
+        <Link to="/item" query={[{ dealType, kind: dict.translit.byWord(kind), id }]} path={[dealType, kind, id]}>
             <article className={className}>
                 <header>
                     <span className="card-id">№{id}</span>

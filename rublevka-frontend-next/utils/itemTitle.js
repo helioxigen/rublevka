@@ -8,8 +8,8 @@ const generate = (dealType, isCard, withOffer, { landDetails = {}, specification
         kind === 'land'
             ? `${Math.floor(landDetails.area)} сот.`
             : format.titleByNumber(specification.bedrooms, ['спальня', 'спальни', 'спален']),
-        `в пос. ${location.settlementName}${isCard ? ',' : ''}`,
-        isCard && `${location.mkadDistance} км`,
+        location.settlementName && `в пос. ${location.settlementName}${isCard ? ',' : ''}`,
+        location.mkadDistance && isCard && `${location.mkadDistance} км`,
     ]
         .filter(v => !!v)
         .join(' ');

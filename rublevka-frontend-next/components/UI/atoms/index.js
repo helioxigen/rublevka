@@ -7,3 +7,5 @@ export { default as SelectList } from './SelectList';
 export { default as RadioButton } from './RadioButton';
 export { default as Price } from './Price';
 export { default as Avatar } from './Avatar';
+export { default as Switcher } from './Switcher';
+export { default as Link } from './Link';

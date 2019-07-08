@@ -7,8 +7,6 @@ import { Breadcrumbs, Gallery } from '@components';
 import { dict, itemTitle, format } from '@utils';
 import { fetchProperty } from '@store';
 
-
-
 const CatalogItem = ({ dealType, kind, id }) => {
     const {
         location,
@@ -42,16 +40,6 @@ const CatalogItem = ({ dealType, kind, id }) => {
                         {itemTitle.generate(dealType, false, true, { location, landDetails, specification, kind })}
                     </Header.Item>
                     <Gallery layoutImages={layoutImages} images={images.filter(i => i.isPublic)} />
-                    <Summary
-                        values={[
-                            landDetails.area && ['Участок', `${landDetails.area} сот`],
-                            specification.area && ['Дом', `${specification.area} м²`],
-                            specification.bedrooms && [
-                                format.titleByNumber(specification.bedrooms, ['Спальня', 'Спальни', 'Спален'], true),
-                                specification.bedrooms,
-                            ],
-                        ]}
-                    />
                     <Section title="Общая информация">
                         <Details
                             values={[

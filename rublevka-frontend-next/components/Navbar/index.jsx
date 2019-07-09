@@ -4,10 +4,10 @@ import { useRouter } from 'next/router';
 import { Icon, Button } from '@components/UI';
 import styled from 'styled-components';
 import config from '@config';
-import { app, media } from '@utils';
+import { app, media, sc } from '@utils';
 
 const Navbar = ({ className }) => {
-    const { pathname } = useRouter();
+    const { pathname, query } = useRouter();
 
     const isLanding = pathname === '/';
 
@@ -55,17 +55,17 @@ const Navbar = ({ className }) => {
                             <Icon className="logo-icon" name={config.app} />
                         </a>
                     </Link>
-                    <Link prefetch href="/catalog?dealType=prodaja" as="/zagorodnaya/prodaja">
-                        <a>Продажа</a>
+                    <Link href="/catalog?dealType=prodaja" as="/zagorodnaya/prodaja">
+                        <a data-active={pathname === '/catalog' && query.dealType === 'prodaja'}>Продажа</a>
                     </Link>
-                    <Link prefetch href="/catalog?dealType=arenda" as="/zagorodnaya/arenda">
-                        <a>Аренда</a>
+                    <Link href="/catalog?dealType=arenda" as="/zagorodnaya/arenda">
+                        <a data-active={pathname === '/catalog' && query.dealType === 'arenda'}>Аренда</a>
                     </Link>
-                    <Link prefetch href="/settlements" as="/zagorodnaya/kottedzhnye-poselki">
-                        <a>Посёлки</a>
+                    <Link href="/settlements" as="/zagorodnaya/kottedzhnye-poselki">
+                        <a data-active={pathname === '/settlements'}>Посёлки</a>
                     </Link>
-                    <Link prefetch href="/contacts">
-                        <a>Контакты</a>
+                    <Link href="/contacts">
+                        <a data-active={pathname === '/contacts'}>Контакты</a>
                     </Link>
                 </nav>
                 <div className="header-right">
@@ -159,8 +159,20 @@ export default styled(Navbar)`
         text-decoration: none;
         text-transform: uppercase;
 
-        margin: 0 15px;
         color: black;
+
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    a:not(.logo){
+        margin: 0 15px;
+    }
+
+    a[data-active="true"] {
+        color: ${sc.theme.colors.red};
+        border-bottom: 2px solid ${sc.theme.colors.red};
     }
 
     ${Button} {

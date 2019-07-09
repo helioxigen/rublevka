@@ -53,7 +53,7 @@ const Navbar = ({ className }) => {
         <header className={className} data-inverted={inverted}>
             <div className="container">
                 <nav>
-                    <Link prefetch href="/">
+                    <Link href="/">
                         <a className="logo">
                             <Icon className="logo-icon" name={config.app} />
                         </a>

@@ -26,5 +26,7 @@ export const fetchMapPropertiesSubset = (query, partIdx, partsOverall) => ({
 });
 
 export const SET_DISPLAYED_ITEMS_IDS = 'Map.DisplayedItemsIds.Set';
-export const setDisplayedItemsIds = (ids, clusterId = null) =>
-    createAction(SET_DISPLAYED_ITEMS_IDS, { ids, clusterId });
+export const setDisplayedItemsIds = (ids, clusterId = null) => ({
+    type: SET_DISPLAYED_ITEMS_IDS,
+    payload: { ids, clusterId },
+});

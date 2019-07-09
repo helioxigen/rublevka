@@ -32,7 +32,7 @@ class MyApp extends App {
 
         const fav = localStorage.getItem('favorite');
 
-        store.dispatch(setFavorite(JSON.parse(fav)));
+        store.dispatch(setFavorite(JSON.parse(fav || '[]')));
     }
 
     render() {

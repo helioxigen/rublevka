@@ -15,7 +15,7 @@ const FavoritePage = ({ className }) => {
     const isEmpty = favorites.length === 0;
     const items = list.filter(i => favorites.some(f => f.id === i.id && f.dealType === dealType));
     const isOnly =
-        favorites.length !== 0 &&
+        favorites.length === 0 ||
         (favorites.every(i => i.dealType === 'sale') || favorites.every(i => i.dealType === 'rent'));
 
     useEffect(() => {
@@ -29,7 +29,7 @@ const FavoritePage = ({ className }) => {
             <main className={className} data-empty={isEmpty}>
                 <header>
                     <Header.Static>Избранное</Header.Static>
-                    {isOnly && (
+                    {!isOnly && (
                         <Switcher
                             items={[['Продажа', 'sale'], ['Аренда', 'rent']]}
                             value={dealType}
@@ -67,7 +67,7 @@ export default styled(FavoritePage)`
     width: 1110px;
     margin: 0 auto;
 
-    header {
+    > header {
         display: flex;
         justify-content: space-between;
 
@@ -103,6 +103,7 @@ export default styled(FavoritePage)`
         margin: 40px auto 0;
 
         background: white;
+        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
         color: #f44336;
 
         text-transform: uppercase;

@@ -1,6 +1,7 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import uniqBy from 'lodash/uniqBy';
 import { YMaps, Map, ZoomControl, ObjectManager } from 'react-yandex-maps';
 import TemplateProvider from './TemplateProvider';
 import { sc } from '@utils';
@@ -12,40 +13,50 @@ const defaults = {
     zoom: 11,
 };
 
-const LayoutMap = ({ className, mapMarginLeft, clasterFocused, items = [] }) => {
+const LayoutMap = ({ className, mapMarginLeft, clasterFocused, onClusterClick, items = [] }) => {
     const [ymap, setYmap] = useState(null);
     const dispatch = useDispatch();
+    const features = useMemo(
+        () =>
+            uniqBy(items, 'id').map(({ location, id }) => ({
+                type: 'Feature',
+                id,
+                geometry: {
+                    type: 'Point',
+                    coordinates: [location.latitude, location.longitude],
+                },
+            })),
+        [items]
+    );
 
-    useEffect(() => {
-        if (!ymap) return;
+    // useEffect(() => {
+    //     if (!ymap) return;
 
-        const currentZoom = ymap.getZoom();
+    //     const currentZoom = ymap.getZoom();
 
-        if (!clasterFocused && currentZoom !== defaults.zoom) {
-            ymap.setCenter(defaults.center, defaults.zoom);
-        }
-    }, [clasterFocused, ymap]);
+    //     if (!clasterFocused && currentZoom !== defaults.zoom) {
+    //         ymap.setCenter(defaults.center, defaults.zoom);
+    //     }
+    // }, [clasterFocused, ymap]);
 
     const [objectManager, setObjetManagerRef] = useState(null);
-
-    const handleObjectClick = e => {
-        const id = e.get('objectId');
-
-        const cluster = objectManager.clusters.getById(id);
-
-        console.log(cluster);
-
-        if (!cluster || !cluster.features.length) return;
-
-        console.log(cluster.features);
-
-        dispatch(setDisplayedItemsIds(cluster.features.map(f => f.id), cluster.id));
-    };
 
     useEffect(() => {
         if (!objectManager) return () => {};
 
         console.log(objectManager);
+
+        const handleObjectClick = e => {
+            const id = e.get('objectId');
+
+            const cluster = objectManager.clusters.getById(id);
+
+            console.log(cluster);
+
+            if (!cluster || !cluster.features.length) return;
+
+            dispatch(setDisplayedItemsIds(cluster.features.map(f => f.id), cluster.id));
+        };
 
         objectManager.events.add('click', handleObjectClick);
 
@@ -61,8 +72,7 @@ const LayoutMap = ({ className, mapMarginLeft, clasterFocused, items = [] }) => 
                 defaultOptions={{
                     maxZoom: 15,
                 }}
-                state={{
-                    margin: [0, 0, 0, mapMarginLeft],
+                defaultState={{
                     center: [55.7, 37.1],
                     zoom: 11,
                     // isDef{center: [55.7, 37.1],
@@ -103,14 +113,7 @@ const LayoutMap = ({ className, mapMarginLeft, clasterFocused, items = [] }) => 
                                 },
                             }}
                             instanceRef={setObjetManagerRef}
-                            features={items.map(({ location, id }) => ({
-                                type: 'Feature',
-                                id,
-                                geometry: {
-                                    type: 'Point',
-                                    coordinates: [location.latitude, location.longitude],
-                                },
-                            }))}
+                            features={features}
                         />
                     )}
                 </TemplateProvider>

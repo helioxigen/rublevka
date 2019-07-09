@@ -6,6 +6,7 @@ export default styled.section`
     grid-gap: 20px;
 
     grid-template-columns: 1fr;
+    grid-auto-rows: min-content;
 
     ${media.sm`
         grid-template-columns: 1fr 1fr;

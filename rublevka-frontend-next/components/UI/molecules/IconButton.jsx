@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { Icon, Button } from '../atoms';
 import { sc } from '@utils';
 
-const IconButton = ({ className, icon, red, children }) => (
-    <Button data-icon={icon} className={className} red={red}>
+const IconButton = ({ className, onClick, icon, red, children }) => (
+    <Button data-icon={icon} onClick={onClick} className={className} red={red}>
         <Icon name={icon} />
         {children}
     </Button>

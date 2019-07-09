@@ -1,15 +1,26 @@
-import xor from 'lodash/xor';
+import xorBy from 'lodash/xorBy';
 import { createReducer } from '../../utils/store';
-import { TOGGLE_FAVORITE, CHANGE_CURRENCY } from './actions';
+import { TOGGLE_FAVORITE, CHANGE_CURRENCY, favoriteTypes, SET_FAVORITE } from './actions';
 
 export const userInitialState = {
-    favorites: [],
+    favoriteFetching: false,
+    favoriteItems: [],
+    favorite: [],
     currency: 'rub',
 };
 
 export const userReducer = createReducer({
-    [TOGGLE_FAVORITE]: (payload, state) => ({
-        favorites: xor(state.list, [payload]),
+    [favoriteTypes.request]: () => ({
+        favoriteFetching: true,
+    }),
+    [favoriteTypes.success]: ({ response: { items } }) => ({
+        favoriteItems: items,
+    }),
+    [SET_FAVORITE]: ({ payload: { favorite } }) => ({
+        favorite,
+    }),
+    [TOGGLE_FAVORITE]: ({ payload }, state) => ({
+        favorite: xorBy(state.favorite, [payload], i => `${i.id}.${i.dealType}`),
     }),
     [CHANGE_CURRENCY]: ({ code }) => ({
         currency: code,

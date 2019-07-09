@@ -71,17 +71,17 @@ const MapCatalogPage = ({ displayedIds, clusterId, mapItems, dispatch }) => {
     );
 };
 
-MapCatalogPage.getInitialProps = async ({ store, query: { dealType: dealTypeTranslit, filter: filterJson, kind } }) => {
-    // const dealType = dict.translit.byWord(dealTypeTranslit);
+// MapCatalogPage.getInitialProps = async ({ store, query: { dealType: dealTypeTranslit, filter: filterJson, kind } }) => {
+//     // const dealType = dict.translit.byWord(dealTypeTranslit);
 
-    // const filter = filterUtils.query.parse(filterJson, kind && { kind: [dict.translit.byWord(kind)] });
+//     // const filter = filterUtils.query.parse(filterJson, kind && { kind: [dict.translit.byWord(kind)] });
 
-    // // store.dispatch(fetchMapPropertiesSubset(queryUtils.convert({ filter }, dealType)));
+//     // // store.dispatch(fetchMapPropertiesSubset(queryUtils.convert({ filter }, dealType)));
 
-    return {};
+//     return {};
 
-    // return { dealType, filter };
-};
+//     // return { dealType, filter };
+// };
 
 // createSelector()
 

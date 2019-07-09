@@ -30,7 +30,7 @@ export default styled(OfferSwitch)`
 
     .inner {
         border: 1px solid #d9d9d9;
-        border-radius: 4px;
+        border-radius: inherit;
         flex: 1;
         display: flex;
     }

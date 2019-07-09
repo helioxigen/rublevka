@@ -6,6 +6,7 @@ import { apiCallMiddleware } from './middlewares';
 import { userReducer, userInitialState } from './user';
 import { mapInitialState, mapReducer } from './map';
 
+export { fetchFavorite, setFavorite } from './user/actions';
 export { fetchMapPropertiesSubset, setDisplayedItemsIds } from './map/actions';
 export {
     updateFilterField,

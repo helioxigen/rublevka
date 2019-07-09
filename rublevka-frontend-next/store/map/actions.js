@@ -1,4 +1,5 @@
 import api from '@api';
+import { createAction } from '@utils';
 
 export const LOAD_MAP_PROPERTIES_REQUEST = 'Map.PropertiesLoad.Request';
 export const LOAD_MAP_PROPERTIES_SUCCESS = 'Map.PropertiesLoad.Success';
@@ -24,7 +25,6 @@ export const fetchMapPropertiesSubset = (query, partIdx, partsOverall) => ({
     },
 });
 
-const action = (type, payload) => ({ type, payload });
-
 export const SET_DISPLAYED_ITEMS_IDS = 'Map.DisplayedItemsIds.Set';
-export const setDisplayedItemsIds = (ids, clusterId = null) => action(SET_DISPLAYED_ITEMS_IDS, { ids, clusterId });
+export const setDisplayedItemsIds = (ids, clusterId = null) =>
+    createAction(SET_DISPLAYED_ITEMS_IDS, { ids, clusterId });

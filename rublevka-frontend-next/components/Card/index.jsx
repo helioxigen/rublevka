@@ -10,11 +10,12 @@ import Summary from './Summary';
 
 const Card = ({
     className,
+    dealTypeExplicit,
     data,
     data: { id, images = [], landDetails = {}, specification = {}, location = {}, kind },
 }) => {
     const {
-        query: { dealType: dealTypeT },
+        query: { dealType: dealTypeT = dict.translit.byWord(dealTypeExplicit) },
     } = useRouter();
 
     const dealType = dict.translit.byWord(dealTypeT);
@@ -93,6 +94,7 @@ export default styled(Card)`
         height: 220px;
         margin: 0;
         position: relative;
+        width: 100%;
     }
 
     section.card-body {

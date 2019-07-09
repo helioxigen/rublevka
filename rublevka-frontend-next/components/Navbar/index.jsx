@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Icon, Button } from '@components/UI';
@@ -12,6 +13,8 @@ const Navbar = ({ className }) => {
     const isLanding = pathname === '/';
 
     const [inverted, toggleInverted] = useState(isLanding);
+
+    const favoriteCount = useSelector(state => state.user.favorite.length);
 
     const handleInvert = () => {
         if (!isLanding) return;
@@ -73,7 +76,14 @@ const Navbar = ({ className }) => {
                         {app.getConfig().phone}
                     </a>
                     <Button>Обратный звонок</Button>
-                    <Icon className="favorite-icon" name="favorite" />
+                    <Link href="/favorites">
+                        <a className="favorites">
+                            <Icon className="favorite-icon" name="favorite" />
+                            <span className="counter" data-show={favoriteCount > 0}>
+                                {favoriteCount === 0 ? 1 : favoriteCount}
+                            </span>
+                        </a>
+                    </Link>
                 </div>
             </div>
         </header>
@@ -120,12 +130,6 @@ export default styled(Navbar)`
 
     .logo svg {
         fill: black;
-    }
-
-    .favorite-icon {
-        margin-left: 24px;
-        stroke-width: 2px;
-        stroke: black;
     }
 
     nav {
@@ -202,12 +206,46 @@ export default styled(Navbar)`
             fill: white;
         }
 
-        .favorite-icon {
+        .favorite-icon svg {
             stroke: white;
         }
     }
 
     a:hover {
         color: #f44336;
+    }
+
+    .favorites{
+        position: relative;
+        margin: 0;
+
+        svg {
+            stroke-width: 2px;
+            stroke: black;
+        }
+
+        .counter {
+            opacity: 0;
+            background: rgba(244,67,54,0.9);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            line-height: 18px;
+            font-size: 12px;
+            color: white;
+
+            font-weight: 300;
+            text-align: center;
+
+            position: absolute;
+            top: 10px;
+            right: -9px;
+
+            transition: 0.2s;
+
+            &[data-show="true"] {
+                opacity: 1;
+            }
+        }
     }
 `;

@@ -8,6 +8,7 @@ const ifDomain = (ifRublevka, ifRiga) => (isRublevka ? ifRublevka : ifRiga);
  * @typedef SiteConfig
  * @property {string} phone
  * @property {string} phoneNumbers
+ * @property {string} email
  * @property {string} imagePostfix
  * @property {Array<number>} routes
  */

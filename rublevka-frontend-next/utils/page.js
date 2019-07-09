@@ -7,10 +7,12 @@ const optionalFn = (fn, getArg) => (typeof fn === 'function' ? fn(getArg()) : fn
 
 const to = (
     pathname,
-    buildQuery = ['query', 'query'] || (qry => [qry.qry, 'asQry']),
-    buildAsPath = ['path', 'path'] || (qry => [qry.path, qry.path])
+    buildQuery = [] || (qry => [qry.qry, 'asQry']),
+    buildAsPath = [] || (qry => [qry.path, qry.path])
 ) => {
-    const [query, asQuery] = optionalFn(buildQuery, () => Router.query).map(qry => pickBy(qry, v => !isEmpty(v)));
+    const [query, asQuery] = optionalFn(buildQuery, () => Router.query).map(qry =>
+        pickBy(qry, v => (typeof v === 'number' ? v : !isEmpty(v)))
+    );
 
     const href = {
         pathname: `${pathname}`,

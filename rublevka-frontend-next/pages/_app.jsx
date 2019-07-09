@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import withReduxStore from 'next-redux-wrapper';
 import { YMaps } from 'react-yandex-maps';
 import Navbar from '../components/Navbar';
-import { makeStore } from '../store';
+import { makeStore, setFavorite } from '../store';
 
 const GlobalStyles = createGlobalStyle`
     body {
@@ -25,6 +25,14 @@ class MyApp extends App {
         }
 
         return { pageProps, url: ctx.pathname };
+    }
+
+    componentDidMount() {
+        const { store } = this.props;
+
+        const fav = localStorage.getItem('favorite');
+
+        store.dispatch(setFavorite(JSON.parse(fav)));
     }
 
     render() {

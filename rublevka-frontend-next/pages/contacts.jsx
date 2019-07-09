@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Icon } from '@components/UI';
-import { YMaps, Map, Placemark } from 'react-yandex-maps';
+import { YMaps, Map, Placemark, ZoomControl } from 'react-yandex-maps';
+import { app } from '@utils';
 
 const ContactsPage = ({ className }) => {
     const size = typeof window !== 'undefined' && window.outerWidth < 992 ? 48 : 64;
+
+    const { email, phone, phoneNumbers } = app.getConfig();
 
     return (
         <main className={className}>
@@ -15,11 +18,11 @@ const ContactsPage = ({ className }) => {
                 </header>
                 <p className="contact-info">
                     <Icon name="mail" />
-                    info@rublevka.ru
+                    <a href={`mailto:${email}`}>{email}</a>
                 </p>
                 <p className="contact-info">
                     <Icon name="phone" />
-                    +7 (495) 432-33-22
+                    <a href={`tel:+${phoneNumbers}`}>{phone}</a>
                 </p>
                 <footer>
                     <p>Пн-пт, с 10:00 до 20:00.</p>
@@ -34,6 +37,15 @@ const ContactsPage = ({ className }) => {
                     height="100%"
                     modules={['layout.Image']}
                 >
+                    <ZoomControl
+                        options={{
+                            position: {
+                                left: 'auto',
+                                right: 10,
+                                top: 108,
+                            },
+                        }}
+                    />
                     <Placemark
                         geometry={[55.734871, 37.249479]}
                         options={{
@@ -53,6 +65,7 @@ export default styled(ContactsPage)`
     position: relative;
     padding-top: 60px;
 
+    box-sizing: border-box;
     height: 100vh;
 
     .contacts-ymap {
@@ -70,6 +83,11 @@ export default styled(ContactsPage)`
         background: white;
         box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
         border-radius: 4px;
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
         p {
             margin: 0;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -33,24 +33,18 @@ const Navbar = ({ className }) => {
             window.removeEventListener('scroll', handleInvert);
             toggleInverted(false);
         };
-    }, [pathname]);
+    }, [isLanding, toggleInverted]);
 
     useEffect(() => {
         // if (!isLanding && !inverted) return;
 
-        if (isLanding && !inverted) {
+        if (isLanding && !inverted && window.scrollY < 80) {
             toggleInverted(true);
-            console.log('TOGGLEQ', inverted);
         }
-
-        if (!isLanding && inverted) {
-            toggleInverted(false);
-            console.log('TOGGLE', inverted);
-        }
-    }, [pathname]);
+    }, [isLanding]);
 
     return (
-        <header className={className} data-inverted={inverted}>
+        <header className={className} data-inverted={isLanding ? inverted : false}>
             <div className="container">
                 <nav>
                     <Link href="/">

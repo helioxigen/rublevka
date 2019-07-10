@@ -6,6 +6,7 @@ import { media } from '@utils';
 
 export default styled.main`
     display: flex;
+    align-items: flex-start;
 
     > article,
     > aside {
@@ -38,6 +39,7 @@ export default styled.main`
     }
 
     > aside {
+        width: 360px;
         flex: 1 0 auto;
         display: none;
         margin-left: 20px;

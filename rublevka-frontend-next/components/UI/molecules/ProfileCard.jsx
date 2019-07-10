@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { Avatar } from '../atoms';
 
 const ProfileCard = ({ className, avatar, alt, name, subheader }) => (
-    <section className={className}>
+    <header className={className}>
         <Avatar src={avatar} alt={alt} />
         <div className="info">
             <header>{name}</header>
             <p>{subheader}</p>
         </div>
-    </section>
+    </header>
 );
 
 export default styled(ProfileCard)`

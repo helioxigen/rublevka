@@ -9,3 +9,5 @@ export { default as Price } from './Price';
 export { default as Avatar } from './Avatar';
 export { default as Switcher } from './Switcher';
 export { default as Link } from './Link';
+export { default as Input } from './Input';
+export { default as TextArea } from './TextArea';

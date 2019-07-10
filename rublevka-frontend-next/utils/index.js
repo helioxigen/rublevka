@@ -10,4 +10,5 @@ export { default as filter } from './filter';
 export { default as query } from './query';
 export { default as page } from './page';
 export { default as optional } from './optional';
+export { default as uis } from './uis';
 export { createAction, createReducer } from './store';

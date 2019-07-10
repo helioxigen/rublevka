@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import { PageContainer, Header, Price, ProfileCard, IconButton, ItemLayout } from '@components/UI';
 import { Layout, Details, Summary, Section, Layouts, Location } from '@components/Item';
+import { CallbackForm } from '@components/Forms';
 import { Breadcrumbs, Gallery } from '@components';
 import { dict, itemTitle, format } from '@utils';
 import { fetchProperty } from '@store';
@@ -50,6 +51,16 @@ const CatalogItem = ({ dealType, kind, id }) => {
                             ]}
                         />
                     </Section>
+                    <Summary
+                        values={[
+                            landDetails.area && ['Участок', `${landDetails.area} сот`],
+                            specification.area && ['Дом', `${specification.area} м²`],
+                            specification.bedrooms && [
+                                format.titleByNumber(specification.bedrooms, ['Спальня', 'Спальни', 'Спален'], true),
+                                specification.bedrooms,
+                            ],
+                        ]}
+                    />
                     {!isEmpty(communication) && (
                         <Section title="Коммуникации">
                             <Details
@@ -77,10 +88,27 @@ const CatalogItem = ({ dealType, kind, id }) => {
                     <header>
                         <Price deal={price} dealType={dealType} />
                     </header>
-                    <ProfileCard
-                        avatar="/static/item/agent.jpg"
-                        name="Елена Зверева"
-                        subheader="Агент загородной недвижимости"
+                    <CallbackForm
+                        header={
+                            <ProfileCard
+                                avatar="/static/item/agent.jpg"
+                                name="Елена Зверева"
+                                subheader="Агент загородной недвижимости"
+                            />
+                        }
+                        fields={{
+                            name: {
+                                placeholder: 'Имя',
+                                required: true,
+                            },
+                            phone: {
+                                placeholder: 'Телефон',
+                                type: 'tel',
+                                required: true,
+                            },
+                        }}
+                        fullWidth
+                        submitLabel="Забронировать просмотр"
                     />
                     <footer>
                         <IconButton icon="favorite">В избранное</IconButton>

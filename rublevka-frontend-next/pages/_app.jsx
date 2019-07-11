@@ -17,16 +17,6 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 class MyApp extends App {
-    static async getInitialProps({ Component, ctx }) {
-        let pageProps = {};
-
-        if (Component.getInitialProps) {
-            pageProps = await Component.getInitialProps(ctx);
-        }
-
-        return { pageProps, url: ctx.pathname };
-    }
-
     componentDidMount() {
         const { store } = this.props;
 
@@ -36,13 +26,18 @@ class MyApp extends App {
     }
 
     render() {
-        const { Component, pageProps, url, store } = this.props;
+        const {
+            Component,
+            pageProps,
+            store,
+            router: { pathname },
+        } = this.props;
 
         return (
             <Container>
                 <Provider store={store}>
                     <GlobalStyles />
-                    {pageProps.statusCode !== 404 && <Navbar inverts={url === '/'} />}
+                    {pageProps.statusCode !== 404 && <Navbar inverts={pathname === '/'} />}
                     <Component {...pageProps} />
                 </Provider>
             </Container>

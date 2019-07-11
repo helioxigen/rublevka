@@ -8,7 +8,7 @@
     "scripts": {
         "dev": "APP=rublevka APP_ENV=development node server.js",
         "start": "NODE_ENV=production next start",
-        "build": "APP=rublevka APP_ENV=production next build",
+        "build": "APP=rublevka APP_ENV=production NODE_ENV=production next build",
         "now-build": "APP=rublevka APP_ENV=production next build"
     },
     "dependencies": {

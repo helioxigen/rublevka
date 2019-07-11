@@ -58,7 +58,7 @@ const Navbar = ({ className }) => {
                     <Link href="/catalog?dealType=arenda" as="/zagorodnaya/arenda">
                         <a data-active={pathname === '/catalog' && query.dealType === 'arenda'}>Аренда</a>
                     </Link>
-                    <Link href="/settlements" as="/zagorodnaya/kottedzhnye-poselki">
+                    <Link href="/settlements.list" as="/zagorodnaya/kottedzhnye-poselki">
                         <a data-active={pathname === '/settlements.list' || pathname === '/settlements.item'}>
                             Посёлки
                         </a>

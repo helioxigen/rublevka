@@ -1,20 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import compact from 'lodash/compact';
 import { dict } from '@utils';
 import Item from './Item';
 
-const Breadcrumbs = ({ className, dealType, last = false }) => (
+const Breadcrumbs = ({ className, dealType, second, last = false }) => (
     <nav className={className}>
         <ol itemScope itemType="http://schema.org/BreadcrumbList">
-            {[
+            {compact([
                 ['/', 'Главная'],
-                [`/zagorodnaya/${dict.translit.byWord(dealType)}`, dict.translateDealType(dealType).noun],
+                second || [`/zagorodnaya/${dict.translit.byWord(dealType)}`, dict.translateDealType(dealType).noun],
                 last,
-            ]
-                .filter(v => v)
-                .map(([link, title], idx) => (
-                    <Item key={link} idx={idx} href={link} title={title} />
-                ))}
+            ]).map(([link, title], idx) => (
+                <Item key={link} idx={idx} href={link} title={title} />
+            ))}
         </ol>
     </nav>
 );

@@ -25,6 +25,14 @@ app.prepare().then(() => {
         });
     });
 
+    server.get('/zagorodnaya/kottedzhnye-poselki', (req, res) => {
+        return app.render(req, res, '/settlements.list');
+    });
+
+    server.get('/zagorodnaya/kottedzhnye-poselki/:name_:id', (req, res) => {
+        return app.render(req, res, '/settlements.item', { id: req.params.id });
+    });
+
     server.get('/zagorodnaya/:dealType', (req, res) => {
         return app.render(req, res, '/catalog', { dealType: req.params.dealType, ...req.query });
     });

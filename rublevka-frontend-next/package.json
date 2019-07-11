@@ -22,6 +22,7 @@
         "react-dom": "^16.8.6",
         "react-input-mask": "^2.0.4",
         "react-redux": "^7.1.0",
+        "react-scroll": "^1.7.12",
         "react-swipe": "5.1.1",
         "react-yandex-maps": "^4.0.1",
         "redux": "^4.0.1",

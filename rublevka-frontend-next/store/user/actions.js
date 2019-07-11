@@ -1,5 +1,5 @@
 import api from '@api';
-import { query } from '@utils';
+import { createApiCallTypes } from '@utils';
 
 export const TOGGLE_FAVORITE = 'User.Favorites.Toggle';
 export const SET_FAVORITE = 'User.Favorites.Set';
@@ -32,20 +32,6 @@ export const toggleCurrency = ({ code }) => ({
         code,
     },
 });
-
-const createApiCallTypes = (reducerName, resultName, noCache = true) => {
-    const types = {
-        request: `${reducerName}.${resultName}.LoadRequest`,
-        success: `${reducerName}.${resultName}.LoadSuccess`,
-        error: `${reducerName}.${resultName}.LoadError`,
-        ...(noCache ? {} : { error: `${reducerName}.${resultName}.LoadCacheRestore` }),
-    };
-
-    return {
-        ...types,
-        value: [types.request, types.success, types.error],
-    };
-};
 
 export const favoriteTypes = createApiCallTypes('User', 'Favorite');
 

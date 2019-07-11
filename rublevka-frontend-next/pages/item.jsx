@@ -109,6 +109,9 @@ const CatalogItem = ({ dealType, kind, id }) => {
                         }}
                         fullWidth
                         submitLabel="Забронировать просмотр"
+                        defaultComment={`${dict.translateDealType(dealType)} ${
+                            dict.translateKind(kind).genitive
+                        } ID:${id}`}
                     />
                     <footer>
                         <FavoriteButton red id={item.id} dealType={dealType}>

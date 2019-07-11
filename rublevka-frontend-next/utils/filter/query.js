@@ -22,6 +22,13 @@ const defaults = {
             'rentOffer.isDisabled': true,
         },
     },
+    settlements: {
+        filter: {
+            state: ['public'],
+            'location.routeId': app.getConfig().routes,
+            'statistics.totalProperties': '1..',
+        },
+    },
 };
 
 const getDefaults = dealType => defaults[dealType];

@@ -16,7 +16,7 @@ const LandingHero = ({ className }) => (
         <Tabs
             tabs={{
                 objectNumber: 'Номер объекта',
-                sell: 'Продажа',
+                sale: 'Продажа',
                 rent: 'Аренда',
                 settlements: 'Посёлки',
             }}

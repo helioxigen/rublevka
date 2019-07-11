@@ -6,3 +6,4 @@ export { default as CardsGrid } from './CardsGrid';
 export { default as Modal } from './Modal';
 export { default as Toolbar } from './Toolbar';
 export { default as MapCatalogLayout } from './MapCatalogLayout';
+export { default as SettlementsListLayout } from './SettlementsListLayout';

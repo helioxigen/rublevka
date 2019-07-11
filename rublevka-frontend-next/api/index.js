@@ -1,17 +1,7 @@
 import { instance } from './instance';
+import { filter } from '@utils';
 
 const limit = 24;
-const maxLimit = 256;
-
-const repeatList = apiFn => async query => {
-    const first = await apiFn(query, 0);
-
-    const count = Math.ceil(first.pagination.total / maxLimit) - 1;
-
-    const tail = await Promise.all([...new Array(count)].map((_, idx) => apiFn(query, (idx + 1) * 256)));
-
-    return { items: [first, ...tail].reduce((acc, resp) => acc.concat(resp.items), []), total: first.pagination.total };
-};
 
 export default {
     properties: {
@@ -22,6 +12,15 @@ export default {
             instance('properties/country', {
                 pagination: { limit: chunkSize, offset: chunkIdx * chunkSize },
                 ...query,
+            }),
+    },
+
+    settlements: {
+        getOne: id => instance(`places/settlements/${id}`),
+        getMany: () =>
+            instance('places/settlements', {
+                pagination: { limit: 256 },
+                ...filter.query.getDefaults('settlements'),
             }),
     },
 };

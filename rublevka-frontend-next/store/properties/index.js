@@ -15,7 +15,7 @@ export const propertiesInitialState = {
     dealType: '',
     fetching: false,
     items: {},
-    lists: {},
+    list: [],
     orderBy: '',
     pagination: {
         total: 0,

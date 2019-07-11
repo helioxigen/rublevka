@@ -1,3 +1,5 @@
+import { filter } from '@utils';
+
 const fields = {
     kind: {
         title: 'Тип объекта',
@@ -19,7 +21,7 @@ const fields = {
                     label: 'Квартира',
                 },
             ],
-            sell: [
+            sale: [
                 {
                     value: 'house',
                     label: 'Дом',
@@ -44,7 +46,7 @@ const fields = {
         placeholder: 'Любая',
         type: 'range',
         range: {
-            template: v => (v === 0 ? '0' : `${v} млн`),
+            priceTemplate: (v, dealType) => (v === 0 ? '0' : `${v} ${dealType === 'rent' ? 'тыс/мес' : 'млн'}`),
         },
     },
     bedrooms: {
@@ -75,7 +77,8 @@ const fields = {
         placeholder: 'Любое',
         type: 'range',
         range: {
-            template: v => (v === 0 ? '0' : `${v} км`),
+            options: filter.template.generic(25, 5, v => `${v} км`),
+            template: v => `${v} км`,
         },
     },
     name: {
@@ -90,7 +93,7 @@ const fields = {
 
 export default {
     types: {
-        sell: {
+        sale: {
             fields: ['kind', 'price', 'bedrooms'],
         },
         rent: {

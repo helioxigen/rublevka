@@ -1,6 +1,7 @@
 import translit from './translit';
 import details from './details';
 import declesions from './declesions';
+import settlements from './settlements';
 
 const dealTypes = {
     sale: ['Продажа', 'Купить'],
@@ -40,4 +41,5 @@ export default {
     translateKind,
     details,
     declesions,
+    settlements,
 };

@@ -42,6 +42,7 @@ const Dropdown = ({
         onChange={item => onChange(item.value)}
         itemToString={item => `${item}`}
         initialSelectedItem={initialValue}
+        id={type}
     >
         {({ getToggleButtonProps, isOpen, selectedItem, getMenuProps, getItemProps, getInputProps, selectItem }) => (
             <div className={className} data-open={isOpen}>
@@ -60,7 +61,7 @@ const Dropdown = ({
                         <Range
                             getInputProps={getInputProps}
                             getItemProps={getItemProps}
-                            options={range}
+                            options={range.options}
                             value={selectedItem.value || {}}
                             onChange={value =>
                                 selectItem(

@@ -5,9 +5,11 @@ import { propertiesInitialState, propertiesReducer } from './properties';
 import { apiCallMiddleware } from './middlewares';
 import { userReducer, userInitialState } from './user';
 import { mapInitialState, mapReducer } from './map';
+import settlements from './settlements';
 
 export { fetchFavorite, setFavorite } from './user/actions';
 export { fetchMapPropertiesSubset, setDisplayedItemsIds } from './map/actions';
+export { fetchSettlements } from './settlements/actions';
 export {
     updateFilterField,
     fetchProperties,
@@ -21,12 +23,14 @@ const initialState = {
     user: userInitialState,
     properties: propertiesInitialState,
     map: mapInitialState,
+    settlements: settlements.initialState,
 };
 
 const reducer = combineReducers({
     user: userReducer,
     properties: propertiesReducer,
     map: mapReducer,
+    settlements: settlements.reducer,
 });
 
 export const makeStore = (initState = initialState) => {

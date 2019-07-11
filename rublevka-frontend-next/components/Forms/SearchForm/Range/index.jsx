@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { range } from 'lodash';
+import initial from 'lodash/initial';
 import { media } from '../../../../utils';
 import Input from './Input';
 import Options from '../Options';
 
-const Range = ({ className, onChange, getItemProps, options: { multiplier = 1, template = v => v } = {}, value }) => (
+const Range = ({ className, onChange, getItemProps, options = [], value }) => (
     <div className={className}>
         <Input
             placeholder="ОТ"
@@ -25,9 +25,9 @@ const Range = ({ className, onChange, getItemProps, options: { multiplier = 1, t
         <Options.List
             className="range-from"
             getItemProps={getItemProps}
-            items={range(0, multiplier * 6, multiplier).map(num => ({
-                label: template(num),
-                value: { from: num },
+            items={options.map(({ label, value: from }) => ({
+                label,
+                value: { from },
             }))}
             onItemClick={(event, item) => {
                 // eslint-disable-next-line no-param-reassign
@@ -39,11 +39,11 @@ const Range = ({ className, onChange, getItemProps, options: { multiplier = 1, t
         <Options.List
             className="range-to"
             getItemProps={getItemProps}
-            items={range(0, multiplier * 6, multiplier)
-                .filter(v => v > (value.from || 0))
-                .map(num => ({
-                    label: template(num),
-                    value: { to: num },
+            items={initial(options)
+                .filter(({ value: to }) => to > (value.from || 0))
+                .map(({ label, value: to }) => ({
+                    label,
+                    value: { to },
                 }))}
             onItemClick={(event, item) => {
                 // eslint-disable-next-line no-param-reassign

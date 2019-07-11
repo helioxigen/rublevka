@@ -4,7 +4,7 @@ import Tab from './Tab';
 import { media } from '../../../utils';
 
 const Tabs = ({ className, tabs, children }) => {
-    const [selectedTab, changeTab] = useState('sell');
+    const [selectedTab, changeTab] = useState('sale');
     const tabsContainer = useRef(null);
 
     const handleTabChange = name => e => {
@@ -64,7 +64,7 @@ export default styled(Tabs)`
         bottom: 0;
     }
 
-    header {
+    > header {
         display: flex;
         overflow-x: scroll;
         position: relative;

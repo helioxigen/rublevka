@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import Dropdown from './Dropdown';
 import { IconButton } from '../../UI/molecules';
-import { media } from '../../../utils';
+import { media, filter } from '../../../utils';
 import CurrencySelector from './Dropdown/CurrencySelector';
 import formConfig from './formConfig';
 import TextInput from './TextInput';
@@ -16,14 +16,12 @@ const initialState = {
     sale: {
         currency: {
             label: '₽',
-            multiplier: 50,
             value: 'rub',
         },
     },
     rent: {
         currency: {
             label: '₽',
-            multiplier: 50,
             value: 'rub',
         },
     },
@@ -35,7 +33,7 @@ const SearchForm = ({ className, type = 'sale' }) => {
     const [values, changeValues] = useState(initialState);
 
     const handleChange = (fieldName, isMain) => item => {
-        const currentValues = isMain ? {} : values[type];
+        const currentValues = isMain ? { currency: values[type].currency } : values[type];
 
         changeValues({
             ...values,
@@ -54,10 +52,13 @@ const SearchForm = ({ className, type = 'sale' }) => {
                         name
                     ];
 
+                    if (fieldType === 'fuzy') {
+                    }
+
                     if (fieldType === 'text') {
                         return (
                             <TextInput
-                                key={name}
+                                key={`${name}${type}`}
                                 placeholder={placeholder}
                                 value={values[type][name]}
                                 onChange={handleChange(name)}
@@ -65,15 +66,16 @@ const SearchForm = ({ className, type = 'sale' }) => {
                         );
                     }
 
-                    if (name === 'price') {
-                        range.multiplier = values.sale.currency.multiplier;
+                    if (name === 'price' && values[type]) {
+                        range.options = filter.template.prices(values[type].currency.value, type);
+                        range.template = v => range.priceTemplate(v, type);
                     }
 
                     const itemsList = type in items ? items[type] : items;
 
                     return (
                         <Dropdown
-                            key={name}
+                            key={`${name}${type}`}
                             label={title}
                             placeholder={placeholder}
                             items={itemsList}
@@ -101,6 +103,7 @@ const SearchForm = ({ className, type = 'sale' }) => {
 
 export default styled(SearchForm)`
     display: flex;
+    height: 68px;
 
     .form-body {
         display: flex;

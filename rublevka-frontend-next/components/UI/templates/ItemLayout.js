@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Section } from '@components/Item';
+import { FavoriteButton } from '@components/UI';
 import { Gallery } from '@components/Catalog';
 import { Header } from '../atoms';
 import { media } from '@utils';
@@ -58,6 +59,35 @@ export default styled.main`
             justify-content: center;
 
             border-bottom: 1px solid #eeeeee;
+        }
+
+        > footer {
+            border-top: 1px solid #eeeeee;
+            padding: 0;
+
+            ${FavoriteButton} {
+                padding: 24px 0;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+
+                height: 66px;
+                padding: 0;
+
+                color: #aaa;
+
+                font-size: 15px;
+
+                .favorite-icon {
+                    margin-right: 10px;
+                }
+
+                .text {
+                    width: 95px;
+                }
+            }
         }
     }
 `;

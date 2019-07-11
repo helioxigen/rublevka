@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
-import { Price, Link } from '@components/UI';
+import { Price, Link, FavoriteButton } from '@components/UI';
 import { dict, itemTitle, format, media } from '@utils';
-import FavoriteButton from './FavoriteButton';
 import Shortcuts from './Shortcuts';
 import Gallery from './Gallery';
 import Summary from './Summary';

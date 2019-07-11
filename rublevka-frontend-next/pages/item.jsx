@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
-import { PageContainer, Header, Price, ProfileCard, IconButton, ItemLayout } from '@components/UI';
+import { PageContainer, Header, Price, ProfileCard, ItemLayout, FavoriteButton } from '@components/UI';
 import { Layout, Details, Summary, Section, Layouts, Location } from '@components/Item';
 import { CallbackForm } from '@components/Forms';
 import { Breadcrumbs, Gallery } from '@components';
@@ -111,7 +111,9 @@ const CatalogItem = ({ dealType, kind, id }) => {
                         submitLabel="Забронировать просмотр"
                     />
                     <footer>
-                        <IconButton icon="favorite">В избранное</IconButton>
+                        <FavoriteButton red id={item.id} dealType={dealType}>
+                            {favorite => (favorite ? 'В избранном' : 'В избранное')}
+                        </FavoriteButton>
                     </footer>
                 </aside>
             </ItemLayout>

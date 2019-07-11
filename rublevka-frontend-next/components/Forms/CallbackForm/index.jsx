@@ -51,6 +51,7 @@ const CallbackForm = ({ className, header, fields, submitLabel, fullWidth, defau
                             case 'textarea':
                                 return (
                                     <TextArea
+                                        key={name}
                                         placeholder={placeholder}
                                         onChange={handleInputChange(name)}
                                         value={values[name]}
@@ -59,6 +60,7 @@ const CallbackForm = ({ className, header, fields, submitLabel, fullWidth, defau
                             case 'tel':
                                 return (
                                     <PhoneInput
+                                        key={name}
                                         hasError={errors.includes(name)}
                                         onChange={handleChange(name)}
                                         value={values[name]}
@@ -67,6 +69,7 @@ const CallbackForm = ({ className, header, fields, submitLabel, fullWidth, defau
                             default:
                                 return (
                                     <Input
+                                        key={name}
                                         hasError={errors.includes(name)}
                                         type={type}
                                         placeholder={placeholder}

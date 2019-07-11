@@ -54,5 +54,16 @@ export default {
                 transform: translateX(0);
             }
         `,
+        poof: keyframes`
+            from {
+                top: 0;
+                opacity: 0.6;
+            }
+            
+            to {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+        `,
     },
 };

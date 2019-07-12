@@ -15,7 +15,6 @@ export default styled.button`
     color: #232323;
     margin-bottom: 0;
     padding-bottom: 16px;
-    opacity: 0.5;
 
     ::before {
         content: '';
@@ -37,7 +36,6 @@ export default styled.button`
     ${media.xs`
         ${sc.ifProp('objectNumber', 'display: block')}
 
-        opacity: 0.8;
         padding-bottom: 17px;
         line-height: 21px;
         font-size: 18px;

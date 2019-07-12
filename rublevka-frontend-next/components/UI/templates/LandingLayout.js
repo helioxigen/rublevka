@@ -13,11 +13,6 @@ export default styled.main`
 
     ${Hero} {
         grid-column: 1 / span end;
-
-        ${Button} {
-            padding: 23px 24px;
-            font-size: 18px;
-        }
     }
 
     .call-block {

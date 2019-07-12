@@ -57,7 +57,6 @@ export default styled(Footer)`
     border-top: 1px solid #ebebeb;
     background: white;
 
-    margin-top: 48px;
     padding: 48px 0 64px;
 
     .container {

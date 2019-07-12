@@ -7,6 +7,7 @@ import { media, filter } from '../../../utils';
 import CurrencySelector from './Dropdown/CurrencySelector';
 import formConfig from './formConfig';
 import TextInput from './TextInput';
+import { Icon } from '@components/UI';
 
 const handleSubmit = e => {
     e.preventDefault();
@@ -148,5 +149,14 @@ export default styled(SearchForm)`
         border-radius: 12px;
         text-transform: none;
         fill: white;
+
+        padding: 0 24px;
+        font-size: 20px;
+
+        ${Icon} {
+            width: 28px;
+            height: 28px;
+            margin-right: 0.2em;
+        }
     }
 `;

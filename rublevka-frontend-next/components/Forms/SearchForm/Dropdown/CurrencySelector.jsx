@@ -33,6 +33,7 @@ export default styled(Dropdown)`
     outline: none;
     flex-basis: calc(50% - 8px);
     width: 100%;
+    z-index: 100;
 
     color: #232323;
     font-size: 18px;

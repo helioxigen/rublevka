@@ -30,11 +30,14 @@ const to = (
 const go = ({ href, as }, shallow) => Router.push(href, as, { shallow });
 
 const queryTpl = {
-    catalog: query => q => [{ dealType: q.dealType, ...query, filter: null, orderBy: null }, query],
+    catalog: query => q => [
+        { dealType: query.dealType || q.dealType, ...query, filter: query.filter || null, orderBy: null },
+        query.filter && { filter: query.filter },
+    ],
 };
 
 const goTo = {
-    catalog: query => go(to('/catalog', queryTpl.catalog(query), q => [q.dealType, q.kind])),
+    catalog: query => go(to('/catalog', queryTpl.catalog(query), q => [query.dealType || q.dealType, q.kind])),
     map: query => go(to('/catalog.map', queryTpl.catalog(query), q => [q.dealType, 'map', q.kind])),
 };
 

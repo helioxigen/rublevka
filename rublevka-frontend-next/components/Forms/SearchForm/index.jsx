@@ -1,49 +1,83 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import fromPairs from 'lodash/fromPairs';
 
 import Dropdown from './Dropdown';
 import { IconButton } from '../../UI/molecules';
-import { media, filter } from '../../../utils';
+import { media, filter, page, dict } from '../../../utils';
 import CurrencySelector from './Dropdown/CurrencySelector';
 import formConfig from './formConfig';
 import TextInput from './TextInput';
 import { Icon } from '@components/UI';
+import { setCurrency } from '@store';
 
-const handleSubmit = e => {
-    e.preventDefault();
-};
-
-const initialState = {
-    sale: {
-        currency: {
-            label: '₽',
-            value: 'rub',
-        },
-    },
-    rent: {
-        currency: {
-            label: '₽',
-            value: 'rub',
-        },
-    },
-    objectNumber: {},
-    settlements: {},
-};
+// const initialState = {
+//     sale: {
+//         currency: {
+//             label: '₽',
+//             value: 'rub',
+//         },
+//     },
+//     rent: {
+//         currency: {
+//             label: '₽',
+//             value: 'rub',
+//         },
+//     },
+//     objectNumber: {},
+//     settlements: {},
+// };
 
 const SearchForm = ({ className, type = 'sale' }) => {
-    const [values, changeValues] = useState(initialState);
+    const currency = useSelector(state => state.user.currency);
+    const dispatch = useDispatch();
+    const [values, changeValues] = useState({});
+
+    const config = formConfig.types[type];
 
     const handleChange = (fieldName, isMain) => item => {
-        const currentValues = isMain ? { currency: values[type].currency } : values[type];
+        // const currentValues = isMain ? {} : values[type];
 
         changeValues({
             ...values,
             [type]: {
-                ...currentValues,
-                [fieldName]: item.value,
+                ...values[type],
+                [fieldName]: item,
             },
         });
     };
+
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        if (config.type === 'query') {
+            const query = Object.entries(values[type]).map(([fieldName, value]) => {
+                let queryValue = value;
+                let { queryField, queryTpl } = formConfig.fields[fieldName];
+
+                if (fieldName === 'price') {
+                    queryField = queryTpl(type, currency);
+                    if (queryValue.from) {
+                        queryValue.from = value.from * 1000000;
+                    }
+
+                    if (queryValue.to) {
+                        queryValue.to = value.to * 1000000;
+                    }
+                }
+
+                return [queryField, queryValue];
+            });
+
+            page.goTo.catalog({
+                filter: JSON.stringify(fromPairs(query)),
+                dealType: dict.translit.byWord(type),
+            });
+        }
+    };
+
+    const handleCurrencyChange = cur => dispatch(setCurrency(cur));
 
     return (
         <form className={className} onSubmit={handleSubmit}>
@@ -52,9 +86,6 @@ const SearchForm = ({ className, type = 'sale' }) => {
                     const { title, placeholder, items = [], type: fieldType, main, range = {} } = formConfig.fields[
                         name
                     ];
-
-                    if (fieldType === 'fuzy') {
-                    }
 
                     if (fieldType === 'text') {
                         return (
@@ -68,7 +99,7 @@ const SearchForm = ({ className, type = 'sale' }) => {
                     }
 
                     if (name === 'price' && values[type]) {
-                        range.options = filter.template.prices(values[type].currency.value, type);
+                        range.options = filter.template.prices(currency, type);
                         range.template = v => range.priceTemplate(v, type);
                     }
 
@@ -86,10 +117,7 @@ const SearchForm = ({ className, type = 'sale' }) => {
                             fieldName={name}
                         >
                             {name === 'price' && (
-                                <CurrencySelector
-                                    onChange={handleChange('currency')}
-                                    initialValue={values.sale.currency}
-                                />
+                                <CurrencySelector onChange={handleCurrencyChange} initialValue={currency} />
                             )}
                         </Dropdown>
                     );

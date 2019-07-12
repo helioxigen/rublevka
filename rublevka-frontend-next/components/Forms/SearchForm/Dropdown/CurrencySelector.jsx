@@ -7,11 +7,15 @@ import { media } from '../../../../utils';
 import config from '@config';
 
 const Dropdown = ({ className, onChange, initialValue }) => (
-    <Downshift onChange={item => onChange(item)} itemToString={item => `${item}`} initialSelectedItem={initialValue}>
+    <Downshift
+        onChange={item => onChange(item.value)}
+        itemToString={item => `${item}`}
+        initialSelectedItem={{ value: initialValue }}
+    >
         {({ getToggleButtonProps, isOpen, selectedItem, getMenuProps, getItemProps }) => (
             <div className={className} data-open={isOpen}>
                 <div className="toggle" {...getToggleButtonProps()}>
-                    {selectedItem.label}
+                    {config.currencies.find(v => v.code === selectedItem.value).symbol}
                 </div>
                 <div className="menu" {...getMenuProps()}>
                     <Options.List

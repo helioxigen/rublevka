@@ -40,6 +40,7 @@ const fields = {
                 },
             ],
         },
+        queryField: 'kind',
     },
     price: {
         title: 'Цена',
@@ -48,6 +49,8 @@ const fields = {
         range: {
             priceTemplate: (v, dealType) => (v === 0 ? '0' : `${v} ${dealType === 'rent' ? 'тыс/мес' : 'млн'}`),
         },
+        queryField: 'multiCurrencyPrice',
+        queryTpl: (dealType, currency) => `${dealType}Offer.multiCurrencyPrice.${currency}`,
     },
     bedrooms: {
         title: 'Спален',
@@ -71,6 +74,7 @@ const fields = {
                 label: '5+',
             },
         ],
+        queryField: 'specification.bedrooms',
     },
     distance: {
         title: 'От мкад',
@@ -80,6 +84,7 @@ const fields = {
             options: filter.template.generic(25, 5, v => `${v} км`),
             template: v => `${v} км`,
         },
+        queryField: 'location.mkadDistance',
     },
     name: {
         placeholder: 'Введите название посёлка',
@@ -94,15 +99,19 @@ const fields = {
 export default {
     types: {
         sale: {
+            type: 'query',
             fields: ['kind', 'price', 'bedrooms'],
         },
         rent: {
+            type: 'query',
             fields: ['kind', 'price', 'bedrooms'],
         },
         objectNumber: {
+            type: 'fuzzy',
             fields: ['objectNumber'],
         },
         settlements: {
+            type: 'fuzzy',
             fields: ['name', 'distance'],
         },
     },

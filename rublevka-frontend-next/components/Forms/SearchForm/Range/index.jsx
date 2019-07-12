@@ -1,59 +1,73 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import initial from 'lodash/initial';
 import { media } from '../../../../utils';
 import Input from './Input';
 import Options from '../Options';
 
-const Range = ({ className, onChange, getItemProps, options = [], value }) => (
-    <div className={className}>
-        <Input
-            placeholder="ОТ"
-            value={value.from || ''}
-            onChange={e => {
-                const from = parseInt(e.target.value, 10);
+const Range = ({ className, onChange, closeMenu, getItemProps, options = [], value, inputRef }) => {
+    const toRef = useRef(null);
 
-                if (from > value.to) {
-                    return;
-                }
+    return (
+        <div className={className}>
+            <Input
+                placeholder="ОТ"
+                value={value.from || ''}
+                ref={inputRef}
+                onChange={e => {
+                    const from = parseInt(e.target.value, 10);
 
-                onChange({ from });
-            }}
-        />
-        <span className="line">–</span>
-        <Input placeholder="ДО" value={value.to || ''} onChange={e => onChange({ to: parseInt(e.target.value, 10) })} />
-        <Options.List
-            className="range-from"
-            getItemProps={getItemProps}
-            items={options.map(({ label, value: from }) => ({
-                label,
-                value: { from },
-            }))}
-            onItemClick={(event, item) => {
-                // eslint-disable-next-line no-param-reassign
-                event.nativeEvent.preventDownshiftDefault = true;
+                    if (from > value.to) {
+                        return;
+                    }
 
-                onChange(item.value);
-            }}
-        />
-        <Options.List
-            className="range-to"
-            getItemProps={getItemProps}
-            items={initial(options)
-                .filter(({ value: to }) => to > (value.from || 0))
-                .map(({ label, value: to }) => ({
+                    onChange({ from });
+                }}
+            />
+            <span className="line">–</span>
+            <Input
+                placeholder="ДО"
+                ref={toRef}
+                value={value.to || ''}
+                onChange={e => onChange({ to: parseInt(e.target.value, 10) })}
+            />
+            <Options.List
+                className="range-from"
+                getItemProps={getItemProps}
+                items={options.map(({ label, value: from }) => ({
                     label,
-                    value: { to },
+                    value: { from },
                 }))}
-            onItemClick={(event, item) => {
-                // eslint-disable-next-line no-param-reassign
-                event.nativeEvent.preventDownshiftDefault = true;
+                onItemClick={(event, item) => {
+                    // eslint-disable-next-line no-param-reassign
+                    event.nativeEvent.preventDownshiftDefault = true;
 
-                onChange(item.value);
-            }}
-        />
-    </div>
-);
+                    onChange(item.value);
+                    if (toRef.current) {
+                        toRef.current.focus();
+                    }
+                }}
+            />
+            <Options.List
+                className="range-to"
+                getItemProps={getItemProps}
+                items={initial(options)
+                    .filter(({ value: to }) => to > (value.from || 0))
+                    .map(({ label, value: to }) => ({
+                        label,
+                        value: { to },
+                    }))}
+                onItemClick={(event, item) => {
+                    // eslint-disable-next-line no-param-reassign
+                    event.nativeEvent.preventDownshiftDefault = true;
+
+                    onChange(item.value);
+                    closeMenu();
+                }}
+            />
+        </div>
+    );
+};
 
 export default styled(Range)`
     display: grid;

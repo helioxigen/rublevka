@@ -99,10 +99,16 @@ const fields = {
 export default {
     types: {
         sale: {
+            defaultState: {
+                kind: 'house',
+            },
             type: 'query',
             fields: ['kind', 'price', 'bedrooms'],
         },
         rent: {
+            defaultState: {
+                kind: 'house',
+            },
             type: 'query',
             fields: ['kind', 'price', 'bedrooms'],
         },

@@ -33,4 +33,6 @@ export default styled.main`
             height: 100%;
         }
     }
+
+    margin-bottom: 48px;
 `;

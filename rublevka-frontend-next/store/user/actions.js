@@ -19,12 +19,16 @@ export const toggleFavorite = ({ id, dealType }) => (dispatch, getState) => {
     localStorage.setItem('favorite', JSON.stringify(favorite));
 };
 
-export const setFavorite = favorite => ({
-    type: SET_FAVORITE,
-    payload: {
-        favorite,
-    },
-});
+export const setFavorite = favorite => dispatch => {
+    dispatch({
+        type: SET_FAVORITE,
+        payload: {
+            favorite,
+        },
+    });
+
+    if (!favorite.length) localStorage.removeItem('favorite');
+};
 
 export const setCurrency = code => dispatch => {
     dispatch({

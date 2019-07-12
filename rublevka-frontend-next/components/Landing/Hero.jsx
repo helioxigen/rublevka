@@ -21,7 +21,7 @@ const LandingHero = ({ className }) => (
                 settlements: 'Посёлки',
             }}
         >
-            {type => <SearchForm type={type} />}
+            {type => <SearchForm key={type} type={type} />}
         </Tabs>
     </section>
 );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 import Downshift from 'downshift';
@@ -37,68 +37,91 @@ const Dropdown = ({
     items = [],
     type,
     range,
-}) => (
-    <Downshift
-        onChange={item => onChange(item.value)}
-        itemToString={item => `${item}`}
-        initialSelectedItem={initialValue}
-        id={type}
-    >
-        {({ getToggleButtonProps, isOpen, selectedItem, getMenuProps, getItemProps, getInputProps, selectItem }) => (
-            <div className={className} data-open={isOpen}>
-                <DropdownToggle
-                    label={label}
-                    value={selectedItem.label || placeholder}
-                    getToggleButtonProps={getToggleButtonProps}
-                />
-                <Options.Menu
-                    getToggleButtonProps={getToggleButtonProps}
-                    getMenuProps={getMenuProps}
-                    isResetButtonActive={selectedItem.value !== null}
-                    resetButtonCallback={() => selectItem({ value: null })}
-                >
-                    {type === 'range' && (
-                        <Range
-                            getInputProps={getInputProps}
-                            getItemProps={getItemProps}
-                            options={range.options}
-                            value={selectedItem.value || {}}
-                            onChange={value =>
-                                selectItem(
-                                    {
-                                        label: getRangeName(
-                                            {
+}) => {
+    const [isMenuOpen, setIsOpen] = useState(false);
+    const rangeInputRef = useRef(null);
+
+    useEffect(() => {
+        if (rangeInputRef.current && isMenuOpen) {
+            rangeInputRef.current.focus();
+        }
+    }, [isMenuOpen]);
+
+    return (
+        <Downshift
+            onChange={item => onChange(item.value)}
+            itemToString={item => `${item}`}
+            initialSelectedItem={initialValue}
+            onStateChange={s => setIsOpen(s.isOpen)}
+            id={type}
+        >
+            {({
+                getToggleButtonProps,
+                isOpen,
+                closeMenu,
+                selectedItem,
+                getMenuProps,
+                getItemProps,
+                getInputProps,
+                selectItem,
+            }) => (
+                <div className={className} data-open={isOpen}>
+                    <DropdownToggle
+                        label={label}
+                        value={selectedItem.label || placeholder}
+                        getToggleButtonProps={getToggleButtonProps}
+                    />
+                    <Options.Menu
+                        getToggleButtonProps={getToggleButtonProps}
+                        getMenuProps={getMenuProps}
+                        isResetButtonActive={selectedItem.value !== null}
+                        resetButtonCallback={() => selectItem({ value: null })}
+                    >
+                        {type === 'range' && (
+                            <Range
+                                closeMenu={closeMenu}
+                                inputRef={rangeInputRef}
+                                getInputProps={getInputProps}
+                                getItemProps={getItemProps}
+                                options={range.options}
+                                value={selectedItem.value || {}}
+                                onChange={value =>
+                                    selectItem(
+                                        {
+                                            label: getRangeName(
+                                                {
+                                                    ...selectedItem.value,
+                                                    ...value,
+                                                },
+                                                range.template
+                                            ),
+                                            value: {
                                                 ...selectedItem.value,
                                                 ...value,
                                             },
-                                            range.template
-                                        ),
-                                        value: {
-                                            ...selectedItem.value,
-                                            ...value,
                                         },
-                                    },
-                                    {
-                                        isOpen: true,
-                                    }
-                                )
-                            }
-                        />
-                    )}
-                    {type === 'list' && (
-                        <Options.List
-                            selectedItem={selectedItem}
-                            getMenuProps={getMenuProps}
-                            getItemProps={getItemProps}
-                            items={items}
-                        />
-                    )}
-                </Options.Menu>
-                {children}
-            </div>
-        )}
-    </Downshift>
-);
+                                        {
+                                            isOpen: true,
+                                        }
+                                    )
+                                }
+                            />
+                        )}
+                        {type === 'list' && (
+                            <Options.List
+                                selectedItem={selectedItem}
+                                getMenuProps={getMenuProps}
+                                getItemProps={getItemProps}
+                                items={items}
+                            />
+                        )}
+                    </Options.Menu>
+                    {children}
+                </div>
+            )}
+        </Downshift>
+    );
+};
 
 export default styled(Dropdown)`
     margin: 8px 4px 0;

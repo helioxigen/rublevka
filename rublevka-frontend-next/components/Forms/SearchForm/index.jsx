@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import fromPairs from 'lodash/fromPairs';
 
@@ -32,9 +32,15 @@ import { setCurrency } from '@store';
 const SearchForm = ({ className, type = 'sale' }) => {
     const currency = useSelector(state => state.user.currency);
     const dispatch = useDispatch();
-    const [values, changeValues] = useState({});
-
     const config = formConfig.types[type];
+
+    console.log(config.defaultState);
+
+    const [values, changeValues] = useState({ [type]: config.defaultState });
+
+    // useEffect(() => {
+    //     changeValues({ [type]: config.defaultState });
+    // }, [type]);
 
     const handleChange = (fieldName, isMain) => item => {
         // const currentValues = isMain ? {} : values[type];
@@ -52,6 +58,8 @@ const SearchForm = ({ className, type = 'sale' }) => {
         e.preventDefault();
 
         if (config.type === 'query') {
+            if (!values[type]) return;
+
             const { kind, ...vals } = values[type];
             const query = Object.entries(vals).map(([fieldName, value]) => {
                 let queryValue = value;
@@ -77,7 +85,7 @@ const SearchForm = ({ className, type = 'sale' }) => {
     return (
         <form className={className} onSubmit={handleSubmit}>
             <section className="form-body">
-                {formConfig.types[type].fields.map(name => {
+                {config.fields.map(name => {
                     const { title, placeholder, items = [], type: fieldType, main, range = {} } = formConfig.fields[
                         name
                     ];
@@ -102,6 +110,8 @@ const SearchForm = ({ className, type = 'sale' }) => {
 
                     const itemsList = type in items ? items[type] : items;
 
+                    console.log(typeValues);
+
                     return (
                         <Dropdown
                             key={`${name}${type}`}
@@ -112,6 +122,7 @@ const SearchForm = ({ className, type = 'sale' }) => {
                             type={fieldType}
                             range={range}
                             fieldName={name}
+                            initialValue={itemsList.find(i => i.value === typeValues[name])}
                         >
                             {name === 'price' && (
                                 <CurrencySelector onChange={handleCurrencyChange} initialValue={currency} />

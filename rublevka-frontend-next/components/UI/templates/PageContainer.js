@@ -12,4 +12,6 @@ export default styled.div`
     ${media.md`
         padding-top: 60px;
     `}
+
+    margin-bottom: 48px;
 `;

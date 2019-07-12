@@ -15,6 +15,17 @@ export default styled.button`
     color: #232323;
     margin-bottom: 0;
     padding-bottom: 16px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: 225ms;
+
+    &[data-selected='true'] {
+        opacity: 1;
+    }
+
+    &[data-selected='false']:hover {
+        opacity: 1;
+    }
 
     ::before {
         content: '';

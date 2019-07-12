@@ -108,7 +108,7 @@ export default styled(CallbackForm)`
     display: flex;
     flex-direction: column;
 
-    header {
+    > header {
         margin-bottom: 16px;
     }
 

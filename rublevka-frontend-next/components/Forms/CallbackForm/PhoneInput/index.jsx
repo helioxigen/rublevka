@@ -1,5 +1,6 @@
 import React from 'react';
 import { Input } from '@components/UI';
+import InputMask from 'react-input-mask';
 import CountriesSelector from './CountriesSelector';
 import styled from 'styled-components';
 
@@ -12,7 +13,7 @@ class PhoneInput extends React.Component {
         subCode: '',
     };
 
-    handleChangeCode = (country, value) => {
+    handleChangeCode = (country, value = '') => {
         const [code, subCode] = value.split(' ');
 
         this.setState(
@@ -53,15 +54,16 @@ class PhoneInput extends React.Component {
         return (
             <div className={className}>
                 <CountriesSelector onChange={this.handleChangeCode} />
-                <Input
-                    inputRef={ref => (this.inputRef = ref)}
+                <InputMask
                     hasError={hasError}
                     type="tel"
                     mask={`${this.mask(code)} ${this.phoneNumberMask()}`}
                     placeholder={`${code} ${masks[country]}`}
                     onChange={e => onChange(e.target.value)}
                     value={value}
-                />
+                >
+                    {inputProps => <Input ref={ref => (this.inputRef = ref)} {...inputProps} />}
+                </InputMask>
             </div>
         );
     }

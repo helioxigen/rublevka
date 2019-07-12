@@ -97,7 +97,7 @@ class CountrySelector extends React.Component {
                 {isDropDownOpen && <div className="click-away-overlay" onClick={this.toggleDropDown} />}
                 <List style={{ visibility: isDropDownOpen ? 'visible' : 'hidden' }}>
                     {codes.map(({ dial_code, code }) => (
-                        <li role="menuitem" onClick={this.handleCountryChange(code, dial_code)}>
+                        <li key={code} role="menuitem" onClick={this.handleCountryChange(code, dial_code)}>
                             <Flag code={code.toLowerCase()} />
                             {countries[code]} {dial_code}
                         </li>

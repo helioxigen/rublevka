@@ -58,13 +58,6 @@ const SearchForm = ({ className, type = 'sale' }) => {
 
                 if (fieldName === 'price') {
                     queryField = queryTpl(type, currency);
-                    if (queryValue.from) {
-                        queryValue.from = value.from * 1000000;
-                    }
-
-                    if (queryValue.to) {
-                        queryValue.to = value.to * 1000000;
-                    }
                 }
 
                 return [queryField, queryValue];
@@ -87,18 +80,20 @@ const SearchForm = ({ className, type = 'sale' }) => {
                         name
                     ];
 
+                    const typeValues = values[type] || {};
+
                     if (fieldType === 'text') {
                         return (
                             <TextInput
                                 key={`${name}${type}`}
                                 placeholder={placeholder}
-                                value={values[type][name]}
+                                value={typeValues[name]}
                                 onChange={handleChange(name)}
                             />
                         );
                     }
 
-                    if (name === 'price' && values[type]) {
+                    if (name === 'price') {
                         range.options = filter.template.prices(currency, type);
                         range.template = v => range.priceTemplate(v, type);
                     }

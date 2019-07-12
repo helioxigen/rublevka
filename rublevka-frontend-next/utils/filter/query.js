@@ -49,6 +49,10 @@ const filterToQuery = filter => {
             val = `${value.from || ''}..${value.to || ''}`;
         }
 
+        if (key.includes('multiCurrencyPrice')) {
+            val = `${(value.from || 0) * 1000000}..${(value.to || 0) * 1000000}`;
+        }
+
         goodFilter[key] = val;
     });
 
@@ -58,7 +62,7 @@ const filterToQuery = filter => {
 const createFilterQuery = (filterObj, dealType) => ({
     filter: {
         ...defaults[dealType].filter,
-        ...filterToQuery(filterObj),
+        ...filterToQuery(filterObj, dealType),
     },
     filterNot: {
         ...defaults[dealType].filterNot,

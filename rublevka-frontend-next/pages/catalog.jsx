@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Head from 'next/head';
-import { Header, PageContainer, CatalogLayout, CardsGrid, Toolbar } from '@components/UI';
+import { Header, PageContainer, CatalogLayout, CardsGrid, Toolbar, Content } from '@components/UI';
 import { Sort, Pagination, MapButton } from '@components/Catalog';
 import { Card, Breadcrumbs, Filter } from '@components';
 import { fetchProperties, changeOrderBy } from '@store';
@@ -9,28 +9,30 @@ import { dict, app, query, filter as filterUtils } from '@utils';
 
 const CatalogPage = ({ dealType, list = [], page, totalPages, fetching }) => (
     <PageContainer>
-        <Head>
-            <meta name="og:image" content="http://image.com" />
-        </Head>
-        <Breadcrumbs dealType={dealType} />
-        <CatalogLayout>
-            <header>
-                <Header.Catalog>
-                    {dict.translateDealType(dealType).verb} недвижимость на {app.ifDomain('Рублёвке', 'Риге')}
-                </Header.Catalog>
-                <Toolbar>
-                    <Sort />
-                    <MapButton />
-                </Toolbar>
-            </header>
-            <Filter dealType={dealType} />
-            <CardsGrid fetching={fetching}>
-                {list.map(data => (
-                    <Card key={data.id} dealType={dealType} data={data} />
-                ))}
-            </CardsGrid>
-            <Pagination count={totalPages} currentPage={page} />
-        </CatalogLayout>
+        <Content>
+            <Head>
+                <meta name="og:image" content="http://image.com" />
+            </Head>
+            <Breadcrumbs dealType={dealType} />
+            <CatalogLayout>
+                <header>
+                    <Header.Catalog>
+                        {dict.translateDealType(dealType).verb} недвижимость на {app.ifDomain('Рублёвке', 'Риге')}
+                    </Header.Catalog>
+                    <Toolbar>
+                        <Sort />
+                        <MapButton />
+                    </Toolbar>
+                </header>
+                <Filter dealType={dealType} />
+                <CardsGrid fetching={fetching}>
+                    {list.map(data => (
+                        <Card key={data.id} dealType={dealType} data={data} />
+                    ))}
+                </CardsGrid>
+                <Pagination count={totalPages} currentPage={page} />
+            </CatalogLayout>
+        </Content>
     </PageContainer>
 );
 

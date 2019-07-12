@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { media } from '../../utils';
+import { Button } from '@components/UI';
 
 const Block = ({ className, title, text, children }) => (
     <section className={className}>
@@ -61,6 +62,10 @@ export default styled(Block)`
             line-height: 30px;
             font-size: 18px;
         `}
+    }
+
+    ${Button} {
+        padding: 23px 28px;
     }
 
     display: flex;

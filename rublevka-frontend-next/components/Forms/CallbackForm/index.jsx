@@ -164,6 +164,7 @@ export default styled(CallbackForm)`
 
     ${Button} {
         font-size: 15px;
+        font-weight: bold;
         padding: 21px 0 17px;
         margin-top: 12px;
         ${media.xs`

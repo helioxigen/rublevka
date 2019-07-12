@@ -1,24 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { cdn } from '@utils';
 import Slice from './Slice';
 
-const Shortcuts = ({ className, images }) => (
-    <figure
-        className={className}
-        style={{
-            backgroundImage: `url(${cdn.get.thumbnail(images[0].id)})`,
-        }}
-    >
-        {images.length > 1 &&
-            images.slice(0, 6).map((el, index) => (
-                <React.Fragment key={images[index].id}>
-                    <Slice />
-                    <img alt={images[index].id} src={cdn.get.thumbnail(images[index].id)} />
-                </React.Fragment>
-            ))}
-    </figure>
-);
+const Shortcuts = ({ className, images }) => {
+    // const [backgroundId, setId] = useState(images[0].id);
+
+    return (
+        <figure
+            className={className}
+            style={{
+                backgroundImage: `url(${cdn.get.thumbnail(images[0].id)})`,
+            }}
+        >
+            {images.length > 1 &&
+                images.slice(0, 6).map((el, index) => (
+                    <React.Fragment key={images[index].id}>
+                        <Slice />
+                        <img alt={images[index].id} src={cdn.get.thumbnail(images[index].id)} />
+                    </React.Fragment>
+                ))}
+        </figure>
+    );
+};
 
 export default styled(Shortcuts)`
     display: flex;

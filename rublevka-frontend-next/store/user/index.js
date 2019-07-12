@@ -22,7 +22,7 @@ export const userReducer = createReducer({
     [TOGGLE_FAVORITE]: ({ payload }, state) => ({
         favorite: xorBy(state.favorite, [payload], i => `${i.id}.${i.dealType}`),
     }),
-    [CHANGE_CURRENCY]: ({ code }) => ({
+    [CHANGE_CURRENCY]: ({ payload: { code } }) => ({
         currency: code,
     }),
 })(userInitialState);

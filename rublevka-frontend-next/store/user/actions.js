@@ -26,12 +26,16 @@ export const setFavorite = favorite => ({
     },
 });
 
-export const toggleCurrency = ({ code }) => ({
-    type: CHANGE_CURRENCY,
-    payload: {
-        code,
-    },
-});
+export const setCurrency = code => dispatch => {
+    dispatch({
+        type: CHANGE_CURRENCY,
+        payload: {
+            code,
+        },
+    });
+
+    localStorage.setItem('currency', JSON.stringify(code));
+};
 
 export const favoriteTypes = createApiCallTypes('User', 'Favorite');
 

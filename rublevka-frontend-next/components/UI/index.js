@@ -9,4 +9,5 @@ export {
     Toolbar,
     MapCatalogLayout,
     SettlementsListLayout,
+    Content,
 } from './templates';

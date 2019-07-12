@@ -2,7 +2,7 @@ import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Icon, Button } from '@components/UI';
+import { Icon, Button, Content, PageContainer } from '@components/UI';
 import styled from 'styled-components';
 import config from '@config';
 import { app, media, sc } from '@utils';
@@ -45,7 +45,7 @@ const Navbar = ({ className }) => {
 
     return (
         <header className={className} data-inverted={isLanding ? inverted : false}>
-            <div className="container">
+            <Content className="content">
                 <nav>
                     <Link href="/">
                         <a className="logo">
@@ -81,7 +81,7 @@ const Navbar = ({ className }) => {
                         </a>
                     </Link>
                 </div>
-            </div>
+            </Content>
         </header>
     );
 };
@@ -97,32 +97,17 @@ export default styled(Navbar)`
 
     font-size: 15px;
 
+    .content {
+        display: flex;
+        justify-content: space-between;
+        height: 100%;
+    }
+
     &[data-inverted='false'] {
         box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
     }
 
     transition: 225ms;
-
-    .container {
-        display: flex;
-        justify-content: space-between;
-        height: 100%;
-
-        margin: 0 auto;
-        width: auto;
-
-        ${media.sm`
-            max-width: 740px;
-        `}
-
-        ${media.md`
-            max-width: 960px;
-        `}
-
-        ${media.lg`
-            max-width: 1360px;
-        `}
-    }
 
     .logo svg {
         fill: black;
@@ -166,11 +151,11 @@ export default styled(Navbar)`
         align-items: center;
     }
 
-    a:not(.logo){
+    a:not(.logo) {
         margin: 0 15px;
     }
 
-    a[data-active="true"] {
+    a[data-active='true'] {
         color: ${sc.theme.colors.red};
         border-bottom: 2px solid ${sc.theme.colors.red};
     }
@@ -211,7 +196,7 @@ export default styled(Navbar)`
         color: #f44336;
     }
 
-    .favorites{
+    .favorites {
         position: relative;
         margin: 0;
 
@@ -222,7 +207,7 @@ export default styled(Navbar)`
 
         .counter {
             opacity: 0;
-            background: rgba(244,67,54,0.9);
+            background: rgba(244, 67, 54, 0.9);
             border-radius: 50%;
             width: 18px;
             height: 18px;
@@ -239,7 +224,7 @@ export default styled(Navbar)`
 
             transition: 0.2s;
 
-            &[data-show="true"] {
+            &[data-show='true'] {
                 opacity: 1;
             }
         }

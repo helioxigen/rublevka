@@ -5,17 +5,23 @@ import { format, sc } from '@utils';
 import { Card } from '@components';
 
 const VisibleCards = ({ className, items, clusterId, onToggle }) => {
+    const listRef = useRef(null);
     const [open, toggle] = useState(true);
 
     useEffect(onToggle, [open]);
-    useEffect(() => toggle(true), [clusterId]);
+    useEffect(() => {
+        if (listRef.current) {
+            listRef.current.scrollTop = 0;
+        }
+        toggle(true);
+    }, [clusterId]);
 
     return (
         <section data-open={open} className={className}>
             <button type="button" className="toggle-view" onClick={() => toggle(!open)}>
                 <Icon name="arrow-squared" />
             </button>
-            <div className="cards-list">
+            <div ref={listRef} className="cards-list">
                 <h4>Показано {format.titleByNumber(items.length, ['объект', 'объекта', 'объектов'])}</h4>
                 {items.map(data => (
                     <Card key={data.id} data={data} />

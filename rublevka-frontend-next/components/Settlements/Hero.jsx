@@ -12,7 +12,6 @@ const Hero = ({ className, children }) => (
 export default styled(Hero)`
     background: url('/static/settlements/hero.png') center / cover no-repeat;
     background-attachment: fixed;
-    box-sizing: border-box;
 
     ${media.lg`
         padding-top: 60px;

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { CheckboxGroup, Range, RadioGroup } from '@components/UI';
 import Field from './Field';
 import { filter } from '@utils';
+import { setCurrency } from '@store';
 
 const Filter = ({ className, dealType }) => {
     const values = useSelector(state => state.properties.filter);
-    const userCurrency = useSelector(state => state.user.currency);
-
-    const [currency, setCurrency] = useState(userCurrency);
+    const currency = useSelector(state => state.user.currency);
+    const dispatch = useDispatch();
 
     const isOnly = kind => (values.kind || []).length === 1 && values.kind[0] === kind;
 
@@ -49,9 +49,9 @@ const Filter = ({ className, dealType }) => {
                             onChange={e => {
                                 onChange({});
 
-                                setCurrency(e.target.value);
+                                dispatch(setCurrency(e.target.value));
                             }}
-                            value={currency || 'rub'}
+                            value={currency}
                         />
                     </>
                 )}

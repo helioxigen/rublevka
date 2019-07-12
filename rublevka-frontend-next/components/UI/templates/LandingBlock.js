@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button } from '../atoms';
 
 export default styled.section`
     background: linear-gradient(115.53deg, #eeeeee 0%, rgba(238, 238, 238, 0.25) 100%);
@@ -6,4 +7,8 @@ export default styled.section`
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    ${Button} {
+        padding: 23px 28px;
+    }
 `;

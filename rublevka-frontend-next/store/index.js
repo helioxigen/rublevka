@@ -7,7 +7,7 @@ import { userReducer, userInitialState } from './user';
 import { mapInitialState, mapReducer } from './map';
 import settlements from './settlements';
 
-export { fetchFavorite, setFavorite } from './user/actions';
+export { fetchFavorite, setFavorite, setCurrency } from './user/actions';
 export { fetchMapPropertiesSubset, setDisplayedItemsIds } from './map/actions';
 export { fetchSettlements } from './settlements/actions';
 export {

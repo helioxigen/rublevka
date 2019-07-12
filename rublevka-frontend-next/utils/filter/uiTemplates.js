@@ -15,7 +15,9 @@ const prices = (currency, dealType) => {
 
     if (dealType === 'rent') return templateRange(range(0, 11).concat(range(15, 105, 5)), rentTpl, 100000);
 
-    const { symbol } = config.currencies.find(v => v.code === currency);
+    console.log(currency);
+
+    const { symbol } = config.currencies.find(v => v.code === currency) || {};
 
     return range(0, 11).map(value => ({ value: value * 1000000, label: `${symbol}${value} млн` }));
 };

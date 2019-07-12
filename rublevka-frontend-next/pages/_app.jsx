@@ -4,6 +4,7 @@ import App, { Container } from 'next/app';
 import { Provider } from 'react-redux';
 import withReduxStore from 'next-redux-wrapper';
 import { YMaps } from 'react-yandex-maps';
+import Footer from '@components/Footer';
 import Navbar from '../components/Navbar';
 import { makeStore, setFavorite } from '../store';
 
@@ -26,19 +27,15 @@ class MyApp extends App {
     }
 
     render() {
-        const {
-            Component,
-            pageProps,
-            store,
-            router: { pathname },
-        } = this.props;
+        const { Component, pageProps, store } = this.props;
 
         return (
             <Container>
                 <Provider store={store}>
                     <GlobalStyles />
-                    {pageProps.statusCode !== 404 && <Navbar inverts={pathname === '/'} />}
+                    <Navbar />
                     <Component {...pageProps} />
+                    <Footer />
                 </Provider>
             </Container>
         );

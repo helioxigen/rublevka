@@ -38,7 +38,7 @@ export default styled.main`
 
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
     }
 
     ${CardsGrid} {

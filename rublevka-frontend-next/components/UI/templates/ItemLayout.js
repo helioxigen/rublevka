@@ -58,6 +58,9 @@ export default styled.main`
             flex-direction: column;
             justify-content: center;
 
+            font-size: 24px;
+            font-weight: 500;
+
             border-bottom: 1px solid #eeeeee;
         }
 

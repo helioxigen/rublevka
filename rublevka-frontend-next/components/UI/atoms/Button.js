@@ -9,7 +9,7 @@ export default styled.button`
     padding: 1em;
 
     font-size: 1em;
-    font-weight: 600;
+    font-weight: bold;
 
     text-transform: uppercase;
     color: white;

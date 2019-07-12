@@ -5,11 +5,15 @@ export default styled.div`
     width: auto;
     margin: 0 auto;
 
-    background: #fafafa;
-
-    padding-top: 48px;
+    ${media.sm`
+        max-width: 740px;
+    `}
 
     ${media.md`
-        padding-top: 60px;
+        max-width: 960px;
+    `}
+
+    ${media.lg`
+        max-width: ${sc.ifProp('compact', 1110, 1340)}px;
     `}
 `;

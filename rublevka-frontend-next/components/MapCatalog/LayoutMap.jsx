@@ -29,6 +29,12 @@ const LayoutMap = ({ className, mapMarginLeft, clasterFocused, onClusterClick, i
         [items]
     );
 
+    useEffect(() => {
+        if (ymap) {
+            ymap.margin.setDefaultMargin([0, 0, 0, mapMarginLeft]);
+        }
+    }, [mapMarginLeft]);
+
     // useEffect(() => {
     //     if (!ymap) return;
 
@@ -53,7 +59,7 @@ const LayoutMap = ({ className, mapMarginLeft, clasterFocused, onClusterClick, i
 
             console.log(cluster);
 
-            if (!cluster || !cluster.features.length) return;
+            if (!cluster || !cluster.features.length || ymap.getZoom() < 15) return;
 
             dispatch(setDisplayedItemsIds(cluster.features.map(f => f.id), cluster.id));
         };
@@ -75,9 +81,14 @@ const LayoutMap = ({ className, mapMarginLeft, clasterFocused, onClusterClick, i
                 defaultState={{
                     center: [55.7, 37.1],
                     zoom: 11,
+                    margin: [0, 0, 0, mapMarginLeft],
                     // isDef{center: [55.7, 37.1],
                     // zoom: 11,}
                 }}
+                // state={{
+                //     center: [55.7, 37.1],
+                //     zoom: 11,
+                // }}
                 width="100%"
                 height="100%"
                 instanceRef={setYmap}
@@ -96,7 +107,7 @@ const LayoutMap = ({ className, mapMarginLeft, clasterFocused, onClusterClick, i
                         <ObjectManager
                             options={{
                                 clusterize: true,
-                                gridSize: 32,
+                                gridSize: 64,
                                 minClusterSize: 1,
                                 // clusterDisableClickZoom: true,
                             }}

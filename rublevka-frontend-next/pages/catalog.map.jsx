@@ -4,6 +4,7 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { MapCatalogLayout } from '@components/UI';
 import { FilterSection, ViewCards, LayoutMap } from '@components/MapCatalog';
+import Footer from '@components/Footer';
 import { changeOrderBy, fetchMapPropertiesSubset, setDisplayedItemsIds, setFilter } from '@store';
 import { dict, query as queryUtils, filter as filterUtils } from '@utils';
 import { useToggle, useRecalcWidth } from '@hooks';
@@ -13,6 +14,10 @@ const HideNav = createGlobalStyle`
     ${Navbar} {
         transform: translateY(-100%);
         transition: 0.4s;
+    }
+
+    ${Footer} {
+        display: none;
     }
 `;
 

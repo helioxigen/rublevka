@@ -34,7 +34,7 @@ const Range = ({ className, onChange, closeMenu, getItemProps, options = [], val
             <Options.List
                 className="range-from"
                 getItemProps={getItemProps}
-                items={options.map(({ label, value: from }) => ({
+                items={options.slice(0, 6).map(({ label, value: from }) => ({
                     label,
                     value: { from },
                 }))}
@@ -53,6 +53,7 @@ const Range = ({ className, onChange, closeMenu, getItemProps, options = [], val
                 getItemProps={getItemProps}
                 items={initial(options)
                     .filter(({ value: to }) => to > (value.from || 0))
+                    .slice(0, 6)
                     .map(({ label, value: to }) => ({
                         label,
                         value: { to },

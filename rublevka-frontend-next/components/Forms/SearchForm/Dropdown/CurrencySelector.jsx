@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 import Downshift from 'downshift';
@@ -6,32 +6,43 @@ import Options from '../Options';
 import { media } from '../../../../utils';
 import config from '@config';
 
-const Dropdown = ({ className, onChange, initialValue }) => (
-    <Downshift
-        onChange={item => onChange(item.value)}
-        itemToString={item => `${item}`}
-        initialSelectedItem={{ value: initialValue }}
-    >
-        {({ getToggleButtonProps, isOpen, selectedItem, getMenuProps, getItemProps }) => (
-            <div className={className} data-open={isOpen}>
-                <div className="toggle" {...getToggleButtonProps()}>
-                    {config.currencies.find(v => v.code === selectedItem.value).symbol}
+const Dropdown = ({ className, onChange, onOpen, initialValue }) => {
+    const [isMenuOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        if (isMenuOpen) {
+            onOpen();
+        }
+    }, [isMenuOpen]);
+
+    return (
+        <Downshift
+            onChange={item => onChange(item.value)}
+            itemToString={item => `${item}`}
+            onStateChange={s => setIsOpen(s.isOpen)}
+            initialSelectedItem={{ value: initialValue }}
+        >
+            {({ getToggleButtonProps, isOpen, selectedItem, getMenuProps, getItemProps }) => (
+                <div className={className} data-open={isOpen}>
+                    <div className="toggle" {...getToggleButtonProps()}>
+                        {config.currencies.find(v => v.code === selectedItem.value).symbol}
+                    </div>
+                    <div className="menu" {...getMenuProps()}>
+                        <Options.List
+                            getMenuProps={getMenuProps}
+                            getItemProps={getItemProps}
+                            selectedItem={selectedItem}
+                            items={config.currencies.map(v => ({
+                                label: v.symbol,
+                                value: v.code,
+                            }))}
+                        />
+                    </div>
                 </div>
-                <div className="menu" {...getMenuProps()}>
-                    <Options.List
-                        getMenuProps={getMenuProps}
-                        getItemProps={getItemProps}
-                        selectedItem={selectedItem}
-                        items={config.currencies.map(v => ({
-                            label: v.symbol,
-                            value: v.code,
-                        }))}
-                    />
-                </div>
-            </div>
-        )}
-    </Downshift>
-);
+            )}
+        </Downshift>
+    );
+};
 
 export default styled(Dropdown)`
     outline: none;

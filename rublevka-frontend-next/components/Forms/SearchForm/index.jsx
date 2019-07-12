@@ -122,12 +122,9 @@ const SearchForm = ({ className, type = 'sale' }) => {
                             type={fieldType}
                             range={range}
                             fieldName={name}
+                            showCurrency={name === 'price'}
                             initialValue={itemsList.find(i => i.value === typeValues[name])}
-                        >
-                            {name === 'price' && (
-                                <CurrencySelector onChange={handleCurrencyChange} initialValue={currency} />
-                            )}
-                        </Dropdown>
+                        />
                     );
                 })}
             </section>

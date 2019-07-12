@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Downshift from 'downshift';
 import DropdownToggle from './DropdownToggle';
 import Options from '../Options';
 import { media } from '../../../../utils';
 import Range from '../Range';
+import CurrencySelector from './CurrencySelector';
+import { setCurrency } from '@store';
 
 const getRangeName = ({ from, to }, template) => {
     if (!from && !to) {
@@ -35,9 +38,14 @@ const Dropdown = ({
     label,
     placeholder,
     items = [],
+    showCurrency,
     type,
     range,
 }) => {
+    const currency = useSelector(state => state.user.currency);
+    const dispatch = useDispatch();
+    const handleCurrencyChange = cur => dispatch(setCurrency(cur));
+
     const [isMenuOpen, setIsOpen] = useState(false);
     const rangeInputRef = useRef(null);
 
@@ -116,7 +124,9 @@ const Dropdown = ({
                             />
                         )}
                     </Options.Menu>
-                    {children}
+                    {showCurrency && (
+                        <CurrencySelector onOpen={closeMenu} onChange={handleCurrencyChange} initialValue={currency} />
+                    )}
                 </div>
             )}
         </Downshift>

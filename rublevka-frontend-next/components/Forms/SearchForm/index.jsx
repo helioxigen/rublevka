@@ -52,7 +52,8 @@ const SearchForm = ({ className, type = 'sale' }) => {
         e.preventDefault();
 
         if (config.type === 'query') {
-            const query = Object.entries(values[type]).map(([fieldName, value]) => {
+            const { kind, ...vals } = values[type];
+            const query = Object.entries(vals).map(([fieldName, value]) => {
                 let queryValue = value;
                 let { queryField, queryTpl } = formConfig.fields[fieldName];
 
@@ -65,6 +66,7 @@ const SearchForm = ({ className, type = 'sale' }) => {
 
             page.goTo.catalog({
                 filter: JSON.stringify(fromPairs(query)),
+                kind: dict.translit.byWord(kind),
                 dealType: dict.translit.byWord(type),
             });
         }

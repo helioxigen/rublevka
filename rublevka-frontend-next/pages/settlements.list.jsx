@@ -38,11 +38,14 @@ const SettlementsListPage = ({ list = [] }) => {
                     </ListSection>
                 ))}
                 <ListNav
-                    list={settlements.map(([firstLetter]) => (
-                        <ScrollLink key={firstLetter} to={`anchor-${firstLetter}`} smooth offset={-60}>
-                            {firstLetter}
-                        </ScrollLink>
-                    ))}
+                    list={settlements.map(
+                        ([firstLetter], idx) =>
+                            idx % 2 === 0 && (
+                                <ScrollLink key={firstLetter} to={`anchor-${firstLetter}`} smooth offset={-60}>
+                                    {firstLetter}
+                                </ScrollLink>
+                            )
+                    )}
                 />
             </article>
         </SettlementsListLayout>

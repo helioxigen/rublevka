@@ -21,6 +21,7 @@ export default styled(ProfileCard)`
     ${Avatar} {
         margin-right: 10px;
         font-size: 80px;
+        flex: 1 0 auto;
     }
 
     header {

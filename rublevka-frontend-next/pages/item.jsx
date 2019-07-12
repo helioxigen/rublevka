@@ -42,16 +42,6 @@ const CatalogItem = ({ dealType, kind, id }) => {
                             {itemTitle.generate(dealType, false, true, { location, landDetails, specification, kind })}
                         </Header.Item>
                         <Gallery layoutImages={layoutImages} images={images.filter(i => i.isPublic)} />
-                        <Section title="Общая информация">
-                            <Details
-                                values={[
-                                    ['Площадь участка', landDetails.area, 'сот.'],
-                                    ['Площадь дома', specification.area, 'м²'],
-                                    ['Тип дома', dict.details.get(specification.wallMaterial)],
-                                    ['Ремонт', dict.details.get(specification.renovate)],
-                                ]}
-                            />
-                        </Section>
                         <Summary
                             values={[
                                 landDetails.area && ['Участок', `${landDetails.area} сот`],
@@ -66,6 +56,16 @@ const CatalogItem = ({ dealType, kind, id }) => {
                                 ],
                             ]}
                         />
+                        <Section title="Общая информация">
+                            <Details
+                                values={[
+                                    ['Площадь участка', landDetails.area, 'сот.'],
+                                    ['Площадь дома', specification.area, 'м²'],
+                                    ['Тип дома', dict.details.get(specification.wallMaterial)],
+                                    ['Ремонт', dict.details.get(specification.renovate)],
+                                ]}
+                            />
+                        </Section>
                         {!isEmpty(communication) && (
                             <Section title="Коммуникации">
                                 <Details

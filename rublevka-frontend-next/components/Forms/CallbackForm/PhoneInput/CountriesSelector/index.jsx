@@ -4,7 +4,7 @@ import Flag from './Flag';
 import { media } from '@utils';
 
 const countries = require('./countries.json');
-const codes = require('./codes.json');
+const codes = require('./codes.json').sort((a, b) => countries[a.code].localeCompare(countries[b.code]));
 
 const List = styled.ul`
     background: #ffffff;
@@ -64,7 +64,7 @@ class CountrySelector extends React.Component {
     };
 
     handleCountryChange = (code, dialCode) => () => {
-        this.props.onChange(dialCode);
+        this.props.onChange(code, dialCode);
 
         this.setState({
             current: code,
@@ -88,7 +88,7 @@ class CountrySelector extends React.Component {
                     <Flag code={current.toLowerCase()} />
                     <select onChange={this.handleSelectChange} value={current}>
                         {codes.map(({ dial_code, code }) => (
-                            <option key={code} value={code}>
+                            <option value={code}>
                                 {countries[code]} {dial_code}
                             </option>
                         ))}
@@ -97,7 +97,7 @@ class CountrySelector extends React.Component {
                 {isDropDownOpen && <div className="click-away-overlay" onClick={this.toggleDropDown} />}
                 <List style={{ visibility: isDropDownOpen ? 'visible' : 'hidden' }}>
                     {codes.map(({ dial_code, code }) => (
-                        <li key={code} role="menuitem" onClick={this.handleCountryChange(code, dial_code)}>
+                        <li role="menuitem" onClick={this.handleCountryChange(code, dial_code)}>
                             <Flag code={code.toLowerCase()} />
                             {countries[code]} {dial_code}
                         </li>

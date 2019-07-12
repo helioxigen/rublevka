@@ -43,9 +43,6 @@ const FavoriteButton = ({ className, id, dealType, children }) => {
 };
 
 export default styled(FavoriteButton)`
-    height: 54px;
-    width: 52px;
-
     background: none;
     border: none;
     outline: none;
@@ -79,6 +76,8 @@ export default styled(FavoriteButton)`
 
         ${Icon} {
             display: block;
+            width: 24px;
+            height: 24px;
 
             svg {
                 stroke: ${sc.ifProp('red', sc.theme.colors.red, 'white')};

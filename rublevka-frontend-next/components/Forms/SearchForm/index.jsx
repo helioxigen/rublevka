@@ -137,40 +137,59 @@ const SearchForm = ({ className, type = 'sale' }) => {
 
 export default styled(SearchForm)`
     display: flex;
-    height: 68px;
+    flex-wrap: wrap;
+
+    ${media.xs`
+        height: 68px;
+    `}
+
+    ${media.xsMax`
+        padding: 0 15px;    
+    `}
 
     .form-body {
         display: flex;
 
         flex: 1;
 
-        box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
-
         > * {
-            border-radius: 8px;
+            background: white;
 
             flex: 1 1 33%;
 
-            ${media.xs`
-                border-radius: 0;
-                border: 0;
+            ${media.xsMax`
+                border: 1px solid #eee;
+                border-radius: 8px;
             `}
         }
 
-        > *:first-of-type {
-            border-right: 1px solid #eaeaea;
-            border-radius: 12px 0px 0px 12px;
-        }
+        ${media.xsMax`
+            display: grid;
+            grid: 56px / 1fr 1fr;
+            grid-gap: 8px;
+            > *:first-of-type, > *:nth-child(2):last-child {
+                grid-column: 1 / -1;
+            }
+        `}
 
-        > *:last-of-type {
-            border-left: 1px solid #eaeaea;
-            border-radius: 0px 12px 12px 0px;
-        }
+        ${media.xs`
+            box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
 
-        > *:only-of-type {
-            border: #eaeaea;
-            border-radius: 12px;
-        }
+            > *:first-of-type {
+                border-right: 1px solid #eaeaea;
+                border-radius: 12px 0px 0px 12px;
+            }
+
+            > *:last-of-type {
+                border-left: 1px solid #eaeaea;
+                border-radius: 0px 12px 12px 0px;
+            }
+
+            > *:only-of-type {
+                border: #eaeaea;
+                border-radius: 12px;
+            }
+        `}
 
         ${TextInput} {
             flex: 2 0 66%;
@@ -178,18 +197,34 @@ export default styled(SearchForm)`
     }
 
     ${IconButton} {
-        margin-left: 8px;
-        border-radius: 12px;
-        text-transform: none;
         fill: white;
 
         padding: 0 24px;
         font-size: 20px;
+        margin: 0 0 0 8px;
+        border-radius: 12px;
+
+        ${media.xs`
+            text-transform: initial;
+        `}
+        
 
         ${Icon} {
             width: 28px;
             height: 28px;
             margin-right: 0.2em;
         }
+
+        ${media.xsMax`
+            font-size: 15px;
+
+            flex: 1 0 100%;
+            margin: 16px 0 0;
+            border-radius: 8px;
+            line-height: 56px;
+            ${Icon} {
+                display: none;
+            }
+        `}
     }
 `;

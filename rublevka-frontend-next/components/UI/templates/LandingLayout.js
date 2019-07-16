@@ -1,16 +1,19 @@
 import styled from 'styled-components';
 import Hero from '../../Landing/Hero';
 import { Button } from '../atoms';
+import Location from '@components/Landing/Location';
+import { media } from '@utils';
 
 export default styled.main`
-    display: grid;
+    ${media.xs`
+        display: grid;
 
-    grid-template:
-        100vh repeat(2, 640px)
-        / [start] 20px [first] 40fr 60fr [last] 20px [end];
+        grid-template:
+            100vh repeat(2, 640px)
+            / [start] 20px [first] 40fr 60fr [last] 20px [end];
 
-    grid-gap: 30px;
-
+        grid-gap: 30px;
+    `}
     ${Hero} {
         grid-column: 1 / span end;
     }
@@ -34,5 +37,16 @@ export default styled.main`
         }
     }
 
-    margin-bottom: 48px;
+    ${Location} {
+        grid-column: first / span last;
+        margin: 40px 0 0;
+
+        ${media.xs`
+            margin-bottom: 32px;
+        `}
+
+        ${media.md`
+            margin: 60px 0 72px;
+        `};
+    }
 `;

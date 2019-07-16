@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Icon, Button } from '../atoms';
 import { sc } from '@utils';
 
@@ -15,8 +15,29 @@ export default styled(IconButton)`
     justify-content: center;
     align-items: center;
 
+    ${sc.ifProp(
+        'iconOnly',
+        css`
+            background: none;
+            padding: 0;
+            color: inherit;
+        `
+    )};
+
+    &:hover,
+    &:active {
+        ${sc.ifProp(
+            'iconOnly',
+            css`
+                color: ${sc.theme.colors.red};
+                background: none;
+            `
+        )};
+    }
+
     ${Icon} {
         display: block;
-        ${p => (p.children ? 'margin-right: 0.5em' : 'padding: 0.5em')};
+        ${sc.ifProp('children', 'margin-right: 0.5em', 'padding: 0.5em')};
+        ${sc.ifProp('iconOnly', 'padding: 0')};
     }
 `;

@@ -50,7 +50,7 @@ const ContactsPage = ({ className }) => {
                         geometry={[55.734871, 37.249479]}
                         options={{
                             iconLayout: 'default#image',
-                            iconImageHref: '/static/contacts/placemark.png',
+                            iconImageHref: '/static/shared/placemark.png',
                             iconImageSize: [size, size], // размер иконки
                             iconImageOffset: [(-1 * size) / 2, (-1 * size) / 2], // позиция иконки
                         }}

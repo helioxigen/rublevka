@@ -100,21 +100,19 @@ export default styled(Dropdown)`
         padding: 8px 16px;
     }
 
-    ${media.md`
-      margin: 0px;
-      flex-basis: 33.3333333%;
-      border: none;
+    margin: 0px;
+    flex-basis: 33.3333333%;
+    border: none;
 
-      &:hover {
+    &:hover {
         cursor: pointer;
-      }
+    }
 
-      .menu {
-          display: none;
-      }
+    .menu {
+        display: none;
+    }
 
-      &[data-open="true"] .menu {
-          display: block;
-      }
-    `}
+    &[data-open='true'] .menu {
+        display: block;
+    }
 `;

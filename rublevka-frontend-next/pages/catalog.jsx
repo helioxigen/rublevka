@@ -7,7 +7,7 @@ import { Card, Breadcrumbs, Filter } from '@components';
 import { fetchProperties, changeOrderBy } from '@store';
 import { dict, app, query, filter as filterUtils } from '@utils';
 
-const CatalogPage = ({ dealType, list = [], page, totalPages, fetching }) => (
+const CatalogPage = ({ dealType, kind, list = [], page, totalPages, fetching }) => (
     <PageContainer>
         <Content>
             <Head>
@@ -17,7 +17,9 @@ const CatalogPage = ({ dealType, list = [], page, totalPages, fetching }) => (
             <CatalogLayout>
                 <header>
                     <Header.Catalog>
-                        {dict.translateDealType(dealType).verb} недвижимость на {app.ifDomain('Рублёвке', 'Риге')}
+                        {dict.translateDealType(dealType).verb}{' '}
+                        {(dict.translateKind(kind).noun || 'недвижимость').toLowerCase()} на{' '}
+                        {app.ifDomain('Рублёвке', 'Риге')}
                     </Header.Catalog>
                     <Toolbar>
                         <Sort />
@@ -38,15 +40,16 @@ const CatalogPage = ({ dealType, list = [], page, totalPages, fetching }) => (
 
 CatalogPage.getInitialProps = async ({
     store,
-    query: { dealType: dealTypeTranslit, page = 1, filter: filterJson, orderBy, kind },
+    query: { dealType: dealTypeTranslit, page = 1, filter: filterJson, orderBy, kind: kindT },
 }) => {
     const dealType = dict.translit.byWord(dealTypeTranslit);
+    const kind = dict.translit.byWord(kindT);
 
-    const filter = filterUtils.query.parse(filterJson, kind && { kind: [dict.translit.byWord(kind)] });
+    const filter = filterUtils.query.parse(filterJson, kind && { kind: [kind] });
 
     await store.dispatch(fetchProperties(page, query.convert({ filter, orderBy }, dealType), filter, orderBy));
 
-    return { page, dealType };
+    return { page, dealType, kind };
 };
 
 export default connect(

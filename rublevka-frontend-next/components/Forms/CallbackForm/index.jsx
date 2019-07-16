@@ -105,9 +105,6 @@ const CallbackForm = ({ className, header, fields, submitLabel, fullWidth, defau
 };
 
 export default styled(CallbackForm)`
-    display: flex;
-    flex-direction: column;
-
     > header {
         margin-bottom: 16px;
     }
@@ -118,6 +115,7 @@ export default styled(CallbackForm)`
 
     & > ${Input}, ${PhoneInput} {
         margin: 4px 0;
+        width: 100%;
     }
 
     .error {
@@ -165,7 +163,7 @@ export default styled(CallbackForm)`
     ${Button} {
         font-size: 15px;
         font-weight: bold;
-        padding: 21px 0 17px;
+        padding: 17px 23px;
         margin-top: 12px;
         ${media.xs`
             margin-top: 8px;

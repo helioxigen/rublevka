@@ -3,11 +3,6 @@ import pickBy from 'lodash/pickBy';
 import api from '@api';
 import { page, dict, createApiCallTypes } from '@utils';
 
-export const LOAD_PROPERTIES_REQUEST = 'Properties.Load.Request';
-export const LOAD_PROPERTIES_SUCCESS = 'Properties.Load.Success';
-export const LOAD_PROPERTIES_FROM_CACHE = 'Properties.Load.FromCache';
-export const LOAD_PROPERTIES_ERROR = 'Properties.Load.Error';
-
 export const settlementsFetchTypes = createApiCallTypes('Settlements', 'Load');
 
 export const fetchSettlements = () => ({
@@ -18,14 +13,12 @@ export const fetchSettlements = () => ({
     call: () => api.settlements.getMany(),
 });
 
-export const LOAD_PROPERTY_REQUEST = 'Properties.LoadItem.Request';
-export const LOAD_PROPERTY_SUCCESS = 'Properties.LoadItem.Success';
-export const LOAD_PROPERTY_ERROR = 'Properties.LoadItem.Error';
+export const settlementsItemFetchTypes = createApiCallTypes('Settlements', 'ItemLoad');
 
-export const fetchProperty = id => ({
-    types: [LOAD_PROPERTY_REQUEST, LOAD_PROPERTY_SUCCESS, LOAD_PROPERTY_ERROR],
-    shouldCall: state => !state.properties.items[id],
-    call: () => api.properties.getOne(id),
+export const fetchSettlementsItem = id => ({
+    types: settlementsItemFetchTypes.value,
+    shouldCall: state => !state.settlements.items[id],
+    call: () => api.settlements.getOne(id),
     payload: {
         id,
     },

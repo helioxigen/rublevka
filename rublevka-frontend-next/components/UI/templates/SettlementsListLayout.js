@@ -22,10 +22,6 @@ export default styled.main`
         height: 100%;
     }
 
-    .hero-container > *:not(${Breadcrumbs}):not(h1), article{
-        max-width: 925px;
-        margin: 0 auto;
-    }
 
     article {
         position: relative;

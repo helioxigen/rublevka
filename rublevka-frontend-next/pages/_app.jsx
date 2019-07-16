@@ -15,6 +15,10 @@ const GlobalStyles = createGlobalStyle`
         margin: 0;
         font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
     }
+
+    .scroll-locked {
+        overflow: hidden;
+    }
 `;
 
 class MyApp extends App {
@@ -31,12 +35,14 @@ class MyApp extends App {
 
         return (
             <Container>
-                <Provider store={store}>
-                    <GlobalStyles />
-                    <Navbar />
-                    <Component {...pageProps} />
-                    <Footer />
-                </Provider>
+                <YMaps>
+                    <Provider store={store}>
+                        <GlobalStyles />
+                        <Navbar />
+                        <Component {...pageProps} />
+                        <Footer />
+                    </Provider>
+                </YMaps>
             </Container>
         );
     }

@@ -6042,6 +6042,18 @@ toidentifier@1.0.0:
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
   integrity sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
 
+translitit-cyrillic-russian-to-latin@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/translitit-cyrillic-russian-to-latin/-/translitit-cyrillic-russian-to-latin-0.1.1.tgz#cc541a6b4a12bc013d5d9482c84da3415a7d98a1"
+  integrity sha1-zFQaa0oSvAE9XZSCyE2jQVp9mKE=
+  dependencies:
+    translitit-engine "0.1.1"
+
+translitit-engine@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/translitit-engine/-/translitit-engine-0.1.1.tgz#8fbfbf21d85ac08312b63825e720766d9add3bf8"
+  integrity sha1-j7+/IdhawIMStjgl5yB2bZrdO/g=
+
 trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"

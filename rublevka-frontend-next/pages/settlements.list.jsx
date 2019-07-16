@@ -19,9 +19,10 @@ const SettlementsListPage = ({ list = [] }) => {
 
     return (
         <SettlementsListLayout>
-            <Hero>
-                <Breadcrumbs second={['/zagorodnaya/kottedzhnye-poselki', 'Посёлки']} />
-                <Header.Settlements>Посёлки на {app.ifDomain('Рублёвке', 'Риге')}</Header.Settlements>
+            <Hero breadcrumbs={<Breadcrumbs second={['/zagorodnaya/kottedzhnye-poselki', 'Посёлки']} />}>
+                <Header.Settlements className="list-header">
+                    Посёлки на {app.ifDomain('Рублёвке', 'Риге')}
+                </Header.Settlements>
                 <SearchForm type="settlements" />
             </Hero>
             <article>
@@ -38,14 +39,13 @@ const SettlementsListPage = ({ list = [] }) => {
                     </ListSection>
                 ))}
                 <ListNav
-                    list={settlements.map(
-                        ([firstLetter], idx) =>
-                            idx % 2 === 0 && (
-                                <ScrollLink key={firstLetter} to={`anchor-${firstLetter}`} smooth offset={-60}>
-                                    {firstLetter}
-                                </ScrollLink>
-                            )
-                    )}
+                    list={settlements
+                        .filter((_, idx) => idx % 2 === 0)
+                        .map(([firstLetter]) => (
+                            <ScrollLink key={firstLetter} to={`anchor-${firstLetter}`} smooth offset={-60}>
+                                {firstLetter}
+                            </ScrollLink>
+                        ))}
                 />
             </article>
         </SettlementsListLayout>

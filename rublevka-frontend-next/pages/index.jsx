@@ -3,10 +3,24 @@ import { LandingLayout } from '../components/UI/templates';
 import Hero from '../components/Landing/Hero';
 import Block from '../components/Landing/Block';
 import { Button } from '../components/UI/atoms';
+import Location from '@components/Landing/Location';
+import CompactForm from '@components/UI/molecules/CompactForm';
+import { page } from '@utils';
 
 export default () => (
     <LandingLayout>
         <Hero />
+        <Block
+            className="object-block"
+            title="Знаете номер объекта?"
+            text="Введите номер объекта в поле ниже и сразу перейдите к просмотру."
+        >
+            <CompactForm
+                onSubmit={id => page.goTo.catalog({ dealType: 'prodaja', filter: JSON.stringify({ id }) })}
+                placeholder="Номер объекта"
+                submitLabel="Показать"
+            />
+        </Block>
         <Block
             className="call-block"
             title="Хотите продать дом?"
@@ -24,5 +38,6 @@ export default () => (
         >
             <Button red>Подробнее</Button>
         </Block>
+        <Location />
     </LandingLayout>
 );

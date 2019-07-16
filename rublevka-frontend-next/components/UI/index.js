@@ -10,4 +10,5 @@ export {
     MapCatalogLayout,
     SettlementsListLayout,
     Content,
+    SettlementsCallbackBlock,
 } from './templates';

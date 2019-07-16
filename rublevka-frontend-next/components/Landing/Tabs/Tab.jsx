@@ -7,16 +7,11 @@ export default styled.button`
     white-space: nowrap;
     line-height: 19px;
     font-size: 16px;
-    font-weight: 700;
-    padding: 0;
     border: none;
     background: none;
     margin: 0;
-    color: #232323;
-    margin-bottom: 0;
-    padding-bottom: 16px;
+    opacity: 0.5;
     cursor: pointer;
-    opacity: 0.8;
     transition: 225ms;
 
     &[data-selected='true'] {
@@ -36,17 +31,18 @@ export default styled.button`
         transition: 400ms;
         border-bottom: 2px solid transparent;
         bottom: 0;
+        left: 0;
 
         ${media.xs`
             border-bottom: 3px solid transparent;
         `}
     }
 
-    ${sc.ifProp('objectNumber', 'display: none')}
+    font-weight: 600;
 
     ${media.xs`
-        ${sc.ifProp('objectNumber', 'display: block')}
-
+        opacity: 0.8;
+        font-weight: 700;
         padding-bottom: 17px;
         line-height: 21px;
         font-size: 18px;

@@ -1,6 +1,6 @@
 import keyBy from 'lodash/keyBy';
 import { createReducer } from '../../utils/store';
-import { settlementsFetchTypes } from './actions';
+import { settlementsFetchTypes, settlementsItemFetchTypes } from './actions';
 
 const initialState = {
     fetching: false,
@@ -24,6 +24,15 @@ const reducer = createReducer({
             ...keyBy(items, i => i.id),
         },
         list: items,
+    }),
+    [settlementsItemFetchTypes.request]: () => ({
+        fetching: true,
+    }),
+    [settlementsItemFetchTypes.success]: ({ response, id }, state) => ({
+        items: {
+            ...state.items,
+            [id]: response,
+        },
     }),
     // [LOAD_settlements_ERROR]: err => ({
     //     fetching: false,

@@ -22,6 +22,11 @@ export default styled(Block)`
         text-align: left;
     `}
 
+    ${media.xsMax`
+        padding: 32px 15px;
+        box-sizing: border-box;
+    `}
+
     h3 {
         margin: 0;
         line-height: 32px;
@@ -64,12 +69,14 @@ export default styled(Block)`
         `}
     }
 
-    ${Button} {
-        padding: 23px 28px;
-    }
+    ${media.xs`
+        ${Button} {
+            padding: 23px 28px;
+        }
 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    `}
 `;

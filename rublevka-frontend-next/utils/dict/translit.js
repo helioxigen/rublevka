@@ -1,53 +1,4 @@
-function translitByLetters(str = '') {
-    const ru = {
-        а: 'a',
-        б: 'b',
-        в: 'v',
-        г: 'g',
-        д: 'd',
-        е: 'e',
-        ё: 'e',
-        ж: 'j',
-        з: 'z',
-        и: 'i',
-        к: 'k',
-        л: 'l',
-        м: 'm',
-        н: 'n',
-        о: 'o',
-        п: 'p',
-        р: 'r',
-        с: 's',
-        т: 't',
-        у: 'u',
-        ф: 'f',
-        х: 'h',
-        ц: 'c',
-        ч: 'ch',
-        ш: 'sh',
-        щ: 'shch',
-        ы: 'y',
-        э: 'e',
-        ю: 'u',
-        я: 'ya',
-    };
-
-    const letters = str
-        .replace(/[ъь]+/g, '')
-        .replace(/й/g, 'i')
-        .split('');
-
-    return letters
-        .map(letter => {
-            const res = ru[letter.toLowerCase()];
-
-            if (res) return res;
-
-            return letter;
-        })
-        .join('')
-        .replace(' ', '-');
-}
+import translit from 'translitit-cyrillic-russian-to-latin';
 
 const dictionary = {
     // Categories
@@ -92,5 +43,10 @@ const dictionary = {
 
 export default {
     byWord: word => dictionary[word],
-    byLetters: translitByLetters,
+    byLetters: word =>
+        translit(word)
+            .replace(/[^\w\s-]/g, '')
+            .trim()
+            .replace(/\s+/g, '-')
+            .toLowerCase(),
 };

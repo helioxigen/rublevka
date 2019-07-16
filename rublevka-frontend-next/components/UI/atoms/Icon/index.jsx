@@ -16,13 +16,15 @@ const Icon = ({ className, name, copy }) => {
 };
 
 export default styled(Icon)`
-    width: 1.6em;
-    height: 1.6em;
+    width: 1em;
+    height: 1em;
 
     svg {
         width: 100%;
         height: 100%;
         display: block;
+
+        ${sc.ifProp('stroke', 'stroke: currentColor;', 'fill: currentColor;')}
 
         ${sc.ifProp(
             'mirror',

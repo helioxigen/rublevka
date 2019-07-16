@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Tab from './Tab';
-import { media } from '../../../utils';
+import { media, sc } from '../../../utils';
 
 const Tabs = ({ className, tabs, children }) => {
     const [selectedTab, changeTab] = useState('sale');
@@ -59,9 +59,13 @@ export default styled(Tabs)`
     .underline {
         position: absolute;
         height: 2px;
-        background: #fff;
         transition: 225ms ease;
         bottom: 0;
+        background: ${sc.theme.colors.red};
+
+        ${media.xs`
+            background: #fff;
+        `}
     }
 
     > header {
@@ -76,6 +80,12 @@ export default styled(Tabs)`
         ::-webkit-scrollbar {
             display: none;
         }
+
+        padding: 0 15px;
+
+        ${media.xs`
+            padding: auto;
+        `}
     }
 
     .divider {
@@ -83,7 +93,7 @@ export default styled(Tabs)`
         min-width: 100%;
         background: #d8d8d8;
 
-        margin: -1px -15px 25px;
+        margin: -1px -15px 20px;
 
         ${media.xs`
             margin: -1px 0 25px;
@@ -92,6 +102,24 @@ export default styled(Tabs)`
                 #eeeeee 0%,
                 rgba(255, 255, 255, 0.05) 100%
             );
+        `}
+    }
+
+    [data-name='objectNumber'] {
+        display: none;
+
+        ${media.xs`
+            display: block;
+        `}
+    }
+
+    ${Tab} {
+        width: calc(80% / 3);
+        height: 50px;
+
+        ${media.xs`
+            width: auto;
+            height: auto;
         `}
     }
 `;

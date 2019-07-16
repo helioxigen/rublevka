@@ -5,8 +5,9 @@ export default styled.input`
     padding: 16px 15px;
     border: 1px solid #d9d9d9;
     border-radius: 4px;
-    background: none;
+    background: white;
     appearance: none;
+    outline: none;
 
     box-sizing: border-box;
 

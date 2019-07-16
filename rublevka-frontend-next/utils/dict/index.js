@@ -18,7 +18,7 @@ export const kinds = {
 };
 
 const translateDealType = dealType => {
-    const [noun, verb] = dealTypes[dealType];
+    const [noun, verb] = dealTypes[dealType] || [];
 
     return {
         noun,

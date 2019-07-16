@@ -134,10 +134,8 @@ const Dropdown = ({
 };
 
 export default styled(Dropdown)`
-    margin: 8px 4px 0;
     background: #ffffff;
     outline: none;
-    flex-basis: calc(50% - 8px);
     width: 100%;
 
     &:first-child,
@@ -145,9 +143,11 @@ export default styled(Dropdown)`
         flex-basis: 100%;
     }
 
-    ${media.xs`
-        position: relative;
-    `}
+    &[data-open='false'] ${Options.Menu} {
+        display: none;
+    }
+
+    position: relative;
 
     ${media.md`
       margin: 0px;
@@ -157,14 +157,6 @@ export default styled(Dropdown)`
 
       &:hover {
         cursor: pointer;
-      }
-
-      ${Options.Menu} {
-          display: none;
-      }
-
-      &[data-open="true"] ${Options.Menu} {
-          display: block;
       }
 
       transition: box-shadow 0.2s;

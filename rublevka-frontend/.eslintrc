@@ -1,5 +1,6 @@
 {
     "extends": ["airbnb", "plugin:prettier/recommended", "prettier/react"],
+    "root": true,
     "parser": "babel-eslint",
     "env": {
         "browser": true,
@@ -34,13 +35,13 @@
     "settings": {
         "import/resolver": {
             "alias": [
-                ["@components", "./rublevka-frontend/components"],
-                ["@components/UI", "./rublevka-frontend/components/UI"],
-                ["@utils", "./rublevka-frontend/utils"],
-                ["@hooks", "./rublevka-frontend/utils/hooks"],
-                ["@config", "./rublevka-frontend/config"],
-                ["@store", "./rublevka-frontend/store"],
-                ["@api", "./rublevka-frontend/api"]
+                ["@components", "./components"],
+                ["@components/UI", "./components/UI"],
+                ["@utils", "./utils"],
+                ["@hooks", "./utils/hooks"],
+                ["@config", "./config"],
+                ["@store", "./store"],
+                ["@api", "./api"]
             ]
         }
     }

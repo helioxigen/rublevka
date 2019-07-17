@@ -10,15 +10,16 @@ export default styled.div`
 
     padding-top: 48px;
 
-    ${media.upToTablet`
-        ${Breadcrumbs} {
-            display: none;
-        }
-    `}
-
-    ${media.minDesktop`
+    ${media.query.tabletLandscape} {
         padding-top: 60px;
-    `}
+    }
+
+    ${Breadcrumbs} {
+        display: none;
+        ${media.query.tablet} {
+            display: block;
+        }
+    }
 
     margin-bottom: 48px;
 `;

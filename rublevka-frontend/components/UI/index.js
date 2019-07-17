@@ -11,4 +11,5 @@ export {
     SettlementsListLayout,
     Content,
     SettlementsCallbackBlock,
+    AdaptiveSidebar,
 } from './templates';

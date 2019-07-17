@@ -28,7 +28,6 @@ export function apiCallMiddleware({ dispatch, getState }) {
         }
 
         const [requestType, successType, failureType, cacheType] = types;
-
         // if (cacheKey && getCache && cacheType && !shouldCheckCache()) {
         //     const cached = getCache(getState())[cacheKey];
 

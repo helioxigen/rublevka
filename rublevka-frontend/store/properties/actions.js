@@ -11,7 +11,6 @@ export const LOAD_PROPERTIES_ERROR = 'Properties.Load.Error';
 export const fetchProperties = (pagination, query, userFilter, userOrder) => ({
     types: [LOAD_PROPERTIES_REQUEST, LOAD_PROPERTIES_SUCCESS, LOAD_PROPERTIES_ERROR],
     cacheKey: JSON.stringify({ pagination, query }),
-    getCache: state => state.properties.cache,
     // shouldCall: state => !state.properties[],
     call: () => api.properties.getMany(pagination, query),
     payload: {

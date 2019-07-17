@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { CheckboxGroup, Range, RadioGroup } from '@components/UI';
+import { CheckboxGroup, Range, RadioGroup, AdaptiveSidebar } from '@components/UI';
 import Field from './Field';
 import { filter } from '@utils';
 import { setCurrency } from '@store';
 
-const Filter = ({ className, dealType }) => {
+const Filter = ({ className, dealType, isOpen, onClose }) => {
     const values = useSelector(state => state.properties.filter);
     const currency = useSelector(state => state.user.currency);
     const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const Filter = ({ className, dealType }) => {
     const isOnly = kind => (values.kind || []).length === 1 && values.kind[0] === kind;
 
     return (
-        <aside className={className}>
+        <AdaptiveSidebar as="aside" isOpen={isOpen} left onClose={onClose} className={className}>
             <Field title="Тип объекта" name="kind">
                 {({ value, onChange }) => (
                     <CheckboxGroup
@@ -112,7 +112,7 @@ const Filter = ({ className, dealType }) => {
                     />
                 )}
             </Field>
-        </aside>
+        </AdaptiveSidebar>
     );
 };
 

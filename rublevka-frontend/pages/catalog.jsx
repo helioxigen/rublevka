@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Head from 'next/head';
-import { Header, PageContainer, CatalogLayout, CardsGrid, Toolbar, Content } from '@components/UI';
+import { Header, PageContainer, CatalogLayout, CardsGrid, Toolbar, Content, IconButton } from '@components/UI';
 import { Sort, Pagination, MapButton } from '@components/Catalog';
 import { Card, Breadcrumbs, Filter } from '@components';
 import { fetchProperties, changeOrderBy } from '@store';
-import { dict, app, query, filter as filterUtils } from '@utils';
-import { usePageTitle } from '@hooks';
+import { dict, app, query, page as pageUtils, filter as filterUtils } from '@utils';
+import { usePageTitle, useComponentVisible, useToggle } from '@hooks';
 
 const CatalogPage = ({ dealType, kind, list = [], page, totalPages, fetching }) => {
     usePageTitle(dict.translateDealType(dealType).noun);
+
+    const [isFilterOpen, toggleFilter] = useToggle(false);
 
     return (
         <PageContainer>
@@ -30,13 +32,19 @@ const CatalogPage = ({ dealType, kind, list = [], page, totalPages, fetching }) 
                             <MapButton />
                         </Toolbar>
                     </header>
-                    <Filter dealType={dealType} />
+                    <Filter onClose={toggleFilter} isOpen={isFilterOpen} dealType={dealType} />
                     <CardsGrid fetching={fetching}>
                         {list.map(data => (
                             <Card key={data.id} dealType={dealType} data={data} />
                         ))}
                     </CardsGrid>
                     <Pagination count={totalPages} currentPage={page} />
+                    <div className="floating-controls">
+                        <IconButton onClick={() => pageUtils.goTo.map()} icon="placemark" floating red />
+                        <IconButton onClick={toggleFilter} icon="settings" floating red>
+                            Параметры
+                        </IconButton>
+                    </div>
                 </CatalogLayout>
             </Content>
         </PageContainer>

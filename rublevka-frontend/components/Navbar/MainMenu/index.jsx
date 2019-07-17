@@ -1,17 +1,16 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { IconButton, Button } from '@components/UI';
+import { IconButton, Button, AdaptiveSidebar } from '@components/UI';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { app, media, sc } from '@utils';
-import { useLockBodyScroll } from '@hooks';
-import sidebarMenuExt from './sidebarMenu.ext';
+import { useLockBodyScroll, useIsomorphicLayoutEffect } from '@hooks';
 
-const MainMenu = React.forwardRef(({ className, onClose, isOpen, favoriteCount }, ref) => {
+const MainMenu = ({ className, onClose, isOpen, favoriteCount }) => {
     const { pathname, query, asPath } = useRouter();
 
-    useEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         if (isOpen) {
             onClose();
         }
@@ -20,46 +19,42 @@ const MainMenu = React.forwardRef(({ className, onClose, isOpen, favoriteCount }
     useLockBodyScroll(isOpen);
 
     return (
-        <div className={className} data-open={isOpen}>
-            <div ref={ref} className="menu-content">
-                <nav>
-                    <IconButton secondary onClick={onClose} className="close-button menu-only" icon="close" />
-                    <Link href="/">
-                        <a className="menu-only" data-active={pathname === '/'}>
-                            Главная
-                        </a>
-                    </Link>
-                    <Link prefetch={false} href="/catalog?dealType=prodaja" as="/zagorodnaya/prodaja">
-                        <a data-active={pathname === '/catalog' && query.dealType === 'prodaja'}>Продажа</a>
-                    </Link>
-                    <Link href="/catalog?dealType=arenda" as="/zagorodnaya/arenda">
-                        <a data-active={pathname === '/catalog' && query.dealType === 'arenda'}>Аренда</a>
-                    </Link>
-                    <Link href="/settlements.list" as="/zagorodnaya/kottedzhnye-poselki">
-                        <a data-active={pathname === '/settlements.list' || pathname === '/settlements.item'}>
-                            Посёлки
-                        </a>
-                    </Link>
-                    <Link href="/favorites">
-                        <a className="menu-only" data-active={pathname === '/favorites'}>
-                            Избранное {favoriteCount > 0 && <span className="counter">{favoriteCount}</span>}
-                        </a>
-                    </Link>
-                    <Link href="/contacts">
-                        <a data-active={pathname === '/contacts'}>Контакты</a>
-                    </Link>
-                </nav>
-                <div className="header-right">
-                    <a href={`tel:+${app.getConfig().phoneNumbers}`} className="phone">
-                        {app.getConfig().phone}
+        <AdaptiveSidebar className={className} isOpen={isOpen} onClose={onClose}>
+            <nav>
+                <IconButton secondary onClick={onClose} className="close-button menu-only" icon="close" />
+                <Link href="/">
+                    <a className="menu-only" data-active={pathname === '/'}>
+                        Главная
                     </a>
-                    <Button className="callback-button">Обратный звонок</Button>
-                    <IconButton className="whatsapp-button menu-only" icon="whatsapp" />
-                </div>
+                </Link>
+                <Link prefetch={false} href="/catalog?dealType=prodaja" as="/zagorodnaya/prodaja">
+                    <a data-active={pathname === '/catalog' && query.dealType === 'prodaja'}>Продажа</a>
+                </Link>
+                <Link href="/catalog?dealType=arenda" as="/zagorodnaya/arenda">
+                    <a data-active={pathname === '/catalog' && query.dealType === 'arenda'}>Аренда</a>
+                </Link>
+                <Link href="/settlements.list" as="/zagorodnaya/kottedzhnye-poselki">
+                    <a data-active={pathname === '/settlements.list' || pathname === '/settlements.item'}>Посёлки</a>
+                </Link>
+                <Link href="/favorites">
+                    <a className="menu-only" data-active={pathname === '/favorites'}>
+                        Избранное {favoriteCount > 0 && <span className="counter">{favoriteCount}</span>}
+                    </a>
+                </Link>
+                <Link href="/contacts">
+                    <a data-active={pathname === '/contacts'}>Контакты</a>
+                </Link>
+            </nav>
+            <div className="header-right">
+                <a href={`tel:+${app.getConfig().phoneNumbers}`} className="phone">
+                    {app.getConfig().phone}
+                </a>
+                <Button className="callback-button">Обратный звонок</Button>
+                <IconButton className="whatsapp-button menu-only" icon="whatsapp" />
             </div>
-        </div>
+        </AdaptiveSidebar>
     );
-});
+};
 
 export default styled(MainMenu)`
     flex: 1 0 auto;
@@ -70,7 +65,54 @@ export default styled(MainMenu)`
         align-items: center;
     }
 
-    ${sidebarMenuExt};
+    ${media.query.upTo.tabletLandscape} {
+        .close-button {
+            display: inline-block;
+            background: none;
+
+            padding: 0;
+
+            color: #bcbcbc;
+            font-size: 24px;
+            padding: 0 1em 0.5em 0;
+        }
+
+        .header-right {
+            flex-wrap: wrap;
+
+            .phone {
+                margin: 0;
+                height: auto;
+                flex: 1 100%;
+
+                font-size: 18px;
+                font-weight: bold;
+                margin: 0 0 16px;
+            }
+
+            .callback-button {
+                flex: 1;
+                margin-right: 12px;
+                border: 0;
+            }
+
+            .whatsapp-button {
+                font-size: 28px;
+            }
+        }
+
+        nav,
+        nav a {
+            display: block;
+            height: auto;
+        }
+
+        nav a {
+            letter-spacing: 0.5625px;
+            font-weight: bold;
+            padding: 12px 0;
+        }
+    }
 
     .menu-content {
         display: flex;

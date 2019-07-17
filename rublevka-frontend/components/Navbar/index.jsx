@@ -10,12 +10,13 @@ import MainMenu from './MainMenu';
 import { useComponentVisible, useInvertOnScroll, usePageTitle } from '@hooks';
 
 const Navbar = ({ className }) => {
-    const { pathname, asPath } = useRouter();
+    const { pathname } = useRouter();
 
     const isLanding = pathname === '/';
 
     const isInverted = useInvertOnScroll(isLanding, 80);
-    const [ref, menuOpen, setIsMenuOpen] = useComponentVisible(false);
+    // const [ref, menuOpen, setIsMenuOpen] = useComponentVisible(false);
+    const [menuOpen, setIsMenuOpen] = useState(false);
 
     const favoriteCount = useSelector(state => state.user.favorite.length);
 
@@ -32,12 +33,7 @@ const Navbar = ({ className }) => {
                     </a>
                 </Link>
                 {title && <span className="page-title">{title}</span>}
-                <MainMenu
-                    ref={ref}
-                    isOpen={menuOpen}
-                    onClose={() => setIsMenuOpen(false)}
-                    favoriteCount={favoriteCount}
-                />
+                <MainMenu isOpen={menuOpen} onClose={() => setIsMenuOpen(false)} favoriteCount={favoriteCount} />
                 <div className="controls">
                     <Link href="/favorites">
                         <a className="favorites">

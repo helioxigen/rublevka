@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
 
 export default function useLockBodyScroll(isActive) {
-    useEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         if (!isActive) return () => {};
         document.body.classList.add('scroll-locked');
         // Re-enable scrolling when component unmounts

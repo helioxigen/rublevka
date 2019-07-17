@@ -1,8 +1,9 @@
 import { css, keyframes } from 'styled-components';
 import theme from './theme';
 import recipes from './recipes';
-import { media } from '@utils';
+// import { media } from '@utils';
 
+const prop = name => props => props[name];
 const ifProp = name => (ifTrue, ifFalse) => props => (props[name] ? ifTrue : ifFalse);
 
 const calcTranslateShift = (currentIdx, overall, hasLayoutImages, viewSize = 7) => {
@@ -22,11 +23,12 @@ const calcTranslateShift = (currentIdx, overall, hasLayoutImages, viewSize = 7) 
 };
 
 const applyExtMedia = (...entries) => entries.map(([mediaFn, styles]) => mediaFn(styles));
-const createExt = (mediaTpl = media.desktop) => styles => mediaTpl(styles);
+// const createExt = (mediaTpl = media.desktop) => styles => mediaTpl(styles);
 
 export default {
+    prop,
     ifProp,
-    createExt,
+    // createExt,
     applyExtMedia,
     recipe: recipes,
     reset: {

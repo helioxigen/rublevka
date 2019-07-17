@@ -45,7 +45,6 @@ export const propertiesReducer = createReducer({
             },
             filter,
             orderBy,
-            cacheKey,
         },
         state
     ) => ({

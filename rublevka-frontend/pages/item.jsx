@@ -32,6 +32,7 @@ const CatalogItem = ({ dealType, kind, id }) => {
                 <Breadcrumbs
                     dealType={dealType}
                     last={[
+                        `/settlements.item?id=${settlementId}`,
                         `/zagorodnaya/kottedzhnye-poselki/${dict.translit.byLetters(settlementName)}_${settlementId}`,
                         settlementName,
                     ]}

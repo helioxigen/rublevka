@@ -29,7 +29,7 @@ const MainMenu = React.forwardRef(({ className, onClose, isOpen, favoriteCount }
                             Главная
                         </a>
                     </Link>
-                    <Link href="/catalog?dealType=prodaja" as="/zagorodnaya/prodaja">
+                    <Link prefetch={false} href="/catalog?dealType=prodaja" as="/zagorodnaya/prodaja">
                         <a data-active={pathname === '/catalog' && query.dealType === 'prodaja'}>Продажа</a>
                     </Link>
                     <Link href="/catalog?dealType=arenda" as="/zagorodnaya/arenda">

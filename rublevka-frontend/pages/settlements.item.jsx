@@ -21,8 +21,12 @@ const SettlementsItemPage = ({ id }) => {
                 item
                 breadcrumbs={
                     <Breadcrumbs
-                        second={['/zagorodnaya/kottedzhnye-poselki', 'Посёлки']}
-                        last={[`/zagorodnaya/kottedzhnye-poselki/${dict.translit.byLetters(name)}`, name]}
+                        second={['/settlements.list', '/zagorodnaya/kottedzhnye-poselki', 'Посёлки']}
+                        last={[
+                            `/settlements.item?id=${id}`,
+                            `/zagorodnaya/kottedzhnye-poselki/${dict.translit.byLetters(name)}`,
+                            name,
+                        ]}
                     />
                 }
             >

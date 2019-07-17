@@ -8,11 +8,15 @@ const Breadcrumbs = ({ className, dealType, second, last = false }) => (
     <nav className={className}>
         <ol itemScope itemType="http://schema.org/BreadcrumbList">
             {compact([
-                ['/', 'Главная'],
-                second || [`/zagorodnaya/${dict.translit.byWord(dealType)}`, dict.translateDealType(dealType).noun],
+                ['/', undefined, 'Главная'],
+                second || [
+                    `catalog?dealType=${dict.translit.byWord(dealType)}`,
+                    `/zagorodnaya/${dict.translit.byWord(dealType)}`,
+                    dict.translateDealType(dealType).noun,
+                ],
                 last,
-            ]).map(([link, title], idx) => (
-                <Item key={link} idx={idx} href={link} title={title} />
+            ]).map(([href, as, title], idx) => (
+                <Item key={href} idx={idx} href={href} asPath={as} title={title} />
             ))}
         </ol>
     </nav>

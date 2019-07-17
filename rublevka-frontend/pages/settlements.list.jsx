@@ -19,7 +19,11 @@ const SettlementsListPage = ({ list = [] }) => {
 
     return (
         <SettlementsListLayout>
-            <Hero breadcrumbs={<Breadcrumbs second={['/zagorodnaya/kottedzhnye-poselki', 'Посёлки']} />}>
+            <Hero
+                breadcrumbs={
+                    <Breadcrumbs second={['/settlements.list', '/zagorodnaya/kottedzhnye-poselki', 'Посёлки']} />
+                }
+            >
                 <Header.Settlements className="list-header">
                     Посёлки на {app.ifDomain('Рублёвке', 'Риге')}
                 </Header.Settlements>

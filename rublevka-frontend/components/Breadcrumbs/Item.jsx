@@ -4,9 +4,9 @@ import Link from 'next/link';
 import { Icon } from '@components/UI';
 import { sc } from '@utils';
 
-const Breadcrumb = ({ className, href, idx, title }) => (
+const Breadcrumb = ({ className, href, asPath, idx, title }) => (
     <li className={className} itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-        <Link href={href}>
+        <Link href={href} as={asPath}>
             <a itemProp="item">
                 <span itemProp="name">{title}</span>
                 <meta itemProp="position" content={idx + 1} />

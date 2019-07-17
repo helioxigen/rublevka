@@ -40,13 +40,9 @@ const Gallery = ({ className, images }) => {
 };
 
 export default styled(Gallery)`
-    width: 100%;
-    .react-swipe-container {
-        width: 100%;
-    }
     img {
         object-fit: cover;
-        width: 100%;
         height: 220px;
+        width: 100%;
     }
 `;

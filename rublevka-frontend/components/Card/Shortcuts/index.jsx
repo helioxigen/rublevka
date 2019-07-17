@@ -4,15 +4,8 @@ import { cdn } from '@utils';
 import Slice from './Slice';
 
 const Shortcuts = ({ className, images }) => {
-    // const [backgroundId, setId] = useState(images[0].id);
-
     return (
-        <figure
-            className={className}
-            style={{
-                backgroundImage: `url(${cdn.get.thumbnail(images[0].id)})`,
-            }}
-        >
+        <figure style={{ backgroundImage: `url(${cdn.get.thumbnail(images[0].id)})` }} className={className}>
             {images.length > 1 &&
                 images.slice(0, 6).map((el, index) => (
                     <React.Fragment key={images[index].id}>

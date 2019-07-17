@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { Price, Link, FavoriteButton } from '@components/UI';
-import { dict, itemTitle, format, media } from '@utils';
+import { dict, itemTitle, format, media, cdn } from '@utils';
 import Shortcuts from './Shortcuts';
 import Gallery from './Gallery';
 import Summary from './Summary';
@@ -51,7 +51,6 @@ const Card = ({
 };
 
 export default styled(Card)`
-    width: 100%;
     position: relative;
     background: #ffffff;
     transition: 0.3s;
@@ -89,8 +88,14 @@ export default styled(Card)`
         z-index: 4;
     }
 
-    figure {
+    header {
         height: 220px;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    figure {
+        height: 100%;
         margin: 0;
         position: relative;
         width: 100%;
@@ -122,17 +127,17 @@ export default styled(Card)`
         }
     }
 
-    ${Gallery} {
+    ${Shortcuts} {
         display: none;
     }
 
-    ${media.touch} {
+    ${media.query.desktop} {
         ${Shortcuts} {
-            display: none;
+            display: flex;
         }
 
         ${Gallery} {
-            display: block;
+            display: none;
         }
     }
 

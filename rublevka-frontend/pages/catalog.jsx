@@ -62,7 +62,7 @@ CatalogPage.getInitialProps = async ({
 
     await store.dispatch(fetchProperties(page, query.convert({ filter, orderBy }, dealType), filter, orderBy));
 
-    return { page, dealType, kind };
+    return { page, dealType, kind, title: dict.translateDealType(dealType).noun };
 };
 
 export default connect(

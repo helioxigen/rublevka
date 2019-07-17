@@ -7,9 +7,9 @@ import styled from 'styled-components';
 import config from '@config';
 import { media, sc } from '@utils';
 import MainMenu from './MainMenu';
-import { useInvertOnScroll, usePageTitle } from '@hooks';
+import { useInvertOnScroll } from '@hooks';
 
-const Navbar = ({ className }) => {
+const Navbar = ({ className, title }) => {
     const { pathname } = useRouter();
 
     const isLanding = pathname === '/';
@@ -19,8 +19,6 @@ const Navbar = ({ className }) => {
     const [menuOpen, setIsMenuOpen] = useState(false);
 
     const favoriteCount = useSelector(state => state.user.favorite.length);
-
-    const title = usePageTitle();
 
     return (
         <header className={className} data-islanding={isLanding} data-inverted={isInverted}>
@@ -74,7 +72,7 @@ export default styled(Navbar)`
             margin: 0 0 0 25px;
         }
 
-        ${media.query.tabletLandscape} {
+        @media ${media.device.tabletLandscape} {
             font-size: 24px;
         }
     }
@@ -101,7 +99,7 @@ export default styled(Navbar)`
 
     position: absolute;
 
-    ${media.query.tabletLandscape} {
+    @media ${media.device.tabletLandscape} {
         height: 60px;
         position: fixed;
         font-size: 15px;
@@ -116,13 +114,13 @@ export default styled(Navbar)`
         display: none;
     }
 
-    ${media.query.desktop} {
+    @media ${media.device.desktop} {
         ${MainMenu} {
             margin-left: 35px;
         }
     }
 
-    ${media.query.tablet} {
+    @media ${media.device.tablet} {
         .go-back {
             display: none;
         }
@@ -145,7 +143,7 @@ export default styled(Navbar)`
             display: block;
         }
 
-        ${media.query.tabletLandscape} {
+        @media ${media.device.tabletLandscape} {
             &[data-inverted='false'] {
                 color: ${sc.theme.colors.black};
                 background: white;
@@ -155,7 +153,7 @@ export default styled(Navbar)`
     }
 
     &[data-islanding='true'][data-inverted='true'] {
-        ${media.query.tabletLandscape} {
+        @media ${media.device.tabletLandscape} {
             .callback-button {
                 border: 2px solid white;
                 background: none;
@@ -169,7 +167,7 @@ export default styled(Navbar)`
         }
     }
 
-    ${media.query.tablet} {
+    @media ${media.device.tablet} {
         .page-title {
             display: none;
         }
@@ -196,7 +194,7 @@ export default styled(Navbar)`
         justify-content: space-between;
         height: 100%;
 
-        ${media.query.desktop} {
+        @media ${media.device.desktop} {
             justify-content: initial;
         }
     }
@@ -221,7 +219,7 @@ export default styled(Navbar)`
     a[data-active='true'] {
         color: ${sc.theme.colors.red};
 
-        ${media.query.tabletLandscape} {
+        @media ${media.device.tabletLandscape} {
             border-bottom: 2px solid ${sc.theme.colors.red};
         }
     }
@@ -229,7 +227,7 @@ export default styled(Navbar)`
     .callback-button {
         border: 2px solid transparent;
 
-        ${media.query.tabletLandscape} {
+        @media ${media.device.tabletLandscape} {
             line-height: 43px;
             margin: 0 24px 0 16px;
         }

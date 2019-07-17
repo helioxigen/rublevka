@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { media, sc } from '@utils';
 
 const AdaptiveSidebar = styled.div`
-    ${media.query.upTo.tabletLandscape} {
+    @media ${media.device.upTo.tabletLandscape} {
         &[data-open='true']::before {
             content: '';
             position: fixed;

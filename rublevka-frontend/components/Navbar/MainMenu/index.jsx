@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { IconButton, Button, AdaptiveSidebar } from '@components/UI';
 import Link from 'next/link';
@@ -65,7 +65,7 @@ export default styled(MainMenu)`
         align-items: center;
     }
 
-    ${media.query.upTo.tabletLandscape} {
+    @media ${media.device.upTo.tabletLandscape} {
         .close-button {
             display: inline-block;
             background: none;
@@ -120,7 +120,7 @@ export default styled(MainMenu)`
         height: 100%;
     }
 
-    ${media.query.tabletLandscape} {
+    @media ${media.device.tabletLandscape} {
         .menu-only {
             display: none;
         }

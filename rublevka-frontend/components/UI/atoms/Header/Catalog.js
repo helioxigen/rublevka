@@ -7,7 +7,7 @@ export default styled.h1`
 
     font-size: 28px;
 
-    ${media.query.desktop} {
+    @media ${media.device.desktop} {
         font-size: 32px;
     }
 `;

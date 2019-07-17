@@ -7,7 +7,7 @@ const Tabs = ({ className, tabs, children }) => {
     const [selectedTab, changeTab] = useState('sale');
     const tabsContainer = useRef(null);
 
-    const handleTabChange = name => e => {
+    const handleTabChange = name => () => {
         // const { offsetLeft, offsetWidth } = e.target;
 
         const { offsetLeft, offsetWidth } = tabsContainer.current.querySelector(`[data-name=${selectedTab}`);
@@ -59,7 +59,7 @@ export default styled(Tabs)`
     .underline {
         position: absolute;
         height: 2px;
-        transition: 225ms ease;
+        transition: transform 225ms ease;
         bottom: 0;
         background: ${sc.theme.colors.red};
 
@@ -95,7 +95,7 @@ export default styled(Tabs)`
 
         margin: -1px 0 20px;
 
-        ${media.query.tablet} {
+        @media ${media.device.tablet} {
             margin: -1px 0 25px;
             background: linear-gradient(90deg, #eeeeee 0%, rgba(255, 255, 255, 0.05) 100%);
         }

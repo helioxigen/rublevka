@@ -5,8 +5,7 @@ import { Provider } from 'react-redux';
 import withReduxStore from 'next-redux-wrapper';
 import { YMaps } from 'react-yandex-maps';
 import { PageTitleContext } from '@hooks/usePageTitle';
-import { Footer } from '@components';
-import Navbar from '../components/Navbar';
+import { Footer, Navbar } from '@components';
 import { makeStore, setFavorite } from '../store';
 
 const GlobalStyles = createGlobalStyle`
@@ -51,7 +50,7 @@ class MyApp extends App {
                     <PageTitleContext.Provider value={[pageTitle, this.setPageTitle]}>
                         <Provider store={store}>
                             <GlobalStyles />
-                            <Navbar />
+                            <Navbar title={pageProps.title} />
                             <Component {...pageProps} />
                             <Footer />
                         </Provider>

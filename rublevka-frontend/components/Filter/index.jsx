@@ -126,7 +126,7 @@ export default styled(Filter)`
 
     padding: 15px;
 
-    ${media.query.tabletLandscape} {
+    @media ${media.device.tabletLandscape} {
         padding: 0;
     }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { Price, Link, FavoriteButton } from '@components/UI';
-import { dict, itemTitle, format, media, cdn } from '@utils';
+import { dict, itemTitle, format, media } from '@utils';
 import Shortcuts from './Shortcuts';
 import Gallery from './Gallery';
 import Summary from './Summary';
@@ -131,7 +131,7 @@ export default styled(Card)`
         display: none;
     }
 
-    ${media.query.desktop} {
+    @media ${media.device.desktop} {
         ${Shortcuts} {
             display: flex;
         }

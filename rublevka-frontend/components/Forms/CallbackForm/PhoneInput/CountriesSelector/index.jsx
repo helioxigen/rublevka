@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import styled from 'styled-components';
 import Flag from './Flag';
@@ -87,19 +88,24 @@ class CountrySelector extends React.Component {
                 <button type="button" onClick={this.toggleDropDown}>
                     <Flag code={current.toLowerCase()} />
                     <select onChange={this.handleSelectChange} value={current}>
-                        {codes.map(({ dial_code, code }) => (
-                            <option value={code}>
-                                {countries[code]} {dial_code}
+                        {codes.map(({ dial_code: dialCode, code }) => (
+                            <option key={code} value={code}>
+                                {countries[code]} {dialCode}
                             </option>
                         ))}
                     </select>
                 </button>
                 {isDropDownOpen && <div className="click-away-overlay" onClick={this.toggleDropDown} />}
                 <List style={{ visibility: isDropDownOpen ? 'visible' : 'hidden' }}>
-                    {codes.map(({ dial_code, code }) => (
-                        <li key={code} role="menuitem" onClick={this.handleCountryChange(code, dial_code)}>
+                    {codes.map(({ dial_code: dialCode, code }) => (
+                        <li
+                            key={code}
+                            role="menuitem"
+                            onKeyPress={this.handleCountryChange(code, dialCode)}
+                            onClick={this.handleCountryChange(code, dialCode)}
+                        >
                             <Flag code={code.toLowerCase()} />
-                            {countries[code]} {dial_code}
+                            {countries[code]} {dialCode}
                         </li>
                     ))}
                 </List>

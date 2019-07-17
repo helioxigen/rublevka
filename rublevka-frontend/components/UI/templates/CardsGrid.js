@@ -10,12 +10,12 @@ export default styled.section`
     grid-template-columns: 1fr;
     grid-auto-rows: min-content;
 
-    ${media.query.tablet} {
+    @media ${media.device.tablet} {
         grid-template-columns: 1fr 1fr;
         padding: 0;
     }
 
-    ${media.query.desktop} {
+    @media ${media.device.desktop} {
         grid-template-columns: 1fr 1fr 1fr;
     }
 

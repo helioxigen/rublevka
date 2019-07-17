@@ -14,7 +14,7 @@ export default styled.main`
 
     grid-gap: 10px;
 
-    ${media.query.tabletLandscape} {
+    @media ${media.device.tabletLandscape} {
         grid-template:
         'header header header header'
         'filter cards cards cards'
@@ -29,7 +29,7 @@ export default styled.main`
         
         position: fixed;
 
-        ${media.query.tabletLandscape} {
+        @media ${media.device.tabletLandscape} {
             position: static;
         }
     }
@@ -105,7 +105,7 @@ export default styled.main`
             transform: translateY(200%);
         }
 
-        ${media.query.tabletLandscape} {
+        @media ${media.device.tabletLandscape} {
             display: none;
         }
 
@@ -115,7 +115,7 @@ export default styled.main`
             flex: 0;
             margin-right: 8px;
 
-            ${media.query.tablet} {
+            @media ${media.device.tablet} {
                 display: none;
             }
         }

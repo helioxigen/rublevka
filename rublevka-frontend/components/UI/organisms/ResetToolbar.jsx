@@ -33,7 +33,7 @@ export default styled(ResetToolbar)`
         }
     }
 
-    ${media.query.tabletLandscape} {
+    @media ${media.device.tabletLandscape} {
         display: none;
     }
 `;

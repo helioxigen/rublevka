@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import Hero from '../../Landing/Hero';
+import Location from '../../Landing/Location';
+
 import { Button } from '../atoms';
-import Location from '@components/Landing/Location';
 import { media, sc } from '@utils';
 
 export default styled.main`
-    ${media.query.tablet} {
+    @media ${media.device.tablet} {
         display: grid;
 
         grid-template:
@@ -19,13 +20,13 @@ export default styled.main`
         grid-column: 1 / span end;
     }
 
-    ${media.query.tablet} {
+    @media ${media.device.tablet} {
         .object-block {
             display: none;
         }
     }
 
-    ${media.query.upTo.tablet} {
+    @media ${media.device.upTo.tablet} {
         .call-block {
             background: url('/static/landing/call.background.jpg') center / cover no-repeat;
             color: white;
@@ -51,7 +52,7 @@ export default styled.main`
         }
     }
 
-    ${media.query.tablet} {
+    @media ${media.device.tablet} {
         .call-block {
             padding: 0 114px;
             grid-column: first / span last;
@@ -72,7 +73,7 @@ export default styled.main`
         grid-row: 3;
         grid-column: first;
 
-        ${media.query.upTo.tablet} {
+        @media ${media.device.upTo.tablet} {
             height: 260px;
 
             img {

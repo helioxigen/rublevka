@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import Link from 'next/link';
 import { Icon } from '@components/UI';
 import NavList from './NavList';
 import { dict, media } from '@utils';
@@ -59,7 +58,7 @@ export default styled(Footer)`
 
     padding: 24px 15px 64px;
 
-    ${media.query.tabletLandscape} {
+    @media ${media.device.tabletLandscape} {
         padding: 48px 0 64px;
     }
 
@@ -83,11 +82,11 @@ export default styled(Footer)`
 
         margin-bottom: 24px;
 
-        ${media.query.tablet} {
+        @media ${media.device.tablet} {
             flex: 50%;
         }
 
-        ${media.query.tabletLandscape} {
+        @media ${media.device.tabletLandscape} {
             flex: 25%;
 
             margin-bottom: 32px;
@@ -103,7 +102,7 @@ export default styled(Footer)`
 
         margin: 32px 0 0;
 
-        ${media.query.tablet} {
+        @media ${media.device.tablet} {
             margin: 0;
         }
     }
@@ -115,7 +114,7 @@ export default styled(Footer)`
 
         margin-top: 24px;
 
-        ${media.query.tablet} {
+        @media ${media.device.tablet} {
             flex-direction: row;
             align-items: center;
             justify-content: space-between;

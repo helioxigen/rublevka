@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { media, sc } from '../../../utils';
+import { media } from '../../../utils';
 
 export default styled.button`
     position: relative;
@@ -12,7 +12,7 @@ export default styled.button`
     margin: 0;
     opacity: 0.5;
     cursor: pointer;
-    transition: 225ms;
+    transition: opacity 225ms;
 
     &[data-selected='true'] {
         opacity: 1;

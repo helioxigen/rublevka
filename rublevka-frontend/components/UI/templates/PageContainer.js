@@ -10,13 +10,13 @@ export default styled.div`
 
     padding-top: 48px;
 
-    ${media.query.tabletLandscape} {
+    @media ${media.device.tabletLandscape} {
         padding-top: 60px;
     }
 
     ${Breadcrumbs} {
         display: none;
-        ${media.query.tablet} {
+        @media ${media.device.tablet} {
             display: block;
         }
     }

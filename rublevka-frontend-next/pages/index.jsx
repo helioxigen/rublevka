@@ -28,9 +28,6 @@ export default () => (
         >
             <Button>Оставить заявку</Button>
         </Block>
-        <figure>
-            <img src="/static/landing/placeholder.jpg" alt="" />
-        </figure>
         <Block
             className="sell-block"
             title="Лучшие предложения на Рублёвке"
@@ -38,6 +35,9 @@ export default () => (
         >
             <Button red>Подробнее</Button>
         </Block>
+        <figure>
+            <img src="/static/landing/placeholder.jpg" alt="" />
+        </figure>
         <Location />
     </LandingLayout>
 );

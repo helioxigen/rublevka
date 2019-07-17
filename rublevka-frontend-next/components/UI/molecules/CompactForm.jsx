@@ -29,6 +29,7 @@ export default styled(CompactForm)`
 
     ${Input}, ${Button} {
         border: 1px solid #d9d9d9;
+        border-radius: 8px;
         box-sizing: border-box;
     }
 

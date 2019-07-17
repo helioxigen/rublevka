@@ -8,6 +8,8 @@ export default styled.section`
     flex-direction: column;
     justify-content: center;
 
+    padding: 32px 15px;
+
     ${Button} {
         padding: 0 28px;
     }

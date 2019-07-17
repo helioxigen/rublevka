@@ -31,7 +31,6 @@ export default styled(Block)`
         margin: 0;
         line-height: 32px;
         font-size: 24px;
-        text-align: center;
 
         ${media.xs`
             margin-bottom: 16px;
@@ -44,6 +43,7 @@ export default styled(Block)`
             margin-bottom: 28px;
             line-height: 56px;
             font-size: 48px;
+            text-align: center;
         `}
     }
 
@@ -69,9 +69,11 @@ export default styled(Block)`
         `}
     }
 
+    padding: 32px 15px;
+
     ${media.xs`
         ${Button} {
-            padding: 23px 28px;
+            padding: 0 28px;
         }
 
         display: flex;

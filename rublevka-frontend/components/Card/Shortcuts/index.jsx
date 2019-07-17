@@ -21,6 +21,7 @@ export default styled(Shortcuts)`
     display: flex;
 
     padding: 10px 0;
+    box-sizing: border-box;
 
     position: relative;
 

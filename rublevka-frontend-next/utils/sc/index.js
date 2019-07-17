@@ -3,7 +3,7 @@ import theme from './theme';
 import recipes from './recipes';
 import { media } from '@utils';
 
-const ifProp = (name, ifTrue, ifFalse) => props => (props[name] ? ifTrue : ifFalse);
+const ifProp = name => (ifTrue, ifFalse) => props => (props[name] ? ifTrue : ifFalse);
 
 const calcTranslateShift = (currentIdx, overall, hasLayoutImages, viewSize = 7) => {
     const size = hasLayoutImages ? viewSize - 1 : viewSize;

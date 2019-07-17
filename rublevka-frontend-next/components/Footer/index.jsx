@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Link from 'next/link';
 import { Icon } from '@components/UI';
 import NavList from './NavList';
-import { dict } from '@utils';
+import { dict, media } from '@utils';
 import config from '@config';
 import { setCurrency } from '@store';
 
@@ -57,23 +57,41 @@ export default styled(Footer)`
     border-top: 1px solid #ebebeb;
     background: white;
 
-    padding: 48px 0 64px;
+    padding: 24px 15px 64px;
+
+    ${media.query.tabletLandscape} {
+        padding: 48px 0 64px;
+    }
 
     .container {
         max-width: 920px;
         margin: 0 auto;
     }
 
-    .nav-lists,
-    .bottom {
+    .nav-lists {
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
     }
 
     .nav-lists {
         border-bottom: 1px solid #ebebeb;
-        padding-bottom: 32px;
-        margin-bottom: 32px;
+    }
+
+    ${NavList} {
+        flex: 100%;
+
+        margin-bottom: 24px;
+
+        ${media.query.tablet} {
+            flex: 50%;
+        }
+
+        ${media.query.tabletLandscape} {
+            flex: 25%;
+
+            margin-bottom: 32px;
+        }
     }
 
     .logo-icon {
@@ -82,10 +100,27 @@ export default styled(Footer)`
         svg {
             fill: #666;
         }
+
+        margin: 32px 0 0;
+
+        ${media.query.tablet} {
+            margin: 0;
+        }
     }
 
     .bottom {
-        align-items: center;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: flex-start;
+
+        margin-top: 24px;
+
+        ${media.query.tablet} {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 32px;
+        }
     }
 
     select {

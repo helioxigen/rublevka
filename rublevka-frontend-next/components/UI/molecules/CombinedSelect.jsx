@@ -28,8 +28,8 @@ const CombinedSelect = ({ className, options, value, onChange }) => {
             >
                 <span>{label}</span>
             </a>
-            {isOpen && <SelectList values={options} selected={value} onChange={handleChange} />}
-            <select value={value} onChange={e => handleChange(e.target.value)}>
+            {isOpen && <SelectList className="desktop" values={options} selected={value} onChange={handleChange} />}
+            <select value={value} onChange={e => onChange(e.target.value)}>
                 {options.map(([optValue, optLabel]) => (
                     <option key={optValue} value={optValue}>
                         {optLabel}
@@ -71,7 +71,6 @@ export default styled(CombinedSelect)`
     }
 
     ${SelectList} {
-        display: none;
         position: absolute;
         z-index: 100;
         font-weight: normal;
@@ -79,17 +78,24 @@ export default styled(CombinedSelect)`
         animation: ${sc.keyframes.slideIn} 0.3s both;
     }
 
-    ${SelectList} ~ .select-display {
-        transform: scaleY(-1);
+    select {
+        display: none;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
     }
 
-    ${media.md`
-        select {
+    ${media.upToMinDesktop`
+        .desktop {
             display: none;
         }
-
-        ${SelectList} {
+        select {
             display: block;
+        }
+        .select-display {
+            pointer-events: none;
         }
     `}
 `;

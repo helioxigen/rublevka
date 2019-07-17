@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import { sc, media } from '../../../utils';
 
 export default styled.button`
-    background: ${sc.ifProp('red', '#F44336', '#47b34c')};
+    background: ${sc.ifProp('red')('#F44336', '#47b34c')};
     border: 0;
     padding: 0 1em;
     outline: none;
 
-    line-height: 56px;
+    line-height: 53px;
+    padding-top: 3px;
     border-radius: 8px;
 
     ${media.phone`
@@ -28,10 +29,10 @@ export default styled.button`
     transition: 0.3s;
 
     &:hover {
-        background: ${sc.ifProp('red', '#ff2b1b', '#00b44b')};
+        background: ${sc.ifProp('red')('#ff2b1b', '#00b44b')};
     }
 
     &:active {
-        background: ${sc.ifProp('red', '#f92010', '#00a745')};
+        background: ${sc.ifProp('red')('#f92010', '#00a745')};
     }
 `;

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { media, sc } from '@utils';
+import { media } from '@utils';
+import { Breadcrumbs } from '@components';
 
 export default styled.div`
     width: auto;
@@ -9,7 +10,13 @@ export default styled.div`
 
     padding-top: 48px;
 
-    ${media.md`
+    ${media.upToTablet`
+        ${Breadcrumbs} {
+            display: none;
+        }
+    `}
+
+    ${media.minDesktop`
         padding-top: 60px;
     `}
 

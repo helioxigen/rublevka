@@ -18,8 +18,7 @@ export default styled(CarouselControl)`
     height: 100%;
     width: 50px;
 
-    ${sc.ifProp(
-        'left',
+    ${sc.ifProp('left')(
         css`
             left: 0;
         `,

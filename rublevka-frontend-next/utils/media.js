@@ -14,6 +14,9 @@ const createMediaMax = maxWidth => (...args) =>
         }
     `;
 
+const createQuery = maxWidth => `@media screen and (min-width: ${maxWidth}px)`;
+const createQueryMax = maxWidth => `@media screen and (max-width: ${maxWidth - 1}px)`;
+
 const createMediaScope = (minWidth, maxWidthÎ) => ({
     max: createMediaMax(maxWidth),
     min: createMedia(minWidth),
@@ -48,4 +51,19 @@ export default {
     upToTablet: createMediaMax(768),
     upToMinDesktop: createMediaMax(992),
     upToDesktop: createMediaMax(1200),
+    query: {
+        tablet: createQuery(768),
+        tabletLandscape: createQuery(992),
+        desktop: createQuery(1200),
+        upTo: {
+            phone: createQueryMax(480),
+            tablet: createQueryMax(768),
+            tabletLandscape: createQueryMax(992),
+            desktop: createQueryMax(1200),
+        },
+        upToPhone: createQueryMax(480),
+        upToTablet: createQueryMax(768),
+        upToMinDesktop: createQueryMax(992),
+        upToDesktop: createQueryMax(1200),
+    },
 };

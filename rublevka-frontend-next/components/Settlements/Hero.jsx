@@ -72,7 +72,7 @@ export default styled(Hero)`
         margin: 40px 0 32px;
     }
 
-    height: ${sc.ifProp('item', 600, 400)}px;
+    height: ${sc.ifProp('item')(600, 400)}px;
 
     color: white;
 

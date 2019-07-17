@@ -2,7 +2,7 @@
 const path = require('path');
 
 module.exports = {
-    target: 'serverless',
+    distDir: `build/${process.env.HOST}`,
     webpack(config) {
         config.module.rules.push({
             test: /\.svg$/,

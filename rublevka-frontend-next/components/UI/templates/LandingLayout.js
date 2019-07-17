@@ -18,6 +18,12 @@ export default styled.main`
         grid-column: 1 / span end;
     }
 
+    ${media.phone`
+        .object-block{
+            display: none;
+        }
+    `}
+
     .call-block {
         padding: 0 114px;
         grid-column: first / span last;

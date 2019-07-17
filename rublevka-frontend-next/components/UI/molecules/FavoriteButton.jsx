@@ -80,10 +80,10 @@ export default styled(FavoriteButton)`
             height: 24px;
 
             svg {
-                stroke: ${sc.ifProp('red', sc.theme.colors.red, 'white')};
+                stroke: ${sc.ifProp('red')(sc.theme.colors.red, 'white')};
                 transition: 0.2s;
                 stroke-width: 2px;
-                fill: ${sc.ifProp('red', 'none', 'rgba(0, 0, 0, 0.3)')};
+                fill: ${sc.ifProp('red')('none', 'rgba(0, 0, 0, 0.3)')};
             }
         }
         .float {

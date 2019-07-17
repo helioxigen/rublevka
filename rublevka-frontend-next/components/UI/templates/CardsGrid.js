@@ -1,22 +1,25 @@
 import styled from 'styled-components';
-import { media } from '@utils';
+import { media, sc } from '@utils';
 
 export default styled.section`
     display: grid;
     grid-gap: 20px;
 
+    padding: 0 8px;
+
     grid-template-columns: 1fr;
     grid-auto-rows: min-content;
 
-    ${media.sm`
+    ${media.query.tablet} {
         grid-template-columns: 1fr 1fr;
-    `}
+        padding: 0;
+    }
 
-    ${media.lg`
+    ${media.query.desktop} {
         grid-template-columns: 1fr 1fr 1fr;
-    `}
+    }
 
     transition: opacity 225ms;
 
-    opacity: ${({ fetching }) => (fetching ? 0.65 : 1)};
+    opacity: ${sc.ifProp('fetching')(0.65, 1)};
 `;

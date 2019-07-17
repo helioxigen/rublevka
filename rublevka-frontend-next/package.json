@@ -6,10 +6,10 @@
     "license": "UNLICENSED",
     "private": true,
     "scripts": {
-        "dev": "APP=rublevka APP_ENV=development node server.js",
-        "start": "NODE_ENV=production next start",
-        "build": "APP=rublevka APP_ENV=production NODE_ENV=production next build",
-        "now-build": "APP=rublevka APP_ENV=production next build"
+        "dev": "APP_ENV=development node server.js",
+        "start": "NODE_ENV=production node server.js",
+        "build": "APP_ENV=production NODE_ENV=production next build",
+        "now-build": "APP_ENV=production next build"
     },
     "dependencies": {
         "downshift": "^3.2.10",
@@ -47,5 +47,8 @@
         "prettier": "^1.18.2",
         "prop-types": "^15.7.2",
         "redux-devtools-extension": "^2.13.8"
+    },
+    "jest": {
+        "testEnvironment": "node"
     }
 }

@@ -37,6 +37,10 @@ export default styled(LandingHero)`
         grid-row: 2;
         grid-column: 2 / span 2;
 
+        ${media.upToMinDesktop`
+            grid-column: 3 / span 2;
+        `}
+
         ${media.xsMax`
             font-size: 28px;
             box-sizing: border-box;

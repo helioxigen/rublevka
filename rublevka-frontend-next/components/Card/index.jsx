@@ -96,11 +96,20 @@ export default styled(Card)`
         width: 100%;
     }
 
+    display: flex;
+    flex-direction: column;
+
     section.card-body {
         padding: 15px 10px;
 
+        flex: 1;
+
+        display: flex;
+        flex-direction: column;
+
         h3 {
             margin: 0 0 6px 0;
+            flex: 1 0 auto;
         }
 
         ${Summary} {
@@ -116,17 +125,17 @@ export default styled(Card)`
     ${Shortcuts} {
         display: none;
 
-        ${media.lg`
-        display: flex;
-    `}
+        ${media.desktop`
+            display: flex;
+        `}
     }
 
     ${Gallery} {
         display: block;
 
         ${media.lg`
-        display: none;
-    `}
+            display: none;
+        `}
     }
 
     ${media.lg`

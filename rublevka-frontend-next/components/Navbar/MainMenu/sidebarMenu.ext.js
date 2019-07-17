@@ -1,8 +1,9 @@
 import { css } from 'styled-components';
 import { sc, media } from '@utils';
 
-export default sc.createExt(media.upToDesktop)(
+export default sc.createExt(media.upToMinDesktop)(
     css`
+        flex: 0;
         &[data-open='true']::before {
             content: '';
             position: fixed;
@@ -17,7 +18,9 @@ export default sc.createExt(media.upToDesktop)(
             position: fixed;
             height: 100vh;
             width: 320px;
-            right: -320px;
+            right: -325px;
+
+            font-size: 15px;
 
             background: white;
             overflow-y: scroll;
@@ -32,7 +35,7 @@ export default sc.createExt(media.upToDesktop)(
         z-index: 1500;
 
         &[data-open='true'] .menu-content {
-            transform: translateX(-100%);
+            transform: translateX(-101%);
         }
 
         .close-button {
@@ -56,10 +59,6 @@ export default sc.createExt(media.upToDesktop)(
                 font-size: 18px;
                 font-weight: bold;
                 margin: 0 0 16px;
-            }
-
-            button {
-                padding: 0;
             }
 
             .callback-button {

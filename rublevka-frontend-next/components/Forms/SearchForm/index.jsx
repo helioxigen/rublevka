@@ -157,13 +157,13 @@ export default styled(SearchForm)`
 
             flex: 1 1 33%;
 
-            ${media.xsMax`
+            ${media.upToMinDesktop`
                 border: 1px solid #eee;
                 border-radius: 8px;
             `}
         }
 
-        ${media.xsMax`
+        ${media.upToMinDesktop`
             display: grid;
             grid: 56px / 1fr 1fr;
             grid-gap: 8px;
@@ -172,7 +172,7 @@ export default styled(SearchForm)`
             }
         `}
 
-        ${media.xs`
+        ${media.minDesktop`
             box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
 
             > *:first-of-type {
@@ -215,7 +215,7 @@ export default styled(SearchForm)`
             margin-right: 0.2em;
         }
 
-        ${media.xsMax`
+        ${media.upToMinDesktop`
             font-size: 15px;
 
             flex: 1 0 100%;

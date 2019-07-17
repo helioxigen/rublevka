@@ -3,9 +3,9 @@ import styled, { css } from 'styled-components';
 import { Icon, Button } from '../atoms';
 import { sc } from '@utils';
 
-const IconButton = ({ className, onClick, icon, red, children }) => (
+const IconButton = ({ className, onClick, icon, red, mirror, stroke, children }) => (
     <Button data-icon={icon} onClick={onClick} className={className} red={red}>
-        <Icon name={icon} />
+        <Icon name={icon} mirror={mirror} stroke={stroke} />
         {children}
     </Button>
 );
@@ -15,8 +15,7 @@ export default styled(IconButton)`
     justify-content: center;
     align-items: center;
 
-    ${sc.ifProp(
-        'iconOnly',
+    ${sc.ifProp('secondary')(
         css`
             background: none;
             padding: 0;
@@ -24,10 +23,17 @@ export default styled(IconButton)`
         `
     )};
 
+    ${sc.ifProp('floating')(
+        css`
+            background: ${sc.theme.colors.red};
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+            border-radius: 50%;
+        `
+    )}
+
     &:hover,
     &:active {
-        ${sc.ifProp(
-            'iconOnly',
+        ${sc.ifProp('secondary')(
             css`
                 color: ${sc.theme.colors.red};
                 background: none;
@@ -35,9 +41,17 @@ export default styled(IconButton)`
         )};
     }
 
+    ${sc.ifProp('children')(
+        '',
+        css`
+            padding: 0.5em;
+            line-height: initial;
+        `
+    )}
+
     ${Icon} {
         display: block;
-        ${sc.ifProp('children', 'margin-right: 0.5em', 'padding: 0.5em')};
-        ${sc.ifProp('iconOnly', 'padding: 0')};
+        ${sc.ifProp('children')('margin-right: 0.5em')};
+        ${sc.ifProp('secondary')('padding: 0')};
     }
 `;

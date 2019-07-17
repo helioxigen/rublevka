@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { IconButton, Button } from '@components/UI';
 import Link from 'next/link';
@@ -8,15 +9,21 @@ import { useLockBodyScroll } from '@hooks';
 import sidebarMenuExt from './sidebarMenu.ext';
 
 const MainMenu = React.forwardRef(({ className, onClose, isOpen, favoriteCount }, ref) => {
-    const { pathname, query } = useRouter();
+    const { pathname, query, asPath } = useRouter();
 
-    // useLockBodyScroll(isOpen);
+    useEffect(() => {
+        if (isOpen) {
+            onClose();
+        }
+    }, [asPath]);
+
+    useLockBodyScroll(isOpen);
 
     return (
         <div className={className} data-open={isOpen}>
             <div ref={ref} className="menu-content">
                 <nav>
-                    <IconButton iconOnly onClick={onClose} className="close-button menu-only" icon="close" />
+                    <IconButton secondary onClick={onClose} className="close-button menu-only" icon="close" />
                     <Link href="/">
                         <a className="menu-only" data-active={pathname === '/'}>
                             Главная
@@ -54,8 +61,6 @@ const MainMenu = React.forwardRef(({ className, onClose, isOpen, favoriteCount }
     );
 });
 
-console.log(sidebarMenuExt);
-
 export default styled(MainMenu)`
     flex: 1 0 auto;
 
@@ -73,11 +78,15 @@ export default styled(MainMenu)`
         height: 100%;
     }
 
-    ${media.desktop`
+    ${media.query.tabletLandscape} {
         .menu-only {
             display: none;
         }
-    `}
+
+        nav a {
+            margin: 0 15px;
+        }
+    }
 
     .counter {
         background: ${sc.theme.colors.red};

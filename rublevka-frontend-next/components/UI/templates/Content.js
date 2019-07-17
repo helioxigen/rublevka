@@ -14,6 +14,6 @@ export default styled.div`
     `}
 
     ${media.lg`
-        max-width: ${sc.ifProp('compact', 1110, 1340)}px;
+        max-width: ${sc.ifProp('compact')(1110, 1340)}px;
     `}
 `;

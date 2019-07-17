@@ -19,15 +19,16 @@ export default styled(Icon)`
     width: 1em;
     height: 1em;
 
+    display: inline-block;
+
     svg {
         width: 100%;
         height: 100%;
         display: block;
 
-        ${sc.ifProp('stroke', 'stroke: currentColor;', 'fill: currentColor;')}
+        ${sc.ifProp('stroke')('stroke: currentColor;', 'fill: currentColor;')}
 
-        ${sc.ifProp(
-            'mirror',
+        ${sc.ifProp('mirror')(
             css`
                 transform: scaleX(-1);
             `

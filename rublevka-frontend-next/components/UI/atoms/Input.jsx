@@ -16,8 +16,7 @@ export default styled.input`
     text-transform: uppercase;
     color: #232323;
 
-    ${sc.ifProp(
-        'hasError',
+    ${sc.ifProp('hasError')(
         css`
             border: 2px solid #f44336;
         `

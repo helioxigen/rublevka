@@ -47,7 +47,7 @@ class MyApp extends App {
 
         return (
             <Container>
-                <YMaps>
+                <YMaps preload query={{ mode: process.env.NODE_ENV === 'production' ? 'release' : 'debug' }}>
                     <PageTitleContext.Provider value={[pageTitle, this.setPageTitle]}>
                         <Provider store={store}>
                             <GlobalStyles />

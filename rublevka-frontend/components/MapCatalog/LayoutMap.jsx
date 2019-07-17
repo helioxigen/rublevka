@@ -1,19 +1,13 @@
-import React, { useRef, useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import uniqBy from 'lodash/uniqBy';
-import { YMaps, Map, ZoomControl, ObjectManager } from 'react-yandex-maps';
+import { Map, ZoomControl, ObjectManager } from 'react-yandex-maps';
 import TemplateProvider from './TemplateProvider';
 import { sc } from '@utils';
 import { setDisplayedItemsIds } from '@store';
-import { useRefCallback } from '@hooks';
 
-const defaults = {
-    center: [55.7, 37.1],
-    zoom: 11,
-};
-
-const LayoutMap = ({ className, mapMarginLeft, clasterFocused, onClusterClick, items = [] }) => {
+const LayoutMap = ({ className, mapMarginLeft, items = [] }) => {
     const [ymap, setYmap] = useState(null);
     const dispatch = useDispatch();
     const features = useMemo(
@@ -72,64 +66,62 @@ const LayoutMap = ({ className, mapMarginLeft, clasterFocused, onClusterClick, i
     }, [objectManager]);
 
     return (
-        <YMaps preload>
-            <Map
-                className={className}
-                defaultOptions={{
-                    maxZoom: 15,
+        <Map
+            className={className}
+            defaultOptions={{
+                maxZoom: 15,
+            }}
+            defaultState={{
+                center: [55.7, 37.1],
+                zoom: 11,
+                margin: [0, 0, 0, mapMarginLeft],
+                // isDef{center: [55.7, 37.1],
+                // zoom: 11,}
+            }}
+            // state={{
+            //     center: [55.7, 37.1],
+            //     zoom: 11,
+            // }}
+            width="100%"
+            height="100%"
+            instanceRef={setYmap}
+        >
+            <ZoomControl
+                options={{
+                    position: {
+                        left: 'auto',
+                        right: 10,
+                        top: 108,
+                    },
                 }}
-                defaultState={{
-                    center: [55.7, 37.1],
-                    zoom: 11,
-                    margin: [0, 0, 0, mapMarginLeft],
-                    // isDef{center: [55.7, 37.1],
-                    // zoom: 11,}
-                }}
-                // state={{
-                //     center: [55.7, 37.1],
-                //     zoom: 11,
-                // }}
-                width="100%"
-                height="100%"
-                instanceRef={setYmap}
-            >
-                <ZoomControl
-                    options={{
-                        position: {
-                            left: 'auto',
-                            right: 10,
-                            top: 108,
-                        },
-                    }}
-                />
-                <TemplateProvider>
-                    {({ template }) => (
-                        <ObjectManager
-                            options={{
-                                clusterize: true,
-                                gridSize: 64,
-                                minClusterSize: 1,
-                                // clusterDisableClickZoom: true,
-                            }}
-                            objects={{
-                                preset: 'islands#greenDotIcon',
-                            }}
-                            clusters={{
-                                // preset: 'islands#redClusterIcons',
-                                clusterIconLayout: template,
-                                clusterIconShape: {
-                                    type: 'Circle',
-                                    coordinates: [0, 0],
-                                    radius: 44,
-                                },
-                            }}
-                            instanceRef={setObjetManagerRef}
-                            features={features}
-                        />
-                    )}
-                </TemplateProvider>
-            </Map>
-        </YMaps>
+            />
+            <TemplateProvider>
+                {({ template }) => (
+                    <ObjectManager
+                        options={{
+                            clusterize: true,
+                            gridSize: 64,
+                            minClusterSize: 1,
+                            // clusterDisableClickZoom: true,
+                        }}
+                        objects={{
+                            preset: 'islands#greenDotIcon',
+                        }}
+                        clusters={{
+                            // preset: 'islands#redClusterIcons',
+                            clusterIconLayout: template,
+                            clusterIconShape: {
+                                type: 'Circle',
+                                coordinates: [0, 0],
+                                radius: 44,
+                            },
+                        }}
+                        instanceRef={setObjetManagerRef}
+                        features={features}
+                    />
+                )}
+            </TemplateProvider>
+        </Map>
     );
 };
 

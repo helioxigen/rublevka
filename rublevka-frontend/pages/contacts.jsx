@@ -28,35 +28,33 @@ const ContactsPage = ({ className }) => {
                     <p>Пн-пт, с 10:00 до 20:00.</p>
                 </footer>
             </article>
-            <YMaps>
-                <Map
-                    className="contacts-ymap"
-                    instanceRef={ref => ref && ref.behaviors.disable('scrollZoom')}
-                    defaultState={{ center: [55.734871, 37.249479], zoom: 15 }}
-                    width="100%"
-                    height="100%"
-                    modules={['layout.Image']}
-                >
-                    <ZoomControl
-                        options={{
-                            position: {
-                                left: 'auto',
-                                right: 10,
-                                top: 108,
-                            },
-                        }}
-                    />
-                    <Placemark
-                        geometry={[55.734871, 37.249479]}
-                        options={{
-                            iconLayout: 'default#image',
-                            iconImageHref: '/static/shared/placemark.png',
-                            iconImageSize: [size, size], // размер иконки
-                            iconImageOffset: [(-1 * size) / 2, (-1 * size) / 2], // позиция иконки
-                        }}
-                    />
-                </Map>
-            </YMaps>
+            <Map
+                className="contacts-ymap"
+                instanceRef={ref => ref && ref.behaviors.disable('scrollZoom')}
+                defaultState={{ center: [55.734871, 37.249479], zoom: 15 }}
+                width="100%"
+                height="100%"
+                modules={['layout.Image']}
+            >
+                <ZoomControl
+                    options={{
+                        position: {
+                            left: 'auto',
+                            right: 10,
+                            top: 108,
+                        },
+                    }}
+                />
+                <Placemark
+                    geometry={[55.734871, 37.249479]}
+                    options={{
+                        iconLayout: 'default#image',
+                        iconImageHref: '/static/shared/placemark.png',
+                        iconImageSize: [size, size], // размер иконки
+                        iconImageOffset: [(-1 * size) / 2, (-1 * size) / 2], // позиция иконки
+                    }}
+                />
+            </Map>
         </main>
     );
 };

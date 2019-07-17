@@ -4,7 +4,7 @@ import InputMask from 'react-input-mask';
 import CountriesSelector from './CountriesSelector';
 import styled from 'styled-components';
 
-const masks = require('./CountriesSelector/masks.json.js');
+const masks = require('./CountriesSelector/masks.json');
 
 class PhoneInput extends React.Component {
     state = {

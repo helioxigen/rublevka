@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import Flag from './Flag';
 import { media } from '@utils';
 
-const countries = require('./countries.json.js');
-const codes = require('./codes.json.js').sort((a, b) => countries[a.code].localeCompare(countries[b.code]));
+const countries = require('./countries.json');
+const codes = require('./codes.json').sort((a, b) => countries[a.code].localeCompare(countries[b.code]));
 
 const List = styled.ul`
     background: #ffffff;

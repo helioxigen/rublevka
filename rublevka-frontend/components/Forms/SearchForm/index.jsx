@@ -1,16 +1,14 @@
 import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import fromPairs from 'lodash/fromPairs';
 
+import { Icon } from '@components/UI';
 import Dropdown from './Dropdown';
 import { IconButton } from '../../UI/molecules';
 import { media, filter, page, dict } from '../../../utils';
-import CurrencySelector from './Dropdown/CurrencySelector';
 import formConfig from './formConfig';
 import TextInput from './TextInput';
-import { Icon } from '@components/UI';
-import { setCurrency } from '@store';
 
 // const initialState = {
 //     sale: {
@@ -31,10 +29,7 @@ import { setCurrency } from '@store';
 
 const SearchForm = ({ className, type = 'sale' }) => {
     const currency = useSelector(state => state.user.currency);
-    const dispatch = useDispatch();
     const config = formConfig.types[type];
-
-    console.log(config.defaultState);
 
     const [values, changeValues] = useState({ [type]: config.defaultState });
 
@@ -42,7 +37,7 @@ const SearchForm = ({ className, type = 'sale' }) => {
     //     changeValues({ [type]: config.defaultState });
     // }, [type]);
 
-    const handleChange = (fieldName, isMain) => item => {
+    const handleChange = fieldName => item => {
         // const currentValues = isMain ? {} : values[type];
 
         changeValues({
@@ -62,14 +57,15 @@ const SearchForm = ({ className, type = 'sale' }) => {
 
             const { kind, ...vals } = values[type];
             const query = Object.entries(vals).map(([fieldName, value]) => {
-                let queryValue = value;
-                let { queryField, queryTpl } = formConfig.fields[fieldName];
+                const queryValue = value;
+                const { queryTpl, queryField } = formConfig.fields[fieldName];
+                let nextField = queryField;
 
                 if (fieldName === 'price') {
-                    queryField = queryTpl(type, currency);
+                    nextField = queryTpl(type, currency);
                 }
 
-                return [queryField, queryValue];
+                return [nextField, queryValue];
             });
 
             page.goTo.catalog({
@@ -79,8 +75,6 @@ const SearchForm = ({ className, type = 'sale' }) => {
             });
         }
     };
-
-    const handleCurrencyChange = cur => dispatch(setCurrency(cur));
 
     return (
         <form className={className} onSubmit={handleSubmit}>
@@ -109,8 +103,6 @@ const SearchForm = ({ className, type = 'sale' }) => {
                     }
 
                     const itemsList = type in items ? items[type] : items;
-
-                    console.log(typeValues);
 
                     return (
                         <Dropdown

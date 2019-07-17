@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { CheckboxGroup, Range, RadioGroup, AdaptiveSidebar } from '@components/UI';
+import { CheckboxGroup, Range, RadioGroup, AdaptiveSidebar, ResetToolbar } from '@components/UI';
 import Field from './Field';
-import { filter } from '@utils';
-import { setCurrency } from '@store';
+import { filter, media } from '@utils';
+import { setCurrency, setFilter } from '@store';
 
 const Filter = ({ className, dealType, isOpen, onClose }) => {
     const values = useSelector(state => state.properties.filter);
@@ -15,6 +15,11 @@ const Filter = ({ className, dealType, isOpen, onClose }) => {
 
     return (
         <AdaptiveSidebar as="aside" isOpen={isOpen} left onClose={onClose} className={className}>
+            <ResetToolbar
+                onClose={onClose}
+                onReset={() => dispatch(setFilter({}))}
+                isResetActive={Object.keys(values).length > 0}
+            />
             <Field title="Тип объекта" name="kind">
                 {({ value, onChange }) => (
                     <CheckboxGroup
@@ -118,6 +123,12 @@ const Filter = ({ className, dealType, isOpen, onClose }) => {
 
 export default styled(Filter)`
     grid-area: filter;
+
+    padding: 15px;
+
+    ${media.query.tabletLandscape} {
+        padding: 0;
+    }
 
     ${Field}:not(:last-child) {
         margin-bottom: 40px;

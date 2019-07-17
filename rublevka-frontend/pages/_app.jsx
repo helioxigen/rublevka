@@ -4,8 +4,8 @@ import App, { Container } from 'next/app';
 import { Provider } from 'react-redux';
 import withReduxStore from 'next-redux-wrapper';
 import { YMaps } from 'react-yandex-maps';
-import Footer from '@components/Footer';
 import { PageTitleContext } from '@hooks/usePageTitle';
+import { Footer } from '@components';
 import Navbar from '../components/Navbar';
 import { makeStore, setFavorite } from '../store';
 
@@ -47,7 +47,7 @@ class MyApp extends App {
 
         return (
             <Container>
-                <YMaps preload query={{ mode: process.env.NODE_ENV === 'production' ? 'release' : 'debug' }}>
+                <YMaps>
                     <PageTitleContext.Provider value={[pageTitle, this.setPageTitle]}>
                         <Provider store={store}>
                             <GlobalStyles />

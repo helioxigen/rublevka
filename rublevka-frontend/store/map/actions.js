@@ -1,5 +1,4 @@
 import api from '@api';
-import { createAction } from '@utils';
 
 export const LOAD_MAP_PROPERTIES_REQUEST = 'Map.PropertiesLoad.Request';
 export const LOAD_MAP_PROPERTIES_SUCCESS = 'Map.PropertiesLoad.Success';

@@ -1,13 +1,13 @@
-import React, { useState, useLayoutEffect, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Icon, Button, Content, PageContainer, IconButton } from '@components/UI';
+import { Icon, Content, IconButton } from '@components/UI';
 import styled from 'styled-components';
 import config from '@config';
-import { app, media, sc } from '@utils';
+import { media, sc } from '@utils';
 import MainMenu from './MainMenu';
-import { useComponentVisible, useInvertOnScroll, usePageTitle } from '@hooks';
+import { useInvertOnScroll, usePageTitle } from '@hooks';
 
 const Navbar = ({ className }) => {
     const { pathname } = useRouter();
@@ -59,7 +59,7 @@ export default styled(Navbar)`
     width: 100%;
     position: fixed;
 
-    z-index: 1000;
+    z-index: 1350;
 
     color: ${sc.theme.colors.black};
     background: white;

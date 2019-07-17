@@ -28,6 +28,16 @@ export default styled(IconButton)`
             background: ${sc.theme.colors.red};
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
             border-radius: ${sc.ifProp('children')('56px', '50%')};
+
+            transition: box-shadow 225ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+            &:hover {
+                box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.35);
+            }
+
+            &:active {
+                box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+            }
         `
     )}
 

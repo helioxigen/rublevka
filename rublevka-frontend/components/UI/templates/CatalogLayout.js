@@ -86,6 +86,25 @@ export default styled.main`
         right: 0;
         bottom: 32px;
 
+        z-index: 1250;
+
+        @keyframes appear{
+            from {
+                transform: translateY(200%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        animation: appear 225ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+
+        transition: transform 225ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+
+        &[data-hide="true"] {            
+            transform: translateY(200%);
+        }
+
         ${media.query.tabletLandscape} {
             display: none;
         }

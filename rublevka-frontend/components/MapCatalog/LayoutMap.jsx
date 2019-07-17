@@ -44,14 +44,10 @@ const LayoutMap = ({ className, mapMarginLeft, items = [] }) => {
     useEffect(() => {
         if (!objectManager) return () => {};
 
-        console.log(objectManager);
-
         const handleObjectClick = e => {
             const id = e.get('objectId');
 
             const cluster = objectManager.clusters.getById(id);
-
-            console.log(cluster);
 
             if (!cluster || !cluster.features.length || ymap.getZoom() < 15) return;
 

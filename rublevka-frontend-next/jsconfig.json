@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2015",
+        "jsx": "react",
+        "allowSyntheticDefaultImports": true,
+        "checkJs": false,
+        "baseUrl": ".",
+        "paths": {
+            "@utils": ["./utils"],
+            "@hooks": ["./utils/hooks"],
+            "@config": ["./config"],
+            "@components": ["./components"],
+            "@api": ["./api"],
+            "@components/*": ["./components/*"],
+            "@store": ["./store"]
+        }
+    },
+    "exclude": ["node_modules", "**/node_modules/*"]
+}

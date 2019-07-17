@@ -1,0 +1,17 @@
+{
+    "version": 2,
+    "builds": [{ "src": "package.json", "use": "@now/next" }],
+    "routes": [
+        {
+            "src": "/zagorodnaya/(?<dealType>[^/]+)/(?<kind>[^/]+)/(?<id>[^/]+)",
+            "dest": "/item?dealType=$dealType&kind=$kind&id=$id"
+        },
+        {
+            "src": "/zagorodnaya/(?<dealType>[^/]+)/map/(?<kind>[^/]+)",
+            "dest": "/catalog.map?dealType=$dealType&kind=$kind"
+        },
+        { "src": "/zagorodnaya/(?<dealType>[^/]+)/map", "dest": "/catalog.map?dealType=$dealType" },
+        { "src": "/zagorodnaya/(?<dealType>[^/]+)", "dest": "/catalog?dealType=$dealType" },
+        { "src": "/zagorodnaya/kottedzhnye-poselki", "dest": "/settlements.list" }
+    ]
+}

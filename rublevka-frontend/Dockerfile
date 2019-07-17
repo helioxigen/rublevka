@@ -36,5 +36,4 @@ ENV PORT=80
 RUN yarn --ignore-engines
 RUN NODE_ENV=production HOST=$HOST APP_ENV=$APP_ENV yarn build
 
-RUN yarn global add @babel/core @babel/register
 CMD NODE_ENV=production yarn start

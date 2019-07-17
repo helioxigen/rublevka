@@ -4,7 +4,7 @@
         "target": "es2015",
         "jsx": "react",
         "allowSyntheticDefaultImports": true,
-        "checkJs": false,
+        "checkJs": true,
         "baseUrl": ".",
         "paths": {
             "@utils": ["./utils"],

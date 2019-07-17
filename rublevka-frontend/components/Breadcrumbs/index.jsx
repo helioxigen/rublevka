@@ -10,7 +10,7 @@ const Breadcrumbs = ({ className, dealType, second, last = false }) => (
             {compact([
                 ['/', undefined, 'Главная'],
                 second || [
-                    `catalog?dealType=${dict.translit.byWord(dealType)}`,
+                    `/catalog?dealType=${dict.translit.byWord(dealType)}`,
                     `/zagorodnaya/${dict.translit.byWord(dealType)}`,
                     dict.translateDealType(dealType).noun,
                 ],

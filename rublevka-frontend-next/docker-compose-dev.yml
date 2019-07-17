@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  rublevka_frontend_dev:
+    image: rublevka_frontend_dev
+    container_name: rublevka_frontend_dev
+    restart: always
+    build:
+      context: .
+      args:
+        - APP=rublevka
+        - HOST=dev2.rublevka.ru
+        - APP_ENV
+        - REACT_APP_SENTRY_DSN
+        - BUILD_ID
+    networks:
+      master_network:
+        aliases:
+          - rublevka_frontend_dev
+
+  riga_frontend_dev:
+    image: riga_frontend_dev
+    container_name: riga_frontend_dev
+    restart: always
+    build:
+      context: .
+      args:
+        - APP=riga
+        - HOST=dev.riga.ru
+        - APP_ENV
+        - REACT_APP_SENTRY_DSN
+        - BUILD_ID
+    networks:
+      master_network:
+        aliases:
+          - riga_frontend_dev
+
+networks:
+  master_network:
+    external: true

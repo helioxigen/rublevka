@@ -9,6 +9,6 @@ export default styled.section`
     justify-content: center;
 
     ${Button} {
-        padding: 23px 28px;
+        padding: 0 28px;
     }
 `;

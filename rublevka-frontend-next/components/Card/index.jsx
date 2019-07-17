@@ -122,20 +122,18 @@ export default styled(Card)`
         }
     }
 
-    ${Shortcuts} {
+    ${Gallery} {
         display: none;
-
-        ${media.desktop`
-            display: flex;
-        `}
     }
 
-    ${Gallery} {
-        display: block;
-
-        ${media.lg`
+    ${media.touch} {
+        ${Shortcuts} {
             display: none;
-        `}
+        }
+
+        ${Gallery} {
+            display: block;
+        }
     }
 
     ${media.lg`

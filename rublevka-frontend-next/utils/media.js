@@ -66,4 +66,5 @@ export default {
         upToMinDesktop: createQueryMax(992),
         upToDesktop: createQueryMax(1200),
     },
+    touch: `@media (hover: none) and (pointer: coarse)`,
 };

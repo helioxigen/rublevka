@@ -1,24 +1,40 @@
-import React, { useState } from 'react';
-// import ReactSwipe from 'react-swipe';
+import React, { useState, useEffect } from 'react';
+import ReactSwipe from 'react-swipe';
 import styled from 'styled-components';
 import { cdn } from '@utils';
 import Indicators from './Indicators';
 
 const Gallery = ({ className, images }) => {
-    const [selectedImage, setSelectedImage] = useState(0);
+    const [currentIdx, changeCurrentIdx] = useState(0);
+    const [fullyLoaded, changeFullyLoaded] = useState(false);
+
+    useEffect(() => {
+        if (currentIdx === images.length) {
+            changeFullyLoaded(true);
+        }
+    }, [currentIdx]);
 
     return (
         <figure className={className}>
-            {/* <ReactSwipe
+            <ReactSwipe
                 swipeOptions={{
-                    callback: idx => setSelectedImage(idx),
+                    callback: idx => changeCurrentIdx(idx),
+                    startSlide: currentIdx,
                 }}
             >
-                {images.slice(0, 6).map(image => (
-                    <img key={image.id} alt={image.id} src={cdn.get.thumbnail(image.id)} />
+                {images.map(({ id }, idx) => (
+                    <a key={id} role="button" tabIndex={0}>
+                        {(idx <= currentIdx + 6 || fullyLoaded) && (
+                            <img
+                                data-id={id}
+                                alt={id}
+                                src={idx <= currentIdx + 1 ? cdn.get.full(id, 1024) : cdn.get.thumbnail(id, 512)}
+                            />
+                        )}
+                    </a>
                 ))}
-            </ReactSwipe> */}
-            <Indicators currentIdx={selectedImage} size={images.length} />,
+            </ReactSwipe>
+            <Indicators currentIdx={currentIdx} size={images.length} />,
         </figure>
     );
 };

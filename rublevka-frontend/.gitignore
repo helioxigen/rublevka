@@ -1,9 +1,3 @@
+.next/
+build/
 .DS_Store
-.idea
-node_modules
-npm-debug.log
-build
-stats.json
-.happypack
-package-lock.json
-.env

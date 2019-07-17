@@ -1,1 +1,0 @@
-APP=rublevka APP_ENV=development NODE_ENV=production BUILD_ID=1 HOST=dev2.rublevka.ru yarn build && APP=rublevka APP_ENV=development NODE_ENV=production REACT_APP_SENTRY_DSN=1 BUILD_ID=1 HOST=dev2.rublevka.ru yarn start

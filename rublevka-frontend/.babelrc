@@ -1,43 +1,13 @@
 {
-  "presets": [
-    [
-      "env",
-      {
-        "browsers": ["defaults", "last 10 versions", "not ie < 11"],
-        "useBuiltIns": true
-      }
-    ],
-    "react"
-  ],
-  "plugins": [
-    "transform-async-to-generator",
-    "transform-function-bind",
-    "transform-object-rest-spread",
-    "transform-class-properties",
-    "transform-export-extensions",
-    [
-      "styled-components",
-      {
-        "ssr": "true"
-      }
-    ]
-  ],
-  "env": {
-    "development": {
-      "plugins": [
+    "presets": ["next/babel"],
+    "plugins": [
         [
-          "react-transform",
-          {
-            "transforms": [
-              {
-                "transform": "react-transform-hmr",
-                "imports": ["react"],
-                "locals": ["module"]
-              }
-            ]
-          }
+            "styled-components",
+            {
+                "ssr": true,
+                "displayName": true,
+                "preprocess": false
+            }
         ]
-      ]
-    }
-  }
+    ]
 }

@@ -15,6 +15,7 @@ export default {
   routes: [
     { name: 'Рублёво-Успенское', id: 1178 },
     { name: 'Ильинское', id: 1192 },
+    { name: 'Сколское', id: 1181 },
   ],
   landing: {
     countryProperties: [],

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Filter, Breadcrumbs, Pagination } from '@components';
 import { media } from '@utils';
 import CardsGrid from './CardsGrid';
 import Toolbar from './Toolbar';
@@ -14,31 +13,30 @@ export default styled.main`
 
     grid-gap: 10px;
 
-    @media ${media.device.tabletLandscape} {
-        grid-template:
-        'header header header header'
-        'filter cards cards cards'
-        '. pagination pagination pagination' 200px / 
-        20% 1fr 1fr 1fr [end]
-        ;
-        width: auto;
-    }
+    ${media.mediaquery.tabletLandscape.at(
+        css => css`
+            grid-template:
+                'header header header header'
+                'filter cards cards cards'
+                '. pagination pagination pagination' 200px /
+                20% 1fr 1fr 1fr [end];
+            width: auto;
+        `
+    )}
 
-    ${Filter} {
+    .filter {
         padding-right: 24px;
-        
+
         position: fixed;
 
-        @media ${media.device.tabletLandscape} {
-            position: static;
-        }
+        ${media.mediaquery.tabletLandscape.at(
+            css => css`
+                position: static;
+            `
+        )}
     }
 
     margin: 0 auto;
-
-    ${Breadcrumbs} {
-        grid-area: nav;
-    }
 
     > header {
         grid-area: header;
@@ -72,12 +70,6 @@ export default styled.main`
         `}
     }
 
-    ${Pagination} {
-        grid-area: pagination;
-
-        align-self: center;
-    }
-
     .floating-controls {
         position: fixed;
         display: flex;
@@ -101,13 +93,16 @@ export default styled.main`
 
         transition: transform 225ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
 
-        &[data-hide="true"] {            
+        &[data-hide="true"] {
             transform: translateY(200%);
         }
 
-        @media ${media.device.tabletLandscape} {
-            display: none;
-        }
+        ${media.mediaquery.tabletLandscape.at(
+            css => css`
+                display: none;
+            `
+        )}
+
 
         .placemark-button{
             padding: 0.7em;
@@ -115,9 +110,11 @@ export default styled.main`
             flex: 0;
             margin-right: 8px;
 
-            @media ${media.device.tablet} {
-                display: none;
-            }
+            ${media.mediaquery.tablet.at(
+                css => css`
+                    display: none;
+                `
+            )}
         }
 
         .settings-button {

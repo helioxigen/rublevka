@@ -58,9 +58,11 @@ export default styled(Footer)`
 
     padding: 24px 15px 64px;
 
-    @media ${media.device.tabletLandscape} {
-        padding: 48px 0 64px;
-    }
+    ${media.mediaquery.tabletLandscape.at(
+        css => css`
+            padding: 48px 0 64px;
+        `
+    )}
 
     .container {
         max-width: 920px;
@@ -82,15 +84,19 @@ export default styled(Footer)`
 
         margin-bottom: 24px;
 
-        @media ${media.device.tablet} {
-            flex: 50%;
-        }
+        ${media.mediaquery.tablet.at(
+            css => css`
+                flex: 50%;
+            `
+        )}
 
-        @media ${media.device.tabletLandscape} {
-            flex: 25%;
+        ${media.mediaquery.tabletLandscape.at(
+            css => css`
+                flex: 25%;
 
-            margin-bottom: 32px;
-        }
+                margin-bottom: 32px;
+            `
+        )}
     }
 
     .logo-icon {
@@ -102,9 +108,11 @@ export default styled(Footer)`
 
         margin: 32px 0 0;
 
-        @media ${media.device.tablet} {
-            margin: 0;
-        }
+        ${media.mediaquery.tablet.at(
+            css => css`
+                margin: 0;
+            `
+        )}
     }
 
     .bottom {
@@ -114,12 +122,14 @@ export default styled(Footer)`
 
         margin-top: 24px;
 
-        @media ${media.device.tablet} {
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 32px;
-        }
+        ${media.mediaquery.tablet.at(
+            css => css`
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                margin-top: 32px;
+            `
+        )}
     }
 
     select {

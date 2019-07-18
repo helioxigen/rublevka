@@ -23,6 +23,7 @@ const Breadcrumbs = ({ className, dealType, second, last = false }) => (
 );
 
 export default styled(Breadcrumbs)`
+    grid-area: nav;
     margin: 28px 0 16px;
 
     ol {

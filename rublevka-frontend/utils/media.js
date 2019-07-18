@@ -14,10 +14,29 @@ const createMediaMax = maxWidth => (...args) =>
         }
     `;
 
-const createQue = (width, max) => `(${max ? 'max' : 'min'}-width: ${width - max}px)`;
+const createQue = (width, max) => `(${max ? 'max' : 'min'}-width: ${width - (max ? 1 : 0)}px)`;
 
 const createQuery = maxWidth => `@media (min-width: ${maxWidth}px)`;
 const createQueryMax = maxWidth => `@media (max-width: ${maxWidth - 1}px)`;
+
+const createMed = minWidth => cssFn =>
+    css`
+        @media screen and (min-width: ${minWidth}px) {
+            ${cssFn(css)};
+        }
+    `;
+
+const createMedMax = maxWidth => cssFn =>
+    css`
+        @media screen and (max-width: ${maxWidth - 1}px) {
+            ${cssFn(css)};
+        }
+    `;
+
+const createMQ = width => ({
+    at: createMed(width),
+    to: createMedMax(width),
+});
 
 export default {
     xs: createMedia(480),
@@ -73,6 +92,12 @@ export default {
         upToTablet: createQueryMax(768),
         upToMinDesktop: createQueryMax(992),
         upToDesktop: createQueryMax(1200),
+    },
+    mediaquery: {
+        phone: createMQ(480),
+        tablet: createMQ(768),
+        tabletLandscape: createMQ(992),
+        desktop: createMQ(1200),
     },
     touch: `@media (hover: none) and (pointer: coarse)`,
 };

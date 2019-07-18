@@ -126,9 +126,11 @@ export default styled(Filter)`
 
     padding: 15px;
 
-    @media ${media.device.tabletLandscape} {
-        padding: 0;
-    }
+    ${media.mediaquery.tabletLandscape.at(
+        css => css`
+            padding: 0;
+        `
+    )}
 
     ${Field}:not(:last-child) {
         margin-bottom: 40px;

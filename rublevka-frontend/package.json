@@ -21,6 +21,7 @@
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
         "react-input-mask": "^2.0.4",
+        "react-is": "^16.8.6",
         "react-redux": "^7.1.0",
         "react-scroll": "^1.7.12",
         "react-swipe": "5.1.1",
@@ -28,14 +29,14 @@
         "redux": "^4.0.4",
         "redux-thunk": "^2.3.0",
         "reselect": "^4.0.0",
-        "styled-components": "^4.3.2",
+        "styled-components": "^5.0.0-beta.8",
         "swipe-js-iso": "^2.1.5",
         "translitit-cyrillic-russian-to-latin": "^0.1.1"
     },
     "devDependencies": {
         "@svgr/webpack": "^4.3.2",
         "babel-eslint": "^10.0.2",
-        "babel-plugin-styled-components": "^1.10.4",
+        "babel-plugin-styled-components": "1.10.4",
         "eslint": "^6.0.1",
         "eslint-config-airbnb": "^17.1.1",
         "eslint-config-prettier": "^6.0.0",
@@ -65,5 +66,8 @@
             "prettier --write --config .prettierrc",
             "git add"
         ]
-    }
+    },
+    "moduleRoots": [
+        "custom-resolver.js"
+    ]
 }

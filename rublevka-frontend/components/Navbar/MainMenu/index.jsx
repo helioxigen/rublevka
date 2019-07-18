@@ -65,70 +65,74 @@ export default styled(MainMenu)`
         align-items: center;
     }
 
-    @media ${media.device.upTo.tabletLandscape} {
-        .close-button {
-            display: inline-block;
-            background: none;
-
-            padding: 0;
-
-            color: #bcbcbc;
-            font-size: 24px;
-            padding: 0 1em 0.5em 0;
-        }
-
-        .header-right {
-            flex-wrap: wrap;
-
-            .phone {
-                margin: 0;
-                height: auto;
-                flex: 1 100%;
-
-                font-size: 18px;
-                font-weight: bold;
-                margin: 0 0 16px;
-            }
-
-            .callback-button {
-                flex: 1;
-                margin-right: 12px;
-                border: 0;
-            }
-
-            .whatsapp-button {
-                font-size: 28px;
-            }
-        }
-
-        nav,
-        nav a {
-            display: block;
-            height: auto;
-        }
-
-        nav a {
-            letter-spacing: 0.5625px;
-            font-weight: bold;
-            padding: 12px 0;
-        }
-    }
-
     .menu-content {
         display: flex;
         justify-content: space-between;
         height: 100%;
     }
 
-    @media ${media.device.tabletLandscape} {
-        .menu-only {
-            display: none;
-        }
+    ${media.mediaquery.tabletLandscape.to(
+        css => css`
+            .close-button {
+                display: inline-block;
+                background: none;
 
-        nav a {
-            margin: 0 15px;
-        }
-    }
+                padding: 0;
+
+                color: #bcbcbc;
+                font-size: 24px;
+                padding: 0 1em 0.5em 0;
+            }
+
+            .header-right {
+                flex-wrap: wrap;
+
+                .phone {
+                    margin: 0;
+                    height: auto;
+                    flex: 1 100%;
+
+                    font-size: 18px;
+                    font-weight: bold;
+                    margin: 0 0 16px;
+                }
+
+                .callback-button {
+                    flex: 1;
+                    margin-right: 12px;
+                    border: 0;
+                }
+
+                .whatsapp-button {
+                    font-size: 28px;
+                }
+            }
+
+            nav,
+            nav a {
+                display: block;
+                height: auto;
+            }
+
+            nav a {
+                letter-spacing: 0.5625px;
+                font-weight: bold;
+                padding: 12px 0;
+            }
+        `
+    )}
+
+    ${media.mediaquery.tabletLandscape.at(
+        css => css`
+            .menu-only {
+                display: none;
+            }
+
+            nav a {
+                margin: 0 15px;
+            }
+        `
+    )}
 
     .counter {
         background: ${sc.theme.colors.red};

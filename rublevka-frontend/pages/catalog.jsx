@@ -32,7 +32,7 @@ const CatalogPage = ({ dealType, kind, list = [], page, totalPages, fetching }) 
                             <MapButton />
                         </Toolbar>
                     </header>
-                    <Filter onClose={toggleFilter} isOpen={isFilterOpen} dealType={dealType} />
+                    <Filter className="filter" onClose={toggleFilter} isOpen={isFilterOpen} dealType={dealType} />
                     <CardsGrid fetching={fetching}>
                         {list.map(data => (
                             <Card key={data.id} dealType={dealType} data={data} />

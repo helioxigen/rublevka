@@ -1,5 +1,14 @@
 export { Header, Button, Icon, Price, Switcher, Link, Input, TextArea } from './atoms';
-export { IconButton, CheckboxGroup, RadioGroup, Range, ProfileCard, CombinedSelect, FavoriteButton } from './molecules';
+export {
+    IconButton,
+    CheckboxGroup,
+    RadioGroup,
+    Range,
+    ProfileCard,
+    CombinedSelect,
+    FavoriteButton,
+    CompactForm,
+} from './molecules';
 export { ResetToolbar } from './organisms';
 export {
     PageContainer,
@@ -13,4 +22,5 @@ export {
     Content,
     SettlementsCallbackBlock,
     AdaptiveSidebar,
+    LandingLayout,
 } from './templates';

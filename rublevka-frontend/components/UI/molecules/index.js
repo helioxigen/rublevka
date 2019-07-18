@@ -5,3 +5,4 @@ export { default as CombinedSelect } from './CombinedSelect';
 export { default as Range } from './Range';
 export { default as ProfileCard } from './ProfileCard';
 export { default as FavoriteButton } from './FavoriteButton';
+export { default as CompactForm } from './CompactForm';

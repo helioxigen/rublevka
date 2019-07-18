@@ -6,80 +6,80 @@ import { Button } from '../atoms';
 import { media, sc } from '@utils';
 
 export default styled.main`
-    @media ${media.device.tablet} {
-        display: grid;
+    ${media.mediaquery.tablet.at(
+        css => css`
+            display: grid;
 
-        grid-template:
-            100vh repeat(2, 640px)
-            / [start] 20px [first] 40fr 60fr [last] 20px [end];
+            grid-template:
+                100vh repeat(2, 640px)
+                / [start] 20px [first] 40fr 60fr [last] 20px [end];
 
-        grid-gap: 30px;
-    }
+            grid-gap: 30px;
+
+            .object-block {
+                display: none;
+            }
+
+            .call-block {
+                padding: 0 114px;
+                grid-column: first / span last;
+                color: ${sc.theme.colors.black};
+                background: linear-gradient(115.53deg, #eeeeee 0%, rgba(238, 238, 238, 0.25) 100%);
+            }
+
+            .sell-block {
+                padding: 0 42px;
+                text-align: center;
+
+                grid-row: 3;
+                grid-column: 3;
+            }
+        `
+    )}
 
     ${Hero} {
         grid-column: 1 / span end;
     }
 
-    @media ${media.device.tablet} {
-        .object-block {
-            display: none;
-        }
-    }
-
-    @media ${media.device.upTo.tablet} {
-        .call-block {
-            background: url('/static/landing/call.background.jpg') center / cover no-repeat;
-            color: white;
-        }
-
-        .sell-block {
-            h3 {
-                text-align: left;
+    ${media.mediaquery.tablet.to(
+        css => css`
+            .call-block {
+                background: url('/static/landing/call.background.jpg') center / cover no-repeat;
+                color: white;
             }
-            text-align: left;
-            ${Button} {
-                font-weight: 600;
-                line-height: initial;
-                padding: 0;
-                &,
-                &:hover,
-                &:active {
-                    background: none;
+
+            .sell-block {
+                h3 {
+                    text-align: left;
                 }
+                text-align: left;
+                ${Button} {
+                    font-weight: 600;
+                    line-height: initial;
+                    padding: 0;
+                    &,
+                    &:hover,
+                    &:active {
+                        background: none;
+                    }
 
-                color: ${sc.theme.colors.red};
+                    color: ${sc.theme.colors.red};
+                }
             }
-        }
-    }
 
-    @media ${media.device.tablet} {
-        .call-block {
-            padding: 0 114px;
-            grid-column: first / span last;
-            color: ${sc.theme.colors.black};
-            background: linear-gradient(115.53deg, #eeeeee 0%, rgba(238, 238, 238, 0.25) 100%);
-        }
+            figure {
+                height: 260px;
 
-        .sell-block {
-            padding: 0 42px;
-            text-align: center;
-
-            grid-row: 3;
-            grid-column: 3;
-        }
-    }
+                img {
+                    object-position: auto 60%;
+                }
+            }
+        `
+    )}
 
     figure {
         grid-row: 3;
         grid-column: first;
-
-        @media ${media.device.upTo.tablet} {
-            height: 260px;
-
-            img {
-                object-position: auto 60%;
-            }
-        }
 
         margin: 0;
         img {

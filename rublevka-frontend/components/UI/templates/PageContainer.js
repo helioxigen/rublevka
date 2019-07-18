@@ -10,15 +10,19 @@ export default styled.div`
 
     padding-top: 48px;
 
-    @media ${media.device.tabletLandscape} {
-        padding-top: 60px;
-    }
+    ${media.mediaquery.tabletLandscape.at(
+        css => css`
+            padding-top: 60px;
+        `
+    )}
 
     ${Breadcrumbs} {
         display: none;
-        @media ${media.device.tablet} {
-            display: block;
-        }
+        ${media.mediaquery.tablet.at(
+            css => css`
+                display: block;
+            `
+        )}
     }
 
     margin-bottom: 48px;

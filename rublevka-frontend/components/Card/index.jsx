@@ -131,25 +131,25 @@ export default styled(Card)`
         display: none;
     }
 
-    @media ${media.device.desktop} {
-        ${Shortcuts} {
-            display: flex;
-        }
+    ${media.mediaquery.desktop.at(
+        css => css`
+            ${Shortcuts} {
+                display: flex;
+            }
 
-        ${Gallery} {
-            display: none;
-        }
-    }
+            ${Gallery} {
+                display: none;
+            }
 
-    ${media.lg`
-        ${FavoriteButton}:not([data-active="true"]) {
-            opacity: 0;
-            transition: 0.3s;
-        }
-        &:hover ${FavoriteButton} {
-            opacity: 1;
-        }
-    `}
+            ${FavoriteButton}:not([data-active="true"]) {
+                opacity: 0;
+                transition: 0.3s;
+            }
+            &:hover ${FavoriteButton} {
+                opacity: 1;
+            }
+        `
+    )}
 
     h3 {
         margin-bottom: 5px;

@@ -1,14 +1,4 @@
 {
     "presets": ["next/babel"],
-    "env": {
-        "production": {}
-    },
-    "plugins": [
-        [
-            "styled-components",
-            {
-                "ssr": true
-            }
-        ]
-    ]
+    "plugins": [["styled-components", { "ssr": true }]]
 }

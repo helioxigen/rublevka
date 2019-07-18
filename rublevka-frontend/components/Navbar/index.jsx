@@ -72,9 +72,11 @@ export default styled(Navbar)`
             margin: 0 0 0 25px;
         }
 
-        @media ${media.device.tabletLandscape} {
-            font-size: 24px;
-        }
+        ${media.mediaquery.tabletLandscape.at(
+            css => css`
+                font-size: 24px;
+            `
+        )}
     }
 
     .page-title {
@@ -99,36 +101,42 @@ export default styled(Navbar)`
 
     position: absolute;
 
-    @media ${media.device.tabletLandscape} {
-        height: 60px;
-        position: fixed;
-        font-size: 15px;
+    ${media.mediaquery.tabletLandscape.at(
+        css => css`
+            height: 60px;
+            position: fixed;
+            font-size: 15px;
 
-        .menu-button,
-        .page-title {
-            display: none;
-        }
-    }
+            .menu-button,
+            .page-title {
+                display: none;
+            }
+        `
+    )}
 
     .logo-icon {
         display: none;
     }
 
-    @media ${media.device.desktop} {
-        ${MainMenu} {
-            margin-left: 35px;
-        }
-    }
+    ${media.mediaquery.desktop.at(
+        css => css`
+            ${MainMenu} {
+                margin-left: 35px;
+            }
+        `
+    )}
 
-    @media ${media.device.tablet} {
-        .go-back {
-            display: none;
-        }
-
-        .logo-icon {
-            display: block;
-        }
-    }
+    ${media.mediaquery.tablet.at(
+        css => css`
+            .go-back,
+            .page-title {
+                display: none;
+            }
+            .logo-icon {
+                display: block;
+            }
+        `
+    )}
 
     &[data-islanding='true'] {
         background: none;
@@ -143,34 +151,27 @@ export default styled(Navbar)`
             display: block;
         }
 
-        @media ${media.device.tabletLandscape} {
-            &[data-inverted='false'] {
-                color: ${sc.theme.colors.black};
-                background: white;
-                box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
-            }
-        }
-    }
-
-    &[data-islanding='true'][data-inverted='true'] {
-        @media ${media.device.tabletLandscape} {
-            .callback-button {
-                border: 2px solid white;
-                background: none;
-
-                &:hover,
-                &:active {
+        ${media.mediaquery.tabletLandscape.at(
+            css => css`
+                &[data-inverted='false'] {
+                    color: ${sc.theme.colors.black};
                     background: white;
-                    color: black;
+                    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
                 }
-            }
-        }
-    }
+                &[data-inverted='true'] {
+                    .callback-button {
+                        border: 2px solid white;
+                        background: none;
 
-    @media ${media.device.tablet} {
-        .page-title {
-            display: none;
-        }
+                        &:hover,
+                        &:active {
+                            background: white;
+                            color: black;
+                        }
+                    }
+                }
+            `
+        )}
     }
 
     a {
@@ -194,9 +195,11 @@ export default styled(Navbar)`
         justify-content: space-between;
         height: 100%;
 
-        @media ${media.device.desktop} {
-            justify-content: initial;
-        }
+        ${media.mediaquery.desktop.at(
+            css => css`
+                justify-content: initial;
+            `
+        )}
     }
 
     transition: color 225ms;
@@ -219,18 +222,22 @@ export default styled(Navbar)`
     a[data-active='true'] {
         color: ${sc.theme.colors.red};
 
-        @media ${media.device.tabletLandscape} {
-            border-bottom: 2px solid ${sc.theme.colors.red};
-        }
+        ${media.mediaquery.tabletLandscape.at(
+            css => css`
+                border-bottom: 2px solid ${sc.theme.colors.red};
+            `
+        )}
     }
 
     .callback-button {
         border: 2px solid transparent;
 
-        @media ${media.device.tabletLandscape} {
-            line-height: 43px;
-            margin: 0 24px 0 16px;
-        }
+        ${media.mediaquery.tabletLandscape.at(
+            css => css`
+                line-height: 43px;
+                margin: 0 24px 0 16px;
+            `
+        )}
     }
 
     .favorites {

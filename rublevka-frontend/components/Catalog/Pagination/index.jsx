@@ -42,6 +42,10 @@ export default styled(Pagination)`
     flex-direction: column;
     align-items: center;
 
+    grid-area: pagination;
+
+    align-self: center;
+
     .eclipse {
         width: 2.5em;
         text-align: center;

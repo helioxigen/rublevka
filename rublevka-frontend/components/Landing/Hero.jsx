@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Header } from '../UI';
+import { Header } from '@components/UI';
 import { app, media } from '../../utils';
 import Tabs from './Tabs';
 import { SearchForm } from '../Forms';
@@ -8,7 +8,7 @@ import { SearchForm } from '../Forms';
 
 const LandingHero = ({ className }) => (
     <section className={className}>
-        <Header.Landing>
+        <Header.Landing className="landing-header">
             Начните поиск лучших
             <br />
             домов на {app.ifDomain('Рублёвке', 'Новой Риге')}
@@ -33,7 +33,7 @@ export default styled(LandingHero)`
 
     background: url('/static/landing/background.jpg') center / cover no-repeat;
 
-    ${Header.Landing} {
+    .landing-header {
         grid-row: 2;
         grid-column: 2 / span 2;
 

@@ -1,15 +1,11 @@
 import React from 'react';
-import { LandingLayout } from '../components/UI/templates';
-import Hero from '../components/Landing/Hero';
-import Block from '../components/Landing/Block';
-import { Button } from '../components/UI/atoms';
-import Location from '@components/Landing/Location';
-import CompactForm from '@components/UI/molecules/CompactForm';
+import { Hero, Block, Location } from '@components/Landing';
+import { Button, CompactForm, LandingLayout } from '@components/UI';
 import { page } from '@utils';
 
 export default () => (
     <LandingLayout>
-        <Hero />
+        <Hero className="landing" />
         <Block
             className="object-block"
             title="Знаете номер объекта?"

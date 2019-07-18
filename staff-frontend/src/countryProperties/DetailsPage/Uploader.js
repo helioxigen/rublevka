@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import uploadcare from 'uploadcare-widget';
 
-const minDimensions = height => (fileInfo) => {
+const minDimensions = width => (fileInfo) => {
   const imageInfo = fileInfo.originalImageInfo;
 
-  if (!!imageInfo && imageInfo.height < height) {
-    throw new Error(`min_height_${height}`);
+  if (!!imageInfo && imageInfo.width < width) {
+    throw new Error(`min_height_${width}`);
   }
 };
 
 class Uploader extends Component {
   static defaultProps = {
     disabled: false,
-    minHeight: 1920,
+    minWidth: 1440,
     settings: {},
   };
 
@@ -22,12 +22,12 @@ class Uploader extends Component {
       value,
       onChange,
       onUploadComplete,
-      minHeight,
+      minWidth,
       keepValue,
       multiple,
     } = this.props;
 
-    widget.validators.push(minDimensions(minHeight));
+    widget.validators.push(minDimensions(minWidth));
 
     if (typeof value !== 'undefined') {
       widget.value(value);

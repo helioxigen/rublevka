@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Hero from '../../Landing/Hero';
 import Location from '../../Landing/Location';
 
 import { Button } from '../atoms';
@@ -37,7 +36,7 @@ export default styled.main`
         `
     )}
 
-    ${Hero} {
+    .landing-hero {
         grid-column: 1 / span end;
     }
 

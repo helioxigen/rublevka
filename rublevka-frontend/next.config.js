@@ -21,13 +21,18 @@ module.exports = {
             ],
         });
 
-        const jsconfigPaths = require('./jsconfig.json').compilerOptions.paths;
+        const alias = {
+            '@utils': './utils',
+            '@hooks': './utils/hooks',
+            '@config': './config',
+            '@components': './components',
+            '@api': './api',
+            '@store': './store',
+        };
 
-        Object.keys(jsconfigPaths)
-            .filter(k => k.search('/*') !== -1)
-            .forEach(key => {
-                config.resolve.alias[key] = path.resolve(__dirname, jsconfigPaths[key][0]);
-            });
+        Object.keys(alias).forEach(key => {
+            config.resolve.alias[key] = path.resolve(__dirname, alias[key]);
+        });
 
         return config;
     },

@@ -28,7 +28,7 @@ const Card = ({
             <article className={className}>
                 <header>
                     <span className="card-id">№{id}</span>
-                    <FavoriteButton id={id} dealType={dealType} />
+                    <FavoriteButton className="favorite-button" id={id} dealType={dealType} />
 
                     {images.length > 0 && <Shortcuts images={images} />}
                     {images.length > 0 && <Gallery images={images} />}
@@ -77,13 +77,13 @@ export default styled(Card)`
         text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.35);
     }
 
-    ${FavoriteButton} {
+    .favorite-button {
         top: 0;
         right: 0;
     }
 
     .card-id,
-    ${FavoriteButton} {
+    .favorite-button {
         position: absolute;
         z-index: 4;
     }
@@ -141,11 +141,11 @@ export default styled(Card)`
                 display: none;
             }
 
-            ${FavoriteButton}:not([data-active="true"]) {
+            .favorite-button:not([data-active='true']) {
                 opacity: 0;
                 transition: 0.3s;
             }
-            &:hover ${FavoriteButton} {
+            &:hover .favorite-button {
                 opacity: 1;
             }
         `

@@ -16,6 +16,7 @@ const Sort = ({ className }) => {
         <div className={className}>
             <span className="sort-label">{total.toLocaleString('ru')} объектов отсортированы </span>
             <CombinedSelect
+                className="select"
                 options={[
                     ['', 'По умолчанию'],
                     ['price.asc', 'По возрастанию цены'],
@@ -44,7 +45,7 @@ export default styled(Sort)`
         flex: 0 1 auto;
     }
 
-    ${CombinedSelect} {
+    .select {
         flex: 1 0 auto;
         margin-left: 5px;
         .select-display {

@@ -1,11 +1,12 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
 import React from 'react';
+import dynamic from 'next/dynamic';
 import styled, { css } from 'styled-components';
 import { sc } from '@utils';
 
 const Icon = ({ className, name, copy }) => {
-    const IconSVG = require(`./assets/${name}.svg`).default;
+    const IconSVG = dynamic(() => import(`./assets/${name}.svg`));
 
     return (
         <span data-icon={name} className={className}>

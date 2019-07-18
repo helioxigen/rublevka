@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import range from 'lodash/range';
-import { Button, Icon } from '@components/UI';
+import { Button, Icon } from '@components/UI/atoms';
 import PageLink from './PageLink';
 
 const Pagination = ({ className, count, currentPage }) => {
@@ -21,7 +21,9 @@ const Pagination = ({ className, count, currentPage }) => {
 
     return (
         <div className={className}>
-            <Button red>Загрузить ещё</Button>
+            <Button className="load-more" red>
+                Загрузить ещё
+            </Button>
             <div className="pages">
                 <Icon name="arrow" mirror />
                 <PageLink page={1} current={currentPage === 1} />

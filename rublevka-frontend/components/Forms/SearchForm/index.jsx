@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import fromPairs from 'lodash/fromPairs';
 
-import { Icon } from '@components/UI';
+// import { Icon, IconButton } from '@components/UI';
+import { IconButton } from '@components/UI/molecules';
 import Dropdown from './Dropdown';
-import { IconButton } from '../../UI/molecules';
 import { media, filter, page, dict } from '../../../utils';
 import formConfig from './formConfig';
 import TextInput from './TextInput';
@@ -201,7 +201,7 @@ export default styled(SearchForm)`
         `}
         
 
-        ${Icon} {
+        [data-icon] {
             width: 28px;
             height: 28px;
             margin-right: 0.2em;
@@ -214,7 +214,7 @@ export default styled(SearchForm)`
             margin: 16px 0 0;
             border-radius: 8px;
             line-height: 56px;
-            ${Icon} {
+            [data-icon] {
                 display: none;
             }
         `}

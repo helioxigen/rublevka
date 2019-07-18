@@ -1,12 +1,136 @@
 import React from 'react';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import Head from 'next/head';
-import { Header, PageContainer, CatalogLayout, CardsGrid, Toolbar, Content, IconButton } from '@components/UI';
+import { Header, PageContainer, CardsGrid, Toolbar, Content, IconButton, Icon } from '@components/UI';
 import { Sort, Pagination, MapButton } from '@components/Catalog';
 import { Card, Breadcrumbs, Filter } from '@components';
 import { fetchProperties, changeOrderBy } from '@store';
-import { dict, app, query, page as pageUtils, filter as filterUtils } from '@utils';
+import { dict, app, query, page as pageUtils, filter as filterUtils, media } from '@utils';
 import { usePageTitle, useToggle } from '@hooks';
+
+const CatalogLayout = styled.main`
+display: grid;
+    grid-template:
+        'header'
+        'cards'
+        'pagination' 200px;
+
+    grid-gap: 10px;
+
+    ${media.mediaquery.tabletLandscape.at(
+        css => css`
+            grid-template:
+                'header header header header'
+                'filter cards cards cards'
+                '. pagination pagination pagination' 200px /
+                20% 1fr 1fr 1fr [end];
+            width: auto;
+        `
+    )}
+
+    .filter {
+        padding-right: 24px;
+
+        position: fixed;
+
+        ${media.mediaquery.tabletLandscape.at(
+            css => css`
+                position: static;
+            `
+        )}
+    }
+
+    margin: 0 auto;
+
+    > header {
+        grid-area: header;
+
+        ${media.desktop`
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+
+            margin-bottom: 32px;
+        `}
+
+        ${media.upToTablet`
+            h1 {
+                display: none;
+            }
+        `}
+
+        ${media.upToDesktop`
+            h1, ${Toolbar} {
+                margin-bottom: 1em;
+            }
+        `}
+    }
+
+    ${CardsGrid} {
+        grid-area: cards;
+
+        ${media.minDesktop`
+            grid-column: 2 / span end;
+        `}
+    }
+
+    .floating-controls {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        left: 0;
+        right: 0;
+        bottom: 32px;
+
+        z-index: 1250;
+
+        @keyframes appear{
+            from {
+                transform: translateY(200%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        animation: appear 225ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+
+        transition: transform 225ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+
+        &[data-hide="true"] {
+            transform: translateY(200%);
+        }
+
+        ${media.mediaquery.tabletLandscape.at(
+            css => css`
+                display: none;
+            `
+        )}
+
+
+        .placemark-button{
+            padding: 0.7em;
+            font-size: 20px;
+            flex: 0;
+            margin-right: 8px;
+
+            ${media.mediaquery.tablet.at(
+                css => css`
+                    display: none;
+                `
+            )}
+        }
+
+        .settings-button {
+            line-height: 2.85;
+            ${Icon} {
+                font-size: 14px;
+            }
+            text-transform: initial;
+        }
+    }
+`;
 
 const CatalogPage = ({ dealType, kind, list = [], page, totalPages, fetching }) => {
     usePageTitle(dict.translateDealType(dealType).noun);

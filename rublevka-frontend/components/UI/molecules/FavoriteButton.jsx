@@ -1,7 +1,7 @@
-import React, { useMemo, useState, useRef } from 'react';
+import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { Icon } from '@components/UI';
+import { Icon } from '@components/UI/atoms';
 import { toggleFavorite } from '@store/user/actions';
 import { sc } from '@utils';
 
@@ -14,7 +14,6 @@ const FavoriteButton = ({ className, id, dealType, children }) => {
     ]);
     const dispatch = useDispatch();
 
-    const prevFav = useRef(null);
     const [play, changePlay] = useState(false);
 
     const handleFavoriteToggle = e => {

@@ -40,7 +40,7 @@ export default styled(Breadcrumb)`
         color: ${sc.theme.colors.black};
     }
 
-    ${Icon} {
+    [data-icon] {
         width: 6px;
         height: 15px;
         margin: 0 7px 0 10px;
@@ -48,7 +48,7 @@ export default styled(Breadcrumb)`
         display: none;
     }
 
-    &:not(:last-child) ${Icon} {
+    &:not(:last-child) [data-icon] {
         display: inline-block;
     }
 `;

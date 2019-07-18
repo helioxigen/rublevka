@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Header } from '@components/UI';
 import { app, media } from '../../utils';
 import Tabs from './Tabs';
 import { SearchForm } from '../Forms';
@@ -8,11 +7,11 @@ import { SearchForm } from '../Forms';
 
 const LandingHero = ({ className }) => (
     <section className={className}>
-        <Header.Landing className="landing-header">
+        <h2 className="landing-header">
             Начните поиск лучших
             <br />
             домов на {app.ifDomain('Рублёвке', 'Новой Риге')}
-        </Header.Landing>
+        </h2>
         <Tabs
             tabs={{
                 objectNumber: 'Номер объекта',
@@ -34,6 +33,26 @@ export default styled(LandingHero)`
     background: url('/static/landing/background.jpg') center / cover no-repeat;
 
     .landing-header {
+        margin: 0;
+        line-height: 36px;
+        font-size: 24px;
+        color: #fff;
+        font-weight: bold;
+
+        ${media.xs`
+            margin: 0;
+            line-height: 48px;
+            font-size: 40px;
+            color: #fff;
+            text-shadow: 0px 0px 25px rgba(0, 0, 0, 0.35);
+        `}
+
+        ${media.md`
+            line-height: 58px;
+            font-size: 48px;
+            text-shadow: 0px 0px 35px rgba(0, 0, 0, 0.35);
+        `}
+
         grid-row: 2;
         grid-column: 2 / span 2;
 

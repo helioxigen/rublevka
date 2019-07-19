@@ -5,7 +5,7 @@ const getImageLink = (id, postfix = app.getConfig().imagePostfix, size = 1024) =
 
 export default {
     get: {
-        thumbnail: id => getImageLink(id, 'thumbnail', 512),
+        thumbnail: (id, size = 512) => getImageLink(id, 'thumbnail', size),
         full: id => getImageLink(id),
     },
 };

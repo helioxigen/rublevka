@@ -8,8 +8,6 @@ const Tabs = ({ className, tabs, children }) => {
     const tabsContainer = useRef(null);
 
     const handleTabChange = name => () => {
-        // const { offsetLeft, offsetWidth } = e.target;
-
         const { offsetLeft, offsetWidth } = tabsContainer.current.querySelector(`[data-name=${selectedTab}`);
 
         const underline = document.createElement('span');
@@ -30,9 +28,9 @@ const Tabs = ({ className, tabs, children }) => {
         const underline = tabsContainer.current.querySelector(`.underline`);
         if (!underline) return;
 
-        const nextTarget = tabsContainer.current.querySelector(`[data-name=${selectedTab}`);
-        underline.style.width = `${nextTarget.offsetWidth}px`;
-        underline.style.left = `${nextTarget.offsetLeft}px`;
+        const { offsetWidth, offsetLeft } = tabsContainer.current.querySelector(`[data-name=${selectedTab}`);
+        underline.style.width = `${offsetWidth}px`;
+        underline.style.left = `${offsetLeft}px`;
     }, [selectedTab]);
 
     return (
@@ -59,7 +57,7 @@ export default styled(Tabs)`
     .underline {
         position: absolute;
         height: 2px;
-        transition: transform 225ms ease;
+        transition: left 225ms ease;
         bottom: 0;
         background: ${sc.theme.colors.red};
 

@@ -11,6 +11,9 @@ export default styled.button`
     padding-top: 3px;
     border-radius: 8px;
 
+    min-width: 56px;
+    box-sizing: border-box;
+
     ${media.phone`
         border-radius: 6px;
     `}

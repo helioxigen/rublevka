@@ -19,8 +19,13 @@ export default styled.main`
 
     > article {
         flex: 1 0 auto;
-        width: 740px;
         padding: 24px 20px;
+
+        ${media.mediaquery.tablet.at(
+            css => css`
+                width: 740px;
+            `
+        )}
 
         ${Header.Item} {
             margin-bottom: 20px;
@@ -45,7 +50,7 @@ export default styled.main`
         display: none;
         margin-left: 20px;
 
-        ${media.lg`
+        ${media.tablet`
             display: block;
         `}
 

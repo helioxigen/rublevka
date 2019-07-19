@@ -31,18 +31,21 @@ export default styled(CompactForm)`
         border: 1px solid #d9d9d9;
         border-radius: 8px;
         box-sizing: border-box;
+        transition: border-color 225ms;
     }
 
     ${Button} {
-        border-left: none;
+        border-left: 0;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
+
+        margin: 0;
 
         flex: 0 120px;
     }
 
     ${Input} {
-        border-right: none;
+        border-right: 0;
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
 
@@ -52,7 +55,7 @@ export default styled(CompactForm)`
 
         &:focus,
         &:focus + ${Button} {
-            border: 1px solid #f44336;
+            border-color: #f44336;
         }
     }
 `;

@@ -25,7 +25,11 @@ const Gallery = ({ className, images }) => {
                 {images.map(({ id }, idx) => (
                     <a key={id} role="button" tabIndex={0}>
                         {(idx <= currentIdx + 6 || fullyLoaded) && (
-                            <img data-id={id} alt={id} src={cdn.get.thumbnail(id, 512)} />
+                            <img
+                                data-id={id}
+                                alt={id}
+                                src={idx <= currentIdx + 1 ? cdn.get.thumbnail(id, 512) : cdn.get.thumbnail(id, 128)}
+                            />
                         )}
                     </a>
                 ))}

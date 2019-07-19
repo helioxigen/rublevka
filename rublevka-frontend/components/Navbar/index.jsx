@@ -69,7 +69,7 @@ export default styled(Navbar)`
         display: flex;
 
         .menu-button {
-            margin: 0 0 0 25px;
+            margin: 0 0 0 14px;
         }
 
         ${media.mediaquery.tabletLandscape.at(
@@ -106,6 +106,7 @@ export default styled(Navbar)`
             height: 60px;
             position: fixed;
             font-size: 15px;
+            padding: 0;
 
             .menu-button,
             .page-title {
@@ -139,8 +140,8 @@ export default styled(Navbar)`
     )}
 
     &[data-islanding='true'] {
-        background: none;
-        box-shadow: initial;
+        background-color: transparent;
+        box-shadow: none;
         color: white;
 
         .go-back {

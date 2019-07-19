@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { cdn } from '@utils';
 import Slice from './Slice';
@@ -10,7 +10,7 @@ const Shortcuts = ({ className, images }) => {
                 images.slice(0, 6).map((el, index) => (
                     <React.Fragment key={images[index].id}>
                         <Slice />
-                        <img alt={images[index].id} src={cdn.get.thumbnail(images[index].id)} />
+                        <img alt={images[index].id} src={cdn.get.thumbnail(images[index].id, 512)} />
                     </React.Fragment>
                 ))}
         </figure>
@@ -37,6 +37,27 @@ export default styled(Shortcuts)`
 
         &:last-of-type {
             padding-right: 10px;
+        }
+
+        & + img {
+            z-index: 1;
+            opacity: 0;
+            position: absolute;
+
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+
+            object-fit: cover;
+
+            width: 100%;
+            height: 100%;
+            transition: 0.1s;
+        }
+
+        &:hover + img {
+            opacity: 1;
         }
     }
 

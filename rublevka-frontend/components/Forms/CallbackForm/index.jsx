@@ -163,10 +163,15 @@ export default styled(CallbackForm)`
     ${Button} {
         font-size: 15px;
         font-weight: bold;
-        padding: 17px 23px;
+        padding: 0 23px;
         margin-top: 12px;
+        width: 100%;
         ${media.xs`
             margin-top: 8px;
         `}
+    }
+
+    &[data-compact='true'] ${Button} {
+        width: auto;
     }
 `;

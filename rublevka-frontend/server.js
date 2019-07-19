@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express');
 const next = require('next');
 
@@ -11,6 +12,10 @@ app.prepare().then(() => {
 
     server.get('/', (req, res) => {
         return app.render(req, res, '/index', req.query);
+    });
+
+    server.get('/contacts', (req, res) => {
+        return app.render(req, res, '/contacts', req.query);
     });
 
     server.get('/zagorodnaya/:dealType/map', (req, res) => {

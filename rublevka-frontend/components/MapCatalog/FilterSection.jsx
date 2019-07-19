@@ -1,152 +1,132 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
-import { Icon, Switcher } from '@components/UI';
-import { page, sc } from '@utils';
+import { Switcher, IconButton } from '@components/UI';
+import { page, sc, media, format } from '@utils';
 import { Filter } from '@components';
+import BackButton from './BackButton';
+import { useToggle } from '@hooks';
 
-const FilterBlock = ({ className }) => {
+const FilterBlock = ({ className, itemsCount, settlementName, onResetItems }) => {
     const {
         query: { dealType },
     } = useRouter();
 
+    const [isFilterOpen, toggleFilter] = useToggle(false);
+
+    const emptyFocus = !itemsCount;
+
     return (
-        <section className={className}>
-            <button type="button" className="back-button" onClick={() => page.goTo.catalog()}>
-                <Icon copy name="arrow-squared" />
-                <Icon name="arrow-squared" />
-                Вернуться к выдаче
-            </button>
-            <Switcher
-                items={[['Продажа', 'prodaja'], ['Аренда', 'arenda']]}
-                value={dealType}
-                onChange={value => page.pushQuery({ dealType: value })}
-            />
-            <Filter dealType={dealType} />
+        <section className={className} data-filter={isFilterOpen}>
+            <header>
+                <BackButton onClick={emptyFocus ? () => page.goTo.catalog() : onResetItems}>
+                    <span className="cards-label" data-cards={!emptyFocus}>
+                        {format.titleByNumber(itemsCount, ['объект', 'объекта', 'объектов'])} в посёлке {settlementName}
+                    </span>
+                    <span className="catalog-label">Вернуться к выдаче</span>
+                </BackButton>
+                {emptyFocus && <IconButton secondary icon="settings" onClick={toggleFilter} />}
+            </header>
+            <Filter isOpen={isFilterOpen} onClose={toggleFilter} dealType={dealType}>
+                <Switcher
+                    items={[['Продажа', 'prodaja'], ['Аренда', 'arenda']]}
+                    value={dealType}
+                    onChange={value => page.pushQuery({ dealType: value })}
+                />
+            </Filter>
         </section>
     );
 };
 
 export default styled(FilterBlock)`
-    background: #ffffff;
-    box-shadow: 1px 0px 8px rgba(0, 0, 0, 0.15);
     z-index: 250;
-    width: 295px;
+    width: 100%;
 
-    .back-button {
-        background: none;
-        border: none;
-        outline: none;
-        width: 100%;
-        cursor: pointer;
-
-        font-size: 16px;
-        border-bottom: 1px solid #d9d9d9;
-
-        transition: 0.3s;
-
-        height: 64px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-
-        ${Icon} {
-            position: absolute;
-            left: 10%;
-            transition: 0.3s;
-
-            font-size: 14px;
-
-            width: 1em;
-            height: 1em;
-
-            background: ${sc.theme.colors.lightGrey};
-            border-radius: 50%;
-            padding: 7px 4px 7px 10px;
-
-            &:nth-child(2) {
-                padding: 7px 8px 7px 6px;
-            }
-
-            svg:nth-child(2) {
-                transform: rotate(180deg) translate(0.4em, 1em);
-            }
-        }
-
-        &:hover {
-            [data-icon='arrow-squared']:nth-child(2) {
-                transform: scale(0);
-            }
-        }
-
-        .icon {
-            position: relative;
-
-            font-size: 28px;
-
-            width: 1em;
-            height: 1em;
-
-            background: ${sc.theme.colors.lightGrey};
-            border-radius: 50%;
-            /* padding: 8px 9px 8px 7px; */
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            span {
-                position: absolute;
-
-                display: flex;
-
-                /* transform: rotate(45deg); */
-
-                left: 7px;
-                top: 4px;
-
-                width: 12px;
-                height: 12px;
-
-                &::before,
-                &::after {
-                    content: '';
-                    display: inline-block;
-                    height: 100%;
-                    width: 15%;
-                    background-color: black;
-                    border-radius: 1px;
-                    position: relative;
-                    transition: 300ms ease-in-out transform;
-                }
-
-                &::before {
-                    /* transform: rotate(45deg) translate(-1.2em, -20%); */
-                    /* left: 18px;
-                    top: -4px; */
-                }
-
-                &::after {
-                    /* transform: rotate(90deg) translate(283%,-26%); */
-                    /* left: 40px;
-                    top: -4px; */
-                }
-            }
-        }
-
-        &:hover {
-            color: white;
-            background: ${sc.theme.colors.red};
-        }
+    > header {
+        ${media.mediaquery.tabletLandscape.at(
+            css => css`
+                border-bottom: 1px solid #d9d9d9;
+            `
+        )}
     }
 
-    /* > *:not(.back-button) {
-        margin: 0 30px;
-    } */
+    .cards-label {
+        display: none;
+    }
 
-    ${Switcher}, ${Filter} {
-        margin: 24px 30px;
+    .catalog-label {
+        display: block;
+    }
+
+    ${media.mediaquery.tabletLandscape.to(
+        css => css`
+            ${BackButton} {
+                flex: 1;
+                padding-left: 15px;
+                justify-content: flex-start;
+            }
+
+            > header {
+                display: flex;
+                background: white;
+                position: fixed;
+                width: 100%;
+                height: 48px;
+                box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+                transition: transform 225ms;
+            }
+
+            &[data-filter='true'] > header {
+                transform: translateY(-100%);
+            }
+
+            .cards-label[data-cards='true'] {
+                display: block;
+
+                & + .catalog-label {
+                    display: none;
+                }
+            }
+        `
+    )}
+
+    .settings-button {
+        width: 48px;
+        font-size: 16px;
+        color: ${sc.theme.colors.red};
+        padding-right: 15px;
+    }
+
+    ${media.mediaquery.tabletLandscape.at(
+        css => css`
+            background: #ffffff;
+
+            width: 295px;
+            box-shadow: 1px 0px 8px rgba(0, 0, 0, 0.15);
+            height: 100%;
+
+            > header {
+                border-bottom: 1px solid #d9d9d9;
+            }
+
+            ${BackButton} {
+                height: 64px;
+            }
+
+            ${Filter} {
+                padding: 24px 30px;
+            }
+
+            .settings-button {
+                display: none;
+            }
+        `
+    )}
+
+    ${Filter} {
+        ${Switcher} {
+            margin-bottom: 24px;
+        }
     }
 
     overflow-y: scroll;

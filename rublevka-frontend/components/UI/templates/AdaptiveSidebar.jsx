@@ -46,13 +46,22 @@ const AdaptiveSidebar = styled.div`
 `;
 
 const handleClickAway = cb => e => {
-    if (e.target.className !== 'menu-content') {
+    if (e.target.dataset.clicks) {
         cb();
+
+        // document.createElement('div');
     }
 };
 
 export default ({ className, children, isOpen, onClose, left, as }) => (
-    <AdaptiveSidebar as={as} className={className} data-open={isOpen} onClick={handleClickAway(onClose)} left={left}>
+    <AdaptiveSidebar
+        as={as}
+        className={className}
+        data-open={isOpen}
+        data-clicks
+        onClick={handleClickAway(onClose)}
+        left={left}
+    >
         <div className="menu-content">{children}</div>
     </AdaptiveSidebar>
 );

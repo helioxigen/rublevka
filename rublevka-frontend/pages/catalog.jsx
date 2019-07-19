@@ -186,6 +186,7 @@ export default styled(ConnectedCatalogPage)`
         .placemark-button{
             padding: 0.7em;
             font-size: 20px;
+            min-width: 48px;
             flex: 0;
             margin-right: 8px;
 

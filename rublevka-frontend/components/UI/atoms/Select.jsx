@@ -16,7 +16,6 @@ const Select = ({ className, options = [], placeholder, value = '', onChange }) 
 );
 
 export default styled(Select)`
-    padding: 20px 15px;
     width: 50%;
     font-size: 13px;
     color: #636363;

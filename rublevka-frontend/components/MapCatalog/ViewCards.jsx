@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { Icon } from '@components/UI';
-import { format, sc } from '@utils';
+import { format, sc, media } from '@utils';
 import { Card } from '@components';
 
 const VisibleCards = ({ className, items, clusterId, onToggle }) => {
@@ -23,29 +23,75 @@ const VisibleCards = ({ className, items, clusterId, onToggle }) => {
             </button>
             <div ref={listRef} className="cards-list">
                 <h4>Показано {format.titleByNumber(items.length, ['объект', 'объекта', 'объектов'])}</h4>
-                {items.map(data => (
-                    <Card key={data.id} data={data} />
-                ))}
+                <div className="cards-grid">
+                    {items.map(data => (
+                        <Card key={data.id} data={data} />
+                    ))}
+                </div>
             </div>
         </section>
     );
 };
 
 export default styled(VisibleCards)`
-    background: #fafafa;
-    box-shadow: 2px 0px 8px rgba(0, 0, 0, 0.15);
-    z-index: 225;
-    width: 382px;
-
     .cards-list {
-        padding: 23px 20px;
+        padding: 16px 8px;
         height: 100%;
         box-sizing: border-box;
         overflow-y: scroll;
         overflow-x: hidden;
+
+        h4 {
+            display: none;
+        }
     }
 
-    ${Card}, h4 {
+    background: #fafafa;
+    width: 100%;
+
+    position: fixed;
+    height: 100%;
+
+    padding: 48px 0 0;
+
+    animation: ${sc.keyframes.fadeInBottom} 0.6s cubic-bezier(0.39, 0.575, 0.565, 1);
+
+    ${media.mediaquery.tablet.at(
+        css => css`
+            .cards-grid {
+                display: grid;
+                grid-gap: 8px;
+                grid: auto / 1fr 1fr;
+            }
+        `
+    )}
+
+    ${media.mediaquery.tabletLandscape.at(
+        css => css`
+            position: relative;
+            box-shadow: 2px 0px 8px rgba(0, 0, 0, 0.15);
+            z-index: 225;
+            width: 382px;
+
+            padding: 0;
+
+            .cards-list {
+                padding: 23px 20px;
+
+                .cards-grid {
+                    display: block;
+                }
+
+                h4 {
+                    display: block;
+                }
+            }
+
+            animation: ${sc.keyframes.slideRight} 225ms cubic-bezier(0, 0, 0.2, 1);
+        `
+    )}
+    ${Card},
+        h4 {
         margin: 0 0 16px;
     }
 
@@ -54,10 +100,6 @@ export default styled(VisibleCards)`
         font-weight: normal;
         color: #666666;
     }
-
-    position: relative;
-
-    animation: ${sc.keyframes.slideRight} 225ms cubic-bezier(0, 0, 0.2, 1);
 
     transition: transform 225ms cubic-bezier(0, 0, 0.2, 1);
 

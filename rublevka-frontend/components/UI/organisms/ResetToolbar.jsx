@@ -28,6 +28,10 @@ export default styled(ResetToolbar)`
         color: ${sc.theme.colors.red};
         font-size: 16px;
 
+        background: none;
+        border: 0;
+        outline: none;
+
         &:disabled {
             opacity: 0.6;
         }

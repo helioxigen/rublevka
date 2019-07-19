@@ -6,7 +6,7 @@ import Field from './Field';
 import { filter, media } from '@utils';
 import { setCurrency, setFilter } from '@store';
 
-const Filter = ({ className, dealType, isOpen, onClose }) => {
+const Filter = ({ className, children, dealType, isOpen, onClose }) => {
     const values = useSelector(state => state.properties.filter);
     const currency = useSelector(state => state.user.currency);
     const dispatch = useDispatch();
@@ -20,6 +20,7 @@ const Filter = ({ className, dealType, isOpen, onClose }) => {
                 onReset={() => dispatch(setFilter({}))}
                 isResetActive={Object.keys(values).length > 0}
             />
+            {children}
             <Field title="Тип объекта" name="kind">
                 {({ value, onChange }) => (
                     <CheckboxGroup
@@ -124,7 +125,7 @@ const Filter = ({ className, dealType, isOpen, onClose }) => {
 export default styled(Filter)`
     grid-area: filter;
 
-    padding: 15px;
+    /* padding: 15px; */
 
     ${media.mediaquery.tabletLandscape.at(
         css => css`

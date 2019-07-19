@@ -70,7 +70,7 @@ const LayoutMap = ({ className, mapMarginLeft, items = [] }) => {
             defaultState={{
                 center: [55.7, 37.1],
                 zoom: 11,
-                margin: [0, 0, 0, mapMarginLeft],
+                margin: [0, 0, 0, typeof window !== 'undefined' && window.screen.availWidth < 962 ? 0 : mapMarginLeft],
                 // isDef{center: [55.7, 37.1],
                 // zoom: 11,}
             }}

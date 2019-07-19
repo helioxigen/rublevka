@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { createGlobalStyle } from 'styled-components';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { MapCatalogLayout } from '@components/UI';
 import { FilterSection, ViewCards, LayoutMap } from '@components/MapCatalog';
-import Footer from '@components/Footer';
 import { changeOrderBy, fetchMapPropertiesSubset, setDisplayedItemsIds, setFilter } from '@store';
 import { dict, query as queryUtils, filter as filterUtils } from '@utils';
-import { useToggle, useRecalcWidth } from '@hooks';
-import { Navbar } from '@components';
+import { useRecalcWidth } from '@hooks';
+import { Navbar, Footer } from '@components';
 
 const HideNav = createGlobalStyle`
     ${Navbar} {
@@ -37,16 +36,21 @@ const MapCatalogPage = ({ displayedIds, clusterId, mapItems, dispatch }) => {
         router.query.kind && { kind: [dict.translit.byWord(router.query.kind)] }
     );
 
-    dispatch(setFilter(filter));
-
     const [asideRef, triggerCalc, asideWidth] = useRecalcWidth();
 
     const [mapZoomDefault] = useState(true);
 
     const displayedItems = displayedIds.map(id => mapItems.find(i => i.id === id));
 
+    const { location: { settlementName } = {} } = displayedItems[0] || {};
+
+    const resetIds = () => dispatch(setDisplayedItemsIds([]));
+
     useEffect(() => {
-        dispatch(setDisplayedItemsIds([]));
+        if (displayedIds.length > 0) {
+            resetIds();
+        }
+        dispatch(setFilter(filter));
         // setDefaultZoom(true);
     }, [router.query]);
 
@@ -61,7 +65,11 @@ const MapCatalogPage = ({ displayedIds, clusterId, mapItems, dispatch }) => {
         <MapCatalogLayout>
             <HideNav />
             <aside ref={asideRef}>
-                <FilterSection />
+                <FilterSection
+                    settlementName={settlementName}
+                    itemsCount={displayedIds.length}
+                    onResetItems={resetIds}
+                />
                 {displayedIds.length !== 0 && (
                     <ViewCards clusterId={clusterId} items={displayedItems} onToggle={triggerCalc} />
                 )}
@@ -75,20 +83,6 @@ const MapCatalogPage = ({ displayedIds, clusterId, mapItems, dispatch }) => {
         </MapCatalogLayout>
     );
 };
-
-// MapCatalogPage.getInitialProps = async ({ store, query: { dealType: dealTypeTranslit, filter: filterJson, kind } }) => {
-//     // const dealType = dict.translit.byWord(dealTypeTranslit);
-
-//     // const filter = filterUtils.query.parse(filterJson, kind && { kind: [dict.translit.byWord(kind)] });
-
-//     // // store.dispatch(fetchMapPropertiesSubset(queryUtils.convert({ filter }, dealType)));
-
-//     return {};
-
-//     // return { dealType, filter };
-// };
-
-// createSelector()
 
 export default connect(
     state => ({

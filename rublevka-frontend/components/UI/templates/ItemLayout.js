@@ -28,8 +28,9 @@ export default styled.main`
 
     ${media.mediaquery.tabletLandscape.at(
         css => css`
-            display: flex;
-            align-items: flex-start;
+            display: grid;
+            grid-template-columns: minmax(300px, 740px) 360px;
+            grid-gap: 30px;
 
             > article,
             > aside {
@@ -41,16 +42,13 @@ export default styled.main`
         `
     )}
 
-    display: grid;
-    grid-template-columns: 740px 300px;
-
     > article {
         margin-top: 18px;
         
 
         ${media.mediaquery.tablet.at(
             css => css`
-                width: 740px;
+                max-width: 740px;
                 margin-top: 0;
             `
         )}
@@ -82,6 +80,7 @@ export default styled.main`
         )}
 
         ${Section} {
+            margin: 12px 0 16px;
             ${media.mediaquery.tabletLandscape.at(
                 css => css`
                     margin: 20px 0 32px;
@@ -95,7 +94,7 @@ export default styled.main`
     }
 
     > aside {
-        flex: 1 0 auto;
+        align-self: flex-start;
         display: none;
 
         ${media.mediaquery.tabletLandscape.at(

@@ -45,10 +45,11 @@ export default styled.div`
         }
     }
 
-    spa {
+    span.slide {
         display: block;
         height: 300px;
-        object-fit: cover;
+        
+        background: center / cover no-repeat;
 
         pointer-events: none;
 

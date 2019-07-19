@@ -8,7 +8,7 @@ import Counter from './Counter';
 import { cdn, media } from '@utils';
 import GalleryNav from './GalleryNav';
 
-const Gallery = ({ className, dealType, images, layoutImages, id }) => {
+const Gallery = ({ className, dealType, images, layoutImages, id: propertyId }) => {
     const carousel = useRef(null);
     const [currentIdx, changeCurrentIdx] = useState(0);
     const [fullyLoaded, changeFullyLoaded] = useState(false);
@@ -22,7 +22,7 @@ const Gallery = ({ className, dealType, images, layoutImages, id }) => {
     return (
         <section className={className}>
             <CarouselLayout>
-                <span className="id">№ {id}</span>
+                <span className="id">№ {propertyId}</span>
                 <IconButton className="expand-button" icon="expand" />
                 <CarouselControl left onClick={() => carousel.current.prev()} />
                 <ReactSwipe
@@ -36,10 +36,11 @@ const Gallery = ({ className, dealType, images, layoutImages, id }) => {
                         <a key={id} role="button" tabIndex={0}>
                             {(idx <= currentIdx + 6 || fullyLoaded) && (
                                 <span
-                                    className="image-view"
+                                    className="slide"
                                     style={{
-                                        backgroundImage:
-                                            idx <= currentIdx + 1 ? cdn.get.full(id, 1024) : cdn.get.thumbnail(id, 512),
+                                        backgroundImage: `url(${
+                                            idx <= currentIdx + 1 ? cdn.get.full(id, 1024) : cdn.get.thumbnail(id, 128)
+                                        })`,
                                     }}
                                 />
                             )}
@@ -48,7 +49,7 @@ const Gallery = ({ className, dealType, images, layoutImages, id }) => {
                 </ReactSwipe>
                 <CarouselControl right onClick={() => carousel.current.next()} />
                 <Counter overall={images.length} currentIndex={currentIdx + 1} />
-                <FavoriteButton id={id} dealType={dealType} />
+                <FavoriteButton id={propertyId} dealType={dealType} />
             </CarouselLayout>
             <GalleryNav
                 layoutButton={

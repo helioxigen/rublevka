@@ -1,0 +1,30 @@
+User-agent: Yandex
+Disallow: /*utm_source
+Disallow: /_openstat
+Disallow: /*from=adwords
+Disallow: /*gclid=
+Disallow: /buy/object/
+Disallow: /rent/object/
+Disallow: /favorites
+Host: https://jq.estate/
+
+
+User-agent: Googlebot
+Disallow: /*utm_source
+Disallow: /_openstat
+Disallow: /*from=adwords
+Disallow: /*gclid=
+Disallow: /buy/object/
+Disallow: /rent/object/
+Disallow: /favorites
+
+User-agent: *
+Disallow: /*utm_source
+Disallow: /_openstat
+Disallow: /*from=adwords
+Disallow: /*gclid=
+Disallow: /buy/object/
+Disallow: /rent/object/
+Disallow: /favorites
+
+Sitemap: https://jq.estate/sitemap.xml

@@ -3,8 +3,15 @@ import styled, { css } from 'styled-components';
 import { Icon, Button } from '../atoms';
 import { sc } from '@utils';
 
-const IconButton = ({ className, onClick, icon, red, mirror, stroke, children }) => (
-    <Button data-icon={icon} onClick={onClick} className={`${className} ${icon}-button`} red={red}>
+const IconButton = ({ className, onClick, icon, red, mirror, stroke, children, href }) => (
+    <Button
+        as={href ? 'a' : undefined}
+        href={href}
+        data-icon={icon}
+        onClick={onClick}
+        className={`${className} ${icon}-button`}
+        red={red}
+    >
         <Icon name={icon} mirror={mirror} stroke={stroke} />
         {children}
     </Button>
@@ -20,6 +27,8 @@ export default styled(IconButton)`
             background: none;
             padding: 0;
             color: inherit;
+
+            min-width: auto;
         `
     )};
 

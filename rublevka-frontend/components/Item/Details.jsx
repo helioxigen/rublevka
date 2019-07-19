@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { sc } from '@utils';
+import { sc, media } from '@utils';
 
 const ItemDetails = ({ className, values }) => (
     <dl className={className}>
@@ -18,8 +18,13 @@ const ItemDetails = ({ className, values }) => (
 );
 
 export default styled(ItemDetails)`
-    width: 350px;
     margin: 0;
+
+    ${media.mediaquery.tablet.at(
+        css => css`
+            width: 350px;
+        `
+    )}
 
     .details-value {
         display: flex;

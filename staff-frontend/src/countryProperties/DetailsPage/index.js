@@ -65,7 +65,7 @@ const editMode = {
 const escCode = 27;
 
 const postPhoto = async (id, url, isLayouts = false) => {
-  const resource = isLayouts ? 'layouts' : 'imagess';
+  const resource = isLayouts ? 'layouts' : 'images';
   try {
     await post(`/v1/properties/country/${id}/${resource}`, {
       src: url,

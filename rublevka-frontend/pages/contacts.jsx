@@ -116,6 +116,10 @@ export default styled(ContactsPage)`
             `
         )}
 
+        a {
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
         margin-top: 24px;
 
         color: white;

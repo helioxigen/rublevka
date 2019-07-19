@@ -18,6 +18,8 @@ export default styled(CarouselControl)`
     height: 100%;
     width: 50px;
 
+    font-size: 35px;
+
     ${sc.ifProp('left')(
         css`
             left: 0;
@@ -28,11 +30,6 @@ export default styled(CarouselControl)`
     )}
 
     cursor: pointer;
-
-    ${Icon} {
-        display: block;
-        font-size: 22px;
-    }
 
     svg {
         stroke: white;

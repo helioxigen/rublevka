@@ -45,7 +45,8 @@ export default styled.div`
         }
     }
 
-    img {
+    spa {
+        display: block;
         height: 300px;
         object-fit: cover;
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Input } from '@components/UI';
 import InputMask from 'react-input-mask';
-import CountriesSelector from './CountriesSelector';
 import styled from 'styled-components';
+import CountriesSelector from './CountriesSelector';
 
 const masks = require('./CountriesSelector/masks.json');
 

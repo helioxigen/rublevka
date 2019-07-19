@@ -139,8 +139,11 @@ export default styled(LayoutMap)`
 
         background: linear-gradient(0deg, rgba(244, 67, 54, 0.1), rgba(244, 67, 54, 0.1)), rgba(255, 255, 255, 0.75);
 
+        transition: transform 225ms cubic-bezier(0.230, 1.000, 0.320, 1.000);
+
         &[data-cluster-id="${p => p.clusterId}"] {
             background: white;
+            transform: scale(1.2);
         }
     }
 `;

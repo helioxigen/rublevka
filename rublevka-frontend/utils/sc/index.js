@@ -41,6 +41,16 @@ export default {
     theme,
     calcTranslateShift,
     keyframes: {
+        slideInBottom: keyframes`
+            0% {
+                transform: translateY(1000px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        `,
         slideIn: keyframes`
             0% {
                 transform: translateY(1rem);

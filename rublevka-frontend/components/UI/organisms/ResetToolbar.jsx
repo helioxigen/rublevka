@@ -15,13 +15,14 @@ const ResetToolbar = ({ className, onClose, onReset, isResetActive }) => (
 export default styled(ResetToolbar)`
     display: flex;
     justify-content: space-between;
-    font-size: 24px;
 
     margin-bottom: 1em;
 
     ${IconButton} {
         padding: 0;
         color: #080808;
+        height: auto;
+        font-size: 24px;
     }
 
     .reset-button {

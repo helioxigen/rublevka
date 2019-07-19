@@ -10,7 +10,11 @@ const Shortcuts = ({ className, images }) => {
                 images.slice(0, 6).map((el, index) => (
                     <React.Fragment key={images[index].id}>
                         <Slice />
-                        <img alt={images[index].id} src={cdn.get.thumbnail(images[index].id, 512)} />
+                        <span
+                            className="display"
+                            style={{ backgroundImage: `url(${cdn.get.thumbnail(images[index].id)})` }}
+                        />
+                        {/* <img alt={images[index].id} src={cdn.get.thumbnail(images[index].id, 512)} /> */}
                     </React.Fragment>
                 ))}
         </figure>
@@ -39,8 +43,9 @@ export default styled(Shortcuts)`
             padding-right: 10px;
         }
 
-        & + img {
+        & + .display {
             z-index: 1;
+            display: none;
             opacity: 0;
             position: absolute;
 
@@ -49,15 +54,16 @@ export default styled(Shortcuts)`
             bottom: 0;
             left: 0;
 
-            object-fit: cover;
+            background: center / cover no-repeat;
 
             width: 100%;
             height: 100%;
-            transition: 0.1s;
+            transition: opacity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        &:hover + img {
+        &:hover + .display {
             opacity: 1;
+            display: block;
         }
     }
 

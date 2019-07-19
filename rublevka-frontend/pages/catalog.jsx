@@ -157,6 +157,8 @@ export default styled(ConnectedCatalogPage)`
         right: 0;
         bottom: 32px;
 
+        height: 48px;
+
         z-index: 1250;
 
         @keyframes appear{

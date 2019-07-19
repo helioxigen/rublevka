@@ -1,3 +1,4 @@
+import React from 'react';
 import dict from './dict';
 import format from './format';
 
@@ -9,7 +10,7 @@ const generate = (dealType, isCard, withOffer, { landDetails = {}, specification
             ? `${Math.floor(landDetails.area)} сот.`
             : format.titleByNumber(specification.bedrooms, ['спальня', 'спальни', 'спален']),
         location.settlementName && `в пос. ${location.settlementName}${isCard ? ',' : ''}`,
-        location.mkadDistance && isCard && `${location.mkadDistance} км`,
+        location.mkadDistance && isCard && `${location.mkadDistance}${String.fromCharCode(160)}км`,
     ]
         .filter(v => !!v)
         .join(' ');

@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import { PageContainer, Header, Price, ProfileCard, ItemLayout, FavoriteButton, Content } from '@components/UI';
-import { Layout, Details, Summary, Section, Layouts, Location } from '@components/Item';
+import { Category, Details, Summary, Section, Layouts, Location } from '@components/Item';
 import { CallbackForm } from '@components/Forms';
-import { Breadcrumbs, Gallery } from '@components';
+import { ContactToolbar } from '@components/Toolbars';
+import { Breadcrumbs, Gallery, CardSummary } from '@components';
 import { dict, itemTitle, format } from '@utils';
 import { fetchProperty } from '@store';
+
+// const Gallery = dynamic(() => import(`@components/Catalog/Gallery`), { ssr: false });
 
 const CatalogItem = ({ dealType, kind, id }) => {
     const {
@@ -24,12 +27,25 @@ const CatalogItem = ({ dealType, kind, id }) => {
 
     const price = item[`${dealType}Offer`] || {};
 
+    const summary = useMemo(
+        () => [
+            landDetails.area && ['Участок', `${landDetails.area} сот`],
+            specification.area && ['Дом', `${specification.area} м²`],
+            specification.bedrooms && [
+                format.titleByNumber(specification.bedrooms, ['Спальня', 'Спальни', 'Спален'], true),
+                specification.bedrooms,
+            ],
+        ],
+        [id, dealType]
+    );
+
     // console.log(item);
 
     return (
         <PageContainer>
             <Content compact>
                 <Breadcrumbs
+                    className="breadcrumbs"
                     dealType={dealType}
                     last={[
                         `/settlements.item?id=${settlementId}`,
@@ -42,52 +58,59 @@ const CatalogItem = ({ dealType, kind, id }) => {
                         <Header.Item id={id}>
                             {itemTitle.generate(dealType, false, true, { location, landDetails, specification, kind })}
                         </Header.Item>
-                        <Gallery layoutImages={layoutImages} images={images.filter(i => i.isPublic)} />
-                        <Summary
-                            values={[
-                                landDetails.area && ['Участок', `${landDetails.area} сот`],
-                                specification.area && ['Дом', `${specification.area} м²`],
-                                specification.bedrooms && [
-                                    format.titleByNumber(
-                                        specification.bedrooms,
-                                        ['Спальня', 'Спальни', 'Спален'],
-                                        true
-                                    ),
-                                    specification.bedrooms,
-                                ],
-                            ]}
+                        <Gallery
+                            id={id}
+                            dealType={dealType}
+                            layoutImages={layoutImages}
+                            images={images.filter(i => i.isPublic)}
                         />
-                        <Section title="Общая информация">
-                            <Details
-                                values={[
-                                    ['Площадь участка', landDetails.area, 'сот.'],
-                                    ['Площадь дома', specification.area, 'м²'],
-                                    ['Тип дома', dict.details.get(specification.wallMaterial)],
-                                    ['Ремонт', dict.details.get(specification.renovate)],
-                                ]}
+                        <Category className="main-cat">
+                            <Price
+                                showSubheader
+                                kind={kind}
+                                landDetails={landDetails}
+                                deal={price}
+                                dealType={dealType}
                             />
-                        </Section>
-                        {!isEmpty(communication) && (
-                            <Section title="Коммуникации">
+                            <Summary values={summary} />
+                        </Category>
+                        <Category>
+                            <Section title="Общая информация">
                                 <Details
                                     values={[
-                                        ['Тип газа', dict.details.get(communication.gasSupply)],
-                                        ['Электричество', communication.powerSupply, 'кВт'],
-                                        ['Канализация', dict.details.get(communication.sewerageSupply, 'ая')],
-                                        ['Источник воды', dict.details.get(communication.waterSupply, 'ое')],
+                                        ['Площадь участка', landDetails.area, 'сот.'],
+                                        ['Площадь дома', specification.area, 'м²'],
+                                        ['Тип дома', dict.details.get(specification.wallMaterial)],
+                                        ['Ремонт', dict.details.get(specification.renovate)],
                                     ]}
                                 />
                             </Section>
-                        )}
+                            {!isEmpty(communication) && (
+                                <Section title="Коммуникации">
+                                    <Details
+                                        values={[
+                                            ['Тип газа', dict.details.get(communication.gasSupply)],
+                                            ['Электричество', communication.powerSupply, 'кВт'],
+                                            ['Канализация', dict.details.get(communication.sewerageSupply, 'ая')],
+                                            ['Источник воды', dict.details.get(communication.waterSupply, 'ое')],
+                                        ]}
+                                    />
+                                </Section>
+                            )}
+                        </Category>
                         {!isEmpty(specification.layouts) && (
-                            <Section title={dict.translateKind(kind).noun}>
-                                <Layouts layouts={specification.layouts} />
-                            </Section>
+                            <Category>
+                                <Section title={dict.translateKind(kind).noun}>
+                                    <Layouts layouts={specification.layouts} />
+                                </Section>
+                            </Category>
                         )}
                         {location.longitude && location.latitude && (
-                            <Section title="Объект на карте">
-                                <Location longitude={location.longitude} latitude={location.latitude} />
-                            </Section>
+                            <Category>
+                                <Section title="Объект на карте">
+                                    <Location longitude={location.longitude} latitude={location.latitude} />
+                                </Section>
+                            </Category>
                         )}
                     </article>
                     <aside>
@@ -125,6 +148,7 @@ const CatalogItem = ({ dealType, kind, id }) => {
                             </FavoriteButton>
                         </footer>
                     </aside>
+                    <ContactToolbar />
                 </ItemLayout>
             </Content>
         </PageContainer>
@@ -137,7 +161,7 @@ CatalogItem.getInitialProps = async ({ store, query: { dealType: dealTypeTransli
 
     await store.dispatch(fetchProperty(id));
 
-    return { dealType, kind, id };
+    return { dealType, kind, id, title: `${dict.translateKind(kind).noun} №${id}` };
 };
 
 // connect();

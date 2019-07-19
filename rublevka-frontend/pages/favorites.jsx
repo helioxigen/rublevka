@@ -61,6 +61,8 @@ const FavoritePage = ({ className }) => {
     );
 };
 
+FavoritePage.getInitialProps = async () => ({ title: 'Избранное' });
+
 export default styled(FavoritePage)`
     padding: 48px 0;
 

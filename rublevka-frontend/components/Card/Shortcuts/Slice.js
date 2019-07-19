@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { sc } from '@utils';
 
 export default styled.span`
     height: 100%;

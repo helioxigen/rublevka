@@ -18,6 +18,10 @@ app.prepare().then(() => {
         return app.render(req, res, '/contacts', req.query);
     });
 
+    server.get('/favorites', (req, res) => {
+        return app.render(req, res, '/favorites', req.query);
+    });
+
     server.get('/zagorodnaya/:dealType/map', (req, res) => {
         return app.render(req, res, '/catalog.map', { dealType: req.params.dealType, ...req.query });
     });

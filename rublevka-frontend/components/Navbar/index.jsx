@@ -23,7 +23,6 @@ const Navbar = ({ className, title }) => {
     return (
         <header className={className} data-islanding={isLanding} data-inverted={isInverted}>
             <Content className="content">
-                {/* <IconButton className="" secondary icon="arrow" mirror stroke /> */}
                 <Link href="/">
                     <a className="logo">
                         <Icon className="go-back" name="arrow" mirror stroke />
@@ -103,7 +102,7 @@ export default styled(Navbar)`
 
     ${media.mediaquery.tabletLandscape.at(
         css => css`
-            height: 60px;
+            height: 64px;
             position: fixed;
             font-size: 15px;
             padding: 0;
@@ -208,6 +207,12 @@ export default styled(Navbar)`
     .header-right {
         display: flex;
         align-items: center;
+
+        ${media.mediaquery.tabletLandscape.at(
+            css => css`
+                padding: 8px 0;
+            `
+        )}
     }
 
     .logo-icon {
@@ -235,7 +240,6 @@ export default styled(Navbar)`
 
         ${media.mediaquery.tabletLandscape.at(
             css => css`
-                line-height: 43px;
                 margin: 0 24px 0 16px;
             `
         )}

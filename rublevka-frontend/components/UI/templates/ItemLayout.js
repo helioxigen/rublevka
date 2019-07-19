@@ -2,41 +2,90 @@ import styled from 'styled-components';
 import { Section } from '@components/Item';
 import { FavoriteButton } from '@components/UI';
 import { Gallery } from '@components/Catalog';
+import { ContactToolbar } from '@components/Toolbars';
 import { Header } from '../atoms';
 import { media } from '@utils';
 
 export default styled.main`
-    display: flex;
-    align-items: flex-start;
 
-    > article,
-    > aside {
-        background: #ffffff;
+    ${ContactToolbar} {
+        padding: 8px 15px;
         border: 1px solid #eeeeee;
-        box-sizing: border-box;
-        border-radius: 4px;
-    }
+        box-shadow: 0px -3px 4px rgba(0, 0, 0, 0.05);
 
-    > article {
-        flex: 1 0 auto;
-        padding: 24px 20px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
 
         ${media.mediaquery.tablet.at(
             css => css`
-                width: 740px;
+                display: none;
+            `
+        )}
+    }
+
+    ${media.mediaquery.tabletLandscape.at(
+        css => css`
+            display: grid;
+            grid-template-columns: minmax(300px, 740px) 360px;
+            grid-gap: 30px;
+
+            > article,
+            > aside {
+                background: #ffffff;
+                border: 1px solid #eeeeee;
+                box-sizing: border-box;
+                border-radius: 4px;
+            }
+        `
+    )}
+
+    > article {
+        margin-top: 18px;
+        
+
+        ${media.mediaquery.tablet.at(
+            css => css`
+                max-width: 740px;
+                margin-top: 0;
+            `
+        )}
+
+        ${media.mediaquery.tabletLandscape.at(
+            css => css`
+                padding: 24px 20px;
             `
         )}
 
         ${Header.Item} {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
+            padding: 0 15px;
+
+            ${media.mediaquery.tabletLandscape.at(
+                css => css`
+                    margin-bottom: 20px;
+                    padding: 0;
+                `
+            )}
         }
 
-        ${Gallery} {
-            margin: 20px 0;
-        }
+        ${media.mediaquery.tabletLandscape.at(
+            css => css`
+                ${Gallery} {
+                    margin: 20px 0;
+                }
+            `
+        )}
 
         ${Section} {
-            margin: 20px 0 32px;
+            margin: 12px 0 16px;
+            ${media.mediaquery.tabletLandscape.at(
+                css => css`
+                    margin: 20px 0 32px;
+                `
+            )}
 
             &:last-child {
                 margin-bottom: 0;
@@ -45,14 +94,14 @@ export default styled.main`
     }
 
     > aside {
-        width: 360px;
-        flex: 1 0 auto;
+        align-self: flex-start;
         display: none;
-        margin-left: 20px;
 
-        ${media.tablet`
-            display: block;
-        `}
+        ${media.mediaquery.tabletLandscape.at(
+            css => css`
+                display: block;
+            `
+        )}
 
         > * {
             padding: 24px 20px;

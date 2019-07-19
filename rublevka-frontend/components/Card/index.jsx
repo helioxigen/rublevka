@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { Price, Link, FavoriteButton } from '@components/UI';
-import { dict, itemTitle, format, media } from '@utils';
+import { dict, itemTitle, format, media, cdn } from '@utils';
 import Shortcuts from './Shortcuts';
 import Gallery from './Gallery';
 import Summary from './Summary';
@@ -26,12 +26,17 @@ const Card = ({
             path={[dealTypeT, dict.translit.byWord(kind), id]}
         >
             <article className={className}>
-                <header>
+                <header
+                    style={{
+                        backgroundImage:
+                            images.length === 1 ? `url(${cdn.get.thumbnail(images[0].id, 512)})` : undefined,
+                    }}
+                >
                     <span className="card-id">№{id}</span>
                     <FavoriteButton className="favorite-button" id={id} dealType={dealType} />
 
-                    {images.length > 0 && <Shortcuts images={images} />}
-                    {images.length > 0 && <Gallery images={images} />}
+                    {images.length > 1 && <Shortcuts images={images} />}
+                    {images.length > 1 && <Gallery images={images} />}
                 </header>
                 <section className="card-body">
                     <h3>{itemTitle.generate(dealType, true, false, { landDetails, specification, location, kind })}</h3>
@@ -92,6 +97,8 @@ export default styled(Card)`
         height: 220px;
         width: 100%;
         overflow: hidden;
+
+        background: center / cover no-repeat;
     }
 
     figure {
@@ -127,29 +134,27 @@ export default styled(Card)`
         }
     }
 
-    ${Shortcuts} {
-        display: none;
+    .favorite-button:not([data-active='true']) {
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    &:hover .favorite-button {
+        opacity: 1;
     }
 
-    ${media.mediaquery.desktop.at(
-        css => css`
-            ${Shortcuts} {
-                display: flex;
-            }
+    ${media.touch} {
+        ${Shortcuts} {
+            display: none;
+        }
 
-            ${Gallery} {
-                display: none;
-            }
+        ${Gallery} {
+            display: block;
+        }
 
-            .favorite-button:not([data-active='true']) {
-                opacity: 0;
-                transition: 0.3s;
-            }
-            &:hover .favorite-button {
-                opacity: 1;
-            }
-        `
-    )}
+        .favorite-button {
+            opacity: 1;
+        }
+    }
 
     h3 {
         margin-bottom: 5px;

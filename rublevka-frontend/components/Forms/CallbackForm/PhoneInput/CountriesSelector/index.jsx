@@ -84,8 +84,8 @@ class CountrySelector extends React.Component {
         const { className } = this.props;
 
         return (
-            <div className={className}>
-                <button type="button" onClick={this.toggleDropDown}>
+            <div tabIndex={-1} className={className}>
+                <button type="button" tabIndex={-1} onClick={this.toggleDropDown}>
                     <Flag code={current.toLowerCase()} />
                     <select onChange={this.handleSelectChange} value={current}>
                         {codes.map(({ dial_code: dialCode, code }) => (

@@ -6,11 +6,16 @@ import Indicators from './Indicators';
 
 const Gallery = ({ className, images }) => {
     const [currentIdx, changeCurrentIdx] = useState(0);
+    const [shown, changeShown] = useState([]);
     const [fullyLoaded, changeFullyLoaded] = useState(false);
 
     useEffect(() => {
         if (currentIdx === images.length) {
             changeFullyLoaded(true);
+        }
+
+        if (!shown.includes(currentIdx)) {
+            changeShown([...shown, currentIdx]);
         }
     }, [currentIdx]);
 
@@ -23,13 +28,23 @@ const Gallery = ({ className, images }) => {
                 }}
             >
                 {images.map(({ id }, idx) => (
-                    <a key={id} role="button" tabIndex={0}>
-                        {(idx <= currentIdx + 6 || fullyLoaded) && (
-                            <img
-                                data-id={id}
-                                alt={id}
-                                src={idx <= currentIdx + 1 ? cdn.get.thumbnail(id, 512) : cdn.get.thumbnail(id, 128)}
+                    <a key={id}>
+                        {(idx <= currentIdx + 1 || fullyLoaded) && (
+                            <span
+                                className="display"
+                                style={{
+                                    backgroundImage: `url(${
+                                        idx === currentIdx || shown.includes(idx)
+                                            ? cdn.get.thumbnail(id, 512)
+                                            : cdn.get.thumbnail(id, 128)
+                                    })`,
+                                }}
                             />
+                            // <img
+                            //     data-id={id}
+                            //     alt={id}
+                            //     src={idx <= currentIdx + 1 ? cdn.get.thumbnail(id, 512) : cdn.get.thumbnail(id, 128)}
+                            // />
                         )}
                     </a>
                 ))}
@@ -40,9 +55,15 @@ const Gallery = ({ className, images }) => {
 };
 
 export default styled(Gallery)`
-    img {
-        object-fit: cover;
+    .display {
+        display: block;
+        background: center / cover no-repeat;
         height: 220px;
         width: 100%;
     }
+    /* img {
+        object-fit: cover;
+        height: 220px;
+        width: 100%;
+    } */
 `;

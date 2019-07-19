@@ -131,9 +131,15 @@ export default styled(SearchForm)`
     display: flex;
     flex-wrap: wrap;
 
-    ${media.xs`
-        height: 68px;
-    `}
+    ${media.mediaquery.tabletLandscape.at(
+        css => css`
+            height: 68px;
+
+            .search-button {
+                height: 100%;
+            }
+        `
+    )}
 
     ${media.xsMax`
         padding: 0 15px;    

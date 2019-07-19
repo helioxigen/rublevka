@@ -42,6 +42,12 @@ export default styled(FilterBlock)`
     z-index: 250;
     width: 100%;
 
+    ${media.mediaquery.tabletLandscape.to(
+        css => css`
+            overflow: visible;
+        `
+    )}
+
     > header {
         ${media.mediaquery.tabletLandscape.at(
             css => css`

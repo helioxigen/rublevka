@@ -104,7 +104,7 @@ export default styled(Tabs)`
     [data-name='objectNumber'] {
         display: none;
 
-        ${media.mediaquery.phone.at(
+        ${media.mediaquery.phoneLandscape.at(
             css => css`
                 display: block;
             `

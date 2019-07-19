@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { TextArea, Input, Button, Icon } from '@components/UI';
+import { TextArea, Input, Button, Icon } from '@components/UI/atoms';
 import PhoneInput from './PhoneInput';
 import { uis, media } from '@utils';
 
-const CallbackForm = ({ className, header, fields, submitLabel, fullWidth, defaultComment, compact }) => {
+const CallbackForm = ({ className, header, fields, submitLabel, fullWidth, defaultComment, compact, keepHeader }) => {
     const [isSuccess, changeSuccess] = useState(false);
     const [isFailed, changeFailed] = useState(false);
     const [values, changeValues] = useState({});
@@ -43,9 +43,9 @@ const CallbackForm = ({ className, header, fields, submitLabel, fullWidth, defau
 
     return (
         <form className={className} onSubmit={handleSubmit} data-compact={compact}>
+            {(!isSuccess || keepHeader) && header}
             {!isSuccess && (
                 <>
-                    {header}
                     {Object.entries(fields).map(([name, { type = 'text', placeholder }]) => {
                         switch (type) {
                             case 'textarea':

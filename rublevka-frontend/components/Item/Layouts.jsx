@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { dict, format } from '@utils';
+import { dict, format, media } from '@utils';
 
 const Layouts = ({ className, layouts }) => (
     <div className={className}>
@@ -15,5 +15,18 @@ const Layouts = ({ className, layouts }) => (
 export default styled(Layouts)`
     display: grid;
     grid: auto / repeat(3, 1fr);
-    grid-gap: 20px;
+    font-size: 13px;
+
+    ${media.mediaquery.phoneLandscape.at(
+        css => css`
+            font-size: 15px;
+            grid-gap: 7px;
+        `
+    )}
+
+    ${media.mediaquery.tablet.at(
+        css => css`
+            grid-gap: 20px;
+        `
+    )}
 `;

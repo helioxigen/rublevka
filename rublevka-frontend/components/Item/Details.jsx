@@ -19,10 +19,12 @@ const ItemDetails = ({ className, values }) => (
 
 export default styled(ItemDetails)`
     margin: 0;
+    font-size: 13px;
+    font-weight: 400;
 
-    ${media.mediaquery.tablet.at(
+    ${media.mediaquery.phoneLandscape.at(
         css => css`
-            width: 350px;
+            font-size: 14px;
         `
     )}
 
@@ -30,10 +32,12 @@ export default styled(ItemDetails)`
         display: flex;
         justify-content: space-between;
 
-        margin: 20px 0;
+        font-size: 1em;
+        margin: 9px 0;
 
-        font-size: 16px;
-        font-weight: 400;
+        &:last-child {
+            margin-bottom: 0;
+        }
 
         dt {
             color: ${sc.theme.colors.grey};
@@ -41,7 +45,18 @@ export default styled(ItemDetails)`
 
         dd {
             margin: 0;
-            font-weight: 500;
+            font-weight: 400;
         }
     }
+
+    ${media.mediaquery.tablet.at(
+        css => css`
+            width: 350px;
+            font-size: 16px;
+
+            .details-value {
+                margin: 20px 0;
+            }
+        `
+    )}
 `;

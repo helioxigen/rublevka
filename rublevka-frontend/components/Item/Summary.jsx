@@ -7,7 +7,9 @@ const ItemSummary = ({ className, values }) => (
         {compact(values).map(([label, value]) => (
             <div key={value} className="summary-param">
                 <p className="summary-value">{value}</p>
-                <p className="summary-label">{label}</p>
+                <p className="summary-label" data-label={label}>
+                    {label}
+                </p>
             </div>
         ))}
     </section>

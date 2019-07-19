@@ -79,11 +79,12 @@ export default {
         },
     },
     query: {
+        phoneLandscape: createQuery(480),
         tablet: createQuery(768),
         tabletLandscape: createQuery(992),
         desktop: createQuery(1200),
         upTo: {
-            phone: createQueryMax(480),
+            phoneLandscape: createQueryMax(480),
             tablet: createQueryMax(768),
             tabletLandscape: createQueryMax(992),
             desktop: createQueryMax(1200),
@@ -94,7 +95,7 @@ export default {
         upToDesktop: createQueryMax(1200),
     },
     mediaquery: {
-        phone: createMQ(480),
+        phoneLandscape: createMQ(480),
         tablet: createMQ(768),
         tabletLandscape: createMQ(992),
         desktop: createMQ(1200),

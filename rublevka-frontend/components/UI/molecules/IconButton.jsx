@@ -29,6 +29,8 @@ export default styled(IconButton)`
             color: inherit;
 
             min-width: auto;
+
+            box-shadow: none;
         `
     )};
 

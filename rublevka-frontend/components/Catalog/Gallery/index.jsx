@@ -1,14 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ReactSwipe from 'react-swipe';
-import { IconButton } from '@components/UI';
+import { IconButton, FavoriteButton } from '@components/UI';
 import CarouselLayout from './CarouselLayout';
 import CarouselControl from './CarouselControl';
 import Counter from './Counter';
 import { cdn, media } from '@utils';
 import GalleryNav from './GalleryNav';
 
-const Gallery = ({ className, images, layoutImages, propertyId }) => {
+const Gallery = ({ className, dealType, images, layoutImages, id: propertyId }) => {
     const carousel = useRef(null);
     const [currentIdx, changeCurrentIdx] = useState(0);
     const [fullyLoaded, changeFullyLoaded] = useState(false);
@@ -35,10 +35,13 @@ const Gallery = ({ className, images, layoutImages, propertyId }) => {
                     {images.map(({ id }, idx) => (
                         <a key={id} role="button" tabIndex={0}>
                             {(idx <= currentIdx + 6 || fullyLoaded) && (
-                                <img
-                                    data-id={id}
-                                    alt={id}
-                                    src={idx <= currentIdx + 1 ? cdn.get.full(id, 1024) : cdn.get.thumbnail(id, 512)}
+                                <span
+                                    className="slide"
+                                    style={{
+                                        backgroundImage: `url(${
+                                            idx <= currentIdx + 1 ? cdn.get.full(id, 1024) : cdn.get.thumbnail(id, 128)
+                                        })`,
+                                    }}
                                 />
                             )}
                         </a>
@@ -46,6 +49,7 @@ const Gallery = ({ className, images, layoutImages, propertyId }) => {
                 </ReactSwipe>
                 <CarouselControl right onClick={() => carousel.current.next()} />
                 <Counter overall={images.length} currentIndex={currentIdx + 1} />
+                <FavoriteButton id={propertyId} dealType={dealType} />
             </CarouselLayout>
             <GalleryNav
                 layoutButton={
@@ -70,7 +74,7 @@ export default styled(Gallery)`
         right: 0px;
         top: 0;
         background: none;
-        font-size: 10px;
+        font-size: 18px;
 
         transition: opacity 225ms;
         opacity: 0;
@@ -95,15 +99,29 @@ export default styled(Gallery)`
         `}
     }
 
+    ${FavoriteButton} {
+        position: absolute;
+        top: 5px;
+        right: 0;
+
+        ${media.mediaquery.tabletLandscape.at(
+            css => css`
+                display: none;
+            `
+        )}
+    }
+
     ${Counter} {
         position: absolute;
         bottom: 20px;
         right: 15px;
 
-        ${media.md`
-            right: unset;
-            left: 15px;
-        `}
+        ${media.mediaquery.tablet.at(
+            css => css`
+                right: unset;
+                left: 15px;
+            `
+        )}
     }
 
     ${CarouselControl} {
@@ -122,6 +140,14 @@ export default styled(Gallery)`
             opacity: 1;
         }
     }
+
+    ${media.mediaquery.tabletLandscape.to(
+        css => css`
+            ${CarouselControl}, .expand-button {
+                display: none;
+            }
+        `
+    )}
 
     ${GalleryNav} {
         margin-top: 4px;
@@ -145,8 +171,12 @@ export default styled(Gallery)`
 
         text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.35);
 
-        ${media.md`
-            display: none;
-        `}
+        z-index: 200;
+
+        ${media.mediaquery.tabletLandscape.at(
+            css => css`
+                display: none;
+            `
+        )}
     }
 `;

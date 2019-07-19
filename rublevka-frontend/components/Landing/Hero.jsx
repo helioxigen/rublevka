@@ -27,60 +27,94 @@ const LandingHero = ({ className }) => (
 
 export default styled(LandingHero)`
     display: grid;
-    grid: repeat(2, 1fr) 56px 1fr repeat(2, 1fr) / 10% 1fr repeat(2, 4fr) 1fr 10%;
-    height: 100vh;
+    grid: auto 2fr 56px 3fr auto / 
+        [start] 10% 
+            [border-start] 1fr 
+                [middle-start] 
+                    repeat(2, 3fr) 
+                [middle-end] 1fr 
+            [border-end] 10% 
+        [end];
+
+    /* grid-template-rows: auto 1fr 56px 1fr auto; */
+
+    ${media.mediaquery.phoneLandscape.to(
+        css => css`
+            display: block;
+            padding: 0 0 24px;
+            height: auto;
+            background: url('/static/landing/background.jpg') top / 100% 180px no-repeat;
+            background-color: white;
+        `
+    )}
+    
+    ${media.mediaquery.phoneLandscape.at(
+        css => css`
+            min-height: 100vh;
+        `
+    )}
 
     background: url('/static/landing/background.jpg') center / cover no-repeat;
 
     .landing-header {
         margin: 0;
-        line-height: 36px;
         font-size: 24px;
         color: #fff;
         font-weight: bold;
 
-        ${media.xs`
-            margin: 0;
-            line-height: 48px;
-            font-size: 40px;
-            color: #fff;
-            text-shadow: 0px 0px 25px rgba(0, 0, 0, 0.35);
-        `}
+        ${media.mediaquery.phoneLandscape.at(
+            css => css`
+                font-size: 32px;
+                text-shadow: 0px 0px 25px rgba(0, 0, 0, 0.35);
+            `
+        )}
 
-        ${media.md`
-            line-height: 58px;
-            font-size: 48px;
-            text-shadow: 0px 0px 35px rgba(0, 0, 0, 0.35);
-        `}
+        ${media.mediaquery.tablet.at(
+            css => css`
+                font-size: 40px;
+                text-shadow: 0px 0px 25px rgba(0, 0, 0, 0.35);
+            `
+        )}
+
+        ${media.mediaquery.tabletLandscape.at(
+            css => css`
+                font-size: 45px;
+                text-shadow: 0px 0px 35px rgba(0, 0, 0, 0.35);
+            `
+        )}
 
         grid-row: 2;
-        grid-column: 2 / span 2;
+        grid-column: border-start / span border-end;
 
-        ${media.upToMinDesktop`
-            grid-column: 3 / span 2;
-        `}
+        align-self: end;
+        
+        ${media.mediaquery.tabletLandscape.at(
+            css => css`
+                grid-column: border-start / span [middle-end];
+            `
+        )}
 
-        ${media.xsMax`
-            font-size: 28px;
-            box-sizing: border-box;
-            padding: 0 15px 1em;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            height: 180px;
-        `}
+        ${media.mediaquery.phoneLandscape.to(
+            css => css`
+                font-size: 28px;
+                box-sizing: border-box;
+                padding: 0 15px 1em;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                height: 180px;
+            `
+        )}
     }
 
     ${Tabs} {
         grid-row: 4;
-        grid-column: 3 / span 2;
+        grid-column: border-start / border-end;
+        
+        ${media.mediaquery.desktop.at(
+            css => css`
+                grid-column: middle-start / span middle-end;
+            `
+        )}
     }
-
-    ${media.xsMax`
-        display: block;
-        padding: 0 0 24px;
-        height: auto;
-        background: url('/static/landing/background.jpg') top / 100% 180px no-repeat;
-        background-color: white;
-    `}
 `;

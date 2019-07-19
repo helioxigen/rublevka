@@ -40,19 +40,15 @@ const MainPage = ({ className }) => (
 );
 
 export default styled(MainPage)`
-    ${media.mediaquery.tablet.at(
+    ${media.mediaquery.tabletLandscape.at(
         css => css`
             display: grid;
 
             grid-template:
-                100vh repeat(2, 640px)
+                1fr repeat(2, 640px)
                 / [start] 20px [first] 40fr 60fr [last] 20px [end];
 
             grid-gap: 30px;
-
-            .object-block {
-                display: none;
-            }
 
             .call-block {
                 padding: 0 114px;
@@ -67,6 +63,14 @@ export default styled(MainPage)`
 
                 grid-row: 3;
                 grid-column: 3;
+            }
+        `
+    )}
+
+    ${media.mediaquery.phoneLandscape.at(
+        css => css`
+            .object-block {
+                display: none;
             }
         `
     )}

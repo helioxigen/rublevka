@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Icon, Content, PageContainer, IconButton } from '@components/UI';
 import { Map, Placemark, ZoomControl } from 'react-yandex-maps';
+import { ContactToolbar } from '@components/Toolbars';
 import { app, media } from '@utils';
 
 const ContactsPage = ({ className }) => {
@@ -28,12 +29,7 @@ const ContactsPage = ({ className }) => {
                     <footer>
                         <p>Пн-пт, с 10:00 до 20:00.</p>
                     </footer>
-                    <div className="controls">
-                        <IconButton href={`https://wa.me/${app.getConfig().phoneNumbers}`} icon="whatsapp">
-                            Написать
-                        </IconButton>
-                        <IconButton href={`tel:${app.getConfig().phoneNumbers}`} icon="phone.filled" />
-                    </div>
+                    <ContactToolbar />
                 </article>
             </Content>
             <section className="contacts-map">
@@ -107,44 +103,14 @@ export default styled(ContactsPage)`
         )}
     }
 
-    .controls {
-        display: flex;
-
+    ${ContactToolbar} {
         ${media.mediaquery.tablet.at(
             css => css`
                 display: none;
             `
         )}
 
-        a {
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
         margin-top: 24px;
-
-        color: white;
-
-        .whatsapp-button {
-            font-size: 15px;
-            margin: 0 8px 0 0;
-            flex: 1;
-            letter-spacing: 0.3px;
-            ${Icon} {
-                font-size: 28px;
-                margin: 0 10px 0 0;
-
-                position: relative;
-
-                svg {
-                    position: absolute;
-                    top: -2px;
-                }
-            }
-        }
-
-        a:last-child {
-            font-size: 20px;
-        }
     }
 
     .contact {

@@ -49,7 +49,7 @@ const Gallery = ({ className, dealType, images, layoutImages, id: propertyId }) 
                 </ReactSwipe>
                 <CarouselControl right onClick={() => carousel.current.next()} />
                 <Counter overall={images.length} currentIndex={currentIdx + 1} />
-                <FavoriteButton id={propertyId} dealType={dealType} />
+                <FavoriteButton className="favorite-button" id={propertyId} dealType={dealType} />
             </CarouselLayout>
             <GalleryNav
                 layoutButton={
@@ -99,7 +99,7 @@ export default styled(Gallery)`
         `}
     }
 
-    ${FavoriteButton} {
+    .favorite-button {
         position: absolute;
         top: 5px;
         right: 0;

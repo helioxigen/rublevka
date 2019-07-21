@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { Input } from '@components/UI';
 import InputMask from 'react-input-mask';
@@ -48,7 +49,7 @@ class PhoneInput extends React.Component {
     };
 
     render() {
-        const { code, subCode, country } = this.state;
+        const { code, country } = this.state;
         const { className, hasError, value, onChange } = this.props;
 
         return (
@@ -62,7 +63,15 @@ class PhoneInput extends React.Component {
                     onChange={e => onChange(e.target.value)}
                     value={value}
                 >
-                    {inputProps => <Input ref={ref => (this.inputRef = ref)} {...inputProps} />}
+                    {inputProps => (
+                        <Input
+                            className="phone-input"
+                            ref={ref => {
+                                this.inputRef = ref;
+                            }}
+                            {...inputProps}
+                        />
+                    )}
                 </InputMask>
             </div>
         );
@@ -72,7 +81,7 @@ class PhoneInput extends React.Component {
 export default styled(PhoneInput)`
     position: relative;
 
-    ${Input} {
+    .phone-input {
         width: 100%;
         padding-left: 56px;
     }

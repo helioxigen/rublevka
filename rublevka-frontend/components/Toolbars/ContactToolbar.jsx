@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IconButton, Icon } from '@components/UI';
+import { IconButton } from '@components/UI';
 import { app, sc } from '@utils';
 
 const ContactToolbar = ({ className }) => (
@@ -23,7 +23,7 @@ export default styled(ContactToolbar)`
         margin: 0 8px 0 0;
         flex: 1;
         letter-spacing: 0.3px;
-        ${Icon} {
+        [data-icon] {
             font-size: 28px;
             margin: 0 10px 0 0;
 

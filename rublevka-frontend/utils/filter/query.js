@@ -1,5 +1,5 @@
-import app from '../app';
 import compact from 'lodash/compact';
+import app from '../app';
 import { fromQuery } from './fields';
 
 const defaults = {
@@ -50,7 +50,10 @@ const filterToQuery = filter => {
         }
 
         if (key.includes('multiCurrencyPrice')) {
-            val = `${(value.from || 0) * 1000000}..${(value.to || 0) * 1000000}`;
+            const from = (value.from || 0) * 1000000;
+            const to = value.to === 0 ? value.to * 1000000 : '';
+
+            val = `${from}..${to}`;
         }
 
         goodFilter[key] = val;

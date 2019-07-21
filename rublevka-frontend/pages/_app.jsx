@@ -1,6 +1,7 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import App, { Container } from 'next/app';
+import Head from 'next/head';
 import { Provider } from 'react-redux';
 import withReduxStore from 'next-redux-wrapper';
 import { YMaps } from 'react-yandex-maps';
@@ -46,6 +47,13 @@ class MyApp extends App {
 
         return (
             <Container>
+                <Head>
+                    <meta
+                        name="viewport"
+                        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"
+                    />
+                    <link href="/static/favicon.png" rel="icon" />
+                </Head>
                 <YMaps>
                     <PageTitleContext.Provider value={[pageTitle, this.setPageTitle]}>
                         <Provider store={store}>

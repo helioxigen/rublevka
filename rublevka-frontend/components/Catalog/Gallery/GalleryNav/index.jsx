@@ -1,10 +1,9 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
-import { IconButton } from '@components/UI';
+import styled from 'styled-components';
 import Shaft from './Shaft';
 import { media, sc } from '@utils';
 
-const GalleryNav = ({ className, currentIdx, layoutButton, images, onImageClick, scrollable }) => (
+const GalleryNav = ({ className, currentIdx, layoutButton, images, onImageClick }) => (
     <div className={className}>
         <div className="container">
             <Shaft
@@ -26,26 +25,26 @@ export default styled(GalleryNav)`
 
     @media screen and (max-width: 992px) {
         .container {
-                overflow-x: scroll;
-                overflow-y: hidden;
-            }
+            overflow-x: scroll;
+            overflow-y: hidden;
+        }
 
-            .gallery-nav-item,
-            ${IconButton} {
-                height: 12vw;
+        .gallery-nav-item,
+        .layout-button {
+            height: 12vw;
 
-                flex: 0 0 auto;
+            flex: 0 0 auto;
 
-                width: 22vw;
+            width: 22vw;
 
-                ${media.sm`
+            ${media.sm`
                     width: 100px;
                 `}
 
-                ${media.xs`
+            ${media.xs`
                     height: 60px;
                 `}
-            }
+        }
     }
 
     ${media.md`
@@ -63,7 +62,7 @@ export default styled(GalleryNav)`
         }
 
         .gallery-nav-item,
-        ${IconButton} {
+        .layout-button {
             height: 12vw;
 
             flex: 0 0 auto;
@@ -83,7 +82,7 @@ export default styled(GalleryNav)`
                 `}
             }
 
-            ${IconButton} {
+            .layout-button {
                 width: calc(1 / 5 * 100% - 1.5px);
 
                 @media screen and (min-width: 560px) {
@@ -96,7 +95,7 @@ export default styled(GalleryNav)`
             }
     `}
 
-    & > ${IconButton} {
+    & > .layout-button {
         position: absolute;
         right: 0;
         top: 0;

@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import { Price } from '@components/UI';
 import { media } from '@utils';
 import Summary from './Summary';
 
 export default styled.div`
-    ${Price} {
+    .article-price {
         ${media.mediaquery.tabletLandscape.at(
             css => css`
                 display: none;
@@ -31,7 +30,7 @@ export default styled.div`
             )}
 
             &.main-cat {
-                ${Price} {
+                .article-price {
                     font-size: 20px;
                     font-weight: bold;
                     margin-bottom: 16px;

@@ -1,16 +1,16 @@
 const envs = {
     production: {
-        API: process.env.API_URL || 'https://api.jqestate.ru/v1',
+        API: 'https://api.jqestate.ru/v1',
         CDN: 'https://images.jqestate.ru',
     },
     development: {
-        API: process.env.API_URL || 'https://api-dev.jqestate.ru/v1',
+        API: 'https://api-dev.jqestate.ru/v1',
         CDN: 'https://images.jqestate.ru',
     },
     local: {
-        API: process.env.API_URL || '/api-dev',
+        API: '/api-dev',
         CDN: 'https://images.jqestate.ru',
     },
 };
 
-export const { API: API_ENDPOINT, CDN } = envs[process.env.APP_ENV];
+export const { API: API_ENDPOINT, CDN } = envs[process.env.APP_ENV || 'development'];

@@ -1,4 +1,4 @@
-const routes = [
+const baseRoutes = [
     { name: 'Рублёво-Успенское', id: 1178 },
     { name: 'Новорижское', id: 1186 },
     { name: 'Ильинское', id: 1192 },
@@ -8,4 +8,18 @@ const routes = [
     { name: 'Калужское', id: 1183 },
 ];
 
-export const getRouteIds = (...names) => routes.filter(v => names.some(n => n === v.name)).map(v => v.id);
+export const getRouteIds = (...names) => baseRoutes.filter(v => names.some(n => n === v.name)).map(v => v.id);
+
+export default class SiteConfig {
+    constructor(name, { phone, whatsapp, email, routes, defaultCurrency = 'usd' }) {
+        this.phone = phone;
+        this.phoneNumbers = phone.match(/\d/g).join('');
+
+        this.name = name;
+
+        this.email = email;
+        this.whatsapp = whatsapp;
+        this.routes = getRouteIds(routes);
+        this.defaultCurrency = defaultCurrency;
+    }
+}

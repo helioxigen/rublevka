@@ -1,3 +1,4 @@
+import nookies from 'nookies';
 import api from '@api';
 import { createApiCallTypes } from '@utils';
 
@@ -16,7 +17,7 @@ export const toggleFavorite = ({ id, dealType }) => (dispatch, getState) => {
 
     const { favorite } = getState().user;
 
-    localStorage.setItem('favorite', JSON.stringify(favorite));
+    nookies.set({}, 'favorite', JSON.stringify(favorite));
 };
 
 export const setFavorite = favorite => dispatch => {
@@ -27,7 +28,7 @@ export const setFavorite = favorite => dispatch => {
         },
     });
 
-    if (!favorite.length) localStorage.removeItem('favorite');
+    nookies.set({}, 'favorite', JSON.stringify(favorite));
 };
 
 export const setCurrency = code => dispatch => {
@@ -38,7 +39,7 @@ export const setCurrency = code => dispatch => {
         },
     });
 
-    localStorage.setItem('currency', JSON.stringify(code));
+    nookies.set({}, 'currency', code);
 };
 
 export const favoriteTypes = createApiCallTypes('User', 'Favorite');

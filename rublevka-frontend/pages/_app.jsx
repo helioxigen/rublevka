@@ -5,8 +5,10 @@ import Head from 'next/head';
 import { Provider } from 'react-redux';
 import withReduxStore from 'next-redux-wrapper';
 import { YMaps } from 'react-yandex-maps';
+import nookies from 'nookies';
 import { Footer, Navbar } from '@components';
-import { makeStore, setFavorite } from '../store';
+import { makeStore, setFavorite, setCurrency } from '../store';
+import { app } from '@utils';
 
 const GlobalStyles = createGlobalStyle`
     body {
@@ -22,12 +24,21 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 class MyApp extends App {
-    componentDidMount() {
-        const { store } = this.props;
+    static async getInitialProps({ Component, ctx }) {
+        let pageProps = {};
 
-        const fav = localStorage.getItem('favorite');
+        if (Component.getInitialProps) {
+            pageProps = await Component.getInitialProps(ctx);
+        }
 
-        store.dispatch(setFavorite(JSON.parse(fav || '[]')));
+        if (ctx.req) {
+            const { favorite = '[]', currency = app.config.defaultCurrency } = nookies.get(ctx);
+
+            ctx.store.dispatch(setFavorite(JSON.parse(favorite)));
+            ctx.store.dispatch(setCurrency(currency));
+        }
+
+        return { pageProps };
     }
 
     render() {

@@ -35,7 +35,7 @@ const VisibleCards = ({ className, items, clusterId, onToggle }) => {
 
 export default styled(VisibleCards)`
     .cards-list {
-        padding: 16px 8px;
+        padding: 16px 8px 90px;
         height: 100%;
         box-sizing: border-box;
         overflow-y: scroll;

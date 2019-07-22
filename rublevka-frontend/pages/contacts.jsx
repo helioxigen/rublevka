@@ -11,26 +11,28 @@ const ContactsPage = ({ className }) => {
     const { email, phone, phoneNumbers } = app.config;
 
     return (
-        <PageContainer fullWidth as="main" className={className}>
+        <PageContainer as="main" className={className}>
             <Content>
-                <article className="contact">
-                    <header>
-                        <h2>Офис в Жуковке</h2>
-                        <p>Рублёво-Успенское шоссе, Жуковка, 44А, 2 этаж</p>
-                    </header>
-                    <p className="contact-info">
-                        <Icon name="mail" />
-                        <a href={`mailto:${email}`}>{email}</a>
-                    </p>
-                    <p className="contact-info">
-                        <Icon name="phone" />
-                        <a href={`tel:+${phoneNumbers}`}>{phone}</a>
-                    </p>
-                    <footer>
-                        <p>Пн-пт, с 10:00 до 20:00.</p>
-                    </footer>
-                    <ContactToolbar />
-                </article>
+                <div className="content-container">
+                    <article className="contact">
+                        <header>
+                            <h2>Офис в Жуковке</h2>
+                            <p>Рублёво-Успенское шоссе, Жуковка, 44А, 2 этаж</p>
+                        </header>
+                        <p className="contact-info">
+                            <Icon name="mail" />
+                            <a href={`mailto:${email}`}>{email}</a>
+                        </p>
+                        <p className="contact-info">
+                            <Icon name="phone" />
+                            <a href={`tel:+${phoneNumbers}`}>{phone}</a>
+                        </p>
+                        <footer>
+                            <p>Пн-пт, с 10:00 до 20:00.</p>
+                        </footer>
+                        <ContactToolbar />
+                    </article>
+                </div>
             </Content>
             <section className="contacts-map">
                 <Map
@@ -77,7 +79,7 @@ export default styled(ContactsPage)`
 
     ${media.tablet.at(
         css => css`
-            height: 100vh;
+            height: calc(100vh - 170px);
         `
     )}
 
@@ -88,6 +90,10 @@ export default styled(ContactsPage)`
             css => css`
                 width: 100%;
                 height: 100%;
+
+                position: absolute;
+                right: 0;
+                left: 0;
             `
         )}
     }
@@ -101,6 +107,18 @@ export default styled(ContactsPage)`
                 right: 0;
             `
         )}
+
+        ${media.desktop.at(
+            css => css`
+                padding: 0 50px;
+            `
+        )}
+
+        .content-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
     }
 
     ${ContactToolbar} {
@@ -122,7 +140,6 @@ export default styled(ContactsPage)`
                 padding: 20px 16px;
                 position: absolute;
                 top: 14px;
-                left: 0;
             `
         )}
 

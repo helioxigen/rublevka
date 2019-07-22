@@ -1,9 +1,22 @@
 /* eslint-disable */
+const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
 path = require('path');
 
-module.exports = {
+const config = {
+    analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
+    analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
+    bundleAnalyzerConfig: {
+        server: {
+            analyzerMode: 'static',
+            reportFilename: '../bundles/server.html',
+        },
+        browser: {
+            analyzerMode: 'static',
+            reportFilename: '../bundles/client.html',
+        },
+    },
     useFileSystemPublicRoutes: false,
-    distDir: `build/${process.env.HOST}`,
+    distDir: `build/${process.env.HOST || 'default'}`,
     webpack(config) {
         config.module.rules.push({
             test: /\.svg$/,
@@ -42,3 +55,5 @@ module.exports = {
         APP_ENV: process.env.APP_ENV,
     },
 };
+
+module.exports = withBundleAnalyzer(config);

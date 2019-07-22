@@ -9,15 +9,20 @@
         "dev": "APP_ENV=development node server.js",
         "start": "NODE_ENV=production node server.js",
         "build": "APP_ENV=production NODE_ENV=production next build",
-        "now-build": "APP_ENV=production next build"
+        "now-build": "APP_ENV=production next build",
+        "analyze": "BUNDLE_ANALYZE=both next build",
+        "analyze:server": "BUNDLE_ANALYZE=server next build",
+        "analyze:browser": "BUNDLE_ANALYZE=browser next build"
     },
     "dependencies": {
+        "@zeit/next-bundle-analyzer": "^0.1.2",
         "downshift": "^3.2.10",
         "express": "^4.17.1",
         "isomorphic-fetch": "^2.2.1",
         "lodash": "^4.17.14",
         "next": "^9.0.2",
         "next-redux-wrapper": "^3.0.0-alpha.3",
+        "nookies": "^2.0.8",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
         "react-input-mask": "^2.0.4",

@@ -5,7 +5,6 @@ import Head from 'next/head';
 import { Provider } from 'react-redux';
 import withReduxStore from 'next-redux-wrapper';
 import { YMaps } from 'react-yandex-maps';
-import { PageTitleContext } from '@hooks/usePageTitle';
 import { Footer, Navbar } from '@components';
 import { makeStore, setFavorite } from '../store';
 
@@ -23,16 +22,6 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 class MyApp extends App {
-    state = {
-        pageTitle: '',
-    };
-
-    setPageTitle = newTitle => {
-        this.setState({
-            pageTitle: newTitle,
-        });
-    };
-
     componentDidMount() {
         const { store } = this.props;
 
@@ -42,7 +31,6 @@ class MyApp extends App {
     }
 
     render() {
-        const { pageTitle } = this.state;
         const { Component, pageProps, store } = this.props;
 
         return (
@@ -55,14 +43,12 @@ class MyApp extends App {
                     <link href="/static/favicon.png" rel="icon" />
                 </Head>
                 <YMaps>
-                    <PageTitleContext.Provider value={[pageTitle, this.setPageTitle]}>
-                        <Provider store={store}>
-                            <GlobalStyles />
-                            <Navbar title={pageProps.title} />
-                            <Component {...pageProps} />
-                            <Footer />
-                        </Provider>
-                    </PageTitleContext.Provider>
+                    <Provider store={store}>
+                        <GlobalStyles />
+                        <Navbar title={pageProps.title} />
+                        <Component {...pageProps} />
+                        <Footer />
+                    </Provider>
                 </YMaps>
             </Container>
         );

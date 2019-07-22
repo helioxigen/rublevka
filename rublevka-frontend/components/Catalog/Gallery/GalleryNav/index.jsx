@@ -23,6 +23,10 @@ export default styled(GalleryNav)`
     position: relative;
     overflow: hidden;
 
+    .container {
+        margin: 0 -2px;
+    }
+
     @media screen and (max-width: 992px) {
         .container {
             overflow-x: scroll;

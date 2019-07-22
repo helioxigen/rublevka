@@ -2,9 +2,19 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { TextArea, Input, Button, Icon } from '@components/UI/atoms';
 import PhoneInput from './PhoneInput';
-import { uis, media } from '@utils';
+import { uis, media, sc } from '@utils';
 
-const CallbackForm = ({ className, header, fields, submitLabel, fullWidth, defaultComment, compact, keepHeader }) => {
+const CallbackForm = ({
+    className,
+    header,
+    footer,
+    fields,
+    submitLabel,
+    fullWidth,
+    defaultComment,
+    compact,
+    keepHeader,
+}) => {
     const [isSuccess, changeSuccess] = useState(false);
     const [isFailed, changeFailed] = useState(false);
     const [values, changeValues] = useState({});
@@ -100,6 +110,7 @@ const CallbackForm = ({ className, header, fields, submitLabel, fullWidth, defau
                     <p className="message">Наш менеджер свяжется с вами в течение рабочего дня с 11 до 18.</p>
                 </>
             )}
+            {!isSuccess && footer}
         </form>
     );
 };
@@ -165,7 +176,7 @@ export default styled(CallbackForm)`
         font-weight: bold;
         padding: 0 23px;
         margin-top: 12px;
-        width: 100%;
+        width: ${sc.ifProp('fullWidth')('100%', 'auto')};
         ${media.xs`
             margin-top: 8px;
         `}

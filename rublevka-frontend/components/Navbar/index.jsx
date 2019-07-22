@@ -7,13 +7,14 @@ import styled from 'styled-components';
 import config from '@config';
 import { media, sc } from '@utils';
 import MainMenu from './MainMenu';
-import { useInvertOnScroll } from '@hooks';
+import { useInvertOnScroll, useScrollState } from '@hooks';
 
 const Navbar = ({ className, title }) => {
     const { pathname } = useRouter();
 
     const isLanding = pathname === '/';
 
+    const isScrollingDown = useScrollState();
     const isInverted = useInvertOnScroll(isLanding, 80);
     // const [ref, menuOpen, setIsMenuOpen] = useComponentVisible(false);
     const [menuOpen, setIsMenuOpen] = useState(false);
@@ -21,7 +22,7 @@ const Navbar = ({ className, title }) => {
     const favoriteCount = useSelector(state => state.user.favorite.length);
 
     return (
-        <header className={className} data-islanding={isLanding} data-inverted={isInverted}>
+        <header className={className} data-hide={isScrollingDown} data-islanding={isLanding} data-inverted={isInverted}>
             <Content className="content">
                 <Link href="/">
                     <a className="logo">
@@ -64,6 +65,16 @@ export default styled(Navbar)`
 
     font-size: 20px;
 
+    transition: background 225ms, transform 225ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    ${media.mediaquery.tabletLandscape.to(
+        css => css`
+            &[data-hide='true'] {
+                transform: translateY(-100%);
+            }
+        `
+    )}
+
     .controls {
         display: flex;
 
@@ -98,12 +109,11 @@ export default styled(Navbar)`
     padding: 0 15px;
     box-sizing: border-box;
 
-    position: absolute;
+    position: fixed;
 
     ${media.mediaquery.tabletLandscape.at(
         css => css`
             height: 64px;
-            position: fixed;
             font-size: 15px;
             padding: 0;
 
@@ -151,13 +161,13 @@ export default styled(Navbar)`
             display: block;
         }
 
+        &[data-inverted='false'] {
+            color: ${sc.theme.colors.black};
+            background: white;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+        }
         ${media.mediaquery.tabletLandscape.at(
             css => css`
-                &[data-inverted='false'] {
-                    color: ${sc.theme.colors.black};
-                    background: white;
-                    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
-                }
                 &[data-inverted='true'] {
                     .callback-button {
                         border: 2px solid white;
@@ -201,8 +211,6 @@ export default styled(Navbar)`
             `
         )}
     }
-
-    transition: color 225ms;
 
     .header-right {
         display: flex;

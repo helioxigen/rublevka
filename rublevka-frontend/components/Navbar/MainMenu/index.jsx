@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { IconButton, Button, AdaptiveSidebar } from '@components/UI';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { CallbackModal } from '@components/Modals';
 import { app, media, sc } from '@utils';
 import { useLockBodyScroll, useIsomorphicLayoutEffect } from '@hooks';
 
@@ -49,7 +50,13 @@ const MainMenu = ({ className, onClose, isOpen, favoriteCount }) => {
                 <a href={`tel:+${app.getConfig().phoneNumbers}`} className="phone">
                     {app.getConfig().phone}
                 </a>
-                <Button className="callback-button">Обратный звонок</Button>
+                <CallbackModal>
+                    {onOpen => (
+                        <Button className="callback-button" onClick={onOpen}>
+                            Обратный звонок
+                        </Button>
+                    )}
+                </CallbackModal>
                 <IconButton className="whatsapp-button menu-only" icon="whatsapp" />
             </div>
         </AdaptiveSidebar>

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { CallbackForm } from '@components/Forms';
 
 export default styled.div`
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
@@ -17,11 +16,6 @@ export default styled.div`
     width: 925px;
 
     text-align: center;
-
-    ${CallbackForm} {
-        margin: 0 auto;
-        max-width: 350px;
-    }
 
     > header {
         font-size: 44px;

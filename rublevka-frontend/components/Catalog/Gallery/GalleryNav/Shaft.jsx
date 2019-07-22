@@ -26,6 +26,7 @@ export default styled(Shaft)`
     .gallery-nav-item {
         outline: none;
 
+        box-sizing: border-box;
         padding: 0 1.5px;
     }
 

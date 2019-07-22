@@ -11,7 +11,7 @@ const ContactsPage = ({ className }) => {
     const { email, phone, phoneNumbers } = app.config;
 
     return (
-        <PageContainer as="main" className={className}>
+        <PageContainer fullWidth as="main" className={className}>
             <Content>
                 <article className="contact">
                     <header>
@@ -75,7 +75,7 @@ export default styled(ContactsPage)`
 
     margin: 0;
 
-    ${media.mediaquery.tablet.at(
+    ${media.tablet.at(
         css => css`
             height: 100vh;
         `
@@ -84,7 +84,7 @@ export default styled(ContactsPage)`
     .contacts-map {
         height: 80vw;
 
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 width: 100%;
                 height: 100%;
@@ -93,7 +93,7 @@ export default styled(ContactsPage)`
     }
 
     ${Content} {
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 position: absolute;
                 height: 100%;
@@ -104,7 +104,7 @@ export default styled(ContactsPage)`
     }
 
     ${ContactToolbar} {
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 display: none;
             `
@@ -117,7 +117,7 @@ export default styled(ContactsPage)`
         z-index: 10;
         padding: 24px 15px;
 
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 padding: 20px 16px;
                 position: absolute;
@@ -126,7 +126,7 @@ export default styled(ContactsPage)`
             `
         )}
 
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 top: 40px;
             `
@@ -137,13 +137,13 @@ export default styled(ContactsPage)`
         border-radius: 4px;
         color: #212121;
 
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 letter-spacing: 0.352941px;
             `
         )}
 
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 font-size: 16px;
             `
@@ -163,7 +163,7 @@ export default styled(ContactsPage)`
             font-size: 24px;
         }
 
-        ${media.mediaquery.tablet.to(
+        ${media.tablet.to(
             css => css`
                 .contact-info {
                     font-size: 17px;

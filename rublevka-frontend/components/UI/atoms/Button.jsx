@@ -1,5 +1,4 @@
 /* eslint-disable react/button-has-type */
-import React from 'react';
 import styled from 'styled-components';
 import { sc, media } from '@utils';
 
@@ -23,14 +22,13 @@ export default styled.button`
 
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 
-    height: 56px;
     max-height: 100%;
 
     border-radius: 8px;
 
     box-sizing: border-box;
 
-    ${media.mediaquery.phoneLandscape.at(
+    ${media.phoneL.at(
         css => css`
             border-radius: 6px;
         `
@@ -41,7 +39,7 @@ export default styled.button`
     font-size: 15px;
     font-weight: 600;
 
-    ${media.mediaquery.tablet.at(
+    ${media.tablet.at(
         css => css`
             font-weight: 600;
         `

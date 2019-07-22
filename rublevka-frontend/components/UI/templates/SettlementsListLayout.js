@@ -1,22 +1,29 @@
 import styled from 'styled-components';
-import { Hero, ListSection } from '@components/Settlements';
+import { ListSection } from '@components/Settlements';
 import { media } from '@utils';
-import { Breadcrumbs } from '@components';
 
 export default styled.main`
+
+
     .hero-container, article {
         margin: 0 auto;
+
+        ${media.at(css => ({
+            tablet: css`
+                max-width: 720px;
+            `,
+            desktop: css`
+                max-width: 925px;
+            `,
+        }))}
+
+
         ${media.sm`
-            max-width: 740px;
+             max-width: 720px;
         `}
 
         ${media.md`
-            max-width: 960px;
-        `}
-
-        ${media.lg`
-            max-width: 1340px;
-                
+            max-width: 925px;
         `}
 
         height: 100%;
@@ -51,7 +58,7 @@ export default styled.main`
         }
     }
 
-    ${Breadcrumbs} a{
+    nav a{
         color: rgba(255,255,255,0.75)!important;
     }
 `;

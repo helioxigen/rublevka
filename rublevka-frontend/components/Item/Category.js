@@ -4,13 +4,13 @@ import Summary from './Summary';
 
 export default styled.div`
     .article-price {
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 display: none;
             `
         )}
     }
-    ${media.mediaquery.tabletLandscape.to(
+    ${media.desktop.to(
         css => css`
             background: white;
             border: 1px solid #eeeeee;
@@ -21,7 +21,7 @@ export default styled.div`
 
             margin: 8px 5px;
 
-            ${media.mediaquery.tablet.at(
+            ${media.tablet.at(
                 () => css`
                     padding: 24px 16px;
 
@@ -35,13 +35,13 @@ export default styled.div`
                     font-weight: bold;
                     margin-bottom: 16px;
 
-                    ${media.mediaquery.tablet.at(
+                    ${media.tablet.at(
                         () => css`
                             font-size: 23px;
                         `
                     )}
 
-                    ${media.mediaquery.tabletLandscape.at(
+                    ${media.desktop.at(
                         () => css`
                             display: none;
                         `

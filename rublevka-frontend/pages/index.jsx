@@ -40,7 +40,7 @@ const MainPage = ({ className }) => (
 );
 
 export default styled(MainPage)`
-    ${media.mediaquery.tabletLandscape.at(
+    ${media.desktop.at(
         css => css`
             display: grid;
 
@@ -67,7 +67,7 @@ export default styled(MainPage)`
         `
     )}
 
-    ${media.mediaquery.phoneLandscape.at(
+    ${media.phoneL.at(
         css => css`
             .object-block {
                 display: none;
@@ -79,7 +79,7 @@ export default styled(MainPage)`
         grid-column: 1 / span end;
     }
 
-    ${media.mediaquery.tablet.to(
+    ${media.tablet.to(
         css => css`
             .call-block {
                 background: url('/static/landing/call.background.jpg') center / cover no-repeat;

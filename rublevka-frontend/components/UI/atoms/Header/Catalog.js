@@ -7,7 +7,7 @@ export default styled.h1`
 
     font-size: 28px;
 
-    ${media.mediaquery.desktop.at(
+    ${media.desktopL.at(
         css => css`
             font-size: 32px;
         `

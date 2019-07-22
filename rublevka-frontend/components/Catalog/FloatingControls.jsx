@@ -46,7 +46,7 @@ export default styled(FloatingControls)`
         transform: translateY(200%);
     }
 
-    ${media.mediaquery.tabletLandscape.at(
+    ${media.desktop.at(
         css => css`
             display: none;
         `
@@ -59,7 +59,7 @@ export default styled(FloatingControls)`
         flex: 0;
         margin-right: 8px;
 
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 display: none;
             `

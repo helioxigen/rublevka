@@ -22,7 +22,7 @@ export default styled(ItemDetails)`
     font-size: 13px;
     font-weight: 400;
 
-    ${media.mediaquery.phoneLandscape.at(
+    ${media.phoneL.at(
         css => css`
             font-size: 14px;
         `
@@ -49,7 +49,7 @@ export default styled(ItemDetails)`
         }
     }
 
-    ${media.mediaquery.tablet.at(
+    ${media.tablet.at(
         css => css`
             width: 350px;
             font-size: 16px;

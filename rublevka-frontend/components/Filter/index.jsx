@@ -127,7 +127,7 @@ export default styled(Filter)`
 
     /* padding: 15px; */
 
-    ${media.mediaquery.tabletLandscape.at(
+    ${media.desktop.at(
         css => css`
             padding: 0;
         `

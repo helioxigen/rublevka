@@ -24,7 +24,7 @@ export default styled(Section)`
         margin: 0;
     }
 
-    ${media.mediaquery.tablet.to(
+    ${media.tablet.to(
         css => css`
             header {
                 margin: 0 0 12px 0;

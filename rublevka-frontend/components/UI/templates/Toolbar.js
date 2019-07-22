@@ -9,25 +9,30 @@ export default styled.div`
     font-weight: 500;
     color: #232323;
 
-    ${media.upToDesktop`
-        justify-content: space-between;
-    `}
+    justify-content: center;
 
-    ${media.upToTablet`
-        ${MapButton} {
-            display: none;
-        }
+    ${media.tablet.at(
+        css => css`
+            justify-content: space-between;
+        `
+    )}
 
-        justify-content: center;
+    ${media.tablet.to(
+        css => css`
+            ${MapButton} {
+                display: none;
+            }
 
-        width: 100%;
-        background: white;
-        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
-        margin: 0;
-        font-size: 15px;
-    `}
+            justify-content: center;
 
-    justify-content: unset;
+            width: 100%;
+            background: white;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+            margin: 0;
+            font-size: 15px;
+        `
+    )}
+
 
     > * {
         background: #f2f2f2;
@@ -39,9 +44,11 @@ export default styled.div`
             margin-left: 11px;
         }
 
-        ${media.upToTablet`
-            background: white;
-            padding: 13px 15px 12px;
-        `}
+        ${media.tablet.to(
+            css => css`
+                background: white;
+                padding: 13px 15px 12px;
+            `
+        )}
     }
 `;

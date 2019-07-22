@@ -38,7 +38,7 @@ export default styled(ResetToolbar)`
         }
     }
 
-    ${media.mediaquery.tabletLandscape.at(
+    ${media.desktop.at(
         css => css`
             display: none;
         `

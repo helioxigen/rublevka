@@ -58,7 +58,7 @@ export default styled(Footer)`
 
     padding: 24px 15px 64px;
 
-    ${media.mediaquery.tabletLandscape.at(
+    ${media.desktop.at(
         css => css`
             padding: 48px 0 64px;
         `
@@ -84,13 +84,13 @@ export default styled(Footer)`
 
         margin-bottom: 24px;
 
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 flex: 50%;
             `
         )}
 
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 flex: 25%;
 
@@ -108,7 +108,7 @@ export default styled(Footer)`
 
         margin: 32px 0 0;
 
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 margin: 0;
             `
@@ -122,7 +122,7 @@ export default styled(Footer)`
 
         margin-top: 24px;
 
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 flex-direction: row;
                 align-items: center;

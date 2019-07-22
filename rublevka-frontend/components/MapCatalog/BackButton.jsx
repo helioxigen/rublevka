@@ -56,7 +56,7 @@ export default styled(BackButton)`
         }
     }
 
-    ${media.mediaquery.tabletLandscape.to(
+    ${media.desktop.to(
         css => css`
             justify-content: flex-start;
             ${Icon}:first-child {
@@ -71,7 +71,7 @@ export default styled(BackButton)`
         `
     )}
 
-    ${media.mediaquery.tabletLandscape.at(
+    ${media.desktop.at(
         css => css`
             transition: background 0.3s;
 

@@ -6,7 +6,7 @@ export default styled.main`
     height: 100vh;
 
     > aside {
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 animation: ${sc.keyframes.slideRight} 225ms cubic-bezier(0, 0, 0.2, 1);
             `
@@ -21,7 +21,7 @@ export default styled.main`
 
         display: flex;
 
-        ${media.mediaquery.tabletLandscape.to(
+        ${media.desktop.to(
             css => css`
                 width: 100%;
                 height: 58px;

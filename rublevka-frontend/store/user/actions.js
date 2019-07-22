@@ -42,6 +42,15 @@ export const setCurrency = code => dispatch => {
     nookies.set({}, 'currency', code);
 };
 
+export const INIT_USER = 'User.Init';
+export const initUser = (favorite, currency) => ({
+    type: INIT_USER,
+    payload: {
+        favorite,
+        currency,
+    },
+});
+
 export const favoriteTypes = createApiCallTypes('User', 'Favorite');
 
 export const fetchFavorite = ids => ({

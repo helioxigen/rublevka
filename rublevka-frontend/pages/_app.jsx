@@ -7,7 +7,7 @@ import withReduxStore from 'next-redux-wrapper';
 import { YMaps } from 'react-yandex-maps';
 import nookies from 'nookies';
 import { Footer, Navbar } from '@components';
-import { makeStore, setFavorite, setCurrency } from '../store';
+import { makeStore, initUser } from '../store';
 import { app } from '@utils';
 
 const GlobalStyles = createGlobalStyle`
@@ -34,8 +34,7 @@ class MyApp extends App {
         if (ctx.req) {
             const { favorite = '[]', currency = app.config.defaultCurrency } = nookies.get(ctx);
 
-            ctx.store.dispatch(setFavorite(JSON.parse(favorite)));
-            ctx.store.dispatch(setCurrency(currency));
+            ctx.store.dispatch(initUser(JSON.parse(favorite), currency));
         }
 
         return { pageProps };

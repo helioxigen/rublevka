@@ -13,7 +13,7 @@ export default styled.main`
 
     grid-gap: 10px;
 
-    ${media.mediaquery.tabletLandscape.at(
+    ${media.desktop.at(
         css => css`
             grid-template:
                 'header header header header'
@@ -29,7 +29,7 @@ export default styled.main`
 
         position: fixed;
 
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 position: static;
             `
@@ -41,33 +41,43 @@ export default styled.main`
     > header {
         grid-area: header;
 
-        ${media.desktop`
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+        ${media.desktopL.at(
+            css => css`
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
 
-            margin-bottom: 32px;
-        `}
+                margin-bottom: 32px;
+            `
+        )}
 
-        ${media.upToTablet`
-            h1 {
-                display: none;
-            }
-        `}
+        ${media.tablet.to(
+            css => css`
+                h1 {
+                    display: none;
+                }
+            `
+        )}
 
-        ${media.upToDesktop`
-            h1, ${Toolbar} {
-                margin-bottom: 1em;
-            }
-        `}
+        ${media.desktopL.to(
+            css => css`
+                h1,
+                ${Toolbar} {
+                    margin-bottom: 1em;
+                }
+            `
+        )}
     }
 
     ${CardsGrid} {
         grid-area: cards;
 
-        ${media.minDesktop`
-            grid-column: 2 / span end;
-        `}
+        ${media.desktop.at(
+            css => css`
+                grid-column: 2 / span end;
+            `
+        )}
+
     }
 
     .floating-controls {
@@ -97,7 +107,7 @@ export default styled.main`
             transform: translateY(200%);
         }
 
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 display: none;
             `
@@ -110,7 +120,7 @@ export default styled.main`
             flex: 0;
             margin-right: 8px;
 
-            ${media.mediaquery.tablet.at(
+            ${media.tablet.at(
                 css => css`
                     display: none;
                 `

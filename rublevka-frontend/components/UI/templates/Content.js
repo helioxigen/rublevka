@@ -6,20 +6,19 @@ export default styled.div`
 
     margin: 0 auto;
 
-    ${media.mediaquery.tablet.at(
+    ${media.tablet.at(
         css => css`
             max-width: 740px;
         `
     )}
 
-    ${media.mediaquery.tabletLandscape.at(
+    ${media.desktop.at(
         css => css`
             max-width: 940px;
-            padding: 0 50px;
         `
     )}
 
-    ${media.mediaquery.desktop.at(
+    ${media.desktopL.at(
         css => css`
             max-width: ${sc.ifProp('compact')(1110, 1340)}px;
         `

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import ReactSwipe from 'react-swipe';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 import { cdn } from '@utils';
 import Indicators from './Indicators';
+
+const ReactSwipe = dynamic(() => import('react-swipe'));
 
 const Gallery = ({ className, images }) => {
     const [currentIdx, changeCurrentIdx] = useState(0);

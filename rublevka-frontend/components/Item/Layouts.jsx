@@ -17,14 +17,14 @@ export default styled(Layouts)`
     grid: auto / repeat(3, 1fr);
     font-size: 13px;
 
-    ${media.mediaquery.phoneLandscape.at(
+    ${media.phoneL.at(
         css => css`
             font-size: 15px;
             grid-gap: 7px;
         `
     )}
 
-    ${media.mediaquery.tablet.at(
+    ${media.tablet.at(
         css => css`
             grid-gap: 20px;
         `

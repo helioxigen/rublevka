@@ -14,11 +14,6 @@ const createMediaMax = maxWidth => (...args) =>
         }
     `;
 
-const createQue = (width, max) => `(${max ? 'max' : 'min'}-width: ${width - (max ? 1 : 0)}px)`;
-
-const createQuery = maxWidth => `@media (min-width: ${maxWidth}px)`;
-const createQueryMax = maxWidth => `@media (max-width: ${maxWidth - 1}px)`;
-
 const createMed = minWidth => cssFn =>
     css`
         @media screen and (min-width: ${minWidth}px) {
@@ -38,6 +33,21 @@ const createMQ = width => ({
     to: createMedMax(width),
 });
 
+const mediaQueries = {
+    phoneL: createMQ(480),
+    tablet: createMQ(768),
+    desktop: createMQ(992),
+    desktopL: createMQ(1200),
+};
+
+/**
+ *
+ * @typedef {typeof mediaQueries} MediaQueries
+ * @typedef {Record<keyof MediaQueries, typeof css>} MediaQueriesMap
+ * @param {(css: typeof css) => MediaQueriesMap} getMap
+ */
+const mapAt = getMap => Object.entries(getMap(css)).map(([name, style]) => mediaQueries[name].at(() => style));
+
 export default {
     xs: createMedia(480),
     xsMax: createMediaMax(480),
@@ -47,58 +57,7 @@ export default {
     mdMax: createMediaMax(992),
     lg: createMedia(1200),
     lgMax: createMedia(1200),
-    smallerThan: {
-        phone: createMediaMax(480),
-        phablet: createMediaMax(768),
-        tablet: createMediaMax(992, 1200),
-        desktop: createMediaMax(1200),
-    },
-    largerThan: {
-        phone: createMedia(480),
-        phablet: createMedia(768),
-        tablet: createMedia(992),
-        desktop: createMedia(1200),
-    },
-    phone: createMedia(480),
-    tablet: createMedia(768),
-    minDesktop: createMedia(992),
-    desktop: createMedia(1200),
-    upToPhone: createMediaMax(480),
-    upToTablet: createMediaMax(768),
-    upToMinDesktop: createMediaMax(992),
-    upToDesktop: createMediaMax(1200),
-    device: {
-        tablet: createQue(768),
-        tabletLandscape: createQue(992),
-        desktop: createQue(1200),
-        upTo: {
-            phone: createQue(480, true),
-            tablet: createQue(768, true),
-            tabletLandscape: createQue(992, true),
-            desktop: createQue(1200, true),
-        },
-    },
-    query: {
-        phoneLandscape: createQuery(480),
-        tablet: createQuery(768),
-        tabletLandscape: createQuery(992),
-        desktop: createQuery(1200),
-        upTo: {
-            phoneLandscape: createQueryMax(480),
-            tablet: createQueryMax(768),
-            tabletLandscape: createQueryMax(992),
-            desktop: createQueryMax(1200),
-        },
-        upToPhone: createQueryMax(480),
-        upToTablet: createQueryMax(768),
-        upToMinDesktop: createQueryMax(992),
-        upToDesktop: createQueryMax(1200),
-    },
-    mediaquery: {
-        phoneLandscape: createMQ(480),
-        tablet: createMQ(768),
-        tabletLandscape: createMQ(992),
-        desktop: createMQ(1200),
-    },
+    ...mediaQueries,
+    at: mapAt,
     touch: `@media (hover: none) and (pointer: coarse)`,
 };

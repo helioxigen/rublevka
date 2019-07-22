@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 import { app, media } from '../../utils';
 import Tabs from './Tabs';
-import { SearchForm } from '../Forms';
 // import Form from '../../../rublevka-frontend/src/Landing/Satellites/Form';
+
+const SearchForm = dynamic(() => import('@components/Forms').then(f => f.SearchForm));
 
 const LandingHero = ({ className }) => (
     <section className={className}>

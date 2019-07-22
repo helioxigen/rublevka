@@ -47,8 +47,8 @@ const MainMenu = ({ className, onClose, isOpen, favoriteCount }) => {
                 </Link>
             </nav>
             <div className="header-right">
-                <a href={`tel:+${app.getConfig().phoneNumbers}`} className="phone">
-                    {app.getConfig().phone}
+                <a href={`tel:+${app.config.phoneNumbers}`} className="phone">
+                    {app.config.phone}
                 </a>
                 <CallbackModal>
                     {onOpen => (

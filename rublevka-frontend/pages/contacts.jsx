@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Icon, Content, PageContainer, IconButton } from '@components/UI';
+import { Icon, Content, PageContainer } from '@components/UI';
 import { Map, Placemark, ZoomControl } from 'react-yandex-maps';
 import { ContactToolbar } from '@components/Toolbars';
 import { app, media } from '@utils';
@@ -8,7 +8,7 @@ import { app, media } from '@utils';
 const ContactsPage = ({ className }) => {
     const size = typeof window !== 'undefined' && window.outerWidth < 992 ? 48 : 64;
 
-    const { email, phone, phoneNumbers } = app.getConfig();
+    const { email, phone, phoneNumbers } = app.config;
 
     return (
         <PageContainer as="main" className={className}>

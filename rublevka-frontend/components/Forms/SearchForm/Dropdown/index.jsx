@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Downshift from 'downshift';
+import dynamic from 'next/dynamic';
 import DropdownToggle from './DropdownToggle';
 import Options from '../Options';
 import { media } from '../../../../utils';
@@ -30,11 +30,12 @@ const getRangeName = ({ from, to }, template) => {
     return '';
 };
 
+const Downshift = dynamic(() => import('downshift'));
+
 const Dropdown = ({
     className,
     onChange,
     initialValue = { value: null },
-    children,
     label,
     placeholder,
     items = [],

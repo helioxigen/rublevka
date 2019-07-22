@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import styled from 'styled-components';
-import Modal from 'react-modal';
-import { CallbackForm } from '@components/Forms';
 import { IconButton } from '@components/UI';
 import { media, sc } from '@utils';
+
+const Modal = dynamic(() => import('react-modal'));
+const CallbackForm = dynamic(() => import('@components/Forms').then(i => i.CallbackForm));
 
 const CallbackModal = ({ className, children = () => {} }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -110,7 +112,7 @@ export default styled(CallbackModal)`
             }
         }
 
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 padding: 32px 24px;
             `

@@ -1,10 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import Downshift from 'downshift';
+import dynamic from 'next/dynamic';
 import Options from '../Options';
-import { media } from '../../../../utils';
 import config from '@config';
+
+const Downshift = dynamic(() => import('downshift'));
 
 const Dropdown = ({ className, onChange, onOpen, initialValue }) => {
     const [isMenuOpen, setIsOpen] = useState(false);
@@ -52,6 +53,7 @@ export default styled(Dropdown)`
 
     color: #232323;
     font-size: 18px;
+    font-weight: 600;
 
     position: absolute;
     width: auto;

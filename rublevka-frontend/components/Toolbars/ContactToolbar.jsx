@@ -5,10 +5,10 @@ import { app, sc } from '@utils';
 
 const ContactToolbar = ({ className }) => (
     <div className={className}>
-        <IconButton href={`https://wa.me/${app.getConfig().phoneNumbers}`} icon="whatsapp">
+        <IconButton href={`https://wa.me/${app.config.whatsapp}`} icon="whatsapp">
             Написать
         </IconButton>
-        <IconButton href={`tel:${app.getConfig().phoneNumbers}`} icon="phone.filled" />
+        <IconButton href={`tel:${app.config.phoneNumbers}`} icon="phone.filled" />
     </div>
 );
 

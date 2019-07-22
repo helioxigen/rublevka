@@ -5,7 +5,7 @@ import { Button } from '../atoms';
 import { media, sc } from '@utils';
 
 export default styled.main`
-    ${media.mediaquery.tablet.at(
+    ${media.tablet.at(
         css => css`
             display: grid;
 
@@ -40,7 +40,7 @@ export default styled.main`
         grid-column: 1 / span end;
     }
 
-    ${media.mediaquery.tablet.to(
+    ${media.tablet.to(
         css => css`
             .call-block {
                 background: url('/static/landing/call.background.jpg') center / cover no-repeat;

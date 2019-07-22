@@ -93,7 +93,7 @@ export default styled(Tabs)`
 
         margin: -1px 0 20px;
 
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 margin: -1px 0 25px;
                 background: linear-gradient(90deg, #eeeeee 0%, rgba(255, 255, 255, 0.05) 100%);
@@ -104,7 +104,7 @@ export default styled(Tabs)`
     [data-name='objectNumber'] {
         display: none;
 
-        ${media.mediaquery.phoneLandscape.at(
+        ${media.phoneL.at(
             css => css`
                 display: block;
             `

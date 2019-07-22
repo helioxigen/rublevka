@@ -10,14 +10,14 @@ export default styled.section`
     grid-template-columns: 1fr;
     grid-auto-rows: min-content;
 
-    ${media.mediaquery.tablet.at(
+    ${media.tablet.at(
         css => css`
             grid-template-columns: 1fr 1fr;
             padding: 0;
         `
     )}
 
-    ${media.mediaquery.desktop.at(
+    ${media.desktopL.at(
         css => css`
             grid-template-columns: 1fr 1fr 1fr;
         `

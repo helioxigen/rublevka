@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { SelectList } from '../atoms';
 import { media, sc } from '@utils';
@@ -87,15 +87,17 @@ export default styled(CombinedSelect)`
         height: 100%;
     }
 
-    ${media.upToMinDesktop`
-        .desktop {
-            display: none;
-        }
-        select {
-            display: block;
-        }
-        .select-display {
-            pointer-events: none;
-        }
-    `}
+    ${media.desktop.to(
+        css => css`
+            .desktop {
+                display: none;
+            }
+            select {
+                display: block;
+            }
+            .select-display {
+                pointer-events: none;
+            }
+        `
+    )}
 `;

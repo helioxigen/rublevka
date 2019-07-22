@@ -1,12 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import ReactSwipe from 'react-swipe';
 import { IconButton, FavoriteButton } from '@components/UI';
+import dynamic from 'next/dynamic';
 import CarouselLayout from './CarouselLayout';
 import CarouselControl from './CarouselControl';
 import Counter from './Counter';
 import { cdn, media } from '@utils';
 import GalleryNav from './GalleryNav';
+
+const ReactSwipe = dynamic(() => import('react-swipe'));
 
 const Gallery = ({ className, dealType, images, layoutImages, id: propertyId }) => {
     const carousel = useRef(null);
@@ -104,7 +106,7 @@ export default styled(Gallery)`
         top: 5px;
         right: 0;
 
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 display: none;
             `
@@ -116,7 +118,7 @@ export default styled(Gallery)`
         bottom: 20px;
         right: 15px;
 
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 right: unset;
                 left: 15px;
@@ -141,7 +143,7 @@ export default styled(Gallery)`
         }
     }
 
-    ${media.mediaquery.tabletLandscape.to(
+    ${media.desktop.to(
         css => css`
             ${CarouselControl}, .expand-button {
                 display: none;
@@ -173,7 +175,7 @@ export default styled(Gallery)`
 
         z-index: 200;
 
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 display: none;
             `

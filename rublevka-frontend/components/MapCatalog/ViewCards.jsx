@@ -56,7 +56,7 @@ export default styled(VisibleCards)`
 
     animation: ${sc.keyframes.fadeInBottom} 0.6s cubic-bezier(0.39, 0.575, 0.565, 1);
 
-    ${media.mediaquery.tablet.at(
+    ${media.tablet.at(
         css => css`
             .cards-grid {
                 display: grid;
@@ -66,7 +66,7 @@ export default styled(VisibleCards)`
         `
     )}
 
-    ${media.mediaquery.tabletLandscape.at(
+    ${media.desktop.at(
         css => css`
             position: relative;
             box-shadow: 2px 0px 8px rgba(0, 0, 0, 0.15);

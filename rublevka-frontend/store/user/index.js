@@ -1,6 +1,6 @@
 import xorBy from 'lodash/xorBy';
 import { createReducer } from '../../utils/store';
-import { TOGGLE_FAVORITE, CHANGE_CURRENCY, favoriteTypes, SET_FAVORITE } from './actions';
+import { TOGGLE_FAVORITE, CHANGE_CURRENCY, favoriteTypes, SET_FAVORITE, INIT_USER } from './actions';
 
 export const userInitialState = {
     favoriteFetching: false,
@@ -24,5 +24,9 @@ export const userReducer = createReducer({
     }),
     [CHANGE_CURRENCY]: ({ payload: { code } }) => ({
         currency: code,
+    }),
+    [INIT_USER]: ({ payload: { currency, favorite } }) => ({
+        favorite,
+        currency,
     }),
 })(userInitialState);

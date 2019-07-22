@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Icon, Content, PageContainer, IconButton } from '@components/UI';
+import { Icon, Content, PageContainer } from '@components/UI';
 import { Map, Placemark, ZoomControl } from 'react-yandex-maps';
 import { ContactToolbar } from '@components/Toolbars';
 import { app, media } from '@utils';
@@ -8,29 +8,31 @@ import { app, media } from '@utils';
 const ContactsPage = ({ className }) => {
     const size = typeof window !== 'undefined' && window.outerWidth < 992 ? 48 : 64;
 
-    const { email, phone, phoneNumbers } = app.getConfig();
+    const { email, phone, phoneNumbers } = app.config;
 
     return (
         <PageContainer as="main" className={className}>
             <Content>
-                <article className="contact">
-                    <header>
-                        <h2>Офис в Жуковке</h2>
-                        <p>Рублёво-Успенское шоссе, Жуковка, 44А, 2 этаж</p>
-                    </header>
-                    <p className="contact-info">
-                        <Icon name="mail" />
-                        <a href={`mailto:${email}`}>{email}</a>
-                    </p>
-                    <p className="contact-info">
-                        <Icon name="phone" />
-                        <a href={`tel:+${phoneNumbers}`}>{phone}</a>
-                    </p>
-                    <footer>
-                        <p>Пн-пт, с 10:00 до 20:00.</p>
-                    </footer>
-                    <ContactToolbar />
-                </article>
+                <div className="content-container">
+                    <article className="contact">
+                        <header>
+                            <h2>Офис в Жуковке</h2>
+                            <p>Рублёво-Успенское шоссе, Жуковка, 44А, 2 этаж</p>
+                        </header>
+                        <p className="contact-info">
+                            <Icon name="mail" />
+                            <a href={`mailto:${email}`}>{email}</a>
+                        </p>
+                        <p className="contact-info">
+                            <Icon name="phone" />
+                            <a href={`tel:+${phoneNumbers}`}>{phone}</a>
+                        </p>
+                        <footer>
+                            <p>Пн-пт, с 10:00 до 20:00.</p>
+                        </footer>
+                        <ContactToolbar />
+                    </article>
+                </div>
             </Content>
             <section className="contacts-map">
                 <Map
@@ -75,25 +77,29 @@ export default styled(ContactsPage)`
 
     margin: 0;
 
-    ${media.mediaquery.tablet.at(
+    ${media.tablet.at(
         css => css`
-            height: 100vh;
+            height: calc(100vh - 170px);
         `
     )}
 
     .contacts-map {
         height: 80vw;
 
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 width: 100%;
                 height: 100%;
+
+                position: absolute;
+                right: 0;
+                left: 0;
             `
         )}
     }
 
     ${Content} {
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 position: absolute;
                 height: 100%;
@@ -101,10 +107,22 @@ export default styled(ContactsPage)`
                 right: 0;
             `
         )}
+
+        ${media.desktop.at(
+            css => css`
+                padding: 0 50px;
+            `
+        )}
+
+        .content-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
     }
 
     ${ContactToolbar} {
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 display: none;
             `
@@ -117,16 +135,15 @@ export default styled(ContactsPage)`
         z-index: 10;
         padding: 24px 15px;
 
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 padding: 20px 16px;
                 position: absolute;
                 top: 14px;
-                left: 0;
             `
         )}
 
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 top: 40px;
             `
@@ -137,13 +154,13 @@ export default styled(ContactsPage)`
         border-radius: 4px;
         color: #212121;
 
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 letter-spacing: 0.352941px;
             `
         )}
 
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 font-size: 16px;
             `
@@ -163,7 +180,7 @@ export default styled(ContactsPage)`
             font-size: 24px;
         }
 
-        ${media.mediaquery.tablet.to(
+        ${media.tablet.to(
             css => css`
                 .contact-info {
                     font-size: 17px;

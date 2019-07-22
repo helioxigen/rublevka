@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { media } from '@utils';
+import { media, sc } from '@utils';
 
 export default styled.div`
     width: auto;
@@ -11,15 +11,15 @@ export default styled.div`
 
     padding-top: 48px;
 
-    ${media.mediaquery.tabletLandscape.at(
+    ${media.desktop.at(
         css => css`
-            padding-top: 60px;
+            padding: 60px ${sc.ifProp('fullWidth')(0, 50)}px 0;
         `
     )}
 
     .breadcrumbs {
         display: none;
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 display: block;
             `

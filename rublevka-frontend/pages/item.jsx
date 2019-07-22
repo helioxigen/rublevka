@@ -179,14 +179,14 @@ export default styled(CatalogItem)`
         right: 0;
         background: white;
 
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 display: none;
             `
         )}
     }
 
-    ${media.mediaquery.tabletLandscape.at(
+    ${media.desktop.at(
         css => css`
             display: grid;
             grid-template-columns: minmax(300px, 740px) 360px;
@@ -206,14 +206,14 @@ export default styled(CatalogItem)`
         margin-top: 18px;
         
 
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 max-width: 740px;
                 margin-top: 0;
             `
         )}
 
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 padding: 24px 20px;
             `
@@ -223,7 +223,7 @@ export default styled(CatalogItem)`
             margin-bottom: 18px;
             padding: 0 15px;
 
-            ${media.mediaquery.tabletLandscape.at(
+            ${media.desktop.at(
                 css => css`
                     margin-bottom: 20px;
                     padding: 0;
@@ -231,7 +231,7 @@ export default styled(CatalogItem)`
             )}
         }
 
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 ${Gallery} {
                     margin: 20px 0;
@@ -241,7 +241,7 @@ export default styled(CatalogItem)`
 
         ${Section} {
             margin: 12px 0 16px;
-            ${media.mediaquery.tabletLandscape.at(
+            ${media.desktop.at(
                 css => css`
                     margin: 20px 0 32px;
                 `
@@ -257,7 +257,7 @@ export default styled(CatalogItem)`
         align-self: flex-start;
         display: none;
 
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 display: block;
             `

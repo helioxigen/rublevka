@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 import { app, media } from '../../utils';
 import Tabs from './Tabs';
-import { SearchForm } from '../Forms';
 // import Form from '../../../rublevka-frontend/src/Landing/Satellites/Form';
+
+const SearchForm = dynamic(() => import('@components/Forms').then(f => f.SearchForm));
 
 const LandingHero = ({ className }) => (
     <section className={className}>
@@ -38,7 +40,7 @@ export default styled(LandingHero)`
 
     /* grid-template-rows: auto 1fr 56px 1fr auto; */
 
-    ${media.mediaquery.phoneLandscape.to(
+    ${media.phoneL.to(
         css => css`
             display: block;
             padding: 0 0 24px;
@@ -48,7 +50,7 @@ export default styled(LandingHero)`
         `
     )}
     
-    ${media.mediaquery.phoneLandscape.at(
+    ${media.phoneL.at(
         css => css`
             min-height: 100vh;
         `
@@ -62,21 +64,21 @@ export default styled(LandingHero)`
         color: #fff;
         font-weight: bold;
 
-        ${media.mediaquery.phoneLandscape.at(
+        ${media.phoneL.at(
             css => css`
                 font-size: 32px;
                 text-shadow: 0px 0px 25px rgba(0, 0, 0, 0.35);
             `
         )}
 
-        ${media.mediaquery.tablet.at(
+        ${media.tablet.at(
             css => css`
                 font-size: 40px;
                 text-shadow: 0px 0px 25px rgba(0, 0, 0, 0.35);
             `
         )}
 
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 font-size: 45px;
                 text-shadow: 0px 0px 35px rgba(0, 0, 0, 0.35);
@@ -88,13 +90,13 @@ export default styled(LandingHero)`
 
         align-self: end;
         
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 grid-column: border-start / span [middle-end];
             `
         )}
 
-        ${media.mediaquery.phoneLandscape.to(
+        ${media.phoneL.to(
             css => css`
                 font-size: 28px;
                 box-sizing: border-box;
@@ -111,7 +113,7 @@ export default styled(LandingHero)`
         grid-row: 4;
         grid-column: border-start / border-end;
         
-        ${media.mediaquery.desktop.at(
+        ${media.desktopL.at(
             css => css`
                 grid-column: middle-start / span middle-end;
             `

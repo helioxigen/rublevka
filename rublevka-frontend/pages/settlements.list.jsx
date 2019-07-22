@@ -1,14 +1,16 @@
 import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import groupBy from 'lodash/groupBy';
 import { Header, SettlementsListLayout } from '@components/UI';
 import { Hero, ListSection, ListNav } from '@components/Settlements';
-import { SearchForm } from '@components/Forms';
 import { Element, Link as ScrollLink } from 'react-scroll';
 import { Breadcrumbs } from '@components';
 import { fetchSettlements } from '@store';
 import { dict, app } from '@utils';
+
+const SearchForm = dynamic(() => import('@components/Forms').then(f => f.SearchForm));
 
 const SettlementsListPage = ({ list = [] }) => {
     const settlements = useMemo(() => {
@@ -21,7 +23,10 @@ const SettlementsListPage = ({ list = [] }) => {
         <SettlementsListLayout>
             <Hero
                 breadcrumbs={
-                    <Breadcrumbs second={['/settlements.list', '/zagorodnaya/kottedzhnye-poselki', 'Посёлки']} />
+                    <Breadcrumbs
+                        className="breadcrumbs"
+                        second={['/settlements.list', '/zagorodnaya/kottedzhnye-poselki', 'Посёлки']}
+                    />
                 }
             >
                 <Header.Settlements className="list-header">
@@ -59,7 +64,7 @@ const SettlementsListPage = ({ list = [] }) => {
 SettlementsListPage.getInitialProps = async ({ store }) => {
     await store.dispatch(fetchSettlements());
 
-    return {};
+    return { title: 'Посёлки' };
 };
 
 export default connect(state => ({

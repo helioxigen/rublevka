@@ -42,14 +42,14 @@ export default styled(FilterBlock)`
     z-index: 250;
     width: 100%;
 
-    ${media.mediaquery.tabletLandscape.to(
+    ${media.desktop.to(
         css => css`
             overflow: visible;
         `
     )}
 
     > header {
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 border-bottom: 1px solid #d9d9d9;
             `
@@ -64,7 +64,7 @@ export default styled(FilterBlock)`
         display: block;
     }
 
-    ${media.mediaquery.tabletLandscape.to(
+    ${media.desktop.to(
         css => css`
             ${BackButton} {
                 flex: 1;
@@ -103,7 +103,7 @@ export default styled(FilterBlock)`
         padding-right: 15px;
     }
 
-    ${media.mediaquery.tabletLandscape.at(
+    ${media.desktop.at(
         css => css`
             background: #ffffff;
 

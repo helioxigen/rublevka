@@ -6,7 +6,7 @@ const defaults = {
     sale: {
         filter: {
             state: ['public', 'rented'],
-            'location.routeId': app.getConfig().routes,
+            'location.routeId': app.config.routes,
             'saleOffer.isResale': 'true',
             'saleOffer.price': '0..',
         },
@@ -15,7 +15,7 @@ const defaults = {
     rent: {
         filter: {
             state: ['public'],
-            'location.routeId': app.getConfig().routes,
+            'location.routeId': app.config.routes,
             'rentOffer.price': '0..',
         },
         filterNot: {
@@ -25,7 +25,7 @@ const defaults = {
     settlements: {
         filter: {
             state: ['public'],
-            'location.routeId': app.getConfig().routes,
+            'location.routeId': app.config.routes,
             'statistics.totalProperties': '1..',
         },
     },

@@ -1,8 +1,8 @@
-import { getRouteIds } from './utils';
+import SiteConfig from './utils';
 
-export default {
+export default new SiteConfig('riga', {
     phone: '+7 (495) 432-13-13',
-    phoneNumbers: '74954321313',
-    imagePostfix: 'riga',
-    routes: getRouteIds('Новорижское'),
-};
+    whatsapp: '79269764000',
+    email: 'info@rublevka.ru',
+    routes: ['Новорижское'],
+});

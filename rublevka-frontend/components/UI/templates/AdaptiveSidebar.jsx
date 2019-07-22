@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { media, sc } from '@utils';
 
 const AdaptiveSidebar = styled.div`
-    ${media.mediaquery.tabletLandscape.to(
+    ${media.desktop.to(
         css => css`
             &[data-open='true']::before {
                 content: '';
@@ -17,7 +17,7 @@ const AdaptiveSidebar = styled.div`
 
             .menu-content {
                 position: fixed;
-                height: 100vh;
+                height: 100%;
                 width: 320px;
                 ${sc.ifProp('left')('left: -325px', 'right: -325px')};
 

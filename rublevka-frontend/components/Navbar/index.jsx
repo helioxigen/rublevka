@@ -67,7 +67,7 @@ export default styled(Navbar)`
 
     transition: background 225ms, transform 225ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-    ${media.mediaquery.tabletLandscape.to(
+    ${media.desktop.to(
         css => css`
             &[data-hide='true'] {
                 transform: translateY(-100%);
@@ -82,7 +82,7 @@ export default styled(Navbar)`
             margin: 0 0 0 14px;
         }
 
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 font-size: 24px;
             `
@@ -111,11 +111,13 @@ export default styled(Navbar)`
 
     position: fixed;
 
-    ${media.mediaquery.tabletLandscape.at(
+    ${media.desktop.at(
         css => css`
             height: 64px;
             font-size: 15px;
             padding: 0;
+
+            padding: 0 50px;
 
             .menu-button,
             .page-title {
@@ -128,7 +130,7 @@ export default styled(Navbar)`
         display: none;
     }
 
-    ${media.mediaquery.desktop.at(
+    ${media.desktopL.at(
         css => css`
             ${MainMenu} {
                 margin-left: 35px;
@@ -136,7 +138,7 @@ export default styled(Navbar)`
         `
     )}
 
-    ${media.mediaquery.tablet.at(
+    ${media.tablet.at(
         css => css`
             .go-back,
             .page-title {
@@ -166,7 +168,7 @@ export default styled(Navbar)`
             background: white;
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
         }
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 &[data-inverted='true'] {
                     .callback-button {
@@ -205,7 +207,7 @@ export default styled(Navbar)`
         justify-content: space-between;
         height: 100%;
 
-        ${media.mediaquery.desktop.at(
+        ${media.desktopL.at(
             css => css`
                 justify-content: initial;
             `
@@ -216,7 +218,7 @@ export default styled(Navbar)`
         display: flex;
         align-items: center;
 
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 padding: 8px 0;
             `
@@ -236,7 +238,7 @@ export default styled(Navbar)`
     a[data-active='true'] {
         color: ${sc.theme.colors.red};
 
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 border-bottom: 2px solid ${sc.theme.colors.red};
             `
@@ -246,7 +248,7 @@ export default styled(Navbar)`
     .callback-button {
         border: 2px solid transparent;
 
-        ${media.mediaquery.tabletLandscape.at(
+        ${media.desktop.at(
             css => css`
                 margin: 0 24px 0 16px;
             `

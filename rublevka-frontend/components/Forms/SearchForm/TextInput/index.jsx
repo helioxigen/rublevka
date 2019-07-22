@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Icon } from '@components/UI';
+import { media } from '@utils';
 
 const TextInput = ({ className, placeholder, value, onChange }) => (
     <div className={className}>
@@ -10,9 +11,19 @@ const TextInput = ({ className, placeholder, value, onChange }) => (
 );
 
 export default styled(TextInput)`
-    padding: 0 0 0 56px;
     position: relative;
     background: white;
+
+    font-size: 16px;
+
+    padding: 0 15px;
+
+    ${media.tablet.at(
+        css => css`
+            font-size: 18px;
+            padding: 0 0 0 56px;
+        `
+    )}
 
     input {
         background: none;
@@ -20,7 +31,9 @@ export default styled(TextInput)`
         width: 100%;
         border: none;
         outline: none;
-        font-size: 18px;
+
+        line-height: 1.3;
+        font-size: inherit;
     }
 
     input::placeholder {
@@ -29,9 +42,19 @@ export default styled(TextInput)`
 
     ${Icon} {
         position: absolute;
-        left: 20px;
-        fill: #aaa;
+        left: 0;
+        font-size: 20px;
+        color: #aaa;
         height: 100%;
+        width: 56px;
+        box-sizing: border-box;
+        padding: 12px;
+
+        ${media.tablet.to(
+            css => css`
+                display: none;
+            `
+        )}
     }
 
     &:focus {

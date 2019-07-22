@@ -19,7 +19,7 @@ export default class SiteConfig {
 
         this.email = email;
         this.whatsapp = whatsapp;
-        this.routes = getRouteIds(routes);
+        this.routes = getRouteIds(...routes);
         this.defaultCurrency = defaultCurrency;
     }
 }

@@ -14,7 +14,7 @@ const SearchForm = dynamic(() => import('@components/Forms').then(f => f.SearchF
 
 const SettlementsListPage = ({ list = [] }) => {
     const settlements = useMemo(() => {
-        const grouped = Object.entries(groupBy(list, i => i.name.charAt(0)));
+        const grouped = Object.entries(groupBy(list, i => i.name.toLowerCase().charAt(0)));
 
         return dict.settlements.sortEntries(grouped);
     }, [list]);

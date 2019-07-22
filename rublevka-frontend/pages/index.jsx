@@ -123,7 +123,11 @@ export default styled(MainPage)`
     }
 
     ${Content} {
-        padding: 0 15px;
+        ${media.phoneL.at(
+            css => css`
+                padding: 0 15px;
+            `
+        )}
         ${media.desktop.at(
             css => css`
                 display: grid;

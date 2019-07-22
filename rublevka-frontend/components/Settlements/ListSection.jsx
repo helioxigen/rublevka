@@ -27,7 +27,7 @@ export default styled(ListSection)`
     }
 
     a {
-        width: calc(100% / 3);
+        flex: 0 300px;
         padding-top: 6px;
         padding-bottom: 6px;
         display: block;

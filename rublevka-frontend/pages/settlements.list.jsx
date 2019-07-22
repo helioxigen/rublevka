@@ -23,7 +23,10 @@ const SettlementsListPage = ({ list = [] }) => {
         <SettlementsListLayout>
             <Hero
                 breadcrumbs={
-                    <Breadcrumbs second={['/settlements.list', '/zagorodnaya/kottedzhnye-poselki', 'Посёлки']} />
+                    <Breadcrumbs
+                        className="breadcrumbs"
+                        second={['/settlements.list', '/zagorodnaya/kottedzhnye-poselki', 'Посёлки']}
+                    />
                 }
             >
                 <Header.Settlements className="list-header">
@@ -61,7 +64,7 @@ const SettlementsListPage = ({ list = [] }) => {
 SettlementsListPage.getInitialProps = async ({ store }) => {
     await store.dispatch(fetchSettlements());
 
-    return {};
+    return { title: 'Посёлки' };
 };
 
 export default connect(state => ({

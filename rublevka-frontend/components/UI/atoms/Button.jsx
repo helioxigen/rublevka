@@ -22,6 +22,7 @@ export default styled.button`
 
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 
+    height: 56px;
     max-height: 100%;
 
     border-radius: 8px;

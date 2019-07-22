@@ -3,9 +3,12 @@ import { ListSection } from '@components/Settlements';
 import { media } from '@utils';
 
 export default styled.main`
+    h1 {
+        font-size: 28px;
+    }
 
-
-    .hero-container, article {
+    .hero-container,
+    article {
         margin: 0 auto;
 
         ${media.at(css => ({
@@ -17,21 +20,12 @@ export default styled.main`
             `,
         }))}
 
-
-        ${media.sm`
-             max-width: 720px;
-        `}
-
-        ${media.md`
-            max-width: 925px;
-        `}
-
         height: 100%;
     }
 
-
     article {
         position: relative;
+        padding: 0 15px;
 
         ${ListSection} {
             margin-bottom: 28px;
@@ -58,7 +52,15 @@ export default styled.main`
         }
     }
 
-    nav a{
-        color: rgba(255,255,255,0.75)!important;
+    .breadcrumbs {
+        ${media.tablet.to(
+            css => css`
+                display: none;
+            `
+        )}
+    }
+
+    nav a {
+        color: rgba(255, 255, 255, 0.75) !important;
     }
 `;

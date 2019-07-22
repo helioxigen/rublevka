@@ -141,10 +141,6 @@ export default styled(SearchForm)`
         `
     )}
 
-    ${media.xsMax`
-        padding: 0 15px;    
-    `}
-
     .form-body {
         display: flex;
 

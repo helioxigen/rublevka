@@ -7,9 +7,7 @@ import { media, sc } from '@utils';
 const Hero = ({ className, breadcrumbs, children }) => (
     <header className={className}>
         <Content>{breadcrumbs}</Content>
-        <div className="hero-container">
-            <section className="hero-content">{children}</section>
-        </div>
+        <div className="hero-container">{children}</div>
     </header>
 );
 
@@ -17,7 +15,7 @@ export default styled(Hero)`
     background: url('/static/settlements/hero.png') center / cover no-repeat;
     background-attachment: fixed;
 
-    padding-top: 48px;
+    padding: 48px 15px 0;
 
     ${media.desktop.at(
         css => css`
@@ -41,9 +39,7 @@ export default styled(Hero)`
     }
 
     .hero-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        width: 100%;
     }
 
     .hero-container > ${Button} {

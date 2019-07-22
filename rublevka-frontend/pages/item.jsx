@@ -138,7 +138,7 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                             }}
                             fullWidth
                             submitLabel="Забронировать просмотр"
-                            defaultComment={`${dict.translateDealType(dealType)} ${
+                            defaultComment={`[Просмотр] ${dict.translateDealType(dealType)} ${
                                 dict.translateKind(kind).genitive
                             } ID:${id}`}
                         />

@@ -31,8 +31,6 @@ const defaults = {
     },
 };
 
-const getDefaults = dealType => defaults[dealType];
-
 const filterToQuery = filter => {
     const goodFilter = {};
 
@@ -88,7 +86,7 @@ const parse = (filterJson = '{}', ...explicitFields) =>
     Object.assign({}, JSON.parse(filterJson), ...compact(explicitFields));
 
 export default {
-    getDefaults,
+    getDefaults: dealType => filterToQuery(defaults[dealType]),
     createFilterQuery,
     filterToQuery,
     filterFromQuery,

@@ -40,8 +40,9 @@ const MainPage = ({ className }) => (
                         },
                     }}
                     submitLabel="Оставить заявку"
+                    defaultComment="Заявка на продажу"
                 />
-                <CallbackModal>
+                <CallbackModal title="Заявка на продажу">
                     {onClick => (
                         <Button className="form-modal" onClick={onClick}>
                             Оставить заявку
@@ -123,7 +124,11 @@ export default styled(MainPage)`
     }
 
     ${Content} {
-        padding: 0 15px;
+        ${media.phoneL.at(
+            css => css`
+                padding: 0 15px;
+            `
+        )}
         ${media.desktop.at(
             css => css`
                 display: grid;

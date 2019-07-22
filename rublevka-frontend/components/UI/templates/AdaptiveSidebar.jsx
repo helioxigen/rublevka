@@ -17,7 +17,7 @@ const AdaptiveSidebar = styled.div`
 
             .menu-content {
                 position: fixed;
-                height: 100vh;
+                height: 100%;
                 width: 320px;
                 ${sc.ifProp('left')('left: -325px', 'right: -325px')};
 

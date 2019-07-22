@@ -7,3 +7,4 @@ export { default as useRecalcWidth } from './useRecalcWidth';
 export { default as useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
 export { default as useInvertOnScroll } from './useInvertOnScroll';
 export { default as usePageTitle } from './usePageTitle';
+export { default as useScrollState } from './useScrollState';

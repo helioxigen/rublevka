@@ -50,6 +50,7 @@ export default styled(CompactForm)`
         border-bottom-right-radius: 0;
 
         flex: 1;
+        width: 0;
 
         margin: 0;
 

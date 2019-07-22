@@ -1,13 +1,20 @@
 import styled, { css } from 'styled-components';
-import { sc } from '@utils';
+import { sc, media } from '@utils';
 
 export default styled.input`
     padding: 16px 15px;
     border: 1px solid #d9d9d9;
-    border-radius: 4px;
     background: white;
     appearance: none;
     outline: none;
+
+    border-radius: 8px;
+
+    ${media.phoneL.at(
+        () => css`
+            border-radius: 4px;
+        `
+    )}
 
     box-sizing: border-box;
 

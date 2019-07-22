@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { media } from '../../utils';
-import { Button } from '@components/UI';
 
 const Block = ({ className, title, text, children }) => (
     <section className={className}>
@@ -13,72 +12,63 @@ const Block = ({ className, title, text, children }) => (
 
 export default styled(Block)`
     background: linear-gradient(115.53deg, #eeeeee 0%, rgba(238, 238, 238, 0.25) 100%);
-
-    color: #232323;
-
-    text-align: center;
-
-    ${media.xs`
-        text-align: left;
-    `}
-
-    ${media.xsMax`
-        padding: 32px 15px;
-        box-sizing: border-box;
-    `}
-
-    h3 {
-        margin: 0;
-        line-height: 32px;
-        font-size: 24px;
-
-        ${media.xs`
-            margin-bottom: 16px;
-            line-height: 48px;
-            font-size: 40px;
-            text-align: left;
-        `}
-
-        ${media.md`
-            margin-bottom: 28px;
-            line-height: 56px;
-            font-size: 48px;
-            text-align: center;
-        `}
-    }
-
-    p {
-        margin: 0;
-        margin-top: 12px;
-        margin-bottom: 16px;
-        line-height: 24px;
-        font-size: 15px;
-
-        ${media.xs`
-            margin: 0;
-            margin-bottom: 20px;
-            line-height: 26px;
-            font-size: 16px;
-            text-align: left;
-        `}
-
-        ${media.md`
-            margin-bottom: 36px;
-            line-height: 30px;
-            font-size: 18px;
-        `}
-    }
+    box-sizing: border-box;
 
     padding: 32px 15px;
 
-    ${media.xs`
-        ${Button} {
-            padding: 0 28px;
-        }
+    ${media.at(css => ({
+        phoneL: css`
+            padding: 0 45px;
+            text-align: left;
 
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-    `}
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+            height: 530px;
+            min-height: 100%;
+        `,
+        tablet: css`
+            align-items: flex-start;
+        `,
+    }))}
+
+    h3, p {
+        margin: 0;
+    }
+
+    h3 {
+        font-size: 24px;
+        text-align: inherit;
+        line-height: 1.3;
+
+        ${media.at(css => ({
+            phoneL: css`
+                font-size: 40px;
+                margin: 0 0 16px;
+            `,
+            desktop: css`
+                font-size: 48px;
+                margin: 0 0 28px;
+            `,
+        }))}
+    }
+
+    p {
+        font-size: 15px;
+        line-height: 1.5;
+
+        margin: 12px 0 16px;
+
+        ${media.at(css => ({
+            phoneL: css`
+                font-size: 16px;
+                margin: 12px 0 20px;
+            `,
+            tablet: css`
+                font-size: 18px;
+                margin: 12px 0 36px;
+            `,
+        }))}
+    }
 `;

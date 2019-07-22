@@ -35,8 +35,8 @@ const Card = ({
                     <span className="card-id">№{id}</span>
                     <FavoriteButton className="favorite-button" id={id} dealType={dealType} />
 
-                    {images.length > 1 && <Shortcuts images={images} />}
-                    {images.length > 1 && <Gallery images={images} />}
+                    {images.length > 1 && <Shortcuts images={images.slice(0, 6)} />}
+                    {images.length > 1 && <Gallery images={images.slice(0, 6)} />}
                 </header>
                 <section className="card-body">
                     <h3>{itemTitle.generate(dealType, true, false, { landDetails, specification, location, kind })}</h3>

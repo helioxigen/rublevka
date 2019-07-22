@@ -8,7 +8,7 @@ const Tabs = ({ className, tabs, children }) => {
     const tabsContainer = useRef(null);
 
     const handleTabChange = name => () => {
-        const { offsetLeft, offsetWidth } = tabsContainer.current.querySelector(`[data-name=${selectedTab}`);
+        const { offsetLeft, offsetWidth } = tabsContainer.current.querySelector(`[data-name=${selectedTab}]`);
 
         const underline = document.createElement('span');
 
@@ -28,7 +28,7 @@ const Tabs = ({ className, tabs, children }) => {
         const underline = tabsContainer.current.querySelector(`.underline`);
         if (!underline) return;
 
-        const { offsetWidth, offsetLeft } = tabsContainer.current.querySelector(`[data-name=${selectedTab}`);
+        const { offsetWidth, offsetLeft } = tabsContainer.current.querySelector(`[data-name=${selectedTab}]`);
         underline.style.width = `${offsetWidth}px`;
         underline.style.left = `${offsetLeft}px`;
     }, [selectedTab]);
@@ -81,9 +81,11 @@ export default styled(Tabs)`
 
         padding: 0 15px;
 
-        ${media.xs`
-            padding: auto;
-        `}
+        ${media.phoneL.at(
+            css => css`
+                padding: 0;
+            `
+        )}
     }
 
     .divider {
@@ -111,13 +113,12 @@ export default styled(Tabs)`
         )}
     }
 
-    ${Tab} {
-        width: calc(80% / 3);
-        height: 50px;
-
-        ${media.xs`
-            width: auto;
-            height: auto;
-        `}
-    }
+    ${media.phoneL.to(
+        css => css`
+            ${Tab} {
+                width: calc(80% / 3);
+                height: 50px;
+            }
+        `
+    )}
 `;

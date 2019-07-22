@@ -1,19 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { cdn } from '@utils';
 import Slice from './Slice';
 
 const Shortcuts = ({ className, images }) => {
+    const [entered, setEntered] = useState(false);
+
     return (
-        <figure style={{ backgroundImage: `url(${cdn.get.thumbnail(images[0].id)})` }} className={className}>
+        <figure
+            onMouseEnter={() => !entered && setEntered(true)}
+            style={{ backgroundImage: `url(${cdn.get.thumbnail(images[0].id)})` }}
+            className={className}
+        >
             {images.length > 1 &&
                 images.slice(0, 6).map((el, index) => (
                     <React.Fragment key={images[index].id}>
                         <Slice />
-                        <span
-                            className="display"
-                            style={{ backgroundImage: `url(${cdn.get.thumbnail(images[index].id)})` }}
-                        />
+                        {entered && (
+                            <span
+                                className="display"
+                                style={{ backgroundImage: `url(${cdn.get.thumbnail(images[index].id)})` }}
+                            />
+                        )}
                         {/* <img alt={images[index].id} src={cdn.get.thumbnail(images[index].id, 512)} /> */}
                     </React.Fragment>
                 ))}

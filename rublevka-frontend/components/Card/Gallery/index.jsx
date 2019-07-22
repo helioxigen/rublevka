@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import dynamic from 'next/dynamic';
 import { cdn } from '@utils';
@@ -8,18 +8,6 @@ const ReactSwipe = dynamic(() => import('react-swipe'));
 
 const Gallery = ({ className, images }) => {
     const [currentIdx, changeCurrentIdx] = useState(0);
-    const [shown, changeShown] = useState([]);
-    const [fullyLoaded, changeFullyLoaded] = useState(false);
-
-    useEffect(() => {
-        if (currentIdx === images.length) {
-            changeFullyLoaded(true);
-        }
-
-        if (!shown.includes(currentIdx)) {
-            changeShown([...shown, currentIdx]);
-        }
-    }, [currentIdx]);
 
     return (
         <figure className={className}>
@@ -31,22 +19,11 @@ const Gallery = ({ className, images }) => {
             >
                 {images.map(({ id }, idx) => (
                     <a key={id}>
-                        {(idx <= currentIdx + 1 || fullyLoaded) && (
-                            <span
-                                className="display"
-                                style={{
-                                    backgroundImage: `url(${
-                                        idx === currentIdx || shown.includes(idx)
-                                            ? cdn.get.thumbnail(id, 512)
-                                            : cdn.get.thumbnail(id, 128)
-                                    })`,
-                                }}
+                        {idx <= currentIdx + 1 && (
+                            <img
+                                alt={id}
+                                src={idx === currentIdx ? cdn.get.thumbnail(id, 512) : cdn.get.thumbnail(id, 128)}
                             />
-                            // <img
-                            //     data-id={id}
-                            //     alt={id}
-                            //     src={idx <= currentIdx + 1 ? cdn.get.thumbnail(id, 512) : cdn.get.thumbnail(id, 128)}
-                            // />
                         )}
                     </a>
                 ))}
@@ -57,15 +34,16 @@ const Gallery = ({ className, images }) => {
 };
 
 export default styled(Gallery)`
+    background: center / cover no-repeat;
     .display {
         display: block;
         background: center / cover no-repeat;
-        height: 220px;
+        /* height: 220px; */
         width: 100%;
     }
-    /* img {
+    img {
         object-fit: cover;
         height: 220px;
         width: 100%;
-    } */
+    }
 `;

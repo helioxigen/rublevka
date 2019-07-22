@@ -40,8 +40,9 @@ const MainPage = ({ className }) => (
                         },
                     }}
                     submitLabel="Оставить заявку"
+                    defaultComment="Заявка на продажу"
                 />
-                <CallbackModal>
+                <CallbackModal title="Заявка на продажу">
                     {onClick => (
                         <Button className="form-modal" onClick={onClick}>
                             Оставить заявку

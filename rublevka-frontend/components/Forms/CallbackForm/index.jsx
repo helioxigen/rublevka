@@ -20,11 +20,14 @@ const CallbackForm = ({
     const [values, changeValues] = useState({});
     const [errors, changeErrors] = useState([]);
 
-    const handleChange = fieldName => value =>
+    const handleChange = fieldName => value => {
+        if (errors.includes(fieldName)) changeErrors(errors.filter(n => n !== fieldName));
+
         changeValues(currentValues => ({
             ...currentValues,
             [fieldName]: value,
         }));
+    };
 
     const handleInputChange = name => e => handleChange(name)(e.target.value);
 

@@ -7,7 +7,7 @@ import { media, sc } from '@utils';
 const Modal = dynamic(() => import('react-modal'));
 const CallbackForm = dynamic(() => import('@components/Forms').then(i => i.CallbackForm));
 
-const CallbackModal = ({ className, children = () => {} }) => {
+const CallbackModal = ({ className, children = () => {}, title = 'Обратный звонок' }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -26,7 +26,7 @@ const CallbackModal = ({ className, children = () => {} }) => {
                 <CallbackForm
                     header={
                         <header>
-                            <h3>Обратный звонок</h3>
+                            <h3>{title}</h3>
                             <p>Оставьте свою заявку и наш менеджер свяжется с вами в течение 5 минут.</p>
                         </header>
                     }
@@ -48,6 +48,7 @@ const CallbackModal = ({ className, children = () => {} }) => {
                             <a href="/privacy">политикой конфиденциальности</a>.
                         </footer>
                     }
+                    defaultComment={`[${title}]`}
                 />
             </Modal>
         </>

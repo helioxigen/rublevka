@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Button } from '@components/UI';
 import { media } from '../../utils';
 
 const Block = ({ className, title, text, children }) => (
@@ -70,5 +71,9 @@ export default styled(Block)`
                 margin: 12px 0 36px;
             `,
         }))}
+    }
+
+    ${Button} {
+        font-size: 17px;
     }
 `;

@@ -8,14 +8,17 @@ export default {
     app: process.env.APP,
     currencies: [
         {
+            label: 'Доллар',
             code: 'usd',
             symbol: '$',
         },
         {
+            label: 'Евро',
             code: 'eur',
             symbol: '€',
         },
         {
+            label: 'Рубль',
             code: 'rub',
             symbol: '₽',
         },

@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { IconButton } from '../molecules';
 import { sc, media } from '@utils';
 
-const ResetToolbar = ({ className, onClose, onReset, isResetActive }) => (
+const ResetToolbar = ({ className, onClose, onReset, isResetActive, closeAdditionalProps = {} }) => (
     <header className={className}>
-        <IconButton secondary icon="cross" onClick={onClose} />
+        <IconButton secondary icon="times" onClick={onClose} {...closeAdditionalProps} />
         <button disabled={!isResetActive} className="reset-button" type="button" onClick={onReset}>
             Сбросить
         </button>
@@ -15,6 +15,7 @@ const ResetToolbar = ({ className, onClose, onReset, isResetActive }) => (
 export default styled(ResetToolbar)`
     display: flex;
     justify-content: space-between;
+    width: 100%;
 
     margin-bottom: 1em;
 

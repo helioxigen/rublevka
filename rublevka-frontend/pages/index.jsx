@@ -165,10 +165,6 @@ export default styled(MainPage)`
         )}
     }
 
-    ${Button} {
-        font-size: 17px;
-    }
-
     .object-block {
         text-align: center;
     }

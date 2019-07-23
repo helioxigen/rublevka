@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { RadioButton } from '../atoms';
 
-const RadioGroup = ({ className, fields, value = '', onChange }) => (
+const RadioGroup = ({ className, fields, entries, value = '', onChange }) => (
     <div className={className}>
-        {Object.entries(fields).map(([radioValue, label]) => (
+        {(entries || Object.entries(fields)).map(([radioValue, label]) => (
             <RadioButton
                 key={radioValue}
                 checked={radioValue === value}

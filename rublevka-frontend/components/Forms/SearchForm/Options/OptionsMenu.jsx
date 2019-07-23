@@ -1,32 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ResetToolbar } from '@components/UI';
 import { media } from '../../../../utils';
-import { Icon } from '../../../UI/atoms';
 
-const Options = ({
-    className,
-    children,
-    getToggleButtonProps,
-    getMenuProps,
-    withSaveButton,
-    isResetButtonActive,
-    onReset,
-}) => (
+const Options = ({ className, children, getToggleButtonProps, getMenuProps, isResetButtonActive, onReset }) => (
     <div className={className} {...getMenuProps()}>
-        <header>
-            <button className="close-btn" type="button" {...getToggleButtonProps()}>
-                <Icon name="close-button" />
-            </button>
-            <button className="reset-btn" type="button" disabled={!isResetButtonActive} onClick={onReset}>
-                Сбросить
-            </button>
-        </header>
+        <ResetToolbar
+            isResetActive={isResetButtonActive}
+            onReset={onReset}
+            closeAdditionalProps={getToggleButtonProps()}
+        />
         {children}
-        {withSaveButton && (
-            <button type="button" className="save-btn" {...getToggleButtonProps()}>
-                Применить
-            </button>
-        )}
+        <button type="button" className="save-btn" {...getToggleButtonProps()}>
+            Применить
+        </button>
     </div>
 );
 
@@ -36,19 +23,19 @@ export default styled(Options)`
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 25000;
     padding: 15px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     background-color: #fff;
-    z-index: 3;
 
     overflow: hidden;
 
     cursor: default;
 
     ${media.xs`
-        padding: 0;
         position: absolute;
         top: 110%;
         left: auto;
@@ -57,21 +44,17 @@ export default styled(Options)`
         width: 100%;
         border-radius: 8px;
         max-height: 300px;
-        padding: 16px 0;
         border: 1px solid #d9d9d9;
         box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
     `}
 
-    header {
-        width: 100%;
-        margin-bottom: 12px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        ${media.xs`
-            display: none;  
-        `}
+    ${ResetToolbar} {
+        color: #bbb;
+        ${media.desktop.at(
+            css => css`
+                display: none;
+            `
+        )}
     }
 
     button {
@@ -83,10 +66,17 @@ export default styled(Options)`
     .save-btn {
         width: 100%;
         text-align: center;
+        font-size: 16px;
         margin-top: 32px;
         line-height: 20px;
         text-transform: uppercase;
         color: #f44336;
+
+        ${media.phoneL.at(
+            css => css`
+                display: none;
+            `
+        )}
     }
 
     .reset-btn {

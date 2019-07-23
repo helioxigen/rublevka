@@ -3,12 +3,15 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
 import dynamic from 'next/dynamic';
+import { RadioGroup } from '@components/UI';
 import DropdownToggle from './DropdownToggle';
 import Options from '../Options';
 import { media } from '../../../../utils';
 import Range from '../Range';
 import CurrencySelector from './CurrencySelector';
 import { setCurrency } from '@store';
+import PriceRangeNative from '../Range/RangeNative';
+import config from '@config';
 
 const getRangeName = ({ from, to }, template) => {
     if (!from && !to) {
@@ -68,7 +71,7 @@ const Dropdown = ({
                 getToggleButtonProps,
                 isOpen,
                 closeMenu,
-                selectedItem,
+                selectedItem = {},
                 getMenuProps,
                 getItemProps,
                 getInputProps,
@@ -78,16 +81,82 @@ const Dropdown = ({
                     <DropdownToggle
                         label={label}
                         value={selectedItem.label || placeholder}
+                        postfix={
+                            <span className="touch-only">
+                                {showCurrency && selectedItem.value
+                                    ? config.currencies.find(c => c.code === currency).symbol
+                                    : ''}
+                            </span>
+                        }
                         getToggleButtonProps={getToggleButtonProps}
                     />
+                    {type === 'list' && (
+                        <select
+                            className="native-select touch-only"
+                            {...getMenuProps()}
+                            onChange={e =>
+                                selectItem(items.find(i => i.value.toString() === e.target.value.toString()))
+                            }
+                        >
+                            {items.map(item => (
+                                <option
+                                    key={item.label + item.name}
+                                    selected={selectedItem.value === item.value}
+                                    value={item.value}
+                                    {...getItemProps({ item })}
+                                >
+                                    {item.label}
+                                </option>
+                            ))}
+                        </select>
+                    )}
                     <Options.Menu
                         getToggleButtonProps={getToggleButtonProps}
                         getMenuProps={getMenuProps}
                         isResetButtonActive={selectedItem.value !== null}
-                        resetButtonCallback={() => selectItem({ value: null })}
+                        onReset={() => selectItem({ value: null })}
                     >
                         {type === 'range' && (
+                            <PriceRangeNative
+                                className="touch-only native-range"
+                                options={range.options}
+                                value={selectedItem.value || {}}
+                                onChange={value =>
+                                    selectItem(
+                                        {
+                                            label: getRangeName(
+                                                {
+                                                    ...selectedItem.value,
+                                                    ...value,
+                                                },
+                                                range.template
+                                            ),
+                                            value: {
+                                                ...selectedItem.value,
+                                                ...value,
+                                            },
+                                        },
+                                        {
+                                            isOpen: true,
+                                        }
+                                    )
+                                }
+                            />
+                        )}
+                        {showCurrency && (
+                            <RadioGroup
+                                className="touch-only"
+                                entries={config.currencies.map(({ code, symbol, label: curLabel }) => [
+                                    code,
+                                    `${curLabel} (${symbol})`,
+                                ])}
+                                onChange={e => handleCurrencyChange(e.target.value)}
+                                value={currency}
+                            />
+                        )}
+                        {type === 'range' && (
                             <Range
+                                className="pointer-only"
                                 closeMenu={closeMenu}
                                 inputRef={rangeInputRef}
                                 getInputProps={getInputProps}
@@ -118,6 +187,7 @@ const Dropdown = ({
                         )}
                         {type === 'list' && (
                             <Options.List
+                                className="pointer-only"
                                 selectedItem={selectedItem}
                                 getMenuProps={getMenuProps}
                                 getItemProps={getItemProps}
@@ -149,6 +219,35 @@ export default styled(Dropdown)`
     }
 
     position: relative;
+
+    ${media.nonTouch} {
+        .touch-only {
+            display: none;
+        }
+    }
+
+    ${media.touch} {
+        .pointer-only {
+            display: none;
+        }
+    }
+
+    .native-select {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        opacity: 0;
+    }
+
+    ${CurrencySelector} {
+        ${media.desktop.to(
+            css => css`
+                display: none;
+            `
+        )}
+    }
 
     ${media.md`
       margin: 0px;

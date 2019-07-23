@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from '../../../../utils';
 
-const DropdownToggle = ({ className, label, value, getToggleButtonProps }) => (
+const DropdownToggle = ({ className, label, value, postfix, getToggleButtonProps }) => (
     <div className={className} {...getToggleButtonProps()}>
         {label && <span className="display-label">{label}</span>}
-        <p className="display-value">{value}</p>
+        <p className="display-value">
+            {value} {postfix}
+        </p>
     </div>
 );
 

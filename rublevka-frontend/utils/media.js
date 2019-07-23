@@ -60,4 +60,5 @@ export default {
     ...mediaQueries,
     at: mapAt,
     touch: `@media (hover: none) and (pointer: coarse)`,
+    nonTouch: `@media (hover: hover) and (pointer: fine)`,
 };

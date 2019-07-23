@@ -197,8 +197,8 @@ export default styled(SearchForm)`
         }
     }
 
-    ${IconButton} {
-        fill: white;
+    > .search-button {
+        color: white;
 
         padding: 0 24px;
         font-size: 20px;

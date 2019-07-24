@@ -29,7 +29,7 @@ const Footer = ({ className }) => {
 
     return (
         <footer className={className}>
-            <div className="container">
+            <div className="container floating-border">
                 <section className="nav-lists">
                     <NavList title="Купить" links={getKinds(['house', 'townhouse', 'flat', 'land'])} />
                     <NavList title="Снять" links={getKinds(['house', 'townhouse', 'flat'])} />

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import { Section } from '@components/Item';
+import { Section, Gallery } from '@components/Item';
 import { FavoriteButton } from '@components/UI';
-import { Gallery } from '@components/Catalog';
 import { ContactToolbar } from '@components/Toolbars';
 import { Header } from '../atoms';
 import { media } from '@utils';

@@ -5,7 +5,7 @@ const getImageLink = (id, postfix = app.config.name, size = 1024) => `${CDN}/${i
 
 export default {
     get: {
-        thumbnail: (id, size = 512) => getImageLink(id, 'thumbnail', size),
+        thumbnail: (id, size = 256) => getImageLink(id, 'thumbnail', size),
         full: id => getImageLink(id),
     },
 };

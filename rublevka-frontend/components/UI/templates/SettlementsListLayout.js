@@ -28,26 +28,28 @@ export default styled.main`
         padding: 0 15px;
 
         ${ListSection} {
-            margin-bottom: 28px;
+            margin: 0 0 28px;
 
-            ${media.xs`
-                margin-bottom: 32px;
-            `}
-
-            ${media.md`
-                margin-bottom: 37px;
-            `}
+            ${media.at(css => ({
+                phoneL: css`
+                    margin: 0 0 32px;
+                `,
+                tablet: css`
+                    margin: 0 0 37px;
+                `,
+            }))}
 
             &:first-child {
                 margin-top: 24px;
 
-                ${media.xs`
-                    margin-top: 40px;
-                `}
-
-                ${media.md`
-                    margin-top: 46px;
-                `}
+                ${media.at(css => ({
+                    phoneL: css`
+                        margin-top: 40px;
+                    `,
+                    tablet: css`
+                        margin-top: 46px;
+                    `,
+                }))}
             }
         }
     }

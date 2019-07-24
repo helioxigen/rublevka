@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { media, sc } from '@utils';
 
 export default styled.section`
+    grid-area: cards;
     display: grid;
     grid-gap: 20px;
 

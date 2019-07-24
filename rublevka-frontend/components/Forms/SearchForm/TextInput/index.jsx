@@ -6,7 +6,7 @@ import { media } from '@utils';
 const TextInput = ({ className, placeholder, value, onChange }) => (
     <div className={className}>
         <Icon name="search" />
-        <input placeholder={placeholder} value={value} onChange={onChange} />
+        <input placeholder={placeholder} value={value} onChange={e => onChange(e.target.value)} />
     </div>
 );
 

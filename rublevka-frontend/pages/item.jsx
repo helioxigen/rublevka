@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import { PageContainer, Header, Price, ProfileCard, FavoriteButton, Content } from '@components/UI';
-import { Category, Details, Summary, Section, Layouts, Location } from '@components/Item';
+import { Category, Details, Gallery, Summary, Section, Layouts, Location } from '@components/Item';
 import { CallbackForm } from '@components/Forms';
 import { ContactToolbar } from '@components/Toolbars';
-import { Breadcrumbs, Gallery } from '@components';
+import { Breadcrumbs } from '@components';
 import { dict, itemTitle, format, media } from '@utils';
 import { fetchProperty } from '@store';
 
@@ -37,8 +37,6 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
         ],
         [id, dealType]
     );
-
-    // console.log(item);
 
     return (
         <PageContainer>
@@ -163,6 +161,10 @@ CatalogItem.getInitialProps = async ({ store, query: { dealType: dealTypeTransli
 
     return { dealType, kind, id, title: `${dict.translateKind(kind).noun} №${id}` };
 };
+
+// CatalogItem.linkTemplate = ({ id, name }) => {
+//     '';
+// };
 
 // connect();
 

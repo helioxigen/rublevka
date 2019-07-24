@@ -1,14 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { IconButton, FavoriteButton } from '@components/UI';
-import dynamic from 'next/dynamic';
+import ReactSwipe from 'react-swipe';
 import CarouselLayout from './CarouselLayout';
 import CarouselControl from './CarouselControl';
 import Counter from './Counter';
 import { cdn, media } from '@utils';
 import GalleryNav from './GalleryNav';
-
-const ReactSwipe = dynamic(() => import('react-swipe'));
 
 const Gallery = ({ className, dealType, images, layoutImages, id: propertyId }) => {
     const carousel = useRef(null);

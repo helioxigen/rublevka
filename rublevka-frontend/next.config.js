@@ -2,6 +2,8 @@
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
 path = require('path');
 
+const alias = require('./resolve.config').resolve.alias;
+
 const config = {
     analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
     analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
@@ -34,17 +36,8 @@ const config = {
             ],
         });
 
-        const alias = {
-            '@utils': './utils',
-            '@hooks': './utils/hooks',
-            '@config': './config',
-            '@components': './components',
-            '@api': './api',
-            '@store': './store',
-        };
-
         Object.keys(alias).forEach(key => {
-            config.resolve.alias[key] = path.resolve(__dirname, alias[key]);
+            config.resolve.alias[key] = alias[key];
         });
 
         return config;

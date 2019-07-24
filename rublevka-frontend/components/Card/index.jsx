@@ -29,7 +29,7 @@ const Card = ({
                 <header
                     style={{
                         backgroundImage:
-                            images.length === 1 ? `url(${cdn.get.thumbnail(images[0].id, 512)})` : undefined,
+                            images.length === 1 ? `url(${cdn.get.thumbnail(images[0].id, 256)})` : undefined,
                     }}
                 >
                     <span className="card-id">№{id}</span>

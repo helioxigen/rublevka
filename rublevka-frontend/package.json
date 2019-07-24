@@ -15,7 +15,6 @@
         "analyze:browser": "BUNDLE_ANALYZE=browser next build"
     },
     "dependencies": {
-        "@zeit/next-bundle-analyzer": "^0.1.2",
         "downshift": "^3.2.10",
         "express": "^4.17.1",
         "isomorphic-fetch": "^2.2.1",
@@ -41,12 +40,14 @@
     },
     "devDependencies": {
         "@svgr/webpack": "^4.3.2",
+        "@zeit/next-bundle-analyzer": "^0.1.2",
         "babel-eslint": "^10.0.2",
         "babel-plugin-styled-components": "^1.10.4",
         "eslint": "^6.0.1",
         "eslint-config-airbnb": "^17.1.1",
         "eslint-config-prettier": "^6.0.0",
         "eslint-import-resolver-alias": "^1.1.2",
+        "eslint-import-resolver-webpack": "^0.11.1",
         "eslint-plugin-import": "^2.18.0",
         "eslint-plugin-jsx-a11y": "^6.2.3",
         "eslint-plugin-prettier": "^3.1.0",

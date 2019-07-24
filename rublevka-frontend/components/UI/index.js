@@ -1,4 +1,4 @@
-export { Header, Button, Icon, Price, Switcher, Link, Input, TextArea } from './atoms';
+export { Header, Button, Icon, Price, Switcher, Link, Input, TextArea, PageLink } from './atoms';
 export {
     IconButton,
     CheckboxGroup,
@@ -12,11 +12,9 @@ export {
 export { ResetToolbar } from './organisms';
 export {
     PageContainer,
-    CatalogLayout,
     CardsGrid,
     ItemLayout,
     Modal,
-    Toolbar,
     MapCatalogLayout,
     SettlementsListLayout,
     Content,

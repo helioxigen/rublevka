@@ -140,6 +140,7 @@ class Property extends Component {
       landDetails.area || specification.area || specification.bedrooms;
 
     const publicImages = images.filter(im => im.isPublic);
+    const publicLayoutImages = layoutImages.filter(im => im.isPublic);
 
     return (
       <div className="property">
@@ -185,7 +186,7 @@ class Property extends Component {
                             item.dealType === this.props.dealType,
                         )}
                         images={publicImages}
-                        layoutImages={layoutImages}
+                        layoutImages={publicLayoutImages}
                         propertyId={id}
                       />
                     )}

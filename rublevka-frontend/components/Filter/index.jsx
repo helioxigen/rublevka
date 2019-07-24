@@ -6,7 +6,7 @@ import Field from './Field';
 import { filter, media } from '@utils';
 import { setCurrency, setFilter } from '@store';
 
-const Filter = ({ className, children, dealType, isOpen, onClose }) => {
+const Filter = ({ className, children, dealType, isOpen, onClose, switchDealType }) => {
     const values = useSelector(state => state.properties.filter);
     const currency = useSelector(state => state.user.currency);
     const dispatch = useDispatch();
@@ -21,6 +21,22 @@ const Filter = ({ className, children, dealType, isOpen, onClose }) => {
                 isResetActive={Object.keys(values).length > 0}
             />
             {children}
+            {switchDealType && (
+                <Field title="Тип сделки" name="dealType">
+                    {({ value, onChange }) => (
+                        <RadioGroup
+                            fields={{
+                                sale: 'Продажа',
+                                rent: 'Аренда',
+                            }}
+                            onChange={e => {
+                                onChange(e.target.value);
+                            }}
+                            value={value}
+                        />
+                    )}
+                </Field>
+            )}
             <Field title="Тип объекта" name="kind">
                 {({ value, onChange }) => (
                     <CheckboxGroup

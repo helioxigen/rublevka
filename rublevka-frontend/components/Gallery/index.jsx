@@ -7,7 +7,7 @@ import { cdn, media } from '@utils';
 import GalleryNav from './GalleryNav';
 import GalleryContext from './GalleryContext';
 
-const Gallery = ({ className, images, layoutImages, children }) => {
+const Gallery = ({ className, images, layoutImages = [], children }) => {
     const carousel = useRef(null);
     const [currentIdx, changeCurrentIdx] = useState(0);
     const [fullyLoaded, changeFullyLoaded] = useState(false);

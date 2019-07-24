@@ -9,6 +9,7 @@ import { useToggle } from '@hooks';
 import Toolbar from './Toolbar';
 import Pagination from './Pagination';
 import FloatingControls from './FloatingControls';
+import Header from './Header';
 
 const pagination = ({
     properties: {
@@ -19,25 +20,32 @@ const pagination = ({
     total: Math.floor(total / limit),
 });
 
-const Catalog = ({ className, dealType, kind, items, single }) => {
+const Catalog = ({ className, dealType = 'sale', kind, single, noMap = false, titleTag, locationTitle }) => {
     const { current, total } = useSelector(pagination);
+    const items = useSelector(state => state.properties.list);
     const fetching = useSelector(state => state.properties.fetching);
     const [isFilterOpen, toggleFilter] = useToggle(false);
 
     return (
         <main className={className}>
             <header>
-                <h1>
+                <Header as={titleTag}>
                     {dict.translateDealType(dealType).verb}{' '}
-                    {(dict.translateKind(kind).noun || 'недвижимость').toLowerCase()} на{' '}
-                    {app.ifDomain('Рублёвке', 'Риге')}
-                </h1>
-                <Toolbar />
+                    {(dict.translateKind(kind).noun || 'недвижимость').toLowerCase()}
+                    {locationTitle || `на ${app.ifDomain('Рублёвке', 'Риге')}`}
+                </Header>
+                <Toolbar map={!noMap} />
             </header>
-            <Filter className="filter" onClose={toggleFilter} isOpen={isFilterOpen} dealType={dealType} />
+            <Filter
+                switchDealType={single}
+                className="filter"
+                onClose={toggleFilter}
+                isOpen={isFilterOpen}
+                dealType={dealType}
+            />
             <CardsGrid fetching={fetching}>
                 {items.map(data => (
-                    <Card key={data.id} dealType={dealType} data={data} />
+                    <Card key={data.id} dealTypeExplicit={dealType} data={data} />
                 ))}
             </CardsGrid>
             {!single && total > 1 && <Pagination count={total} currentPage={current} />}
@@ -108,22 +116,7 @@ export default styled(Catalog)`
             `
         )}
 
-        h1 {
-            margin: 0;
-            font-weight: bold;
-
-            font-size: 28px;
-
-            display: none;
-
-            ${media.at(css => ({
-                tablet: css`
-                    display: block;
-                `,
-                desktopL: css`
-                    font-size: 32px;
-                `,
-            }))}
+        h1, h2 {
         }
     }
 `;

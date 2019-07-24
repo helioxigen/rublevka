@@ -20,4 +20,5 @@ export {
     SettlementsCallbackBlock,
     AdaptiveSidebar,
     LandingLayout,
+    SettlementDetails,
 } from './templates';

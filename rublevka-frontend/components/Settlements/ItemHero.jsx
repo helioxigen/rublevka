@@ -29,6 +29,7 @@ export default styled(Hero)`
                 'title form' min-content
                 'span span' 58px / auto 325px;
 
+            margin: 0 0 40px;
             padding: 0 10%;
 
             grid-column-gap: 8%;

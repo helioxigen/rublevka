@@ -8,7 +8,8 @@ const optionalFn = (fn, getArg) => (typeof fn === 'function' ? fn(getArg()) : fn
 const to = (
     pathname,
     buildQuery = [] || (qry => [qry.qry, 'asQry']),
-    buildAsPath = [] || (qry => [qry.path, qry.path])
+    buildAsPath = [] || (qry => [qry.path, qry.path]),
+    hide = []
 ) => {
     const [query, asQuery] = optionalFn(buildQuery, () => Router.query).map(qry =>
         pickBy(qry, v => (typeof v === 'number' ? v : !isEmpty(v)))
@@ -21,7 +22,7 @@ const to = (
 
     const as = {
         pathname: `/zagorodnaya/${compact(optionalFn(buildAsPath, () => query)).join('/')}`,
-        query: asQuery,
+        query: pickBy(asQuery, (_, key) => !hide.includes(key)),
     };
 
     return { href, as };
@@ -43,7 +44,7 @@ const goTo = {
 };
 
 const pushQuery = (queryObj, internalQuery, pathnamePostfix) => {
-    const { kind, ...pageQuery } = Router.query;
+    const { kind, permanentPath, ...pageQuery } = Router.query;
 
     const isMap = Router.pathname === '/catalog.map';
 
@@ -52,11 +53,14 @@ const pushQuery = (queryObj, internalQuery, pathnamePostfix) => {
         ...queryObj,
     };
 
+    const asHidden = Router.pathname === '/settlements.item' ? ['id'] : [];
+
     go(
         to(
             Router.pathname,
-            () => [{ dealType, ...internalQuery, ...shared }, shared],
-            q => [q.dealType, isMap && 'map', pathnamePostfix]
+            () => [{ dealType, ...internalQuery, ...shared, permanentPath }, shared],
+            q => (permanentPath ? [permanentPath] : [q.dealType, isMap && 'map', pathnamePostfix]),
+            asHidden
         )
     );
 };

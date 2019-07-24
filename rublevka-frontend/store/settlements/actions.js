@@ -17,8 +17,8 @@ export const settlementsItemFetchTypes = createApiCallTypes('Settlements', 'Item
 
 export const fetchSettlementsItem = id => ({
     types: settlementsItemFetchTypes.value,
-    // shouldCall: state => !state.settlements.items[id],
-    call: () => api.settlements.getOne(id),
+    shouldCall: state => !state.settlements.items[id],
+    call: async () => api.settlements.getOne(id),
     payload: {
         id,
     },

@@ -38,8 +38,12 @@ app.prepare().then(() => {
         return app.render(req, res, '/settlements.list');
     });
 
-    server.get('/zagorodnaya/kottedzhnye-poselki/(*)_:id', (req, res) => {
-        return app.render(req, res, '/settlements.item', { id: req.params.id });
+    server.get('/zagorodnaya/kottedzhnye-poselki/(:name)_:id', (req, res) => {
+        return app.render(req, res, '/settlements.item', {
+            id: req.params.id,
+            permanentPath: `kottedzhnye-poselki/${req.params.name}_${req.params.id}`,
+            ...req.query,
+        });
     });
 
     server.get('/zagorodnaya/:dealType', (req, res) => {

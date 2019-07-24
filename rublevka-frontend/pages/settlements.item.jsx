@@ -2,18 +2,28 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Header, SettlementsListLayout, Button, SettlementsCallbackBlock, PageContainer } from '@components/UI';
-import { ItemHero } from '@components/Settlements';
+import {
+    Header,
+    SettlementsListLayout,
+    Button,
+    SettlementsCallbackBlock,
+    PageContainer,
+    Content,
+    SettlementDetails,
+} from '@components/UI';
+import { ItemHero, Section } from '@components/Settlements';
 import { CallbackForm } from '@components/Forms';
 import { Summary } from '@components/Item';
 import SettlementsItemLayout from '@components/UI/templates/SettlementsItemLayout';
-import { fetchSettlementsItem } from '@store';
+import { fetchSettlementsItem, fetchProperty, fetchProperties } from '@store';
 import { Breadcrumbs } from '@components';
-import { dict } from '@utils';
+import { dict, query } from '@utils';
 import api from '@api';
+import Catalog from '@components/Catalog';
+import Gallery from '@components/Gallery';
 
-const SettlementsItemPage = ({ id }) => {
-    const { name, statistics: { totalProperties } = {}, location = {}, details = {} } =
+const SettlementsItemPage = ({ id, dealType }) => {
+    const { name, statistics: { totalProperties } = {}, location = {}, details = {}, images = [], description } =
         useSelector(state => state.settlements.items[id]) || {};
 
     return (
@@ -55,14 +65,35 @@ const SettlementsItemPage = ({ id }) => {
                         defaultComment={`Подобрать объект в посёлке ${name} ID:${id}`}
                     />
                 </ItemHero>
-                <article />
+                <Content>
+                    <Catalog titleTag="h2" locationTitle={`в пос. ${name}`} dealType={dealType} single noMap />
+                </Content>
+                <SettlementDetails className="floating-border">
+                    <Section title="О посёлке">
+                        <p>{description.sattelite}</p>
+                        <Gallery images={images} />
+                    </Section>
+                </SettlementDetails>
+                <article className="floating-border"></article>
             </SettlementsItemLayout>
         </PageContainer>
     );
 };
 
-SettlementsItemPage.getInitialProps = async ({ store, query: { id } }) => {
+SettlementsItemPage.getInitialProps = async ({ store, query: { id, orderBy, filter = '{}', path } }) => {
+    const { dealType = 'sale', ...restFilter } = JSON.parse(filter);
+
+    console.log(restFilter);
+
     await store.dispatch(fetchSettlementsItem(id));
+    await store.dispatch(
+        fetchProperties(
+            0,
+            query.convert({ filter: { ...restFilter, 'location.settlementId': id }, orderBy }, dealType),
+            { dealType, ...restFilter },
+            orderBy
+        )
+    );
 
     return { id, title: id };
 };

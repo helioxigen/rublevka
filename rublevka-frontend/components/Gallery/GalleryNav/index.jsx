@@ -1,21 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Shaft from './Shaft';
 import { media, sc } from '@utils';
+import GalleryContext from '../GalleryContext';
 
-const GalleryNav = ({ className, currentIdx, layoutButton, images, onImageClick }) => (
-    <div className={className}>
-        <div className="container">
-            <Shaft
-                currentIdx={currentIdx}
-                images={images}
-                onImageClick={onImageClick}
-                layoutButton={images.length < 6 && layoutButton}
-            />
+const GalleryNav = ({ className, layoutButton, images }) => {
+    const [currentSlide, changeSlide] = useContext(GalleryContext);
+
+    return (
+        <div className={className}>
+            <div className="container">
+                <Shaft
+                    currentIdx={currentSlide}
+                    images={images}
+                    onImageClick={changeSlide}
+                    layoutButton={images.length < 6 && layoutButton}
+                />
+            </div>
+            {images.length > 6 && layoutButton}
         </div>
-        {images.length > 6 && layoutButton}
-    </div>
-);
+    );
+};
 
 const shift = size => props => sc.calcTranslateShift(props.currentIdx, props.images.length, !!props.layoutButton, size);
 

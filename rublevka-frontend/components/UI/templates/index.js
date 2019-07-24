@@ -1,5 +1,4 @@
 export { default as LandingLayout } from './LandingLayout';
-export { default as ItemLayout } from './ItemLayout';
 export { default as PageContainer } from './PageContainer';
 export { default as Content } from './Content';
 export { default as CardsGrid } from './CardsGrid';

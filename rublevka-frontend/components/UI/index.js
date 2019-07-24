@@ -13,7 +13,6 @@ export { ResetToolbar } from './organisms';
 export {
     PageContainer,
     CardsGrid,
-    ItemLayout,
     Modal,
     MapCatalogLayout,
     SettlementsListLayout,

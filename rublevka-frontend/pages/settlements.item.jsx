@@ -1,26 +1,37 @@
-import React, { useMemo } from 'react';
-import { connect, useSelector } from 'react-redux';
-import Link from 'next/link';
-import groupBy from 'lodash/groupBy';
-import { Header, SettlementsListLayout, Button, SettlementsCallbackBlock } from '@components/UI';
-import { Hero, ListSection, ListNav } from '@components/Settlements';
-import { SearchForm, CallbackForm } from '@components/Forms';
-import { Element, Link as ScrollLink } from 'react-scroll';
-import { Breadcrumbs } from '@components';
-import { fetchSettlements, fetchSettlementsItem } from '@store';
-import { dict, app } from '@utils';
-import { Summary } from '@components/Item';
+/* eslint-disable */
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
-const SettlementsItemPage = ({ id }) => {
-    const { name, statistics: { totalProperties } = {}, location = {}, details = {} } =
+import {
+    Header,
+    SettlementsListLayout,
+    Button,
+    SettlementsCallbackBlock,
+    PageContainer,
+    Content,
+    SettlementDetails,
+} from '@components/UI';
+import { ItemHero, Section } from '@components/Settlements';
+import { CallbackForm } from '@components/Forms';
+import { Summary } from '@components/Item';
+import SettlementsItemLayout from '@components/UI/templates/SettlementsItemLayout';
+import { fetchSettlementsItem, fetchProperty, fetchProperties } from '@store';
+import { Breadcrumbs } from '@components';
+import { dict, query } from '@utils';
+import api from '@api';
+import Catalog from '@components/Catalog';
+import Gallery from '@components/Gallery';
+
+const SettlementsItemPage = ({ id, dealType }) => {
+    const { name, statistics: { totalProperties } = {}, location = {}, details = {}, images = [], description } =
         useSelector(state => state.settlements.items[id]) || {};
 
     return (
-        <SettlementsListLayout>
-            <Hero
-                item
-                breadcrumbs={
+        <PageContainer fullWidth>
+            <SettlementsItemLayout>
+                <ItemHero>
                     <Breadcrumbs
+                        className="breadcrumbs"
                         second={['/settlements.list', '/zagorodnaya/kottedzhnye-poselki', 'Посёлки']}
                         last={[
                             `/settlements.item?id=${id}`,
@@ -28,49 +39,63 @@ const SettlementsItemPage = ({ id }) => {
                             name,
                         ]}
                     />
-                }
-            >
-                <Header.Settlements className="item-header">Посёлок {name}</Header.Settlements>
-                <p className="item-subheader">
-                    Короткое SEO-описание посёлка с интересное информацией или выделением его особенностей.
-                </p>
-                <Button red>{totalProperties} доступных предложений</Button>
-                <Summary
-                    values={[
-                        ['км от мкад', location.mkadDistance],
-                        ['объектов в посёлке', totalProperties],
-                        ['год постройки', details.foundationYear],
-                    ]}
-                />
-            </Hero>
-            <SettlementsCallbackBlock>
-                <header>Презентация посёлка</header>
-                <p>Обзор посёлка {name} и доступных предложений придёт вам на почту в течение 10 минут</p>
-                <CallbackForm
-                    fields={{
-                        name: {
-                            placeholder: 'Имя',
-                            required: true,
-                        },
-                        phone: {
-                            placeholder: 'Телефон',
-                            type: 'tel',
-                            required: true,
-                        },
-                    }}
-                    submitLabel="Отправить заявку"
-                    defaultComment={`Презентация посёлка ${name} ID:${id}`}
-                />
-            </SettlementsCallbackBlock>
-            <article></article>
-        </SettlementsListLayout>
+                    <div className="title">
+                        <h1>
+                            <span className="desktop-only">Посёлок</span> {name}
+                        </h1>
+                        <Button red>
+                            <span className="phone-only">Информация</span> о посёлке
+                        </Button>
+                    </div>
+                    <CallbackForm
+                        fullWidth
+                        header={<h2>Подобрать объект в посёлке</h2>}
+                        fields={{
+                            name: {
+                                placeholder: 'Имя',
+                                required: true,
+                            },
+                            phone: {
+                                placeholder: 'Телефон',
+                                type: 'tel',
+                                required: true,
+                            },
+                        }}
+                        submitLabel="Оставить заявку"
+                        defaultComment={`Подобрать объект в посёлке ${name} ID:${id}`}
+                    />
+                </ItemHero>
+                <Content>
+                    <Catalog titleTag="h2" locationTitle={`в пос. ${name}`} dealType={dealType} single noMap />
+                </Content>
+                <SettlementDetails className="floating-border">
+                    <Section title="О посёлке">
+                        <p>{description.sattelite}</p>
+                        <Gallery images={images} />
+                    </Section>
+                </SettlementDetails>
+                <article className="floating-border"></article>
+            </SettlementsItemLayout>
+        </PageContainer>
     );
 };
 
-SettlementsItemPage.getInitialProps = async ({ store, query: { id } }) => {
-    await store.dispatch(fetchSettlementsItem(id));
+SettlementsItemPage.getInitialProps = async ({ store, query: { id, orderBy, filter = '{}', path } }) => {
+    const { dealType = 'sale', ...restFilter } = JSON.parse(filter);
 
-    return { id };
+    console.log(restFilter);
+
+    await store.dispatch(fetchSettlementsItem(id));
+    await store.dispatch(
+        fetchProperties(
+            0,
+            query.convert({ filter: { ...restFilter, 'location.settlementId': id }, orderBy }, dealType),
+            { dealType, ...restFilter },
+            orderBy
+        )
+    );
+
+    return { id, title: id };
 };
 
 export default SettlementsItemPage;

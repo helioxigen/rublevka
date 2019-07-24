@@ -11,3 +11,4 @@ export { default as Switcher } from './Switcher';
 export { default as Link } from './Link';
 export { default as Input } from './Input';
 export { default as TextArea } from './TextArea';
+export { default as PageLink } from './PageLink';

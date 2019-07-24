@@ -18,6 +18,7 @@ const Dropdown = ({ className, onChange, onOpen, initialValue }) => {
 
     return (
         <Downshift
+            id="currency-selector"
             onChange={item => onChange(item.value)}
             itemToString={item => `${item}`}
             onStateChange={s => setIsOpen(s.isOpen)}

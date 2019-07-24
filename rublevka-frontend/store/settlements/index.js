@@ -6,7 +6,7 @@ const initialState = {
     fetching: false,
     items: {},
     list: [],
-    cache: {},
+    currentProperties: [],
     error: {
         hasError: false,
         message: '',

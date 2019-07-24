@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import GalleryContext from '@components/Gallery/GalleryContext';
 import { format } from '@utils';
 
-const GalleryCount = ({ className, currentIndex, overall }) => (
-    <div className={className}>
-        {format.prefixZero(currentIndex)} / {format.prefixZero(overall)}
-    </div>
-);
+const GalleryCount = ({ className, overall }) => {
+    const [currentIndex] = useContext(GalleryContext);
+
+    return (
+        <div className={className}>
+            {format.prefixZero(currentIndex + 1)} / {format.prefixZero(overall)}
+        </div>
+    );
+};
 
 export default styled(GalleryCount)`
     padding: 6px 8px;

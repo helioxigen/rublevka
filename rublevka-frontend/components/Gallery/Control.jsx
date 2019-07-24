@@ -3,13 +3,13 @@ import styled, { css } from 'styled-components';
 import { Icon } from '@components/UI';
 import { sc } from '@utils';
 
-const CarouselControl = ({ className, left, right, onClick }) => (
+const Control = ({ className, left, right, onClick }) => (
     <button data-left={left} data-right={right} type="button" className={className} onClick={onClick}>
         <Icon name="arrow-carousel" mirror={left} />
     </button>
 );
 
-export default styled(CarouselControl)`
+export default styled(Control)`
     z-index: 3;
 
     background: none;

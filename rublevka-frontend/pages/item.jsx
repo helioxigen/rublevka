@@ -2,11 +2,12 @@ import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
-import { PageContainer, Header, Price, ProfileCard, FavoriteButton, Content } from '@components/UI';
-import { Category, Details, Summary, Section, Layouts, Location } from '@components/Item';
+import { PageContainer, Header, Price, ProfileCard, FavoriteButton, Content, IconButton } from '@components/UI';
+import { Category, Details, Summary, Section, Layouts, Location, Counter } from '@components/Item';
 import { CallbackForm } from '@components/Forms';
 import { ContactToolbar } from '@components/Toolbars';
-import { Breadcrumbs, Gallery } from '@components';
+import Gallery from '@components/Gallery';
+import { Breadcrumbs } from '@components';
 import { dict, itemTitle, format, media } from '@utils';
 import { fetchProperty } from '@store';
 
@@ -38,8 +39,6 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
         [id, dealType]
     );
 
-    // console.log(item);
-
     return (
         <PageContainer>
             <Content compact>
@@ -57,12 +56,12 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                         <Header.Item id={id}>
                             {itemTitle.generate(dealType, false, true, { location, landDetails, specification, kind })}
                         </Header.Item>
-                        <Gallery
-                            id={id}
-                            dealType={dealType}
-                            layoutImages={layoutImages}
-                            images={images.filter(i => i.isPublic)}
-                        />
+                        <Gallery layoutImages={layoutImages} images={images.filter(i => i.isPublic)}>
+                            <span className="id">№ {id}</span>
+                            <IconButton icon="expand" />
+                            <Counter overall={images.length} />
+                            <FavoriteButton className="favorite-button" id={id} dealType={dealType} />
+                        </Gallery>
                         <Category className="main-cat">
                             <Price
                                 className="article-price"
@@ -164,9 +163,77 @@ CatalogItem.getInitialProps = async ({ store, query: { dealType: dealTypeTransli
     return { dealType, kind, id, title: `${dict.translateKind(kind).noun} №${id}` };
 };
 
+// CatalogItem.linkTemplate = ({ id, name }) => {
+//     '';
+// };
+
 // connect();
 
 export default styled(CatalogItem)`
+
+    .expand-button {
+        position: absolute;
+        z-index: 5;
+        right: 0px;
+        top: 0;
+        background: none;
+        font-size: 18px;
+
+        transition: opacity 225ms;
+        opacity: 0;
+    }
+
+    .favorite-button {
+        position: absolute;
+        top: 5px;
+        right: 0;
+
+        ${media.desktop.at(
+            css => css`
+                display: none;
+            `
+        )}
+    }
+
+    span.id {
+        margin: 0;
+        padding: 5px;
+        position: absolute;
+        top: 20px;
+        left: 15px;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 4px;
+
+        line-height: 18px;
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0.535714px;
+
+        color: #ffffff;
+
+        text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.35);
+
+        z-index: 200;
+
+        ${media.desktop.at(
+            css => css`
+                display: none;
+            `
+        )}
+    }
+
+    ${Counter} {
+        position: absolute;
+        bottom: 20px;
+        right: 15px;
+
+        ${media.tablet.at(
+            css => css`
+                right: unset;
+                left: 15px;
+            `
+        )}
+    }
 
     ${ContactToolbar} {
         padding: 8px 15px;

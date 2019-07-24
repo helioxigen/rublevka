@@ -5,7 +5,7 @@ import { page, media } from '@utils';
 import { useScrollState } from '@hooks';
 
 const FloatingControls = ({ className, isFilterOpen, onFilterClick }) => {
-    const isScrollingDown = useScrollState();
+    const isScrollingDown = useScrollState(true);
 
     return (
         <div className={className} data-hide={isFilterOpen || isScrollingDown}>

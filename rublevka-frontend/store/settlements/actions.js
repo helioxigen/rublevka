@@ -18,7 +18,7 @@ export const settlementsItemFetchTypes = createApiCallTypes('Settlements', 'Item
 export const fetchSettlementsItem = id => ({
     types: settlementsItemFetchTypes.value,
     shouldCall: state => !state.settlements.items[id],
-    call: () => api.settlements.getOne(id),
+    call: async () => api.settlements.getOne(id),
     payload: {
         id,
     },
@@ -59,6 +59,8 @@ export const updateFilterField = (fieldName, value) => (dispatch, getState) => {
     }
 
     page.pushQuery({ filter: !isEmpty(nextFilter) && JSON.stringify(nextFilter) });
+
+    return nextFilter;
 };
 
 export const SET_DEAL_TYPE = 'Properties.DealType.Set';

@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
-import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import groupBy from 'lodash/groupBy';
-import { Header, SettlementsListLayout } from '@components/UI';
+import { Header, SettlementsListLayout, PageLink } from '@components/UI';
 import { Hero, ListSection, ListNav } from '@components/Settlements';
 import { Element, Link as ScrollLink } from 'react-scroll';
 import { Breadcrumbs } from '@components';
@@ -39,10 +38,8 @@ const SettlementsListPage = ({ list = [] }) => {
                     <ListSection key={firstLetter + items.length}>
                         <Element name={`anchor-${firstLetter}`}>
                             <h2>{firstLetter}</h2>
-                            {items.map(i => (
-                                <Link key={i.id} href={`/settlements.item?id=${i.id}`}>
-                                    <a>{i.name}</a>
-                                </Link>
+                            {items.map(({ name, id }) => (
+                                <PageLink to="settlements.item" params={{ id, name }} key={name} />
                             ))}
                         </Element>
                     </ListSection>

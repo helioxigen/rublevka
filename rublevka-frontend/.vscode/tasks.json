@@ -1,0 +1,10 @@
+{
+    "tasks": [
+        {
+            "taskName": "rundev",
+            "command": "yarn", // Could be any other shell command
+            "args": ["dev"],
+            "isShellCommand": true
+        }
+    ]
+}

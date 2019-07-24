@@ -5,8 +5,6 @@ export const LOAD_MAP_PROPERTIES_SUCCESS = 'Map.PropertiesLoad.Success';
 export const LOAD_MAP_PROPERTIES_ERROR = 'Map.PropertiesLoad.Error';
 export const LOAD_MAP_PROPERTIES_CACHE = 'Map.PropertiesLoad.CacheRestore';
 
-// console.log(api);
-
 export const fetchMapPropertiesSubset = (query, partIdx, partsOverall) => ({
     types: [
         LOAD_MAP_PROPERTIES_REQUEST,

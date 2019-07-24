@@ -22,7 +22,7 @@ const Gallery = ({ className, images }) => {
                         {idx <= currentIdx + 1 && (
                             <img
                                 alt={id}
-                                src={idx === currentIdx ? cdn.get.thumbnail(id, 512) : cdn.get.thumbnail(id, 128)}
+                                src={idx === currentIdx ? cdn.get.thumbnail(id, 256) : cdn.get.thumbnail(id, 128)}
                             />
                         )}
                     </a>

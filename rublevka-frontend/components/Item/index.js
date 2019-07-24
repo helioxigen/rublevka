@@ -1,3 +1,4 @@
+export { default as Counter } from './Counter';
 export { default as Details } from './Details';
 export { default as Category } from './Category';
 export { default as FloatingBar } from './FloatingBar';

@@ -13,7 +13,7 @@ export default styled.div`
 
     ${media.desktop.at(
         css => css`
-            padding: 60px ${sc.ifProp('fullWidth')(0, 50)}px 0;
+            padding: 64px ${sc.ifProp('fullWidth')(0, 50)}px 0;
         `
     )}
 

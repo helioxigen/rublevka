@@ -7,9 +7,14 @@ export default styled.h1`
 
     font-size: 28px;
 
-    ${media.desktopL.at(
-        css => css`
+    display: none;
+
+    ${media.at(css => ({
+        tablet: css`
+            display: block;
+        `,
+        desktopL: css`
             font-size: 32px;
-        `
-    )}
+        `,
+    }))}
 `;

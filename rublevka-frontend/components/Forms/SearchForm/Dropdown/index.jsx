@@ -94,17 +94,13 @@ const Dropdown = ({
                         <select
                             className="native-select touch-only"
                             {...getMenuProps()}
+                            value={selectItem.value}
                             onChange={e =>
                                 selectItem(items.find(i => i.value.toString() === e.target.value.toString()))
                             }
                         >
                             {items.map(item => (
-                                <option
-                                    key={item.label + item.name}
-                                    selected={selectedItem.value === item.value}
-                                    value={item.value}
-                                    {...getItemProps({ item })}
-                                >
+                                <option key={item.label + item.name} value={item.value} {...getItemProps({ item })}>
                                     {item.label}
                                 </option>
                             ))}

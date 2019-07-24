@@ -34,15 +34,9 @@
     },
     "settings": {
         "import/resolver": {
-            "alias": [
-                ["@components", "./components"],
-                ["@components/UI", "./components/UI"],
-                ["@utils", "./utils"],
-                ["@hooks", "./utils/hooks"],
-                ["@config", "./config"],
-                ["@store", "./store"],
-                ["@api", "./api"]
-            ]
+            "webpack": {
+                "config": "./resolve.config.js"
+            }
         }
     }
 }

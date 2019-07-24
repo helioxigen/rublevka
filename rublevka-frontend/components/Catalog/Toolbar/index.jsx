@@ -1,8 +1,17 @@
+import React from 'react';
 import styled from 'styled-components';
-import { MapButton } from '@components/Catalog';
+import MapButton from './MapButton';
+import Sort from './Sort';
 import { media } from '@utils';
 
-export default styled.div`
+const CatalogToolbar = ({ className, map = true, sort = true }) => (
+    <div className={className}>
+        {map && <MapButton />}
+        {sort && <Sort />}
+    </div>
+);
+
+export default styled(CatalogToolbar)`
     display: flex;
 
     font-size: 16px;
@@ -23,8 +32,6 @@ export default styled.div`
                 display: none;
             }
 
-            justify-content: center;
-
             width: 100%;
             background: white;
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
@@ -35,19 +42,19 @@ export default styled.div`
 
 
     > * {
-        background: #f2f2f2;
-        border-radius: 4px;
+        background: white;
+        padding: 13px 15px 12px;
 
-        padding: 8px 12px;
+        border-radius: 4px;
 
         &:not(:first-child) {
             margin-left: 11px;
         }
 
-        ${media.tablet.to(
+        ${media.tablet.at(
             css => css`
-                background: white;
-                padding: 13px 15px 12px;
+                background: #f2f2f2;
+                padding: 8px 12px;
             `
         )}
     }

@@ -1,12 +1,10 @@
 export { default as LandingLayout } from './LandingLayout';
-export { default as CatalogLayout } from './CatalogLayout';
-export { default as ItemLayout } from './ItemLayout';
 export { default as PageContainer } from './PageContainer';
 export { default as Content } from './Content';
 export { default as CardsGrid } from './CardsGrid';
 export { default as Modal } from './Modal';
-export { default as Toolbar } from './Toolbar';
 export { default as MapCatalogLayout } from './MapCatalogLayout';
 export { default as SettlementsListLayout } from './SettlementsListLayout';
 export { default as SettlementsCallbackBlock } from './SettlementsCallbackBlock';
 export { default as AdaptiveSidebar } from './AdaptiveSidebar';
+export { default as SettlementDetails } from './SettlementDetails';

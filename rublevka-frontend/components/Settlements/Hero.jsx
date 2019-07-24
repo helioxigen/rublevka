@@ -19,7 +19,7 @@ export default styled(Hero)`
 
     ${media.desktop.at(
         css => css`
-            padding: 60px 50px 0;
+            padding: 64px 50px 0;
         `
     )}
 

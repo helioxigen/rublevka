@@ -3,10 +3,6 @@ import { ListSection } from '@components/Settlements';
 import { media } from '@utils';
 
 export default styled.main`
-    h1 {
-        font-size: 28px;
-    }
-
     .hero-container,
     article {
         margin: 0 auto;

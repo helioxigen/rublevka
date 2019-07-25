@@ -1,13 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Summary } from '@components/Item';
-import { Button, Content } from '@components/UI';
-import { media, sc } from '@utils';
+import { Content } from '@components/UI';
+import { media } from '@utils';
 
 const Hero = ({ className, breadcrumbs, children }) => (
     <header className={className}>
-        <Content>{breadcrumbs}</Content>
-        <div className="hero-container">{children}</div>
+        <Content className="content">
+            {breadcrumbs}
+            {children}
+        </Content>
     </header>
 );
 
@@ -15,11 +17,48 @@ export default styled(Hero)`
     background: url('/static/settlements/hero.png') center / cover no-repeat;
     background-attachment: fixed;
 
-    padding: 48px 15px 0;
+    padding: 0 15px;
+
+    .content {
+        padding: 28px 0;
+        box-sizing: border-box;
+        height: 400px;
+        display: grid;
+        grid:
+            'nav nav nav' 15px
+            '. title .' 1fr
+            '. form .' min-content
+            '. . .' 1fr
+            '. . .' 15px /
+            minmax(15px, 1fr)
+            minmax(auto, 925px)
+            minmax(15px, 1fr);
+
+        row-gap: 16px;
+
+        > h1 {
+            grid-area: title;
+
+            align-self: end;
+
+            ${media.desktop.at(
+                css => css`
+                    margin: 0 0 16px;
+                `
+            )}
+        }
+
+        > form {
+            grid-area: form;
+        }
+    }
+
+    /* padding: 0 15px; */
+    box-sizing: border-box;
 
     ${media.desktop.at(
         css => css`
-            padding: 64px 50px 0;
+            /* padding: 0 50px; */
         `
     )}
 
@@ -38,35 +77,14 @@ export default styled(Hero)`
         }
     }
 
-    .hero-container {
-        width: 100%;
-    }
+    /* 
+    > h1,
+    > form {
+        grid-column: content-start / span content-end;
+    } */
 
-    .hero-container > ${Button} {
-        display: block;
-        font-size: 15px;
-        font-weight: 600;
-
-        margin-bottom: 64px;
-    }
-
-    .subheader {
-        margin-bottom: 40px;
-    }
-
-    .item-header {
-        margin: 65px 0 24px;
-    }
-
-    .list-header {
-        margin: 40px 0 32px;
-    }
-
-    height: ${sc.ifProp('item')(600, 400)}px;
-
-    color: white;
-
-    .summary-label {
-        color: white;
+    .breadcrumbs {
+        margin: 0;
+        /* margin: 0 0 0 16px; */
     }
 `;

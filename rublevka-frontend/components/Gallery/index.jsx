@@ -22,7 +22,7 @@ const Gallery = ({ className, images, layoutImages = [], children }) => {
         <GalleryContext.Provider value={[currentIdx, idx => carousel.current && carousel.current.slide(idx)]}>
             <section className={className}>
                 <div className="gallery-display">
-                    <Control left onClick={() => carousel.current.prev()} />
+                    <Control className="control" left onClick={() => carousel.current.prev()} />
                     <ReactSwipe
                         ref={carousel}
                         swipeOptions={{
@@ -33,24 +33,21 @@ const Gallery = ({ className, images, layoutImages = [], children }) => {
                         {images.map(({ id }, idx) => (
                             <a key={id} role="button" tabIndex={0}>
                                 {(idx <= currentIdx + 6 || fullyLoaded) && (
-                                    <span
-                                        className="slide"
-                                        style={{
-                                            backgroundImage: `url(${
-                                                idx <= currentIdx + 1
-                                                    ? cdn.get.full(id, 1024)
-                                                    : cdn.get.thumbnail(id, 128)
-                                            })`,
-                                        }}
+                                    <img
+                                        alt=""
+                                        src={
+                                            idx <= currentIdx + 1 ? cdn.get.full(id, 1024) : cdn.get.thumbnail(id, 128)
+                                        }
                                     />
                                 )}
                             </a>
                         ))}
                     </ReactSwipe>
                     <div className="gallery-overlay">{children}</div>
-                    <Control right onClick={() => carousel.current.next()} />
+                    <Control className="control" right onClick={() => carousel.current.next()} />
                 </div>
                 <GalleryNav
+                    className="gallery-nav"
                     layoutButton={
                         layoutImages.length > 0 && (
                             <IconButton red className="layout-button" icon="house-layout">
@@ -161,7 +158,8 @@ export default styled(Gallery)`
             }
         }
 
-        span.slide {
+        img {
+            margin: 0 auto;
             display: block;
             height: 300px;
 

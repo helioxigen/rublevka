@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import { PageContainer, Header, Price, ProfileCard, FavoriteButton, Content, IconButton } from '@components/UI';
-import { Category, Details, Summary, Section, Layouts, Location, Counter } from '@components/Item';
+import { Category, Details, Summary, Section, Layouts, Location, Counter, FullScreenGallery } from '@components/Item';
 import { CallbackForm } from '@components/Forms';
 import { ContactToolbar } from '@components/Toolbars';
 import Gallery from '@components/Gallery';
@@ -56,12 +56,23 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                         <Header.Item id={id}>
                             {itemTitle.generate(dealType, false, true, { location, landDetails, specification, kind })}
                         </Header.Item>
-                        <Gallery layoutImages={layoutImages} images={images.filter(i => i.isPublic)}>
-                            <span className="id">№ {id}</span>
-                            <IconButton icon="expand" />
-                            <Counter overall={images.length} />
-                            <FavoriteButton className="favorite-button" id={id} dealType={dealType} />
-                        </Gallery>
+                        <FullScreenGallery
+                            id={id}
+                            images={images.filter(i => i.isPublic)}
+                            specification={specification}
+                        >
+                            {onClick => (
+                                <Gallery
+                                    layoutImages={layoutImages.filter(i => i.isPublic)}
+                                    images={images.filter(i => i.isPublic)}
+                                >
+                                    <span className="id">№ {id}</span>
+                                    <IconButton onClick={onClick} icon="expand" />
+                                    <Counter overall={images.length} />
+                                    <FavoriteButton className="favorite-button" id={id} dealType={dealType} />
+                                </Gallery>
+                            )}
+                        </FullScreenGallery>
                         <Category className="main-cat">
                             <Price
                                 className="article-price"

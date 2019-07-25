@@ -23,53 +23,65 @@ const Navbar = ({ className, title }) => {
 
     return (
         <header className={className} data-hide={isScrollingDown} data-islanding={isLanding} data-inverted={isInverted}>
-            <Content className="content">
-                <Link href="/">
-                    <a className="logo">
-                        <Icon className="go-back" name="arrow" mirror stroke />
-                        <Icon className="logo-icon" name={config.app} />
-                    </a>
-                </Link>
-                {title && <span className="page-title">{title}</span>}
-                <MainMenu isOpen={menuOpen} onClose={() => setIsMenuOpen(false)} favoriteCount={favoriteCount} />
-                <div className="controls">
-                    <Link href="/favorites">
-                        <a className="favorites">
-                            <Icon secondary className="favorite-icon" name="favorite" stroke />
-                            <span className="counter" data-show={favoriteCount > 0}>
-                                {favoriteCount === 0 ? 1 : favoriteCount}
-                            </span>
+            <div className="floating-content">
+                <Content className="content">
+                    <Link href="/">
+                        <a className="logo">
+                            <Icon className="go-back" name="arrow" mirror stroke />
+                            <Icon className="logo-icon" name={config.app} />
                         </a>
                     </Link>
-                    <IconButton
-                        secondary
-                        onClick={() => setIsMenuOpen(true)}
-                        className="menu-button"
-                        icon="hamburger"
-                    />
-                </div>
-            </Content>
+                    {title && <span className="page-title">{title}</span>}
+                    <MainMenu isOpen={menuOpen} onClose={() => setIsMenuOpen(false)} favoriteCount={favoriteCount} />
+                    <div className="controls">
+                        <Link href="/favorites">
+                            <a className="favorites">
+                                <Icon secondary className="favorite-icon" name="favorite" stroke />
+                                <span className="counter" data-show={favoriteCount > 0}>
+                                    {favoriteCount === 0 ? 1 : favoriteCount}
+                                </span>
+                            </a>
+                        </Link>
+                        <IconButton
+                            secondary
+                            onClick={() => setIsMenuOpen(true)}
+                            className="menu-button"
+                            icon="hamburger"
+                        />
+                    </div>
+                </Content>
+            </div>
         </header>
     );
 };
 
 export default styled(Navbar)`
     width: 100%;
-    position: fixed;
+    /* position: fixed; */
 
-    z-index: 1350;
+    .floating-content {
+        position: fixed;
+        padding: 0 50px;
+        width: 100%;
 
-    color: ${sc.theme.colors.black};
-    background: white;
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+        height: inherit;
+        padding: 0 15px;
+        box-sizing: border-box;
+
+        z-index: 1350;
+
+        color: ${sc.theme.colors.black};
+        background: white;
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+
+        transition: background 225ms, transform 225ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
 
     font-size: 20px;
 
-    transition: background 225ms, transform 225ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
     ${media.desktop.to(
         css => css`
-            &[data-hide='true'] {
+            &[data-hide='true'] .floating-content {
                 transform: translateY(-100%);
             }
         `
@@ -106,18 +118,11 @@ export default styled(Navbar)`
     }
 
     height: 48px;
-    padding: 0 15px;
-    box-sizing: border-box;
-
-    position: fixed;
 
     ${media.desktop.at(
         css => css`
             height: 64px;
             font-size: 15px;
-            padding: 0;
-
-            padding: 0 50px;
 
             .menu-button,
             .page-title {
@@ -151,6 +156,16 @@ export default styled(Navbar)`
     )}
 
     &[data-islanding='true'] {
+        max-height: 0;
+    }
+
+    &[data-islanding='true'][data-inverted='false'] .floating-content {
+        color: ${sc.theme.colors.black};
+        background: white;
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+    }
+
+    &[data-islanding='true'] .floating-content {
         background-color: transparent;
         box-shadow: none;
         color: white;
@@ -162,29 +177,24 @@ export default styled(Navbar)`
         .logo-icon {
             display: block;
         }
+    }
 
-        &[data-inverted='false'] {
-            color: ${sc.theme.colors.black};
-            background: white;
-            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
-        }
-        ${media.desktop.at(
-            css => css`
-                &[data-inverted='true'] {
-                    .callback-button {
-                        border: 2px solid white;
-                        background: none;
+    ${media.desktop.at(
+        css => css`
+            &[data-islanding='true'][data-inverted='true'] .floating-content {
+                .callback-button {
+                    border: 2px solid white;
+                    background: none;
 
-                        &:hover,
-                        &:active {
-                            background: white;
-                            color: black;
-                        }
+                    &:hover,
+                    &:active {
+                        background: white;
+                        color: black;
                     }
                 }
-            `
-        )}
-    }
+            }
+        `
+    )}
 
     a {
         font-size: 1em;

@@ -9,11 +9,9 @@ export default styled.div`
 
     background: #fafafa;
 
-    padding-top: 48px;
-
     ${media.desktop.at(
         css => css`
-            padding: 64px ${sc.ifProp('fullWidth')(0, 50)}px 0;
+            padding: 0 ${sc.ifProp('fullWidth')(0, 50)}px 0;
         `
     )}
 

@@ -31,7 +31,7 @@ const Catalog = ({ className, dealType = 'sale', kind, single, noMap = false, ti
             <header>
                 <Header as={titleTag}>
                     {dict.translateDealType(dealType).verb}{' '}
-                    {(dict.translateKind(kind).noun || 'недвижимость').toLowerCase()}
+                    {(dict.translateKind(kind).noun || 'недвижимость').toLowerCase()}{' '}
                     {locationTitle || `на ${app.ifDomain('Рублёвке', 'Риге')}`}
                 </Header>
                 <Toolbar map={!noMap} />

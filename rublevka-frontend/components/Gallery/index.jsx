@@ -18,11 +18,13 @@ const Gallery = ({ className, images, layoutImages = [], children }) => {
         }
     }, [currentIdx]);
 
+    const isControlsVisible = images.length > 1;
+
     return (
         <GalleryContext.Provider value={[currentIdx, idx => carousel.current && carousel.current.slide(idx)]}>
             <section className={className}>
                 <div className="gallery-display">
-                    <Control className="control" left onClick={() => carousel.current.prev()} />
+                    {isControlsVisible && <Control className="control" left onClick={() => carousel.current.prev()} />}
                     <ReactSwipe
                         ref={carousel}
                         swipeOptions={{
@@ -44,21 +46,23 @@ const Gallery = ({ className, images, layoutImages = [], children }) => {
                         ))}
                     </ReactSwipe>
                     <div className="gallery-overlay">{children}</div>
-                    <Control className="control" right onClick={() => carousel.current.next()} />
+                    {isControlsVisible && <Control className="control" right onClick={() => carousel.current.next()} />}
                 </div>
-                <GalleryNav
-                    className="gallery-nav"
-                    layoutButton={
-                        layoutImages.length > 0 && (
-                            <IconButton red className="layout-button" icon="house-layout">
-                                планировки
-                            </IconButton>
-                        )
-                    }
-                    currentIdx={currentIdx}
-                    images={images}
-                    onImageClick={idx => carousel.current.slide(idx)}
-                />
+                {isControlsVisible && (
+                    <GalleryNav
+                        className="gallery-nav"
+                        layoutButton={
+                            layoutImages.length > 0 && (
+                                <IconButton red className="layout-button" icon="house-layout">
+                                    планировки
+                                </IconButton>
+                            )
+                        }
+                        currentIdx={currentIdx}
+                        images={images}
+                        onImageClick={idx => carousel.current.slide(idx)}
+                    />
+                )}
             </section>
         </GalleryContext.Provider>
     );
@@ -147,16 +151,20 @@ export default styled(Gallery)`
             right: 0;
         }
 
-        &:hover {
-            ::before,
-            ::after {
-                opacity: 1;
-            }
+        ${({ images }) =>
+            images.length > 1 &&
+            `
+            &:hover {
+                ::before,
+                ::after {
+                    opacity: 1;
+                }
 
-            ${Control} {
-                opacity: 1;
+                ${Control} {
+                    opacity: 1;
+                }
             }
-        }
+            `}
 
         img {
             margin: 0 auto;

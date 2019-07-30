@@ -126,12 +126,12 @@ exports.furnitureKinds = {
 };
 
 exports.renovateKinds = {
-  rough_finish: 'Черновая отделка',
-  for_finishing: 'Под чистовую отделку',
-  full_construction: 'Под ключ',
-  partly_turnkey: 'Частично под ключ',
-  design: 'Дизайнерский',
-  raw: 'Коробка',
+  rough_finish: 'Дом с черновой отделкой',
+  for_finishing: 'Дом под чистовую отделку',
+  full_construction: 'Дом под ключ',
+  partly_turnkey: 'Дом частично под ключ',
+  design: 'Дизайнерский дом',
+  raw: 'Дом-коробка',
 };
 
 exports.equipment = {

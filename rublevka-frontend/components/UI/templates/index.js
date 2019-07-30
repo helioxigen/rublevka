@@ -8,3 +8,4 @@ export { default as SettlementsListLayout } from './SettlementsListLayout';
 export { default as SettlementsCallbackBlock } from './SettlementsCallbackBlock';
 export { default as AdaptiveSidebar } from './AdaptiveSidebar';
 export { default as SettlementDetails } from './SettlementDetails';
+export { default as SettlementInfrasctructure } from './SettlementInfrasctructure';

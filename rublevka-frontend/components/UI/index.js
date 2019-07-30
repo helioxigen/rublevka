@@ -21,4 +21,5 @@ export {
     AdaptiveSidebar,
     LandingLayout,
     SettlementDetails,
+    SettlementInfrasctructure,
 } from './templates';

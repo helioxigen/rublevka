@@ -52,7 +52,13 @@ class MyApp extends App {
                     />
                     <link href="/static/favicon.png" rel="icon" />
                 </Head>
-                <YMaps>
+                <YMaps
+                    query={{
+                        apikey: 'f39a3e9a-410f-431a-a7ff-5d6e570c3834',
+                        ns: 'use-load-option',
+                        load: 'package.full',
+                    }}
+                >
                     <Provider store={store}>
                         <GlobalStyles />
                         <Navbar title={pageProps.title} />

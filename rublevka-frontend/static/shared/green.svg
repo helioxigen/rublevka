@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="45px" height="41px" viewBox="0 0 45 41" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>green</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="20.402468" cy="20.4414082" r="20.402468"></circle>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="green" transform="translate(22.500000, 20.589623) scale(-1, 1) translate(-22.500000, -20.589623) ">
+            <path d="M40.2343549,21.1910058 C45.8244278,19.1922591 46.3747276,14.7224362 41.8852544,7.78153722 C38.2713934,2.71066615 31.7136762,0.137642565 22.2121027,0.0624664685 L40.2343549,21.1910058 Z" id="Path-4" fill="#438A31"></path>
+            <g id="Path-3">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#62AA48" xlink:href="#path-1"></use>
+                <path d="M-0.288265175,20.6215063 C1.79070543,20.4127439 3.82009947,19.1731496 5.79991695,16.9027233 C8.76964317,13.4970839 9.28235496,9.86645701 11.0208698,7.4251268 C12.7593846,4.9837966 13.9081186,1.85506482 25.9146606,-0.308816913 C33.919022,-1.75140474 29.53393,-2.53795943 12.7593846,-2.668481 L4.5738435,-0.308816913 L-2.53976222,7.4251268 L-3.87292105,16.9027233 L-0.288265175,20.6215063 Z" fill="#333333" mask="url(#mask-2)"></path>
+            </g>
+        </g>
+    </g>
+</svg>

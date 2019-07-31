@@ -28,6 +28,7 @@ const AdaptiveSidebar = styled.div`
 
                 background: white;
                 overflow-y: scroll;
+                -webkit-overflow-scrolling: touch;
                 color: #232323;
                 box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
                 transition: transform 225ms cubic-bezier(0, 0, 0.2, 1);

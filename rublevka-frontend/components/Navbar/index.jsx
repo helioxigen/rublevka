@@ -10,7 +10,7 @@ import MainMenu from './MainMenu';
 import { useInvertOnScroll, useScrollState } from '@hooks';
 
 const Navbar = ({ className, title }) => {
-    const { pathname } = useRouter();
+    const { pathname, back } = useRouter();
 
     const isLanding = pathname === '/';
 
@@ -25,9 +25,9 @@ const Navbar = ({ className, title }) => {
         <header className={className} data-hide={isScrollingDown} data-islanding={isLanding} data-inverted={isInverted}>
             <div className="floating-content">
                 <Content className="content">
+                    <IconButton onClick={back} className="go-back" secondary icon="arrow" mirror stroke />
                     <Link href="/">
                         <a className="logo">
-                            <Icon className="go-back" name="arrow" mirror stroke />
                             <Icon className="logo-icon" name={config.app} />
                         </a>
                     </Link>
@@ -92,6 +92,8 @@ export default styled(Navbar)`
 
         .menu-button {
             margin: 0 0 0 14px;
+            padding: 0 0 0 10px;
+            font-size: 20px;
         }
 
         ${media.desktop.at(
@@ -99,6 +101,11 @@ export default styled(Navbar)`
                 font-size: 24px;
             `
         )}
+    }
+
+    .go-back {
+        font-size: 20px;
+        padding: 0 10px 0 0;
     }
 
     .page-title {

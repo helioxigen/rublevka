@@ -48,7 +48,7 @@ const FullScreenGallery = ({ className, specification, id, images, children }) =
                     </FavoriteButton>
                     <IconButton onClick={() => setIsOpen(false)} secondary icon="times" />
                 </header>
-                <Gallery images={images} />
+                <Gallery keyboardControl images={images} />
             </Modal>
         </>
     );
@@ -110,6 +110,7 @@ export default styled(FullScreenGallery)`
             font-weight: 600;
 
             min-width: 145px;
+            box-sizing: initial;
 
             > span {
                 margin-right: 8px;

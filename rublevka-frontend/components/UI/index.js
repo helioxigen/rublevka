@@ -22,4 +22,5 @@ export {
     LandingLayout,
     SettlementDetails,
     SettlementInfrasctructure,
+    SettlementLocation,
 } from './templates';

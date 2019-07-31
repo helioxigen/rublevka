@@ -7,12 +7,13 @@
     "private": true,
     "scripts": {
         "dev": "cross-env APP_ENV=development node server.js",
-        "start": "NODE_ENV=production node server.js",
-        "build": "APP_ENV=production NODE_ENV=production next build",
+        "start": "cross-env NODE_ENV=production node server.js",
+        "build": "cross-env APP_ENV=production NODE_ENV=production next build",
         "now-build": "APP_ENV=production next build",
         "analyze": "BUNDLE_ANALYZE=both next build",
         "analyze:server": "BUNDLE_ANALYZE=server next build",
-        "analyze:browser": "BUNDLE_ANALYZE=browser next build"
+        "analyze:browser": "BUNDLE_ANALYZE=browser next build",
+        "lint-staged": "lint-staged"
     },
     "dependencies": {
         "@zeit/next-css": "^1.0.1",

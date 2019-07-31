@@ -1,6 +1,9 @@
 /* eslint-disable */
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 import {
     Header,
     SettlementsListLayout,
@@ -10,8 +13,9 @@ import {
     Content,
     SettlementDetails,
     SettlementInfrasctructure,
+    SettlementLocation,
 } from '@components/UI';
-import { ItemHero, Section, Infrastructure } from '@components/Settlements';
+import { ItemHero, Section, WideSection, Infrastructure, SettlementMap } from '@components/Settlements';
 import { CallbackForm } from '@components/Forms';
 import { Summary } from '@components/Item';
 import SettlementsItemLayout from '@components/UI/templates/SettlementsItemLayout';
@@ -27,6 +31,8 @@ const SettlementsItemPage = ({ id, dealType }) => {
         useSelector(state => state.settlements.items[id]) || {};
 
     const properties = useSelector(state => state.properties.items);
+
+    const settlement = useSelector(state => state.settlements.items[Object.keys(state.settlements.items).pop()]);
 
     return (
         <PageContainer fullWidth>
@@ -81,6 +87,11 @@ const SettlementsItemPage = ({ id, dealType }) => {
                         <Infrastructure properties={properties} />
                     </Section>
                 </SettlementInfrasctructure>
+                <SettlementLocation className="floating-border">
+                    <WideSection>
+                        <SettlementMap settlement={settlement} />
+                    </WideSection>
+                </SettlementLocation>
                 <article className="floating-border"></article>
             </SettlementsItemLayout>
         </PageContainer>

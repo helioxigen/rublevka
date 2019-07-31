@@ -78,6 +78,8 @@ export default styled(Catalog)`
         padding-right: 24px;
 
         position: fixed;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
 
         ${media.desktop.at(
             css => css`

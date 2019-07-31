@@ -38,6 +38,7 @@ export default styled(CompactForm)`
         border-left: 0;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
+        box-shadow: none;
 
         margin: 0;
 

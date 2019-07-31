@@ -6,9 +6,10 @@ import { Provider } from 'react-redux';
 import withReduxStore from 'next-redux-wrapper';
 import { YMaps } from 'react-yandex-maps';
 import nookies from 'nookies';
+import NProgress from '@components/UI/atoms/NProgress';
 import { Footer, Navbar } from '@components';
 import { makeStore, initUser } from '../store';
-import { app } from '@utils';
+import { app, sc } from '@utils';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -48,6 +49,7 @@ class MyApp extends App {
 
         return (
             <Container>
+                <NProgress color={sc.theme.colors.red} spinner={false} />
                 <Head>
                     <meta
                         name="viewport"

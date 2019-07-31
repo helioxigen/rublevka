@@ -21,8 +21,7 @@ const Sort = ({ className }) => {
                     ['', 'По умолчанию'],
                     ['price.asc', 'По возрастанию цены'],
                     ['price.desc', 'По убыванию цены'],
-                    ['mkadDistance.desc', 'По удалённости от МКАД'],
-                    ['mkadDistance.asc', 'По близости к МКАД'],
+                    ['mkadDistance.asc', 'По удалённости от МКАД'],
                 ]}
                 value={value}
                 onChange={handleChange}

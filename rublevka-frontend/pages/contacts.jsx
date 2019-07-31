@@ -90,6 +90,7 @@ const ContactsPage = ({ className }) => {
                     //         mapRef = ref;
                     //     }
                     // }}
+                    instanceRef={ref => ref && ref.behaviors.disable('scrollZoom')}
                     defaultState={{ center: [55.734871, 37.249479], zoom: 15, controls: [] }}
                     width="100%"
                     height="100%"

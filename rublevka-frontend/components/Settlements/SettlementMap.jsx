@@ -64,6 +64,7 @@ const SettlementMap = ({ className, name, location }) => {
                     instanceRef={ref => {
                         if (ref) {
                             mapRef = ref;
+                            ref.behaviors.disable('scrollZoom');
                         }
                     }}
                     onLoad={ymaps => onLoad(ymaps)}

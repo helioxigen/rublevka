@@ -1,10 +1,10 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { PageContainer, Header, Switcher, CardsGrid, IconButton, Button } from '@components/UI';
+import { PageContainer, Header, Switcher, CardsGrid, IconButton, Button, Content } from '@components/UI';
 import {} from 'reselect';
 import { Card } from '@components';
-import { page, sc, dict } from '@utils';
+import { page, sc, media } from '@utils';
 import { fetchFavorite, setFavorite } from '@store';
 
 const FavoritePage = ({ className }) => {
@@ -27,35 +27,44 @@ const FavoritePage = ({ className }) => {
     return (
         <PageContainer>
             <main className={className} data-empty={isEmpty}>
-                <header>
-                    <Header.Static>Избранное</Header.Static>
-                    {!isOnly && (
-                        <Switcher
-                            items={[['Продажа', 'sale'], ['Аренда', 'rent']]}
-                            value={dealType}
-                            onChange={setDealType}
-                        />
+                <Content compact>
+                    <header className="favorite-header">
+                        <Header.Static>Избранное</Header.Static>
+                        {!isOnly && (
+                            <Switcher
+                                items={[['Продажа', 'sale'], ['Аренда', 'rent']]}
+                                value={dealType}
+                                onChange={setDealType}
+                            />
+                        )}
+                    </header>
+                    {favorites.length !== 0 ? (
+                        <>
+                            <CardsGrid>
+                                {items.map(data => (
+                                    <Card key={data.id} dealTypeExplicit={dealType} data={data} />
+                                ))}
+                            </CardsGrid>
+                            <IconButton
+                                onClick={() => dispatch(setFavorite([]))}
+                                className="reset-favorite"
+                                icon="garbage"
+                            >
+                                Cбросить избранное
+                            </IconButton>
+                        </>
+                    ) : (
+                        <>
+                            <p className="message">Вы пока ещё ничего не добавили в избранное.</p>
+                            <Button
+                                className="search-button"
+                                onClick={() => page.goTo.catalog({ dealType: 'prodaja' })}
+                            >
+                                Начать новый поиск
+                            </Button>
+                        </>
                     )}
-                </header>
-                {favorites.length !== 0 ? (
-                    <>
-                        <CardsGrid>
-                            {items.map(data => (
-                                <Card key={data.id} dealTypeExplicit={dealType} data={data} />
-                            ))}
-                        </CardsGrid>
-                        <IconButton onClick={() => dispatch(setFavorite([]))} className="reset-favorite" icon="garbage">
-                            Cбросить избранное
-                        </IconButton>
-                    </>
-                ) : (
-                    <>
-                        <p className="message">Вы пока ещё ничего не добавили в избранное.</p>
-                        <Button className="search-button" onClick={() => page.goTo.catalog({ dealType: 'prodaja' })}>
-                            Начать новый поиск
-                        </Button>
-                    </>
-                )}
+                </Content>
             </main>
         </PageContainer>
     );
@@ -64,19 +73,31 @@ const FavoritePage = ({ className }) => {
 FavoritePage.getInitialProps = async () => ({ title: 'Избранное' });
 
 export default styled(FavoritePage)`
-    padding: 48px 0;
-
-    width: 1110px;
     margin: 0 auto;
 
-    > header {
+    .favorite-header {
         display: flex;
-        justify-content: space-between;
 
-        margin-bottom: 32px;
+        margin: 48px 0 32px;
+
+        justify-content: center;
+
+        ${media.tablet.at(
+            css => css`
+                justify-content: space-between;
+            `
+        )}
 
         ${Header.Static} {
             margin: 0;
+
+            display: none;
+
+            ${media.tablet.at(
+                css => css`
+                    display: block;
+                `
+            )}
         }
 
         ${Switcher} {

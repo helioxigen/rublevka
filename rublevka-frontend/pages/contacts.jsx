@@ -4,7 +4,7 @@ import { Icon, Content, PageContainer } from '@components/UI';
 import { Map, Placemark, ZoomControl } from 'react-yandex-maps';
 import { ContactToolbar } from '@components/Toolbars';
 // import { NavigatorBox } from '@components/UI/atoms';
-import { app, media } from '@utils';
+import { app, media, sc } from '@utils';
 
 const ContactsPage = ({ className }) => {
     // const [minutesFromMkad, setMinutesFromMkad] = useState(20);
@@ -223,6 +223,10 @@ export default styled(ContactsPage)`
         a {
             text-decoration: none;
             color: inherit;
+
+            &:hover {
+                color: ${sc.theme.colors.red};
+            }
         }
 
         p {

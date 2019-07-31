@@ -56,10 +56,6 @@ export default styled(FavoriteButton)`
 
     z-index: 2;
 
-    &:hover:not([data-active='true']) svg {
-        fill: rgba(0, 0, 0, 0.5);
-    }
-
     &[data-active='true'] svg {
         fill: ${sc.theme.colors.red};
         stroke-width: 0;
@@ -74,21 +70,22 @@ export default styled(FavoriteButton)`
         position: relative;
         transition: 0.2s;
 
+        font-size: 1.6em;
+
         ${Icon} {
             display: block;
-            width: 24px;
-            height: 24px;
+        }
 
-            svg {
-                stroke: ${sc.ifProp('red')(sc.theme.colors.red, 'white')};
-                transition: 0.2s;
-                stroke-width: 2px;
-                fill: ${sc.ifProp('red')('none', 'rgba(0, 0, 0, 0.3)')};
-            }
+        svg {
+            stroke: ${sc.ifProp('red')(sc.theme.colors.red, 'white')};
+            transition: 0.2s;
+            stroke-width: 2px;
+            fill: ${sc.ifProp('red')('none', 'rgba(0, 0, 0, 0.3)')};
         }
         .float {
             position: absolute;
             top: 0;
+            left: 0;
         }
     }
 

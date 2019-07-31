@@ -109,11 +109,12 @@ export default styled(FullScreenGallery)`
             background: #666;
             font-weight: 600;
 
-            min-width: 145px;
+            min-width: 129px;
             box-sizing: initial;
 
-            > span {
+            .favorite-icon {
                 margin-right: 8px;
+                font-size: 18px;
             }
         }
     }

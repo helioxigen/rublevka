@@ -7,14 +7,29 @@ export default styled.div`
     margin: 0 auto;
 
     ${media.at(css => ({
-        tablet: css`
-            max-width: 740px;
-        `,
         desktop: css`
-            max-width: 940px;
+            padding: 0 50px;
         `,
         desktopL: css`
+            box-sizing: border-box;
             max-width: ${sc.ifProp('compact')(1110, 1340)}px;
         `,
     }))}
+
+    ${media.tablet.at(() =>
+        media.desktop.to(
+            css => css`
+                padding: 0 30px;
+
+                ${sc.ifProp('item')(css`
+                    padding: 0;
+                    nav,
+                    article > * {
+                        margin-left: 30px;
+                        margin-right: 30px;
+                    }
+                `)}
+            `
+        )
+    )}
 `;

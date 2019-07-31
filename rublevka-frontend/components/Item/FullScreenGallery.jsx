@@ -163,6 +163,7 @@ export default styled(FullScreenGallery)`
 
             img {
                 height: 100%;
+                width: auto;
             }
         }
 

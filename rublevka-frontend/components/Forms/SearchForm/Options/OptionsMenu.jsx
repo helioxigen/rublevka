@@ -44,9 +44,14 @@ export default styled(Options)`
         width: 100%;
         border-radius: 8px;
         max-height: 300px;
-        border: 1px solid #d9d9d9;
         box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
     `}
+
+    ${media.desktop.at(
+        css => css`
+            padding: 15px 0;
+        `
+    )}
 
     ${ResetToolbar} {
         color: #bbb;

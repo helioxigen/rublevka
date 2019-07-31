@@ -194,6 +194,8 @@ export default styled(Gallery)`
             background: center / cover no-repeat;
 
             pointer-events: none;
+            width: 100%;
+            object-fit: cover;
 
             ${media.at(css => ({
                 phoneL: css`

@@ -61,11 +61,16 @@ export default styled(Navbar)`
 
     .floating-content {
         position: fixed;
-        padding: 0 50px;
         width: 100%;
+        padding: 0 15px;
+
+        ${media.tablet.at(
+            css => css`
+                padding: 0;
+            `
+        )}
 
         height: inherit;
-        padding: 0 15px;
         box-sizing: border-box;
 
         z-index: 1350;

@@ -16,10 +16,15 @@ export default styled(Hero)`
     background: url('/static/settlements/hero.png') center / cover no-repeat;
     background-attachment: fixed;
 
-    padding: 0 15px;
+    ${media.tablet.to(
+        css => css`
+            padding: 0 15px;
+        `
+    )}
 
     .content {
-        padding: 28px 0;
+        padding-top: 28px;
+        padding-bottom: 28px;
         box-sizing: border-box;
         height: 400px;
         display: grid;
@@ -29,9 +34,9 @@ export default styled(Hero)`
             '. form .' min-content
             '. . .' 1fr
             '. . .' 15px /
-            minmax(15px, 1fr)
+            minmax(0, 1fr)
             minmax(auto, 925px)
-            minmax(15px, 1fr);
+            minmax(0, 1fr);
 
         row-gap: 16px;
 

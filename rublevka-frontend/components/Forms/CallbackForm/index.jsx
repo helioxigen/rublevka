@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { TextArea, Input, Button, Icon } from '@components/UI/atoms';
+import { TextArea, Input, Button } from '@components/UI/atoms';
+import { IconButton } from '@components/UI';
 import PhoneInput from './PhoneInput';
 import { uis, media, sc } from '@utils';
 
@@ -100,10 +101,9 @@ const CallbackForm = ({
                         </Button>
                     )}
                     {isFailed && (
-                        <Button fullWidth={fullWidth} onClick={() => changeFailed(false)}>
-                            <Icon name="retry" />
-                            Попробовать еще
-                        </Button>
+                        <IconButton icon="retry" fullWidth onClick={() => changeFailed(false)}>
+                            Попробовать ещё
+                        </IconButton>
                     )}
                 </>
             )}

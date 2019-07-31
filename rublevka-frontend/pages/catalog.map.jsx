@@ -13,6 +13,7 @@ const HideNav = createGlobalStyle`
     ${Navbar} {
         transform: translateY(-100%);
         transition: 0.4s;
+        height: 0;
     }
 
     ${Footer} {

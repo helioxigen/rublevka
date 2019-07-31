@@ -6,8 +6,8 @@ import { media } from '@utils';
 
 const CatalogToolbar = ({ className, map = true, sort = true }) => (
     <div className={className}>
-        {map && <MapButton />}
         {sort && <Sort />}
+        {map && <MapButton />}
     </div>
 );
 
@@ -17,7 +17,6 @@ export default styled(CatalogToolbar)`
     font-size: 16px;
     font-weight: 500;
     color: #232323;
-
     justify-content: center;
 
     ${media.tablet.at(

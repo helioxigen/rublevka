@@ -41,7 +41,7 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
 
     return (
         <PageContainer>
-            <Content compact>
+            <Content compact item>
                 <Breadcrumbs
                     className="breadcrumbs"
                     dealType={dealType}
@@ -66,7 +66,6 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                                     layoutImages={layoutImages.filter(i => i.isPublic)}
                                     images={images.filter(i => i.isPublic)}
                                 >
-                                    <span className="id">№ {id}</span>
                                     <IconButton onClick={onClick} icon="expand" />
                                     <Counter overall={images.length} />
                                     <FavoriteButton className="favorite-button" id={id} dealType={dealType} />
@@ -181,7 +180,6 @@ CatalogItem.getInitialProps = async ({ store, query: { dealType: dealTypeTransli
 // connect();
 
 export default styled(CatalogItem)`
-
     .expand-button {
         position: absolute;
         z-index: 5;
@@ -189,6 +187,8 @@ export default styled(CatalogItem)`
         top: 0;
         background: none;
         font-size: 18px;
+
+        width: 56px;
 
         transition: opacity 225ms;
         opacity: 0;
@@ -283,17 +283,11 @@ export default styled(CatalogItem)`
 
     > article {
         margin-top: 18px;
-        
-
-        ${media.tablet.at(
-            css => css`
-                max-width: 740px;
-                margin-top: 0;
-            `
-        )}
 
         ${media.desktop.at(
             css => css`
+                max-width: 740px;
+                margin-top: 0;
                 padding: 24px 20px;
             `
         )}
@@ -302,12 +296,21 @@ export default styled(CatalogItem)`
             margin-bottom: 18px;
             padding: 0 15px;
 
-            ${media.desktop.at(
+            ${media.tablet.at(
                 css => css`
-                    margin-bottom: 20px;
                     padding: 0;
                 `
             )}
+
+            ${media.desktop.at(
+                css => css`
+                    margin-bottom: 20px;
+                `
+            )}
+        }
+
+        ${Gallery} {
+            margin: 0;
         }
 
         ${media.desktop.at(

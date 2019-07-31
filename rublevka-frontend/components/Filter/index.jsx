@@ -172,7 +172,7 @@ export default styled(Filter)`
     }
 
     ${Range} + ${RadioGroup} {
-        margin-top: 25px;
+        margin-top: 16px;
     }
 
     .expand-button {

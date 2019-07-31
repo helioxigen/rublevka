@@ -27,7 +27,7 @@ export default styled(Hero)`
             grid:
                 'nav nav' 58px
                 'title form' min-content
-                'span span' 58px / auto 325px;
+                'span span' 58px / auto 375px;
 
             margin: 0 0 40px;
             padding: 0 10%;

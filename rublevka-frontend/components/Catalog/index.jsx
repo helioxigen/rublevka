@@ -20,7 +20,16 @@ const pagination = ({
     total: Math.floor(total / limit),
 });
 
-const Catalog = ({ className, dealType = 'sale', kind, single, noMap = false, titleTag, locationTitle }) => {
+const Catalog = ({
+    className,
+    shortFilter = false,
+    dealType = 'sale',
+    kind,
+    single,
+    noMap = false,
+    titleTag,
+    locationTitle,
+}) => {
     const { current, total } = useSelector(pagination);
     const items = useSelector(state => state.properties.list);
     const fetching = useSelector(state => state.properties.fetching);
@@ -37,6 +46,7 @@ const Catalog = ({ className, dealType = 'sale', kind, single, noMap = false, ti
                 <Toolbar map={!noMap} />
             </header>
             <Filter
+                short={shortFilter}
                 switchDealType={single}
                 className="filter"
                 onClose={toggleFilter}

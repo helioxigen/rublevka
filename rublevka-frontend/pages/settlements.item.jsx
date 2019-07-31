@@ -1,8 +1,6 @@
 /* eslint-disable */
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 
 import {
     Header,
@@ -74,7 +72,14 @@ const SettlementsItemPage = ({ id, dealType }) => {
                     />
                 </ItemHero>
                 <Content>
-                    <Catalog titleTag="h2" locationTitle={`в пос. ${name}`} dealType={dealType} single noMap />
+                    <Catalog
+                        shortFilter
+                        titleTag="h2"
+                        locationTitle={`в пос. ${name}`}
+                        dealType={dealType}
+                        single
+                        noMap
+                    />
                 </Content>
                 <SettlementDetails className="floating-border">
                     <Section title="О посёлке">

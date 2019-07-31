@@ -1,10 +1,14 @@
 /* eslint-disable */
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
+const withCSS = require('@zeit/next-css');
 path = require('path');
 
 const alias = require('./resolve.config').resolve.alias;
 
 const config = {
+    cssLoaderOptions: {
+        url: false,
+    },
     analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
     analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
     bundleAnalyzerConfig: {
@@ -49,4 +53,4 @@ const config = {
     },
 };
 
-module.exports = withBundleAnalyzer(config);
+module.exports = withCSS(withBundleAnalyzer(config));

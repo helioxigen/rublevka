@@ -62,6 +62,7 @@ export default styled(FavoriteButton)`
 
     &[data-active='true'] svg {
         fill: ${sc.theme.colors.red};
+        stroke-width: 0;
     }
 
     &:active .favorite-icon {
@@ -93,6 +94,7 @@ export default styled(FavoriteButton)`
 
     &[data-active='true'] .favorite-icon svg {
         fill: ${sc.theme.colors.red};
+        stroke-width: 0;
     }
 
     &[data-active='true'][data-play='true'] .float {

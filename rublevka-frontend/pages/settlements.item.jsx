@@ -2,6 +2,9 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 import {
     Header,
     SettlementsListLayout,
@@ -10,8 +13,9 @@ import {
     PageContainer,
     Content,
     SettlementDetails,
+    SettlementInfrasctructure,
 } from '@components/UI';
-import { ItemHero, Section } from '@components/Settlements';
+import { ItemHero, Section, Infrastructure } from '@components/Settlements';
 import { CallbackForm } from '@components/Forms';
 import { Summary } from '@components/Item';
 import SettlementsItemLayout from '@components/UI/templates/SettlementsItemLayout';
@@ -25,6 +29,8 @@ import Gallery from '@components/Gallery';
 const SettlementsItemPage = ({ id, dealType }) => {
     const { name, statistics: { totalProperties } = {}, location = {}, details = {}, images = [], description } =
         useSelector(state => state.settlements.items[id]) || {};
+
+    const properties = useSelector(state => state.properties.items);
 
     return (
         <PageContainer fullWidth>
@@ -74,6 +80,11 @@ const SettlementsItemPage = ({ id, dealType }) => {
                         <Gallery images={images} />
                     </Section>
                 </SettlementDetails>
+                <SettlementInfrasctructure className="floating-border">
+                    <Section title="Инфраструктура">
+                        <Infrastructure properties={properties} />
+                    </Section>
+                </SettlementInfrasctructure>
                 <article className="floating-border"></article>
             </SettlementsItemLayout>
         </PageContainer>

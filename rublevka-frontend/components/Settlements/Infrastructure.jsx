@@ -49,7 +49,7 @@ const StyledSwipeInterlayer = styled(SwipeInterlayer)`
 const Infrastructure = ({ properties }) => {
     const sampleProperty = properties[Object.keys(properties).pop()];
 
-    if (!sampleProperty) {
+    if (!sampleProperty || !sampleProperty.communication) {
         return <></>;
     }
 

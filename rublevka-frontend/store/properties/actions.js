@@ -8,15 +8,17 @@ export const LOAD_PROPERTIES_SUCCESS = 'Properties.Load.Success';
 export const LOAD_PROPERTIES_FROM_CACHE = 'Properties.Load.FromCache';
 export const LOAD_PROPERTIES_ERROR = 'Properties.Load.Error';
 
-export const fetchProperties = (pagination, query, userFilter, userOrder) => ({
+export const fetchProperties = (pagination, query, userFilter, userOrder, asMore) => ({
     types: [LOAD_PROPERTIES_REQUEST, LOAD_PROPERTIES_SUCCESS, LOAD_PROPERTIES_ERROR],
     cacheKey: JSON.stringify({ pagination, query }),
     // shouldCall: state => !state.properties[],
     call: () => api.properties.getMany(pagination, query),
     payload: {
         pagination,
+        query,
         filter: userFilter,
         orderBy: userOrder,
+        asMore,
     },
 });
 
@@ -67,7 +69,7 @@ export const updateFilterField = (fieldName, value) => (dispatch, getState) => {
         return page.pushQuery({ filter: null }, { kind }, kind);
     }
 
-    page.pushQuery({ filter: !isEmpty(nextFilter) && JSON.stringify(nextFilter) });
+    return page.pushQuery({ filter: !isEmpty(nextFilter) && JSON.stringify(nextFilter) });
 };
 
 export const SET_DEAL_TYPE = 'Properties.DealType.Set';

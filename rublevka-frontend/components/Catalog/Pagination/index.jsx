@@ -1,10 +1,15 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import range from 'lodash/range';
 import { Button, Icon } from '@components/UI/atoms';
 import PageLink from './PageLink';
+import { fetchProperties } from '@store';
 
 const Pagination = ({ className, count, currentPage }) => {
+    const dispatch = useDispatch();
+    const { query, filter, orderBy } = useSelector(state => state.properties);
+
     const isLeft = currentPage < 3;
     const isRight = count - currentPage < 3;
 
@@ -21,7 +26,11 @@ const Pagination = ({ className, count, currentPage }) => {
 
     return (
         <div className={className}>
-            <Button className="load-more" red>
+            <Button
+                className="load-more"
+                red
+                onClick={() => dispatch(fetchProperties(currentPage + 1, query, filter, orderBy, true))}
+            >
                 Загрузить ещё
             </Button>
             <div className="pages">

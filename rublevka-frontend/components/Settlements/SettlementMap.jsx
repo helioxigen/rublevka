@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { YMaps, Map } from 'react-yandex-maps';
 
 import { NavigatorBox } from '@components/UI/atoms';
-import { coords } from '@utils';
+import { coords, media } from '@utils';
 
 function declOfNum(number, titles) {
     const cases = [2, 0, 1, 1, 1, 2];
@@ -90,8 +90,7 @@ const SettlementMap = ({ className, settlement }) => {
                         onLoad={ymaps => onLoad(ymaps)}
                         modules={['templateLayoutFactory', 'route']}
                         defaultState={{ center: location, zoom: 14, controls: [] }}
-                        width="100%"
-                        height="500px"
+                        className="map-container"
                     >
                         <NavigatorBox minutes={minutesFromMkad} toName={settlement.name} />
                     </Map>
@@ -101,4 +100,20 @@ const SettlementMap = ({ className, settlement }) => {
     );
 };
 
-export default styled(SettlementMap)``;
+export default styled(SettlementMap)`
+    .map-container {
+        ${media.desktop.at(
+            css => css`
+                width: 100%;
+                height: 500px;
+            `
+        )}
+
+        ${media.desktop.to(
+            css => css`
+                width: 100%;
+                height: 300px;
+            `
+        )}
+    }
+`;

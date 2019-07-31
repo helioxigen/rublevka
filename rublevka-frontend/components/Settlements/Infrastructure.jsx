@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 
@@ -47,6 +47,16 @@ const StyledSwipeInterlayer = styled(SwipeInterlayer)`
 `;
 
 const Infrastructure = ({ properties }) => {
+    const [visibleItem, setVisibleItem] = useState(null);
+
+    const handleItemClick = id => {
+        if (visibleItem === id) {
+            setVisibleItem(null);
+        } else {
+            setVisibleItem(id);
+        }
+    };
+
     const sampleProperty = properties[Object.keys(properties).pop()];
 
     if (!sampleProperty || !sampleProperty.communication) {
@@ -62,20 +72,36 @@ const Infrastructure = ({ properties }) => {
         <StyledSwipeInterlayer>
             {/* <InfrastructureItem iconName="shield" header="Безопасность" content="Поселок надежно охранется: КПП, патрулирование 24 часа в сутки, видеонаблюдение. Установлены пожарные гидранты."/> */}
             {gasSupply && (
-                <InfrastructureItem iconName="fire" header="Газоснабжение" content={dict.details.get(gasSupply)} />
+                <InfrastructureItem
+                    isContentVisible={visibleItem === 'gas'}
+                    setContentVisible={() => handleItemClick('gas')}
+                    iconName="fire"
+                    header="Газоснабжение"
+                    content={dict.details.get(gasSupply)}
+                />
             )}
             {waterSupply && (
                 <InfrastructureItem
+                    isContentVisible={visibleItem === 'water'}
+                    setContentVisible={() => handleItemClick('water')}
                     iconName="water"
                     header="Водоснабжение"
                     content={dict.details.get(waterSupply, 'ое')}
                 />
             )}
             {powerSupply && (
-                <InfrastructureItem iconName="plug" header="Электроснабжение" content={`${powerSupply}кВт`} />
+                <InfrastructureItem
+                    isContentVisible={visibleItem === 'power'}
+                    setContentVisible={() => handleItemClick('power')}
+                    iconName="plug"
+                    header="Электроснабжение"
+                    content={`${powerSupply}кВт`}
+                />
             )}
             {sewerageSupply && (
                 <InfrastructureItem
+                    isContentVisible={visibleItem === 'sewerage'}
+                    setContentVisible={() => handleItemClick('sewerage')}
                     iconName="water-tap"
                     header="Канализация"
                     content={dict.details.get(sewerageSupply, 'ая')}

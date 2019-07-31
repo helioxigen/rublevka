@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { YMaps, Map } from 'react-yandex-maps';
 
+import { NavigatorBox } from '@components/UI/atoms';
 import { coords } from '@utils';
 
 function declOfNum(number, titles) {
@@ -79,7 +80,7 @@ const SettlementMap = ({ className, settlement }) => {
                     load: 'package.full',
                 }}
             >
-                <div>
+                <div style={{ position: 'relative' }}>
                     <Map
                         instanceRef={ref => {
                             if (ref) {
@@ -91,7 +92,9 @@ const SettlementMap = ({ className, settlement }) => {
                         defaultState={{ center: location, zoom: 14, controls: [] }}
                         width="100%"
                         height="500px"
-                    />
+                    >
+                        <NavigatorBox minutes={minutesFromMkad} toName={settlement.name} />
+                    </Map>
                 </div>
             </YMaps>
         </div>

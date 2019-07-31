@@ -10,6 +10,9 @@ import { Footer, Navbar } from '@components';
 import { makeStore, initUser } from '../store';
 import { app } from '@utils';
 
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 const GlobalStyles = createGlobalStyle`
     body {
         color: #232323;

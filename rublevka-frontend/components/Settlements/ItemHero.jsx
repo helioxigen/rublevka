@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Button } from '@components/UI';
+import { Button, Content } from '@components/UI';
 import { CallbackForm } from '@components/Forms';
 import { media } from '@utils';
 
 const Hero = ({ className, children }) => (
     <header className={className}>
-        {children}
+        <Content className="content">{children}</Content>
         {/* <div className="hero-container">{children}</div> */}
     </header>
 );
@@ -15,7 +15,17 @@ export default styled(Hero)`
     background: url('/static/settlements/hero.png') center / cover no-repeat;
     background-attachment: fixed;
 
-    display: grid;
+    ${media.at(css => ({
+        tablet: css`
+            margin: 0 0 28px;
+        `,
+        desktop: css`
+            margin: 0 0 40px;
+        `,
+    }))}
+
+    .content {
+        display: grid;
     grid: 
         'title' auto / 1fr;
 
@@ -29,13 +39,13 @@ export default styled(Hero)`
                 'title form' min-content
                 'span span' 58px / auto 375px;
 
-            margin: 0 0 40px;
-            padding: 0 10%;
+            padding: 0 8%;
 
             grid-column-gap: 8%;
             /* height: 440px; */
         `
     )}
+    }
 
     .breadcrumbs {
         margin: 0 0 11px;

@@ -10,23 +10,23 @@ function declOfNum(number, titles) {
     return titles[number % 100 > 4 && number % 100 < 20 ? 2 : cases[number % 10 < 5 ? number % 10 : 5]];
 }
 
-const SettlementMap = ({ className, settlement }) => {
+const SettlementMap = ({ className, name, location }) => {
     const [minutesFromMkad, setMinutesFromMkad] = useState(20);
 
     let mapRef;
 
     // console.log('settlemtn:', settlement);
 
-    const location = [settlement.location.latitude, settlement.location.longitude];
+    const [latitude, longitude] = [parseFloat(location.latitude), parseFloat(location.longitude)];
 
     const onLoad = ymaps => {
         // we need to get nearest mkad km
-        const nearestMkadKm = coords.mkad.getNearestMkadPoint(location[0], location[1]);
+        const nearestMkadKm = coords.mkad.getNearestMkadPoint(latitude, longitude);
 
         ymaps
             .route([
                 { type: 'wayPoint', point: [nearestMkadKm[2], nearestMkadKm[1]] },
-                { type: 'wayPoint', point: location },
+                { type: 'wayPoint', point: [latitude, longitude] },
             ])
             .then(route => {
                 try {
@@ -35,7 +35,7 @@ const SettlementMap = ({ className, settlement }) => {
 
                     points.options.set('preset', 'islands#redStretchyIcon');
                     points.get(0).properties.set('iconContent', 'МКАД');
-                    points.get(lastPoint).properties.set('iconContent', settlement.name);
+                    points.get(lastPoint).properties.set('iconContent', name);
                     const duration = route.getJamsTime();
 
                     setMinutesFromMkad(Math.round(duration / 60));
@@ -57,9 +57,8 @@ const SettlementMap = ({ className, settlement }) => {
             </h2>
             <p>
                 Посёлок находится по адресу: <br />
-                {settlement.location.routeName} шоссе, {settlement.location.mkadDistance}-й километр
+                {location.routeName} шоссе, {location.mkadDistance}-й километр
             </p>
-            <br />
             <div style={{ position: 'relative' }}>
                 <Map
                     instanceRef={ref => {
@@ -69,10 +68,10 @@ const SettlementMap = ({ className, settlement }) => {
                     }}
                     onLoad={ymaps => onLoad(ymaps)}
                     modules={['templateLayoutFactory', 'route']}
-                    defaultState={{ center: location, zoom: 14, controls: [] }}
+                    defaultState={{ center: [latitude, longitude], zoom: 14, controls: [] }}
                     className="map-container"
                 >
-                    <NavigatorBox minutes={minutesFromMkad} toName={settlement.name} />
+                    <NavigatorBox minutes={minutesFromMkad} toName={name} />
                 </Map>
             </div>
         </div>
@@ -80,18 +79,17 @@ const SettlementMap = ({ className, settlement }) => {
 };
 
 export default styled(SettlementMap)`
+    > p {
+        margin-bottom: 40px;
+    }
+
     .map-container {
+        width: 100%;
+        height: 360px;
+
         ${media.desktop.at(
             css => css`
-                width: 100%;
-                height: 500px;
-            `
-        )}
-
-        ${media.desktop.to(
-            css => css`
-                width: 100%;
-                height: 300px;
+                height: 640px;
             `
         )}
     }

@@ -11,7 +11,6 @@ export default styled.div`
             padding: 0 50px;
         `,
         desktopL: css`
-            box-sizing: border-box;
             max-width: ${sc.ifProp('compact')(1110, 1340)}px;
         `,
     }))}

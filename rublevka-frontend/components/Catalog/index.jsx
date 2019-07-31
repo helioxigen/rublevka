@@ -112,6 +112,7 @@ export default styled(Catalog)`
         ${media.desktopL.to(
             css => css`
                 h1,
+                h2,
                 ${Toolbar} {
                     margin: 0 0 1em;
                 }

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { media } from '@utils';
+import { media, sc } from '@utils';
 
 export default styled.div`
     width: auto;
@@ -18,5 +18,5 @@ export default styled.div`
         )}
     }
 
-    margin-bottom: 48px;
+    ${sc.ifProp('noMargin')('', 'margin-bottom: 48px;')}
 `;

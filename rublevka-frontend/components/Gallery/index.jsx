@@ -7,7 +7,7 @@ import { cdn, media } from '@utils';
 import GalleryNav from './GalleryNav';
 import GalleryContext from './GalleryContext';
 
-const Gallery = ({ className, images, layoutImages = [], children }) => {
+const Gallery = ({ className, images, keyboardControl, layoutImages = [], children }) => {
     const carousel = useRef(null);
     const [currentIdx, changeCurrentIdx] = useState(0);
     const [fullyLoaded, changeFullyLoaded] = useState(false);
@@ -17,6 +17,26 @@ const Gallery = ({ className, images, layoutImages = [], children }) => {
             changeFullyLoaded(true);
         }
     }, [currentIdx]);
+
+    const handleKeyboard = event => {
+        if (event.key === 'ArrowLeft') {
+            carousel.current.prev();
+        }
+
+        if (event.key === 'ArrowRight') {
+            carousel.current.next();
+        }
+    };
+
+    useEffect(() => {
+        if (!keyboardControl) return () => {};
+
+        document.addEventListener('keydown', handleKeyboard, false);
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyboard, false);
+        };
+    }, [keyboardControl]);
 
     const isControlsVisible = images.length > 1;
 

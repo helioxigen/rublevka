@@ -1,64 +1,62 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Icon, Content, PageContainer } from '@components/UI';
 import { Map, Placemark, ZoomControl } from 'react-yandex-maps';
 import { ContactToolbar } from '@components/Toolbars';
-import { NavigatorBox } from '@components/UI/atoms';
+// import { NavigatorBox } from '@components/UI/atoms';
 import { app, media } from '@utils';
 
 const ContactsPage = ({ className }) => {
-    const [minutesFromMkad, setMinutesFromMkad] = useState(20);
-
-    let mapRef;
+    // const [minutesFromMkad, setMinutesFromMkad] = useState(20);
 
     const size = typeof window !== 'undefined' && window.outerWidth < 992 ? 48 : 64;
 
     const { email, phone, phoneNumbers } = app.config;
 
-    const onLoad = ymaps => {
-        mapRef.behaviors.disable('scrollZoom');
-        console.log('onload');
-        // we need to get nearest mkad km
-        const nearestMkadKm = [55.764307, 37.365169];
+    // const onLoad = ymaps => {
+    //     mapRef.behaviors.disable('scrollZoom');
+    //     console.log('onload');
+    //     // we need to get nearest mkad km
+    //     const nearestMkadKm = [55.764307, 37.365169];
 
-        ymaps
-            .route([
-                { type: 'wayPoint', point: [nearestMkadKm[0], nearestMkadKm[1]] },
-                { type: 'wayPoint', point: [55.734871, 37.249479] },
-            ])
-            .then(route => {
-                try {
-                    const points = route.getWayPoints();
-                    const lastPointId = points.getLength() - 1;
+    //     ymaps
+    //         .route([
+    //             { type: 'wayPoint', point: [nearestMkadKm[0], nearestMkadKm[1]] },
+    //             { type: 'wayPoint', point: [55.734871, 37.249479] },
+    //         ])
+    //         .then(route => {
+    //             try {
+    //                 const points = route.getWayPoints();
+    //                 const lastPointId = points.getLength() - 1;
 
-                    points.options.set('preset', 'islands#redStretchyIcon');
-                    points.get(0).properties.set('iconContent', 'МКАД');
+    //                 points.options.set('preset', 'islands#redStretchyIcon');
+    //                 points.get(0).properties.set('iconContent', 'МКАД');
 
-                    const lastPoint = points.get(lastPointId);
-                    lastPoint.properties.set('iconContent', null);
-                    lastPoint.properties.set('ico', null);
-                    lastPoint.options.set('opacity', 0);
+    //                 const lastPoint = points.get(lastPointId);
+    //                 lastPoint.properties.set('iconContent', null);
+    //                 lastPoint.properties.set('ico', null);
+    //                 lastPoint.options.set('opacity', 0);
 
-                    lastPoint.options.set({
-                        preset: 'islands#grayStretchyIcon',
-                        iconContentLayout: ymaps.templateLayoutFactory.createClass(''),
-                        balloonContentLayout: ymaps.templateLayoutFactory.createClass(''),
-                    });
-                    const duration = route.getJamsTime();
+    //                 lastPoint.options.set({
+    //                     preset: 'islands#grayStretchyIcon',
+    //                     iconContentLayout: ymaps.templateLayoutFactory.createClass(''),
+    //                     balloonContentLayout: ymaps.templateLayoutFactory.createClass(''),
+    //                 });
+    //                 const duration = route.getJamsTime();
 
-                    setMinutesFromMkad(Math.round(duration / 60));
+    //                 setMinutesFromMkad(Math.round(duration / 60));
 
-                    route.getPaths().options.set({
-                        opacity: 0.9,
-                        strokeColor: '#A52AFB',
-                        strokeWidth: 3,
-                    });
-                    mapRef.geoObjects.add(route.getPaths());
-                } catch (ex) {
-                    console.log(ex);
-                }
-            });
-    };
+    //                 route.getPaths().options.set({
+    //                     opacity: 0.9,
+    //                     strokeColor: '#A52AFB',
+    //                     strokeWidth: 3,
+    //                 });
+    //                 mapRef.geoObjects.add(route.getPaths());
+    //             } catch (ex) {
+    //                 console.log(ex);
+    //             }
+    //         });
+    // };
 
     return (
         <PageContainer as="main" className={className}>
@@ -86,12 +84,12 @@ const ContactsPage = ({ className }) => {
             </Content>
             <section className="contacts-map">
                 <Map
-                    onLoad={ymaps => onLoad(ymaps)}
-                    instanceRef={ref => {
-                        if (ref) {
-                            mapRef = ref;
-                        }
-                    }}
+                    // onLoad={ymaps => onLoad(ymaps)}
+                    // instanceRef={ref => {
+                    //     if (ref) {
+                    //         mapRef = ref;
+                    //     }
+                    // }}
                     defaultState={{ center: [55.734871, 37.249479], zoom: 15, controls: [] }}
                     width="100%"
                     height="100%"
@@ -115,7 +113,7 @@ const ContactsPage = ({ className }) => {
                             iconImageOffset: [(-1 * size) / 2, (-1 * size) / 2], // позиция иконки
                         }}
                     />
-                    <NavigatorBox toName="Рублёвка.ру" minutes={minutesFromMkad} />
+                    {/* <NavigatorBox toName="Рублёвка.ру" minutes={minutesFromMkad} /> */}
                 </Map>
             </section>
         </PageContainer>

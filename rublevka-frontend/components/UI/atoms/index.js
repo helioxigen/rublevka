@@ -12,3 +12,4 @@ export { default as Link } from './Link';
 export { default as Input } from './Input';
 export { default as TextArea } from './TextArea';
 export { default as PageLink } from './PageLink';
+export { default as NavigatorBox } from './NavigatorBox';

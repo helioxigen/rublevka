@@ -92,7 +92,7 @@ const ContactsPage = ({ className }) => {
                             mapRef = ref;
                         }
                     }}
-                    defaultState={{ center: [55.734871, 37.249479], zoom: 15 }}
+                    defaultState={{ center: [55.734871, 37.249479], zoom: 15, controls: [] }}
                     width="100%"
                     height="100%"
                     modules={['layout.Image', 'route']}

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Summary } from '@components/Item';
 import { Content } from '@components/UI';
 import { media } from '@utils';
 
@@ -61,22 +60,6 @@ export default styled(Hero)`
             /* padding: 0 50px; */
         `
     )}
-
-    ${Summary} {
-        justify-content: space-around;
-        text-align: center;
-
-        .summary-value {
-            font-size: 48px;
-            font-weight: 900;
-            margin-bottom: 4px;
-        }
-        .summary-label {
-            color: white;
-            font-size: 18px;
-        }
-    }
-
     /* 
     > h1,
     > form {

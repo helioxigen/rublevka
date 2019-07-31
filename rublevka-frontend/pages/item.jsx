@@ -192,6 +192,7 @@ export default styled(CatalogItem)`
 
         transition: opacity 225ms;
         opacity: 0;
+        box-shadow: none;
     }
 
     .favorite-button {

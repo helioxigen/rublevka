@@ -36,8 +36,14 @@ const FullScreenGallery = ({ className, specification, id, images, children }) =
                             `№ ${id}`
                         )}
                     </h1>
-                    <CallbackModal>{handleOpen => <Button onClick={handleOpen}>Оставить заявку</Button>}</CallbackModal>
-                    <FavoriteButton red dealType={dealType}>
+                    <CallbackModal>
+                        {handleOpen => (
+                            <Button className="callback-button" onClick={handleOpen}>
+                                Оставить заявку
+                            </Button>
+                        )}
+                    </CallbackModal>
+                    <FavoriteButton className="favorite-button" red dealType={dealType}>
                         {isFav => (isFav ? 'В избранном' : 'В избранное')}
                     </FavoriteButton>
                     <IconButton onClick={() => setIsOpen(false)} secondary icon="times" />
@@ -62,6 +68,7 @@ export default styled(FullScreenGallery)`
     align-items: center;
     header {
         display: flex;
+        align-items: center;
         color: white;
 
         margin: 0 0 73px;
@@ -69,9 +76,11 @@ export default styled(FullScreenGallery)`
         h1 {
             font-size: 18px;
             flex: 1;
+            margin: 0;
         }
 
-        ${Button}, ${FavoriteButton} {
+        .callback-button,
+        .favorite-button {
             padding: 0 24px;
             border-radius: 32px;
             font-size: 15px;
@@ -89,9 +98,12 @@ export default styled(FullScreenGallery)`
 
             position: relative;
             z-index: 15000;
+
+            height: 36px;
+            width: 36px;
         }
 
-        ${FavoriteButton} {
+        .favorite-button {
             display: flex;
             align-items: center;
             background: #666;

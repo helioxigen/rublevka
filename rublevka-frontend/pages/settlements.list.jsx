@@ -1,17 +1,18 @@
 import React, { useMemo } from 'react';
-import { connect } from 'react-redux';
-import dynamic from 'next/dynamic';
+import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import groupBy from 'lodash/groupBy';
-import { Header, SettlementsListLayout, PageLink } from '@components/UI';
+import { Header, PageLink } from '@components/UI';
 import { Hero, ListSection, ListNav } from '@components/Settlements';
 import { Element, Link as ScrollLink } from 'react-scroll';
+import { SearchForm } from '@components/Forms';
 import { Breadcrumbs } from '@components';
 import { fetchSettlements } from '@store';
-import { dict, app } from '@utils';
+import { dict, app, media } from '@utils';
 
-const SearchForm = dynamic(() => import('@components/Forms').then(f => f.SearchForm));
+const SettlementsListPage = ({ className }) => {
+    const list = useSelector(state => state.settlements.list);
 
-const SettlementsListPage = ({ list = [] }) => {
     const settlements = useMemo(() => {
         const grouped = Object.entries(groupBy(list, i => i.name.toLowerCase().charAt(0)));
 
@@ -19,7 +20,7 @@ const SettlementsListPage = ({ list = [] }) => {
     }, [list]);
 
     return (
-        <SettlementsListLayout>
+        <main className={className}>
             <Hero
                 breadcrumbs={
                     <Breadcrumbs
@@ -54,7 +55,7 @@ const SettlementsListPage = ({ list = [] }) => {
                         ))}
                 />
             </article>
-        </SettlementsListLayout>
+        </main>
     );
 };
 
@@ -64,6 +65,63 @@ SettlementsListPage.getInitialProps = async ({ store }) => {
     return { title: 'Посёлки' };
 };
 
-export default connect(state => ({
-    list: state.settlements.list,
-}))(SettlementsListPage);
+export default styled(SettlementsListPage)`
+    .hero-container,
+    article {
+        margin: 0 auto;
+
+        ${media.at(css => ({
+            tablet: css`
+                max-width: 720px;
+            `,
+            desktop: css`
+                max-width: 925px;
+            `,
+        }))}
+
+        height: 100%;
+    }
+
+    article {
+        position: relative;
+        padding: 0 15px;
+
+        ${ListSection} {
+            margin: 0 0 28px;
+
+            ${media.at(css => ({
+                phoneL: css`
+                    margin: 0 0 32px;
+                `,
+                tablet: css`
+                    margin: 0 0 37px;
+                `,
+            }))}
+
+            &:first-child {
+                margin-top: 24px;
+
+                ${media.at(css => ({
+                    phoneL: css`
+                        margin-top: 40px;
+                    `,
+                    tablet: css`
+                        margin-top: 46px;
+                    `,
+                }))}
+            }
+        }
+    }
+
+    .breadcrumbs {
+        ${media.tablet.to(
+            css => css`
+                display: none;
+            `
+        )}
+    }
+
+    nav a {
+        color: rgba(255, 255, 255, 0.75) !important;
+    }
+`;

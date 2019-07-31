@@ -40,7 +40,7 @@ export default styled(TextInput)`
         color: #aaa;
     }
 
-    ${Icon} {
+    [data-icon] {
         position: absolute;
         left: 0;
         font-size: 20px;

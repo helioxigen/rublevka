@@ -43,6 +43,7 @@ export default styled(ListNav)`
         font-size: 13px;
         text-align: center;
         font-weight: bold;
+        text-transform: uppercase;
 
         color: rgba(35, 35, 35, 0.3);
 

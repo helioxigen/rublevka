@@ -8,6 +8,7 @@ export {
     CombinedSelect,
     FavoriteButton,
     CompactForm,
+    MultiPrice,
 } from './molecules';
 export { ResetToolbar } from './organisms';
 export {

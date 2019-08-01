@@ -6,3 +6,4 @@ export { default as Range } from './Range';
 export { default as ProfileCard } from './ProfileCard';
 export { default as FavoriteButton } from './FavoriteButton';
 export { default as CompactForm } from './CompactForm';
+export { default as MultiPrice } from './MultiPrice';

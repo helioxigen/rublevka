@@ -111,7 +111,7 @@ SettlementsItemPage.getInitialProps = async ({ store, query: { id, orderBy, filt
         )
     );
 
-    return { id, title: id };
+    return { id, title: `Посёлок №${id}` };
 };
 
 export default SettlementsItemPage;

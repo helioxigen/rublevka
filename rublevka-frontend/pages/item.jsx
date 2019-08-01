@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
-import { PageContainer, Header, Price, ProfileCard, FavoriteButton, Content, IconButton } from '@components/UI';
+import { PageContainer, Header, ProfileCard, FavoriteButton, Content, IconButton, MultiPrice } from '@components/UI';
 import { Category, Details, Summary, Section, Layouts, Location, Counter, FullScreenGallery } from '@components/Item';
 import { CallbackForm } from '@components/Forms';
 import { ContactToolbar } from '@components/Toolbars';
@@ -73,12 +73,11 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                             )}
                         </FullScreenGallery>
                         <Category className="main-cat">
-                            <Price
+                            <MultiPrice
                                 className="article-price"
-                                showSubheader
                                 kind={kind}
                                 landDetails={landDetails}
-                                deal={price}
+                                price={price}
                                 dealType={dealType}
                             />
                             <Summary values={summary} />
@@ -124,7 +123,7 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                     </article>
                     <aside>
                         <header>
-                            <Price deal={price} dealType={dealType} />
+                            <MultiPrice kind={kind} landDetails={landDetails} price={price} dealType={dealType} />
                         </header>
                         <CallbackForm
                             header={
@@ -345,7 +344,7 @@ export default styled(CatalogItem)`
             `
         )}
 
-        > * {
+        > *:not(header) {
             padding: 24px 20px;
         }
 

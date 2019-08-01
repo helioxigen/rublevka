@@ -59,7 +59,6 @@ export default styled(Dropdown)`
     position: absolute;
     width: auto;
 
-    padding: 15px;
     right: 0;
     bottom: 0;
 
@@ -86,6 +85,7 @@ export default styled(Dropdown)`
     .toggle {
         display: flex;
         align-items: center;
+        padding: 15px;
 
         &::after {
             content: '';

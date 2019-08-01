@@ -58,6 +58,8 @@ export default styled(FuseList)`
 
     box-sizing: border-box;
 
+    overflow: hidden;
+
     border-radius: 8px;
 
     li {
@@ -65,11 +67,17 @@ export default styled(FuseList)`
         font-size: 16px;
         padding: 0;
         margin: 0;
+
+        &:hover a {
+            transform: translateX(15px) scale(1.07);
+        }
     }
     a {
         line-height: 20px;
         font-size: 16px;
         display: block;
+
+        transition: 225ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
 
         text-transform: uppercase;
         text-decoration: none;

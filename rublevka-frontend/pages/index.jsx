@@ -90,10 +90,6 @@ export default styled(MainPage)`
             padding-bottom: 20px;
         }
 
-        .form-modal-button {
-            margin-top: 1em;
-        }
-
         width: 100%;
         text-align: center;
 
@@ -101,6 +97,9 @@ export default styled(MainPage)`
             tablet: css`
                 width: 50%;
                 text-align: initial;
+            `,
+            desktop: css`
+                display: block;
             `,
         }))}
     }
@@ -112,6 +111,11 @@ export default styled(MainPage)`
 
         text-align: center;
 
+        .form-modal-button {
+            display: none;
+            margin-top: 1em;
+        }
+
         ${media.at(css => ({
             phoneL: css`
                 padding: 80px 45px;
@@ -122,6 +126,10 @@ export default styled(MainPage)`
             `,
             desktop: css`
                 padding: 0 114px;
+
+                .form-modal-button {
+                    display: block;
+                }
             `,
         }))}
     }

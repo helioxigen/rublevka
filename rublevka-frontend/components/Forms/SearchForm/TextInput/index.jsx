@@ -17,6 +17,21 @@ export default styled(TextInput)`
 
     font-size: 16px;
 
+    .input-results {
+        position: absolute;
+        top: 110%;
+        left: 0;
+        right: 0;
+
+        &:not(:hover) {
+            display: none;
+        }
+
+        &:empty {
+            display: none;
+        }
+    }
+
     input {
         background: none;
         height: 100%;
@@ -38,6 +53,15 @@ export default styled(TextInput)`
                 padding: 0 0 0 56px;
             `
         )}
+
+        transition: box-shadow cubic-bezier(0.455, 0.03, 0.515, 0.955) 225ms;
+
+        &:focus {
+            box-shadow: inset 0px 0px 6px rgba(153, 153, 153, 0.4);
+            & + .input-results {
+                display: block;
+            }
+        }
     }
 
     input::placeholder {
@@ -62,26 +86,4 @@ export default styled(TextInput)`
     }
 
     position: relative;
-
-    .input-results {
-        position: absolute;
-        top: 110%;
-        left: 0;
-        right: 0;
-
-        &:not(:hover) {
-            display: none;
-        }
-
-        &:empty {
-            display: none;
-        }
-    }
-
-    input:focus {
-        box-shadow: inset 0px 0px 6px rgba(153, 153, 153, 0.4);
-        & + .input-results {
-            display: block;
-        }
-    }
 `;

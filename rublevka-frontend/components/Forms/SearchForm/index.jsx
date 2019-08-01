@@ -53,6 +53,17 @@ const SearchForm = ({ className, type = 'sale' }) => {
     const handleSubmit = e => {
         e.preventDefault();
 
+        if (config.type === 'id') {
+            const { objectNumber } = values[type];
+
+            if (!objectNumber) return;
+
+            page.goTo.catalog({
+                filter: JSON.stringify({ id: objectNumber }),
+                dealType: 'prodaja',
+            });
+        }
+
         if (config.type === 'query') {
             if (!values[type]) return;
 
@@ -127,7 +138,7 @@ const SearchForm = ({ className, type = 'sale' }) => {
                     return (
                         <Dropdown
                             key={`${name}${type}`}
-                            label={title}
+                            label={typeof title === 'string' ? title : title(type)}
                             placeholder={placeholder}
                             items={itemsList}
                             onChange={handleChange(name, main)}

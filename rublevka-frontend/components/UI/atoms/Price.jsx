@@ -32,7 +32,7 @@ const Price = ({
     return (
         <p className={className}>
             {price && price.toLocaleString('ru')} {symbol}
-            {dealType === 'rent' && short ? ' / мес.' : ' / месяц'}
+            {dealType === 'rent' && (short ? ' / мес.' : ' / месяц')}
             {subheader && <span className="subheader">{subheader}</span>}
         </p>
     );

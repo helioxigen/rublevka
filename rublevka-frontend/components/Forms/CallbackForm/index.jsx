@@ -187,6 +187,10 @@ export default styled(CallbackForm)`
         `}
     }
 
+    .retry-button {
+        display: inline-flex;
+    }
+
     &[data-compact='true'] button {
         width: auto;
     }

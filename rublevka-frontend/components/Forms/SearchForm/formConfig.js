@@ -43,7 +43,7 @@ const fields = {
         queryField: 'kind',
     },
     price: {
-        title: 'Цена',
+        title: dealType => (dealType === 'rent' ? 'Цена / мес.' : 'Цена'),
         placeholder: 'Любая',
         type: 'range',
         range: {
@@ -114,7 +114,7 @@ export default {
             fields: ['kind', 'price', 'bedrooms'],
         },
         objectNumber: {
-            type: 'filter',
+            type: 'id',
             fields: ['objectNumber'],
         },
         settlements: {

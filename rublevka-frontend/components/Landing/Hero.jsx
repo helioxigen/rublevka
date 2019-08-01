@@ -33,7 +33,7 @@ export default styled(LandingHero)`
         [start] 10%
         [border-start] 1fr
         [middle-start]
-        repeat(2, 3fr)
+        repeat(2, 4fr)
         [middle-end] 1fr
         [border-end] 10%
         [end];

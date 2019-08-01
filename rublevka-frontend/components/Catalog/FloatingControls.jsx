@@ -1,15 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { IconButton } from '@components/UI';
-import { page, media } from '@utils';
-import { useScrollState } from '@hooks';
+import { media } from '@utils';
 
-const FloatingControls = ({ className, isFilterOpen, onFilterClick }) => {
-    const isScrollingDown = useScrollState(true);
-
+const FloatingControls = ({ className, onFilterClick, isFilterVisible }) => {
     return (
-        <div className={className} data-hide={isFilterOpen || isScrollingDown}>
-            <IconButton onClick={() => page.goTo.map()} icon="placemark" floating red />
+        <div className={className} data-hide={!isFilterVisible}>
+            {/* <IconButton onClick={() => page.goTo.map()} icon="placemark" floating red /> */}
             <IconButton onClick={onFilterClick} icon="settings" floating red>
                 Параметры
             </IconButton>

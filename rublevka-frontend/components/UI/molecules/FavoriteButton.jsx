@@ -72,7 +72,7 @@ export default styled(FavoriteButton)`
 
         font-size: 1.6em;
 
-        ${Icon} {
+        > * {
             display: block;
         }
 

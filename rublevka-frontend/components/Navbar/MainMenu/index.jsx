@@ -8,8 +8,8 @@ import { CallbackModal } from '@components/Modals';
 import { app, media, sc } from '@utils';
 import { useLockBodyScroll, useIsomorphicLayoutEffect } from '@hooks';
 
-const MainMenu = ({ className, onClose, isOpen, favoriteCount }) => {
-    const { pathname, query, asPath } = useRouter();
+const MainMenu = ({ className, onClose, isOpen, favoriteCount, activeEntry }) => {
+    const { pathname, asPath } = useRouter();
 
     useIsomorphicLayoutEffect(() => {
         if (isOpen) {
@@ -29,21 +29,21 @@ const MainMenu = ({ className, onClose, isOpen, favoriteCount }) => {
                     </a>
                 </Link>
                 <Link prefetch={false} href="/catalog?dealType=prodaja" as="/zagorodnaya/prodaja">
-                    <a data-active={pathname === '/catalog' && query.dealType === 'prodaja'}>Продажа</a>
+                    <a data-active={activeEntry === 'sale'}>Продажа</a>
                 </Link>
                 <Link href="/catalog?dealType=arenda" as="/zagorodnaya/arenda">
-                    <a data-active={pathname === '/catalog' && query.dealType === 'arenda'}>Аренда</a>
+                    <a data-active={activeEntry === 'rent'}>Аренда</a>
                 </Link>
                 <Link href="/settlements.list" as="/zagorodnaya/kottedzhnye-poselki">
-                    <a data-active={pathname === '/settlements.list' || pathname === '/settlements.item'}>Посёлки</a>
+                    <a data-active={activeEntry === 'settlements'}>Посёлки</a>
                 </Link>
                 <Link href="/favorites">
-                    <a className="menu-only" data-active={pathname === '/favorites'}>
+                    <a className="menu-only" data-active={activeEntry === 'favorite'}>
                         Избранное {favoriteCount > 0 && <span className="counter">{favoriteCount}</span>}
                     </a>
                 </Link>
                 <Link href="/contacts">
-                    <a data-active={pathname === '/contacts'}>Контакты</a>
+                    <a data-active={activeEntry === 'contacts'}>Контакты</a>
                 </Link>
             </nav>
             <div className="header-right">

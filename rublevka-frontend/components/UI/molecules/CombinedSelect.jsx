@@ -28,7 +28,9 @@ const CombinedSelect = ({ className, options, value, onChange }) => {
             >
                 <span>{label}</span>
             </a>
-            {isOpen && <SelectList className="desktop" values={options} selected={value} onChange={handleChange} />}
+            {isOpen && (
+                <SelectList className="desktop select-list" values={options} selected={value} onChange={handleChange} />
+            )}
             <select value={value} onChange={e => onChange(e.target.value)}>
                 {options.map(([optValue, optLabel]) => (
                     <option key={optValue} value={optValue}>
@@ -70,7 +72,7 @@ export default styled(CombinedSelect)`
         transform: scaleY(-1);
     }
 
-    ${SelectList} {
+    .select-list {
         position: absolute;
         z-index: 100;
         font-weight: normal;

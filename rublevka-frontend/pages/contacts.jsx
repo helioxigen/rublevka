@@ -3,15 +3,15 @@ import styled from 'styled-components';
 import { Icon, Content, PageContainer } from '@components/UI';
 import { Map, Placemark, ZoomControl } from 'react-yandex-maps';
 import { ContactToolbar } from '@components/Toolbars';
-// import { NavigatorBox } from '@components/UI/atoms';
-import { app, media, sc } from '@utils';
+import { media, sc, format } from '@utils';
+import config from '@config';
 
 const ContactsPage = ({ className }) => {
     // const [minutesFromMkad, setMinutesFromMkad] = useState(20);
 
     const size = typeof window !== 'undefined' && window.outerWidth < 992 ? 48 : 64;
 
-    const { email, phone, phoneNumbers } = app.config;
+    const { email, phone, phoneNumbers } = config.site;
 
     // const onLoad = ymaps => {
     //     mapRef.behaviors.disable('scrollZoom');
@@ -60,7 +60,7 @@ const ContactsPage = ({ className }) => {
 
     return (
         <PageContainer as="main" className={className}>
-            <Content>
+            <Content className="content">
                 <div className="content-container">
                     <article className="contact">
                         <header>
@@ -94,7 +94,7 @@ const ContactsPage = ({ className }) => {
                     defaultState={{ center: [55.734871, 37.249479], zoom: 15, controls: [] }}
                     width="100%"
                     height="100%"
-                    modules={['layout.Image', 'route']}
+                    modules={['layout.Image']}
                 >
                     <ZoomControl
                         options={{
@@ -123,6 +123,11 @@ const ContactsPage = ({ className }) => {
 
 ContactsPage.getInitialProps = async () => ({
     title: 'Контакты',
+    meta: {
+        title: `Контактная информация - агентство недвижимости ${format.capitalize(config.host)}`,
+        description: `Адреса и телефоны офисов агентства недвижимости ${format.capitalize(config.host)}`,
+    },
+    menuEntry: 'contacts',
 });
 
 export default styled(ContactsPage)`
@@ -153,7 +158,7 @@ export default styled(ContactsPage)`
         )}
     }
 
-    ${Content} {
+    .content {
         ${media.tablet.at(
             css => css`
                 position: absolute;

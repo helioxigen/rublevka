@@ -70,7 +70,7 @@ export default styled(IconButton)`
         `
     )}
 
-    ${Icon} {
+    [data-icon] {
         display: block;
         ${sc.ifProp('children')('margin-right: 0.5em')};
         ${sc.ifProp('secondary')('padding: 0')};

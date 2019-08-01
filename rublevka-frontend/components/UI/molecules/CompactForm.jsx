@@ -27,14 +27,14 @@ export default styled(CompactForm)`
     width: 100%;
     height: 56px;
 
-    ${Input}, ${Button} {
+    > * {
         border: 1px solid #d9d9d9;
         border-radius: 8px;
         box-sizing: border-box;
         transition: border-color 225ms;
     }
 
-    ${Button} {
+    button {
         border-left: 0;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
@@ -45,7 +45,7 @@ export default styled(CompactForm)`
         flex: 0 120px;
     }
 
-    ${Input} {
+    input {
         border-right: 0;
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
@@ -56,7 +56,7 @@ export default styled(CompactForm)`
         margin: 0;
 
         &:focus,
-        &:focus + ${Button} {
+        &:focus + button {
             border-color: #f44336;
         }
     }

@@ -33,7 +33,7 @@ export default styled(MapButton)`
 
     padding: 8px 12px;
 
-    ${Icon} {
+    [data-icon] {
         height: 18px;
         width: 18px;
         margin-right: 5px;

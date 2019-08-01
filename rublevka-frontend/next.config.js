@@ -22,7 +22,6 @@ const config = {
         },
     },
     useFileSystemPublicRoutes: false,
-    distDir: `build/${process.env.HOST || 'default'}`,
     webpack(config) {
         config.module.rules.push({
             test: /\.svg$/,

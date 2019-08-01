@@ -1,37 +1,39 @@
-/* eslint-disable */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
-import {
-    Header,
-    SettlementsListLayout,
-    Button,
-    SettlementsCallbackBlock,
-    PageContainer,
-    Content,
-    SettlementDetails,
-    SettlementInfrasctructure,
-    SettlementLocation,
-} from '@components/UI';
-import { ItemHero, Section, WideSection, Infrastructure, SettlementMap } from '@components/Settlements';
+import { Button, PageContainer, Content, SettlementDetails } from '@components/UI';
+import { ItemHero, Section, Infrastructure, SettlementMap } from '@components/Settlements';
 import { CallbackForm } from '@components/Forms';
-import { Summary } from '@components/Item';
-import SettlementsItemLayout from '@components/UI/templates/SettlementsItemLayout';
-import { fetchSettlementsItem, fetchProperty, fetchProperties } from '@store';
-import { Breadcrumbs } from '@components';
-import { dict, query } from '@utils';
-import api from '@api';
 import Catalog from '@components/Catalog';
-import Gallery from '@components/Gallery';
+import SettlementsItemLayout from '@components/UI/templates/SettlementsItemLayout';
+import { NextSeo } from 'next-seo';
+import { fetchSettlementsItem, fetchProperties } from '@store';
+import { Breadcrumbs } from '@components';
+import { dict, query, seo, cdn } from '@utils';
 
-const SettlementsItemPage = ({ id, dealType }) => {
-    const { name, statistics: { totalProperties } = {}, location = {}, details = {}, images = [], description } =
+const SettlementsItemPage = ({ id, dealType, kind }) => {
+    const { name, location = {}, images = [], description: desc } =
         useSelector(state => state.settlements.items[id]) || {};
 
     const properties = useSelector(state => state.properties.items);
 
+    const { title, description } = seo.settlements.item(dealType, kind, name, location.routeName);
+
     return (
         <PageContainer noMargin fullWidth>
+            <NextSeo
+                title={title}
+                description={description}
+                openGraph={{
+                    title,
+                    description,
+                    images: images.map(({ id: imageId }) => ({
+                        url: cdn.get.full(imageId),
+                        width: 1024,
+                        height: 600,
+                    })),
+                }}
+            />
             <SettlementsItemLayout>
                 <ItemHero>
                     <Breadcrumbs
@@ -80,9 +82,9 @@ const SettlementsItemPage = ({ id, dealType }) => {
                     />
                 </Content>
                 <SettlementDetails className="floating-border">
-                    {description.sattelite && (
+                    {desc.sattelite && (
                         <Section title="О посёлке">
-                            <p>{description.sattelite}</p>
+                            <p>{desc.sattelite}</p>
                             {/* <Gallery images={images} /> */}
                         </Section>
                     )}
@@ -96,10 +98,8 @@ const SettlementsItemPage = ({ id, dealType }) => {
     );
 };
 
-SettlementsItemPage.getInitialProps = async ({ store, query: { id, orderBy, filter = '{}', path } }) => {
-    const { dealType = 'sale', ...restFilter } = JSON.parse(filter);
-
-    console.log(restFilter);
+SettlementsItemPage.getInitialProps = async ({ store, query: { id, orderBy, filter = '{}' } }) => {
+    const { dealType = 'sale', ...restFilter } = JSON.parse(filter) || {};
 
     await store.dispatch(fetchSettlementsItem(id));
     await store.dispatch(
@@ -111,7 +111,7 @@ SettlementsItemPage.getInitialProps = async ({ store, query: { id, orderBy, filt
         )
     );
 
-    return { id, title: `Посёлок №${id}` };
+    return { id, title: `Посёлок №${id}`, menuEntry: 'settlements', kind: restFilter.kind };
 };
 
 export default SettlementsItemPage;

@@ -6,6 +6,7 @@ const sites = [riga, rublevka];
 
 export default {
     app: process.env.APP,
+    host: process.env.HOST || 'rublevka.ru',
     currencies: [
         {
             label: 'Доллар',

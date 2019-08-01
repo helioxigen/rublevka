@@ -10,6 +10,8 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
     const server = express();
 
+    server.use('/robots.txt', express.static(`./public/${process.env.APP_ENV}/robots.txt`));
+
     server.get('/', (req, res) => {
         return app.render(req, res, '/index', req.query);
     });
@@ -22,11 +24,7 @@ app.prepare().then(() => {
         return app.render(req, res, '/favorites', req.query);
     });
 
-    server.get('/zagorodnaya/:dealType/map', (req, res) => {
-        return app.render(req, res, '/catalog.map', { dealType: req.params.dealType, ...req.query });
-    });
-
-    server.get('/zagorodnaya/:dealType/map/:kind', (req, res) => {
+    server.get('/zagorodnaya/:dealType/map/:kind?', (req, res) => {
         return app.render(req, res, '/catalog.map', {
             dealType: req.params.dealType,
             kind: req.params.kind,
@@ -46,11 +44,7 @@ app.prepare().then(() => {
         });
     });
 
-    server.get('/zagorodnaya/:dealType', (req, res) => {
-        return app.render(req, res, '/catalog', { dealType: req.params.dealType, ...req.query });
-    });
-
-    server.get('/zagorodnaya/:dealType/:kind', (req, res) => {
+    server.get('/zagorodnaya/:dealType/:kind?', (req, res) => {
         return app.render(req, res, '/catalog', { dealType: req.params.dealType, kind: req.params.kind, ...req.query });
     });
 

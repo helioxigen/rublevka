@@ -4,13 +4,23 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { sc } from '@utils';
 
-const Icon = ({ className, name, copy }) => {
-    const IconSVG = require(`./assets/${name}.svg`).default;
+// const getIcon = name => require(`./assets/${name}.svg`).default;
 
+const LIcon = ({ iconName }) => {
+    const resolved = require(`./assets/${iconName}.svg`).default;
+
+    if (!resolved) {
+        throw Error(`Could not find icon/${iconName}`);
+    }
+
+    return React.createElement(resolved);
+};
+
+const Icon = ({ className, name, copy }) => {
     return (
         <span data-icon={name} className={className}>
-            <IconSVG />
-            {copy && <IconSVG />}
+            <LIcon iconName={name} />
+            {copy && <LIcon iconName={name} />}
         </span>
     );
 };

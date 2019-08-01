@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
@@ -7,8 +7,9 @@ import { Category, Details, Summary, Section, Layouts, Location, Counter, FullSc
 import { CallbackForm } from '@components/Forms';
 import { ContactToolbar } from '@components/Toolbars';
 import Gallery from '@components/Gallery';
+import { NextSeo } from 'next-seo';
 import { Breadcrumbs } from '@components';
-import { dict, itemTitle, format, media, sc } from '@utils';
+import { dict, itemTitle, format, media, sc, seo } from '@utils';
 import { fetchProperty } from '@store';
 
 // const Gallery = dynamic(() => import(`@components/Catalog/Gallery`), { ssr: false });
@@ -19,7 +20,7 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
         landDetails = {},
         specification = {},
         communication = {},
-        location: { settlementId, settlementName } = {},
+        location: { settlementId, settlementName, regionName, routeName, mkadDistance } = {},
         layoutImages = [],
         images = [],
         ...item
@@ -27,20 +28,28 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
 
     const price = item[`${dealType}Offer`] || {};
 
-    const summary = useMemo(
-        () => [
-            landDetails.area && ['Участок', `${landDetails.area} сот`],
-            specification.area && ['Дом', `${specification.area} м²`],
-            specification.bedrooms && [
-                format.titleByNumber(specification.bedrooms, ['Спальня', 'Спальни', 'Спален'], true),
-                specification.bedrooms,
-            ],
-        ],
-        [id, dealType]
+    const { title, description } = seo.property(
+        dealType,
+        kind,
+        id,
+        settlementName,
+        mkadDistance,
+        price,
+        routeName,
+        regionName
     );
 
     return (
         <PageContainer>
+            <NextSeo
+                title={title}
+                description={description}
+                openGraph={{
+                    title,
+                    description,
+                    images: images.filter(i => i.isPublic),
+                }}
+            />
             <Content compact item>
                 <Breadcrumbs
                     className="breadcrumbs"
@@ -63,6 +72,7 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                         >
                             {onClick => (
                                 <Gallery
+                                    className="item-gallery"
                                     layoutImages={layoutImages.filter(i => i.isPublic)}
                                     images={images.filter(i => i.isPublic)}
                                 >
@@ -80,7 +90,20 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                                 price={price}
                                 dealType={dealType}
                             />
-                            <Summary values={summary} />
+                            <Summary
+                                values={[
+                                    landDetails.area && ['Участок', `${landDetails.area} сот`],
+                                    specification.area && ['Дом', `${specification.area} м²`],
+                                    specification.bedrooms && [
+                                        format.titleByNumber(
+                                            specification.bedrooms,
+                                            ['Спальня', 'Спальни', 'Спален'],
+                                            true
+                                        ),
+                                        specification.bedrooms,
+                                    ],
+                                ]}
+                            />
                         </Category>
                         <Category>
                             <Section title="Общая информация">
@@ -158,7 +181,7 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                     </article>
                     <aside>
                         <header>
-                            <MultiPrice kind={kind} landDetails={landDetails} price={price} dealType={dealType} />
+                            <MultiPrice short kind={kind} landDetails={landDetails} price={price} dealType={dealType} />
                         </header>
                         <CallbackForm
                             header={
@@ -198,13 +221,16 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
     );
 };
 
-CatalogItem.getInitialProps = async ({ store, query: { dealType: dealTypeTranslit, kind: kindTranslit, id } }) => {
-    const dealType = dict.translit.byWord(dealTypeTranslit);
-    const kind = dict.translit.byWord(kindTranslit);
-
+CatalogItem.getInitialProps = async ({ store, query: { id }, params: { dealType, kind } }) => {
     await store.dispatch(fetchProperty(id));
 
-    return { dealType, kind, id, title: `${dict.translateKind(kind).noun} №${id}` };
+    return {
+        dealType,
+        kind,
+        id,
+        title: `${dict.translateKind(kind).noun} №${id}`,
+        menuEntry: dealType,
+    };
 };
 
 // CatalogItem.linkTemplate = ({ id, name }) => {
@@ -343,13 +369,17 @@ export default styled(CatalogItem)`
             )}
         }
 
-        ${Gallery} {
+        .item-gallery {
             margin: 0;
+
+            .gallery-display {
+                max-height: 450px;
+            }
         }
 
         ${media.desktop.at(
             css => css`
-                ${Gallery} {
+                .item-gallery {
                     margin: 20px 0;
                 }
             `
@@ -398,7 +428,7 @@ export default styled(CatalogItem)`
             border-top: 1px solid #eeeeee;
             padding: 0;
 
-            ${FavoriteButton} {
+            button {
                 padding: 24px 0;
 
                 display: flex;

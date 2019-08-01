@@ -33,7 +33,7 @@ const AdaptiveSidebar = styled.div`
                 box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
                 transition: transform 225ms cubic-bezier(0, 0, 0.2, 1);
                 flex-direction: column;
-                padding: 18px 0px 25px;
+                padding: 3px 0px 25px;
                 box-sizing: border-box;
             }
 

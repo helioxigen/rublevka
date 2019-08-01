@@ -133,6 +133,7 @@ export default styled(NavigatorBox)`
     }
 
     .from-point {
+        min-width: 18px;
         width: 18px;
         height: 18px;
         background-color: rgb(255, 51, 51);
@@ -159,6 +160,8 @@ export default styled(NavigatorBox)`
         color: rgb(100, 100, 100);
         font-size: 13px;
         line-height: 31px;
+        white-space: nowrap;
+        overflow: hidden;
     }
 
     .from-bar-arrows {

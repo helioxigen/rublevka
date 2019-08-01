@@ -19,7 +19,7 @@ export default styled(ResetToolbar)`
 
     margin-bottom: 1em;
 
-    ${IconButton} {
+    .times-button {
         padding: 0;
         color: #080808;
         height: auto;

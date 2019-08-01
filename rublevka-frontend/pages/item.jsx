@@ -8,7 +8,7 @@ import { CallbackForm } from '@components/Forms';
 import { ContactToolbar } from '@components/Toolbars';
 import Gallery from '@components/Gallery';
 import { Breadcrumbs } from '@components';
-import { dict, itemTitle, format, media } from '@utils';
+import { dict, itemTitle, format, media, sc } from '@utils';
 import { fetchProperty } from '@store';
 
 // const Gallery = dynamic(() => import(`@components/Catalog/Gallery`), { ssr: false });
@@ -113,6 +113,41 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                                 </Section>
                             </Category>
                         )}
+                        <Category>
+                            <CallbackForm
+                                className="callback-mobile-form"
+                                header={
+                                    <header>
+                                        <h3>Обратный звонок</h3>
+                                        <p>
+                                            Понравился дом? Оставьте заявку ниже и наш менеджер свяжется с вами в
+                                            течение дня.
+                                        </p>
+                                    </header>
+                                }
+                                fields={{
+                                    name: {
+                                        placeholder: 'Имя',
+                                        required: true,
+                                    },
+                                    phone: {
+                                        placeholder: 'Телефон',
+                                        type: 'tel',
+                                        required: true,
+                                    },
+                                }}
+                                footer={
+                                    <footer>
+                                        Отправляя заявку, вы соглашаетесь с нашей{' '}
+                                        <a href="/privacy">политикой конфиденциальности</a>.
+                                    </footer>
+                                }
+                                submitLabel="Отправить"
+                                defaultComment={`[Просмотр] ${dict.translateDealType(dealType)} ${
+                                    dict.translateKind(kind).genitive
+                                } ID:${id}`}
+                            />
+                        </Category>
                         {location.longitude && location.latitude && (
                             <Category>
                                 <Section title="Объект на карте">
@@ -385,6 +420,35 @@ export default styled(CatalogItem)`
                 .text {
                     width: 95px;
                 }
+            }
+        }
+    }
+
+    .callback-mobile-form {
+        text-align: center;
+        ${media.tablet.at(
+            css => css`
+                display: none;
+            `
+        )}
+        header {
+            h3 {
+                line-height: 24px;
+                font-size: 16px;
+            }
+            p {
+                margin: 4px 0px;
+                line-height: 21px;
+                font-size: 15px;
+                color: #232323;
+            }
+        }
+        footer {
+            font-size: 14px;
+
+            a {
+                text-decoration: none;
+                color: ${sc.theme.colors.red};
             }
         }
     }

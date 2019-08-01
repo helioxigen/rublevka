@@ -1,71 +1,81 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Hero, Block, Location } from '@components/Landing';
 import { Button, CompactForm } from '@components/UI';
 import { CallbackModal } from '@components/Modals';
 import { CallbackForm } from '@components/Forms';
 import { page, media, sc } from '@utils';
+import { fetchSettlements } from '@store';
 
-const MainPage = ({ className }) => (
-    <main className={className}>
-        <Hero className="landing-hero" />
-        <div className="page-content">
-            <Block
-                className="object-block"
-                title="Знаете номер объекта?"
-                text="Введите номер объекта в поле ниже и сразу перейдите к просмотру."
-            >
-                <CompactForm
-                    onSubmit={id => page.goTo.catalog({ dealType: 'prodaja', filter: JSON.stringify({ id }) })}
-                    placeholder="Номер объекта"
-                    submitLabel="Показать"
-                />
-            </Block>
-            <Block
-                className="call-block"
-                title="Хотите продать дом?"
-                text="Просто оставьте заявку. Наш агент свяжется с вами и поможет всё организовать: проведёт фотосессию, создаст рекламную кампанию, покажет дом и подготовит сделку."
-            >
-                <CallbackForm
-                    className="form-static"
-                    fields={{
-                        name: {
-                            placeholder: 'Имя',
-                            required: true,
-                        },
-                        phone: {
-                            placeholder: 'Телефон',
-                            type: 'tel',
-                            required: true,
-                        },
-                    }}
-                    submitLabel="Оставить заявку"
-                    defaultComment="Заявка на продажу"
-                />
-                <CallbackModal title="Заявка на продажу">
-                    {onClick => (
-                        <Button className="form-modal-button" onClick={onClick}>
-                            Оставить заявку
-                        </Button>
-                    )}
-                </CallbackModal>
-            </Block>
-            <Block
-                className="sell-block"
-                title="Лучшие предложения на Рублёвке"
-                text="Рублёвка.ру — это только актуальные предложения на рынке, опыт экспертов и забота о клиенте. Мы создаём сервис для поиска, подбора и покупки недвижимости: удобный, быстрый и интуитивно понятный."
-            >
-                <Button className="sell-button" red onClick={() => page.goTo.catalog({ dealType: 'prodaja' })}>
-                    Подробнее
-                </Button>
-            </Block>
-            <figure>
-                <img src="/static/landing/placeholder.jpg" alt="" />
-            </figure>
-            <Location />
-        </div>
-    </main>
-);
+const MainPage = ({ className }) => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchSettlements());
+    }, []);
+
+    return (
+        <main className={className}>
+            <Hero className="landing-hero" />
+            <div className="page-content">
+                <Block
+                    className="object-block"
+                    title="Знаете номер объекта?"
+                    text="Введите номер объекта в поле ниже и сразу перейдите к просмотру."
+                >
+                    <CompactForm
+                        onSubmit={id => page.goTo.catalog({ dealType: 'prodaja', filter: JSON.stringify({ id }) })}
+                        placeholder="Номер объекта"
+                        submitLabel="Показать"
+                    />
+                </Block>
+                <Block
+                    className="call-block"
+                    title="Хотите продать дом?"
+                    text="Просто оставьте заявку. Наш агент свяжется с вами и поможет всё организовать: проведёт фотосессию, создаст рекламную кампанию, покажет дом и подготовит сделку."
+                >
+                    <CallbackForm
+                        className="form-static"
+                        fields={{
+                            name: {
+                                placeholder: 'Имя',
+                                required: true,
+                            },
+                            phone: {
+                                placeholder: 'Телефон',
+                                type: 'tel',
+                                required: true,
+                            },
+                        }}
+                        submitLabel="Оставить заявку"
+                        defaultComment="Заявка на продажу"
+                    />
+                    <CallbackModal title="Заявка на продажу">
+                        {onClick => (
+                            <Button className="form-modal-button" onClick={onClick}>
+                                Оставить заявку
+                            </Button>
+                        )}
+                    </CallbackModal>
+                </Block>
+                <Block
+                    className="sell-block"
+                    title="Лучшие предложения на Рублёвке"
+                    text="Рублёвка.ру — это только актуальные предложения на рынке, опыт экспертов и забота о клиенте. Мы создаём сервис для поиска, подбора и покупки недвижимости: удобный, быстрый и интуитивно понятный."
+                >
+                    <Button className="sell-button" red onClick={() => page.goTo.catalog({ dealType: 'prodaja' })}>
+                        Подробнее
+                    </Button>
+                </Block>
+                <figure>
+                    <img src="/static/landing/placeholder.jpg" alt="" />
+                </figure>
+                <Location />
+            </div>
+        </main>
+    );
+};
 
 // MainPage.getInitialProps = async () => ({ meta: config.site.meta });
 

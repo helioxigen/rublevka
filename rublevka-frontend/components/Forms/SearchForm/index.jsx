@@ -9,6 +9,7 @@ import Dropdown from './Dropdown';
 import { media, filter, page, dict } from '../../../utils';
 import formConfig from './formConfig';
 import TextInput from './TextInput';
+import FuseList from './FuseList';
 
 // const initialState = {
 //     sale: {
@@ -80,11 +81,30 @@ const SearchForm = ({ className, type = 'sale' }) => {
         <form className={className} onSubmit={handleSubmit}>
             <section className="form-body">
                 {config.fields.map(name => {
-                    const { title, placeholder, items = [], type: fieldType, main, range = {} } = formConfig.fields[
-                        name
-                    ];
+                    const {
+                        title,
+                        placeholder,
+                        items = [],
+                        type: fieldType,
+                        listSelector,
+                        main,
+                        range = {},
+                    } = formConfig.fields[name];
 
                     const typeValues = values[type] || {};
+
+                    if (fieldType === 'fuzzy') {
+                        return (
+                            <TextInput
+                                key={`${name}${type}`}
+                                placeholder={placeholder}
+                                value={typeValues[name]}
+                                onChange={handleChange(name)}
+                            >
+                                <FuseList listSelector={listSelector} value={typeValues[name]} />
+                            </TextInput>
+                        );
+                    }
 
                     if (fieldType === 'text') {
                         return (

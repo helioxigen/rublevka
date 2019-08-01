@@ -22,6 +22,7 @@ export default class SiteConfig {
             routes,
             defaultCurrency = 'usd',
             meta: { title: metaTitle, description },
+            popularSettlements = [[0, '']],
         }
     ) {
         this.phone = phone;
@@ -36,6 +37,8 @@ export default class SiteConfig {
             title: metaTitle,
             description,
         };
+
+        this.popularSettlements = popularSettlements;
 
         this.email = email;
         this.whatsapp = whatsapp;

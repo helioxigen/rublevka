@@ -86,9 +86,10 @@ const fields = {
         },
         queryField: 'location.mkadDistance',
     },
-    name: {
+    settlementName: {
         placeholder: 'Введите название посёлка',
-        type: 'text',
+        type: 'fuzzy',
+        listSelector: state => state.settlements.list,
     },
     objectNumber: {
         placeholder: 'Введите номер объекта',
@@ -113,12 +114,12 @@ export default {
             fields: ['kind', 'price', 'bedrooms'],
         },
         objectNumber: {
-            type: 'fuzzy',
+            type: 'filter',
             fields: ['objectNumber'],
         },
         settlements: {
-            type: 'fuzzy',
-            fields: ['name', 'distance'],
+            type: 'query',
+            fields: ['settlementName', 'distance'],
         },
     },
     fields,

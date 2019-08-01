@@ -8,3 +8,4 @@ export { default as useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffec
 export { default as useInvertOnScroll } from './useInvertOnScroll';
 export { default as usePageTitle } from './usePageTitle';
 export { default as useScrollState } from './useScrollState';
+export { default as useInputValue } from './useInputValue';

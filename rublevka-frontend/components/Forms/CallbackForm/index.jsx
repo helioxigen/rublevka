@@ -75,6 +75,7 @@ const CallbackForm = ({
                                 return (
                                     <PhoneInput
                                         key={name}
+                                        className="phone-input"
                                         hasError={errors.includes(name)}
                                         onChange={handleChange(name)}
                                         value={values[name]}
@@ -127,7 +128,8 @@ export default styled(CallbackForm)`
         margin-top: 12px;
     }
 
-    & > ${Input}, ${PhoneInput} {
+    & > input,
+    .phone-input {
         margin: 4px 0;
         width: 100%;
     }
@@ -174,7 +176,7 @@ export default styled(CallbackForm)`
         `}
     }
 
-    ${Button} {
+    > button {
         font-size: 15px;
         font-weight: bold;
         padding: 0 23px;
@@ -185,7 +187,7 @@ export default styled(CallbackForm)`
         `}
     }
 
-    &[data-compact='true'] ${Button} {
+    &[data-compact='true'] button {
         width: auto;
     }
 `;

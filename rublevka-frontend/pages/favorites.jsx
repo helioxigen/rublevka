@@ -70,7 +70,7 @@ const FavoritePage = ({ className }) => {
     );
 };
 
-FavoritePage.getInitialProps = async () => ({ title: 'Избранное' });
+FavoritePage.getInitialProps = async () => ({ title: 'Избранное', menuEntry: 'favorites' });
 
 export default styled(FavoritePage)`
     margin: 0 auto;

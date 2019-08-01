@@ -1,12 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import dynamic from 'next/dynamic';
-import { app, media } from '../../utils';
+import { SearchForm } from '@components/Forms';
+import { app, media } from '@utils';
 import Tabs from './Tabs';
 import Header from './Header';
 // import Form from '../../../rublevka-frontend/src/Landing/Satellites/Form';
-
-const SearchForm = dynamic(() => import('@components/Forms').then(f => f.SearchForm));
 
 const LandingHero = ({ className }) => (
     <section className={className}>
@@ -80,6 +78,15 @@ export default styled(LandingHero)`
         ${media.desktopL.at(
             css => css`
                 grid-column: middle-start / span middle-end;
+            `
+        )}
+    }
+
+    ${SearchForm} {
+        padding: 0 15px;
+        ${media.phoneL.at(
+            css => css`
+                padding: 0;
             `
         )}
     }

@@ -9,7 +9,7 @@ import { media, sc } from '@utils';
 import MainMenu from './MainMenu';
 import { useInvertOnScroll, useScrollState } from '@hooks';
 
-const Navbar = ({ className, title }) => {
+const Navbar = ({ className, title, activeEntry }) => {
     const { pathname, back } = useRouter();
 
     const isLanding = pathname === '/';
@@ -32,7 +32,12 @@ const Navbar = ({ className, title }) => {
                         </a>
                     </Link>
                     {title && <span className="page-title">{title}</span>}
-                    <MainMenu isOpen={menuOpen} onClose={() => setIsMenuOpen(false)} favoriteCount={favoriteCount} />
+                    <MainMenu
+                        activeEntry={activeEntry}
+                        isOpen={menuOpen}
+                        onClose={() => setIsMenuOpen(false)}
+                        favoriteCount={favoriteCount}
+                    />
                     <div className="controls">
                         <Link href="/favorites">
                             <a className="favorites">

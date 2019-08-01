@@ -11,11 +11,31 @@ const baseRoutes = [
 export const getRouteIds = (...names) => baseRoutes.filter(v => names.some(n => n === v.name)).map(v => v.id);
 
 export default class SiteConfig {
-    constructor(name, { phone, whatsapp, email, routes, defaultCurrency = 'usd' }) {
+    constructor(
+        name,
+        {
+            title,
+            phone,
+            whatsapp,
+            domain,
+            email,
+            routes,
+            defaultCurrency = 'usd',
+            meta: { title: metaTitle, description },
+        }
+    ) {
         this.phone = phone;
         this.phoneNumbers = phone.match(/\d/g).join('');
 
         this.name = name;
+        this.title = title;
+
+        this.domain = domain;
+
+        this.meta = {
+            title: metaTitle,
+            description,
+        };
 
         this.email = email;
         this.whatsapp = whatsapp;

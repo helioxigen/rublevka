@@ -11,6 +11,21 @@ export default {
         as: `/zagorodnaya/kottedzhnye-poselki/${dict.translit.byLetters(name)}_${id}`,
         label: name,
     }),
+    item: ({ id, dealType: dealTypeN, kind: kindN }) => {
+        const [dealType, kind] = dict.translit.byWord(dealTypeN, kindN);
+
+        return {
+            href: {
+                pathname: '/item',
+                query: {
+                    dealType,
+                    kind,
+                    id,
+                },
+            },
+            as: `/zagorodnaya/${dealType}/${kind}/${id}`,
+        };
+    },
     contacts: () => ({
         href: '/contacts',
         label: 'Контакты',

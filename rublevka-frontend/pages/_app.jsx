@@ -4,15 +4,17 @@ import App, { Container } from 'next/app';
 import Head from 'next/head';
 import { Provider } from 'react-redux';
 import withReduxStore from 'next-redux-wrapper';
+import { DefaultSeo } from 'next-seo';
 import { YMaps } from 'react-yandex-maps';
 import nookies from 'nookies';
 import NProgress from '@components/UI/atoms/NProgress';
 import { Footer, Navbar } from '@components';
 import { makeStore, initUser } from '../store';
-import { app, sc } from '@utils';
+import { app, sc, format, dict } from '@utils';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import config from '@config';
 
 const GlobalStyles = createGlobalStyle`
     body {
@@ -32,6 +34,13 @@ class MyApp extends App {
         let pageProps = {};
 
         if (Component.getInitialProps) {
+            const [dealType, kind] = dict.translit.byWord(ctx.query.dealType, ctx.query.kind);
+
+            ctx.params = {
+                dealType,
+                kind,
+            };
+
             pageProps = await Component.getInitialProps(ctx);
         }
 
@@ -47,9 +56,30 @@ class MyApp extends App {
     render() {
         const { Component, pageProps, store } = this.props;
 
+        const {
+            meta: { title = config.site.meta.title, description = config.site.meta.description, images } = {},
+            menuEntry,
+            asPath,
+        } = pageProps;
+
         return (
             <Container>
                 <NProgress color={sc.theme.colors.red} spinner={false} />
+                <DefaultSeo
+                    title={title}
+                    description={description}
+                    canonical={`https://${config.site.domain}${asPath}`}
+                    openGraph={{
+                        type: 'website',
+                        locale: 'ru_RU',
+                        url: `https://${config.site.domain}${asPath}`,
+                        images: images || [`https://${config.site.domain}/static/logos/${config.app}.jpg`],
+                        site_name: format.capitalize(config.app),
+
+                        title,
+                        description,
+                    }}
+                />
                 <Head>
                     <meta
                         name="viewport"
@@ -60,13 +90,11 @@ class MyApp extends App {
                 <YMaps
                     query={{
                         apikey: 'f39a3e9a-410f-431a-a7ff-5d6e570c3834',
-                        ns: 'use-load-option',
-                        load: 'package.full',
                     }}
                 >
                     <Provider store={store}>
                         <GlobalStyles />
-                        <Navbar title={pageProps.title} />
+                        <Navbar activeEntry={menuEntry} title={pageProps.title} />
                         <Component {...pageProps} />
                         <Footer />
                     </Provider>

@@ -8,7 +8,7 @@ import { Element, Link as ScrollLink } from 'react-scroll';
 import { SearchForm } from '@components/Forms';
 import { Breadcrumbs } from '@components';
 import { fetchSettlements } from '@store';
-import { dict, app, media } from '@utils';
+import { dict, app, media, seo } from '@utils';
 
 const SettlementsListPage = ({ className }) => {
     const list = useSelector(state => state.settlements.list);
@@ -62,7 +62,7 @@ const SettlementsListPage = ({ className }) => {
 SettlementsListPage.getInitialProps = async ({ store }) => {
     await store.dispatch(fetchSettlements());
 
-    return { title: 'Посёлки' };
+    return { title: 'Посёлки', meta: seo.settlements.list, menuEntry: 'settlements' };
 };
 
 export default styled(SettlementsListPage)`

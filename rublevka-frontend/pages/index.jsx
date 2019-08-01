@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Hero, Block, Location } from '@components/Landing';
-import { Button, CompactForm, Content } from '@components/UI';
+import { Button, CompactForm } from '@components/UI';
 import { CallbackModal } from '@components/Modals';
-import { CallbackForm, SearchForm } from '@components/Forms';
+import { CallbackForm } from '@components/Forms';
 import { page, media, sc } from '@utils';
 
 const MainPage = ({ className }) => (
     <main className={className}>
         <Hero className="landing-hero" />
-        <Content>
+        <div className="page-content">
             <Block
                 className="object-block"
                 title="Знаете номер объекта?"
@@ -44,7 +44,7 @@ const MainPage = ({ className }) => (
                 />
                 <CallbackModal title="Заявка на продажу">
                     {onClick => (
-                        <Button className="form-modal" onClick={onClick}>
+                        <Button className="form-modal-button" onClick={onClick}>
                             Оставить заявку
                         </Button>
                     )}
@@ -55,7 +55,7 @@ const MainPage = ({ className }) => (
                 title="Лучшие предложения на Рублёвке"
                 text="Рублёвка.ру — это только актуальные предложения на рынке, опыт экспертов и забота о клиенте. Мы создаём сервис для поиска, подбора и покупки недвижимости: удобный, быстрый и интуитивно понятный."
             >
-                <Button red onClick={() => page.goTo.catalog({ dealType: 'prodaja' })}>
+                <Button className="sell-button" red onClick={() => page.goTo.catalog({ dealType: 'prodaja' })}>
                     Подробнее
                 </Button>
             </Block>
@@ -63,20 +63,13 @@ const MainPage = ({ className }) => (
                 <img src="/static/landing/placeholder.jpg" alt="" />
             </figure>
             <Location />
-        </Content>
+        </div>
     </main>
 );
 
-export default styled(MainPage)`
-    ${SearchForm} {
-        padding: 0 15px;
-        ${media.phoneL.at(
-            css => css`
-                padding: 0;
-            `
-        )}
-    }
+// MainPage.getInitialProps = async () => ({ meta: config.site.meta });
 
+export default styled(MainPage)`
     .form-modal {
         display: none;
     }
@@ -87,7 +80,7 @@ export default styled(MainPage)`
             padding-bottom: 20px;
         }
 
-        ${Button} {
+        .form-modal-button {
             margin-top: 1em;
         }
 
@@ -123,7 +116,7 @@ export default styled(MainPage)`
         }))}
     }
 
-    ${Content} {
+    .page-content {
         ${media.phoneL.at(
             css => css`
                 padding: 0 15px;
@@ -190,7 +183,7 @@ export default styled(MainPage)`
                     text-align: left;
                 }
                 text-align: left;
-                ${Button} {
+                .sell-button {
                     height: 1em;
                     font-weight: 600;
                     line-height: initial;

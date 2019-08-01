@@ -4,7 +4,7 @@ import { Avatar } from '../atoms';
 
 const ProfileCard = ({ className, avatar, alt, name, subheader }) => (
     <header className={className}>
-        <Avatar src={avatar} alt={alt} />
+        <Avatar className="avatar" src={avatar} alt={alt} />
         <div className="info">
             <header>{name}</header>
             <p>{subheader}</p>
@@ -18,7 +18,7 @@ export default styled(ProfileCard)`
     font-size: 15px;
     color: #232323;
 
-    ${Avatar} {
+    .avatar {
         margin-right: 10px;
         font-size: 80px;
         flex: 1 0 auto;

@@ -42,7 +42,7 @@ const dictionary = {
 };
 
 export default {
-    byWord: word => dictionary[word],
+    byWord: (...words) => (words.length === 1 ? dictionary[words[0]] : words.map(word => dictionary[word])),
     byLetters: word =>
         translit(word)
             .replace(/[^\w\s-]/g, '')

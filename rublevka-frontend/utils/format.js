@@ -5,8 +5,26 @@ function declOfNum(number, titles) {
 
 const prefixZero = num => (num < 10 ? `0${num}` : num);
 
+const price = (value = 0, currency) => {
+    const formattedValue = value.toLocaleString('ru');
+
+    switch (currency) {
+        case 'RUB':
+            return `${formattedValue} руб`;
+        case 'USD':
+            return `$${formattedValue}`;
+        case 'EUR':
+            return `€${formattedValue}`;
+        default:
+            return 0;
+    }
+};
+
 export default {
     titleByNumber: (number, titles, onlyTitle) =>
         number && (onlyTitle ? declOfNum(number, titles) : `${number} ${declOfNum(number, titles)}`),
     prefixZero,
+    capitalize: string => string.charAt(0).toUpperCase() + string.slice(1),
+    replaceEnd: (string = '', search, replaceWith) => string.replace(new RegExp(`${search}$`), replaceWith),
+    price,
 };

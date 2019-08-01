@@ -11,6 +11,7 @@ const Price = ({
     landDetails,
     showSubheader,
     currency,
+    short,
 }) => {
     const { symbol, code } = useSelector(state =>
         config.currencies.find(c => c.code === (currency || state.user.currency))
@@ -31,7 +32,7 @@ const Price = ({
     return (
         <p className={className}>
             {price && price.toLocaleString('ru')} {symbol}
-            {dealType === 'rent' && ' / месяц'}
+            {dealType === 'rent' && short ? ' / мес.' : ' / месяц'}
             {subheader && <span className="subheader">{subheader}</span>}
         </p>
     );

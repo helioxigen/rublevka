@@ -6,7 +6,7 @@ import config from '@config';
 import { media } from '@utils';
 import { useToggle } from '@hooks';
 
-const MultiPrice = ({ className, kind, landDetails, price = {}, dealType }) => {
+const MultiPrice = ({ className, kind, landDetails, price = {}, dealType, short }) => {
     const [isOpen, toggleOpen] = useToggle(false);
     const { currency } = useSelector(state => state.user);
 
@@ -20,7 +20,7 @@ const MultiPrice = ({ className, kind, landDetails, price = {}, dealType }) => {
             data-open={isOpen}
         >
             <Price
-                className="display-price"
+                className="display-price price"
                 showSubheader
                 kind={kind}
                 landDetails={landDetails}
@@ -33,6 +33,7 @@ const MultiPrice = ({ className, kind, landDetails, price = {}, dealType }) => {
                     .filter(c => c.code !== currency)
                     .map(({ code }) => (
                         <Price
+                            className="price"
                             key={code}
                             showSubheader
                             kind={kind}
@@ -40,6 +41,7 @@ const MultiPrice = ({ className, kind, landDetails, price = {}, dealType }) => {
                             deal={price}
                             dealType={dealType}
                             currency={code}
+                            short={short}
                         />
                     ))}
             </div>
@@ -52,10 +54,12 @@ export default styled(MultiPrice)`
     position: relative;
     outline: none;
 
-    ${Price} {
+    .price {
         font-size: 20px;
 
         margin-bottom: 12px;
+
+        flex: 1 0 auto;
 
         font-weight: bold;
 
@@ -63,7 +67,6 @@ export default styled(MultiPrice)`
             css => css`
                 font-size: 21px;
                 margin: 0;
-                padding: 25px 21px;
             `
         )}
     }
@@ -72,6 +75,7 @@ export default styled(MultiPrice)`
         ${media.desktop.at(
             css => css`
                 font-size: 24px;
+                padding: 25px 21px;
             `
         )}
 
@@ -80,7 +84,7 @@ export default styled(MultiPrice)`
         flex-wrap: wrap;
 
         position: relative;
-        z-index: 5000;
+        z-index: 150;
 
         &::after {
             content: '';
@@ -104,6 +108,8 @@ export default styled(MultiPrice)`
                 top: 0;
                 left: 0;
                 right: 0;
+
+                padding: 0 20px;
 
                 height: 200%;
 

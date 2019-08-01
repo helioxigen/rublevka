@@ -36,7 +36,8 @@ const Catalog = ({
     const [isFilterOpen, toggleFilter] = useToggle(false);
 
     return (
-        <main className={className}>
+        <main className={className} data-single={single}>
+            <FloatingControls onFilterClick={toggleFilter} />
             <header>
                 <Header as={titleTag}>
                     {dict.translateDealType(dealType).verb}{' '}
@@ -59,7 +60,6 @@ const Catalog = ({
                 ))}
             </CardsGrid>
             {!single && total > 1 && <Pagination count={total} currentPage={current} />}
-            <FloatingControls onFilterClick={toggleFilter} />
         </main>
     );
 };
@@ -69,16 +69,20 @@ export default styled(Catalog)`
     grid-template:
         'header'
         'cards'
-        'pagination' 200px;
+        'pagination';
 
     grid-gap: 10px;
+
+    &.single {
+        margin-bottom: 48px;
+    }
 
     ${media.desktop.at(
         css => css`
             grid-template:
                 'header header header header'
                 'filter cards cards cards'
-                '. pagination pagination pagination' 200px /
+                '. pagination pagination pagination' /
                 20% 1fr 1fr 1fr [end];
             width: auto;
         `
@@ -102,6 +106,15 @@ export default styled(Catalog)`
                 grid-column: 2 / span end;
             `
         )}
+
+        &:last-child {
+            margin-bottom: 48px;
+        }
+    }
+
+    ${Pagination} {
+        height: 200px;
+        justify-content: center;
     }
 
     > header {

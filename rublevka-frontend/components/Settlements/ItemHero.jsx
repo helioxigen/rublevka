@@ -56,6 +56,9 @@ export default styled(Hero)`
     .title {
         align-self: center;
 
+        h1 {
+            color: white;
+        }
 
         ${media.desktop.to(
             css => css`

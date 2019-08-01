@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { CombinedSelect } from '@components/UI';
 import { changeOrderBy } from '@store';
+import { format } from '@utils';
 
 const Sort = ({ className }) => {
     const total = useSelector(state => state.properties.pagination.total);
@@ -14,7 +15,9 @@ const Sort = ({ className }) => {
 
     return (
         <div className={className}>
-            <span className="sort-label">{total.toLocaleString('ru')} объектов отсортированы </span>
+            <span className="sort-label">
+                {format.titleByNumber(total, ['объект', 'объекта', 'объектов'])} отсортированы{' '}
+            </span>
             <CombinedSelect
                 className="select"
                 options={[

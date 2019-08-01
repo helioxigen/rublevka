@@ -14,10 +14,10 @@ const Card = ({
     data: { id, images = [], landDetails = {}, specification = {}, location = {}, kind },
 }) => {
     const {
-        query: { dealType: dealTypeT = dict.translit.byWord(dealTypeExplicit) },
+        query: { dealType: dealTypeT },
     } = useRouter();
 
-    const dealType = dict.translit.byWord(dealTypeT);
+    const dealType = dealTypeExplicit || dict.translit.byWord(dealTypeT);
 
     return (
         <Link
@@ -85,6 +85,7 @@ export default styled(Card)`
     .favorite-button {
         top: 0;
         right: 0;
+        font-size: 15px;
     }
 
     .card-id,

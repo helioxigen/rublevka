@@ -22,7 +22,8 @@ const price = (value = 0, currency) => {
 
 export default {
     titleByNumber: (number, titles, onlyTitle) =>
-        number && (onlyTitle ? declOfNum(number, titles) : `${number} ${declOfNum(number, titles)}`),
+        number &&
+        (onlyTitle ? declOfNum(number, titles) : `${number.toLocaleString('ru')} ${declOfNum(number, titles)}`),
     prefixZero,
     capitalize: string => string.charAt(0).toUpperCase() + string.slice(1),
     replaceEnd: (string = '', search, replaceWith) => string.replace(new RegExp(`${search}$`), replaceWith),

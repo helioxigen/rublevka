@@ -116,7 +116,7 @@ export default styled(VisibleCards)`
         position: absolute;
         right: -22px;
         top: 16px;
-        height: 24px;
+        height: 23px;
         background: #fafafa;
 
         border: none;
@@ -124,6 +124,12 @@ export default styled(VisibleCards)`
         box-shadow: 5px 4px 5px 0px rgba(0, 0, 0, 0.15);
 
         border-radius: 2px;
+
+        padding: 0;
+
+        > span {
+            padding: 6px;
+        }
 
         svg,
         svg path {

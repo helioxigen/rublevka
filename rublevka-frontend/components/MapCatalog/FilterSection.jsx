@@ -19,11 +19,13 @@ const FilterBlock = ({ className, itemsCount, settlementName, onResetItems }) =>
     return (
         <section className={className} data-filter={isFilterOpen}>
             <header>
-                <BackButton onClick={emptyFocus ? () => page.goTo.catalog() : onResetItems}>
-                    <span className="cards-label" data-cards={!emptyFocus}>
+                {!emptyFocus && (
+                    <BackButton onClick={onResetItems} className="reset-button">
                         {format.titleByNumber(itemsCount, ['объект', 'объекта', 'объектов'])} в посёлке {settlementName}
-                    </span>
-                    <span className="catalog-label">Вернуться к выдаче</span>
+                    </BackButton>
+                )}
+                <BackButton className="catalog-button" onClick={() => page.goTo.catalog()}>
+                    Вернуться к выдаче
                 </BackButton>
                 {emptyFocus && <IconButton secondary icon="settings" onClick={toggleFilter} />}
             </header>
@@ -93,6 +95,10 @@ export default styled(FilterBlock)`
                     display: none;
                 }
             }
+
+            .reset-button + .catalog-button {
+                display: none;
+            }
         `
     )}
 
@@ -124,6 +130,10 @@ export default styled(FilterBlock)`
             }
 
             .settings-button {
+                display: none;
+            }
+
+            .reset-button {
                 display: none;
             }
         `

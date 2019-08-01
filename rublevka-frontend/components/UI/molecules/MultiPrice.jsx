@@ -61,7 +61,7 @@ export default styled(MultiPrice)`
 
         flex: 1 0 auto;
 
-        font-weight: bold;
+        font-weight: 500;
 
         ${media.desktop.at(
             css => css`
@@ -89,7 +89,7 @@ export default styled(MultiPrice)`
         &::after {
             content: '';
             display: block;
-            margin-left: 4px;
+            margin-left: 10px;
             width: 0;
             height: 0;
             border-style: solid;
@@ -111,14 +111,20 @@ export default styled(MultiPrice)`
 
                 padding: 0 20px;
 
-                height: 200%;
+                height: 180%;
+
+                .price {
+                    height: 60%;
+                    display: flex;
+                    align-items: center;
+                }
 
                 ::before {
                     content: '';
                     display: block;
                     flex: 1 0 100%;
                     display: block;
-                    height: 50%;
+                    height: 40%;
                 }
 
                 display: flex;

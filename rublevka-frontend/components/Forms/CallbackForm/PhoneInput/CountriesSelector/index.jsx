@@ -124,6 +124,7 @@ export default styled(CountrySelector)`
         outline: none;
 
         padding: 0 0 0 15px;
+        cursor: pointer;
 
         display: flex;
         align-items: center;

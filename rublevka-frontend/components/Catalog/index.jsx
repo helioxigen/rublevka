@@ -47,7 +47,11 @@ const Catalog = ({
 
     return (
         <main ref={mainRef} className={className} data-single={single}>
-            <FloatingControls onFilterClick={toggleFilter} isFilterVisible={mainInView && !bottomInView} />
+            <FloatingControls
+                onFilterClick={toggleFilter}
+                isFilterVisible={mainInView && !bottomInView}
+                isMapAvailable={!noMap}
+            />
             <header>
                 <Header as={titleTag}>
                     {dict.translateDealType(dealType).verb}{' '}

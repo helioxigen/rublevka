@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { IconButton } from '@components/UI';
-import { media } from '@utils';
+import { page, media } from '@utils';
 
-const FloatingControls = ({ className, onFilterClick, isFilterVisible }) => {
+const FloatingControls = ({ className, onFilterClick, isFilterVisible, isMapAvailable = true }) => {
     return (
         <div className={className} data-hide={!isFilterVisible}>
-            {/* <IconButton onClick={() => page.goTo.map()} icon="placemark" floating red /> */}
+            {isMapAvailable && <IconButton onClick={() => page.goTo.map()} icon="placemark" floating red />}
             <IconButton onClick={onFilterClick} icon="settings" floating red>
                 Параметры
             </IconButton>

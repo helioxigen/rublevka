@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Map, Circle } from 'react-yandex-maps';
+import { Map, Circle, FullscreenControl, ZoomControl } from 'react-yandex-maps';
 import { media, sc } from '@utils';
 
 const Location = ({ className, latitude, longitude }) => (
     <Map
         className={className}
         instanceRef={ref => ref && ref.behaviors.disable('scrollZoom')}
-        defaultState={{ center: [latitude, longitude], zoom: 15, controls: ['fullscreenControl', 'zoomControl'] }}
+        defaultState={{ center: [latitude, longitude], zoom: 15, controls: [] }}
     >
         <Circle
             geometry={[[latitude, longitude], 200]}
@@ -20,6 +20,8 @@ const Location = ({ className, latitude, longitude }) => (
                 strokeWidth: 2,
             }}
         />
+        <FullscreenControl />
+        <ZoomControl options={{ float: 'right' }} />
     </Map>
 );
 

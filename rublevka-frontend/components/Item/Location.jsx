@@ -7,7 +7,7 @@ const Location = ({ className, latitude, longitude }) => (
     <Map
         className={className}
         instanceRef={ref => ref && ref.behaviors.disable('scrollZoom')}
-        defaultState={{ center: [latitude, longitude], zoom: 15, controls: [] }}
+        defaultState={{ center: [latitude, longitude], zoom: 15, controls: ['fullscreenControl', 'zoomControl'] }}
     >
         <Circle
             geometry={[[latitude, longitude], 200]}

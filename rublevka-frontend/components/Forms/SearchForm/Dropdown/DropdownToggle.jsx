@@ -41,6 +41,9 @@ export default styled(DropdownToggle)`
     }
 
     .display-value {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
         margin: 4px 0 0;
         line-height: 19px;
         font-size: 16px;

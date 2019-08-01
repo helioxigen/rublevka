@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import { media } from '@utils';
+import { media, sc } from '@utils';
 
 const Section = ({ className, title, children }) => (
     <section className={className}>
-        <h2>{title}</h2>
+        {title && <h2>{title}</h2>}
         {children}
     </section>
 );
 
 export default styled(Section)`
-    max-width: 925px;
-    margin: 0 auto;
+    ${sc.ifProp('wide')('', 'max-width: 925px;')}
+
     h2,
     p {
         margin: 0;

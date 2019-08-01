@@ -1,10 +1,15 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import range from 'lodash/range';
 import { Button, Icon } from '@components/UI/atoms';
 import PageLink from './PageLink';
+import { fetchProperties } from '@store';
 
 const Pagination = ({ className, count, currentPage }) => {
+    const dispatch = useDispatch();
+    const { query, filter, orderBy } = useSelector(state => state.properties);
+
     const isLeft = currentPage < 3;
     const isRight = count - currentPage < 3;
 
@@ -21,11 +26,19 @@ const Pagination = ({ className, count, currentPage }) => {
 
     return (
         <div className={className}>
-            <Button className="load-more" red>
+            <Button
+                className="load-more"
+                red
+                onClick={() => dispatch(fetchProperties(currentPage + 1, query, filter, orderBy, true))}
+            >
                 Загрузить ещё
             </Button>
             <div className="pages">
-                <Icon name="arrow" mirror />
+                {currentPage !== 1 && (
+                    <PageLink className="arrow-link" page={currentPage - 1}>
+                        <Icon name="arrow" mirror />
+                    </PageLink>
+                )}
                 <PageLink page={1} current={currentPage === 1} />
                 {currentPage > 3 && <span className="eclipse">...</span>}
                 {range(start, end).map(num => (
@@ -33,7 +46,11 @@ const Pagination = ({ className, count, currentPage }) => {
                 ))}
                 {count > 4 && count - currentPage > 2 && <span className="eclipse">...</span>}
                 {count > 4 && <PageLink page={count} current={currentPage === count} />}
-                <Icon name="arrow" />
+                {currentPage !== count && (
+                    <PageLink className="arrow-link" page={currentPage + 1}>
+                        <Icon name="arrow" />
+                    </PageLink>
+                )}
             </div>
         </div>
     );
@@ -48,13 +65,20 @@ export default styled(Pagination)`
 
     align-self: center;
 
+    .load-more {
+        margin-bottom: 32px;
+    }
+
+    .arrow-link {
+        font-size: 20px;
+        &:hover {
+            background: none;
+        }
+    }
+
     .eclipse {
         width: 2.5em;
         text-align: center;
-    }
-
-    ${Button} {
-        margin-bottom: 32px;
     }
 
     .pages {

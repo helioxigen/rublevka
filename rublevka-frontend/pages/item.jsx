@@ -2,13 +2,13 @@ import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
-import { PageContainer, Header, Price, ProfileCard, FavoriteButton, Content, IconButton } from '@components/UI';
+import { PageContainer, Header, ProfileCard, FavoriteButton, Content, IconButton, MultiPrice } from '@components/UI';
 import { Category, Details, Summary, Section, Layouts, Location, Counter, FullScreenGallery } from '@components/Item';
 import { CallbackForm } from '@components/Forms';
 import { ContactToolbar } from '@components/Toolbars';
 import Gallery from '@components/Gallery';
 import { Breadcrumbs } from '@components';
-import { dict, itemTitle, format, media } from '@utils';
+import { dict, itemTitle, format, media, sc } from '@utils';
 import { fetchProperty } from '@store';
 
 // const Gallery = dynamic(() => import(`@components/Catalog/Gallery`), { ssr: false });
@@ -41,7 +41,7 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
 
     return (
         <PageContainer>
-            <Content compact>
+            <Content compact item>
                 <Breadcrumbs
                     className="breadcrumbs"
                     dealType={dealType}
@@ -66,7 +66,6 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                                     layoutImages={layoutImages.filter(i => i.isPublic)}
                                     images={images.filter(i => i.isPublic)}
                                 >
-                                    <span className="id">№ {id}</span>
                                     <IconButton onClick={onClick} icon="expand" />
                                     <Counter overall={images.length} />
                                     <FavoriteButton className="favorite-button" id={id} dealType={dealType} />
@@ -74,12 +73,11 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                             )}
                         </FullScreenGallery>
                         <Category className="main-cat">
-                            <Price
+                            <MultiPrice
                                 className="article-price"
-                                showSubheader
                                 kind={kind}
                                 landDetails={landDetails}
-                                deal={price}
+                                price={price}
                                 dealType={dealType}
                             />
                             <Summary values={summary} />
@@ -115,6 +113,41 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                                 </Section>
                             </Category>
                         )}
+                        <Category>
+                            <CallbackForm
+                                className="callback-mobile-form"
+                                header={
+                                    <header>
+                                        <h3>Обратный звонок</h3>
+                                        <p>
+                                            Понравился дом? Оставьте заявку ниже и наш менеджер свяжется с вами в
+                                            течение дня.
+                                        </p>
+                                    </header>
+                                }
+                                fields={{
+                                    name: {
+                                        placeholder: 'Имя',
+                                        required: true,
+                                    },
+                                    phone: {
+                                        placeholder: 'Телефон',
+                                        type: 'tel',
+                                        required: true,
+                                    },
+                                }}
+                                footer={
+                                    <footer>
+                                        Отправляя заявку, вы соглашаетесь с нашей{' '}
+                                        <a href="/privacy">политикой конфиденциальности</a>.
+                                    </footer>
+                                }
+                                submitLabel="Отправить"
+                                defaultComment={`[Просмотр] ${dict.translateDealType(dealType)} ${
+                                    dict.translateKind(kind).genitive
+                                } ID:${id}`}
+                            />
+                        </Category>
                         {location.longitude && location.latitude && (
                             <Category>
                                 <Section title="Объект на карте">
@@ -125,7 +158,7 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                     </article>
                     <aside>
                         <header>
-                            <Price deal={price} dealType={dealType} />
+                            <MultiPrice kind={kind} landDetails={landDetails} price={price} dealType={dealType} />
                         </header>
                         <CallbackForm
                             header={
@@ -181,7 +214,6 @@ CatalogItem.getInitialProps = async ({ store, query: { dealType: dealTypeTransli
 // connect();
 
 export default styled(CatalogItem)`
-
     .expand-button {
         position: absolute;
         z-index: 5;
@@ -189,6 +221,8 @@ export default styled(CatalogItem)`
         top: 0;
         background: none;
         font-size: 18px;
+
+        width: 56px;
 
         transition: opacity 225ms;
         opacity: 0;
@@ -283,17 +317,11 @@ export default styled(CatalogItem)`
 
     > article {
         margin-top: 18px;
-        
-
-        ${media.tablet.at(
-            css => css`
-                max-width: 740px;
-                margin-top: 0;
-            `
-        )}
 
         ${media.desktop.at(
             css => css`
+                max-width: 740px;
+                margin-top: 0;
                 padding: 24px 20px;
             `
         )}
@@ -302,12 +330,21 @@ export default styled(CatalogItem)`
             margin-bottom: 18px;
             padding: 0 15px;
 
-            ${media.desktop.at(
+            ${media.tablet.at(
                 css => css`
-                    margin-bottom: 20px;
                     padding: 0;
                 `
             )}
+
+            ${media.desktop.at(
+                css => css`
+                    margin-bottom: 20px;
+                `
+            )}
+        }
+
+        ${Gallery} {
+            margin: 0;
         }
 
         ${media.desktop.at(
@@ -342,7 +379,7 @@ export default styled(CatalogItem)`
             `
         )}
 
-        > * {
+        > *:not(header) {
             padding: 24px 20px;
         }
 
@@ -383,6 +420,35 @@ export default styled(CatalogItem)`
                 .text {
                     width: 95px;
                 }
+            }
+        }
+    }
+
+    .callback-mobile-form {
+        text-align: center;
+        ${media.tablet.at(
+            css => css`
+                display: none;
+            `
+        )}
+        header {
+            h3 {
+                line-height: 24px;
+                font-size: 16px;
+            }
+            p {
+                margin: 4px 0px;
+                line-height: 21px;
+                font-size: 15px;
+                color: #232323;
+            }
+        }
+        footer {
+            font-size: 14px;
+
+            a {
+                text-decoration: none;
+                color: ${sc.theme.colors.red};
             }
         }
     }

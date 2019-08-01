@@ -42,7 +42,7 @@ export default styled(RadioButton)`
     }
 
     input:checked + .icon {
-        border: 1px solid #999999;
+        border: 1px solid #999;
 
         display: flex;
         justify-content: center;
@@ -51,7 +51,7 @@ export default styled(RadioButton)`
         &::before {
             content: '';
             display: block;
-            background: black;
+            background: #999;
             border-radius: inherit;
 
             width: 60%;

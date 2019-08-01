@@ -9,12 +9,6 @@ export default styled.div`
 
     background: #fafafa;
 
-    ${media.desktop.at(
-        css => css`
-            padding: 0 ${sc.ifProp('fullWidth')(0, 50)}px 0;
-        `
-    )}
-
     .breadcrumbs {
         display: none;
         ${media.tablet.at(
@@ -24,5 +18,5 @@ export default styled.div`
         )}
     }
 
-    margin-bottom: 48px;
+    ${sc.ifProp('noMargin')('', 'margin-bottom: 48px;')}
 `;

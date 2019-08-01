@@ -45,6 +45,8 @@ export const propertiesReducer = createReducer({
             },
             filter,
             orderBy,
+            query,
+            asMore,
         },
         state
     ) => ({
@@ -53,13 +55,15 @@ export const propertiesReducer = createReducer({
             ...state.items,
             ...keyBy(items, i => i.id),
         },
-        list: items,
+        list: asMore ? [...state.list, ...items] : items,
+        query,
         filter,
         orderBy,
         pagination: {
             ...state.pagination,
             total,
             offset,
+            isLoadedMore: asMore,
         },
     }),
     [LOAD_PROPERTIES_ERROR]: err => ({

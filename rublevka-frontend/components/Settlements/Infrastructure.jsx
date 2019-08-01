@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 
 import { media, dict } from '@utils';
 
 import InfrastructureItem from './InfrastructureItem';
+import { Section } from '.';
 
 const SwipeInterlayer = ({ className, children }) => {
     const settings = {
@@ -43,45 +44,74 @@ const StyledSwipeInterlayer = styled(SwipeInterlayer)`
                     display: none;
                 `
         )}
+
+        > *:first-child {
+            margin-top: 32px;
+        }
     }
 `;
 
 const Infrastructure = ({ properties }) => {
+    const [visibleItem, setVisibleItem] = useState(null);
+
+    const handleItemClick = id => {
+        if (visibleItem === id) {
+            setVisibleItem(null);
+        } else {
+            setVisibleItem(id);
+        }
+    };
+
     const sampleProperty = properties[Object.keys(properties).pop()];
 
     if (!sampleProperty || !sampleProperty.communication) {
         return <></>;
     }
 
-    const { gasSupply } = sampleProperty.communication;
-    const { powerSupply } = sampleProperty.communication;
-    const { sewerageSupply } = sampleProperty.communication;
-    const { waterSupply } = sampleProperty.communication;
+    const { gasSupply, powerSupply, sewerageSupply, waterSupply } = sampleProperty.communication;
 
     return (
-        <StyledSwipeInterlayer>
-            {/* <InfrastructureItem iconName="shield" header="Безопасность" content="Поселок надежно охранется: КПП, патрулирование 24 часа в сутки, видеонаблюдение. Установлены пожарные гидранты."/> */}
-            {gasSupply && (
-                <InfrastructureItem iconName="fire" header="Газоснабжение" content={dict.details.get(gasSupply)} />
-            )}
-            {waterSupply && (
-                <InfrastructureItem
-                    iconName="water"
-                    header="Водоснабжение"
-                    content={dict.details.get(waterSupply, 'ое')}
-                />
-            )}
-            {powerSupply && (
-                <InfrastructureItem iconName="plug" header="Электроснабжение" content={`${powerSupply}кВт`} />
-            )}
-            {sewerageSupply && (
-                <InfrastructureItem
-                    iconName="water-tap"
-                    header="Канализация"
-                    content={dict.details.get(sewerageSupply, 'ая')}
-                />
-            )}
-        </StyledSwipeInterlayer>
+        <Section title="Инфраструктура">
+            <StyledSwipeInterlayer>
+                {/* <InfrastructureItem iconName="shield" header="Безопасность" content="Поселок надежно охранется: КПП, патрулирование 24 часа в сутки, видеонаблюдение. Установлены пожарные гидранты."/> */}
+                {gasSupply && (
+                    <InfrastructureItem
+                        isContentVisible={visibleItem === 'gas'}
+                        setContentVisible={() => handleItemClick('gas')}
+                        iconName="fire"
+                        header="Газоснабжение"
+                        content={dict.details.get(gasSupply)}
+                    />
+                )}
+                {waterSupply && (
+                    <InfrastructureItem
+                        isContentVisible={visibleItem === 'water'}
+                        setContentVisible={() => handleItemClick('water')}
+                        iconName="water"
+                        header="Водоснабжение"
+                        content={dict.details.get(waterSupply, 'ое')}
+                    />
+                )}
+                {powerSupply && (
+                    <InfrastructureItem
+                        isContentVisible={visibleItem === 'power'}
+                        setContentVisible={() => handleItemClick('power')}
+                        iconName="plug"
+                        header="Электроснабжение"
+                        content={`${powerSupply}кВт`}
+                    />
+                )}
+                {sewerageSupply && (
+                    <InfrastructureItem
+                        isContentVisible={visibleItem === 'sewerage'}
+                        setContentVisible={() => handleItemClick('sewerage')}
+                        iconName="water-tap"
+                        header="Канализация"
+                        content={dict.details.get(sewerageSupply, 'ая')}
+                    />
+                )}
+            </StyledSwipeInterlayer>
+        </Section>
     );
 };
 

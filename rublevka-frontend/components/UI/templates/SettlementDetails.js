@@ -3,9 +3,13 @@ import styled from 'styled-components';
 export default styled.article`
     background: white;
 
-    section {
-        margin: 0 auto 0;
-    }
+    padding: 48px 0 0;
 
-    padding-bottom: 48px;
+    section {
+        margin: 0 auto;
+
+        &:not(:first-child) {
+            margin-top: 48px;
+        }
+    }
 `;

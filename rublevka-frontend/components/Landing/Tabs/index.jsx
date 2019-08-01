@@ -71,7 +71,7 @@ export default styled(Tabs)`
         overflow-x: scroll;
         position: relative;
 
-        max-width: 590px;
+        max-width: 530px;
 
         justify-content: space-between;
 

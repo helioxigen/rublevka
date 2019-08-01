@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Icon from '@components/UI/atoms/Icon';
 import { media } from '@utils';
@@ -47,8 +47,8 @@ const StyledItemText = styled(ItemText)`
     color: #232323;
 `;
 
-const InfrastructureItem = ({ className, iconName, header, content }) => {
-    const [isContentVisible, setContentVisible] = useState(false);
+const InfrastructureItem = ({ className, iconName, header, content, isContentVisible, setContentVisible }) => {
+    // const [isContentVisible, setContentVisible] = useState(false);
 
     return (
         <div

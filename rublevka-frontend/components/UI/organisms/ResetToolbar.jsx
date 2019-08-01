@@ -34,6 +34,8 @@ export default styled(ResetToolbar)`
         border: 0;
         outline: none;
 
+        padding: 0;
+
         &:disabled {
             opacity: 0.6;
         }

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import { sc } from '@utils';
+import { sc, media } from '@utils';
 
 const ItemHeader = ({ className, children, id }) => (
     <header className={className}>
@@ -26,5 +26,11 @@ export default styled(ItemHeader)`
         font-size: 15px;
         margin-bottom: 8px;
         color: ${sc.theme.colors.grey};
+
+        ${media.tablet.to(
+            css => css`
+                display: none;
+            `
+        )}
     }
 `;

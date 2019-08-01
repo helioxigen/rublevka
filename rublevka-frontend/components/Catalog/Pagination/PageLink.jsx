@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { Link } from '@components/UI';
 
-const PageLink = ({ className, page, current }) => {
+const PageLink = ({ className, page, children, current }) => {
     const {
         query: { kind, dealType, page: pageQ, ...query },
     } = useRouter();
@@ -30,7 +30,7 @@ const PageLink = ({ className, page, current }) => {
             ]}
             path={[dealType, kind]}
         >
-            <a className={className}>{page}</a>
+            <a className={className}>{children || page}</a>
         </Link>
     );
 };

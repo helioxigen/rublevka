@@ -1,15 +1,25 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import config from '@config';
 
-const Price = ({ className, deal: { multiCurrencyPrice = {} }, dealType, kind, landDetails, showSubheader }) => {
-    const { symbol, code } = useSelector(state => config.currencies.find(c => c.code === state.user.currency));
+const Price = ({
+    className,
+    deal: { multiCurrencyPrice = {} },
+    dealType,
+    kind,
+    landDetails,
+    showSubheader,
+    currency,
+}) => {
+    const { symbol, code } = useSelector(state =>
+        config.currencies.find(c => c.code === (currency || state.user.currency))
+    );
 
     const price = multiCurrencyPrice[code];
 
     const getSub = () => {
-        const result = kind === 'land' && landDetails && price / landDetails.area;
+        const result = kind === 'land' && landDetails && Math.round(price / landDetails.area);
 
         if (!result) return '';
 
@@ -38,5 +48,7 @@ export default styled(Price)`
         font-size: 0.65em;
         color: #919191;
         display: block;
+        order: 4;
+        flex: 1 0 100%;
     }
 `;

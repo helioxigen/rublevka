@@ -2,54 +2,86 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { media } from '@utils';
+import { Content } from '../templates';
 
 const NavigatorBox = ({ className, fromName = 'МКАД', toName, minutes }) => (
     <div className={className}>
-        <img src="/static/shared/yandex-nav.png" alt="" width="128" height="29" className="navigator-image" />
-        <div className="locations-bars">
-            <div className="from-bar">
-                <div color="#ff3333" className="from-point">
-                    A
+        <Content className="content">
+            <div className="wrapper">
+                <div className="navigation-box">
+                    <img src="/static/shared/yandex-nav.png" alt="" height="40px" className="navigator-image" />
+                    <div className="locations-bars">
+                        <div className="from-bar">
+                            <div color="#ff3333" className="from-point">
+                                A
+                            </div>
+                            <div className="from-location-name">{toName}</div>
+                        </div>
+                        <div className="from-bar-arrows" />
+                        <div className="from-bar">
+                            <div color="#4296ea" className="to-point">
+                                B
+                            </div>
+                            <div className="from-location-name">{fromName}</div>
+                        </div>
+                    </div>
+                    <div className="traffic-block">
+                        <div className="traffic-minutes-block">{minutes} минут</div>
+                        <div className="traffic-description">С учётом пробок</div>
+                    </div>
                 </div>
-                <div className="from-location-name">{toName}</div>
             </div>
-            <div className="from-bar-arrows" />
-            <div className="from-bar">
-                <div color="#4296ea" className="to-point">
-                    B
-                </div>
-                <div className="from-location-name">{fromName}</div>
-            </div>
-        </div>
-        <div className="traffic-block">
-            <div className="traffic-minutes-block">{minutes} минут</div>
-            <div className="traffic-description">С учётом пробок</div>
-        </div>
+        </Content>
     </div>
 );
 
 export default styled(NavigatorBox)`
-    width: 298px;
     display: flex;
-    flex-direction: column;
-    -webkit-box-align: center;
-    align-items: center;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
     position: absolute;
-    top: 50%;
-    right: calc(50% - 470px);
-    transform: translateY(-50%);
-    box-shadow: rgba(0, 0, 0, 0.06) 0px 22px 65px;
-    background-color: rgb(255, 255, 255);
-    border-radius: 8px;
-    padding: 52px 32px;
-    z-index: 1000;
+    right: 0;
+    top: 0;
+    justify-content: center;
 
-    ${media.desktop.to(
-        css =>
-            css`
-                display: none;
-            `
-    )}
+    .content {
+        width: 100%;
+        height: inherit;
+        position: absolute;
+    }
+
+    .wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .navigation-box {
+        width: 259px;
+        display: flex;
+        flex-direction: column;
+        -webkit-box-align: center;
+        align-items: center;
+        position: absolute;
+        top: 50%;
+        /* right: calc(50% - 470px); */
+        right: 0px;
+
+        transform: translateY(-50%);
+        box-shadow: rgba(0, 0, 0, 0.06) 0px 22px 65px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 4px;
+        padding: 24px 14px 28px;
+        z-index: 1000;
+
+        ${media.desktop.to(
+            css =>
+                css`
+                    display: none;
+                `
+        )}
+    }
 
     .traffic-description {
         margin-top: 4px;
@@ -78,11 +110,12 @@ export default styled(NavigatorBox)`
         display: block;
         vertical-align: middle;
         border-style: none;
+
+        margin-bottom: 18px;
     }
 
     .locations-bars {
         width: 100%;
-        margin-top: 35px;
     }
 
     .from-bar {

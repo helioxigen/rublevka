@@ -6,9 +6,13 @@ import { Provider } from 'react-redux';
 import withReduxStore from 'next-redux-wrapper';
 import { YMaps } from 'react-yandex-maps';
 import nookies from 'nookies';
+import NProgress from '@components/UI/atoms/NProgress';
 import { Footer, Navbar } from '@components';
 import { makeStore, initUser } from '../store';
-import { app } from '@utils';
+import { app, sc } from '@utils';
+
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const GlobalStyles = createGlobalStyle`
     body {
@@ -45,6 +49,7 @@ class MyApp extends App {
 
         return (
             <Container>
+                <NProgress color={sc.theme.colors.red} spinner={false} />
                 <Head>
                     <meta
                         name="viewport"
@@ -52,7 +57,13 @@ class MyApp extends App {
                     />
                     <link href="/static/favicon.png" rel="icon" />
                 </Head>
-                <YMaps>
+                <YMaps
+                    query={{
+                        apikey: 'f39a3e9a-410f-431a-a7ff-5d6e570c3834',
+                        ns: 'use-load-option',
+                        load: 'package.full',
+                    }}
+                >
                     <Provider store={store}>
                         <GlobalStyles />
                         <Navbar title={pageProps.title} />

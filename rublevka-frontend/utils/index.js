@@ -11,7 +11,7 @@ export { default as query } from './query';
 export { default as page } from './page';
 export { default as optional } from './optional';
 export { default as uis } from './uis';
-export { default as coords } from './coords';
+export { default as coords } from './maps';
 export { createAction, createReducer, createApiCallTypes } from './store';
 export { css } from 'styled-components';
 export const qui = 10;

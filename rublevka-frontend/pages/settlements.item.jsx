@@ -30,10 +30,8 @@ const SettlementsItemPage = ({ id, dealType }) => {
 
     const properties = useSelector(state => state.properties.items);
 
-    const settlement = useSelector(state => state.settlements.items[Object.keys(state.settlements.items).pop()]);
-
     return (
-        <PageContainer fullWidth>
+        <PageContainer noMargin fullWidth>
             <SettlementsItemLayout>
                 <ItemHero>
                     <Breadcrumbs
@@ -72,25 +70,27 @@ const SettlementsItemPage = ({ id, dealType }) => {
                     />
                 </ItemHero>
                 <Content>
-                    <Catalog titleTag="h2" locationTitle={`в пос. ${name}`} dealType={dealType} single noMap />
+                    <Catalog
+                        shortFilter
+                        titleTag="h2"
+                        locationTitle={`в пос. ${name}`}
+                        dealType={dealType}
+                        single
+                        noMap
+                    />
                 </Content>
                 <SettlementDetails className="floating-border">
-                    <Section title="О посёлке">
-                        <p>{description.sattelite}</p>
-                        <Gallery images={images} />
+                    {description.sattelite && (
+                        <Section title="О посёлке">
+                            <p>{description.sattelite}</p>
+                            {/* <Gallery images={images} /> */}
+                        </Section>
+                    )}
+                    <Infrastructure properties={properties} />
+                    <Section wide>
+                        <SettlementMap name={name} location={location} />
                     </Section>
                 </SettlementDetails>
-                <SettlementInfrasctructure className="floating-border">
-                    <Section title="Инфраструктура">
-                        <Infrastructure properties={properties} />
-                    </Section>
-                </SettlementInfrasctructure>
-                <SettlementLocation className="floating-border">
-                    <WideSection>
-                        <SettlementMap settlement={settlement} />
-                    </WideSection>
-                </SettlementLocation>
-                <article className="floating-border"></article>
             </SettlementsItemLayout>
         </PageContainer>
     );
@@ -111,7 +111,7 @@ SettlementsItemPage.getInitialProps = async ({ store, query: { id, orderBy, filt
         )
     );
 
-    return { id, title: id };
+    return { id, title: `Посёлок №${id}` };
 };
 
 export default SettlementsItemPage;

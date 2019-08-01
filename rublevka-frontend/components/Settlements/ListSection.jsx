@@ -9,7 +9,7 @@ export default styled(ListSection)`
         flex: 0 0 100%;
         margin: 0 0 10px;
 
-        font-size: 32px;
+        font-size: 36px;
         line-height: 40px;
         font-weight: bold;
         color: #232323;

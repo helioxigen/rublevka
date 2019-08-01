@@ -120,9 +120,9 @@ const CallbackForm = ({
 };
 
 export default styled(CallbackForm)`
-    ${media.xsMax`
+    /* ${media.xsMax`
         display: none;
-    `}
+    `} */
 
     > header {
         margin-bottom: 16px;

@@ -52,7 +52,13 @@ const MainMenu = ({ className, onClose, isOpen, favoriteCount, activeEntry }) =>
                 </a>
                 <CallbackModal>
                     {onOpen => (
-                        <Button className="callback-button" onClick={onOpen}>
+                        <Button
+                            className="callback-button"
+                            onClick={() => {
+                                onOpen();
+                                onClose();
+                            }}
+                        >
                             Обратный звонок
                         </Button>
                     )}

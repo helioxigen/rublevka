@@ -1,21 +1,38 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { CheckboxGroup, Range, RadioGroup, AdaptiveSidebar, ResetToolbar } from '@components/UI';
+import { CheckboxGroup, Range, RadioGroup, AdaptiveSidebar, ResetToolbar, Button } from '@components/UI';
 import Field from './Field';
 import { filter, media } from '@utils';
 import { setCurrency, setFilter } from '@store';
+import { useSelector } from '@hooks';
 
 const Filter = ({ className, children, dealType, isOpen, onClose, short = false, switchDealType }) => {
     const [isShort, setShort] = useState(short);
     const values = useSelector(state => state.properties.filter);
+    const fetching = useSelector(state => state.properties.fetching);
+    const count = useSelector(state => state.properties.pagination.total);
     const currency = useSelector(state => state.user.currency);
     const dispatch = useDispatch();
 
     const isOnly = kind => (values.kind || []).length === 1 && values.kind[0] === kind;
 
     return (
-        <AdaptiveSidebar as="aside" isOpen={isOpen} left onClose={onClose} className={className}>
+        <AdaptiveSidebar
+            as="aside"
+            isOpen={isOpen}
+            left
+            onClose={onClose}
+            className={className}
+            outer={
+                isOpen &&
+                !fetching && (
+                    <Button className="show-button" red>
+                        Показать {count} объектов
+                    </Button>
+                )
+            }
+        >
             <ResetToolbar
                 onClose={onClose}
                 onReset={() => dispatch(setFilter({}))}
@@ -187,8 +204,36 @@ export default styled(Filter)`
         }
     }
 
+    .expandable-filters {
+        display: contents;
+    }
+
+    .show-button {
+        position: fixed;
+        width: 290px;
+        left: 15px;
+        bottom: 24px;
+        z-index: 500;
+
+        @keyframes appear {
+            from {
+                transform: translateY(200%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        animation: appear 225ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+        transition: transform 225ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
     ${media.desktop.at(
         css => css`
+            .show-button {
+                display: none;
+            }
             .expandable-filters {
                 &[data-hidden='true'] {
                     display: none;

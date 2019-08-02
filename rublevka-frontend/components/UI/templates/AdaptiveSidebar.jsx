@@ -69,7 +69,7 @@ const handleClickAway = cb => e => {
     }
 };
 
-export default ({ className, children, isOpen, onClose, left, as }) => (
+export default ({ className, children, isOpen, onClose, left, as, outer }) => (
     <AdaptiveSidebar
         as={as}
         className={className}
@@ -78,6 +78,7 @@ export default ({ className, children, isOpen, onClose, left, as }) => (
         onClick={handleClickAway(onClose)}
         left={left}
     >
+        {outer}
         <div className="menu-content">{children}</div>
     </AdaptiveSidebar>
 );

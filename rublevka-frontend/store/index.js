@@ -19,7 +19,7 @@ export {
     setFilter,
 } from './properties/actions';
 
-const initialState = {
+export const initialState = {
     user: userInitialState,
     properties: propertiesInitialState,
     map: mapInitialState,

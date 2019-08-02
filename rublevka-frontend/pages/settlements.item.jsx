@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
+import { Element, Link as ScrollLink } from 'react-scroll';
+
 import { Button, PageContainer, Content, SettlementDetails } from '@components/UI';
 import { ItemHero, Section, Infrastructure, SettlementMap } from '@components/Settlements';
 import { CallbackForm } from '@components/Forms';
@@ -49,9 +51,11 @@ const SettlementsItemPage = ({ id, dealType, kind }) => {
                         <h1>
                             <span className="desktop-only">Посёлок</span> {name}
                         </h1>
-                        <Button red>
-                            <span className="phone-only">Информация</span> о посёлке
-                        </Button>
+                        <ScrollLink to="details" smooth offset={-100}>
+                            <Button red>
+                                <span className="phone-only">Информация</span> о посёлке
+                            </Button>
+                        </ScrollLink>
                     </div>
                     <CallbackForm
                         className="callback-form"
@@ -82,18 +86,20 @@ const SettlementsItemPage = ({ id, dealType, kind }) => {
                         noMap
                     />
                 </Content>
-                <SettlementDetails className="floating-border">
-                    {desc.sattelite && (
-                        <Section title="О посёлке">
-                            <p>{desc.sattelite}</p>
-                            {/* <Gallery images={images} /> */}
+                <Element name="details">
+                    <SettlementDetails className="floating-border details">
+                        {desc.sattelite && (
+                            <Section title="О посёлке">
+                                <p>{desc.sattelite}</p>
+                                {/* <Gallery images={images} /> */}
+                            </Section>
+                        )}
+                        <Infrastructure properties={properties} />
+                        <Section wide>
+                            <SettlementMap name={name} location={location} />
                         </Section>
-                    )}
-                    <Infrastructure properties={properties} />
-                    <Section wide>
-                        <SettlementMap name={name} location={location} />
-                    </Section>
-                </SettlementDetails>
+                    </SettlementDetails>
+                </Element>
             </SettlementsItemLayout>
         </PageContainer>
     );

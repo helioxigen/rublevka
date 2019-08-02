@@ -40,6 +40,8 @@ export default styled(CompactForm)`
         border-bottom-left-radius: 0;
         box-shadow: none;
 
+        border-color: #f44336;
+
         margin: 0;
 
         flex: 0 120px;
@@ -55,8 +57,7 @@ export default styled(CompactForm)`
 
         margin: 0;
 
-        &:focus,
-        &:focus + button {
+        &:focus {
             border-color: #f44336;
         }
     }

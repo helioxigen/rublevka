@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import uniqBy from 'lodash/uniqBy';
 import { Map, ZoomControl, ObjectManager } from 'react-yandex-maps';
 import TemplateProvider from './TemplateProvider';
-import { sc } from '@utils';
+import { sc, media } from '@utils';
 import { setDisplayedItemsIds } from '@store';
 
 const LayoutMap = ({ className, mapMarginLeft, items = [] }) => {
@@ -125,6 +125,14 @@ const LayoutMap = ({ className, mapMarginLeft, items = [] }) => {
 export default styled(LayoutMap)`
     width: 100%;
     height: 100%;
+
+    ${media.desktop.to(
+        css => css`
+            ymaps[class$='zoom'] {
+                display: none;
+            }
+        `
+    )}
 
     .clusterIcon {
         width: 44px;

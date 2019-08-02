@@ -99,6 +99,9 @@ export default styled(FilterBlock)`
             .reset-button + .catalog-button {
                 display: none;
             }
+
+            .catalog-button {
+            }
         `
     )}
 
@@ -142,6 +145,12 @@ export default styled(FilterBlock)`
     ${Filter} {
         ${Switcher} {
             margin-bottom: 24px;
+
+            ${media.desktop.to(
+                css => css`
+                    margin: 21px 20px 16px;
+                `
+            )}
         }
     }
 

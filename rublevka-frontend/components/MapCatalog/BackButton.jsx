@@ -5,6 +5,7 @@ import { sc, media } from '@utils';
 
 const BackButton = ({ className, children, onClick }) => (
     <button type="button" className={className} onClick={onClick}>
+        <Icon name="arrow" mirror />
         <Icon copy name="arrow-squared" />
         <Icon name="arrow-squared" />
         <span className="back-label">{children}</span>
@@ -32,16 +33,27 @@ export default styled(BackButton)`
     position: relative;
 
     ${Icon} {
-        position: absolute;
-        left: 10%;
+        flex: 0 0 auto;
+    }
+
+    [data-icon='arrow'] {
+        color: black;
+        margin: 0 8px 0 0;
+    }
+
+    [data-icon='arrow-squared'] {
         transition: 0.3s;
 
-        flex: 0 0 auto;
+        position: absolute;
+        left: 10%;
+
+        ${media.desktop.to(
+            css => css`
+                display: none;
+            `
+        )}
 
         font-size: 14px;
-
-        width: 1em;
-        height: 1em;
 
         background: ${sc.theme.colors.lightGrey};
         border-radius: 50%;
@@ -55,21 +67,6 @@ export default styled(BackButton)`
             transform: rotate(180deg) translate(0.4em, 1em);
         }
     }
-
-    ${media.desktop.to(
-        css => css`
-            justify-content: flex-start;
-            ${Icon}:first-child {
-                display: none;
-            }
-
-            ${Icon}:nth-child(2) {
-                position: relative;
-                left: auto;
-                margin-right: 12px;
-            }
-        `
-    )}
 
     ${media.desktop.at(
         css => css`

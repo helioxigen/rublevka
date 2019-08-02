@@ -6,7 +6,7 @@ import { useInView } from 'react-intersection-observer';
 import { CardsGrid } from '@components/UI';
 import { media, dict, app, optional } from '@utils';
 import { Filter, Card } from '@components';
-import { useToggle } from '@hooks';
+import { useToggle, useScrollState } from '@hooks';
 import Toolbar from './Toolbar';
 import Pagination from './Pagination';
 import FloatingControls from './FloatingControls';
@@ -35,15 +35,10 @@ const Catalog = ({
     const items = useSelector(state => state.properties.list);
     const fetching = useSelector(state => state.properties.fetching);
     const [isFilterOpen, toggleFilter] = useToggle(false);
-    const [mainRef, mainInView] = useInView({
-        /* Optional options */
-        threshold: 0,
-    });
 
-    const [bottomRef, bottomInView] = useInView({
-        /* Optional options */
-        threshold: 0,
-    });
+    const [mainRef, mainInView] = useInView();
+    const [bottomRef, bottomInView] = useInView();
+    const isScrollingDown = useScrollState(true);
 
     const title = optional
         .str(
@@ -57,7 +52,7 @@ const Catalog = ({
         <main ref={mainRef} className={className} data-single={single}>
             <FloatingControls
                 onFilterClick={toggleFilter}
-                isFilterVisible={mainInView && !bottomInView}
+                isFilterVisible={mainInView && !bottomInView && !isScrollingDown}
                 isMapAvailable={!noMap}
             />
             <header>

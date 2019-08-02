@@ -81,7 +81,13 @@ export default styled(FavoritePage)`
     .favorite-header {
         display: flex;
 
-        margin: 48px 0 32px;
+        margin: 24px 0 16px;
+
+        ${media.tablet.at(
+            css => css`
+                margin: 48px 0 32px;
+            `
+        )}
 
         justify-content: center;
 

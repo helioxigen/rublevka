@@ -40,6 +40,7 @@ export default styled(VisibleCards)`
         box-sizing: border-box;
         overflow-y: scroll;
         overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
 
         h4 {
             display: none;

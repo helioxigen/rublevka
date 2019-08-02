@@ -20,7 +20,7 @@ const MainMenu = ({ className, onClose, isOpen, favoriteCount, activeEntry }) =>
     useLockBodyScroll(isOpen);
 
     return (
-        <AdaptiveSidebar className={className} isOpen={isOpen} onClose={onClose}>
+        <AdaptiveSidebar isWebsiteMenu className={className} isOpen={isOpen} onClose={onClose}>
             <nav>
                 <IconButton secondary onClick={onClose} className="close-button menu-only" icon="close" />
                 <Link href="/">

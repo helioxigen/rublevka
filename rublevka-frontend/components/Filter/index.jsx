@@ -27,9 +27,11 @@ const Filter = ({ className, children, dealType, isOpen, onClose, short = false,
             outer={
                 isOpen &&
                 !fetching && (
-                    <Button className="show-button" red>
-                        Показать {count} объектов
-                    </Button>
+                    <div className="show-button-wrapper">
+                        <Button className="show-button" red>
+                            Показать {count} объектов
+                        </Button>
+                    </div>
                 )
             }
         >
@@ -209,12 +211,22 @@ export default styled(Filter)`
         display: contents;
     }
 
-    .show-button {
-        position: fixed;
-        width: 290px;
-        left: 15px;
-        bottom: 24px;
+    .show-button-wrapper {
+        width: 100%;
+        left: 0px;
+        bottom: 0px;
         z-index: 500;
+        position: fixed;
+        display: flex;
+        justify-content: center;
+    }
+
+
+    .show-button {
+        
+        width: 100%;
+        margin: 15px;
+
 
         @keyframes appear {
             from {
@@ -247,7 +259,7 @@ export default styled(Filter)`
     )}
 
     .reset-toolbar {
-        padding: 15px 20px 0;
+        /* padding: 15px 20px 0; */
         box-sizing: border-box;
     }
 `;

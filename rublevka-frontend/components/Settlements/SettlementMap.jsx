@@ -30,6 +30,7 @@ const SettlementMap = ({ className, name, location }) => {
             ])
             .then(route => {
                 try {
+                    route.options.set('mapStateAutoApply', true);
                     const points = route.getWayPoints();
                     const lastPoint = points.getLength() - 1;
 

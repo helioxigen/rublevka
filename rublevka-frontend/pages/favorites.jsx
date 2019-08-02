@@ -24,6 +24,13 @@ const FavoritePage = ({ className }) => {
         }
     }, [favorites]);
 
+    const handleAlertReset = () => {
+        // eslint-disable-next-line no-alert
+        if (alert('Вы уверены, что хотите полностью стереть избранное?')) {
+            dispatch(setFavorite([]));
+        }
+    };
+
     return (
         <PageContainer>
             <main className={className} data-empty={isEmpty}>
@@ -45,11 +52,7 @@ const FavoritePage = ({ className }) => {
                                     <Card key={data.id} dealTypeExplicit={dealType} data={data} />
                                 ))}
                             </CardsGrid>
-                            <IconButton
-                                onClick={() => dispatch(setFavorite([]))}
-                                className="reset-favorite"
-                                icon="garbage"
-                            >
+                            <IconButton onClick={handleAlertReset} className="reset-favorite" icon="garbage">
                                 Cбросить избранное
                             </IconButton>
                         </>
@@ -92,6 +95,11 @@ export default styled(FavoritePage)`
             margin: 0;
 
             display: none;
+
+            &:only-child {
+                width: 100%;
+                text-align: center;
+            }
 
             ${media.tablet.at(
                 css => css`
@@ -141,9 +149,10 @@ export default styled(FavoritePage)`
     }
 
     .search-button {
+        display: block;
         margin: 0 auto;
         font-size: 17px;
-        padding: 23px 24px;
+        padding: 0 24px;
     }
 
     &[data-empty='true'] {

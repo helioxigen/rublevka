@@ -54,6 +54,7 @@ const SettlementsItemPage = ({ id, dealType, kind }) => {
                         </Button>
                     </div>
                     <CallbackForm
+                        className="callback-form"
                         fullWidth
                         header={<h2>Подобрать объект в посёлке</h2>}
                         fields={{

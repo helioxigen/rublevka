@@ -5,8 +5,6 @@ export default styled.div`
     width: auto;
     margin: 0 auto;
 
-    overflow: hidden;
-
     background: #fafafa;
 
     .breadcrumbs {

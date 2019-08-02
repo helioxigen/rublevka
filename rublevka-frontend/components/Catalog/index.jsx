@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
 import { CardsGrid } from '@components/UI';
-import { media, dict, app } from '@utils';
+import { media, dict, app, optional } from '@utils';
 import { Filter, Card } from '@components';
 import { useToggle } from '@hooks';
 import Toolbar from './Toolbar';
@@ -35,15 +35,20 @@ const Catalog = ({
     const fetching = useSelector(state => state.properties.fetching);
     const [isFilterOpen, toggleFilter] = useToggle(false);
 
+    const title = optional
+        .str(
+            dict.translateDealType(dealType).verb,
+            (dict.translateKind(kind).noun || 'недвижимость').toLowerCase(),
+            locationTitle || `на ${app.ifDomain('Рублёвке', 'Риге')}`
+        )
+        .join(' ');
+
     return (
         <main className={className} data-single={single}>
             <FloatingControls onFilterClick={toggleFilter} />
+            {/* <FitHeader title={title} tag={titleTag} noMap={noMap} /> */}
             <header>
-                <Header as={titleTag}>
-                    {dict.translateDealType(dealType).verb}{' '}
-                    {(dict.translateKind(kind).noun || 'недвижимость').toLowerCase()}{' '}
-                    {locationTitle || `на ${app.ifDomain('Рублёвке', 'Риге')}`}
-                </Header>
+                <Header as={titleTag}>{title}</Header>
                 <Toolbar map={!noMap} />
             </header>
             <Filter
@@ -119,6 +124,18 @@ export default styled(Catalog)`
 
     > header {
         grid-area: header;
+
+        display: flex;
+        align-items: center;
+
+        ${Header} {
+            flex: auto;
+        }
+
+        ${Toolbar} {
+            padding-left: 36px;
+            flex: 0 0 auto;
+        }
 
         ${media.desktopL.to(
             css => css`

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button, Content } from '@components/UI';
-import { CallbackForm } from '@components/Forms';
 import { media } from '@utils';
 
 const Hero = ({ className, children }) => (
@@ -102,7 +101,7 @@ export default styled(Hero)`
         grid-area: title;
     }
 
-    ${CallbackForm} {
+    .callback-form {
         grid-area: form;
 
         display: none;

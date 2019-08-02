@@ -42,12 +42,7 @@ const AdaptiveSidebar = styled.div`
                 padding-right: 20px;
             }
 
-            .menu-content > nav > button {
-                padding-left: 20px;
-                padding-right: 20px;
-            }
-
-            .menu-content > * > * {
+            .menu-content > nav > * {
                 padding-left: 20px;
                 padding-right: 20px;
             }

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import { useInView } from 'react-intersection-observer';
 
 import { CardsGrid } from '@components/UI';
 import { media, dict, app, optional } from '@utils';
@@ -34,6 +35,15 @@ const Catalog = ({
     const items = useSelector(state => state.properties.list);
     const fetching = useSelector(state => state.properties.fetching);
     const [isFilterOpen, toggleFilter] = useToggle(false);
+    const [mainRef, mainInView] = useInView({
+        /* Optional options */
+        threshold: 0,
+    });
+
+    const [bottomRef, bottomInView] = useInView({
+        /* Optional options */
+        threshold: 0,
+    });
 
     const title = optional
         .str(
@@ -44,9 +54,12 @@ const Catalog = ({
         .join(' ');
 
     return (
-        <main className={className} data-single={single}>
-            <FloatingControls onFilterClick={toggleFilter} />
-            {/* <FitHeader title={title} tag={titleTag} noMap={noMap} /> */}
+        <main ref={mainRef} className={className} data-single={single}>
+            <FloatingControls
+                onFilterClick={toggleFilter}
+                isFilterVisible={mainInView && !bottomInView}
+                isMapAvailable={!noMap}
+            />
             <header>
                 <Header as={titleTag}>{title}</Header>
                 <Toolbar map={!noMap} />
@@ -65,6 +78,7 @@ const Catalog = ({
                 ))}
             </CardsGrid>
             {!single && total > 1 && <Pagination count={total} currentPage={current} />}
+            <div ref={bottomRef} />
         </main>
     );
 };

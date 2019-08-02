@@ -112,7 +112,7 @@ SettlementsItemPage.getInitialProps = async ({ store, query: { id, orderBy, filt
         )
     );
 
-    return { id, title: `Посёлок №${id}`, menuEntry: 'settlements', kind: restFilter.kind };
+    return { id, title: `О посёлке`, menuEntry: 'settlements', kind: restFilter.kind };
 };
 
 export default SettlementsItemPage;

@@ -136,12 +136,12 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                                 </Section>
                             </Category>
                         )}
-                        <Category>
+                        <Category className="callback-mobile-container">
                             <CallbackForm
                                 className="callback-mobile-form"
                                 header={
                                     <header>
-                                        <h3>Обратный звонок</h3>
+                                        <h3>Заявка на просмотр</h3>
                                         <p>
                                             Понравился дом? Оставьте заявку ниже и наш менеджер свяжется с вами в
                                             течение дня.
@@ -342,8 +342,11 @@ export default styled(CatalogItem)`
     )}
 
     > article {
-        margin-top: 18px;
-
+        ${media.tablet.at(
+            css => css`
+                margin-top: 18px;
+            `
+        )}
         ${media.desktop.at(
             css => css`
                 max-width: 740px;
@@ -355,6 +358,12 @@ export default styled(CatalogItem)`
         ${Header.Item} {
             margin-bottom: 18px;
             padding: 0 15px;
+
+            ${media.tablet.to(
+                css => css`
+                    display: none;
+                `
+            )}
 
             ${media.tablet.at(
                 css => css`
@@ -373,7 +382,7 @@ export default styled(CatalogItem)`
             margin: 0;
 
             .gallery-display {
-                max-height: 450px;
+                max-height: 480px;
             }
         }
 
@@ -387,11 +396,16 @@ export default styled(CatalogItem)`
 
         ${Section} {
             margin: 12px 0 16px;
+
             ${media.desktop.at(
                 css => css`
                     margin: 20px 0 32px;
                 `
             )}
+
+            &:first-child {
+                margin-top: 0;
+            }
 
             &:last-child {
                 margin-bottom: 0;
@@ -454,13 +468,17 @@ export default styled(CatalogItem)`
         }
     }
 
-    .callback-mobile-form {
-        text-align: center;
+    .callback-mobile-container {
         ${media.tablet.at(
             css => css`
                 display: none;
             `
         )}
+    }
+
+    .callback-mobile-form {
+        text-align: center;
+
         header {
             h3 {
                 line-height: 24px;

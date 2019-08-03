@@ -28,7 +28,7 @@ const Filter = ({ className, children, dealType, isOpen, onClose, short = false,
                 isOpen &&
                 !fetching && (
                     <div className="show-button-wrapper">
-                        <Button className="show-button" red>
+                        <Button className="show-button" red onClick={onClose}>
                             Показать {count} объектов
                         </Button>
                     </div>
@@ -191,6 +191,10 @@ export default styled(Filter)`
         margin-bottom: 40px;
     }
 
+    ${Field}:last-child {
+        margin-bottom: 50px;
+    }
+
     ${Range} + ${RadioGroup} {
         margin-top: 16px;
     }
@@ -209,6 +213,7 @@ export default styled(Filter)`
 
     .expandable-filters {
         display: contents;
+        margin-bottom: 200px;
     }
 
     .show-button-wrapper {

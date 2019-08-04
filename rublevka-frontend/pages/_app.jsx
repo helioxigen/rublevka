@@ -17,6 +17,11 @@ import 'slick-carousel/slick/slick-theme.css';
 import config from '@config';
 
 const GlobalStyles = createGlobalStyle`
+
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
     body {
         color: #232323;
         background: #fafafa;

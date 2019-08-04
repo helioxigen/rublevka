@@ -84,7 +84,7 @@ export default styled(Navbar)`
         background-color: white;
         box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
 
-        transition: background-color 225ms, transform 225ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transition: background-color 225ms, transform 225ms cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow none;
     }
 
     font-size: 20px;

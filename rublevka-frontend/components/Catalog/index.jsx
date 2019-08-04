@@ -146,10 +146,14 @@ export default styled(Catalog)`
             flex: auto;
         }
 
-        ${Toolbar} {
-            padding-left: 36px;
-            flex: 0 0 auto;
-        }
+        ${media.tablet.at(
+            css => css`
+                ${Toolbar} {
+                    padding-left: 36px;
+                    flex: 0 0 auto;
+                }
+            `
+        )}
 
         ${media.desktopL.to(
             css => css`

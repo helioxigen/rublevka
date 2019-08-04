@@ -118,7 +118,7 @@ export default {
             fields: ['objectNumber'],
         },
         settlements: {
-            type: 'query',
+            type: 'search',
             fields: ['settlementName', 'distance'],
         },
     },

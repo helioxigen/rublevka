@@ -38,6 +38,7 @@ const queryTpl = {
 };
 
 const goTo = {
+    settlements: (query = {}) => go(to('/settlements.list', [query, query], ['kottedzhnye-poselki'])),
     catalog: (query = {}) =>
         go(to('/catalog', queryTpl.catalog(query), q => [query.dealType || q.dealType, query.kind || q.kind])),
     map: (query = {}) => go(to('/catalog.map', queryTpl.catalog(query), q => [q.dealType, 'map', q.kind])),

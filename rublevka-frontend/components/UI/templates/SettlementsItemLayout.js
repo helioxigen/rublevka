@@ -46,6 +46,10 @@ export default styled.main`
         )}
     }
 
+    .details {
+        margin-top: 48px;
+    }
+
     nav a {
         color: rgba(255, 255, 255, 0.75) !important;
     }

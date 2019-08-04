@@ -19,14 +19,8 @@ const ItemDetails = ({ className, values }) => (
 
 export default styled(ItemDetails)`
     margin: 0;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 400;
-
-    ${media.phoneL.at(
-        css => css`
-            font-size: 14px;
-        `
-    )}
 
     .details-value {
         display: flex;

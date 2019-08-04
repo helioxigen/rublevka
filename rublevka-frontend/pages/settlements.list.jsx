@@ -59,7 +59,8 @@ const SettlementsListPage = ({ className }) => {
     );
 };
 
-SettlementsListPage.getInitialProps = async ({ store }) => {
+// eslint-disable-next-line no-unused-vars
+SettlementsListPage.getInitialProps = async ({ store, query: { name, distance } }) => {
     await store.dispatch(fetchSettlements());
 
     return { title: 'Посёлки', meta: seo.settlements.list, menuEntry: 'settlements' };

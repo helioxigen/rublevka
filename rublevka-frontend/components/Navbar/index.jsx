@@ -81,10 +81,10 @@ export default styled(Navbar)`
         z-index: 1350;
 
         color: ${sc.theme.colors.black};
-        background: white;
+        background-color: white;
         box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
 
-        transition: background 225ms, transform 225ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transition: background-color 225ms, transform 225ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     font-size: 20px;
@@ -178,12 +178,12 @@ export default styled(Navbar)`
 
     &[data-islanding='true'][data-inverted='false'] .floating-content {
         color: ${sc.theme.colors.black};
-        background: white;
+        background-color: white;
         box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
     }
 
     &[data-islanding='true'] .floating-content {
-        background-color: transparent;
+        background-color: rgba(0, 0, 0, 0);
         box-shadow: none;
         color: white;
 
@@ -201,11 +201,11 @@ export default styled(Navbar)`
             &[data-islanding='true'][data-inverted='true'] .floating-content {
                 .callback-button {
                     border: 2px solid white;
-                    background: none;
+                    background-color: none;
 
                     &:hover,
                     &:active {
-                        background: white;
+                        background-color: white;
                         color: black;
                     }
                 }
@@ -292,7 +292,7 @@ export default styled(Navbar)`
 
         .counter {
             opacity: 0;
-            background: rgba(244, 67, 54, 0.9);
+            background-color: rgba(244, 67, 54, 0.9);
             border-radius: 50%;
             width: 18px;
             height: 18px;

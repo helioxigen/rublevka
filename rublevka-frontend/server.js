@@ -33,7 +33,7 @@ app.prepare().then(() => {
     });
 
     server.get('/zagorodnaya/kottedzhnye-poselki', (req, res) => {
-        return app.render(req, res, '/settlements.list');
+        return app.render(req, res, '/settlements.list', req.query);
     });
 
     server.get('/zagorodnaya/kottedzhnye-poselki/(:name)_:id', (req, res) => {

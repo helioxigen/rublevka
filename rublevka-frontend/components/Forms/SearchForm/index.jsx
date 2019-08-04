@@ -53,6 +53,17 @@ const SearchForm = ({ className, type = 'sale' }) => {
     const handleSubmit = e => {
         e.preventDefault();
 
+        if (config.type === 'search') {
+            if (!values[type]) return;
+
+            const { settlementName, distance } = values[type];
+
+            page.goTo.settlements({
+                name: settlementName,
+                distance: JSON.stringify(distance),
+            });
+        }
+
         if (config.type === 'id') {
             const { objectNumber } = values[type];
 
@@ -68,6 +79,7 @@ const SearchForm = ({ className, type = 'sale' }) => {
             if (!values[type]) return;
 
             const { kind, ...vals } = values[type];
+
             const query = Object.entries(vals).map(([fieldName, value]) => {
                 const queryValue = value;
                 const { queryTpl, queryField } = formConfig.fields[fieldName];

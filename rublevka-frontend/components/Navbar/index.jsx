@@ -9,8 +9,12 @@ import { media, sc } from '@utils';
 import MainMenu from './MainMenu';
 import { useInvertOnScroll, useScrollState } from '@hooks';
 
-const Navbar = ({ className, title, activeEntry }) => {
-    const { pathname, back } = useRouter();
+const Navbar = ({ className, title, activeEntry, prevPage = { href: '/', as: '/' } }) => {
+    const { pathname, push } = useRouter();
+
+    const handlePrevPage = () => {
+        push(prevPage.href, prevPage.as);
+    };
 
     const isLanding = pathname === '/';
 
@@ -25,7 +29,7 @@ const Navbar = ({ className, title, activeEntry }) => {
         <header className={className} data-hide={isScrollingDown} data-islanding={isLanding} data-inverted={isInverted}>
             <div className="floating-content">
                 <Content className="content">
-                    <IconButton onClick={back} className="go-back" secondary icon="arrow" mirror stroke />
+                    <IconButton onClick={handlePrevPage} className="go-back" secondary icon="arrow" mirror stroke />
                     <Link href="/">
                         <a className="logo">
                             <Icon className="logo-icon" name={config.app} />

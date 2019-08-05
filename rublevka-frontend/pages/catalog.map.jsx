@@ -85,6 +85,13 @@ const MapCatalogPage = ({ displayedIds, clusterId, mapItems, dispatch }) => {
     );
 };
 
+MapCatalogPage.getInitialProps = ({ query: { dealType, kind } }) => ({
+    prevPage: {
+        href: `/catalog?dealType=${dealType}&kind=${kind}`,
+        as: `/zagorodnaya/${dealType}/${kind}`,
+    },
+});
+
 export default connect(
     state => ({
         list: state.map.list,

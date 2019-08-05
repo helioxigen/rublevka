@@ -63,6 +63,7 @@ class MyApp extends App {
 
         const {
             meta: { title = config.site.meta.title, description = config.site.meta.description, images } = {},
+            prevPage,
             menuEntry,
             asPath,
         } = pageProps;
@@ -99,7 +100,7 @@ class MyApp extends App {
                 >
                     <Provider store={store}>
                         <GlobalStyles />
-                        <Navbar activeEntry={menuEntry} title={pageProps.title} />
+                        <Navbar prevPage={prevPage} activeEntry={menuEntry} title={pageProps.title} />
                         <Component {...pageProps} />
                         <Footer />
                     </Provider>

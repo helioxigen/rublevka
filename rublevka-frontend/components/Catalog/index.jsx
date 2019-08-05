@@ -23,6 +23,7 @@ const pagination = ({
 
 const Catalog = ({
     className,
+    prevPage,
     shortFilter = false,
     dealType = 'sale',
     kind,
@@ -69,7 +70,7 @@ const Catalog = ({
             />
             <CardsGrid fetching={fetching}>
                 {items.map(data => (
-                    <Card key={data.id} dealTypeExplicit={dealType} data={data} />
+                    <Card key={data.id} prevPage={prevPage} dealTypeExplicit={dealType} data={data} />
                 ))}
             </CardsGrid>
             {!single && total > 1 && <Pagination count={total} currentPage={current} />}

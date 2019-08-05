@@ -221,7 +221,11 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
     );
 };
 
-CatalogItem.getInitialProps = async ({ store, query: { id }, params: { dealType, kind } }) => {
+CatalogItem.getInitialProps = async ({
+    store,
+    query: { id, dealType: dealTypeT, kind: kindT, prevPage },
+    params: { dealType, kind },
+}) => {
     await store.dispatch(fetchProperty(id));
 
     return {
@@ -230,6 +234,12 @@ CatalogItem.getInitialProps = async ({ store, query: { id }, params: { dealType,
         id,
         title: `${dict.translateKind(kind).noun} №${id}`,
         menuEntry: dealType,
+        prevPage: prevPage
+            ? JSON.parse(prevPage)
+            : {
+                  href: `/catalog?dealType=${dealTypeT}&kind=${kindT}`,
+                  as: `/zagorodnaya/${dealTypeT}/${kindT}`,
+              },
     };
 };
 

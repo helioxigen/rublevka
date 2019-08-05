@@ -43,7 +43,7 @@ const SettlementsItemPage = ({ id, dealType, kind }) => {
                         second={['/settlements.list', '/zagorodnaya/kottedzhnye-poselki', 'Посёлки']}
                         last={[
                             `/settlements.item?id=${id}`,
-                            `/zagorodnaya/kottedzhnye-poselki/${dict.translit.byLetters(name)}`,
+                            `/zagorodnaya/kottedzhnye-poselki/${dict.translit.byLetters(name)}_${id}`,
                             name,
                         ]}
                     />
@@ -79,6 +79,10 @@ const SettlementsItemPage = ({ id, dealType, kind }) => {
                 <Content>
                     <Catalog
                         shortFilter
+                        prevPage={JSON.stringify({
+                            href: `/settlements.item?id=${id}`,
+                            as: `/zagorodnaya/kottedzhnye-poselki/${dict.translit.byLetters(name)}_${id}`,
+                        })}
                         titleTag="h2"
                         locationTitle={`в пос. ${name}`}
                         dealType={dealType}
@@ -118,7 +122,16 @@ SettlementsItemPage.getInitialProps = async ({ store, query: { id, orderBy, filt
         )
     );
 
-    return { id, title: `О посёлке`, menuEntry: 'settlements', kind: restFilter.kind };
+    return {
+        id,
+        title: `О посёлке`,
+        menuEntry: 'settlements',
+        kind: restFilter.kind,
+        prevPage: {
+            href: '/settlements.list',
+            as: '/zagorodnaya/kottedzhnye-poselki',
+        },
+    };
 };
 
 export default SettlementsItemPage;

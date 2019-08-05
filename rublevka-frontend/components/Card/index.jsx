@@ -10,6 +10,7 @@ import Summary from './Summary';
 const Card = ({
     className,
     dealTypeExplicit,
+    prevPage,
     data,
     data: { id, images = [], landDetails = {}, specification = {}, location = {}, kind },
 }) => {
@@ -22,7 +23,7 @@ const Card = ({
     return (
         <Link
             to="/item"
-            query={[{ dealType: dealTypeT, kind: dict.translit.byWord(kind), id }]}
+            query={[{ dealType: dealTypeT, kind: dict.translit.byWord(kind), id, prevPage }]}
             path={[dealTypeT, dict.translit.byWord(kind), id]}
         >
             <article className={className}>

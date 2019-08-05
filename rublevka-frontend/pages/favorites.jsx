@@ -25,8 +25,8 @@ const FavoritePage = ({ className }) => {
     }, [favorites]);
 
     const handleAlertReset = () => {
-        // eslint-disable-next-line no-alert
-        if (alert('Вы уверены, что хотите полностью стереть избранное?')) {
+        // eslint-disable-next-line no-restricted-globals
+        if (confirm('Вы уверены, что хотите полностью стереть избранное?')) {
             dispatch(setFavorite([]));
         }
     };

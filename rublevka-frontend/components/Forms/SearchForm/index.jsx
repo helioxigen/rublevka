@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import fromPairs from 'lodash/fromPairs';
 
 // import { Icon, IconButton } from '@components/UI';
 import { IconButton } from '@components/UI/molecules';
 import Dropdown from './Dropdown';
-import { media, filter, page, dict } from '../../../utils';
+import { media, filter, page, dict, scrollToRef } from '../../../utils';
 import formConfig from './formConfig';
 import TextInput from './TextInput';
 import FuseList from './FuseList';
@@ -33,6 +33,19 @@ const SearchForm = ({ className, type = 'sale' }) => {
     const config = formConfig.types[type];
 
     const [values, changeValues] = useState({ [type]: config.defaultState });
+
+    const myRefs = useRef([
+        React.createRef(),
+        React.createRef(),
+        React.createRef(),
+        React.createRef(),
+        React.createRef(),
+    ]);
+    const executeScroll = refIndex => {
+        return () => {
+            scrollToRef(myRefs.current[refIndex]);
+        };
+    };
 
     // useEffect(() => {
     //     changeValues({ [type]: config.defaultState });
@@ -103,7 +116,7 @@ const SearchForm = ({ className, type = 'sale' }) => {
     return (
         <form className={className} onSubmit={handleSubmit}>
             <section className="form-body">
-                {config.fields.map(name => {
+                {config.fields.map((name, index) => {
                     const {
                         title,
                         placeholder,
@@ -123,6 +136,8 @@ const SearchForm = ({ className, type = 'sale' }) => {
                                 placeholder={placeholder}
                                 value={typeValues[name]}
                                 onChange={handleChange(name)}
+                                refLink={myRefs.current[index]}
+                                onClick={executeScroll(index)}
                             >
                                 <FuseList listSelector={listSelector} value={typeValues[name]} />
                             </TextInput>

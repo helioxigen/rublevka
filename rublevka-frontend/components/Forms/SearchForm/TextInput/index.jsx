@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { Icon } from '@components/UI';
 import { media } from '@utils';
 
-const TextInput = ({ className, placeholder, value, onChange, children }) => (
-    <div className={className}>
+const TextInput = ({ className, placeholder, value, onChange, children, refLink, onClick }) => (
+    <div className={className} ref={refLink} onClick={onClick} onKeyDown={onClick} role="textbox" tabIndex={0}>
         <Icon name="search" />
         <input placeholder={placeholder} value={value} onChange={e => onChange(e.target.value)} />
         {children && <span className="input-results">{children}</span>}

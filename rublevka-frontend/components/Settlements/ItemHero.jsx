@@ -35,7 +35,7 @@ export default styled(Hero)`
         css => css`
             grid:
                 'nav nav' 58px
-                'title form' min-content
+                'title form' 350px
                 'span span' 58px / auto 375px;
 
             padding: 0 8%;

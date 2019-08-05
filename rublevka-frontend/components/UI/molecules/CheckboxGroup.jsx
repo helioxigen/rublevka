@@ -4,7 +4,12 @@ import xor from 'lodash/xor';
 import { Checkbox } from '../atoms';
 
 const CheckboxGroup = ({ className, fields, values = [], onChange, emptyAsFull }) => {
-    const getChecked = fieldName => (!values.length && emptyAsFull) || values.includes(fieldName);
+    const fieldEntries = Object.entries(fields);
+
+    const getChecked = fieldName =>
+        (fieldName === 'all' && values.length === fieldEntries.length - 1) ||
+        (!values.length && emptyAsFull) ||
+        values.includes(fieldName);
     const fieldsList = Object.keys(fields).filter(f => f !== 'all');
 
     const handleChange = fieldName => e => {
@@ -19,7 +24,7 @@ const CheckboxGroup = ({ className, fields, values = [], onChange, emptyAsFull }
 
     return (
         <div className={className}>
-            {Object.entries(fields).map(([fieldName, label]) => (
+            {fieldEntries.map(([fieldName, label]) => (
                 <Checkbox
                     key={fieldName}
                     label={label}

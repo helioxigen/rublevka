@@ -14,8 +14,9 @@ const Layouts = ({ className, layouts }) => (
 
 export default styled(Layouts)`
     display: grid;
-    grid: auto / repeat(3, 1fr);
-    font-size: 13px;
+    grid: auto / repeat(2, 1fr);
+    font-size: 14px;
+    grid-gap: 7px;
 
     ${media.phoneL.at(
         css => css`
@@ -26,6 +27,7 @@ export default styled(Layouts)`
 
     ${media.tablet.at(
         css => css`
+            grid: auto / repeat(3, 1fr);
             grid-gap: 20px;
         `
     )}

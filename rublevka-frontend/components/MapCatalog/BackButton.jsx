@@ -39,6 +39,12 @@ export default styled(BackButton)`
     [data-icon='arrow'] {
         color: black;
         margin: 0 8px 0 0;
+
+        ${media.desktop.at(
+            css => css`
+                display: none;
+            `
+        )}
     }
 
     [data-icon='arrow-squared'] {

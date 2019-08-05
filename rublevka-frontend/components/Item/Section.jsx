@@ -14,6 +14,12 @@ const Section = ({ className, title, children }) => (
 export default styled(Section)`
     font-size: 21px;
 
+    ${media.desktop.at(
+        css => css`
+            padding: 10px 0 0;
+        `
+    )}
+
     header {
         margin: 0 0 20px 0;
     }

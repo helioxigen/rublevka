@@ -6,7 +6,14 @@ const DropdownToggle = ({ className, label, value, postfix, getToggleButtonProps
     <div className={className} {...getToggleButtonProps()}>
         {label && <span className="display-label">{label}</span>}
         <p className="display-value">
-            {value} {postfix}
+            {value === 'Любое количество' ? (
+                <span>
+                    Любое <span className="phone-hide">количество</span>
+                </span>
+            ) : (
+                value
+            )}
+            {postfix}
         </p>
     </div>
 );
@@ -39,6 +46,14 @@ export default styled(DropdownToggle)`
             font-size: 13px;
         `}
     }
+
+    ${media.phoneL.to(
+        css => css`
+            .phone-hide {
+                display: none;
+            }
+        `
+    )}
 
     .display-value {
         text-overflow: ellipsis;

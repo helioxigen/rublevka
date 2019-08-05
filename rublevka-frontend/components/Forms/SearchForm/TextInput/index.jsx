@@ -22,6 +22,7 @@ export default styled(TextInput)`
         top: 110%;
         left: 0;
         right: 0;
+        z-index: 10;
 
         &:not(:hover) {
             display: none;

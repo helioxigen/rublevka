@@ -75,11 +75,10 @@ export default styled(MultiPrice)`
         ${media.desktop.at(
             css => css`
                 font-size: 24px;
-                padding: 25px 21px;
             `
         )}
 
-        display: flex;
+        display: inline-flex;
         align-items: center;
         flex-wrap: wrap;
 
@@ -135,6 +134,8 @@ export default styled(MultiPrice)`
 
     ${media.desktop.at(
         css => css`
+            padding: 25px 21px;
+
             .hidden {
                 display: none;
             }

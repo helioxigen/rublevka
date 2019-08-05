@@ -72,9 +72,12 @@ export default styled(MultiPrice)`
     }
 
     .display-price {
+        font-weight: bold;
+
         ${media.desktop.at(
             css => css`
                 font-size: 24px;
+                font-size: 500;
             `
         )}
 

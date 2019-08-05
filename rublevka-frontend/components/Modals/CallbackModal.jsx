@@ -54,7 +54,7 @@ const CallbackModal = ({ className, children = () => {}, title = 'Обратны
 };
 
 export default styled(CallbackModal)`
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.5);
     position: fixed;
     top: 0;
     left: 0;

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Fuse from 'fuse.js';
 import { PageLink } from '@components/UI';
 import config from '@config';
+import { media } from '@utils';
 
 const FuseList = ({ className, listSelector, value }) => {
     const [results, setResults] = useState(config.site.popularSettlements);
@@ -61,6 +62,18 @@ export default styled(FuseList)`
     overflow: hidden;
 
     border-radius: 8px;
+
+    ${media.desktop.to(
+        css => css`
+            li {
+                display: none;
+            }
+
+            li:nth-child(-n + 5) {
+                display: block;
+            }
+        `
+    )}
 
     li {
         line-height: 20px;

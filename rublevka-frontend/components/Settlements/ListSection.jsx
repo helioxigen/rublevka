@@ -14,19 +14,6 @@ export default styled(ListSection)`
         font-weight: bold;
         color: #232323;
         text-transform: uppercase;
-
-        ${media.at(css => ({
-            tablet: css`
-                line-height: 48px;
-                font-size: 40px;
-                margin: 0 0 8px;
-            `,
-            desktopL: css`
-                line-height: 58px;
-                font-size: 48px;
-                margin: 0 0 9px;
-            `,
-        }))}
     }
 
     a {

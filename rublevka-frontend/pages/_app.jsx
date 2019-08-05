@@ -19,8 +19,7 @@ import config from '@config';
 const GlobalStyles = createGlobalStyle`
 
     html, body {
-        max-width: 100%;
-        overflow-x: hidden;
+        max-width: 100vw;
     }
     body {
         color: #232323;

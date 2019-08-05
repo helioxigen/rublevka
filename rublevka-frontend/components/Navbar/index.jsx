@@ -201,7 +201,7 @@ export default styled(Navbar)`
             &[data-islanding='true'][data-inverted='true'] .floating-content {
                 .callback-button {
                     border: 2px solid white;
-                    background-color: none;
+                    background-color: transparent;
 
                     &:hover,
                     &:active {

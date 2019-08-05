@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Icon } from '@components/UI';
-import { sc } from '@utils';
+import { sc, media } from '@utils';
 import { updateFilterField } from '@store';
 
 const Field = ({ className, title, name, range, children, resetCheckFn }) => {
@@ -45,6 +45,14 @@ export default styled(Field)`
         justify-content: space-between;
         align-items: center;
     }
+
+    ${media.desktop.to(
+        css => css`
+            .filter-reset {
+                display: none !important;
+            }
+        `
+    )}
 
     .filter-reset {
         ${sc.reset.button};

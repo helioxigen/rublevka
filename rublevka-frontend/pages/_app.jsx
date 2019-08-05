@@ -31,6 +31,7 @@ const GlobalStyles = createGlobalStyle`
 
     .scroll-locked {
         overflow: hidden;
+        max-height: 100vh;
     }
 `;
 

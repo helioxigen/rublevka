@@ -138,11 +138,11 @@ export default styled(MultiPrice)`
             .hidden {
                 display: none;
             }
-            &:hover .hidden {
+            .display-price:hover + .hidden {
                 display: flex;
             }
 
-            &:hover .display-price::after {
+            .display-price:hover::after {
                 transform: scaleY(-1);
             }
         `

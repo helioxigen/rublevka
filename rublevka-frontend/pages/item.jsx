@@ -269,6 +269,7 @@ export default styled(CatalogItem)`
         position: absolute;
         top: 5px;
         right: 0;
+        font-size: 1.5em;
 
         ${media.desktop.at(
             css => css`

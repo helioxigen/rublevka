@@ -70,7 +70,7 @@ export default styled(FavoriteButton)`
         position: relative;
         transition: 0.2s;
 
-        font-size: 2.5em;
+        font-size: 1.6em;
 
         > * {
             display: block;

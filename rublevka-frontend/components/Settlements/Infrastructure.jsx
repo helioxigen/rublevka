@@ -29,6 +29,8 @@ const SwipeInterlayer = ({ className, children }) => {
 
 const StyledSwipeInterlayer = styled(SwipeInterlayer)`
     .tablet-version {
+        overflow: hidden;
+
         ${media.desktop.at(
             css =>
                 css`

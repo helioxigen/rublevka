@@ -45,7 +45,7 @@ const goTo = {
 };
 
 const pushQuery = (queryObj, internalQuery, pathnamePostfix) => {
-    const { kind, permanentPath, ...pageQuery } = Router.query;
+    const { kind, ...pageQuery } = Router.query;
 
     const isMap = Router.pathname === '/catalog.map';
 
@@ -54,14 +54,23 @@ const pushQuery = (queryObj, internalQuery, pathnamePostfix) => {
         ...queryObj,
     };
 
-    const asHidden = Router.pathname === '/settlements.item' ? ['id'] : [];
+    const { hidden, permanentPath } =
+        Router.pathname === '/settlements.item'
+            ? {
+                  hidden: ['id'],
+                  permanentPath: `kottedzhnye-poselki/${pageQuery.name}_${pageQuery.id}`,
+              }
+            : {};
 
     go(
         to(
             Router.pathname,
             () => [{ dealType, ...internalQuery, ...shared, permanentPath }, shared],
-            q => (permanentPath ? [permanentPath] : [q.dealType, isMap && 'map', pathnamePostfix]),
-            asHidden
+            q =>
+                Router.pathname === '/settlements.item'
+                    ? [`kottedzhnye-poselki/${pageQuery.name}_${pageQuery.id}`]
+                    : [q.dealType, isMap && 'map', pathnamePostfix],
+            hidden
         )
     );
 };

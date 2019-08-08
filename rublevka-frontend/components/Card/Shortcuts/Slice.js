@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { sc } from '@utils';
 
 export default styled.span`
     height: 100%;
@@ -7,13 +6,11 @@ export default styled.span`
     flex-direction: column;
     justify-content: flex-end;
 
-    transition: 0.3s;
-
     &:not(:last-child) {
         padding-right: 2px;
     }
 
-    z-index: 2;
+    transition: opacity 125ms cubic-bezier(0.215, 0.61, 0.355, 1);
 
     ::after {
         content: '';

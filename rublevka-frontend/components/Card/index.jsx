@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { Price, FavoriteButton, PageLink } from '@components/UI';
-import { dict, itemTitle, format, media, cdn } from '@utils';
+import { dict, itemTitle, format, media } from '@utils';
 import Shortcuts from './Shortcuts';
 import Gallery from './Gallery';
 import Summary from './Summary';
@@ -23,8 +23,7 @@ const Card = ({
             <article className={className}>
                 <header
                     style={{
-                        backgroundImage:
-                            images.length === 1 ? `url(${cdn.get.thumbnail(images[0].id, 256)})` : undefined,
+                        backgroundImage: 'url(/static/placeholder.svg)',
                     }}
                 >
                     <span className="card-id">№{id}</span>
@@ -130,13 +129,17 @@ export default styled(Card)`
         }
     }
 
-    .favorite-button:not([data-active='true']) {
-        opacity: 0;
-        transition: opacity 0.3s;
-    }
-    &:hover .favorite-button {
-        opacity: 1;
-    }
+    ${media.desktop.at(
+        css => css`
+            .favorite-button:not([data-active='true']) {
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+            &:hover .favorite-button {
+                opacity: 1;
+            }
+        `
+    )}
 
     ${media.touch} {
         ${Shortcuts} {
@@ -145,10 +148,6 @@ export default styled(Card)`
 
         ${Gallery} {
             display: block;
-        }
-
-        .favorite-button {
-            opacity: 1;
         }
     }
 

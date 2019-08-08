@@ -21,14 +21,14 @@ const Gallery = ({ className, images }) => {
                     <a key={id}>
                         {idx <= currentIdx + 1 && (
                             <img
-                                alt={id}
+                                alt=""
                                 src={idx === currentIdx ? cdn.get.thumbnail(id, 256) : cdn.get.thumbnail(id, 128)}
                             />
                         )}
                     </a>
                 ))}
             </ReactSwipe>
-            <Indicators currentIdx={currentIdx} size={images.length} />,
+            <Indicators currentIdx={currentIdx} size={images.length} />
         </figure>
     );
 };

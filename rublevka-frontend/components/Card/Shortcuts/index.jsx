@@ -4,27 +4,15 @@ import { cdn } from '@utils';
 import Slice from './Slice';
 
 const Shortcuts = ({ className, images }) => {
-    const [entered, setEntered] = useState(false);
+    const [isActive, changeActive] = useState(false);
 
     return (
-        <figure
-            onMouseEnter={() => !entered && setEntered(true)}
-            style={{ backgroundImage: `url(${cdn.get.thumbnail(images[0].id)})` }}
-            className={className}
-        >
-            {images.length > 1 &&
-                images.slice(0, 6).map((el, index) => (
-                    <React.Fragment key={images[index].id}>
-                        <Slice />
-                        {entered && (
-                            <span
-                                className="display"
-                                style={{ backgroundImage: `url(${cdn.get.thumbnail(images[index].id)})` }}
-                            />
-                        )}
-                        {/* <img alt={images[index].id} src={cdn.get.thumbnail(images[index].id, 512)} /> */}
-                    </React.Fragment>
-                ))}
+        <figure className={className} onMouseEnter={() => changeActive(true)}>
+            {images.slice(0, 6).map(({ id }, idx) => (
+                <Slice key={id}>
+                    {(isActive || idx === 0) && <img alt="" className="display" src={cdn.get.thumbnail(id)} />}
+                </Slice>
+            ))}
         </figure>
     );
 };
@@ -41,7 +29,10 @@ export default styled(Shortcuts)`
 
     ${Slice} {
         flex: 1 1 auto;
-        opacity: 0;
+
+        &::after {
+            opacity: 0;
+        }
 
         &:first-of-type {
             padding-left: 10px;
@@ -51,31 +42,37 @@ export default styled(Shortcuts)`
             padding-right: 10px;
         }
 
-        & + .display {
+        img {
             z-index: 1;
-            display: none;
             opacity: 0;
             position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
 
             top: 0;
             right: 0;
             bottom: 0;
             left: 0;
 
-            background: center / cover no-repeat;
-
-            width: 100%;
-            height: 100%;
             transition: opacity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        &:hover + .display {
+        &:first-child img,
+        &:hover img {
             opacity: 1;
-            display: block;
         }
     }
 
-    &:hover ${Slice} {
+    img {
+    }
+
+    &:hover ${Slice}::after {
         opacity: 1;
     }
 `;

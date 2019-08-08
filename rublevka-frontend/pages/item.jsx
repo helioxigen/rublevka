@@ -10,7 +10,7 @@ import Gallery from '@components/Gallery';
 import { NextSeo } from 'next-seo';
 import GalleryPlaceholder from '@components/Item/GalleryPlaceholder';
 import { Breadcrumbs } from '@components';
-import { dict, itemTitle, format, media, sc, seo } from '@utils';
+import { dict, itemTitle, format, media, sc, seo, convert } from '@utils';
 import { fetchProperty } from '@store';
 
 // const Gallery = dynamic(() => import(`@components/Catalog/Gallery`), { ssr: false });
@@ -48,7 +48,7 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                 openGraph={{
                     title,
                     description,
-                    images: images.filter(i => i.isPublic),
+                    images: convert.toOG(images.filter(i => i.isPublic)),
                 }}
             />
             <Content compact item>

@@ -31,9 +31,9 @@ export default styled(Hero)`
         grid:
             'nav nav nav' 15px
             '. title .' 1fr
-            '. form .' min-content
-            '. . .' 1fr
-            '. . .' 15px /
+            '. form .' 1fr
+            '. . .' 15px
+            /
             minmax(0, 1fr)
             minmax(auto, 925px)
             minmax(0, 1fr);

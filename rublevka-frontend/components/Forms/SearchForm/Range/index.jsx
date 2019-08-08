@@ -1,24 +1,38 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import initial from 'lodash/initial';
+import last from 'lodash/last';
 import { media } from '../../../../utils';
 import Input from './Input';
 import Options from '../Options';
+import { useToggle, useIsomorphicLayoutEffect } from '@hooks';
 
-const Range = ({ className, onChange, closeMenu, getItemProps, options = [], value, inputRef }) => {
+const Range = ({ className, onChange, closeMenu, getItemProps, isOpen, options = [], value, inputRef }) => {
+    const [lastFocus, toggleLastFocus] = useToggle(false);
     const toRef = useRef(null);
 
+    useIsomorphicLayoutEffect(() => {
+        if (isOpen && lastFocus) {
+            toggleLastFocus(false);
+        }
+    }, [isOpen]);
+
     return (
-        <div className={className}>
+        <div className={className} data-isopen={isOpen}>
             <Input
                 placeholder="ОТ"
                 value={value.from || ''}
                 ref={inputRef}
+                onFocus={() => lastFocus && toggleLastFocus(false)}
                 onChange={e => {
                     const from = parseInt(e.target.value, 10);
 
                     if (from > value.to) {
                         return;
+                    }
+
+                    if (from === last(options)) {
+                        closeMenu();
                     }
 
                     onChange({ from });
@@ -27,6 +41,8 @@ const Range = ({ className, onChange, closeMenu, getItemProps, options = [], val
             <span className="line">–</span>
             <Input
                 placeholder="ДО"
+                data-focus-last={lastFocus}
+                onFocus={() => toggleLastFocus(true)}
                 ref={toRef}
                 value={value.to || ''}
                 onChange={e => onChange({ to: parseInt(e.target.value, 10) })}
@@ -34,7 +50,7 @@ const Range = ({ className, onChange, closeMenu, getItemProps, options = [], val
             <Options.List
                 className="range-from"
                 getItemProps={getItemProps}
-                items={options.slice(0, 6).map(({ label, value: from }) => ({
+                items={options.slice(0, 10).map(({ label, value: from }) => ({
                     label,
                     value: { from },
                 }))}
@@ -43,9 +59,14 @@ const Range = ({ className, onChange, closeMenu, getItemProps, options = [], val
                     event.nativeEvent.preventDownshiftDefault = true;
 
                     onChange(item.value);
-                    if (toRef.current) {
-                        toRef.current.focus();
+
+                    if (item.value.from === last(options).value) {
+                        return closeMenu();
                     }
+
+                    if (!toRef.current) return {};
+
+                    return toRef.current.focus();
                 }}
             />
             <Options.List
@@ -53,7 +74,7 @@ const Range = ({ className, onChange, closeMenu, getItemProps, options = [], val
                 getItemProps={getItemProps}
                 items={initial(options)
                     .filter(({ value: to }) => to > (value.from || 0))
-                    .slice(0, 6)
+                    .slice(0, 10)
                     .map(({ label, value: to }) => ({
                         label,
                         value: { to },
@@ -72,7 +93,7 @@ const Range = ({ className, onChange, closeMenu, getItemProps, options = [], val
 
 export default styled(Range)`
     display: grid;
-    grid: auto / 1fr auto 1fr;
+    grid: auto 220px / 1fr auto 1fr;
 
     ${Input} {
         width: calc(100% - 16px);
@@ -89,13 +110,14 @@ export default styled(Range)`
     ${Options.List} {
         grid-column: 1 / -1;
         display: none;
+
+        overflow-y: scroll;
     }
 
-    ${Input}:first-of-type:focus ~ .range-from {
-        display: block;
-    }
-
-    ${Input}:last-of-type:focus ~ .range-to {
+    input:first-of-type:not(:focus) ~ input:last-of-type:not(:focus):not([data-focus-last='true']) ~ .range-from,
+    input[data-focus-last='true'] ~ .range-to,
+    input:first-of-type:focus ~ .range-from,
+    input:last-of-type:focus ~ .range-to {
         display: block;
     }
 

@@ -48,23 +48,36 @@ const Dropdown = ({
 }) => {
     const currency = useSelector(state => state.user.currency);
     const dispatch = useDispatch();
-    const handleCurrencyChange = cur => dispatch(setCurrency(cur));
+    const handleCurrencyChange = selectItem => cur => {
+        selectItem({});
+        dispatch(setCurrency(cur));
+    };
+
+    const [isClosing, setIsClosing] = useState(true);
 
     const [isMenuOpen, setIsOpen] = useState(false);
     const rangeInputRef = useRef(null);
 
     useEffect(() => {
+        if (isMenuOpen && !isClosing) {
+            setIsClosing(true);
+            setTimeout(() => {
+                setIsOpen(false);
+                setIsClosing(false);
+            }, 230);
+        }
+
         if (rangeInputRef.current && isMenuOpen) {
             rangeInputRef.current.focus();
         }
-    }, [isMenuOpen]);
+    }, [isMenuOpen, isClosing]);
 
     return (
         <Downshift
             onChange={item => onChange(item.value)}
             itemToString={item => `${item}`}
             initialSelectedItem={initialValue}
-            onStateChange={s => setIsOpen(s.isOpen)}
+            onStateChange={s => setIsClosing(!s.isOpen)}
             id={type}
         >
             {({
@@ -77,7 +90,7 @@ const Dropdown = ({
                 getInputProps,
                 selectItem,
             }) => (
-                <div className={className} data-open={isOpen}>
+                <div className={className} data-open={isOpen} data-closing={isClosing}>
                     <DropdownToggle
                         label={label}
                         value={selectedItem.label || placeholder}
@@ -159,6 +172,7 @@ const Dropdown = ({
                                 getItemProps={getItemProps}
                                 options={range.options}
                                 value={selectedItem.value || {}}
+                                isOpen={isOpen}
                                 onChange={value =>
                                     selectItem(
                                         {
@@ -192,7 +206,11 @@ const Dropdown = ({
                         )}
                     </Options.Menu>
                     {showCurrency && (
-                        <CurrencySelector onOpen={closeMenu} onChange={handleCurrencyChange} initialValue={currency} />
+                        <CurrencySelector
+                            onOpen={closeMenu}
+                            onChange={handleCurrencyChange(selectItem)}
+                            initialValue={currency}
+                        />
                     )}
                 </div>
             )}
@@ -210,8 +228,19 @@ export default styled(Dropdown)`
         flex-basis: 100%;
     }
 
+    ${Options.Menu} {
+        transition: opacity 225ms, transform 225ms;
+    }
+
+    &[data-open='true'] ${Options.Menu} {
+        transform: translateY(0rem);
+        opacity: 1;
+    }
+
     &[data-open='false'] ${Options.Menu} {
-        display: none;
+        transform: translateY(1rem);
+        opacity: 0;
+        pointer-events: none;
     }
 
     position: relative;

@@ -6,7 +6,7 @@ const templateRange = (rangeArr = [], templateFn, multi = 1) =>
 
 const rentTpl = value => `${value} тыс/мес`;
 
-const prices = (currency, dealType) => {
+const prices = (currency, dealType, size = 11) => {
     if (currency === 'rub') {
         if (dealType === 'rent') return templateRange(range(0, 1050, 50), rentTpl);
 
@@ -17,7 +17,7 @@ const prices = (currency, dealType) => {
 
     const { symbol } = config.currencies.find(v => v.code === currency) || {};
 
-    return range(0, 11).map(value => ({ value, label: `${symbol}${value} млн` }));
+    return range(0, size).map(value => ({ value, label: `${symbol}${value} млн` }));
 };
 
 const generic = (end, step, templateFn) =>

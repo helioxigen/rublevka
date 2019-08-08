@@ -28,7 +28,8 @@ const to = (
     return { href, as };
 };
 
-const go = ({ href, as }, shallow) => Router.push(href, as, { shallow });
+const go = ({ href, as }, shallow, resetScroll = false) =>
+    Router.push(href, as, { shallow }).then(() => resetScroll && window.scrollTo(0, 0));
 
 const queryTpl = {
     catalog: query => q => [
@@ -40,7 +41,11 @@ const queryTpl = {
 const goTo = {
     settlements: (query = {}) => go(to('/settlements.list', [query, query], ['kottedzhnye-poselki'])),
     catalog: (query = {}) =>
-        go(to('/catalog', queryTpl.catalog(query), q => [query.dealType || q.dealType, query.kind || q.kind])),
+        go(
+            to('/catalog', queryTpl.catalog(query), q => [query.dealType || q.dealType, query.kind || q.kind]),
+            undefined,
+            true
+        ),
     map: (query = {}) => go(to('/catalog.map', queryTpl.catalog(query), q => [q.dealType, 'map', q.kind])),
 };
 

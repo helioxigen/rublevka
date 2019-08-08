@@ -156,7 +156,7 @@ const SearchForm = ({ className, type = 'sale' }) => {
                     }
 
                     if (name === 'price') {
-                        range.options = filter.template.prices(currency, type);
+                        range.options = filter.template.prices(currency, type, 30);
                         range.template = v => range.priceTemplate(v, type);
                     }
 

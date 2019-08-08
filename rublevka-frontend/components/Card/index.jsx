@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
-import { Price, Link, FavoriteButton } from '@components/UI';
+import { Price, FavoriteButton, PageLink } from '@components/UI';
 import { dict, itemTitle, format, media, cdn } from '@utils';
 import Shortcuts from './Shortcuts';
 import Gallery from './Gallery';
@@ -14,18 +14,12 @@ const Card = ({
     data,
     data: { id, images = [], landDetails = {}, specification = {}, location = {}, kind },
 }) => {
-    const {
-        query: { dealType: dealTypeT },
-    } = useRouter();
+    const { query } = useRouter();
 
-    const dealType = dealTypeExplicit || dict.translit.byWord(dealTypeT);
+    const dealType = dealTypeExplicit || dict.translit.byWord(query.dealType);
 
     return (
-        <Link
-            to="/item"
-            query={[{ dealType: dealTypeT, kind: dict.translit.byWord(kind), id, prevPage }]}
-            path={[dealTypeT, dict.translit.byWord(kind), id]}
-        >
+        <PageLink to="item" params={{ dealType, id, kind, prevPage }}>
             <article className={className}>
                 <header
                     style={{
@@ -52,7 +46,7 @@ const Card = ({
                     <Price deal={data[`${dealType}Offer`] || {}} dealType={dealType} />
                 </section>
             </article>
-        </Link>
+        </PageLink>
     );
 };
 

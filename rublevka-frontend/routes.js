@@ -11,7 +11,7 @@ export default {
         as: `/zagorodnaya/kottedzhnye-poselki/${dict.translit.byLetters(name)}_${id}`,
         label: name,
     }),
-    item: ({ id, dealType: dealTypeN, kind: kindN }) => {
+    item: ({ id, dealType: dealTypeN, kind: kindN, prevPage }) => {
         const [dealType, kind] = dict.translit.byWord(dealTypeN, kindN);
 
         return {
@@ -21,6 +21,7 @@ export default {
                     dealType,
                     kind,
                     id,
+                    prevPage,
                 },
             },
             as: `/zagorodnaya/${dealType}/${kind}/${id}`,

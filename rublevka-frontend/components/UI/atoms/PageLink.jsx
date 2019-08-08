@@ -11,7 +11,7 @@ import routes from '../../../routes';
  * @typedef {typeof routes} Routes
  * @type {<K extends keyof Routes>(props: { to: K, params: ToArgs<K> })}
  */
-export default ({ to, params, children }) => {
+const PageLink = ({ to, params, children }) => {
     const tpl = routes[to];
 
     const { as, href, label } = tpl(params);
@@ -22,3 +22,5 @@ export default ({ to, params, children }) => {
         </Link>
     );
 };
+
+export default PageLink;

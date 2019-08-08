@@ -8,6 +8,7 @@ import { CallbackForm } from '@components/Forms';
 import { ContactToolbar } from '@components/Toolbars';
 import Gallery from '@components/Gallery';
 import { NextSeo } from 'next-seo';
+import GalleryPlaceholder from '@components/Item/GalleryPlaceholder';
 import { Breadcrumbs } from '@components';
 import { dict, itemTitle, format, media, sc, seo } from '@utils';
 import { fetchProperty } from '@store';
@@ -65,23 +66,26 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                         <Header.Item id={id}>
                             {itemTitle.generate(dealType, false, true, { location, landDetails, specification, kind })}
                         </Header.Item>
-                        <FullScreenGallery
-                            id={id}
-                            images={images.filter(i => i.isPublic)}
-                            specification={specification}
-                        >
-                            {onClick => (
-                                <Gallery
-                                    className="item-gallery"
-                                    layoutImages={layoutImages.filter(i => i.isPublic)}
-                                    images={images.filter(i => i.isPublic)}
-                                >
-                                    <IconButton onClick={onClick} icon="expand" />
-                                    <Counter overall={images.length} />
-                                    <FavoriteButton className="favorite-button" id={id} dealType={dealType} />
-                                </Gallery>
-                            )}
-                        </FullScreenGallery>
+                        {images.length === 0 && <GalleryPlaceholder propertyId={id} />}
+                        {images.length > 0 && (
+                            <FullScreenGallery
+                                id={id}
+                                images={images.filter(i => i.isPublic)}
+                                specification={specification}
+                            >
+                                {onClick => (
+                                    <Gallery
+                                        className="item-gallery"
+                                        layoutImages={layoutImages.filter(i => i.isPublic)}
+                                        images={images.filter(i => i.isPublic)}
+                                    >
+                                        <IconButton onClick={onClick} icon="expand" />
+                                        <Counter overall={images.length} />
+                                        <FavoriteButton className="favorite-button" id={id} dealType={dealType} />
+                                    </Gallery>
+                                )}
+                            </FullScreenGallery>
+                        )}
                         <Category className="main-cat">
                             <MultiPrice
                                 className="article-price"
@@ -139,32 +143,8 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                         <Category className="callback-mobile-container">
                             <CallbackForm
                                 className="callback-mobile-form"
-                                header={
-                                    <header>
-                                        <h3>Заявка на просмотр</h3>
-                                        <p>
-                                            Понравился дом? Оставьте заявку ниже и наш менеджер свяжется с вами в
-                                            течение дня.
-                                        </p>
-                                    </header>
-                                }
-                                fields={{
-                                    name: {
-                                        placeholder: 'Имя',
-                                        required: true,
-                                    },
-                                    phone: {
-                                        placeholder: 'Телефон',
-                                        type: 'tel',
-                                        required: true,
-                                    },
-                                }}
-                                footer={
-                                    <footer>
-                                        Отправляя заявку, вы соглашаетесь с нашей{' '}
-                                        <a href="/privacy">политикой конфиденциальности</a>.
-                                    </footer>
-                                }
+                                title="Заявка на просмотр"
+                                subheader="Понравился дом? Оставьте заявку ниже и наш менеджер свяжется с вами в течение дня."
                                 submitLabel="Отправить"
                                 defaultComment={`[Просмотр] ${dict.translateDealType(dealType)} ${
                                     dict.translateKind(kind).genitive
@@ -184,6 +164,7 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                             <MultiPrice short kind={kind} landDetails={landDetails} price={price} dealType={dealType} />
                         </header>
                         <CallbackForm
+                            className="main-callback"
                             header={
                                 <ProfileCard
                                     avatar="/static/item/agent.jpg"
@@ -191,17 +172,6 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                                     subheader="Агент загородной недвижимости"
                                 />
                             }
-                            fields={{
-                                name: {
-                                    placeholder: 'Имя',
-                                    required: true,
-                                },
-                                phone: {
-                                    placeholder: 'Телефон',
-                                    type: 'tel',
-                                    required: true,
-                                },
-                            }}
                             fullWidth
                             submitLabel="Забронировать просмотр"
                             defaultComment={`[Просмотр] ${dict.translateDealType(dealType)} ${
@@ -263,6 +233,10 @@ export default styled(CatalogItem)`
         transition: opacity 225ms;
         opacity: 0;
         box-shadow: none;
+    }
+
+    .main-callback footer {
+        display: none;
     }
 
     .favorite-button {

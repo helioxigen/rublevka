@@ -66,11 +66,11 @@ export const propertiesReducer = createReducer({
             isLoadedMore: asMore,
         },
     }),
-    [LOAD_PROPERTIES_ERROR]: err => ({
+    [LOAD_PROPERTIES_ERROR]: ({ error }) => ({
         fetching: false,
         error: {
             hasError: true,
-            message: err,
+            message: error,
         },
     }),
     [LOAD_PROPERTY_SUCCESS]: ({ response, id }, state) => ({

@@ -26,6 +26,10 @@ export default styled.main`
 
         color: black;
 
+        footer {
+            display: none;
+        }
+
         h2 {
             font-size: 28px;
             line-height: 32px;

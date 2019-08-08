@@ -2,6 +2,7 @@ import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import App, { Container } from 'next/app';
 import Head from 'next/head';
+import Error from 'next/error';
 import { Provider } from 'react-redux';
 import withReduxStore from 'next-redux-wrapper';
 import { DefaultSeo } from 'next-seo';
@@ -49,17 +50,19 @@ class MyApp extends App {
             pageProps = await Component.getInitialProps(ctx);
         }
 
+        const { error } = ctx.store.getState().properties;
+
         if (ctx.req) {
             const { favorite = '[]', currency = app.config.defaultCurrency } = nookies.get(ctx);
 
             ctx.store.dispatch(initUser(JSON.parse(favorite), currency));
         }
 
-        return { pageProps };
+        return { pageProps, notFound: error.hasError && error.message.message === 'Not Found' };
     }
 
     render() {
-        const { Component, pageProps, store } = this.props;
+        const { Component, pageProps, store, notFound } = this.props;
 
         const {
             meta: { title = config.site.meta.title, description = config.site.meta.description, images } = {},
@@ -101,7 +104,7 @@ class MyApp extends App {
                     <Provider store={store}>
                         <GlobalStyles />
                         <Navbar prevPage={prevPage} activeEntry={menuEntry} title={pageProps.title} />
-                        <Component {...pageProps} />
+                        {notFound ? <Error statusCode={404} /> : <Component {...pageProps} />}
                         <Footer />
                     </Provider>
                 </YMaps>

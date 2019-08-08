@@ -24,10 +24,9 @@ export const fetchProperties = (pagination, query, userFilter, userOrder, asMore
 
 export const LOAD_PROPERTY_REQUEST = 'Properties.LoadItem.Request';
 export const LOAD_PROPERTY_SUCCESS = 'Properties.LoadItem.Success';
-export const LOAD_PROPERTY_ERROR = 'Properties.LoadItem.Error';
 
 export const fetchProperty = id => ({
-    types: [LOAD_PROPERTY_REQUEST, LOAD_PROPERTY_SUCCESS, LOAD_PROPERTY_ERROR],
+    types: [LOAD_PROPERTY_REQUEST, LOAD_PROPERTY_SUCCESS, LOAD_PROPERTIES_ERROR],
     shouldCall: state => !state.properties.items[id],
     call: () => api.properties.getOne(id),
     payload: {

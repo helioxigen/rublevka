@@ -3,14 +3,16 @@ import styled from 'styled-components';
 import { TextArea, Input, Button } from '@components/UI/atoms';
 import { IconButton } from '@components/UI';
 import PhoneInput from './PhoneInput';
+import { getFields } from './fieldTypes';
 import { uis, media, sc } from '@utils';
 
 const CallbackForm = ({
     className,
     header,
-    footer,
-    fields,
-    submitLabel,
+    title,
+    subheader,
+    fields = getFields('name', 'phone'),
+    submitLabel = 'Оставить заявку',
     fullWidth,
     defaultComment,
     compact,
@@ -57,7 +59,13 @@ const CallbackForm = ({
 
     return (
         <form className={className} onSubmit={handleSubmit} data-compact={compact}>
-            {(!isSuccess || keepHeader) && header}
+            {(!isSuccess || keepHeader) &&
+                (header || (
+                    <header>
+                        <h3>{title}</h3>
+                        <p>{subheader}</p>
+                    </header>
+                ))}
             {!isSuccess && (
                 <>
                     {Object.entries(fields).map(([name, { type = 'text', placeholder }]) => {
@@ -114,7 +122,11 @@ const CallbackForm = ({
                     <p className="message">Наш менеджер свяжется с вами в течение рабочего дня с 11 до 18.</p>
                 </>
             )}
-            {!isSuccess && footer}
+            {!isSuccess && (
+                <footer>
+                    Отправляя заявку, вы соглашаетесь с нашей <a href="/privacy">политикой конфиденциальности</a>.
+                </footer>
+            )}
         </form>
     );
 };

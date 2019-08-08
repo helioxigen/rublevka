@@ -48,7 +48,6 @@ const MainPage = ({ className }) => {
                                 required: true,
                             },
                         }}
-                        submitLabel="Оставить заявку"
                         defaultComment="Заявка на продажу"
                     />
                     <CallbackModal title="Заявка на продажу">
@@ -88,6 +87,10 @@ export default styled(MainPage)`
         input {
             padding-top: 20px;
             padding-bottom: 20px;
+        }
+
+        footer {
+            display: none;
         }
 
         width: 100%;

@@ -5,7 +5,15 @@ import { CallbackForm } from '@components/Forms';
 import { IconButton } from '@components/UI';
 import { media, sc } from '@utils';
 
-const CallbackModal = ({ className, children = () => {}, title = 'Обратный звонок' }) => {
+const CallbackModal = ({
+    className,
+    children = () => {},
+    fields,
+    submitLabel,
+    title = 'Обратный звонок',
+    subheader = 'Оставьте свою заявку и наш менеджер свяжется с вами в течение 30 минут.',
+    comment = '',
+}) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -22,31 +30,11 @@ const CallbackModal = ({ className, children = () => {}, title = 'Обратны
             >
                 <IconButton onClick={() => setIsOpen(false)} icon="times" secondary />
                 <CallbackForm
-                    header={
-                        <header>
-                            <h3>{title}</h3>
-                            <p>Оставьте свою заявку и наш менеджер свяжется с вами в течение 5 минут.</p>
-                        </header>
-                    }
-                    fields={{
-                        name: {
-                            placeholder: 'Имя',
-                            required: true,
-                        },
-                        phone: {
-                            placeholder: 'Телефон',
-                            type: 'tel',
-                            required: true,
-                        },
-                    }}
-                    submitLabel="Оставить заявку"
-                    footer={
-                        <footer>
-                            Отправляя заявку, вы соглашаетесь с нашей{' '}
-                            <a href="/privacy">политикой конфиденциальности</a>.
-                        </footer>
-                    }
-                    defaultComment={`[${title}]`}
+                    title={title}
+                    fields={fields}
+                    subheader={subheader}
+                    submitLabel={submitLabel}
+                    defaultComment={`[${title}] ${comment}`}
                 />
             </Modal>
         </>

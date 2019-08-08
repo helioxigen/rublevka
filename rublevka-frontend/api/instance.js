@@ -9,7 +9,7 @@ export const instance = (apiPath, params) =>
         cache: 'no-cache',
     }).then(r => {
         if (!r.ok) {
-            throw new Error(r.statusText);
+            throw new Error(r.statusText || r.status);
 
             // throw new Error(r.statusText);
         }

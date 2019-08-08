@@ -5,8 +5,10 @@ import fromPairs from 'lodash/fromPairs';
 
 // import { Icon, IconButton } from '@components/UI';
 import { IconButton } from '@components/UI/molecules';
+import requests from '@requests';
+
 import Dropdown from './Dropdown';
-import { media, filter, page, dict, scrollToRef } from '../../../utils';
+import { media, filter, page, dict, scrollToRef } from '@utils';
 import formConfig from './formConfig';
 import TextInput from './TextInput';
 import FuseList from './FuseList';
@@ -78,14 +80,11 @@ const SearchForm = ({ className, type = 'sale' }) => {
         }
 
         if (config.type === 'id') {
-            const { objectNumber } = values[type];
+            const { objectNumber: propertyId } = values[type];
 
-            if (!objectNumber) return;
+            if (!propertyId) return;
 
-            page.goTo.catalog({
-                filter: JSON.stringify({ id: objectNumber }),
-                dealType: 'prodaja',
-            });
+            requests.search.property.byId(propertyId);
         }
 
         if (config.type === 'query') {

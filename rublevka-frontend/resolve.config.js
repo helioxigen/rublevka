@@ -10,6 +10,7 @@ module.exports = {
                 '@config': './config',
                 '@components': './components',
                 '@api': './api',
+                '@requests': './api/requests',
                 '@store': './store',
             },
             val => path.resolve(__dirname, val)

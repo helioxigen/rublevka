@@ -1,6 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-import routes from '../../../routes';
+import routesTpl from '../../../routes';
+import { dict } from '@utils';
+
+const routes = routesTpl(dict);
 
 /**
  * @template K

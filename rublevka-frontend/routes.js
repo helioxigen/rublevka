@@ -1,6 +1,4 @@
-import { dict } from '@utils';
-
-export default {
+export default dict => ({
     settlements: () => ({
         href: '/settlements.list',
         as: '/zagorodnaya/kottedzhnye-poselki',
@@ -31,4 +29,4 @@ export default {
         href: '/contacts',
         label: 'Контакты',
     }),
-};
+});

@@ -12,6 +12,7 @@
             "@config": ["./config"],
             "@components": ["./components"],
             "@api": ["./api"],
+            "@requests": ["./api/requests"],
             "@components/*": ["./components/*"],
             "@store": ["./store"]
         }

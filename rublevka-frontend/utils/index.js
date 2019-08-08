@@ -14,6 +14,7 @@ export { default as uis } from './uis';
 export { default as coords } from './maps';
 export { default as seo } from './seo';
 export { default as convert } from './convert';
+export { default as navigate } from './navigate';
 export { default as scrollToRef } from './scrollToRef';
 export { createAction, createReducer, createApiCallTypes } from './store';
 export { css } from 'styled-components';

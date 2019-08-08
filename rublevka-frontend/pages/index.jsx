@@ -8,6 +8,7 @@ import { CallbackForm } from '@components/Forms';
 import { useInView } from 'react-intersection-observer';
 import { page, media, sc } from '@utils';
 import { fetchSettlements } from '@store';
+import requests from '@requests';
 
 const MainPage = ({ className }) => {
     const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const MainPage = ({ className }) => {
                     text="Введите номер объекта в поле ниже и сразу перейдите к просмотру."
                 >
                     <CompactForm
-                        onSubmit={id => page.goTo.catalog({ dealType: 'prodaja', filter: JSON.stringify({ id }) })}
+                        onSubmit={requests.search.property.byId}
                         placeholder="Номер объекта"
                         submitLabel="Показать"
                     />

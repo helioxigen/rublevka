@@ -27,38 +27,40 @@ const Navbar = ({ className, title, activeEntry, prevPage = { href: '/', as: '/'
 
     return (
         <header className={className} data-hide={isScrollingDown} data-islanding={isLanding} data-inverted={isInverted}>
-            <div className="floating-content">
-                <Content className="content">
-                    <IconButton onClick={handlePrevPage} className="go-back" secondary icon="arrow" mirror stroke />
-                    <Link href="/">
-                        <a className="logo">
-                            <Icon className="logo-icon" name={config.app} />
-                        </a>
-                    </Link>
-                    {title && <span className="page-title">{title}</span>}
-                    <MainMenu
-                        activeEntry={activeEntry}
-                        isOpen={menuOpen}
-                        onClose={() => setIsMenuOpen(false)}
-                        favoriteCount={favoriteCount}
-                    />
-                    <div className="controls">
-                        <Link href="/favorites">
-                            <a className="favorites">
-                                <Icon secondary className="favorite-icon" name="favorite" stroke />
-                                <span className="counter" data-show={favoriteCount > 0}>
-                                    {favoriteCount === 0 ? 1 : favoriteCount}
-                                </span>
+            <div className="nav-container">
+                <div className="floating-content">
+                    <Content className="content">
+                        <IconButton onClick={handlePrevPage} className="go-back" secondary icon="arrow" mirror stroke />
+                        <Link href="/">
+                            <a className="logo">
+                                <Icon className="logo-icon" name={config.app} />
                             </a>
                         </Link>
-                        <IconButton
-                            secondary
-                            onClick={() => setIsMenuOpen(true)}
-                            className="menu-button"
-                            icon="hamburger"
+                        {title && <span className="page-title">{title}</span>}
+                        <MainMenu
+                            activeEntry={activeEntry}
+                            isOpen={menuOpen}
+                            onClose={() => setIsMenuOpen(false)}
+                            favoriteCount={favoriteCount}
                         />
-                    </div>
-                </Content>
+                        <div className="controls">
+                            <Link href="/favorites">
+                                <a className="favorites">
+                                    <Icon secondary className="favorite-icon" name="favorite" stroke />
+                                    <span className="counter" data-show={favoriteCount > 0}>
+                                        {favoriteCount === 0 ? 1 : favoriteCount}
+                                    </span>
+                                </a>
+                            </Link>
+                            <IconButton
+                                secondary
+                                onClick={() => setIsMenuOpen(true)}
+                                className="menu-button"
+                                icon="hamburger"
+                            />
+                        </div>
+                    </Content>
+                </div>
             </div>
         </header>
     );
@@ -68,8 +70,16 @@ export default styled(Navbar)`
     width: 100%;
     /* position: fixed; */
 
-    .floating-content {
+    .nav-container {
         position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        z-index: 1350;
+        height: inherit;
+    }
+
+    .floating-content {
         width: 100%;
         padding: 0 15px;
 
@@ -80,15 +90,16 @@ export default styled(Navbar)`
         )}
 
         height: inherit;
-        box-sizing: border-box;
 
-        z-index: 1350;
+        box-sizing: border-box;
 
         color: ${sc.theme.colors.black};
         background-color: white;
         box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
 
-        transition: background-color 225ms, transform 225ms cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow none;
+        transition-property: background-color, transform;
+        transition-duration: 225ms, 225ms;
+        transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94), cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     font-size: 20px;
@@ -187,7 +198,7 @@ export default styled(Navbar)`
     }
 
     &[data-islanding='true'] .floating-content {
-        background-color: rgba(0, 0, 0, 0);
+        background-color: transparent;
         box-shadow: none;
         color: white;
 

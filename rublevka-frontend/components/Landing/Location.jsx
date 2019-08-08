@@ -1,34 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Map, Placemark } from 'react-yandex-maps';
+import dynamic from 'next/dynamic';
+
 import { media } from '@utils';
 
-const Location = ({ className }) => {
-    const size = typeof window !== 'undefined' && window.outerWidth < 992 ? 48 : 64;
+const OfficeLocation = dynamic(() => import('@components/Location/OfficeLocation'));
 
+const Location = ({ className }) => {
     return (
         <section className={className}>
             <h3>Как нас найти</h3>
             <p>Наш офис находится по адресу:</p>
             <address>Рублёво-Успенское шоссе, Жуковка, 44А</address>
-            <Map
-                className="map-container"
-                instanceRef={ref => ref && ref.behaviors.disable('scrollZoom')}
-                defaultState={{ center: [55.734871, 37.249479], zoom: 15, controls: [] }}
-                width="100%"
-                height="100%"
-                modules={['layout.Image']}
-            >
-                <Placemark
-                    geometry={[55.734871, 37.249479]}
-                    options={{
-                        iconLayout: 'default#image',
-                        iconImageHref: '/static/shared/placemark.png',
-                        iconImageSize: [size, size], // размер иконки
-                        iconImageOffset: [(-1 * size) / 2, (-1 * size) / 2], // позиция иконки
-                    }}
-                />
-            </Map>
+            <OfficeLocation />
         </section>
     );
 };

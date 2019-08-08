@@ -5,11 +5,14 @@ import { Hero, Block, Location } from '@components/Landing';
 import { Button, CompactForm } from '@components/UI';
 import { CallbackModal } from '@components/Modals';
 import { CallbackForm } from '@components/Forms';
+import { useInView } from 'react-intersection-observer';
 import { page, media, sc } from '@utils';
 import { fetchSettlements } from '@store';
 
 const MainPage = ({ className }) => {
     const dispatch = useDispatch();
+    const [figureRef, figureInView] = useInView({ triggerOnce: true });
+    const [objectBlockRef, objectInView] = useInView({ triggerOnce: true });
 
     useEffect(() => {
         dispatch(fetchSettlements());
@@ -20,6 +23,7 @@ const MainPage = ({ className }) => {
             <Hero className="landing-hero" />
             <div className="page-content">
                 <Block
+                    ref={objectBlockRef}
                     className="object-block"
                     title="Знаете номер объекта?"
                     text="Введите номер объекта в поле ниже и сразу перейдите к просмотру."
@@ -31,6 +35,7 @@ const MainPage = ({ className }) => {
                     />
                 </Block>
                 <Block
+                    data-inview={objectInView}
                     className="call-block"
                     title="Хотите продать дом?"
                     text="Просто оставьте заявку. Наш агент свяжется с вами и поможет всё организовать: проведёт фотосессию, создаст рекламную кампанию, покажет дом и подготовит сделку."
@@ -67,10 +72,8 @@ const MainPage = ({ className }) => {
                         Подробнее
                     </Button>
                 </Block>
-                <figure>
-                    <img src="/static/landing/placeholder.jpg" alt="" />
-                </figure>
-                <Location />
+                <figure ref={figureRef}>{figureInView && <img src="/static/landing/placeholder.jpg" alt="" />}</figure>
+                {figureInView && <Location />}
             </div>
         </main>
     );
@@ -194,9 +197,12 @@ export default styled(MainPage)`
     ${media.phoneL.to(
         css => css`
             .call-block {
-                background: url('/static/landing/call.background.jpg') center / cover no-repeat;
                 color: white;
                 text-align: center;
+
+                &[data-inview='true'] {
+                    background: url('/static/landing/call.background.jpg') center / cover no-repeat;
+                }
             }
 
             .sell-block {

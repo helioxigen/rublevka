@@ -1,82 +1,63 @@
-/* eslint-disable */
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Input } from '@components/UI';
 import InputMask from 'react-input-mask';
+import dynamic from 'next/dynamic';
 import styled from 'styled-components';
-import CountriesSelector from './CountriesSelector';
+import { useInView } from 'react-intersection-observer';
 
 const masks = require('./CountriesSelector/masks.json');
 
-class PhoneInput extends React.Component {
-    state = {
-        country: 'ru',
-        code: '+7',
-        subCode: '',
+const CountriesSelector = dynamic(() => import('./CountriesSelector'));
+
+const mask = (value = '') => value.replace(/9/g, '\\9');
+
+const phoneNumberMask = (country, subCode) => {
+    const currentMask = masks[country] || '(999) 999-99-99';
+
+    if (!subCode) return currentMask.replace(/\d/g, 9);
+
+    if (currentMask.search(subCode) !== 1) return '';
+
+    const noSub = currentMask.replace(`(${subCode})`, '');
+
+    return `(${mask(subCode)}) ${noSub.replace(/\d/g, 9)}`;
+};
+
+export const PhoneInput = ({ className, hasError, value, onChange }) => {
+    const [prefixes, changeValues] = useState(['ru', '+7', '']);
+
+    const [country, code, subCode] = prefixes;
+
+    const handleChangeCode = (nextCountry, selectorValue) => {
+        const [nextCode, nextSub] = selectorValue.split(' ');
+
+        changeValues([nextCountry.toLowerCase(), nextCode, nextSub]);
     };
 
-    handleChangeCode = (country, value = '') => {
-        const [code, subCode] = value.split(' ');
+    const inputRef = useRef();
 
-        this.setState(
-            {
-                country: country.toLowerCase(),
-                code,
-                subCode,
-            },
-            this.codeChangeCallback
-        );
-    };
+    useEffect(() => {
+        onChange('');
+    }, [prefixes]);
 
-    codeChangeCallback = () => {
-        this.props.onChange('');
+    const [containerRef, inputInView] = useInView({ triggerOnce: true });
 
-        this.inputRef.focus();
-    };
-
-    mask = (value = '') => value.replace(/9/g, '\\9');
-
-    phoneNumberMask = () => {
-        const { country, subCode } = this.state;
-        const currentMask = masks[country] || '(999) 999-99-99';
-
-        if (!subCode) return currentMask.replace(/\d/g, 9);
-
-        if (currentMask.search(subCode) === 1) {
-            const noSub = currentMask.replace(`(${subCode})`, '');
-
-            return `(${this.mask(subCode)}) ${noSub.replace(/\d/g, 9)}`;
-        }
-    };
-
-    render() {
-        const { code, country } = this.state;
-        const { className, hasError, value, onChange } = this.props;
-
-        return (
-            <div className={className}>
-                <CountriesSelector onChange={this.handleChangeCode} />
-                <InputMask
-                    hasError={hasError}
-                    type="tel"
-                    mask={`${this.mask(code)} ${this.phoneNumberMask()}`}
-                    placeholder={`${code} ${masks[country]}`}
-                    onChange={e => onChange(e.target.value)}
-                    value={value}
-                >
-                    {inputProps => (
-                        <Input
-                            className="phone-input"
-                            ref={ref => {
-                                this.inputRef = ref;
-                            }}
-                            {...inputProps}
-                        />
-                    )}
-                </InputMask>
-            </div>
-        );
-    }
-}
+    return (
+        <div ref={containerRef} className={className}>
+            {inputInView && <CountriesSelector onChange={handleChangeCode} />}
+            <InputMask
+                hasError={hasError}
+                type="tel"
+                mask={`${mask(code)} ${phoneNumberMask(country, subCode)}`}
+                placeholder={`${code} ${masks[country]}`}
+                onChange={e => onChange(e.target.value)}
+                value={value}
+            >
+                {inputProps => <Input className="phone-input" ref={inputRef} {...inputProps} />}
+            </InputMask>
+        </div>
+    );
+};
 
 export default styled(PhoneInput)`
     position: relative;

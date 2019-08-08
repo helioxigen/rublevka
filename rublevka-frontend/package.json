@@ -7,7 +7,7 @@
     "private": true,
     "scripts": {
         "dev": "cross-env NODE_ENV=development APP_ENV=development node server/index.js",
-        "start": "cross-env NODE_ENV=production node server/index.js",
+        "start": "cross-env NODE_ENV=production APP_ENV=production node server/index.js",
         "build": "cross-env APP_ENV=production NODE_ENV=production next build",
         "now-build": "APP_ENV=production next build",
         "analyze": "BUNDLE_ANALYZE=both next build",

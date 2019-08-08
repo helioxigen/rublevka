@@ -40,6 +40,8 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
         regionName
     );
 
+    const publicImages = images.filter(i => i.isPublic);
+
     return (
         <PageContainer>
             <NextSeo
@@ -48,7 +50,7 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                 openGraph={{
                     title,
                     description,
-                    images: convert.toOG(images.filter(i => i.isPublic)),
+                    images: convert.toOG(publicImages),
                 }}
             />
             <Content compact item>
@@ -68,16 +70,12 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                         </Header.Item>
                         {images.length === 0 && <GalleryPlaceholder propertyId={id} />}
                         {images.length > 0 && (
-                            <FullScreenGallery
-                                id={id}
-                                images={images.filter(i => i.isPublic)}
-                                specification={specification}
-                            >
+                            <FullScreenGallery id={id} images={publicImages} specification={specification}>
                                 {onClick => (
                                     <Gallery
                                         className="item-gallery"
                                         layoutImages={layoutImages.filter(i => i.isPublic)}
-                                        images={images.filter(i => i.isPublic)}
+                                        images={publicImages}
                                     >
                                         <IconButton onClick={onClick} icon="expand" />
                                         <Counter overall={images.length} />

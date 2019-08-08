@@ -18,6 +18,8 @@ const Card = ({
 
     const dealType = dealTypeExplicit || dict.translit.byWord(query.dealType);
 
+    const publicImages = images.filter(i => i.isPublic).slice(0, 6);
+
     return (
         <PageLink to="item" params={{ dealType, id, kind, prevPage }}>
             <article className={className}>
@@ -29,8 +31,8 @@ const Card = ({
                     <span className="card-id">№{id}</span>
                     <FavoriteButton className="favorite-button" id={id} dealType={dealType} />
 
-                    {images.length > 1 && <Shortcuts images={images.slice(0, 6)} />}
-                    {images.length > 1 && <Gallery images={images.slice(0, 6)} />}
+                    {images.length > 0 && <Shortcuts images={publicImages} />}
+                    {images.length > 0 && <Gallery images={publicImages} />}
                 </header>
                 <section className="card-body">
                     <h3>{itemTitle.generate(dealType, true, false, { landDetails, specification, location, kind })}</h3>

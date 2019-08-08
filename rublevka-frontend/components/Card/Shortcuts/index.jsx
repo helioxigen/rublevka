@@ -10,7 +10,7 @@ const Shortcuts = ({ className, images }) => {
         <figure className={className} onMouseEnter={() => changeActive(true)}>
             {images.slice(0, 6).map(({ id }, idx) => (
                 <Slice key={id}>
-                    {(isActive || idx === 0) && <img alt="" className="display" src={cdn.get.thumbnail(id)} />}
+                    {(isActive || idx === 0) && <img alt="" className="display" src={cdn.get.thumbnail(id, 512)} />}
                 </Slice>
             ))}
         </figure>

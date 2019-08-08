@@ -1,24 +1,21 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { Icon } from '@components/UI';
 import { format, sc, media } from '@utils';
 import { Card } from '@components';
 
-const VisibleCards = ({ className, items, clusterId, onToggle }) => {
+const VisibleCards = ({ className, items, clusterId, isOpen, onToggle }) => {
     const listRef = useRef(null);
-    const [open, toggle] = useState(true);
 
-    useEffect(onToggle, [open]);
     useEffect(() => {
         if (listRef.current) {
             listRef.current.scrollTop = 0;
         }
-        toggle(true);
     }, [clusterId]);
 
     return (
-        <section data-open={open} className={className}>
-            <button type="button" className="toggle-view" onClick={() => toggle(!open)}>
+        <section data-open={isOpen} className={className}>
+            <button type="button" className="toggle-view" onClick={() => onToggle()}>
                 <Icon name="arrow-squared" />
             </button>
             <div ref={listRef} className="cards-list">

@@ -6,7 +6,7 @@ import { MapCatalogLayout } from '@components/UI';
 import { FilterSection, ViewCards, LayoutMap } from '@components/MapCatalog';
 import { changeOrderBy, fetchMapPropertiesSubset, setDisplayedItemsIds, setFilter } from '@store';
 import { dict, query as queryUtils, filter as filterUtils } from '@utils';
-import { useRecalcWidth } from '@hooks';
+import { useRecalcWidth, useToggle } from '@hooks';
 import { Navbar, Footer } from '@components';
 
 const HideNav = createGlobalStyle`
@@ -37,6 +37,7 @@ const MapCatalogPage = ({ displayedIds, clusterId, mapItems, dispatch }) => {
         router.query.kind && { kind: [dict.translit.byWord(router.query.kind)] }
     );
 
+    const [isCardsListOpen, toggleCardsList] = useToggle(false);
     const [asideRef, triggerCalc, asideWidth] = useRecalcWidth();
 
     const [mapZoomDefault] = useState(true);
@@ -46,6 +47,10 @@ const MapCatalogPage = ({ displayedIds, clusterId, mapItems, dispatch }) => {
     const { location: { settlementName } = {} } = displayedItems[0] || {};
 
     const resetIds = () => dispatch(setDisplayedItemsIds([]));
+
+    useEffect(() => {
+        triggerCalc();
+    }, [isCardsListOpen]);
 
     useEffect(() => {
         if (displayedIds.length > 0) {
@@ -72,7 +77,12 @@ const MapCatalogPage = ({ displayedIds, clusterId, mapItems, dispatch }) => {
                     onResetItems={resetIds}
                 />
                 {displayedIds.length !== 0 && (
-                    <ViewCards clusterId={clusterId} items={displayedItems} onToggle={triggerCalc} />
+                    <ViewCards
+                        clusterId={clusterId}
+                        isOpen={isCardsListOpen}
+                        items={displayedItems}
+                        onToggle={toggleCardsList}
+                    />
                 )}
             </aside>
             <LayoutMap
@@ -80,6 +90,7 @@ const MapCatalogPage = ({ displayedIds, clusterId, mapItems, dispatch }) => {
                 clusterId={clusterId}
                 isDefaultZoom={mapZoomDefault}
                 items={mapItems}
+                openCardsList={() => !isCardsListOpen && toggleCardsList()}
             />
         </MapCatalogLayout>
     );

@@ -7,7 +7,7 @@ import TemplateProvider from './TemplateProvider';
 import { sc, media } from '@utils';
 import { setDisplayedItemsIds } from '@store';
 
-const LayoutMap = ({ className, mapMarginLeft, items = [] }) => {
+const LayoutMap = ({ className, mapMarginLeft, openCardsList, items = [] }) => {
     const [ymap, setYmap] = useState(null);
     const dispatch = useDispatch();
     const features = useMemo(
@@ -52,6 +52,7 @@ const LayoutMap = ({ className, mapMarginLeft, items = [] }) => {
             if (!cluster || !cluster.features.length || ymap.getZoom() < 15) return;
 
             dispatch(setDisplayedItemsIds(cluster.features.map(f => f.id), cluster.id));
+            openCardsList();
         };
 
         objectManager.events.add('click', handleObjectClick);
@@ -110,7 +111,7 @@ const LayoutMap = ({ className, mapMarginLeft, items = [] }) => {
                             clusterIconShape: {
                                 type: 'Circle',
                                 coordinates: [0, 0],
-                                radius: 44,
+                                radius: 38,
                             },
                         }}
                         instanceRef={setObjetManagerRef}

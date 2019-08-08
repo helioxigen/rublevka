@@ -325,11 +325,8 @@ export default styled(CatalogItem)`
     )}
 
     > article {
-        ${media.tablet.at(
-            css => css`
-                margin-top: 18px;
-            `
-        )}
+        margin-top: 18px;
+
         ${media.desktop.at(
             css => css`
                 max-width: 740px;
@@ -341,12 +338,6 @@ export default styled(CatalogItem)`
         ${Header.Item} {
             margin-bottom: 18px;
             padding: 0 15px;
-
-            ${media.tablet.to(
-                css => css`
-                    display: none;
-                `
-            )}
 
             ${media.tablet.at(
                 css => css`
@@ -466,9 +457,10 @@ export default styled(CatalogItem)`
             h3 {
                 line-height: 24px;
                 font-size: 16px;
+                margin: 0 0 8px;
             }
             p {
-                margin: 4px 0px;
+                margin: 0 0 8px;
                 line-height: 21px;
                 font-size: 15px;
                 color: #232323;

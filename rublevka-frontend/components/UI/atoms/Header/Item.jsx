@@ -26,11 +26,17 @@ export default styled(ItemHeader)`
         font-size: 15px;
         margin-bottom: 8px;
         color: ${sc.theme.colors.grey};
-
-        ${media.tablet.to(
-            css => css`
-                display: none;
-            `
-        )}
     }
+
+    ${media.tablet.to(
+        css => css`
+            h1 {
+                font-size: 19px;
+            }
+
+            span {
+                display: none;
+            }
+        `
+    )}
 `;

@@ -192,7 +192,13 @@ export default styled(Filter)`
     }
 
     ${Field}:last-child {
-        margin-bottom: 50px;
+        margin-bottom: 80px;
+
+        ${media.desktop.at(
+            css => css`
+                margin-bottom: 50px;
+            `
+        )}
     }
 
     ${Range} + ${RadioGroup} {

@@ -38,7 +38,7 @@ const MainMenu = ({ className, onClose, isOpen, favoriteCount, activeEntry }) =>
                     <a data-active={activeEntry === 'settlements'}>Посёлки</a>
                 </Link>
                 <Link href="/favorites">
-                    <a className="menu-only" data-active={activeEntry === 'favorite'}>
+                    <a className="menu-only favorites-entry" data-active={activeEntry === 'favorite'}>
                         Избранное {favoriteCount > 0 && <span className="counter">{favoriteCount}</span>}
                     </a>
                 </Link>
@@ -84,6 +84,11 @@ export default styled(MainMenu)`
         height: 100%;
     }
 
+    .favorites-entry {
+        display: flex;
+        align-items: center;
+    }
+
     ${media.desktop.to(
         css => css`
             .close-button {
@@ -91,6 +96,8 @@ export default styled(MainMenu)`
                 background: none;
 
                 padding: 0;
+
+                height: 2em;
 
                 color: #bcbcbc;
                 font-size: 24px;

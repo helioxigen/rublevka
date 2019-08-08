@@ -33,7 +33,7 @@ export default styled(Section)`
     ${media.tablet.to(
         css => css`
             header {
-                margin: 0 0 12px 0;
+                margin: 0 0 15px 0;
             }
             h2 {
                 font-size: 16px;

@@ -18,6 +18,8 @@ export default styled(ContactToolbar)`
 
     animation: ${sc.keyframes.slideInBottom} 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
+    z-index: 3500;
+
     .whatsapp-button {
         font-size: 15px;
         margin: 0 8px 0 0;

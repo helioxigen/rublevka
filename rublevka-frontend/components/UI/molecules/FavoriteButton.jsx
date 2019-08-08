@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Icon } from '@components/UI/atoms';
 import { toggleFavorite } from '@store/user/actions';
-import { sc } from '@utils';
+import { sc, media } from '@utils';
 
 const FavoriteButton = ({ className, id, dealType, children }) => {
     const favorite = useSelector(state => state.user.favorite);
@@ -70,7 +70,11 @@ export default styled(FavoriteButton)`
         position: relative;
         transition: 0.2s;
 
-        font-size: 1.6em;
+        ${media.tablet.at(
+            css => css`
+                font-size: 1.2em;
+            `
+        )}
 
         > * {
             display: block;

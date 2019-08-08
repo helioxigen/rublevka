@@ -61,9 +61,13 @@ const AdaptiveSidebar = styled.div`
                     padding-right: 20px;
                 }
 
+                .menu-content {
+                    padding-top: 0;
+                }
+
                 .menu-content > nav > * {
-                    padding-left: 20px;
-                    padding-right: 20px;
+                    line-height: 2.8;
+                    padding: 0 0 0 20px
                 }`}
 
             z-index: 1500;

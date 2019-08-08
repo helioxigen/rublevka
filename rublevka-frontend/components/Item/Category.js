@@ -3,13 +3,24 @@ import { media } from '@utils';
 import Summary from './Summary';
 
 export default styled.div`
-    .article-price {
-        ${media.desktop.at(
-            css => css`
+    ${media.desktop.at(
+        css => css`
+            margin: 20px 0 32px;
+
+            &:first-child {
+                margin-top: 0;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            .article-price {
                 display: none;
-            `
-        )}
-    }
+            }
+        `
+    )}
+
     ${media.desktop.to(
         css => css`
             background: white;

@@ -36,6 +36,7 @@ export default styled(GalleryNav)`
         .container {
             overflow-x: scroll;
             overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
         }
 
         .gallery-nav-item,

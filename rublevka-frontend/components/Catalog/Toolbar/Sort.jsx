@@ -5,7 +5,7 @@ import { CombinedSelect } from '@components/UI';
 import { changeOrderBy } from '@store';
 import { format } from '@utils';
 
-const Sort = ({ className }) => {
+const Sort = ({ className, totalItems }) => {
     const total = useSelector(state => state.properties.pagination.total);
     const value = useSelector(state => state.properties.orderBy) || '';
 
@@ -16,7 +16,7 @@ const Sort = ({ className }) => {
     return (
         <div className={className}>
             <span className="sort-label">
-                {format.titleByNumber(total, ['объект', 'объекта', 'объектов'])} отсортированы{' '}
+                {format.titleByNumber(totalItems || total, ['объект', 'объекта', 'объектов'])} отсортированы{' '}
             </span>
             <CombinedSelect
                 className="select"

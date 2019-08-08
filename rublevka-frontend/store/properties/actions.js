@@ -22,6 +22,21 @@ export const fetchProperties = (pagination, query, userFilter, userOrder, asMore
     },
 });
 
+export const LOAD_SETTLEMENT_PROPERTIES_SUCCESS = 'Properties.LoadSettlement.Success';
+
+export const fetchSettlementProperties = (dealType, pagination, query, userFilter, userOrder, asMore) => ({
+    types: [LOAD_PROPERTIES_REQUEST, LOAD_SETTLEMENT_PROPERTIES_SUCCESS, LOAD_PROPERTIES_ERROR],
+    call: () => api.properties.getMany(pagination, query),
+    payload: {
+        pagination,
+        query,
+        filter: userFilter,
+        orderBy: userOrder,
+        asMore,
+        dealType,
+    },
+});
+
 export const LOAD_PROPERTY_REQUEST = 'Properties.LoadItem.Request';
 export const LOAD_PROPERTY_SUCCESS = 'Properties.LoadItem.Success';
 

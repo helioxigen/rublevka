@@ -4,9 +4,9 @@ import MapButton from './MapButton';
 import Sort from './Sort';
 import { media } from '@utils';
 
-const CatalogToolbar = ({ className, map = true, sort = true }) => (
+const CatalogToolbar = ({ className, totalItems, map = true, sort = true }) => (
     <div className={className}>
-        {sort && <Sort />}
+        {sort && <Sort totalItems={totalItems} />}
         {map && <MapButton />}
     </div>
 );

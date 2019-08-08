@@ -9,15 +9,15 @@ import { CallbackForm } from '@components/Forms';
 import Catalog from '@components/Catalog';
 import SettlementsItemLayout from '@components/UI/templates/SettlementsItemLayout';
 import { NextSeo } from 'next-seo';
-import { fetchSettlementsItem, fetchProperties } from '@store';
+import { fetchSettlementsItem, fetchSettlementProperties, setFilter } from '@store';
 import { Breadcrumbs } from '@components';
-import { dict, query, seo, cdn } from '@utils';
+import { dict, query, seo, cdn, tools } from '@utils';
 
-const SettlementsItemPage = ({ id, dealType, kind }) => {
+const SettlementsItemPage = ({ id, dealType, isOnlyType, kind }) => {
     const { name, location = {}, images = [], description: desc } =
         useSelector(state => state.settlements.items[id]) || {};
 
-    const properties = useSelector(state => state.properties.items);
+    const properties = useSelector(state => state.properties.settlementLists[dealType]);
 
     const { title, description } = seo.settlements.item(dealType, kind, name, location.routeName);
 
@@ -84,9 +84,12 @@ const SettlementsItemPage = ({ id, dealType, kind }) => {
                             as: `/zagorodnaya/kottedzhnye-poselki/${dict.translit.byLetters(name)}_${id}`,
                         })}
                         titleTag="h2"
+                        total
                         locationTitle={`в пос. ${name}`}
                         dealType={dealType}
-                        single
+                        single={!isOnlyType}
+                        itemsExplicit={properties}
+                        totalItems={properties.length}
                         noMap
                     />
                 </Content>
@@ -112,21 +115,41 @@ const SettlementsItemPage = ({ id, dealType, kind }) => {
 SettlementsItemPage.getInitialProps = async ({ store, query: { id, orderBy, filter = '{}' } }) => {
     const { dealType = 'sale', ...restFilter } = JSON.parse(filter) || {};
 
+    const fetchByDeal = dealT =>
+        store.dispatch(
+            fetchSettlementProperties(
+                dealT,
+                0,
+                query.convert({ filter: { ...restFilter, 'location.settlementId': id }, orderBy }, dealT),
+                { dealT, ...restFilter },
+                orderBy
+            )
+        );
+
     await store.dispatch(fetchSettlementsItem(id));
-    await store.dispatch(
-        fetchProperties(
-            0,
-            query.convert({ filter: { ...restFilter, 'location.settlementId': id }, orderBy }, dealType),
-            { dealType, ...restFilter },
-            orderBy
-        )
-    );
+
+    await fetchByDeal('sale');
+    await fetchByDeal('rent');
+
+    const {
+        properties: { settlementLists, filter: propertiesFilter },
+    } = store.getState();
+
+    if (!propertiesFilter.dealType) {
+        await store.dispatch(setFilter({ dealType }));
+    }
+
+    const dealTypes = Object.keys(tools.cleanObject(settlementLists));
+
+    const isOnlyType = dealTypes.length === 1;
 
     return {
         id,
         title: `О посёлке`,
         menuEntry: 'settlements',
         kind: restFilter.kind,
+        isOnlyType,
+        dealType: isOnlyType ? dealTypes[0] : dealType,
         prevPage: {
             href: '/settlements.list',
             as: '/zagorodnaya/kottedzhnye-poselki',

@@ -9,6 +9,7 @@ import {
     LOAD_PROPERTY_SUCCESS,
     SET_DEAL_TYPE,
     SET_FILTER,
+    LOAD_SETTLEMENT_PROPERTIES_SUCCESS,
 } from './actions';
 
 export const propertiesInitialState = {
@@ -16,6 +17,10 @@ export const propertiesInitialState = {
     fetching: false,
     items: {},
     list: [],
+    settlementLists: {
+        sale: [],
+        rent: [],
+    },
     orderBy: '',
     pagination: {
         total: 0,
@@ -56,6 +61,40 @@ export const propertiesReducer = createReducer({
             ...keyBy(items, i => i.id),
         },
         list: asMore ? [...state.list, ...items] : items,
+        query,
+        filter,
+        orderBy,
+        pagination: {
+            ...state.pagination,
+            total,
+            offset,
+            isLoadedMore: asMore,
+        },
+    }),
+    [LOAD_SETTLEMENT_PROPERTIES_SUCCESS]: (
+        {
+            response: {
+                items,
+                pagination: { total, offset },
+            },
+            filter,
+            orderBy,
+            query,
+            asMore,
+            dealType,
+        },
+        state
+    ) => ({
+        fetching: false,
+
+        items: {
+            ...state.items,
+            ...keyBy(items, i => i.id),
+        },
+        settlementLists: {
+            ...state.settlementLists,
+            [dealType]: items,
+        },
         query,
         filter,
         orderBy,

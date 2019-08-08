@@ -29,21 +29,23 @@ const MultiPrice = ({ className, kind, landDetails, price = {}, dealType, short 
                 currency={currency}
             />
             <div className="hidden">
-                {config.currencies
-                    .filter(c => c.code !== currency)
-                    .map(({ code }) => (
-                        <Price
-                            className="price"
-                            key={code}
-                            showSubheader
-                            kind={kind}
-                            landDetails={landDetails}
-                            deal={price}
-                            dealType={dealType}
-                            currency={code}
-                            short={short}
-                        />
-                    ))}
+                <div className="hidden-prices">
+                    {config.currencies
+                        .filter(c => c.code !== currency)
+                        .map(({ code }) => (
+                            <Price
+                                className="price"
+                                key={code}
+                                showSubheader
+                                kind={kind}
+                                landDetails={landDetails}
+                                deal={price}
+                                dealType={dealType}
+                                currency={code}
+                                short={short}
+                            />
+                        ))}
+                </div>
             </div>
         </div>
     );
@@ -115,12 +117,6 @@ export default styled(MultiPrice)`
 
                 height: 180%;
 
-                .price {
-                    height: 60%;
-                    display: flex;
-                    align-items: center;
-                }
-
                 ::before {
                     content: '';
                     display: block;
@@ -129,8 +125,12 @@ export default styled(MultiPrice)`
                     height: 40%;
                 }
 
-                display: flex;
-                flex-wrap: wrap;
+                .hidden-prices {
+                    height: 60%;
+
+                    display: flex;
+                    align-items: center;
+                }
             `
         )}
     }
@@ -143,7 +143,7 @@ export default styled(MultiPrice)`
                 display: none;
             }
             .display-price:hover + .hidden {
-                display: flex;
+                display: block;
             }
 
             .display-price:hover::after {

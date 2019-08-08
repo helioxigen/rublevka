@@ -68,7 +68,7 @@ class MyApp extends App {
             meta: { title = config.site.meta.title, description = config.site.meta.description, images } = {},
             prevPage,
             menuEntry,
-            asPath,
+            asPath = '/',
         } = pageProps;
 
         return (
@@ -82,7 +82,14 @@ class MyApp extends App {
                         type: 'website',
                         locale: 'ru_RU',
                         url: `https://${config.site.domain}${asPath}`,
-                        images: images || [`https://${config.site.domain}/static/logos/${config.app}.jpg`],
+                        images: images || [
+                            {
+                                width: 512,
+                                height: 512,
+                                url: `https://${config.site.domain}/static/logos/${config.app}.jpg`,
+                                alt: `${config.site.domain} logo`,
+                            },
+                        ],
                         site_name: format.capitalize(config.app),
 
                         title,

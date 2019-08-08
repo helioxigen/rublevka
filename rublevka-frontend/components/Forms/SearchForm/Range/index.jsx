@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import initial from 'lodash/initial';
@@ -25,7 +26,11 @@ const Range = ({ className, onChange, closeMenu, getItemProps, isOpen, options =
                 ref={inputRef}
                 onFocus={() => lastFocus && toggleLastFocus(false)}
                 onChange={e => {
-                    const from = parseInt(e.target.value, 10);
+                    const { fromValue } = e.target;
+
+                    if (!fromValue) return onChange({ from: '' });
+
+                    const from = parseInt(fromValue, 10);
 
                     if (from > value.to) {
                         return;
@@ -45,7 +50,7 @@ const Range = ({ className, onChange, closeMenu, getItemProps, isOpen, options =
                 onFocus={() => toggleLastFocus(true)}
                 ref={toRef}
                 value={value.to || ''}
-                onChange={e => onChange({ to: parseInt(e.target.value, 10) })}
+                onChange={({ target: { toValue } }) => onChange({ to: toValue ? parseInt(toValue, 10) : '' })}
             />
             <Options.List
                 className="range-from"

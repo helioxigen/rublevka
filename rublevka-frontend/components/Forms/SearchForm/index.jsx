@@ -3,7 +3,6 @@ import React, { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import fromPairs from 'lodash/fromPairs';
 
-// import { Icon, IconButton } from '@components/UI';
 import { IconButton } from '@components/UI/molecules';
 import requests from '@requests';
 
@@ -13,28 +12,11 @@ import formConfig from './formConfig';
 import TextInput from './TextInput';
 import FuseList from './FuseList';
 
-// const initialState = {
-//     sale: {
-//         currency: {
-//             label: '₽',
-//             value: 'rub',
-//         },
-//     },
-//     rent: {
-//         currency: {
-//             label: '₽',
-//             value: 'rub',
-//         },
-//     },
-//     objectNumber: {},
-//     settlements: {},
-// };
-
-const SearchForm = ({ className, type = 'sale' }) => {
+const SearchForm = ({ className, type = 'sale', onChange, initialState }) => {
     const currency = useSelector(state => state.user.currency);
     const config = formConfig.types[type];
 
-    const [values, changeValues] = useState({ [type]: config.defaultState });
+    const [values, changeValues] = useState({ [type]: initialState || config.defaultState });
 
     const myRefs = useRef([
         React.createRef(),
@@ -55,20 +37,21 @@ const SearchForm = ({ className, type = 'sale' }) => {
 
     const handleChange = fieldName => item => {
         // const currentValues = isMain ? {} : values[type];
+        const value = {
+            ...values[type],
+            [fieldName]: item,
+        };
 
         changeValues({
             ...values,
-            [type]: {
-                ...values[type],
-                [fieldName]: item,
-            },
+            [type]: value,
         });
     };
 
     const handleSubmit = e => {
         e.preventDefault();
 
-        if (config.type === 'search') {
+        if (config.type === 'search' && !onChange) {
             if (!values[type]) return;
 
             const { settlementName, distance } = values[type];

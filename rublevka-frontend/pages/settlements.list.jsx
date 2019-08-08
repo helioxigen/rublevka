@@ -9,15 +9,48 @@ import { SearchForm } from '@components/Forms';
 import { Breadcrumbs } from '@components';
 import { fetchSettlements } from '@store';
 import { dict, app, media, seo } from '@utils';
+import { useFuseSearch } from '@hooks';
 
-const SettlementsListPage = ({ className }) => {
+const SettlementsListPage = ({ className, query: { name, distance = { from: 0 } } }) => {
     const list = useSelector(state => state.settlements.list);
 
+    // const [{ name, distance = { from: 0 } }, changeSearchState] = useState({
+    //     name: query.name,
+    //     distance: query.distance,
+    // });
+
+    // const handleChangeSearchState = value => {
+    //     const { from, to } = value.distance;
+
+    //     const nextDist = {};
+
+    //     if (from) {
+    //         nextDist.from = from;
+    //     }
+
+    //     if (to) {
+    //         nextDist.to = to;
+    //     }
+
+    //     changeSearchState({ name: value.name, distance: nextDist });
+    // };
+
+    const results = useFuseSearch(name, list);
+
     const settlements = useMemo(() => {
-        const grouped = Object.entries(groupBy(list, i => i.name.toLowerCase().charAt(0)));
+        const filteredList = results.filter(({ location: { mkadDistance = 0 } = {} }) => {
+            const { from = 0, to = mkadDistance } = distance;
+
+            const isMin = from <= mkadDistance;
+            const isMax = to >= mkadDistance;
+
+            return to ? isMin && isMax : isMin;
+        });
+
+        const grouped = Object.entries(groupBy(filteredList, i => i.name.toLowerCase().charAt(0)));
 
         return dict.settlements.sortEntries(grouped);
-    }, [list]);
+    }, [results, distance]);
 
     return (
         <main className={className}>
@@ -39,8 +72,12 @@ const SettlementsListPage = ({ className }) => {
                     <ListSection key={firstLetter + items.length}>
                         <Element name={`anchor-${firstLetter}`}>
                             <h2>{firstLetter}</h2>
-                            {items.map(({ name, id }) => (
-                                <PageLink to="settlements.item" params={{ id, name }} key={name} />
+                            {items.map(({ name: settlementName, id }) => (
+                                <PageLink
+                                    to="settlements.item"
+                                    params={{ id, name: settlementName }}
+                                    key={settlementName}
+                                />
                             ))}
                         </Element>
                     </ListSection>
@@ -60,10 +97,15 @@ const SettlementsListPage = ({ className }) => {
 };
 
 // eslint-disable-next-line no-unused-vars
-SettlementsListPage.getInitialProps = async ({ store, query: { name, distance } }) => {
+SettlementsListPage.getInitialProps = async ({ store, query: { name, distance = '{}' } }) => {
     await store.dispatch(fetchSettlements());
 
-    return { title: 'Посёлки', meta: seo.settlements.list, menuEntry: 'settlements' };
+    return {
+        title: 'Посёлки',
+        meta: seo.settlements.list,
+        query: { name, distance: JSON.parse(distance) },
+        menuEntry: 'settlements',
+    };
 };
 
 export default styled(SettlementsListPage)`

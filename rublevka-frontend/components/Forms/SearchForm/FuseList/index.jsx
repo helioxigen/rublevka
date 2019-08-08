@@ -1,50 +1,25 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import Fuse from 'fuse.js';
 import { PageLink } from '@components/UI';
 import config from '@config';
 import { media } from '@utils';
+import { useFuseSearch } from '@hooks';
 
 const FuseList = ({ className, listSelector, value }) => {
-    const [results, setResults] = useState(config.site.popularSettlements);
     const list = useSelector(listSelector);
-
-    const fuse = useMemo(
-        () =>
-            new Fuse(list, {
-                shouldSort: true,
-                threshold: 0.6,
-                location: 0,
-                distance: 100,
-                maxPatternLength: 32,
-                minMatchCharLength: 1,
-                keys: ['name'],
-            }),
-        [list]
-    );
-
-    useEffect(() => {
-        if (value) {
-            const res = fuse.search(value);
-
-            if (res !== results) {
-                setResults(
-                    Object.values(res)
-                        .map(({ id, name }) => [id, name])
-                        .slice(0, 10)
-                );
-            }
-        }
-    }, [value]);
+    const results = useFuseSearch(value, list) || config.site.popularSettlements;
 
     return (
         <ul className={className}>
-            {results.map(([id, name]) => (
-                <li key={id}>
-                    <PageLink to="settlements.item" params={{ id, name }} />
-                </li>
-            ))}
+            {results
+                .map(({ id, name }) => [id, name])
+                .slice(0, 10)
+                .map(([id, name]) => (
+                    <li key={`${id}${name}`}>
+                        <PageLink to="settlements.item" params={{ id, name }} />
+                    </li>
+                ))}
         </ul>
     );
 };

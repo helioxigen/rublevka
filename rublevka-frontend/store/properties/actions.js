@@ -8,10 +8,9 @@ export const LOAD_PROPERTIES_SUCCESS = 'Properties.Load.Success';
 export const LOAD_PROPERTIES_FROM_CACHE = 'Properties.Load.FromCache';
 export const LOAD_PROPERTIES_ERROR = 'Properties.Load.Error';
 
-export const fetchProperties = (pagination, query, userFilter, userOrder, asMore) => ({
+export const fetchProperties = (dealType, pagination, query, userFilter, userOrder, asMore) => ({
     types: [LOAD_PROPERTIES_REQUEST, LOAD_PROPERTIES_SUCCESS, LOAD_PROPERTIES_ERROR],
-    cacheKey: JSON.stringify({ pagination, query }),
-    // shouldCall: state => !state.properties[],
+    // shouldCall: state => (asMore ? true : !state.properties.list[dealType].length),
     call: () => api.properties.getMany(pagination, query),
     payload: {
         pagination,
@@ -19,6 +18,7 @@ export const fetchProperties = (pagination, query, userFilter, userOrder, asMore
         filter: userFilter,
         orderBy: userOrder,
         asMore,
+        dealType,
     },
 });
 

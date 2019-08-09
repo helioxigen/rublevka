@@ -1,41 +1,46 @@
-import { LRUMap } from 'lru_map';
+// import { LRUMap } from 'lru_map';
+// import eFetch from 'f-etag';
 import { query } from '@utils';
 import config from '@config';
 
 require('isomorphic-fetch');
 
-const lruCache = new LRUMap(15);
+// const lruCache = new LRUMap(15);
 
 export const instance = async (apiPath, params) => {
     const url = `${config.resource.API_ENDPOINT}/${apiPath}${params ? `?${encodeURI(query.get(params))}` : ''}`;
 
-    const isBrowser = process.browser;
+    // const isBrowser = process.browser;
 
-    if (!isBrowser) {
-        const isCached = lruCache.has(url);
+    // if (!isBrowser) {
+    //     const isCached = lruCache.has(url);
 
-        if (isCached) {
-            return lruCache.get(url);
-        }
-    }
+    //     if (isCached) {
+    //         return lruCache.get(url);
+    //     }
+    // }
 
-    const headers = isBrowser
-        ? {}
-        : {
-              'Cache-Control': 'no-cache',
-              pragma: 'no-cache',
-          };
+    // const headers = isBrowser
+    //     ? {}
+    //     : {
+    //           'Cache-Control': 'no-cache',
+    //           pragma: 'no-cache',
+    //       };
 
     const response = await fetch(url, {
         method: 'GET',
-        cache: isBrowser ? 'default' : 'no-store',
-        headers,
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Cache-Control': 'no-cache',
+        },
+        // cache: isBrowser ? 'default' : 'no-store',
+        // headers,
     });
 
     if (response.ok) {
         const json = await response.json();
 
-        lruCache.set(url, json);
+        // lruCache.set(url, json);
 
         return json;
     }

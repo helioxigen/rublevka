@@ -35,7 +35,7 @@ const Catalog = ({
     totalItems,
 }) => {
     const { current, total } = useSelector(pagination);
-    const items = useSelector(state => itemsExplicit || state.properties.list);
+    const items = useSelector(state => itemsExplicit || state.properties.list[dealType]);
     const fetching = useSelector(state => state.properties.fetching);
     const [isFilterOpen, toggleFilter] = useToggle(false);
 
@@ -75,7 +75,7 @@ const Catalog = ({
                     <Card key={data.id} prevPage={prevPage} dealTypeExplicit={dealType} data={data} />
                 ))}
             </CardsGrid>
-            {!single && total > 1 && <Pagination count={total} currentPage={current} />}
+            {!single && total > 1 && <Pagination count={total} currentPage={current} dealType={dealType} />}
             <div ref={bottomRef} />
         </main>
     );

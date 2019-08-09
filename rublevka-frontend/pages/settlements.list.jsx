@@ -98,16 +98,14 @@ const SettlementsListPage = ({ className, query: { name, distance = { from: 0 } 
 
 // eslint-disable-next-line no-unused-vars
 SettlementsListPage.getInitialProps = async ({ store, query: { name, distance = '{}' } }) => {
-    const res = await store.dispatch(fetchSettlements());
-
     // console.log(store.getState().settlements);
+    await store.dispatch(fetchSettlements());
 
     return {
         title: 'Посёлки',
         meta: seo.settlements.list,
         query: { name, distance: JSON.parse(distance) },
         menuEntry: 'settlements',
-        res,
     };
 };
 

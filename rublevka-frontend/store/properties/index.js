@@ -16,7 +16,10 @@ export const propertiesInitialState = {
     dealType: '',
     fetching: false,
     items: {},
-    list: [],
+    list: {
+        sale: [],
+        rent: [],
+    },
     settlementLists: {
         sale: [],
         rent: [],
@@ -52,6 +55,7 @@ export const propertiesReducer = createReducer({
             orderBy,
             query,
             asMore,
+            dealType,
         },
         state
     ) => ({
@@ -60,7 +64,10 @@ export const propertiesReducer = createReducer({
             ...state.items,
             ...keyBy(items, i => i.id),
         },
-        list: asMore ? [...state.list, ...items] : items,
+        list: {
+            ...state.list,
+            [dealType]: asMore ? [...state.list, ...items] : items,
+        },
         query,
         filter,
         orderBy,

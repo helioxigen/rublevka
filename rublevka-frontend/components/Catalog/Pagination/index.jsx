@@ -6,7 +6,7 @@ import { Button, Icon } from '@components/UI/atoms';
 import PageLink from './PageLink';
 import { fetchProperties } from '@store';
 
-const Pagination = ({ className, count, currentPage }) => {
+const Pagination = ({ className, count, currentPage, dealType }) => {
     const dispatch = useDispatch();
     const { query, filter, orderBy } = useSelector(state => state.properties);
 
@@ -29,7 +29,7 @@ const Pagination = ({ className, count, currentPage }) => {
             <Button
                 className="load-more"
                 red
-                onClick={() => dispatch(fetchProperties(currentPage + 1, query, filter, orderBy, true))}
+                onClick={() => dispatch(fetchProperties(dealType, currentPage + 1, query, filter, orderBy, true))}
             >
                 Загрузить ещё
             </Button>

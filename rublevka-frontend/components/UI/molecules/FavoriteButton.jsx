@@ -1,17 +1,13 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Icon } from '@components/UI/atoms';
 import { toggleFavorite } from '@store/user/actions';
-import { sc, media } from '@utils';
+import { sc } from '@utils';
 
 const FavoriteButton = ({ className, id, dealType, children }) => {
     const favorite = useSelector(state => state.user.favorite);
-    const isFavorite = useMemo(() => favorite.some(item => item.id === id && item.dealType === dealType), [
-        id,
-        dealType,
-        favorite,
-    ]);
+    const isFavorite = favorite.some(item => item.id === id && item.dealType === dealType);
     const dispatch = useDispatch();
 
     const [play, changePlay] = useState(false);
@@ -69,12 +65,6 @@ export default styled(FavoriteButton)`
         display: block;
         position: relative;
         transition: 0.2s;
-
-        ${media.tablet.at(
-            css => css`
-                font-size: 1.2em;
-            `
-        )}
 
         > * {
             display: block;

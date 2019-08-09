@@ -200,10 +200,7 @@ export default styled(MainPage)`
             .call-block {
                 color: white;
                 text-align: center;
-
-                &[data-inview='true'] {
-                    background: url('/static/landing/call.background.jpg') center / cover no-repeat;
-                }
+                background: url('/static/landing/call.background.jpg') center / cover no-repeat;
             }
 
             .sell-block {

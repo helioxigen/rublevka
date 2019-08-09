@@ -158,7 +158,7 @@ const Filter = ({ className, children, dealType, isOpen, onClose, short = false,
                     </Field>
                 )}
                 <Field title="Спален" name="specification.bedrooms">
-                    {({ value = { from: 0 }, onChange }) => (
+                    {({ value, onChange }) => (
                         <RadioGroup
                             fields={{
                                 0: 'Любое',
@@ -167,7 +167,7 @@ const Filter = ({ className, children, dealType, isOpen, onClose, short = false,
                                 5: '5+',
                             }}
                             onChange={e => onChange({ from: e.target.value })}
-                            value={value.from}
+                            value={(value.from || 0).toString()}
                         />
                     )}
                 </Field>

@@ -5,15 +5,11 @@ import dynamic from 'next/dynamic';
 import { CallbackModal } from '@components/Modals';
 import { Button, IconButton, FavoriteButton } from '@components/UI';
 import Gallery from '@components/Gallery';
-import { useRouter } from 'next/router';
 import { optional, media } from '@utils';
 
 const Modal = dynamic(() => import('react-modal'));
 
-const FullScreenGallery = ({ className, specification, id, images, children }) => {
-    const {
-        query: { dealType },
-    } = useRouter();
+const FullScreenGallery = ({ className, dealType, specification, id, images, children }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -43,7 +39,7 @@ const FullScreenGallery = ({ className, specification, id, images, children }) =
                             </Button>
                         )}
                     </CallbackModal>
-                    <FavoriteButton className="favorite-button" red dealType={dealType}>
+                    <FavoriteButton id={id} className="favorite-button" red dealType={dealType}>
                         {isFav => (isFav ? 'В избранном' : 'В избранное')}
                     </FavoriteButton>
                     <IconButton onClick={() => setIsOpen(false)} secondary icon="times" />

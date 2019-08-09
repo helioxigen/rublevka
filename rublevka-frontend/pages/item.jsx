@@ -70,7 +70,12 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                         </Header.Item>
                         {images.length === 0 && <GalleryPlaceholder propertyId={id} />}
                         {images.length > 0 && (
-                            <FullScreenGallery id={id} images={publicImages} specification={specification}>
+                            <FullScreenGallery
+                                id={item.id}
+                                dealType={dealType}
+                                images={publicImages}
+                                specification={specification}
+                            >
                                 {onClick => (
                                     <Gallery
                                         className="item-gallery"
@@ -200,7 +205,7 @@ CatalogItem.getInitialProps = async ({
     return {
         dealType,
         kind,
-        id,
+        id: parseInt(id, 10),
         title: `${dict.translateKind(kind).noun} №${id}`,
         menuEntry: dealType,
         prevPage: prevPage
@@ -433,11 +438,12 @@ export default styled(CatalogItem)`
                 font-size: 15px;
 
                 .favorite-icon {
-                    margin-right: 10px;
+                    font-size: 18px;
+                    margin-right: 5px;
                 }
 
                 .text {
-                    width: 95px;
+                    font-weight: 500;
                 }
             }
         }

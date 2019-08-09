@@ -5,8 +5,8 @@ import { Icon } from '@components/UI';
 import { sc, media } from '@utils';
 import { updateFilterField } from '@store';
 
-const Field = ({ className, title, name, range, children, resetCheckFn }) => {
-    const defaultValue = range ? {} : [];
+const Field = ({ className, title, name, range, children, resetCheckFn, initialValue }) => {
+    const defaultValue = initialValue || (range ? {} : []);
 
     const value = useSelector(state => state.properties.filter[name] || defaultValue);
     const dispatch = useDispatch();

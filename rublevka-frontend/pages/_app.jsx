@@ -62,13 +62,18 @@ class MyApp extends App {
     }
 
     render() {
-        const { Component, pageProps, store, notFound } = this.props;
+        const {
+            Component,
+            pageProps,
+            store,
+            notFound,
+            router: { asPath },
+        } = this.props;
 
         const {
             meta: { title = config.site.meta.title, description = config.site.meta.description, images } = {},
             prevPage,
             menuEntry,
-            asPath = '/',
         } = pageProps;
 
         return (

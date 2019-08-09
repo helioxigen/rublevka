@@ -40,7 +40,7 @@ const property = (dealType, kind, id, settlementName, mkadDistance, offer, route
     };
 };
 
-const list = (dealType, kind = 'root', pathname) => {
+const list = (dealType, kind = 'root', pathname, page) => {
     const titles = require('./data/title.list.json');
     const descs = require('./data/description.list.json');
 
@@ -56,8 +56,10 @@ const list = (dealType, kind = 'root', pathname) => {
         return value;
     };
 
+    const pagePostfix = page > 1 ? `— cтраница ${page}` : '';
+
     return {
-        title: getValue(titles),
+        title: `${getValue(titles)} ${pagePostfix}`,
         description: getValue(descs),
         pathname,
     };

@@ -34,7 +34,7 @@ CatalogPage.getInitialProps = async ({
         dealType,
         kind,
         title: dict.translateDealType(dealType).noun,
-        meta: seo.list(dealType, kind, asPath),
+        meta: seo.list(dealType, kind, asPath, page),
         menuEntry: dealType,
         prevPage: {
             href: '/',

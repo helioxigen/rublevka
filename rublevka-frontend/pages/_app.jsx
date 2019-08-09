@@ -35,19 +35,28 @@ const GlobalStyles = createGlobalStyle`
 class MyApp extends App {
     static async getInitialProps({ Component, ctx }) {
         let pageProps = {};
+        let showNotFound = false;
+
+        const [dealType, kind] = dict.translit.byWord(ctx.query.dealType, ctx.query.kind);
+
+        ctx.params = {
+            dealType,
+            kind,
+        };
+
+        if (!dict.validate.dealType(dealType) || !dict.validate.kind(kind)) {
+            return { pageProps: {}, notFound: true };
+        }
 
         if (Component.getInitialProps) {
-            const [dealType, kind] = dict.translit.byWord(ctx.query.dealType, ctx.query.kind);
-
-            ctx.params = {
-                dealType,
-                kind,
-            };
-
             pageProps = await Component.getInitialProps(ctx);
         }
 
         const { error } = ctx.store.getState().properties;
+
+        if (error.hasError && error.message.message === 'Not Found') {
+            showNotFound = true;
+        }
 
         if (ctx.req) {
             const { favorite = '[]', currency = app.config.defaultCurrency } = nookies.get(ctx);
@@ -55,7 +64,7 @@ class MyApp extends App {
             ctx.store.dispatch(initUser(JSON.parse(favorite), currency));
         }
 
-        return { pageProps, notFound: error.hasError && error.message.message === 'Not Found' };
+        return { pageProps, notFound: showNotFound };
     }
 
     render() {

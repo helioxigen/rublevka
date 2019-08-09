@@ -42,4 +42,8 @@ export default {
     details,
     declesions,
     settlements,
+    validate: {
+        dealType: v => Object.keys(dealTypes).includes(v),
+        kind: v => (v ? Object.keys(kinds).includes(v) : true),
+    },
 };

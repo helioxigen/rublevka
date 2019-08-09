@@ -76,12 +76,16 @@ const SearchForm = ({ className, type = 'sale', onChange, initialState }) => {
             const { kind, ...vals } = values[type];
 
             const query = Object.entries(vals).map(([fieldName, value]) => {
-                const queryValue = value;
-                const { queryTpl, queryField } = formConfig.fields[fieldName];
+                let queryValue = value;
+                const { queryTpl, queryField, rangeFrom } = formConfig.fields[fieldName];
                 let nextField = queryField;
 
                 if (fieldName === 'price') {
                     nextField = queryTpl(type, currency);
+                }
+
+                if (rangeFrom) {
+                    queryValue = { from: value };
                 }
 
                 return [nextField, queryValue];

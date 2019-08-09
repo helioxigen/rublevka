@@ -56,6 +56,7 @@ const fields = {
         title: 'Спален',
         placeholder: 'Любое количество',
         type: 'list',
+        rangeFrom: true,
         items: [
             {
                 value: 2,

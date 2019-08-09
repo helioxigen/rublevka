@@ -8,7 +8,7 @@ import { updateFilterField } from '@store';
 const Field = ({ className, title, name, range, children, resetCheckFn }) => {
     const defaultValue = range ? {} : [];
 
-    const value = useSelector(state => state.properties.filter[name]) || defaultValue;
+    const value = useSelector(state => state.properties.filter[name] || defaultValue);
     const dispatch = useDispatch();
 
     const onChange = v => dispatch(updateFilterField(name, v));

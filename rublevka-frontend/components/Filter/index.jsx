@@ -167,7 +167,7 @@ const Filter = ({ className, children, dealType, isOpen, onClose, short = false,
                                 5: '5+',
                             }}
                             onChange={e => onChange({ from: e.target.value })}
-                            value={value.from || '0'}
+                            value={value.from.toString() || '0'}
                         />
                     )}
                 </Field>

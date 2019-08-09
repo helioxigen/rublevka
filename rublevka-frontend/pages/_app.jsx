@@ -44,7 +44,7 @@ class MyApp extends App {
             kind,
         };
 
-        if (!dict.validate.dealType(dealType) || !dict.validate.kind(kind)) {
+        if ((dealType && !dict.validate.dealType(dealType)) || !dict.validate.kind(kind)) {
             return { pageProps: {}, notFound: true };
         }
 

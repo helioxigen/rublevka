@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Slider from 'react-slick';
+
+import dynamic from 'next/dynamic';
 
 import { media, dict } from '@utils';
 
 import InfrastructureItem from './InfrastructureItem';
 import { Section } from '.';
+
+const Slider = dynamic(() => {
+    import('slick-carousel/slick/slick.css');
+    import('slick-carousel/slick/slick-theme.css');
+
+    return import('react-slick');
+});
 
 const SwipeInterlayer = ({ className, children }) => {
     const settings = {

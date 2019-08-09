@@ -4,14 +4,17 @@ import { useSelector } from 'react-redux';
 import { Element, Link as ScrollLink } from 'react-scroll';
 
 import { Button, PageContainer, Content, SettlementDetails } from '@components/UI';
-import { ItemHero, Section, Infrastructure, SettlementMap } from '@components/Settlements';
+import { ItemHero, Section, SettlementMap } from '@components/Settlements';
 import { CallbackForm } from '@components/Forms';
 import Catalog from '@components/Catalog';
 import SettlementsItemLayout from '@components/UI/templates/SettlementsItemLayout';
 import { NextSeo } from 'next-seo';
+import dynamic from 'next/dynamic';
 import { fetchSettlementsItem, fetchSettlementProperties, setFilter } from '@store';
 import { Breadcrumbs } from '@components';
 import { dict, query, seo, cdn, tools } from '@utils';
+
+const Infrastructure = dynamic(() => import('@components/Settlements/Infrastructure'));
 
 const SettlementsItemPage = ({ id, dealType, isOnlyType, kind }) => {
     const { name, location = {}, images = [], description: desc } =

@@ -12,9 +12,6 @@ import NProgress from '@components/UI/atoms/NProgress';
 import { Footer, Navbar } from '@components';
 import { makeStore, initUser } from '../store';
 import { app, sc, format, dict } from '@utils';
-
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import config from '@config';
 
 const GlobalStyles = createGlobalStyle`

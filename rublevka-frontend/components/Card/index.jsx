@@ -81,7 +81,7 @@ export default styled(Card)`
     .favorite-button {
         top: 0;
         right: 0;
-        font-size: 15px;
+        font-size: 24px;
     }
 
     .card-id,

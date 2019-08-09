@@ -103,6 +103,7 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                                             true
                                         ),
                                         specification.bedrooms,
+                                        'bedrooms',
                                     ],
                                 ]}
                             />

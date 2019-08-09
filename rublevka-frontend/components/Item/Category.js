@@ -97,7 +97,7 @@ export default styled.div`
                             margin: 0;
                         }
 
-                        .summary-label[data-label='Спален'] {
+                        .summary-label[data-name='bedrooms'] {
                             display: inline-block;
                             color: currentColor;
                             text-transform: lowercase;

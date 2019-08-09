@@ -4,10 +4,10 @@ import compact from 'lodash/compact';
 
 const ItemSummary = ({ className, values }) => (
     <section className={className}>
-        {compact(values).map(([label, value]) => (
+        {compact(values).map(([label, value, name]) => (
             <div key={value} className="summary-param">
                 <p className="summary-value">{value}</p>
-                <p className="summary-label" data-label={label}>
+                <p className="summary-label" data-name={name}>
                     {label}
                 </p>
             </div>

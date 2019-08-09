@@ -6,8 +6,13 @@ require('isomorphic-fetch');
 export const instance = (apiPath, params) =>
     fetch(`${config.resource.API_ENDPOINT}/${apiPath}${params ? `?${encodeURI(query.get(params))}` : ''}`, {
         method: 'GET',
-        cache: 'no-cache',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
     }).then(r => {
+        // console.log(r);
+
         if (!r.ok) {
             throw new Error(r.statusText || r.status);
 

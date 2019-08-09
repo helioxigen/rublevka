@@ -35,27 +35,22 @@ const GlobalStyles = createGlobalStyle`
 class MyApp extends App {
     static async getInitialProps({ Component, ctx }) {
         let pageProps = {};
-        let showNotFound = false;
-
-        const [dealType, kind] = dict.translit.byWord(ctx.query.dealType, ctx.query.kind);
-
-        ctx.params = {
-            dealType,
-            kind,
-        };
-
-        if ((dealType && !dict.validate.dealType(dealType)) || !dict.validate.kind(kind)) {
-            return { pageProps: {}, notFound: true };
-        }
 
         if (Component.getInitialProps) {
+            const [dealType, kind] = dict.translit.byWord(ctx.query.dealType, ctx.query.kind);
+
+            ctx.params = {
+                dealType,
+                kind,
+            };
+
             pageProps = await Component.getInitialProps(ctx);
         }
 
         const { error } = ctx.store.getState().properties;
 
         if (error.hasError && error.message.message === 'Not Found') {
-            showNotFound = true;
+            return { pageProps: {}, notFound: true };
         }
 
         if (ctx.req) {
@@ -64,7 +59,7 @@ class MyApp extends App {
             ctx.store.dispatch(initUser(JSON.parse(favorite), currency));
         }
 
-        return { pageProps, notFound: showNotFound };
+        return { pageProps };
     }
 
     render() {

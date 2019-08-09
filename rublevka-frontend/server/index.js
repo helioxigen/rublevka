@@ -9,15 +9,25 @@ const handle = app.getRequestHandler();
 
 const handlePages = require('./handlePages');
 
+const kinds = ['dom', 'uchastok', 'kvartira', 'taunhaus', 'penthaus', 'apartamenty'].join('|');
+const dealTypes = ['prodaja', 'arenda'].join('|');
+
+const param = {
+    dealType: `:dealType(${dealTypes})`,
+    kind: `:kind(${kinds})`,
+};
+
 app.prepare().then(() => {
     const server = express();
 
     handlePages('/', '/contacts', '/favorites')({
-        '/catalog.map': '/zagorodnaya/:dealType/map/:kind?',
-        '/settlements.list': '/zagorodnaya/kottedzhnye-poselki',
-        '/settlements.item': '/zagorodnaya/kottedzhnye-poselki/(:name)_:id',
-        '/catalog': '/zagorodnaya/:dealType/:kind?',
-        '/item': '/zagorodnaya/:dealType/:kind/:id',
+        '/catalog.map': `/zagorodnaya/${param.dealType}/map/${param.kind}?`,
+
+        '/catalog': `/zagorodnaya/${param.dealType}/${param.kind}?`,
+        '/item': `/zagorodnaya/${param.dealType}/${param.kind}/:id`,
+
+        '/settlements.list': `/zagorodnaya/kottedzhnye-poselki`,
+        '/settlements.item': `/zagorodnaya/kottedzhnye-poselki/(:name)_:id`,
     })(app, server);
 
     server.use('/robots.txt', express.static(`./public/${process.env.APP_ENV}/robots.txt`));

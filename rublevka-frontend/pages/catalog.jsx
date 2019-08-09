@@ -27,9 +27,9 @@ CatalogPage.getInitialProps = async ({
 }) => {
     const filter = filterUtils.query.parse(filterJson, kind && { kind: [kind] });
 
-    const {
-        response: { items },
-    } = await store.dispatch(fetchProperties(page, query.convert({ filter, orderBy }, dealType), filter, orderBy));
+    const res = await store.dispatch(
+        fetchProperties(page, query.convert({ filter, orderBy }, dealType), filter, orderBy)
+    );
 
     return {
         page,
@@ -37,7 +37,7 @@ CatalogPage.getInitialProps = async ({
         kind,
         title: dict.translateDealType(dealType).noun,
         meta: seo.list(dealType, kind, asPath, page),
-        items,
+        res,
         menuEntry: dealType,
         prevPage: {
             href: '/',

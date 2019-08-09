@@ -64,7 +64,7 @@ class MyApp extends App {
             pageProps,
             store,
             notFound,
-            router: { asPath },
+            router: { asPath = '' },
         } = this.props;
 
         const {
@@ -73,13 +73,15 @@ class MyApp extends App {
             menuEntry,
         } = pageProps;
 
+        const asPathname = asPath.split('?')[0];
+
         return (
             <Container>
                 <NProgress color={sc.theme.colors.red} spinner={false} />
                 <DefaultSeo
                     title={title}
                     description={description}
-                    canonical={`https://${config.site.domain}${asPath}`}
+                    canonical={`https://${config.site.domain}${asPathname}`}
                     openGraph={{
                         type: 'website',
                         locale: 'ru_RU',

@@ -73,7 +73,7 @@ const pushQuery = (queryObj, internalQuery, pathnamePostfix) => {
             () => [{ dealType, ...internalQuery, ...shared, permanentPath }, shared],
             q =>
                 Router.pathname === '/settlements.item'
-                    ? [`kottedzhnye-poselki/${pageQuery.name}_${pageQuery.id}`]
+                    ? [permanentPath]
                     : [q.dealType, isMap && 'map', pathnamePostfix],
             hidden
         )

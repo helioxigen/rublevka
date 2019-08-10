@@ -5,7 +5,7 @@ export default dict => ({
         label: 'Посёлки',
     }),
     'settlements.item': ({ id, name }) => ({
-        href: `/settlements.item?id=${id}`,
+        href: `/settlements.item?id=${id}&name=${name}`,
         as: `/zagorodnaya/kottedzhnye-poselki/${dict.translit.byLetters(name)}_${id}`,
         label: name,
     }),

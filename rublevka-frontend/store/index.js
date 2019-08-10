@@ -12,7 +12,7 @@ import settlements from './settlements';
 
 export { fetchFavorite, setFavorite, setCurrency, initUser } from './user/actions';
 export { fetchMapPropertiesSubset, setDisplayedItemsIds } from './map/actions';
-export { fetchSettlements, fetchSettlementsItem } from './settlements/actions';
+export { fetchSettlements, fetchSettlementsItem, setSettlementItemDealTypes } from './settlements/actions';
 export {
     updateFilterField,
     fetchProperties,

@@ -1,12 +1,16 @@
 import keyBy from 'lodash/keyBy';
 import { createReducer } from '../../utils/store';
-import { settlementsFetchTypes, settlementsItemFetchTypes } from './actions';
+import { settlementsFetchTypes, settlementsItemFetchTypes, SET_SETTLEMENT_ITEM_DEAL_TYPES } from './actions';
 
 const initialState = {
     fetching: false,
     items: {},
     list: [],
     currentProperties: [],
+    currentItem: {
+        id: 0,
+        dealTypes: [],
+    },
     error: {
         hasError: false,
         message: '',
@@ -32,6 +36,12 @@ const reducer = createReducer({
         items: {
             ...state.items,
             [id]: response,
+        },
+    }),
+    [SET_SETTLEMENT_ITEM_DEAL_TYPES]: ({ payload: { id, dealTypes } }) => ({
+        currentItem: {
+            id,
+            dealTypes,
         },
     }),
     // [LOAD_settlements_ERROR]: err => ({

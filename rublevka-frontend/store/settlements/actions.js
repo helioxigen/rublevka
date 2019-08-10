@@ -22,6 +22,16 @@ export const fetchSettlementsItem = id => ({
     },
 });
 
+export const SET_SETTLEMENT_ITEM_DEAL_TYPES = 'Settlements.Item.SetDealTypes';
+
+export const setSettlementItemDealTypes = (id, dealTypes) => ({
+    type: SET_SETTLEMENT_ITEM_DEAL_TYPES,
+    payload: {
+        id,
+        dealTypes,
+    },
+});
+
 export const settlementPropertiesFetchTypes = createApiCallTypes('Settlements', 'PropertiesLoad');
 
 export const fetchSettlementProperties = (id, query) => ({

@@ -8,7 +8,7 @@ export default function useScrollState(blocked = false, initialIsScrolling = fal
         const { pageYOffset } = window;
 
         // console.log({ pageYOffset, threshold, isScrollingDown, initialIsScrolling });
-        if (pageYOffset <= threshold) {
+        if (pageYOffset <= threshold && threshold) {
             // if (isScrollingDown === initialIsScrolling) return;
 
             setIsScrollingDown(true);
@@ -35,7 +35,6 @@ export default function useScrollState(blocked = false, initialIsScrolling = fal
     };
 
     useEffect(() => {
-        console.log({ isScrollingDown });
         window.addEventListener('scroll', handleScroll);
 
         return () => {
@@ -43,5 +42,5 @@ export default function useScrollState(blocked = false, initialIsScrolling = fal
         };
     }, []);
 
-    return [isScrollingDown];
+    return isScrollingDown;
 }

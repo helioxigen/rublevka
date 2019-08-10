@@ -18,7 +18,7 @@ const Navbar = ({ className, title, activeEntry, prevPage = { href: '/', as: '/'
 
     const isLanding = pathname === '/';
 
-    const isScrollingDown = useScrollState(undefined, true, 180);
+    const isScrollingDown = useScrollState(undefined, isLanding, isLanding ? 180 : 0);
     const isInverted = useInvertOnScroll(isLanding, 80);
     // const [ref, menuOpen, setIsMenuOpen] = useComponentVisible(false);
     const [menuOpen, setIsMenuOpen] = useState(false);
@@ -154,30 +154,34 @@ export default styled(Navbar)`
 
     ${media.desktop.to(
         css => css`
-            &[data-inverted='true'] {
-                .nav-container {
-                    pointer-events: none;
+            &[data-islanding='true'] {
+                &[data-inverted='true'] {
+                    .nav-container {
+                        pointer-events: none;
+                    }
+
+                    .menu-content {
+                        pointer-events: all;
+                    }
+
+                    .floating-content {
+                    }
+
+                    .floating-content .content > *:not(${MainMenu}) {
+                        display: none;
+                    }
                 }
 
-                .menu-content {
-                    pointer-events: all;
+                &[data-inverted='false'] {
+                    .floating-content[data-active='false'] {
+                        transform: translateY(-100%);
+                    }
                 }
 
-                .floating-content {
+                .floating-content[data-active='false'] {
+                    transition: none;
+                    background: none;
                 }
-
-                .floating-content .content > *:not(${MainMenu}) {
-                    display: none;
-                }
-            }
-
-            &[data-inverted='false'] .floating-content[data-active='false'] {
-                transform: translateY(-100%);
-            }
-
-            .floating-content[data-active='false'] {
-                transition: none;
-                background: none;
             }
 
             &[data-hide='true'][data-inverted='false'] .floating-content {

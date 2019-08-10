@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 
-import { CardsGrid } from '@components/UI';
+import { CardsGrid, Button } from '@components/UI';
 import { media, dict, app, optional } from '@utils';
 import { Filter, Card } from '@components';
 import { useToggle, useScrollState } from '@hooks';
@@ -11,6 +11,7 @@ import Toolbar from './Toolbar';
 import Pagination from './Pagination';
 import FloatingControls from './FloatingControls';
 import Header from './Header';
+import { setFilter } from '@store';
 
 const pagination = ({
     properties: {
@@ -38,6 +39,8 @@ const Catalog = ({
     const items = useSelector(state => itemsExplicit || state.properties.list[dealType]);
     const fetching = useSelector(state => state.properties.fetching);
     const [isFilterOpen, toggleFilter] = useToggle(false);
+
+    const dispatch = useDispatch();
 
     const [mainRef, mainInView] = useInView();
     const [bottomRef, bottomInView] = useInView();
@@ -70,6 +73,12 @@ const Catalog = ({
                 isOpen={isFilterOpen}
                 dealType={dealType}
             />
+            {!fetching && !items.length && (
+                <div className="empty-items">
+                    <h2>Не найдено таких объектов</h2>
+                    <Button onClick={() => dispatch(setFilter({}, true))}>Новый поиск</Button>
+                </div>
+            )}
             <CardsGrid fetching={fetching}>
                 {items.map(data => (
                     <Card key={data.id} prevPage={prevPage} dealTypeExplicit={dealType} data={data} />
@@ -104,6 +113,16 @@ export default styled(Catalog)`
             width: auto;
         `
     )}
+
+    .empty-items {
+        grid-area: cards;
+
+        h2 {
+            font-weight: 300;
+        }
+
+        text-align: center;
+    }
 
     .filter {
         padding-right: 24px;

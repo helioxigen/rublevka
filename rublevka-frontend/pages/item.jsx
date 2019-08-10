@@ -200,7 +200,7 @@ CatalogItem.getInitialProps = async ({
     query: { id, dealType: dealTypeT, kind: kindT, prevPage },
     params: { dealType, kind },
 }) => {
-    await store.dispatch(fetchProperty(id));
+    await store.dispatch(fetchProperty(id, 'sold'));
 
     return {
         dealType,

@@ -49,7 +49,7 @@ class MyApp extends App {
 
         const { error } = ctx.store.getState().properties;
 
-        if (error.hasError && error.message.message === 'Not Found') {
+        if (error.hasError && (error.message.message || error.message) === 'Not Found') {
             return { pageProps: {}, notFound: true };
         }
 

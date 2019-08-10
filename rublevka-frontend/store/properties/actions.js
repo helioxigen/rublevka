@@ -40,10 +40,10 @@ export const fetchSettlementProperties = (dealType, pagination, query, userFilte
 export const LOAD_PROPERTY_REQUEST = 'Properties.LoadItem.Request';
 export const LOAD_PROPERTY_SUCCESS = 'Properties.LoadItem.Success';
 
-export const fetchProperty = id => ({
+export const fetchProperty = (id, ...restrictedStates) => ({
     types: [LOAD_PROPERTY_REQUEST, LOAD_PROPERTY_SUCCESS, LOAD_PROPERTIES_ERROR],
     shouldCall: state => !state.properties.items[id],
-    call: () => api.properties.getOne(id),
+    call: () => api.properties.getOne(id, ...restrictedStates),
     payload: {
         id,
     },

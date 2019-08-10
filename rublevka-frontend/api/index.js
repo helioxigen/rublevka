@@ -6,7 +6,16 @@ const limit = 24;
 
 export default {
     properties: {
-        getOne: id => instance(`properties/country/${id}`),
+        getOne: (id, ...restrictedStates) =>
+            instance(`properties/country/${id}`).then((item = {}) => {
+                const isRestricted = restrictedStates.includes(item.state);
+
+                if (isRestricted) {
+                    throw new Error('Not Found');
+                }
+
+                return item;
+            }),
         getMany: (page, query) =>
             instance('properties/country', { pagination: { limit, offset: page * limit - limit }, ...query }),
         getChunk: (query, chunkIdx = 0, chunkSize = 256) =>

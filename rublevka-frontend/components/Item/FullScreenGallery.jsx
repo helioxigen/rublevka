@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { CallbackModal } from '@components/Modals';
 import { Button, IconButton, FavoriteButton } from '@components/UI';
 import Gallery from '@components/Gallery';
+import { getFields } from '@components/Forms/CallbackForm/fieldTypes';
 import { optional, media } from '@utils';
 
 const Modal = dynamic(() => import('react-modal'));
@@ -32,7 +33,7 @@ const FullScreenGallery = ({ className, dealType, specification, id, images, chi
                             `№ ${id}`
                         )}
                     </h1>
-                    <CallbackModal>
+                    <CallbackModal fields={getFields('name', 'phone', 'comment')} title="Забронировать просмотр">
                         {handleOpen => (
                             <Button className="callback-button" onClick={handleOpen}>
                                 Оставить заявку

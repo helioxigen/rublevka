@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { TextArea, Input, Button } from '@components/UI/atoms';
 import { IconButton } from '@components/UI';
+// eslint-disable-next-line import/no-named-as-default
 import PhoneInput from './PhoneInput';
 import { getFields } from './fieldTypes';
 import { uis, media, sc } from '@utils';
@@ -145,7 +146,8 @@ export default styled(CallbackForm)`
     }
 
     & > input,
-    .phone-input {
+    .phone-input,
+    textarea {
         margin: 4px 0;
         width: 100%;
     }

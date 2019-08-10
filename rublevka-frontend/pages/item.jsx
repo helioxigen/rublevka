@@ -438,12 +438,13 @@ export default styled(CatalogItem)`
                 font-size: 15px;
 
                 .favorite-icon {
-                    font-size: 18px;
+                    font-size: 24px;
                     margin-right: 5px;
                 }
 
                 .text {
                     font-weight: 500;
+                    width: 100px;
                 }
             }
         }

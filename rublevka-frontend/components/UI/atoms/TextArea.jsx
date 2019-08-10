@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export default styled.textarea`
     margin: 4px 0px;
+    box-sizing: border-box;
     padding: 16px 15px 14px 15px;
     border: 1px solid #d9d9d9;
     border-radius: 4px;

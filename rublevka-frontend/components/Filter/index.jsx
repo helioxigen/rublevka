@@ -38,7 +38,7 @@ const Filter = ({ className, children, dealType, isOpen, onClose, short = false,
             <ResetToolbar
                 className="reset-toolbar"
                 onClose={onClose}
-                onReset={() => dispatch(setFilter({}))}
+                onReset={() => dispatch(setFilter({}, true))}
                 isResetActive={Object.keys(values).length > 0}
             />
             {children}

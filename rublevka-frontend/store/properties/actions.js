@@ -61,18 +61,7 @@ export const changeOrderBy = type => dispatch => {
     page.pushQuery({ orderBy: type });
 };
 
-export const UPDATE_FILTER_FIELD = 'Properties.Filter.UpdateField';
-export const updateFilterField = (fieldName, value) => (dispatch, getState) => {
-    dispatch({
-        type: UPDATE_FILTER_FIELD,
-        payload: {
-            fieldName,
-            value,
-        },
-    });
-
-    const { filter = {} } = getState().properties;
-
+const pushFilter = filter => {
     const nextFilter = pickBy(filter, v => !isEmpty(v));
 
     const isKindOnly = Object.keys(nextFilter).length === 1 && nextFilter.kind && nextFilter.kind.length === 1;
@@ -86,6 +75,21 @@ export const updateFilterField = (fieldName, value) => (dispatch, getState) => {
     return page.pushQuery({ filter: !isEmpty(nextFilter) && JSON.stringify(nextFilter) });
 };
 
+export const UPDATE_FILTER_FIELD = 'Properties.Filter.UpdateField';
+export const updateFilterField = (fieldName, value) => (dispatch, getState) => {
+    dispatch({
+        type: UPDATE_FILTER_FIELD,
+        payload: {
+            fieldName,
+            value,
+        },
+    });
+
+    const { filter = {} } = getState().properties;
+
+    pushFilter(filter);
+};
+
 export const SET_DEAL_TYPE = 'Properties.DealType.Set';
 export const setDealType = dealType => ({
     type: SET_DEAL_TYPE,
@@ -95,9 +99,15 @@ export const setDealType = dealType => ({
 });
 
 export const SET_FILTER = 'Properties.Filter.Set';
-export const setFilter = filter => ({
-    type: SET_FILTER,
-    payload: {
-        filter,
-    },
-});
+export const setFilter = (filter, push = false) => dispatch => {
+    dispatch({
+        type: SET_FILTER,
+        payload: {
+            filter,
+        },
+    });
+
+    if (push) {
+        pushFilter(filter);
+    }
+};

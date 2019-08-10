@@ -9,42 +9,22 @@ import { SearchForm } from '@components/Forms';
 import { Breadcrumbs } from '@components';
 import { fetchSettlements } from '@store';
 import { dict, app, media, seo } from '@utils';
-import { useFuseSearch } from '@hooks';
 
-const SettlementsListPage = ({ className, query: { name, distance = { from: 0 } } }) => {
+const SettlementsListPage = ({ className, query: { name: settlementName, distance = { from: 0 } } }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchSettlements());
     }, []);
 
-    // const [{ name, distance = { from: 0 } }, changeSearchState] = useState({
-    //     name: query.name,
-    //     distance: query.distance,
-    // });
-
-    // const handleChangeSearchState = value => {
-    //     const { from, to } = value.distance;
-
-    //     const nextDist = {};
-
-    //     if (from) {
-    //         nextDist.from = from;
-    //     }
-
-    //     if (to) {
-    //         nextDist.to = to;
-    //     }
-
-    //     changeSearchState({ name: value.name, distance: nextDist });
-    // };
-
     const list = useSelector(state => state.settlements.list);
 
-    const results = useFuseSearch(name, list);
-
     const settlements = useMemo(() => {
-        const filteredList = results.filter(({ location: { mkadDistance = 0 } = {} }) => {
+        const filteredList = list.filter(({ name, location: { mkadDistance = 0 } = {} }) => {
+            const nameMatched = name.match(new RegExp(settlementName, 'ig'));
+
+            if (!nameMatched) return false;
+
             const { from = 0, to = mkadDistance } = distance;
 
             const isMin = from <= mkadDistance;
@@ -56,7 +36,7 @@ const SettlementsListPage = ({ className, query: { name, distance = { from: 0 } 
         const grouped = Object.entries(groupBy(filteredList, i => i.name.toLowerCase().charAt(0)));
 
         return dict.settlements.sortEntries(grouped);
-    }, [results, distance, list]);
+    }, [list, distance, list]);
 
     return (
         <main className={className}>
@@ -71,19 +51,15 @@ const SettlementsListPage = ({ className, query: { name, distance = { from: 0 } 
                 <Header.Settlements className="list-header">
                     Посёлки на {app.ifDomain('Рублёвке', 'Риге')}
                 </Header.Settlements>
-                <SearchForm type="settlements" />
+                <SearchForm type="settlements" initialState={{ settlementName, distance }} />
             </Hero>
             <article>
                 {settlements.map(([firstLetter, items]) => (
                     <ListSection key={firstLetter + items.length}>
                         <Element name={`anchor-${firstLetter}`}>
                             <h2>{firstLetter}</h2>
-                            {items.map(({ name: settlementName, id }) => (
-                                <PageLink
-                                    to="settlements.item"
-                                    params={{ id, name: settlementName }}
-                                    key={settlementName}
-                                />
+                            {items.map(({ name, id }) => (
+                                <PageLink to="settlements.item" params={{ id, name }} key={name} />
                             ))}
                         </Element>
                     </ListSection>

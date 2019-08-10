@@ -31,7 +31,8 @@ export const instance = async (apiPath, params) => {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            // 'Cache-Control': 'no-cache',
+            // 'If-None-Match': '*',
+            // 'Cache-Control': 'must-revalidate',
         },
         // cache: isBrowser ? 'default' : 'no-store',
         // headers,

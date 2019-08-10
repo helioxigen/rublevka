@@ -11,6 +11,7 @@ import { media, filter, page, dict, scrollToRef } from '@utils';
 import formConfig from './formConfig';
 import TextInput from './TextInput';
 import FuseList from './FuseList';
+import { getRangeName } from './templates';
 
 const SearchForm = ({ className, type = 'sale', onChange, initialState }) => {
     const currency = useSelector(state => state.user.currency);
@@ -148,6 +149,11 @@ const SearchForm = ({ className, type = 'sale', onChange, initialState }) => {
 
                     const itemsList = type in items ? items[type] : items;
 
+                    const dropdownInitialValue =
+                        range && typeValues[name]
+                            ? { value: typeValues[name], label: getRangeName(typeValues[name], range.template) }
+                            : itemsList.find(i => i.value === typeValues[name]);
+
                     return (
                         <Dropdown
                             key={`${name}${type}`}
@@ -159,7 +165,7 @@ const SearchForm = ({ className, type = 'sale', onChange, initialState }) => {
                             range={range}
                             fieldName={name}
                             showCurrency={name === 'price'}
-                            initialValue={itemsList.find(i => i.value === typeValues[name])}
+                            initialValue={dropdownInitialValue}
                         />
                     );
                 })}

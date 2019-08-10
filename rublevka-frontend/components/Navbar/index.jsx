@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import config from '@config';
 import { media, sc } from '@utils';
 import MainMenu from './MainMenu';
-import { useInvertOnScroll, useScrollState } from '@hooks';
+import { useInvertOnScroll, useScrollState, useScrollAnchors } from '@hooks';
 
 const Navbar = ({ className, title, activeEntry, prevPage = { href: '/', as: '/' } }) => {
     const { pathname, push } = useRouter();
@@ -18,17 +18,43 @@ const Navbar = ({ className, title, activeEntry, prevPage = { href: '/', as: '/'
 
     const isLanding = pathname === '/';
 
-    const isScrollingDown = useScrollState();
+    const isScrollingDown = useScrollState(undefined, true, 180);
     const isInverted = useInvertOnScroll(isLanding, 80);
     // const [ref, menuOpen, setIsMenuOpen] = useComponentVisible(false);
     const [menuOpen, setIsMenuOpen] = useState(false);
+    const [transitionActive] = useScrollAnchors(130);
 
     const favoriteCount = useSelector(state => state.user.favorite.length);
 
     return (
         <header className={className} data-hide={isScrollingDown} data-islanding={isLanding} data-inverted={isInverted}>
+            {isLanding && (
+                <div className="adaptive-static-content">
+                    <Link href="/">
+                        <a className="logo">
+                            <Icon className="logo-icon" name={config.app} />
+                        </a>
+                    </Link>
+                    <div className="controls">
+                        <Link href="/favorites">
+                            <a className="favorites">
+                                <Icon secondary className="favorite-icon" name="favorite" stroke />
+                                <span className="counter" data-show={favoriteCount > 0}>
+                                    {favoriteCount === 0 ? 1 : favoriteCount}
+                                </span>
+                            </a>
+                        </Link>
+                        <IconButton
+                            secondary
+                            onClick={() => setIsMenuOpen(true)}
+                            className="menu-button"
+                            icon="hamburger"
+                        />
+                    </div>
+                </div>
+            )}
             <div className="nav-container">
-                <div className="floating-content">
+                <div className="floating-content" data-active={transitionActive}>
                     <Content className="content">
                         <IconButton onClick={handlePrevPage} className="go-back" secondary icon="arrow" mirror stroke />
                         <Link href="/">
@@ -79,6 +105,28 @@ export default styled(Navbar)`
         height: inherit;
     }
 
+    .adaptive-static-content {
+        width: 100%;
+        padding: 0 15px;
+
+        height: inherit;
+
+        box-sizing: border-box;
+
+        color: white;
+
+        position: absolute;
+
+        display: flex;
+        justify-content: space-between;
+
+        ${media.desktop.at(
+            css => css`
+                display: none;
+            `
+        )}
+    }
+
     .floating-content {
         width: 100%;
         padding: 0 15px;
@@ -106,7 +154,33 @@ export default styled(Navbar)`
 
     ${media.desktop.to(
         css => css`
-            &[data-hide='true'] .floating-content {
+            &[data-inverted='true'] {
+                .nav-container {
+                    pointer-events: none;
+                }
+
+                .menu-content {
+                    pointer-events: all;
+                }
+
+                .floating-content {
+                }
+
+                .floating-content .content > *:not(${MainMenu}) {
+                    display: none;
+                }
+            }
+
+            &[data-inverted='false'] .floating-content[data-active='false'] {
+                transform: translateY(-100%);
+            }
+
+            .floating-content[data-active='false'] {
+                transition: none;
+                background: none;
+            }
+
+            &[data-hide='true'][data-inverted='false'] .floating-content {
                 transform: translateY(-100%);
             }
         `
@@ -191,14 +265,8 @@ export default styled(Navbar)`
         max-height: 0;
     }
 
-    &[data-islanding='true'][data-inverted='false'] .floating-content {
-        color: ${sc.theme.colors.black};
-        background-color: white;
-        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
-    }
-
     &[data-islanding='true'] .floating-content {
-        background-color: transparent;
+        background: transparent;
         box-shadow: none;
         color: white;
 
@@ -209,6 +277,16 @@ export default styled(Navbar)`
         .logo-icon {
             display: block;
         }
+    }
+
+    &[data-islanding='true'][data-inverted='false'] .floating-content {
+        color: ${sc.theme.colors.black};
+        background-color: white;
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+    }
+
+    &[data-islanding='true'] .adaptive-static-content .logo-icon {
+        display: block;
     }
 
     ${media.desktop.at(

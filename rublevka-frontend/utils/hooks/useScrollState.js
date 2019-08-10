@@ -1,11 +1,19 @@
 import { useState, useRef, useEffect } from 'react';
 
-export default function useScrollState(blocked = false) {
-    const [isScrollingDown, setIsScrollingDown] = useState(false);
+export default function useScrollState(blocked = false, initialIsScrolling = false, threshold = 0) {
+    const [isScrollingDown, setIsScrollingDown] = useState(() => initialIsScrolling);
     const prevOffset = useRef(0);
 
     const handleScroll = () => {
         const { pageYOffset } = window;
+
+        // console.log({ pageYOffset, threshold, isScrollingDown, initialIsScrolling });
+        if (pageYOffset <= threshold) {
+            // if (isScrollingDown === initialIsScrolling) return;
+
+            setIsScrollingDown(true);
+            return;
+        }
 
         const blocker = document.querySelector('.floating-border');
 
@@ -27,6 +35,7 @@ export default function useScrollState(blocked = false) {
     };
 
     useEffect(() => {
+        console.log({ isScrollingDown });
         window.addEventListener('scroll', handleScroll);
 
         return () => {
@@ -34,5 +43,5 @@ export default function useScrollState(blocked = false) {
         };
     }, []);
 
-    return isScrollingDown;
+    return [isScrollingDown];
 }

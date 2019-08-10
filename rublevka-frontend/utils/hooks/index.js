@@ -12,3 +12,4 @@ export { default as useInputValue } from './useInputValue';
 export { default as useSelector } from './useSelector';
 export { default as useFallbackImages } from './useFallbackImages';
 export { default as useFuseSearch } from './useFuseSearch';
+export { default as useScrollAnchors } from './useScrollAnchors';

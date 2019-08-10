@@ -4,6 +4,10 @@ import Fuse from 'fuse.js';
 export default function useFuseSearch(value, list = [], initialResults, keys = ['name']) {
     const [results, setResults] = useState(initialResults || list);
 
+    useEffect(() => {
+        setResults(list);
+    }, [list]);
+
     const fuse = useMemo(
         () =>
             new Fuse(list, {

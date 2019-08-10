@@ -4,7 +4,7 @@ const envs = {
         CDN: 'https://images.jqestate.ru',
     },
     development: {
-        API: 'https://api-dev.jqestate.ru/v1',
+        API: 'https://api.jqestate.ru/v1',
         CDN: 'https://images.jqestate.ru',
     },
     local: {

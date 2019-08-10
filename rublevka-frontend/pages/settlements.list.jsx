@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import groupBy from 'lodash/groupBy';
 import { Header, PageLink } from '@components/UI';
 import { Hero, ListSection, ListNav } from '@components/Settlements';
@@ -12,7 +12,11 @@ import { dict, app, media, seo } from '@utils';
 import { useFuseSearch } from '@hooks';
 
 const SettlementsListPage = ({ className, query: { name, distance = { from: 0 } } }) => {
-    const list = useSelector(state => state.settlements.list);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchSettlements());
+    }, []);
 
     // const [{ name, distance = { from: 0 } }, changeSearchState] = useState({
     //     name: query.name,
@@ -35,6 +39,8 @@ const SettlementsListPage = ({ className, query: { name, distance = { from: 0 } 
     //     changeSearchState({ name: value.name, distance: nextDist });
     // };
 
+    const list = useSelector(state => state.settlements.list);
+
     const results = useFuseSearch(name, list);
 
     const settlements = useMemo(() => {
@@ -50,7 +56,7 @@ const SettlementsListPage = ({ className, query: { name, distance = { from: 0 } 
         const grouped = Object.entries(groupBy(filteredList, i => i.name.toLowerCase().charAt(0)));
 
         return dict.settlements.sortEntries(grouped);
-    }, [results, distance]);
+    }, [results, distance, list]);
 
     return (
         <main className={className}>
@@ -97,9 +103,8 @@ const SettlementsListPage = ({ className, query: { name, distance = { from: 0 } 
 };
 
 // eslint-disable-next-line no-unused-vars
-SettlementsListPage.getInitialProps = async ({ store, query: { name, distance = '{}' } }) => {
+SettlementsListPage.getInitialProps = async ({ query: { name, distance = '{}' } }) => {
     // console.log(store.getState().settlements);
-    await store.dispatch(fetchSettlements());
 
     return {
         title: 'Посёлки',

@@ -6,10 +6,10 @@ export const searchById = propertyId => {
         ({ id, kind, saleOffer, rentOffer }) => {
             if (!rentOffer && !saleOffer) throw new Error('no-offer');
 
-            navigate.to('item', { dealType: saleOffer ? 'sale' : 'rent', id, kind });
+            navigate.to('item', { dealType: saleOffer ? 'sale' : 'rent', id, kind }, true);
         },
         err => {
-            if (err.message === '404') {
+            if (err.response.status === 404) {
                 // eslint-disable-next-line no-alert
                 alert('Объект с данным ID не найден');
             }

@@ -11,14 +11,20 @@ const routes = routesTpl(dict);
 
 /**
  * @typedef {typeof routes} Routes
- * @type {<K extends keyof Routes>(to: K, params: ToArgs<K>)}
+ * @type {<K extends keyof Routes>(to: K, params: ToArgs<K>, resetScrollTop?: boolean) => Promise<boolean>}
  */
-const navTo = (to, params) => {
+const navTo = (to, params, resetScrollTop = false) => {
     const tpl = routes[to];
 
     const { as, href } = tpl(params);
 
-    Router.push(href, as);
+    const pushReq = Router.push(href, as);
+
+    if (resetScrollTop) {
+        pushReq.then(() => {
+            window.scrollTo(0, 0);
+        });
+    }
 };
 
 export default {

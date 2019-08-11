@@ -1,4 +1,4 @@
-import translit from 'translitit-cyrillic-russian-to-latin';
+const translit = require('translitit-cyrillic-russian-to-latin');
 
 const dictionary = {
     // Categories
@@ -41,7 +41,7 @@ const dictionary = {
     office: 'ofis',
 };
 
-export default {
+module.exports = {
     byWord: (...words) => (words.length === 1 ? dictionary[words[0]] : words.map(word => dictionary[word])),
     byLetters: word =>
         translit(word)

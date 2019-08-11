@@ -2,3 +2,4 @@
 .vscode/chrome
 build/
 .DS_Store
+public/sitemap.xml

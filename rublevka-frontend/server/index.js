@@ -9,6 +9,8 @@ const handle = app.getRequestHandler();
 
 const handlePages = require('./handlePages');
 
+const { useSitemap } = require('./sitemap');
+
 const kinds = ['dom', 'uchastok', 'kvartira', 'taunhaus', 'penthaus', 'apartamenty'].join('|');
 const dealTypes = ['prodaja', 'arenda'].join('|');
 
@@ -16,6 +18,8 @@ const param = {
     dealType: `:dealType(${dealTypes})`,
     kind: `:kind(${kinds})`,
 };
+
+useSitemap();
 
 app.prepare().then(() => {
     const server = express();
@@ -31,6 +35,7 @@ app.prepare().then(() => {
     })(app, server);
 
     server.use('/robots.txt', express.static(`./public/${process.env.APP_ENV}/robots.txt`));
+    server.use('/sitemap.xml', express.static(`./public/sitemap.xml`));
 
     server.get('*', (req, res) => {
         return handle(req, res);

@@ -49,6 +49,9 @@ const config = {
         API_ENDPOINT: process.env.API_ENDPOINT,
         APP: process.env.APP || 'rublevka',
         APP_ENV: process.env.APP_ENV,
+
+        REACT_APP_YANDEX_METRIKA_ID: process.env.REACT_APP_YANDEX_METRIKA_ID,
+        REACT_APP_GOOGLE_ANALYTICS_ID: process.env.REACT_APP_GOOGLE_ANALYTICS_ID,
     },
 };
 

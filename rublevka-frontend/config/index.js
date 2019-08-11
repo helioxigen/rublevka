@@ -28,5 +28,9 @@ export default {
         API_ENDPOINT,
         CDN,
     },
+    external: {
+        gtagId: process.env.REACT_APP_GOOGLE_ANALYTICS_ID,
+        yandexMetrikaId: process.env.REACT_APP_YANDEX_METRIKA_ID,
+    },
     site: sites.find(c => c.name === process.env.APP),
 };

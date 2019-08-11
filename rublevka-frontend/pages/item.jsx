@@ -131,8 +131,14 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                                         values={[
                                             ['Тип газа', dict.details.get(communication.gasSupply)],
                                             ['Электричество', communication.powerSupply, 'кВт'],
-                                            ['Канализация', dict.details.get(communication.sewerageSupply, 'ая')],
-                                            ['Источник воды', dict.details.get(communication.waterSupply, 'ое')],
+                                            [
+                                                'Канализация',
+                                                dict.details.get(communication.sewerageSupply, ['central', 'ая']),
+                                            ],
+                                            [
+                                                'Источник воды',
+                                                dict.details.get(communication.waterSupply, ['central', 'ое']),
+                                            ],
                                         ]}
                                     />
                                 </Section>

@@ -33,16 +33,18 @@ const dictionary = {
     diesel: 'Дизель',
     // communication.sewerageSupply
     central: 'Центральн',
-    septic: 'Септик',
+    septic: 'Септика',
     // communication.waterSupply
     purification: 'Очистные сооружения',
     well: 'Скважина',
 };
 
 export default {
-    get: (detailsKey, postFix = '') => {
+    get: (detailsKey, [value, postFix] = []) => {
         if (detailsKey in dictionary) {
-            return dictionary[detailsKey] + postFix;
+            return dictionary[detailsKey] + (value === detailsKey ? postFix : '');
         }
+
+        return '';
     },
 };

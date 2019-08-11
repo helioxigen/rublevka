@@ -22,35 +22,42 @@ const Card = ({
 
     return (
         <PageLink to="item" params={{ dealType, id, kind, prevPage }}>
-            <a className={className}>
-                <article>
-                    <header
-                        style={{
-                            backgroundImage: 'url(/static/placeholder.svg)',
-                        }}
-                    >
-                        <span className="card-id">№{id}</span>
-                        <FavoriteButton className="favorite-button" id={id} dealType={dealType} />
+            <article className={className}>
+                <header
+                    style={{
+                        backgroundImage: 'url(/static/placeholder.svg)',
+                    }}
+                >
+                    <span className="card-id">№{id}</span>
+                    <FavoriteButton className="favorite-button" id={id} dealType={dealType} />
 
-                        {images.length > 0 && <Shortcuts images={publicImages} />}
-                        {images.length > 0 && <Gallery images={publicImages} />}
-                    </header>
-                    <section className="card-body">
-                        <h3>
-                            {itemTitle.generate(dealType, true, false, { landDetails, specification, location, kind })}
-                        </h3>
-                        <Summary
-                            values={[
-                                landDetails.area && `${Math.round(landDetails.area)} сот`,
-                                specification.area && `${Math.round(specification.area)} м²`,
-                                specification.bedrooms &&
-                                    format.titleByNumber(specification.bedrooms, ['спальня', 'спальни', 'спален']),
-                            ]}
-                        />
-                        <Price deal={data[`${dealType}Offer`] || {}} dealType={dealType} />
-                    </section>
-                </article>
-            </a>
+                    {images.length > 0 && <Shortcuts images={publicImages} />}
+                    {images.length > 0 && <Gallery images={publicImages} />}
+                </header>
+                <section className="card-body">
+                    <h3>
+                        <PageLink to="item" params={{ dealType, id, kind, prevPage }}>
+                            <a>
+                                {itemTitle.generate(dealType, true, false, {
+                                    landDetails,
+                                    specification,
+                                    location,
+                                    kind,
+                                })}
+                            </a>
+                        </PageLink>
+                    </h3>
+                    <Summary
+                        values={[
+                            landDetails.area && `${Math.round(landDetails.area)} сот`,
+                            specification.area && `${Math.round(specification.area)} м²`,
+                            specification.bedrooms &&
+                                format.titleByNumber(specification.bedrooms, ['спальня', 'спальни', 'спален']),
+                        ]}
+                    />
+                    <Price deal={data[`${dealType}Offer`] || {}} dealType={dealType} />
+                </section>
+            </article>
         </PageLink>
     );
 };
@@ -126,6 +133,11 @@ export default styled(Card)`
             margin: 0 0 6px 0;
             flex: 1 0 auto;
             color: ${sc.theme.colors.black};
+
+            a {
+                text-decoration: none;
+                color: inherit;
+            }
         }
 
         ${Summary} {

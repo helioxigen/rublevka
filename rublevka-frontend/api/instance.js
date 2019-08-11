@@ -29,10 +29,11 @@ export const instance = async (apiPath, params) => {
 
     const response = await fetch(url, {
         method: 'GET',
+        cache: 'no-store',
         headers: {
             'Content-Type': 'application/json',
             // 'If-None-Match': '*',
-            // 'Cache-Control': 'must-revalidate',
+            'Cache-Control': 'no-cache',
         },
         // cache: isBrowser ? 'default' : 'no-store',
         // headers,

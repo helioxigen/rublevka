@@ -8,6 +8,7 @@ const {
   waterSupply,
   roomsLayout,
   offerKinds,
+  renovateKinds,
 } = require('./dictionaries');
 
 const getCommunications = communication => `Коммуникации: ${gasSupply[communication.gasSupply]}, ${
@@ -33,11 +34,16 @@ const buildLayout = layout => toPairs(layout) // Object.entries
 
 const getHomeLayout = ({ layouts = {} }) => (Object.keys(layouts).length > 0 ? buildLayout(layouts) : '');
 
+const getHomeRenovateType = (renovate) => {
+  const renovateString = renovateKinds[renovate];
+  return renovateString || renovateKinds['full_construction'];
+}
+
 const getHouseDigest = item => `${getOfferKind(item)} загородного дома в коттеджном посёлке "${
   item.location.settlementName
 }", ${item.location.routeName} шоссе, ${
   item.location.mkadDistance
-} км. от МКАД. Дом под ключ ${item.specification.area} м² на участке ${
+} км. от МКАД. ${getHomeRenovateType(item.specification.renovate)} ${item.specification.area} м² на участке ${
   item.landDetails.area
 } соток. Тип участка: ${
   landscapeKinds[item.landDetails.landscapeKind[0]]

@@ -37,7 +37,7 @@ const FullScreenGallery = ({ className, dealType, specification, id, children })
                                 specification.area && `${specification.area} м², `
                             )}
                         </span>
-                        <span className="header-id">№ ${id}</span>
+                        <span className="header-id">№ {id}</span>
                     </h1>
                     <CallbackModal fields={getFields('name', 'phone', 'comment')} title="Забронировать просмотр">
                         {handleOpen => (

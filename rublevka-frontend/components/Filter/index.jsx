@@ -141,36 +141,38 @@ const Filter = ({ className, children, dealType, isOpen, onClose, short = false,
                     )}
                 </Field>
                 {!isOnly('land') && (
-                    <Field title="Ремонт" name="specification.renovate">
-                        {({ value, onChange }) => (
-                            <CheckboxGroup
-                                emptyAsFull
-                                values={value}
-                                onChange={onChange}
-                                fields={{
-                                    all: 'Любой',
-                                    full_construction: 'Под ключ',
-                                    partly_turnkey: 'Частично под ключ',
-                                    rough_finish: 'Черновая отделка',
-                                }}
-                            />
-                        )}
-                    </Field>
+                    <>
+                        <Field title="Ремонт" name="specification.renovate">
+                            {({ value, onChange }) => (
+                                <CheckboxGroup
+                                    emptyAsFull
+                                    values={value}
+                                    onChange={onChange}
+                                    fields={{
+                                        all: 'Любой',
+                                        full_construction: 'Под ключ',
+                                        partly_turnkey: 'Частично под ключ',
+                                        rough_finish: 'Черновая отделка',
+                                    }}
+                                />
+                            )}
+                        </Field>
+                        <Field title="Спален" name="specification.bedrooms">
+                            {({ value, onChange }) => (
+                                <RadioGroup
+                                    fields={{
+                                        0: 'Любое',
+                                        3: '3+',
+                                        4: '4+',
+                                        5: '5+',
+                                    }}
+                                    onChange={e => onChange({ from: e.target.value })}
+                                    value={(value.from || 0).toString()}
+                                />
+                            )}
+                        </Field>
+                    </>
                 )}
-                <Field title="Спален" name="specification.bedrooms">
-                    {({ value, onChange }) => (
-                        <RadioGroup
-                            fields={{
-                                0: 'Любое',
-                                3: '3+',
-                                4: '4+',
-                                5: '5+',
-                            }}
-                            onChange={e => onChange({ from: e.target.value })}
-                            value={(value.from || 0).toString()}
-                        />
-                    )}
-                </Field>
             </div>
         </AdaptiveSidebar>
     );

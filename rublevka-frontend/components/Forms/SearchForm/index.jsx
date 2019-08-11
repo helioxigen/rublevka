@@ -150,7 +150,7 @@ const SearchForm = ({ className, type = 'sale', onChange, initialState }) => {
                     const itemsList = type in items ? items[type] : items;
 
                     const dropdownInitialValue =
-                        range && typeValues[name]
+                        Object.keys(range).length && typeValues[name]
                             ? { value: typeValues[name], label: getRangeName(typeValues[name], range.template) }
                             : itemsList.find(i => i.value === typeValues[name]);
 

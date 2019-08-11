@@ -14,6 +14,8 @@ import { makeStore, initUser } from '../store';
 import { app, sc, format, dict } from '@utils';
 import config from '@config';
 
+require('intersection-observer');
+
 const GlobalStyles = createGlobalStyle`
 
     html, body {

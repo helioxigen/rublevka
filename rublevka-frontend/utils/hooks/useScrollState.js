@@ -11,6 +11,8 @@ export default function useScrollState(blocked = false, initialIsScrolling = fal
     const handleScroll = () => {
         const { pageYOffset } = window;
 
+        if (pageYOffset < 0) return;
+
         if (pageYOffset <= threshold && threshold) {
             // if (isScrollingDown === initialIsScrolling) return;
 

@@ -34,8 +34,6 @@ const GlobalStyles = createGlobalStyle`
     }
 `;
 
-const isProduction = process.env.NODE_ENV === 'production';
-
 class MyApp extends App {
     static async getInitialProps({ Component, ctx }) {
         let pageProps = {};
@@ -68,42 +66,6 @@ class MyApp extends App {
 
         return { pageProps };
     }
-
-    getGtagScript = () => {
-        return {
-            __html: `
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-          dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', '${config.external.gtagId}');
-        `,
-        };
-    };
-
-    getYandexMetrikaScript = () => ({
-        __html: `
-        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-        ym(${config.external.yandexMetrikaId}, "init", {
-          clickmap: true,
-          trackLinks: true,
-          accurateTrackBounce: true,
-          webvisor: true
-        });
-        `,
-    });
-
-    getUISScript = () => ({
-        __html: `
-        var __cs = __cs || [];
-        __cs.push(['setCsAccount', '${config.external.uisId}']);
-        `,
-    });
 
     render() {
         const {
@@ -153,30 +115,6 @@ class MyApp extends App {
                         content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"
                     />
                     <link href="/static/favicon.png" rel="icon" />
-                    {isProduction && (
-                        <>
-                            <script dangerouslySetInnerHTML={this.getUISScript()} />
-                            <script async src="https://app.uiscom.ru/static/cs.min.js" />
-                            <script
-                                async
-                                src={`https://www.googletagmanager.com/gtag/js?id=${config.external.gtagId}>`}
-                            />
-                            <script dangerouslySetInnerHTML={this.getGtagScript()} />
-                            <script dangerouslySetInnerHTML={this.getYandexMetrikaScript()} />
-                            <noscript>
-                                <div>
-                                    <img
-                                        src={`https://mc.yandex.ru/watch/${config.external.yandexMetrikaId}`}
-                                        style={{
-                                            position: 'absolute',
-                                            left: -9999,
-                                        }}
-                                        alt=""
-                                    />
-                                </div>
-                            </noscript>
-                        </>
-                    )}
                 </Head>
                 <YMaps
                     query={{

@@ -54,6 +54,7 @@ const config = {
 
         REACT_APP_YANDEX_METRIKA_ID: process.env.REACT_APP_YANDEX_METRIKA_ID,
         REACT_APP_GOOGLE_ANALYTICS_ID: process.env.REACT_APP_GOOGLE_ANALYTICS_ID,
+        REACT_APP_UIS_ID: process.env.REACT_APP_UIS_ID,
     },
 };
 

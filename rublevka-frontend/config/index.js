@@ -31,7 +31,7 @@ export default {
     external: {
         gtagId: process.env.REACT_APP_GOOGLE_ANALYTICS_ID,
         yandexMetrikaId: process.env.REACT_APP_YANDEX_METRIKA_ID,
-        uisId: process.env.REACT_APP_UIS_ID,
+        uisId: process.env.REACT_APP_UIS_ID || 'gKu4pv_CGaGfagMz62_lHWeAdQB1SK68',
     },
     site: sites.find(c => c.name === process.env.APP),
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { Price, FavoriteButton, PageLink } from '@components/UI';
-import { dict, itemTitle, format, media } from '@utils';
+import { dict, itemTitle, format, media, sc } from '@utils';
 import Shortcuts from './Shortcuts';
 import Gallery from './Gallery';
 import Summary from './Summary';
@@ -22,31 +22,35 @@ const Card = ({
 
     return (
         <PageLink to="item" params={{ dealType, id, kind, prevPage }}>
-            <article className={className}>
-                <header
-                    style={{
-                        backgroundImage: 'url(/static/placeholder.svg)',
-                    }}
-                >
-                    <span className="card-id">№{id}</span>
-                    <FavoriteButton className="favorite-button" id={id} dealType={dealType} />
+            <a className={className}>
+                <article>
+                    <header
+                        style={{
+                            backgroundImage: 'url(/static/placeholder.svg)',
+                        }}
+                    >
+                        <span className="card-id">№{id}</span>
+                        <FavoriteButton className="favorite-button" id={id} dealType={dealType} />
 
-                    {images.length > 0 && <Shortcuts images={publicImages} />}
-                    {images.length > 0 && <Gallery images={publicImages} />}
-                </header>
-                <section className="card-body">
-                    <h3>{itemTitle.generate(dealType, true, false, { landDetails, specification, location, kind })}</h3>
-                    <Summary
-                        values={[
-                            landDetails.area && `${Math.round(landDetails.area)} сот`,
-                            specification.area && `${Math.round(specification.area)} м²`,
-                            specification.bedrooms &&
-                                format.titleByNumber(specification.bedrooms, ['спальня', 'спальни', 'спален']),
-                        ]}
-                    />
-                    <Price deal={data[`${dealType}Offer`] || {}} dealType={dealType} />
-                </section>
-            </article>
+                        {images.length > 0 && <Shortcuts images={publicImages} />}
+                        {images.length > 0 && <Gallery images={publicImages} />}
+                    </header>
+                    <section className="card-body">
+                        <h3>
+                            {itemTitle.generate(dealType, true, false, { landDetails, specification, location, kind })}
+                        </h3>
+                        <Summary
+                            values={[
+                                landDetails.area && `${Math.round(landDetails.area)} сот`,
+                                specification.area && `${Math.round(specification.area)} м²`,
+                                specification.bedrooms &&
+                                    format.titleByNumber(specification.bedrooms, ['спальня', 'спальни', 'спален']),
+                            ]}
+                        />
+                        <Price deal={data[`${dealType}Offer`] || {}} dealType={dealType} />
+                    </section>
+                </article>
+            </a>
         </PageLink>
     );
 };
@@ -59,6 +63,8 @@ export default styled(Card)`
     border-radius: 4px;
     overflow: hidden;
     cursor: pointer;
+    text-decoration: none;
+    display: block;
 
     .card-id {
         top: 15px;
@@ -119,6 +125,7 @@ export default styled(Card)`
         h3 {
             margin: 0 0 6px 0;
             flex: 1 0 auto;
+            color: ${sc.theme.colors.black};
         }
 
         ${Summary} {

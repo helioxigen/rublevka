@@ -6,7 +6,7 @@ path = require('path');
 const alias = require('./resolve.config').resolve.alias;
 
 const config = {
-    generateBuildId: () => process.env.DRONE_COMMIT,
+    generateBuildId: () => process.env.BUILD_ID,
     generateEtags: false,
     cssLoaderOptions: {
         url: false,

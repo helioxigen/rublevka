@@ -103,7 +103,7 @@ const SearchForm = ({ className, type = 'sale', onChange, initialState }) => {
     return (
         <form className={className} onSubmit={handleSubmit}>
             <section className="form-body">
-                {config.fields.map((name, index) => {
+                {config.fields(values[type]).map((name, index) => {
                     const {
                         title,
                         placeholder,

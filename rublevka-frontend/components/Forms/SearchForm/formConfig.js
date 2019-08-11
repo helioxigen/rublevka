@@ -87,6 +87,16 @@ const fields = {
         },
         queryField: 'location.mkadDistance',
     },
+    landArea: {
+        title: 'Площадь (сот.)',
+        placeholder: 'Любое',
+        type: 'range',
+        range: {
+            options: filter.template.generic(100, 10, v => `${v} сот.`),
+            template: v => `${v} сот.`,
+        },
+        queryField: 'location.mkadDistance',
+    },
     settlementName: {
         placeholder: 'Введите название посёлка',
         type: 'fuzzy',
@@ -105,22 +115,22 @@ export default {
                 kind: 'house',
             },
             type: 'query',
-            fields: ['kind', 'price', 'bedrooms'],
+            fields: values => ['kind', 'price', values.kind === 'land' ? 'landArea' : 'bedrooms'],
         },
         rent: {
             defaultState: {
                 kind: 'house',
             },
             type: 'query',
-            fields: ['kind', 'price', 'bedrooms'],
+            fields: values => ['kind', 'price', values.kind === 'land' ? 'landArea' : 'bedrooms'],
         },
         objectNumber: {
             type: 'id',
-            fields: ['objectNumber'],
+            fields: () => ['objectNumber'],
         },
         settlements: {
             type: 'search',
-            fields: ['settlementName', 'distance'],
+            fields: () => ['settlementName', 'distance'],
         },
     },
     fields,

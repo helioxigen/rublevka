@@ -96,6 +96,13 @@ class MyApp extends App {
         `,
     });
 
+    getUISScript = () => ({
+        __html: `
+        var __cs = __cs || [];
+        __cs.push(['setCsAccount', '${config.external.uisId}']);
+        `,
+    });
+
     render() {
         const {
             Component,
@@ -146,6 +153,8 @@ class MyApp extends App {
                     <link href="/static/favicon.png" rel="icon" />
                     {isProduction && (
                         <>
+                            <script dangerouslySetInnerHTML={this.getUISScript()} />
+                            <script async src="https://app.uiscom.ru/static/cs.min.js" />
                             <script
                                 async
                                 src={`https://www.googletagmanager.com/gtag/js?id=${config.external.gtagId}>`}

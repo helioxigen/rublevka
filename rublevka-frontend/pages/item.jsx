@@ -80,9 +80,10 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                                     <Gallery
                                         className="item-gallery"
                                         layoutImages={layoutImages.filter(i => i.isPublic)}
+                                        onLayoutButtonClick={() => onClick(layoutImages.filter(i => i.isPublic))}
                                         images={publicImages}
                                     >
-                                        <IconButton onClick={onClick} icon="expand" />
+                                        <IconButton onClick={() => onClick(publicImages)} icon="expand" />
                                         <Counter overall={images.length} />
                                         <FavoriteButton className="favorite-button" id={id} dealType={dealType} />
                                     </Gallery>

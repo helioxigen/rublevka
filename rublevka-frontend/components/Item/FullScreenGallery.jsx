@@ -10,12 +10,16 @@ import { optional, media } from '@utils';
 
 const Modal = dynamic(() => import('react-modal'));
 
-const FullScreenGallery = ({ className, dealType, specification, id, images, children }) => {
+const FullScreenGallery = ({ className, dealType, specification, id, children }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [currentImages, setImages] = useState([]);
 
     return (
         <>
-            {children(() => setIsOpen(true))}
+            {children(images => {
+                setIsOpen(true);
+                setImages(images);
+            })}
             <Modal
                 isOpen={isOpen}
                 onRequestClose={() => setIsOpen(false)}
@@ -27,11 +31,13 @@ const FullScreenGallery = ({ className, dealType, specification, id, images, chi
             >
                 <header>
                     <h1>
-                        {optional.str(
-                            specification.floors && `${specification.floors}-этажный дом, `,
-                            specification.area && `${specification.area} м², `,
-                            `№ ${id}`
-                        )}
+                        <span className="header-content">
+                            {optional.str(
+                                specification.floors && `${specification.floors}-этажный дом, `,
+                                specification.area && `${specification.area} м², `
+                            )}
+                        </span>
+                        <span className="header-id">№ ${id}</span>
                     </h1>
                     <CallbackModal fields={getFields('name', 'phone', 'comment')} title="Забронировать просмотр">
                         {handleOpen => (
@@ -45,7 +51,7 @@ const FullScreenGallery = ({ className, dealType, specification, id, images, chi
                     </FavoriteButton>
                     <IconButton onClick={() => setIsOpen(false)} secondary icon="times" />
                 </header>
-                <Gallery keyboardControl images={images} />
+                <Gallery keyboardControl images={currentImages} />
             </Modal>
         </>
     );
@@ -114,6 +120,18 @@ export default styled(FullScreenGallery)`
                 font-size: 18px;
             }
         }
+
+        ${media.desktop.to(
+            css => css`
+                .header-content,
+                .callback-button,
+                .favorite-button {
+                    display: none;
+                }
+
+                padding: 0 15px;
+            `
+        )}
     }
 
     .modal {
@@ -139,6 +157,7 @@ export default styled(FullScreenGallery)`
         .gallery-display {
             position: initial;
             flex: 1;
+            height: 60vh;
 
             display: flex;
             flex-direction: column;
@@ -162,6 +181,13 @@ export default styled(FullScreenGallery)`
             img {
                 height: 100%;
                 width: auto;
+
+                ${media.desktop.to(
+                    css => css`
+                        width: 100%;
+                        object-fit: contain;
+                    `
+                )}
             }
         }
 

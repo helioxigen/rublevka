@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 
 export default function useScrollState(blocked = false, initialIsScrolling = false, threshold = 0) {
-    const [isScrollingDown, setIsScrollingDown] = useState(() => initialIsScrolling);
+    const [isScrollingDown, setIsScrollingDown] = useState(initialIsScrolling);
     const prevOffset = useRef(0);
 
     const handleScroll = () => {

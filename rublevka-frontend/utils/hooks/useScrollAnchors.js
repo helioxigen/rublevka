@@ -1,16 +1,15 @@
-import isEqual from 'lodash/isEqual';
 import { useState, useEffect } from 'react';
 
-export default function useScrollAnchors(...anchors) {
-    const [anchorsStates, setAnchorsStates] = useState(() => anchors.map(() => false));
+export default function useScrollAnchors(anchor) {
+    const [anchorState, setAnchorsState] = useState(anchor);
 
     const handleScroll = () => {
         const { pageYOffset } = window;
 
-        const nextState = anchors.map(a => a <= pageYOffset);
+        const nextState = anchor <= pageYOffset;
 
-        if (!isEqual(anchorsStates, nextState)) {
-            setAnchorsStates(nextState);
+        if (nextState !== anchorState) {
+            setAnchorsState(nextState);
         }
     };
 
@@ -22,5 +21,5 @@ export default function useScrollAnchors(...anchors) {
         };
     }, []);
 
-    return anchorsStates;
+    return anchorState;
 }

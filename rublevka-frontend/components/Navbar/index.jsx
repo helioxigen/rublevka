@@ -22,7 +22,7 @@ const Navbar = ({ className, title, activeEntry, prevPage = { href: '/', as: '/'
     const isInverted = useInvertOnScroll(isLanding, 80);
     // const [ref, menuOpen, setIsMenuOpen] = useComponentVisible(false);
     const [menuOpen, setIsMenuOpen] = useState(false);
-    const [transitionActive] = useScrollAnchors(130);
+    const transitionActive = useScrollAnchors(130);
 
     const favoriteCount = useSelector(state => state.user.favorite.length);
 
@@ -54,7 +54,7 @@ const Navbar = ({ className, title, activeEntry, prevPage = { href: '/', as: '/'
                 </div>
             )}
             <div className="nav-container">
-                <div className="floating-content" data-active={transitionActive}>
+                <div className="floating-content" data-active={isLanding ? transitionActive : true}>
                     <Content className="content">
                         <IconButton onClick={handlePrevPage} className="go-back" secondary icon="arrow" mirror stroke />
                         <Link href="/">

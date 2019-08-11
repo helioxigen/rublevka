@@ -26,10 +26,12 @@ const repeatBy = async (extractStepsFn, execOnStep) => {
 
     const stepsCount = extractStepsFn(zeroRes) - 1;
 
+    if (stepsCount === -1) return;
+
     [...new Array(stepsCount)].forEach((_, idx) => setTimeout(() => execOnStep(idx + 1, stepsCount), 1000));
 };
 
-const MapCatalogPage = ({ displayedIds, clusterId, mapItems, dispatch }) => {
+const MapCatalogPage = ({ displayedIds, clusterId, mapItems, totalItems, dispatch }) => {
     const router = useRouter();
     const dealType = dict.translit.byWord(router.query.dealType);
     const filter = filterUtils.query.parse(
@@ -75,6 +77,7 @@ const MapCatalogPage = ({ displayedIds, clusterId, mapItems, dispatch }) => {
                     settlementName={settlementName}
                     itemsCount={displayedIds.length}
                     onResetItems={resetIds}
+                    totalItems={totalItems}
                 />
                 {displayedIds.length !== 0 && (
                     <ViewCards

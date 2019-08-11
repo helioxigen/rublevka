@@ -7,11 +7,20 @@ import { filter, media } from '@utils';
 import { setCurrency, setFilter } from '@store';
 import { useSelector } from '@hooks';
 
-const Filter = ({ className, children, dealType, isOpen, onClose, short = false, switchDealType }) => {
+const Filter = ({
+    className,
+    children,
+    dealType,
+    isFetching,
+    totalItems,
+    isOpen,
+    onClose,
+    short = false,
+    switchDealType,
+}) => {
     const [isShort, setShort] = useState(short);
     const values = useSelector(state => state.properties.filter);
     const fetching = useSelector(state => state.properties.fetching);
-    const count = useSelector(state => state.properties.pagination.total);
     const currency = useSelector(state => state.user.currency);
     const dispatch = useDispatch();
 
@@ -26,10 +35,10 @@ const Filter = ({ className, children, dealType, isOpen, onClose, short = false,
             className={className}
             outer={
                 isOpen &&
-                !fetching && (
+                !(fetching || isFetching) && (
                     <div className="show-button-wrapper">
                         <Button className="show-button" red onClick={onClose}>
-                            Показать {count} объектов
+                            Показать {totalItems} объектов
                         </Button>
                     </div>
                 )

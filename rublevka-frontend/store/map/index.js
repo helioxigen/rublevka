@@ -12,6 +12,7 @@ export const mapInitialState = {
         current: 0,
         parts: 0,
     },
+    total: 0,
     list: [],
     cache: {},
     displayedIds: [],
@@ -26,7 +27,17 @@ export const mapReducer = createReducer({
     [LOAD_MAP_PROPERTIES_REQUEST]: () => ({
         fetching: true,
     }),
-    [LOAD_MAP_PROPERTIES_SUCCESS]: ({ response, response: { items, total }, cacheKey, parts, current }, state) => ({
+    [LOAD_MAP_PROPERTIES_SUCCESS]: (
+        {
+            response: {
+                items,
+                pagination: { total },
+            },
+            parts,
+            current,
+        },
+        state
+    ) => ({
         fetching: parts !== current,
         list: state.chunks.parts !== parts ? items : [...state.list, ...items],
         total,

@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { Switcher, IconButton } from '@components/UI';
-import { page, sc, media, format } from '@utils';
+import { page, sc, media, format, dict } from '@utils';
 import { Filter } from '@components';
 import BackButton from './BackButton';
 import { useToggle } from '@hooks';
@@ -12,6 +13,7 @@ const FilterBlock = ({ className, itemsCount, settlementName, onResetItems }) =>
         query: { dealType },
     } = useRouter();
 
+    const { total } = useSelector(state => state.map);
     const [isFilterOpen, toggleFilter] = useToggle(false);
 
     const emptyFocus = !itemsCount;
@@ -29,7 +31,13 @@ const FilterBlock = ({ className, itemsCount, settlementName, onResetItems }) =>
                 </BackButton>
                 {emptyFocus && <IconButton secondary icon="settings" onClick={toggleFilter} />}
             </header>
-            <Filter isOpen={isFilterOpen} onClose={toggleFilter} dealType={dealType}>
+            <Filter
+                totalItems={total}
+                isFetching={false}
+                isOpen={isFilterOpen}
+                onClose={toggleFilter}
+                dealType={dict.translit.byWord(dealType)}
+            >
                 <Switcher
                     items={[['Продажа', 'prodaja'], ['Аренда', 'arenda']]}
                     value={dealType}

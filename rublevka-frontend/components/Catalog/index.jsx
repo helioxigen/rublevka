@@ -38,6 +38,7 @@ const Catalog = ({
     const { current, total } = useSelector(pagination);
     const items = useSelector(state => itemsExplicit || state.properties.list[dealType]);
     const fetching = useSelector(state => state.properties.fetching);
+    const totalItemsCatalog = useSelector(state => state.properties.pagination.total);
     const [isFilterOpen, toggleFilter] = useToggle(false);
 
     const dispatch = useDispatch();
@@ -66,6 +67,7 @@ const Catalog = ({
                 <Toolbar totalItems={totalItems} map={!noMap} />
             </header>
             <Filter
+                totalItems={totalItems || totalItemsCatalog}
                 short={shortFilter}
                 switchDealType={single}
                 className="filter"

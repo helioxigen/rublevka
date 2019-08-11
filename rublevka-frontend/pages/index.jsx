@@ -214,6 +214,7 @@ export default styled(MainPage)`
                     line-height: initial;
                     padding: 0;
                     box-shadow: none;
+                    border-radius: none;
                     &,
                     &:hover,
                     &:active {

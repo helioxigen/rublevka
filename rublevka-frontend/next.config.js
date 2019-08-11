@@ -5,13 +5,8 @@ path = require('path');
 
 const alias = require('./resolve.config').resolve.alias;
 
-const nextBuildId = require('next-build-id');
-
 const config = {
-    generateBuildId: async () => {
-        const fromGit = await nextBuildId({ dir: __dirname });
-        return fromGit.id;
-    },
+    generateBuildId: () => process.env.DRONE_COMMIT,
     generateEtags: false,
     cssLoaderOptions: {
         url: false,

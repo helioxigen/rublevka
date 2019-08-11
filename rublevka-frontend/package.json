@@ -29,7 +29,6 @@
         "lru-cache": "^5.1.1",
         "lru_map": "^0.3.3",
         "next": "^9.0.3",
-        "next-build-id": "^2.0.1",
         "next-redux-wrapper": "^3.0.0-alpha.3",
         "next-seo": "^2.0.0",
         "nookies": "^2.0.8",

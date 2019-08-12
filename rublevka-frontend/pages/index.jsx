@@ -93,6 +93,11 @@ export default styled(MainPage)`
             padding-bottom: 20px;
         }
 
+        h3,
+        p {
+            color: white;
+        }
+
         footer {
             display: none;
         }

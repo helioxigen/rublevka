@@ -7,7 +7,7 @@ export default {
                     phone,
                     message: comment,
                 },
-                r => (r.success ? res() : rej(r.result))
+                r => (r.status === 200 ? res(r.response) : rej(r.response))
             );
         }),
 };

@@ -52,7 +52,7 @@ const filterToQuery = filter => {
             const mult = isRent ? 1000 : 1000000;
 
             const from = (value.from || 0) * mult;
-            const to = value.to !== 0 ? value.to * mult : '';
+            const to = value.to > 0 ? value.to * mult : '';
 
             val = `${from}..${to}`;
         }

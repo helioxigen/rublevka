@@ -43,6 +43,15 @@ const MainPage = ({ className }) => {
                 >
                     <CallbackForm
                         className="form-static"
+                        header={
+                            <header className="touch-only">
+                                <h3>Хотите продать дом?</h3>
+                                <p>
+                                    Просто оставьте заявку. Наш агент свяжется с вами и поможет всё организовать:
+                                    проведёт фотосессию, создаст рекламную кампанию, покажет дом и подготовит сделку.
+                                </p>
+                            </header>
+                        }
                         fields={{
                             name: {
                                 placeholder: 'Имя',
@@ -95,7 +104,7 @@ export default styled(MainPage)`
 
         h3,
         p {
-            color: white;
+            color: inherit;
         }
 
         footer {
@@ -106,6 +115,9 @@ export default styled(MainPage)`
         text-align: center;
 
         ${media.at(css => ({
+            phoneL: css`
+                color: ${sc.theme.colors.black};
+            `,
             tablet: css`
                 width: 50%;
                 text-align: initial;
@@ -128,16 +140,33 @@ export default styled(MainPage)`
             margin-top: 1em;
         }
 
+        ${media.desktop.to(
+            css => css`
+                > h3,
+                > p {
+                    display: none;
+                }
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            `
+        )}
+
+        height: 423px;
+
         ${media.at(css => ({
             phoneL: css`
                 padding: 80px 45px;
                 margin: 30px 0;
+                height: 530px;
             `,
             tablet: css`
                 text-align: left;
             `,
             desktop: css`
                 padding: 0 114px;
+
+                height: auto;
 
                 .form-modal-button {
                     display: block;
@@ -219,7 +248,7 @@ export default styled(MainPage)`
                     line-height: initial;
                     padding: 0;
                     box-shadow: none;
-                    border-radius: none;
+                    border-radius: 0;
                     &,
                     &:hover,
                     &:active {

@@ -5,8 +5,8 @@ import { media } from '../../utils';
 
 const Block = ({ className, title, text, children }) => (
     <section className={className}>
-        <h3>{title}</h3>
-        <p>{text}</p>
+        {title && <h3>{title}</h3>}
+        {text && <p>{text}</p>}
         {children}
     </section>
 );

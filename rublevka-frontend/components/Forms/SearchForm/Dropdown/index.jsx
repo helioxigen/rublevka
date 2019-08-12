@@ -30,7 +30,7 @@ const Dropdown = ({
     const currency = useSelector(state => state.user.currency);
     const dispatch = useDispatch();
     const handleCurrencyChange = selectItem => cur => {
-        selectItem({});
+        selectItem({ value: null }, { isOpen: true });
         dispatch(setCurrency(cur));
     };
 
@@ -77,6 +77,7 @@ const Dropdown = ({
                         value={selectedItem.label || placeholder}
                         postfix={
                             <span className="touch-only">
+                                {' '}
                                 {showCurrency && selectedItem.value
                                     ? config.currencies.find(c => c.code === currency).symbol
                                     : ''}
@@ -147,7 +148,7 @@ const Dropdown = ({
                                     code,
                                     `${curLabel} (${symbol})`,
                                 ])}
-                                onChange={e => handleCurrencyChange(e.target.value)}
+                                onChange={e => handleCurrencyChange(selectItem)(e.target.value)}
                                 value={currency}
                             />
                         )}

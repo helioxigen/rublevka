@@ -99,7 +99,7 @@ const Infrastructure = ({ properties }) => {
                         setContentVisible={() => handleItemClick('water')}
                         iconName="water"
                         header="Водоснабжение"
-                        content={dict.details.get(waterSupply, 'ое')}
+                        content={dict.details.get(waterSupply, ['central', 'ое'])}
                     />
                 )}
                 {powerSupply && (
@@ -117,7 +117,7 @@ const Infrastructure = ({ properties }) => {
                         setContentVisible={() => handleItemClick('sewerage')}
                         iconName="water-tap"
                         header="Канализация"
-                        content={dict.details.get(sewerageSupply, 'ая')}
+                        content={dict.details.get(sewerageSupply, ['central', 'ая'])}
                     />
                 )}
             </StyledSwipeInterlayer>

@@ -5,7 +5,7 @@ import { app, sc } from '@utils';
 
 const ContactToolbar = ({ className }) => (
     <div className={className}>
-        <IconButton href={`https://wa.me/${app.config.whatsapp}`} icon="whatsapp">
+        <IconButton target="__blank" href={`https://wa.me/${app.config.whatsapp}`} icon="whatsapp">
             Написать
         </IconButton>
         <IconButton href={`tel:${app.config.phoneNumbers}`} icon="phone.filled" />

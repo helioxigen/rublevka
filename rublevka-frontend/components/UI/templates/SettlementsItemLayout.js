@@ -36,10 +36,6 @@ export default styled.main`
             margin: 0 0 0.5em;
             text-align: center;
         }
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
     }
 
     .title button {

@@ -63,7 +63,12 @@ const MainMenu = ({ className, onClose, isOpen, favoriteCount, activeEntry }) =>
                         </Button>
                     )}
                 </CallbackModal>
-                <IconButton className="whatsapp-button menu-only" icon="whatsapp" />
+                <IconButton
+                    target="__blank"
+                    href={`https://wa.me/${app.config.whatsapp}`}
+                    className="whatsapp-button menu-only"
+                    icon="whatsapp"
+                />
             </div>
         </AdaptiveSidebar>
     );
@@ -125,6 +130,7 @@ export default styled(MainMenu)`
 
                 .whatsapp-button {
                     font-size: 28px;
+                    height: 56px;
                 }
             }
 

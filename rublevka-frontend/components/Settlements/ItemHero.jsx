@@ -108,7 +108,9 @@ export default styled(Hero)`
 
         ${media.desktop.at(
             css => css`
-                display: block;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
             `
         )}
     }

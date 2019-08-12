@@ -3,9 +3,10 @@ import styled, { css } from 'styled-components';
 import { Icon, Button } from '../atoms';
 import { sc } from '@utils';
 
-const IconButton = ({ className, onClick, icon, red, mirror, stroke, children, href }) => (
+const IconButton = ({ className, onClick, icon, red, mirror, stroke, children, href, target }) => (
     <Button
         as={href ? 'a' : undefined}
+        target={target}
         href={href}
         data-icon={icon}
         onClick={onClick}

@@ -39,7 +39,7 @@ export const mapReducer = createReducer({
         state
     ) => ({
         fetching: parts !== current,
-        list: state.chunks.parts !== parts ? items : [...state.list, ...items],
+        list: state.chunks.parts !== parts || total <= 256 ? items : [...state.list, ...items],
         total,
         chunks: {
             parts,

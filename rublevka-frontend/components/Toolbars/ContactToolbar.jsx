@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { IconButton } from '@components/UI';
 import { app, sc } from '@utils';
 
-const ContactToolbar = ({ className }) => (
-    <div className={className}>
+const ContactToolbar = ({ className, isStatic = false }) => (
+    <div className={className} dara-static={isStatic}>
         <IconButton target="__blank" href={`https://wa.me/${app.config.whatsapp}`} icon="whatsapp">
             Написать
         </IconButton>
@@ -16,7 +16,9 @@ export default styled(ContactToolbar)`
     display: flex;
     color: white;
 
-    animation: ${sc.keyframes.slideInBottom} 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    &[data-static='false'] {
+        animation: ${sc.keyframes.slideInBottom} 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
 
     z-index: 3500;
 

@@ -78,7 +78,7 @@ const ContactsPage = ({ className }) => {
                         <footer>
                             <p>Пн-пт, с 10:00 до 20:00.</p>
                         </footer>
-                        <ContactToolbar />
+                        <ContactToolbar isStatic />
                     </article>
                 </div>
             </Content>
@@ -226,7 +226,7 @@ export default styled(ContactsPage)`
             `
         )}
 
-        a {
+        .contact-info a {
             text-decoration: none;
             color: inherit;
 

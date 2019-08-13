@@ -88,8 +88,7 @@ const Dropdown = ({
                     {type === 'list' && (
                         <select
                             className="native-select touch-only"
-                            {...getMenuProps()}
-                            value={selectItem.value || 'any'}
+                            value={selectedItem.value || 'any'}
                             onChange={e =>
                                 selectItem(
                                     e.target.value === 'any'

@@ -108,6 +108,9 @@ class MyApp extends App {
                         title,
                         description,
                     }}
+                    twitter={{
+                        cardType: 'summary_large_image',
+                    }}
                 />
                 <Head>
                     <meta

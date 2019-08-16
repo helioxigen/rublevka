@@ -84,7 +84,7 @@ const CatalogItem = ({ className, dealType, kind, id }) => {
                                         images={publicImages}
                                     >
                                         <IconButton onClick={() => onClick(publicImages)} icon="expand" />
-                                        <Counter overall={images.length} />
+                                        <Counter overall={publicImages.length} />
                                         <FavoriteButton className="favorite-button" id={id} dealType={dealType} />
                                     </Gallery>
                                 )}

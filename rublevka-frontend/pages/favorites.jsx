@@ -14,11 +14,14 @@ const FavoritePage = ({ className }) => {
     const list = useSelector(state => state.user.favoriteItems);
     const isEmpty = favorites.length === 0;
     const items = list.filter(i => favorites.some(f => f.id === i.id && f.dealType === dealType));
-    const isOnly =
-        favorites.length === 0 ||
-        (favorites.every(i => i.dealType === 'sale') || favorites.every(i => i.dealType === 'rent'));
+    const isOnlySale = favorites.every(i => i.dealType === 'sale');
+    const isOnlyRent = favorites.every(i => i.dealType === 'rent');
+    const isOnly = favorites.length === 0 || (isOnlySale || isOnlyRent);
 
     useEffect(() => {
+        if (isOnlyRent && dealType !== 'rent') {
+            setDealType('rent');
+        }
         if (favorites.length > 0) {
             dispatch(fetchFavorite(favorites.map(i => i.id)));
         }
@@ -26,7 +29,8 @@ const FavoritePage = ({ className }) => {
 
     const handleAlertReset = () => {
         // eslint-disable-next-line no-alert, no-restricted-globals
-        if (confirm('Вы уверены, что хотите полностью стереть избранное?')) {
+        const isPermit = confirm('Вы уверены, что хотите полностью стереть избранное?');
+        if (isPermit) {
             dispatch(setFavorite([]));
         }
     };

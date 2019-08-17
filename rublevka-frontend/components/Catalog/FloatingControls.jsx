@@ -1,12 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IconButton } from '@components/UI';
-import { page, media } from '@utils';
+import { IconButton, Link } from '@components/UI';
+import { useRouter } from 'next/router';
+import { media } from '@utils';
 
 const FloatingControls = ({ className, onFilterClick, isFilterVisible, isMapAvailable = true }) => {
+    const {
+        query: { dealType, kind, filter },
+    } = useRouter();
+
     return (
         <div className={className} data-hide={!isFilterVisible}>
-            {isMapAvailable && <IconButton onClick={() => page.goTo.map()} icon="placemark" floating red />}
+            {isMapAvailable && (
+                <Link to="/catalog.map" query={[{ dealType, kind }, { filter }]} path={[dealType, 'map', kind]}>
+                    <IconButton icon="placemark" floating red />
+                </Link>
+            )}
             <IconButton onClick={onFilterClick} icon="settings" floating red>
                 Параметры
             </IconButton>

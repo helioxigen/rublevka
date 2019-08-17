@@ -6,11 +6,11 @@ import { sc } from '@utils';
 
 const MapButton = ({ className }) => {
     const {
-        query: { dealType, kind },
+        query: { dealType, kind, filter },
     } = useRouter();
 
     return (
-        <Link to="/catalog.map" query={[{ dealType, kind }]} path={[dealType, 'map', kind]}>
+        <Link to="/catalog.map" query={[{ dealType, kind }, { filter }]} path={[dealType, 'map', kind]}>
             <button className={className} type="button">
                 <Icon name="pin" />
                 На карте

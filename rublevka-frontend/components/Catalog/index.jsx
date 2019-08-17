@@ -71,7 +71,10 @@ const Catalog = ({
                 short={shortFilter}
                 switchDealType={single}
                 className="filter"
-                onClose={toggleFilter}
+                onClose={() => {
+                    toggleFilter();
+                    window.scrollTo(0, 0);
+                }}
                 isOpen={isFilterOpen}
                 dealType={dealType}
             />

@@ -188,6 +188,7 @@ export default styled(ContactsPage)`
             `
         )}
 
+        z-index: 1;
         margin-top: 24px;
     }
 

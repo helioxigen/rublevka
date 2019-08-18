@@ -66,7 +66,7 @@ export const propertiesReducer = createReducer({
         },
         list: {
             ...state.list,
-            [dealType]: asMore ? [...state.list, ...items] : items,
+            [dealType]: asMore ? [...state.list[dealType], ...items] : items,
         },
         query,
         filter,

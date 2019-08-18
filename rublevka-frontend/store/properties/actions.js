@@ -72,7 +72,7 @@ const pushFilter = filter => {
         return page.pushQuery({ filter: null }, { kind }, kind);
     }
 
-    return page.pushQuery({ filter: !isEmpty(nextFilter) && JSON.stringify(nextFilter) });
+    return page.pushQuery({ filter: !isEmpty(nextFilter) && JSON.stringify(nextFilter), page: null });
 };
 
 export const UPDATE_FILTER_FIELD = 'Properties.Filter.UpdateField';

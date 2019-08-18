@@ -314,6 +314,8 @@ export default styled(CatalogItem)`
         right: 0;
         background: white;
 
+        z-index: 1;
+
         ${media.tablet.at(
             css => css`
                 display: none;

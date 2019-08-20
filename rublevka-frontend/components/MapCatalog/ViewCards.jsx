@@ -45,12 +45,13 @@ export default styled(VisibleCards)`
     }
 
     background: #fafafa;
-    width: 100%;
+    width: 100vw;
 
     position: fixed;
     height: 100%;
 
     padding: 48px 0 0;
+    box-sizing: border-box;
 
     animation: ${sc.keyframes.fadeInBottom} 0.6s cubic-bezier(0.39, 0.575, 0.565, 1);
 

@@ -73,7 +73,15 @@ export default styled(Block)`
         }))}
     }
 
-    ${Button} {
+    .sell-button {
         font-size: 17px;
     }
+
+    ${media.tablet.at(
+        css => css`
+            ${Button} {
+                font-size: 17px;
+            }
+        `
+    )}
 `;

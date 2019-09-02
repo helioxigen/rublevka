@@ -24,4 +24,5 @@ export default new SiteConfig('riga', {
         [371, 'Павлово-2'],
         [361, 'Княжье озеро'],
     ],
+    cdnWatermarkUUID: '65a3e839-d8bf-4704-bc08-e694908e458c',
 });

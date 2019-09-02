@@ -24,4 +24,5 @@ export default new SiteConfig('rublevka', {
         [325, 'Усадьбы Усово'],
         [225, 'Изумрудный век'],
     ],
+    cdnWatermarkUUID: '7bdb5192-4a14-4cca-bda9-3ab59670f78f',
 });

@@ -23,6 +23,7 @@ export default class SiteConfig {
             defaultCurrency = 'usd',
             meta: { title: metaTitle, description },
             popularSettlements = [[0, '']],
+            cdnWatermarkUUID,
         }
     ) {
         this.phone = phone;
@@ -44,5 +45,7 @@ export default class SiteConfig {
         this.whatsapp = whatsapp;
         this.routes = getRouteIds(...routes);
         this.defaultCurrency = defaultCurrency;
+
+        this.cdnWatermarkUUID = cdnWatermarkUUID;
     }
 }

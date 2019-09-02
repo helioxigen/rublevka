@@ -1,11 +1,18 @@
 import { CDN } from '@config/resource';
 import app from './app';
+import optional from './optional';
+
+const use = (name, ...args) => `-/${name}/${args.map(c => encodeURIComponent(c)).join('/')}`;
+
+const createUcareLink = (id, ...exts) => optional.str('https://ucarecdn.com', id, ...exts, 'image.jpg').join('/');
 
 const getImageLink = (id, postfix = app.config.name, size = 1024) => {
     if (id.startsWith('CLOUD:')) {
-        const watermark = size > 512 ? '/-/overlay/7bdb5192-4a14-4cca-bda9-3ab59670f78f/30%25x30%25/center' : '';
-
-        return `https://ucarecdn.com/${id.replace('CLOUD:', '')}${watermark}/-/resize/${size}/image.jpg`;
+        return createUcareLink(
+            id.replace('CLOUD:', ''),
+            size > 512 && use('overlay', app.config.cdnWatermarkUUID, '50%x50%', 'center'),
+            use('resize', size)
+        );
     }
 
     return `${CDN}/${id}-${postfix}-${size}`;

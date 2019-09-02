@@ -41,10 +41,13 @@ class PhotoSection extends React.Component {
 
   handleUpload = async group => {
     const { images = [] } = this.props.property;
-    this.saveImages([...images, ...group.map(({ uuid }) => ({
+    this.saveImages([
+      ...images,
+      ...group.map(({ uuid }) => ({
         id: `CLOUD:${uuid}`,
         isPublic: false
-      }))]);
+      }))
+    ]);
     // const { property, onUpdate } = this.props;
     // const photos = group.map(({ uuid }) => ({ id: uuid, isPublic: false }));
 
@@ -65,16 +68,18 @@ class PhotoSection extends React.Component {
   };
 
   handleRemove = id => {
-    const { property } = this.props;
-    const {images} = this.getCurrentImages();
+    const {
+      property: { images }
+    } = this.props;
 
     const nextImages = images.filter(el => el.id !== id);
     this.saveImages(nextImages);
   };
 
   handleStateChange = id => {
-    const { property } = this.props;
-    const {images} = this.getCurrentImages();
+    const {
+      property: { images }
+    } = this.props;
 
     const nextImages = images.map(el =>
       el.id === id ? { ...el, isPublic: !el.isPublic } : el
@@ -92,7 +97,8 @@ class PhotoSection extends React.Component {
     if (!isEditMode) {
       const viewedImages = isViewAll ? images : images.slice(0, 2);
 
-      return <>
+      return (
+        <>
           <Photos isViewAll={isViewAll}>
             {viewedImages.map(({ id, isPublic }) => (
               <PhotoCard
@@ -103,18 +109,22 @@ class PhotoSection extends React.Component {
             ))}
           </Photos>
           <PhotoEditTools>
-            {property.images.length > 2 && <PhotoEditTool onClick={() => this.toggleViewAll(!isViewAll)}>
+            {property.images.length > 2 && (
+              <PhotoEditTool onClick={() => this.toggleViewAll(!isViewAll)}>
                 Посмотреть все фотографии
                 <AddPhotoIcon src={addPhotoIcon} />
-              </PhotoEditTool>}
+              </PhotoEditTool>
+            )}
             <PhotoEditTool onClick={enableEditMode}>
               Редактировать
             </PhotoEditTool>
           </PhotoEditTools>
-        </>;
+        </>
+      );
     }
 
-    return <>
+    return (
+      <>
         <Row>
           <Col xs={12}>
             <DropdownTitle>Фотографии</DropdownTitle>
@@ -139,12 +149,20 @@ class PhotoSection extends React.Component {
                 <DropdownIcon src={dropdownPhotoIcon} />
               </Row>
               <Row center="xs">
-                <Uploader disabled={isUploading} id="images" name="images" data-images-only multiple={isMultiple} onUploadComplete={this.handleUpload} />
+                <Uploader
+                  disabled={isUploading}
+                  id="images"
+                  name="images"
+                  data-images-only
+                  multiple={isMultiple}
+                  onUploadComplete={this.handleUpload}
+                />
               </Row>
             </DropdownContainer>
           </Col>
         </Dropdown>
-      </>;
+      </>
+    );
   }
 }
 

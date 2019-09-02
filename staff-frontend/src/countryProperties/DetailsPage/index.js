@@ -31,7 +31,6 @@ import LinkedContacts from './LinkedContacts';
 import MetaInfo from './MetaInfo';
 import update from '../actions/update';
 import create from '../actions/create';
-import waitImagesUpdate from '../actions/waitImagesUpdate';
 import { isContainsInvalidPrice } from '../helpers';
 import { post } from '../../jq-redux-api/api'; // TODO use action
 import MainHeader from '../../Header';
@@ -63,18 +62,6 @@ const editMode = {
 };
 
 const escCode = 27;
-
-const postPhoto = async (id, url, isLayouts = false) => {
-  const resource = isLayouts ? 'layouts' : 'images';
-  try {
-    await post(`/v1/properties/country/${id}/${resource}`, {
-      src: url,
-    });
-    return Promise.resolve();
-  } catch (error) {
-    return Promise.reject(error);
-  }
-};
 
 class PropertyDetailsPage extends React.PureComponent {
   static contextTypes = {
@@ -208,7 +195,7 @@ class PropertyDetailsPage extends React.PureComponent {
         this.showSuccToast('Объект обновлён');
       }
     } catch (errors) {
-      const messages = typeof errors === 'array' ? errors.map(el => el.message).join(';') : errors;
+      const messages = errors.map(el => el.message).join(';');
       this.showErrorToast(`Возникла ошибка:\n${messages}`);
     }
   };

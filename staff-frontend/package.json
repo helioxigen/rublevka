@@ -38,7 +38,7 @@
     "yandex-map-react": "^1.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3001 react-scripts start --port",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

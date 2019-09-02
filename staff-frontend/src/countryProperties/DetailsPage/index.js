@@ -32,7 +32,6 @@ import MetaInfo from './MetaInfo';
 import update from '../actions/update';
 import create from '../actions/create';
 import { isContainsInvalidPrice } from '../helpers';
-import { post } from '../../jq-redux-api/api'; // TODO use action
 import MainHeader from '../../Header';
 
 const infoMode = {

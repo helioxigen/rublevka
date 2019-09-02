@@ -4,14 +4,15 @@ import optional from './optional';
 
 const use = (name, ...args) => `-/${name}/${args.map(c => encodeURIComponent(c)).join('/')}`;
 
-const createUcareLink = (id, ...exts) => optional.str('https://ucarecdn.com', id, ...exts, 'image.jpg').join('/');
+const createUcareLink = (id, ...exts) => optional.str('https://ucarecdn.com', id, ...exts).join('/') + '/';
 
 const getImageLink = (id, postfix = app.config.name, size = 1024) => {
     if (id.startsWith('CLOUD:')) {
         return createUcareLink(
             id.replace('CLOUD:', ''),
             size > 512 && use('overlay', app.config.cdnWatermarkUUID, '50%x50%', 'center'),
-            use('resize', size)
+            use('resize', size),
+            use('format', 'auto')
         );
     }
 

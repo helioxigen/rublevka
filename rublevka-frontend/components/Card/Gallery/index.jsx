@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import dynamic from 'next/dynamic';
 import { cdn } from '@utils';
@@ -8,6 +8,13 @@ const ReactSwipe = dynamic(() => import('react-swipe'));
 
 const Gallery = ({ className, images }) => {
     const [currentIdx, changeCurrentIdx] = useState(0);
+    const [fullyLoaded, changeFullyLoaded] = useState(false);
+
+    useEffect(() => {
+        if (currentIdx === images.length - 1) {
+            changeFullyLoaded(true);
+        }
+    }, [currentIdx]);
 
     return (
         <figure className={className}>
@@ -19,12 +26,7 @@ const Gallery = ({ className, images }) => {
             >
                 {images.map(({ id }, idx) => (
                     <a key={id}>
-                        {idx <= currentIdx + 1 && (
-                            <img
-                                alt=""
-                                src={idx === currentIdx ? cdn.get.thumbnail(id, 512) : cdn.get.thumbnail(id, 128)}
-                            />
-                        )}
+                        {(idx <= currentIdx + 1 || fullyLoaded) && <img alt="" src={cdn.get.thumbnail(id, 512)} />}
                     </a>
                 ))}
             </ReactSwipe>

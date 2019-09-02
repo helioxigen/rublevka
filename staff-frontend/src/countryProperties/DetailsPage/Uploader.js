@@ -52,7 +52,7 @@ class Uploader extends Component {
         if (!keepValue) {
           widget.value(null);
         }
-        onUploadComplete(result.cdnUrl);
+        onUploadComplete([result]);
       });
     } else {
       widget.onChange((group) => {

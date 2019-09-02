@@ -100,7 +100,7 @@ class MetaInfo extends React.Component {
     }
 
     const {
-      photo: { id: photoId },
+      photo: { id: photoId } = {},
       firstName,
       lastName,
     } = user;

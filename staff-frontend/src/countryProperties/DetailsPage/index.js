@@ -208,24 +208,19 @@ class PropertyDetailsPage extends React.PureComponent {
         this.showSuccToast('Объект обновлён');
       }
     } catch (errors) {
-      const messages = errors.map(el => el.message).join(';');
+      const messages = typeof errors === 'array' ? errors.map(el => el.message).join(';') : errors;
       this.showErrorToast(`Возникла ошибка:\n${messages}`);
     }
   };
 
-  uploadPhoto = async (images, isLayouts = false) => {
-    const { data } = this.props;
-    const { id } = data;
 
-    try {
-      await postPhoto(id, images, isLayouts);
-      await waitImagesUpdate(data);
-      this.showSuccToast('Фотография загружена');
-      this.loadData(true);
-    } catch (error) {
-      this.showErrorToast(`Ошибка загрузки фотографии:${error}`);
-    }
-  };
+
+  handlePhotosUpdate = (property, photos) => {
+    this.saveData({
+      ...property,
+      images: photos
+    });
+  }
 
   toggleEditMode = (value) => {
     const props = value ? editMode : infoMode;
@@ -292,8 +287,7 @@ class PropertyDetailsPage extends React.PureComponent {
             <Photos
               property={property}
               enableEditMode={() => this.setState({ isEditPhoto: true })}
-              onUpdate={value => this.saveData(value)}
-              uploadPhoto={images => this.uploadPhoto(images)}
+              onUpdate={this.handlePhotosUpdate}
               isEditMode={isEditPhoto}
             />
           )}

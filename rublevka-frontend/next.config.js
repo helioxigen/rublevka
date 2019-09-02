@@ -6,7 +6,7 @@ path = require('path');
 const alias = require('./resolve.config').resolve.alias;
 
 const config = {
-    generateBuildId: () => process.env.BUILD_ID,
+    generateBuildId: () => process.env.BUILD_ID || 'local',
     generateEtags: false,
     cssLoaderOptions: {
         url: false,

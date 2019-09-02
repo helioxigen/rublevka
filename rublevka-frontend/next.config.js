@@ -1,6 +1,9 @@
 /* eslint-disable */
-const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
-const withCSS = require('@zeit/next-css');
+const withPlugins = require('next-compose-plugins');
+
+const bundleAnalyzer = require('@zeit/next-bundle-analyzer');
+const cssPlugin = require('@zeit/next-css');
+
 path = require('path');
 
 const alias = require('./resolve.config').resolve.alias;
@@ -58,4 +61,4 @@ const config = {
     },
 };
 
-module.exports = withCSS(withBundleAnalyzer(config));
+module.exports = withPlugins([bundleAnalyzer, cssPlugin], config);

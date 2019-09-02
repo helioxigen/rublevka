@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 const express = require('express');
 const next = require('next');
+const path = require('path');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -8,6 +9,7 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const handlePages = require('./handlePages');
+const sharpMiddleware = require('./sharp-middleware');
 
 const { useSitemap } = require('./sitemap');
 
@@ -21,8 +23,12 @@ const param = {
 
 useSitemap();
 
+const basePath = path.resolve(__dirname, '..');
+
 app.prepare().then(() => {
     const server = express();
+
+    server.use(sharpMiddleware(basePath));
 
     handlePages('/', '/contacts', '/favorites')({
         '/catalog.map': `/zagorodnaya/${param.dealType}/map/${param.kind}?`,

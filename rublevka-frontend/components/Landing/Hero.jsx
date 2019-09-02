@@ -45,7 +45,7 @@ export default styled(LandingHero)`
             display: block;
             padding: 0 0 24px;
             height: auto;
-            background: url('/static/landing/background.jpg') top / 100% 180px no-repeat;
+            background: url('/static/landing/background.jpg?size=480') top / 100% 180px no-repeat;
             background-color: white;
         `
     )}

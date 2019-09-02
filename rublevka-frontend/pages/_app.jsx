@@ -1,6 +1,7 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import Head from 'next/head';
 import Error from 'next/error';
 import { Provider } from 'react-redux';
@@ -86,7 +87,7 @@ class MyApp extends App {
         const asPathname = asPath.split('?')[0];
 
         return (
-            <Container>
+            <>
                 <NProgress color={sc.theme.colors.red} spinner={false} />
                 <DefaultSeo
                     title={title}
@@ -132,7 +133,7 @@ class MyApp extends App {
                         <Footer />
                     </Provider>
                 </YMaps>
-            </Container>
+            </>
         );
     }
 }
